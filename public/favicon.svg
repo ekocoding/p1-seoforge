@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Simplified Anvil/Hammer Icon for Favicon -->
+  <g id="favicon-mark">
+    <!-- Anvil base -->
+    <path d="M 6 20 L 26 20 L 25 28 L 7 28 Z" fill="#C2722A"/>
+    <!-- Anvil top with horn -->
+    <path d="M 4 12 L 28 12 L 26 20 L 6 20 Z" fill="#D4A853"/>
+    <!-- Hammer striking effect -->
+    <circle cx="16" cy="6" r="3" fill="#C2722A"/>
+    <rect x="14" y="6" width="4" height="8" fill="#D4A853" rx="1"/>
+  </g>
+</svg>

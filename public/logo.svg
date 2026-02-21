@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 50" width="200" height="50">
+  <!-- Abstract Forge/Anvil Symbol -->
+  <g id="forge-symbol">
+    <!-- Anvil base -->
+    <path d="M 8 30 L 35 30 L 33 38 L 10 38 Z" fill="#C2722A"/>
+    <!-- Anvil top -->
+    <path d="M 6 22 L 37 22 L 35 30 L 8 30 Z" fill="#D4A853"/>
+    <!-- Hammer strike spark -->
+    <rect x="19" y="10" width="4" height="12" fill="#C2722A" rx="1.5"/>
+    <circle cx="21" cy="8" r="2.5" fill="#D4A853" opacity="0.9"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="46" y="34" font-family="Inter, system-ui, sans-serif" font-size="26" font-weight="700" letter-spacing="-0.5">
+    <tspan fill="#1A1A1A">Seo</tspan><tspan fill="#C2722A">Forge</tspan>
+  </text>
+</svg>
