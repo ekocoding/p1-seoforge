@@ -474,7 +474,7 @@ function ServicesStackSection() {
             <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-3">
               Services
             </p>
-            <h2 className="text-3xl font-bold tracking-tight text-dark sm:text-4xl font-[family-name:var(--font-heading)]">
+            <h2 className="text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)]">
               Unsere <span className="text-primary">SEO-Services</span> im Überblick
             </h2>
           </div>
@@ -519,13 +519,13 @@ function ServicesStackSection() {
                     Beliebt
                   </div>
                 )}
-                <div className="text-6xl font-bold text-primary/10 font-[family-name:var(--font-heading)] leading-none mb-[-10px]">
+                <div className="text-6xl text-primary/10 font-[family-name:var(--font-heading)] leading-none mb-[-10px]">
                   {service.number}
                 </div>
                 <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-5 group-hover:bg-primary group-hover:text-white transition-all">
                   {service.icon}
                 </div>
-                <h3 className="text-xl font-semibold text-dark font-[family-name:var(--font-heading)] mb-2">
+                <h3 className="text-2xl text-dark font-[family-name:var(--font-heading)] mb-3">
                   {service.title}
                 </h3>
                 <p className="text-sm text-muted mb-4 leading-relaxed">
@@ -559,13 +559,13 @@ function ServicesStackSection() {
               href={service.href}
               className="group rounded-2xl border border-border bg-white p-6 transition-all hover:border-primary/20 hover:shadow-lg hover:shadow-primary/[0.04] hover:-translate-y-1"
             >
-              <div className="text-4xl font-bold text-primary/10 font-[family-name:var(--font-heading)] leading-none mb-2">
+              <div className="text-4xl text-primary/10 font-[family-name:var(--font-heading)] leading-none mb-2">
                 {service.number}
               </div>
               <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl bg-primary/[0.08] text-primary transition-colors group-hover:bg-primary group-hover:text-white">
                 {service.icon}
               </div>
-              <h3 className="text-base font-semibold text-dark">{service.title}</h3>
+              <h3 className="text-xl text-dark font-[family-name:var(--font-heading)]">{service.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted">
                 {service.description}
               </p>
@@ -627,7 +627,7 @@ export default function Home() {
                   Ihr Partner fuer nachhaltiges Wachstum
                 </div>
 
-                <h1 className="text-4xl font-bold leading-[1.15] tracking-tight text-dark sm:text-5xl lg:text-6xl hero-title">
+                <h1 className="text-5xl lg:text-6xl leading-[1.15] text-dark font-[family-name:var(--font-heading)] hero-title">
                   <span className="block">SEO mit</span>
                   <span className="text-primary">
                     echtem Impact
@@ -736,7 +736,7 @@ export default function Home() {
             </p>
 
             {/* Main heading */}
-            <h2 className="text-3xl font-bold tracking-tight text-dark sm:text-4xl font-[family-name:var(--font-heading)] mb-4">
+            <h2 className="text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)] mb-6">
               Qualität ist nicht verhandelbar
             </h2>
 
@@ -787,7 +787,7 @@ export default function Home() {
                     <path d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-dark mb-2 font-[family-name:var(--font-heading)]">
+                <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">
                   Daten statt Versprechen
                 </h3>
                 <p className="text-sm leading-relaxed text-muted">
@@ -803,7 +803,7 @@ export default function Home() {
                     <path d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-dark mb-2 font-[family-name:var(--font-heading)]">
+                <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">
                   Erprobte Methoden
                 </h3>
                 <p className="text-sm leading-relaxed text-muted">
@@ -819,7 +819,7 @@ export default function Home() {
                     <path d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-dark mb-2 font-[family-name:var(--font-heading)]">
+                <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">
                   Maßarbeit, kein Schema F
                 </h3>
                 <p className="text-sm leading-relaxed text-muted">
@@ -835,6 +835,159 @@ export default function Home() {
         {/*  SERVICES SECTION - Stacked Deck                             */}
         {/* ============================================================ */}
         <ServicesStackSection />
+
+        {/* ============================================================ */}
+        {/*  WHAT MAKES US DIFFERENT - Bento Grid Typography               */}
+        {/* ============================================================ */}
+        <section className="bg-white py-24 lg:py-32 overflow-hidden">
+          <style jsx>{`
+            .highlight-word {
+              background: linear-gradient(135deg, #C2722A 0%, #D4A853 100%);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+            }
+            .bento-card {
+              transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .bento-card:hover {
+              transform: translateY(-4px);
+            }
+            .bento-card:hover .bento-number {
+              transform: scale(1.1) rotate(-5deg);
+            }
+            .bento-number {
+              transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+          `}</style>
+          
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            {/* Section Header */}
+            <div className="mb-16">
+              <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-4">
+                Unser Unterschied
+              </p>
+              <h2 className="text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)] max-w-3xl">
+                Das macht <span className="highlight-word">SeoForge</span> anders
+              </h2>
+            </div>
+
+            {/* Bento Grid Layout */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+              
+              {/* Card 1 - Large: Keine Pakete */}
+              <div className="bento-card md:col-span-2 md:row-span-2 rounded-3xl bg-offwhite border border-border p-8 lg:p-10 relative overflow-hidden group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/[0.04]">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/10 to-secondary/5 rounded-full blur-3xl -mr-20 -mt-20 transition-all group-hover:from-primary/20 group-hover:to-secondary/10" />
+                <div className="relative z-10 h-full flex flex-col justify-between">
+                  <div>
+                    <span className="bento-number inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 text-primary text-2xl font-bold mb-6">
+                      01
+                    </span>
+                    <h3 className="text-3xl lg:text-4xl text-dark font-[family-name:var(--font-heading)] leading-tight mb-4">
+                      Keine Pakete.<br />
+                      <span className="highlight-word">Kein Bullshit.</span>
+                    </h3>
+                  </div>
+                  <p className="text-muted text-base lg:text-lg leading-relaxed max-w-md">
+                    Wir verkaufen keine Fixpreis-Pakete. Jede Strategie wird individuell entwickelt - 
+                    weil Ihr Unternehmen einzigartig ist, nicht austauschbar.
+                  </p>
+                </div>
+              </div>
+
+              {/* Card 2: Individuell arbeiten */}
+              <div className="bento-card rounded-3xl bg-offwhite border border-border p-8 relative overflow-hidden group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/[0.04]">
+                <span className="bento-number inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary text-xl font-bold mb-5">
+                  02
+                </span>
+                <h3 className="text-2xl text-dark font-[family-name:var(--font-heading)] mb-3">
+                  <span className="highlight-word">Maßgeschneidert</span><br />
+                  statt Massenware
+                </h3>
+                <p className="text-muted text-sm leading-relaxed">
+                  Keine Copy-Paste-Lösungen. Wir analysieren Ihre spezifische Ausgangslage und entwickeln Strategien, die zu Ihrem Geschäftsmodell passen.
+                </p>
+              </div>
+
+              {/* Card 3: Immer auf dem neuesten Stand */}
+              <div className="bento-card rounded-3xl bg-primary/[0.03] border border-primary/10 p-8 relative overflow-hidden group hover:bg-primary/[0.06] hover:border-primary/20">
+                <span className="bento-number inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary text-white text-xl font-bold mb-5">
+                  03
+                </span>
+                <h3 className="text-2xl text-dark font-[family-name:var(--font-heading)] mb-3">
+                  Immer einen<br />
+                  <span className="highlight-word">Schritt voraus</span>
+                </h3>
+                <p className="text-muted text-sm leading-relaxed">
+                  Google-Algorithmus-Updates, GEO-Optimierung, KI-Sichtbarkeit. Wir bleiben am Puls der Zeit, damit Sie es nicht müssen.
+                </p>
+              </div>
+
+              {/* Card 4 - Wide: Service-Nähe */}
+              <div className="bento-card md:col-span-2 rounded-3xl bg-offwhite border border-border p-8 lg:p-10 relative overflow-hidden group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/[0.04]">
+                <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+                  <span className="bento-number inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-secondary/20 text-secondary text-2xl font-bold shrink-0">
+                    04
+                  </span>
+                  <div className="flex-1">
+                    <h3 className="text-2xl lg:text-3xl text-dark font-[family-name:var(--font-heading)] mb-3">
+                      <span className="highlight-word">Direkter Draht</span> zum Experten
+                    </h3>
+                    <p className="text-muted text-base leading-relaxed">
+                      Keine Account-Manager, keine Weiterleitungen. Sie sprechen direkt mit dem, der Ihre SEO-Strategie entwickelt und umsetzt. Persönlich, schnell, kompetent.
+                    </p>
+                  </div>
+                  <div className="hidden lg:flex shrink-0 gap-2">
+                    {['S', 'E', 'O'].map((letter, i) => (
+                      <div 
+                        key={letter} 
+                        className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-lg transition-all group-hover:bg-primary group-hover:text-white"
+                        style={{ transitionDelay: `${i * 50}ms` }}
+                      >
+                        {letter}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Card 5: Kommunikation */}
+              <div className="bento-card rounded-3xl bg-gradient-to-br from-secondary/[0.08] to-primary/[0.04] border border-secondary/20 p-8 relative overflow-hidden group hover:shadow-xl hover:shadow-secondary/[0.06]">
+                <span className="bento-number inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-secondary to-primary text-white text-xl font-bold mb-5">
+                  05
+                </span>
+                <h3 className="text-2xl text-dark font-[family-name:var(--font-heading)] mb-3">
+                  <span className="highlight-word">Kommunikation</span><br />
+                  = Qualität
+                </h3>
+                <p className="text-muted text-sm leading-relaxed mb-4">
+                  Produktqualität ist Standard. Erst echte Kommunikation macht den Unterschied. Transparent, ehrlich, proaktiv.
+                </p>
+                <div className="flex items-center gap-2 text-xs text-primary font-medium">
+                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  Immer erreichbar
+                </div>
+              </div>
+
+            </div>
+
+            {/* Bottom CTA */}
+            <div className="mt-12 text-center">
+              <p className="text-muted mb-6">
+                Klingt das nach einer Zusammenarbeit, die Sie suchen?
+              </p>
+              <a 
+                href="/kontakt" 
+                className="inline-flex items-center gap-2 bg-dark text-white px-8 py-4 rounded-full text-sm font-semibold hover:bg-primary transition-all"
+              >
+                Lassen Sie uns reden
+                <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </section>
 
         {/* ============================================================ */}
         {/*  WHY YOUR BUSINESS NEEDS SEO                                  */}
@@ -876,7 +1029,7 @@ export default function Home() {
 
             {/* Explanation columns */}
             <div className="mx-auto max-w-2xl text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tight text-dark sm:text-4xl font-[family-name:var(--font-heading)] animate-fade-up">
+              <h2 className="text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)] animate-fade-up">
                 Warum Ihr Unternehmen <span className="text-primary">SEO</span> braucht
               </h2>
             </div>
@@ -920,8 +1073,8 @@ export default function Home() {
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/[0.08] text-primary">
                     {item.icon}
                   </div>
-                  <h3 className="text-lg font-semibold text-dark mb-2">{item.title}</h3>
-                  <p className="text-sm leading-relaxed text-muted">{item.desc}</p>
+                  <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">{item.title}</h3>
+                  <p className="text-base leading-relaxed text-muted">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -939,6 +1092,182 @@ export default function Home() {
         <WhySeoForgeSection />
 
         {/* ============================================================ */}
+        {/*  CONTENT ORDER SECTION                                        */}
+        {/* ============================================================ */}
+        <section className="bg-offwhite py-24 lg:py-32" id="text-bestellung">
+          <style jsx>{`
+            .form-input {
+              transition: all 0.2s ease;
+            }
+            .form-input:focus {
+              border-color: #C2722A;
+              box-shadow: 0 0 0 3px rgba(194, 114, 42, 0.1);
+            }
+          `}</style>
+          
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-16 items-start">
+              {/* Left: Info */}
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-4">
+                  Texte bestellen
+                </p>
+                <h2 className="text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)] mb-6">
+                  Content auf Bestellung
+                </h2>
+                <p className="text-lg text-muted leading-relaxed mb-8">
+                  Benötigen Sie professionelle Texte für Ihre Website? Teilen Sie uns Ihre Anforderungen mit – 
+                  wir melden uns innerhalb von 24 Stunden mit einem unverbindlichen Angebot.
+                </p>
+                
+                {/* Process steps */}
+                <div className="space-y-6">
+                  {[
+                    { step: "1", title: "Anfrage senden", desc: "Formular ausfüllen mit Ihren Wünschen" },
+                    { step: "2", title: "Angebot erhalten", desc: "Individuelles Angebot binnen 24h" },
+                    { step: "3", title: "Texte liefern", desc: "SEO-optimierte Inhalte in 3-5 Tagen" },
+                  ].map((item) => (
+                    <div key={item.step} className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">
+                        {item.step}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-dark">{item.title}</h4>
+                        <p className="text-sm text-muted">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Right: Form */}
+              <div className="bg-white rounded-2xl border border-border p-8 lg:p-10 shadow-sm">
+                <h3 className="text-2xl font-[family-name:var(--font-heading)] text-dark mb-6">
+                  Ihre Anfrage
+                </h3>
+                
+                <form className="space-y-5" action="/kontakt" method="POST">
+                  {/* Name & Email */}
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="name" className="block text-sm font-medium text-dark mb-2">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
+                        className="form-input w-full px-4 py-3 rounded-xl border border-border bg-white text-dark placeholder:text-muted focus:outline-none"
+                        placeholder="Ihr Name"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-sm font-medium text-dark mb-2">
+                        E-Mail
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        className="form-input w-full px-4 py-3 rounded-xl border border-border bg-white text-dark placeholder:text-muted focus:outline-none"
+                        placeholder="ihre@email.de"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Text Type */}
+                  <div>
+                    <label htmlFor="textType" className="block text-sm font-medium text-dark mb-2">
+                      Art der Texte
+                    </label>
+                    <select
+                      id="textType"
+                      name="textType"
+                      required
+                      className="form-input w-full px-4 py-3 rounded-xl border border-border bg-white text-dark focus:outline-none appearance-none cursor-pointer"
+                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1.5em' }}
+                    >
+                      <option value="">Bitte wählen...</option>
+                      <option value="produkttexte">Produkttexte</option>
+                      <option value="blog-artikel">Blog-Artikel</option>
+                      <option value="landing-pages">Landing Pages</option>
+                      <option value="kategorietexte">Kategorietexte</option>
+                      <option value="website-texte">Website-Texte allgemein</option>
+                      <option value="sonstiges">Sonstiges</option>
+                    </select>
+                  </div>
+
+                  {/* Quantity */}
+                  <div>
+                    <label htmlFor="quantity" className="block text-sm font-medium text-dark mb-2">
+                      Menge / Umfang
+                    </label>
+                    <select
+                      id="quantity"
+                      name="quantity"
+                      className="form-input w-full px-4 py-3 rounded-xl border border-border bg-white text-dark focus:outline-none appearance-none cursor-pointer"
+                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1.5em' }}
+                    >
+                      <option value="">Bitte wählen...</option>
+                      <option value="1-5">1-5 Texte</option>
+                      <option value="6-10">6-10 Texte</option>
+                      <option value="11-20">11-20 Texte</option>
+                      <option value="20+">Mehr als 20 Texte</option>
+                      <option value="unbekannt">Noch unbekannt</option>
+                    </select>
+                  </div>
+
+                  {/* Website URL */}
+                  <div>
+                    <label htmlFor="website" className="block text-sm font-medium text-dark mb-2">
+                      Website (optional)
+                    </label>
+                    <input
+                      type="url"
+                      id="website"
+                      name="website"
+                      className="form-input w-full px-4 py-3 rounded-xl border border-border bg-white text-dark placeholder:text-muted focus:outline-none"
+                      placeholder="https://www.ihre-website.de"
+                    />
+                  </div>
+
+                  {/* Message */}
+                  <div>
+                    <label htmlFor="message" className="block text-sm font-medium text-dark mb-2">
+                      Details zu Ihrem Projekt
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      rows={4}
+                      className="form-input w-full px-4 py-3 rounded-xl border border-border bg-white text-dark placeholder:text-muted focus:outline-none resize-none"
+                      placeholder="Beschreiben Sie kurz, worum es geht. Zielgruppe, Themen, besondere Anforderungen..."
+                    />
+                  </div>
+
+                  {/* Submit */}
+                  <button
+                    type="submit"
+                    className="w-full py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-all flex items-center justify-center gap-2"
+                  >
+                    Anfrage senden
+                    <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </button>
+
+                  <p className="text-xs text-muted text-center">
+                    Wir melden uns innerhalb von 24 Stunden bei Ihnen.
+                  </p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================ */}
         {/*  TESTIMONIAL / SOCIAL PROOF                                  */}
         {/* ============================================================ */}
         <Section className="bg-white py-24 lg:py-32">
@@ -948,7 +1277,7 @@ export default function Home() {
               <p className="text-sm font-semibold uppercase tracking-widest text-primary animate-fade-up">
                 Das sagen unsere Kunden
               </p>
-              <h2 className="mt-3 text-3xl font-bold tracking-tight text-dark sm:text-4xl font-[family-name:var(--font-heading)] animate-fade-up" style={{ animationDelay: '0.05s' }}>
+              <h2 className="mt-3 text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)] animate-fade-up" style={{ animationDelay: '0.05s' }}>
                 Vertrauen, das auf <span className="text-primary">Ergebnissen</span> basiert
               </h2>
             </div>
@@ -1072,7 +1401,7 @@ export default function Home() {
             <div className="relative grid gap-16 lg:grid-cols-2 lg:items-center">
               {/* Text */}
               <div>
-                <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl font-[family-name:var(--font-heading)] animate-fade-up">
+                <h2 className="text-4xl lg:text-5xl text-white font-[family-name:var(--font-heading)] animate-fade-up">
                   Bereit fuer mehr{" "}
                   <span className="bg-gradient-to-r from-primary-light to-secondary bg-clip-text text-transparent">
                     Sichtbarkeit
@@ -1110,7 +1439,7 @@ export default function Home() {
               {/* Contact form */}
               <div className="animate-fade-up" style={{ animationDelay: '0.1s' }}>
                 <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm">
-                  <h3 className="text-lg font-semibold text-white">Jetzt Kontakt aufnehmen</h3>
+                  <h3 className="text-2xl text-white font-[family-name:var(--font-heading)]">Jetzt Kontakt aufnehmen</h3>
                   <p className="mt-1 text-sm text-white/50">
                     Wir melden uns innerhalb von 24 Stunden bei Ihnen.
                   </p>
@@ -1217,7 +1546,7 @@ function TrafficGrowthSection() {
           <p className={`text-sm font-semibold uppercase tracking-widest text-primary ${inView ? 'animate-fade-up' : ''}`}>
             Der Unterschied
           </p>
-          <h2 className={`mt-3 text-3xl font-bold tracking-tight text-dark sm:text-4xl font-[family-name:var(--font-heading)] ${inView ? 'animate-fade-up' : ''}`} style={{ animationDelay: '0.05s' }}>
+          <h2 className={`mt-3 text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)] ${inView ? 'animate-fade-up' : ''}`} style={{ animationDelay: '0.05s' }}>
             Der Weg zu mehr <span className="text-primary">Sichtbarkeit</span>
           </h2>
           <p className={`mt-4 text-base leading-relaxed text-muted ${inView ? 'animate-fade-up' : ''}`} style={{ animationDelay: '0.1s' }}>
@@ -1372,7 +1701,7 @@ function WhySeoForgeSection() {
             <p className={`text-sm font-semibold uppercase tracking-widest text-primary ${inView ? 'animate-fade-up' : ''}`}>
               Warum SeoForge
             </p>
-            <h2 className={`mt-3 text-3xl font-bold tracking-tight text-dark sm:text-4xl font-[family-name:var(--font-heading)] ${inView ? 'animate-fade-up' : ''}`} style={{ animationDelay: '0.05s' }}>
+            <h2 className={`mt-3 text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)] ${inView ? 'animate-fade-up' : ''}`} style={{ animationDelay: '0.05s' }}>
               Datengetrieben. Transparent. <span className="text-primary">Nachhaltig</span>.
             </h2>
             <p className={`mt-4 text-base leading-relaxed text-muted ${inView ? 'animate-fade-up' : ''}`} style={{ animationDelay: '0.1s' }}>
@@ -1413,8 +1742,8 @@ function WhySeoForgeSection() {
                     {item.step}
                   </div>
                   <div>
-                    <h3 className="text-base font-semibold text-dark">{item.title}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-muted">{item.desc}</p>
+                    <h3 className="text-xl text-dark font-[family-name:var(--font-heading)]">{item.title}</h3>
+                    <p className="mt-1 text-base leading-relaxed text-muted">{item.desc}</p>
                   </div>
                 </div>
               ))}

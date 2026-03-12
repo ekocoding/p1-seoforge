@@ -64,7 +64,7 @@ export default function KontaktPage() {
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                 Wir sind für Sie da
               </div>
-              <h1 className="text-4xl font-bold tracking-tight text-dark sm:text-5xl lg:text-6xl font-[family-name:var(--font-heading)]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl text-dark font-[family-name:var(--font-heading)]">
                 Kontakt <span className="text-primary">aufnehmen</span>
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-muted">
@@ -82,7 +82,7 @@ export default function KontaktPage() {
             <div className="grid gap-16 lg:grid-cols-2">
               {/* Contact Form */}
               <div>
-                <h2 className="text-2xl font-bold text-dark mb-2 font-[family-name:var(--font-heading)]">
+                <h2 className="text-2xl text-dark mb-2 font-[family-name:var(--font-heading)]">
                   Schreiben Sie uns
                 </h2>
                 <p className="text-sm text-muted mb-8">
@@ -176,7 +176,7 @@ export default function KontaktPage() {
 
               {/* Contact Information */}
               <div>
-                <h2 className="text-2xl font-bold text-dark mb-2 font-[family-name:var(--font-heading)]">
+                <h2 className="text-2xl text-dark mb-2 font-[family-name:var(--font-heading)]">
                   Kontaktinformationen
                 </h2>
                 <p className="text-sm text-muted mb-8">
@@ -272,7 +272,7 @@ export default function KontaktPage() {
         <section className="border-t border-border bg-offwhite py-24 lg:py-32">
           <div className="mx-auto max-w-3xl px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold tracking-tight text-dark sm:text-4xl font-[family-name:var(--font-heading)]">
+              <h2 className="text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)]">
                 Häufig gestellte <span className="text-primary">Fragen</span>
               </h2>
             </div>

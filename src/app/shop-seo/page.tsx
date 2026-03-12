@@ -48,7 +48,7 @@ export default function ShopSEOPage() {
               <div className="bg-gradient-to-r from-primary/5 to-secondary/5 border-b border-border px-8 py-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <h3 className="text-lg font-semibold text-dark mb-1">
+                    <h3 className="text-xl text-dark mb-2 font-[family-name:var(--font-heading)]">
                       E-Commerce Performance Dashboard
                     </h3>
                     <p className="text-sm text-muted">Live Produktranking & Umsatzanalyse</p>
@@ -271,7 +271,7 @@ export default function ShopSEOPage() {
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
                 <Package className="w-7 h-7 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold text-dark mb-4">
+              <h3 className="text-2xl text-dark mb-4 font-[family-name:var(--font-heading)]">
                 Produktseiten-Optimierung
               </h3>
               <p className="text-muted leading-relaxed mb-6">
@@ -298,7 +298,7 @@ export default function ShopSEOPage() {
               <div className="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-6">
                 <Search className="w-7 h-7 text-secondary" />
               </div>
-              <h3 className="text-xl font-semibold text-dark mb-4">
+              <h3 className="text-2xl text-dark mb-4 font-[family-name:var(--font-heading)]">
                 Kategorieseiten-Strategie
               </h3>
               <p className="text-muted leading-relaxed mb-6">
@@ -325,7 +325,7 @@ export default function ShopSEOPage() {
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
                 <Filter className="w-7 h-7 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold text-dark mb-4">
+              <h3 className="text-2xl text-dark mb-4 font-[family-name:var(--font-heading)]">
                 Filterseiten & Faceted Navigation
               </h3>
               <p className="text-muted leading-relaxed mb-6">
@@ -352,7 +352,7 @@ export default function ShopSEOPage() {
               <div className="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-6">
                 <FileText className="w-7 h-7 text-secondary" />
               </div>
-              <h3 className="text-xl font-semibold text-dark mb-4">
+              <h3 className="text-2xl text-dark mb-4 font-[family-name:var(--font-heading)]">
                 Duplicate Content Management
               </h3>
               <p className="text-muted leading-relaxed mb-6">
@@ -379,7 +379,7 @@ export default function ShopSEOPage() {
               <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
                 <Code className="w-7 h-7 text-primary" />
               </div>
-              <h3 className="text-xl font-semibold text-dark mb-4">
+              <h3 className="text-2xl text-dark mb-4 font-[family-name:var(--font-heading)]">
                 Schema Markup & Rich Snippets
               </h3>
               <p className="text-muted leading-relaxed mb-6">
@@ -406,7 +406,7 @@ export default function ShopSEOPage() {
               <div className="w-14 h-14 rounded-xl bg-secondary/10 flex items-center justify-center mb-6">
                 <TrendingUp className="w-7 h-7 text-secondary" />
               </div>
-              <h3 className="text-xl font-semibold text-dark mb-4">
+              <h3 className="text-2xl text-dark mb-4 font-[family-name:var(--font-heading)]">
                 Performance & Core Web Vitals
               </h3>
               <p className="text-muted leading-relaxed mb-6">

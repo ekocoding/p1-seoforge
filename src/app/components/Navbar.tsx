@@ -53,9 +53,10 @@ export default function Navbar() {
           <Image
             src="/logo.svg"
             alt="SeoForge Logo"
-            width={160}
-            height={40}
+            width={260}
+            height={52}
             priority
+            className="h-[52px] w-auto"
           />
         </Link>
 

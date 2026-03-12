@@ -29,6 +29,11 @@ export const metadata: Metadata = {
     "SEO Texte",
   ],
   authors: [{ name: "SeoForge" }],
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
   openGraph: {
     title: "SeoForge | SEO Agentur fur nachhaltiges Wachstum",
     description:

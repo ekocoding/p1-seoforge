@@ -56,7 +56,7 @@ export default function SeoOptimierungPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-dark">Messbare Ergebnisse</h3>
+                <h3 className="text-2xl text-dark font-[family-name:var(--font-heading)]">Messbare Ergebnisse</h3>
                 <p className="mt-2 text-muted">
                   Jede Optimierung wird getrackt und in konkreten KPIs messbar gemacht: Rankings, Traffic, Conversions.
                 </p>
@@ -68,7 +68,7 @@ export default function SeoOptimierungPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-dark">Nachhaltig & zukunftssicher</h3>
+                <h3 className="text-2xl text-dark font-[family-name:var(--font-heading)]">Nachhaltig & zukunftssicher</h3>
                 <p className="mt-2 text-muted">
                   Wir optimieren nicht für kurzfristige Tricks, sondern für langfristigen, algorithmussicheren Erfolg.
                 </p>
@@ -80,7 +80,7 @@ export default function SeoOptimierungPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                   </svg>
                 </div>
-                <h3 className="text-lg font-semibold text-dark">Ganzheitlicher Ansatz</h3>
+                <h3 className="text-2xl text-dark font-[family-name:var(--font-heading)]">Ganzheitlicher Ansatz</h3>
                 <p className="mt-2 text-muted">
                   Von der technischen Infrastruktur bis zur Content-Strategie – wir optimieren alle relevanten Faktoren.
                 </p>

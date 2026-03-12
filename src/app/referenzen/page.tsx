@@ -77,7 +77,7 @@ export default function ReferenzenPage() {
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                 Unsere Erfolgsgeschichten
               </div>
-              <h1 className="text-4xl font-bold tracking-tight text-dark sm:text-5xl lg:text-6xl font-[family-name:var(--font-heading)]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl text-dark font-[family-name:var(--font-heading)]">
                 Unsere <span className="text-primary">Referenzen</span>
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-muted">
@@ -141,7 +141,7 @@ export default function ReferenzenPage() {
         <section className="border-t border-border bg-dark py-24 lg:py-32">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto max-w-2xl text-center">
-              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl font-[family-name:var(--font-heading)]">
+              <h2 className="text-4xl lg:text-5xl text-white font-[family-name:var(--font-heading)]">
                 Bereit für Ihre <span className="text-primary">Erfolgsgeschichte</span>?
               </h2>
               <p className="mt-4 text-base leading-relaxed text-white/60">

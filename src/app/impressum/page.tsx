@@ -16,14 +16,14 @@ export default function ImpressumPage() {
     <SubpageLayout>
       <main className="bg-white pt-20">
         <div className="mx-auto max-w-4xl px-6 py-16 lg:px-8 lg:py-24">
-          <h1 className="text-4xl font-bold tracking-tight text-dark mb-12 font-[family-name:var(--font-heading)]">
+          <h1 className="text-4xl text-dark mb-12 font-[family-name:var(--font-heading)]">
             Impressum
           </h1>
 
           <div className="prose prose-sm sm:prose max-w-none">
             {/* Angaben gemäß § 5 TMG */}
             <section className="mb-12">
-              <h2 className="text-2xl font-bold text-dark mb-4 font-[family-name:var(--font-heading)]">
+              <h2 className="text-2xl text-dark mb-4 font-[family-name:var(--font-heading)]">
                 Angaben gemäß § 5 TMG
               </h2>
               <div className="text-base leading-relaxed text-dark">
@@ -38,7 +38,7 @@ export default function ImpressumPage() {
 
             {/* Kontakt */}
             <section className="mb-12">
-              <h2 className="text-2xl font-bold text-dark mb-4 font-[family-name:var(--font-heading)]">
+              <h2 className="text-2xl text-dark mb-4 font-[family-name:var(--font-heading)]">
                 Kontakt
               </h2>
               <div className="text-base leading-relaxed text-dark">
@@ -53,7 +53,7 @@ export default function ImpressumPage() {
 
             {/* Steuernummer */}
             <section className="mb-12">
-              <h2 className="text-2xl font-bold text-dark mb-4 font-[family-name:var(--font-heading)]">
+              <h2 className="text-2xl text-dark mb-4 font-[family-name:var(--font-heading)]">
                 Steuernummer
               </h2>
               <div className="text-base leading-relaxed text-dark">
@@ -68,7 +68,7 @@ export default function ImpressumPage() {
 
             {/* Umsatzsteuer */}
             <section className="mb-12">
-              <h2 className="text-2xl font-bold text-dark mb-4 font-[family-name:var(--font-heading)]">
+              <h2 className="text-2xl text-dark mb-4 font-[family-name:var(--font-heading)]">
                 Umsatzsteuer
               </h2>
               <div className="text-base leading-relaxed text-dark">
@@ -80,13 +80,13 @@ export default function ImpressumPage() {
 
             {/* Haftungsausschluss */}
             <section className="mb-12">
-              <h2 className="text-2xl font-bold text-dark mb-8 font-[family-name:var(--font-heading)]">
+              <h2 className="text-2xl text-dark mb-8 font-[family-name:var(--font-heading)]">
                 Haftungsausschluss (Disclaimer)
               </h2>
 
               {/* Haftung für Inhalte */}
               <div className="mb-8">
-                <h3 className="text-xl font-semibold text-dark mb-3">
+                <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">
                   Haftung für Inhalte
                 </h3>
                 <div className="text-base leading-relaxed text-muted space-y-3">
@@ -101,7 +101,7 @@ export default function ImpressumPage() {
 
               {/* Haftung für Links */}
               <div className="mb-8">
-                <h3 className="text-xl font-semibold text-dark mb-3">
+                <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">
                   Haftung für Links
                 </h3>
                 <div className="text-base leading-relaxed text-muted space-y-3">
@@ -116,7 +116,7 @@ export default function ImpressumPage() {
 
               {/* Urheberrecht */}
               <div className="mb-8">
-                <h3 className="text-xl font-semibold text-dark mb-3">
+                <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">
                   Urheberrecht
                 </h3>
                 <div className="text-base leading-relaxed text-muted space-y-3">
@@ -132,7 +132,7 @@ export default function ImpressumPage() {
 
             {/* EU-Streitschlichtung */}
             <section className="mb-12">
-              <h2 className="text-2xl font-bold text-dark mb-4 font-[family-name:var(--font-heading)]">
+              <h2 className="text-2xl text-dark mb-4 font-[family-name:var(--font-heading)]">
                 EU-Streitschlichtung
               </h2>
               <div className="text-base leading-relaxed text-muted">
@@ -153,7 +153,7 @@ export default function ImpressumPage() {
 
             {/* Verbraucherstreitbeilegung */}
             <section className="mb-12">
-              <h2 className="text-2xl font-bold text-dark mb-4 font-[family-name:var(--font-heading)]">
+              <h2 className="text-2xl text-dark mb-4 font-[family-name:var(--font-heading)]">
                 Verbraucherstreitbeilegung / Universalschlichtungsstelle
               </h2>
               <div className="text-base leading-relaxed text-muted">

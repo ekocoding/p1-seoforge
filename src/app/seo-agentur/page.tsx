@@ -750,39 +750,44 @@ export default function SEOAgenturPage() {
                         <polygon points="0,-28 24.2,-14 24.2,14 0,28 -24.2,14 -24.2,-14"
                                  fill="#C2722A" stroke="#C2722A" strokeWidth="2"/>
 
-                        {/* Ring 1 (6 hexagons around center) */}
+                        {/* Ring 1 (6 hexagons around center) - top-left entfernt */}
+                        {/* Top */}
                         <polygon points="0,-56 24.2,-70 48.4,-56 48.4,-28 24.2,-14 0,-28"
                                  fill="none" stroke="#D4A853" strokeWidth="2"/>
+                        {/* Top-right */}
                         <polygon points="48.4,-28 72.6,-14 72.6,14 48.4,28 24.2,14 24.2,-14"
                                  fill="none" stroke="#D4A853" strokeWidth="2"/>
+                        {/* Bottom-right */}
                         <polygon points="24.2,14 48.4,28 48.4,56 24.2,70 0,56 0,28"
                                  fill="none" stroke="#D4A853" strokeWidth="2"/>
+                        {/* Bottom-left */}
                         <polygon points="-24.2,14 0,28 0,56 -24.2,70 -48.4,56 -48.4,28"
                                  fill="none" stroke="#D4A853" strokeWidth="2"/>
+                        {/* Left */}
                         <polygon points="-48.4,-28 -24.2,-14 -24.2,14 -48.4,28 -72.6,14 -72.6,-14"
-                                 fill="none" stroke="#D4A853" strokeWidth="2"/>
-                        <polygon points="-24.2,-70 0,-56 0,-28 -24.2,-14 -48.4,-28 -48.4,-56"
                                  fill="none" stroke="#D4A853" strokeWidth="2"/>
 
                         {/* Ring 2 (partial outer ring) */}
+                        {/* Top */}
                         <polygon points="0,-84 24.2,-98 48.4,-84 48.4,-56 24.2,-42 0,-56"
                                  fill="none" stroke="#C2722A" strokeWidth="1.5" opacity="0.4"/>
+                        {/* Top-right */}
                         <polygon points="72.6,-42 96.8,-28 96.8,0 72.6,14 48.4,0 48.4,-28"
                                  fill="none" stroke="#C2722A" strokeWidth="1.5" opacity="0.4"/>
+                        {/* Bottom-right */}
                         <polygon points="72.6,14 96.8,28 96.8,56 72.6,70 48.4,56 48.4,28"
                                  fill="none" stroke="#C2722A" strokeWidth="1.5" opacity="0.4"/>
+                        {/* Bottom */}
                         <polygon points="24.2,70 48.4,84 48.4,112 24.2,126 0,112 0,84"
                                  fill="none" stroke="#C2722A" strokeWidth="1.5" opacity="0.4"/>
+                        {/* Bottom-left */}
                         <polygon points="-24.2,70 0,84 0,112 -24.2,126 -48.4,112 -48.4,84"
-                                 fill="none" stroke="#C2722A" strokeWidth="1.5" opacity="0.4"/>
-                        <polygon points="-72.6,-42 -48.4,-56 -48.4,-28 -72.6,0 -96.8,0 -96.8,-28"
                                  fill="none" stroke="#C2722A" strokeWidth="1.5" opacity="0.4"/>
 
                         {/* Accent dots */}
                         <circle cx="0" cy="0" r="3" fill="white" className="pulse-dot"/>
                         <circle cx="0" cy="-42" r="2.5" fill="#C2722A" opacity="0.7"/>
-                        <circle cx="48.4" cy="-42" r="2.5" fill="#C2722A" opacity="0.7"/>
-                        <circle cx="60.5" cy="0" r="2.5" fill="#C2722A" opacity="0.7"/>
+                        <circle cx="48.4" cy="-14" r="2.5" fill="#C2722A" opacity="0.7"/>
                         <circle cx="36.3" cy="42" r="2.5" fill="#C2722A" opacity="0.7"/>
                         <circle cx="-36.3" cy="42" r="2.5" fill="#C2722A" opacity="0.7"/>
                         <circle cx="-60.5" cy="0" r="2.5" fill="#C2722A" opacity="0.7"/>

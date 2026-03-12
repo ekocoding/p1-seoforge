@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SubpageLayout from "../components/SubpageLayout";
 import Link from "next/link";
 import EditorMockup from "./EditorMockup";
+import OrderForm from "./OrderForm";
 
 export const metadata: Metadata = {
   title: "SEO Texte | SeoForge - Ihre SEO Agentur",
@@ -54,54 +55,6 @@ export default function SeoTextePage() {
         </div>
       </section>
 
-      {/* What are SEO Texte */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="text-center mb-16 animate-fade-up">
-            <h2 className="text-4xl lg:text-5xl font-[family-name:var(--font-heading)] text-dark mb-6">
-              Was sind SEO Texte?
-            </h2>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
-          </div>
-
-          <div className="prose prose-lg max-w-none animate-fade-up">
-            <p className="text-lg text-muted leading-relaxed mb-6">
-              SEO Texte sind speziell optimierte Inhalte, die zwei Ziele gleichzeitig verfolgen:
-              Sie bieten echten Mehrwert für Ihre Leser und sind gleichzeitig für Suchmaschinen wie Google optimal aufbereitet.
-            </p>
-
-            <p className="text-lg text-muted leading-relaxed mb-6">
-              Anders als gewöhnliche Texte berücksichtigen SEO Texte relevante Keywords, semantische Zusammenhänge,
-              Nutzerintentionen und technische Faktoren wie Überschriftenstruktur, Meta-Daten und interne Verlinkung.
-            </p>
-
-            <div className="bg-offwhite border border-border rounded-xl p-8 my-8">
-              <h3 className="text-2xl font-[family-name:var(--font-heading)] text-dark mb-4">
-                Warum sind SEO Texte wichtig?
-              </h3>
-              <ul className="space-y-3 text-muted">
-                <li className="flex items-start gap-3">
-                  <span className="text-primary mt-1">✓</span>
-                  <span><strong className="text-dark">Bessere Rankings:</strong> Optimierte Inhalte ranken höher in den Suchergebnissen</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary mt-1">✓</span>
-                  <span><strong className="text-dark">Mehr Traffic:</strong> Höhere Platzierungen führen zu mehr organischen Besuchern</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary mt-1">✓</span>
-                  <span><strong className="text-dark">Höhere Conversions:</strong> Zielgerichtete Inhalte sprechen die richtige Zielgruppe an</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-primary mt-1">✓</span>
-                  <span><strong className="text-dark">Langfristige Wirkung:</strong> Gute Inhalte wirken nachhaltig und bringen dauerhaft Traffic</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Types of Content */}
       <section className="py-24 bg-offwhite">
         <div className="container mx-auto px-6">
@@ -114,37 +67,7 @@ export default function SeoTextePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Blog Posts */}
-            <div className="bg-white rounded-xl p-8 border border-border hover:shadow-lg transition-shadow animate-fade-up">
-              <div className="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-[family-name:var(--font-heading)] text-dark mb-3">
-                Blog-Artikel
-              </h3>
-              <p className="text-muted leading-relaxed">
-                Informative, gut recherchierte Artikel, die Expertise zeigen und organischen Traffic generieren.
-              </p>
-            </div>
-
-            {/* Landing Pages */}
-            <div className="bg-white rounded-xl p-8 border border-border hover:shadow-lg transition-shadow animate-fade-up">
-              <div className="w-14 h-14 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-[family-name:var(--font-heading)] text-dark mb-3">
-                Landing Pages
-              </h3>
-              <p className="text-muted leading-relaxed">
-                Conversion-optimierte Seiten, die auf spezifische Keywords und Nutzerintentionen ausgerichtet sind.
-              </p>
-            </div>
-
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Product Descriptions */}
             <div className="bg-white rounded-xl p-8 border border-border hover:shadow-lg transition-shadow animate-fade-up">
               <div className="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
@@ -156,52 +79,37 @@ export default function SeoTextePage() {
                 Produkttexte
               </h3>
               <p className="text-muted leading-relaxed">
-                Überzeugende Produktbeschreibungen, die verkaufen und gleichzeitig für Suchmaschinen optimiert sind.
+                Überzeugende Produktbeschreibungen für E-Commerce, die verkaufen und gleichzeitig für Suchmaschinen optimiert sind.
               </p>
             </div>
 
-            {/* Category Pages */}
+            {/* Blog Posts */}
             <div className="bg-white rounded-xl p-8 border border-border hover:shadow-lg transition-shadow animate-fade-up">
               <div className="w-14 h-14 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
               <h3 className="text-2xl font-[family-name:var(--font-heading)] text-dark mb-3">
-                Kategorietexte
+                Blog-Artikel
               </h3>
               <p className="text-muted leading-relaxed">
-                SEO-optimierte Texte für Kategorieseiten, die Struktur schaffen und Rankings verbessern.
+                Informative, gut recherchierte Artikel, die Expertise zeigen, Traffic generieren und Ihre Zielgruppe begeistern.
               </p>
             </div>
 
-            {/* Service Pages */}
+            {/* Landing Pages */}
             <div className="bg-white rounded-xl p-8 border border-border hover:shadow-lg transition-shadow animate-fade-up">
               <div className="w-14 h-14 bg-primary/10 rounded-lg flex items-center justify-center mb-6">
                 <svg className="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
                 </svg>
               </div>
               <h3 className="text-2xl font-[family-name:var(--font-heading)] text-dark mb-3">
-                Leistungsseiten
+                Landing Pages
               </h3>
               <p className="text-muted leading-relaxed">
-                Detaillierte Service-Beschreibungen, die Kompetenz vermitteln und Vertrauen aufbauen.
-              </p>
-            </div>
-
-            {/* Guides & How-Tos */}
-            <div className="bg-white rounded-xl p-8 border border-border hover:shadow-lg transition-shadow animate-fade-up">
-              <div className="w-14 h-14 bg-secondary/10 rounded-lg flex items-center justify-center mb-6">
-                <svg className="w-7 h-7 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-[family-name:var(--font-heading)] text-dark mb-3">
-                Ratgeber & Anleitungen
-              </h3>
-              <p className="text-muted leading-relaxed">
-                Ausführliche Guides, die komplexe Themen verständlich erklären und als Linkmagnet fungieren.
+                Conversion-optimierte Seiten für Kampagnen, die auf spezifische Keywords und Nutzerintentionen ausgerichtet sind.
               </p>
             </div>
           </div>
@@ -354,6 +262,29 @@ export default function SeoTextePage() {
         </div>
       </section>
 
+      {/* Order Section */}
+      <section className="py-16 bg-offwhite" id="bestellen">
+        <div className="container mx-auto px-6 max-w-4xl">
+          {/* Header */}
+          <div className="text-center mb-10">
+            <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-3">
+              Direkt bestellen
+            </p>
+            <h2 className="text-3xl lg:text-4xl font-[family-name:var(--font-heading)] text-dark mb-3">
+              Content auf Bestellung
+            </h2>
+            <p className="text-muted max-w-2xl mx-auto">
+              Teilen Sie uns Ihre Anforderungen mit – wir melden uns innerhalb von 24 Stunden.
+            </p>
+          </div>
+
+          {/* Form */}
+          <div className="bg-white rounded-2xl border border-border p-6 lg:p-8 shadow-sm">
+            <OrderForm />
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-24 bg-dark text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent"></div>
@@ -368,7 +299,7 @@ export default function SeoTextePage() {
             </p>
             <div className="flex flex-wrap gap-4 justify-center">
               <Link
-                href="/kontakt"
+                href="#bestellen"
                 className="px-8 py-4 bg-primary text-white rounded-lg font-semibold hover:bg-primary/90 transition-colors"
               >
                 Jetzt Content anfragen
@@ -384,6 +315,54 @@ export default function SeoTextePage() {
         </div>
         <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl"></div>
         <div className="absolute top-0 right-0 w-64 h-64 bg-secondary/10 rounded-full blur-3xl"></div>
+      </section>
+
+      {/* What are SEO Texte */}
+      <section className="py-16 bg-white border-t border-border">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl lg:text-4xl font-[family-name:var(--font-heading)] text-dark mb-4">
+              Was sind SEO Texte?
+            </h2>
+            <div className="w-20 h-1 bg-primary mx-auto"></div>
+          </div>
+
+          <div className="prose prose-lg max-w-none">
+            <p className="text-muted leading-relaxed mb-6">
+              SEO Texte sind speziell optimierte Inhalte, die zwei Ziele gleichzeitig verfolgen:
+              Sie bieten echten Mehrwert für Ihre Leser und sind gleichzeitig für Suchmaschinen wie Google optimal aufbereitet.
+            </p>
+
+            <p className="text-muted leading-relaxed mb-6">
+              Anders als gewöhnliche Texte berücksichtigen SEO Texte relevante Keywords, semantische Zusammenhänge,
+              Nutzerintentionen und technische Faktoren wie Überschriftenstruktur, Meta-Daten und interne Verlinkung.
+            </p>
+
+            <div className="bg-offwhite border border-border rounded-xl p-6 my-6">
+              <h3 className="text-xl font-[family-name:var(--font-heading)] text-dark mb-4">
+                Warum sind SEO Texte wichtig?
+              </h3>
+              <ul className="space-y-3 text-muted">
+                <li className="flex items-start gap-3">
+                  <span className="text-primary mt-1">✓</span>
+                  <span><strong className="text-dark">Bessere Rankings:</strong> Optimierte Inhalte ranken höher</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-primary mt-1">✓</span>
+                  <span><strong className="text-dark">Mehr Traffic:</strong> Mehr organische Besucher</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-primary mt-1">✓</span>
+                  <span><strong className="text-dark">Höhere Conversions:</strong> Zielgerichtete Inhalte</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-primary mt-1">✓</span>
+                  <span><strong className="text-dark">Langfristige Wirkung:</strong> Nachhaltiger Traffic</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </section>
     </SubpageLayout>
   );

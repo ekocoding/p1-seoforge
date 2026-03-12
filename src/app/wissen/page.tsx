@@ -79,7 +79,7 @@ export default function WissenPage() {
                 <span className="h-1.5 w-1.5 rounded-full bg-primary" />
                 Kostenlose SEO-Guides
               </div>
-              <h1 className="text-4xl font-bold tracking-tight text-dark sm:text-5xl lg:text-6xl font-[family-name:var(--font-heading)]">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl text-dark font-[family-name:var(--font-heading)]">
                 SEO <span className="text-primary">Wissen</span>
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-muted">
@@ -158,7 +158,7 @@ export default function WissenPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h2 className="text-3xl font-bold tracking-tight text-dark sm:text-4xl font-[family-name:var(--font-heading)]">
+              <h2 className="text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)]">
                 Bleiben Sie <span className="text-primary">informiert</span>
               </h2>
               <p className="mt-4 text-base leading-relaxed text-muted">

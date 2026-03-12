@@ -50,7 +50,7 @@ export default function SeoContentStrategiePage() {
               <div className="bg-white rounded-2xl shadow-2xl border border-border p-6 lg:p-8">
                 {/* Header */}
                 <div className="flex items-center justify-between mb-6 pb-4 border-b border-border">
-                  <h3 className="text-lg font-semibold text-dark">Content Kalender</h3>
+                  <h3 className="text-2xl text-dark font-[family-name:var(--font-heading)]">Content Kalender</h3>
                   <div className="flex items-center gap-2">
                     <button className="w-8 h-8 flex items-center justify-center rounded hover:bg-offwhite transition-colors">
                       <svg className="w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -288,7 +288,7 @@ export default function SeoContentStrategiePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-dark mb-3">Topic Clusters</h3>
+              <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">Topic Clusters</h3>
               <p className="text-muted leading-relaxed">
                 Wir strukturieren Ihre Inhalte in thematische Cluster: Ein Pillar-Content als Hub, umgeben von spezifischen Cluster-Artikeln, die interne Authority aufbauen.
               </p>
@@ -301,7 +301,7 @@ export default function SeoContentStrategiePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-dark mb-3">Keyword Mapping</h3>
+              <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">Keyword Mapping</h3>
               <p className="text-muted leading-relaxed">
                 Jedes Keyword wird einer spezifischen URL zugeordnet. Search Intent-Analyse stellt sicher, dass Ihr Content die Nutzererwartung trifft und rankt.
               </p>
@@ -314,7 +314,7 @@ export default function SeoContentStrategiePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-dark mb-3">Content Calendar</h3>
+              <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">Content Calendar</h3>
               <p className="text-muted leading-relaxed">
                 Redaktionsplanung mit System: Priorisierung nach Business-Impact, Saisonalität und Quick Wins. Jeder Content-Piece hat ein klares Ziel und KPIs.
               </p>
@@ -327,7 +327,7 @@ export default function SeoContentStrategiePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-dark mb-3">Performance Tracking</h3>
+              <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">Performance Tracking</h3>
               <p className="text-muted leading-relaxed">
                 Wir messen, was zählt: Rankings, organischer Traffic, Engagement-Metriken und Conversions. Monatliche Reports zeigen ROI und Optimierungspotenziale.
               </p>
@@ -362,7 +362,7 @@ export default function SeoContentStrategiePage() {
                     SEO-Pillar
                   </span>
                 </div>
-                <h3 className="text-xl font-semibold text-dark mb-3">Pillar Pages</h3>
+                <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">Pillar Pages</h3>
                 <p className="text-muted leading-relaxed">
                   Umfassende Hub-Seiten zu Ihren Kern-Themen. 3000+ Wörter, die alle Aspekte abdecken und als Anker für Ihr Topic Cluster dienen.
                 </p>
@@ -382,7 +382,7 @@ export default function SeoContentStrategiePage() {
                     Authority
                   </span>
                 </div>
-                <h3 className="text-xl font-semibold text-dark mb-3">Blog-Artikel</h3>
+                <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">Blog-Artikel</h3>
                 <p className="text-muted leading-relaxed">
                   SEO-optimierte Artikel, die spezifische Long-Tail-Keywords targetieren. 1500-2000 Wörter, die Nutzer informieren und zur Pillar Page verlinken.
                 </p>
@@ -402,7 +402,7 @@ export default function SeoContentStrategiePage() {
                     Conversion
                   </span>
                 </div>
-                <h3 className="text-xl font-semibold text-dark mb-3">Landing Pages</h3>
+                <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">Landing Pages</h3>
                 <p className="text-muted leading-relaxed">
                   Conversion-optimierte Seiten für kommerzielle Keywords. Klare Value Props, Trust-Signale und CTAs, die aus Traffic Leads machen.
                 </p>
@@ -422,7 +422,7 @@ export default function SeoContentStrategiePage() {
                     Quick Win
                   </span>
                 </div>
-                <h3 className="text-xl font-semibold text-dark mb-3">FAQ-Seiten</h3>
+                <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">FAQ-Seiten</h3>
                 <p className="text-muted leading-relaxed">
                   Strukturierte Antworten auf häufige Fragen. Featured Snippet-optimiert, um Position 0 in den SERPs zu erobern.
                 </p>
@@ -442,7 +442,7 @@ export default function SeoContentStrategiePage() {
                     Data-Driven
                   </span>
                 </div>
-                <h3 className="text-xl font-semibold text-dark mb-3">Case Studies</h3>
+                <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">Case Studies</h3>
                 <p className="text-muted leading-relaxed">
                   Datengetriebene Erfolgsgeschichten mit messbaren Ergebnissen. Bauen Trust auf und targetieren Long-Tail-Keywords mit hoher Intent.
                 </p>
@@ -462,7 +462,7 @@ export default function SeoContentStrategiePage() {
                     Linkable Asset
                   </span>
                 </div>
-                <h3 className="text-xl font-semibold text-dark mb-3">Guides & Tools</h3>
+                <h3 className="text-2xl text-dark mb-3 font-[family-name:var(--font-heading)]">Guides & Tools</h3>
                 <p className="text-muted leading-relaxed">
                   Ultimative Guides und interaktive Tools, die Backlinks anziehen. Evergreen-Content, der langfristig Traffic und Authority bringt.
                 </p>

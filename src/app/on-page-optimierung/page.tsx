@@ -19,7 +19,7 @@ export default function OnPageOptimierungPage() {
               <p className="text-sm font-semibold uppercase tracking-widest text-[#C2722A] hero-badge">
                 Technische Perfektion
               </p>
-              <h1 className="mt-3 text-4xl font-bold tracking-tight text-[#1A1A1A] sm:text-5xl font-[family-name:var(--font-heading)] hero-title">
+              <h1 className="mt-3 text-4xl sm:text-5xl text-[#1A1A1A] font-[family-name:var(--font-heading)] hero-title">
                 On Page <span className="text-[#C2722A]">Optimierung</span>
               </h1>
               <p className="mt-6 text-lg leading-relaxed text-[#6B6B6B] hero-description">
