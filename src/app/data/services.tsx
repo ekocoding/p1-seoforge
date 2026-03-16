@@ -106,6 +106,67 @@ export const services = [
 /* ------------------------------------------------------------------ */
 /*  SERVICE CATEGORIES (for mega dropdown)                            */
 /* ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------ */
+/*  WEBDESIGN SERVICES                                                 */
+/* ------------------------------------------------------------------ */
+export const webdesignServices = [
+  {
+    title: "Website Erstellen",
+    href: "/webdesign",
+    description:
+      "Professionelle Websites, die ueberzeugen — schnell, responsive und SEO-optimiert von Anfang an.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+    ),
+  },
+  {
+    title: "Webdesign & UI/UX",
+    href: "/webdesign",
+    description:
+      "Modernes Design, das Ihre Marke widerspiegelt und Besucher in Kunden verwandelt.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <path d="M12 19l7-7 3 3-7 7-3-3z" /><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" /><path d="M2 2l7.586 7.586" /><circle cx="11" cy="11" r="2" />
+      </svg>
+    ),
+  },
+  {
+    title: "Landing Pages",
+    href: "/webdesign",
+    description:
+      "Conversion-optimierte Landingpages fuer Kampagnen, Launches und Lead-Generierung.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <path d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5" />
+      </svg>
+    ),
+  },
+  {
+    title: "Website Relaunch",
+    href: "/webdesign",
+    description:
+      "Bestehende Website modernisieren — ohne Rankings zu verlieren. SEO-sichere Migration inklusive.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+      </svg>
+    ),
+  },
+  {
+    title: "App Design",
+    href: "/webdesign",
+    description:
+      "UI/UX Design fuer Mobile Apps und Web Apps — von der Idee ueber Prototypen bis zum fertigen Interface.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" /><line x1="12" y1="18" x2="12.01" y2="18" />
+      </svg>
+    ),
+  },
+];
+
 export const serviceCategories = [
   {
     id: "seo",
@@ -119,5 +180,15 @@ export const serviceCategories = [
     ),
     services: services,
   },
-  // Future categories can be added here
+  {
+    id: "webdesign",
+    label: "Webdesign",
+    description: "5 Leistungen",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" />
+      </svg>
+    ),
+    services: webdesignServices,
+  },
 ];

@@ -429,6 +429,18 @@ function ServicesStackSection() {
     setCurrentIndex((prev) => (prev + direction + totalCards) % totalCards);
   };
 
+  // Touch swipe support
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const handleTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
+  const handleTouchMove = (e: React.TouchEvent) => { touchEndX.current = e.touches[0].clientX; };
+  const handleTouchEnd = () => {
+    const diff = touchStartX.current - touchEndX.current;
+    if (Math.abs(diff) > 50) {
+      rotateCards(diff > 0 ? 1 : -1);
+    }
+  };
+
   const getCardClasses = (index: number) => {
     let relativeIndex = index - currentIndex;
     if (relativeIndex < -3) relativeIndex += totalCards;
@@ -501,7 +513,12 @@ function ServicesStackSection() {
         </div>
 
         {/* Stacked Cards Container */}
-        <div className="relative h-[500px] hidden md:block perspective-1000">
+        <div
+          className="relative h-[500px] hidden md:block perspective-1000"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           {services.map((service, index) => {
             const relativeIndex = index - currentIndex;
             const normalizedIndex = ((index - currentIndex) % totalCards + totalCards) % totalCards;
@@ -512,7 +529,12 @@ function ServicesStackSection() {
                 key={service.title}
                 href={service.href}
                 className={getCardClasses(index)}
-                onClick={(e) => !isCenter && e.preventDefault()}
+                onClick={(e) => {
+                  if (!isCenter) {
+                    e.preventDefault();
+                    setCurrentIndex(index);
+                  }
+                }}
               >
                 {isCenter && (
                   <div className="absolute -top-3 right-6 bg-gradient-to-r from-primary to-secondary text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full">
@@ -1090,182 +1112,6 @@ export default function Home() {
         {/*  WHY SEOFORGE / PROCESS                                       */}
         {/* ============================================================ */}
         <WhySeoForgeSection />
-
-        {/* ============================================================ */}
-        {/*  CONTENT ORDER SECTION                                        */}
-        {/* ============================================================ */}
-        <section className="bg-offwhite py-24 lg:py-32" id="text-bestellung">
-          <style jsx>{`
-            .form-input {
-              transition: all 0.2s ease;
-            }
-            .form-input:focus {
-              border-color: #C2722A;
-              box-shadow: 0 0 0 3px rgba(194, 114, 42, 0.1);
-            }
-          `}</style>
-          
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16 items-start">
-              {/* Left: Info */}
-              <div>
-                <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-4">
-                  Texte bestellen
-                </p>
-                <h2 className="text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)] mb-6">
-                  Content auf Bestellung
-                </h2>
-                <p className="text-lg text-muted leading-relaxed mb-8">
-                  Benötigen Sie professionelle Texte für Ihre Website? Teilen Sie uns Ihre Anforderungen mit – 
-                  wir melden uns innerhalb von 24 Stunden mit einem unverbindlichen Angebot.
-                </p>
-                
-                {/* Process steps */}
-                <div className="space-y-6">
-                  {[
-                    { step: "1", title: "Anfrage senden", desc: "Formular ausfüllen mit Ihren Wünschen" },
-                    { step: "2", title: "Angebot erhalten", desc: "Individuelles Angebot binnen 24h" },
-                    { step: "3", title: "Texte liefern", desc: "SEO-optimierte Inhalte in 3-5 Tagen" },
-                  ].map((item) => (
-                    <div key={item.step} className="flex items-start gap-4">
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">
-                        {item.step}
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-dark">{item.title}</h4>
-                        <p className="text-sm text-muted">{item.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Right: Form */}
-              <div className="bg-white rounded-2xl border border-border p-8 lg:p-10 shadow-sm">
-                <h3 className="text-2xl font-[family-name:var(--font-heading)] text-dark mb-6">
-                  Ihre Anfrage
-                </h3>
-                
-                <form className="space-y-5" action="/kontakt" method="POST">
-                  {/* Name & Email */}
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-dark mb-2">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        required
-                        className="form-input w-full px-4 py-3 rounded-xl border border-border bg-white text-dark placeholder:text-muted focus:outline-none"
-                        placeholder="Ihr Name"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-dark mb-2">
-                        E-Mail
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        required
-                        className="form-input w-full px-4 py-3 rounded-xl border border-border bg-white text-dark placeholder:text-muted focus:outline-none"
-                        placeholder="ihre@email.de"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Text Type */}
-                  <div>
-                    <label htmlFor="textType" className="block text-sm font-medium text-dark mb-2">
-                      Art der Texte
-                    </label>
-                    <select
-                      id="textType"
-                      name="textType"
-                      required
-                      className="form-input w-full px-4 py-3 rounded-xl border border-border bg-white text-dark focus:outline-none appearance-none cursor-pointer"
-                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1.5em' }}
-                    >
-                      <option value="">Bitte wählen...</option>
-                      <option value="produkttexte">Produkttexte</option>
-                      <option value="blog-artikel">Blog-Artikel</option>
-                      <option value="landing-pages">Landing Pages</option>
-                      <option value="kategorietexte">Kategorietexte</option>
-                      <option value="website-texte">Website-Texte allgemein</option>
-                      <option value="sonstiges">Sonstiges</option>
-                    </select>
-                  </div>
-
-                  {/* Quantity */}
-                  <div>
-                    <label htmlFor="quantity" className="block text-sm font-medium text-dark mb-2">
-                      Menge / Umfang
-                    </label>
-                    <select
-                      id="quantity"
-                      name="quantity"
-                      className="form-input w-full px-4 py-3 rounded-xl border border-border bg-white text-dark focus:outline-none appearance-none cursor-pointer"
-                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`, backgroundRepeat: 'no-repeat', backgroundPosition: 'right 1rem center', backgroundSize: '1.5em' }}
-                    >
-                      <option value="">Bitte wählen...</option>
-                      <option value="1-5">1-5 Texte</option>
-                      <option value="6-10">6-10 Texte</option>
-                      <option value="11-20">11-20 Texte</option>
-                      <option value="20+">Mehr als 20 Texte</option>
-                      <option value="unbekannt">Noch unbekannt</option>
-                    </select>
-                  </div>
-
-                  {/* Website URL */}
-                  <div>
-                    <label htmlFor="website" className="block text-sm font-medium text-dark mb-2">
-                      Website (optional)
-                    </label>
-                    <input
-                      type="url"
-                      id="website"
-                      name="website"
-                      className="form-input w-full px-4 py-3 rounded-xl border border-border bg-white text-dark placeholder:text-muted focus:outline-none"
-                      placeholder="https://www.ihre-website.de"
-                    />
-                  </div>
-
-                  {/* Message */}
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-dark mb-2">
-                      Details zu Ihrem Projekt
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={4}
-                      className="form-input w-full px-4 py-3 rounded-xl border border-border bg-white text-dark placeholder:text-muted focus:outline-none resize-none"
-                      placeholder="Beschreiben Sie kurz, worum es geht. Zielgruppe, Themen, besondere Anforderungen..."
-                    />
-                  </div>
-
-                  {/* Submit */}
-                  <button
-                    type="submit"
-                    className="w-full py-4 bg-primary text-white rounded-xl font-semibold hover:bg-primary-dark transition-all flex items-center justify-center gap-2"
-                  >
-                    Anfrage senden
-                    <svg className="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </button>
-
-                  <p className="text-xs text-muted text-center">
-                    Wir melden uns innerhalb von 24 Stunden bei Ihnen.
-                  </p>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* ============================================================ */}
         {/*  TESTIMONIAL / SOCIAL PROOF                                  */}

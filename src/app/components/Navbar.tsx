@@ -94,7 +94,7 @@ export default function Navbar() {
                     {/* Two-panel layout */}
                     <div className="flex">
                       {/* Left Panel: Categories */}
-                      <div className="w-[200px] bg-offwhite/80 border-r border-border py-2">
+                      <div className="w-[200px] bg-white border-r border-border py-2">
                         {serviceCategories.map((category) => (
                           <button
                             key={category.id}
@@ -127,7 +127,7 @@ export default function Navbar() {
                           .map((category) => (
                             <div key={category.id}>
                               {/* Services grid */}
-                              <div className="grid grid-cols-2 gap-px bg-border p-6">
+                              <div className="grid grid-cols-2 gap-px bg-white p-6">
                                 {category.services.map((service) => (
                                   <Link
                                     key={service.title}
@@ -151,7 +151,7 @@ export default function Navbar() {
                               </div>
 
                               {/* CTA Footer */}
-                              <div className="border-t border-border bg-offwhite/50 px-6 py-4">
+                              <div className="border-t border-border bg-white px-6 py-4">
                                 <Link
                                   href="/#leistungen"
                                   onClick={handleNavClick}

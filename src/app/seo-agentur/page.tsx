@@ -244,8 +244,9 @@ export default function SEOAgenturPage() {
                 SEO Agentur aus Deutschland
               </div>
 
-              <h1 className="hero-el font-[family-name:var(--font-heading)] text-4xl sm:text-5xl lg:text-[3.25rem] font-bold leading-[1.08] text-dark mb-6">
-                Ihre SEO Agentur für nachhaltige Sichtbarkeit bei Google
+              <h1 className="hero-el text-4xl sm:text-5xl lg:text-[3.25rem] font-bold leading-[1.08] text-dark mb-6 font-[family-name:var(--font-heading)]">
+                Ihre SEO Agentur fuer nachhaltige{" "}
+                <span className="text-primary">Sichtbarkeit</span> bei Google
               </h1>
 
               <p className="hero-el text-lg text-muted leading-relaxed mb-4">
