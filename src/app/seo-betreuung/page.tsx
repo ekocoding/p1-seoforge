@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import SubpageLayout from "../components/SubpageLayout";
 import BetreuungMockup from "./BetreuungMockup";
+import WachstumSection from "../components/WachstumSection";
 
 function useInView(opts = {}) {
   const ref = useRef<HTMLElement>(null);
@@ -153,6 +154,9 @@ export default function SEOBetreuungPage() {
           </div>
         </div>
       </section>
+
+      {/* WACHSTUM */}
+      <WachstumSection />
 
       {/* LEISTUNGSUMFANG — Bento grid with featured card */}
       <section id="leistungen" ref={scopeRef as React.RefObject<HTMLElement>} className="bg-offwhite py-24 lg:py-32 border-y border-border">
