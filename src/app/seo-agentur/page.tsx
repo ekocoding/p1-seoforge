@@ -245,7 +245,7 @@ export default function SEOAgenturPage() {
               </div>
 
               <h1 className="hero-el text-4xl sm:text-5xl lg:text-[3.25rem] font-bold leading-[1.08] text-dark mb-6 font-[family-name:var(--font-heading)]">
-                Ihre SEO Agentur fuer nachhaltige{" "}
+                Ihre SEO Agentur für nachhaltige{" "}
                 <span className="text-primary">Sichtbarkeit</span> bei Google
               </h1>
 
@@ -258,7 +258,7 @@ export default function SEOAgenturPage() {
               </p>
 
               <div className="hero-el flex flex-wrap items-center gap-3 mb-8">
-                {["Google Partner", "10+ Jahre Erfahrung", "200+ Kunden"].map((badge) => (
+                {["Google Partner", "10+ Jahre Erfahrung"].map((badge) => (
                   <span
                     key={badge}
                     className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-xs font-medium text-dark/80 border border-border shadow-sm"

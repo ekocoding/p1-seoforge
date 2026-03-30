@@ -60,27 +60,27 @@ function AnimatedStat({ value, suffix = "", label }: { value: number; suffix?: s
 const faqs = [
   {
     q: "Was genau beinhaltet eine SEO Beratung bei SeoForge?",
-    a: "Unsere Beratung umfasst ein vollstaendiges Website-Audit (200+ Pruefpunkte), eine strategische Keyword-Analyse, eine detaillierte Wettbewerbsanalyse und die Entwicklung einer individuellen SEO-Roadmap. Sie erhalten konkrete, priorisierte Handlungsempfehlungen — kein generisches PDF.",
+    a: "Unsere Beratung umfasst ein vollständiges Website-Audit (200+ Prüfpunkte), eine strategische Keyword-Analyse, eine detaillierte Wettbewerbsanalyse und die Entwicklung einer individuellen SEO-Roadmap. Sie erhalten konkrete, priorisierte Handlungsempfehlungen — kein generisches PDF.",
   },
   {
     q: "Wie unterscheidet sich SEO Beratung von SEO Betreuung?",
-    a: "Beratung liefert Strategie, Analyse und Wissenstransfer — Ihr Team setzt um. Betreuung bedeutet, dass wir die laufende Optimierung komplett uebernehmen. Viele Kunden starten mit Beratung und wechseln spaeter zur Betreuung, wenn sie merken, dass ihnen intern die Kapazitaet fehlt.",
+    a: "Beratung liefert Strategie, Analyse und Wissenstransfer — Ihr Team setzt um. Betreuung bedeutet, dass wir die laufende Optimierung komplett übernehmen. Viele Kunden starten mit Beratung und wechseln später zur Betreuung, wenn sie merken, dass ihnen intern die Kapazität fehlt.",
   },
   {
-    q: "Fuer welche Unternehmen eignet sich eine SEO Beratung?",
-    a: "Fuer Unternehmen mit eigenem Marketing-Team, die SEO-Kompetenz aufbauen wollen. Fuer Startups, die von Anfang an die richtigen Grundlagen legen moechten. Und fuer etablierte Firmen, deren Rankings stagnieren und die eine externe, ehrliche Expertenmeinung brauchen.",
+    q: "Für welche Unternehmen eignet sich eine SEO Beratung?",
+    a: "Für Unternehmen mit eigenem Marketing-Team, die SEO-Kompetenz aufbauen wollen. Für Startups, die von Anfang an die richtigen Grundlagen legen moechten. Und für etablierte Firmen, deren Rankings stagnieren und die eine externe, ehrliche Expertenmeinung brauchen.",
   },
   {
     q: "Was kostet eine professionelle SEO Beratung?",
-    a: "Ein initiales Audit mit Strategieentwicklung liegt typischerweise bei 2.500–6.000 Euro. Laufende strategische Beratung ist ab 1.500 Euro monatlich moeglich. Im kostenlosen Erstgespraech klaeren wir Ihren Bedarf und erstellen ein individuelles Angebot.",
+    a: "Ein initiales Audit mit Strategieentwicklung liegt typischerweise bei 2.500–6.000 Euro. Laufende strategische Beratung ist ab 1.500 Euro monatlich moeglich. Im kostenlosen Erstgespräch klären wir Ihren Bedarf und erstellen ein individuelles Angebot.",
   },
   {
     q: "Wie schnell sehe ich Ergebnisse?",
-    a: "Technische Quick Wins koennen bereits nach wenigen Wochen wirken. Nachhaltige Ranking-Verbesserungen zeigen sich erfahrungsgemaess nach 3–6 Monaten konsequenter Umsetzung unserer Empfehlungen. SEO ist ein Marathon — aber einer, der sich messbar auszahlt.",
+    a: "Technische Quick Wins können bereits nach wenigen Wochen wirken. Nachhaltige Ranking-Verbesserungen zeigen sich erfahrungsgemäß nach 3–6 Monaten konsequenter Umsetzung unserer Empfehlungen. SEO ist ein Marathon — aber einer, der sich messbar auszahlt.",
   },
   {
     q: "Arbeitet SeoForge auch mit internen Marketing-Teams zusammen?",
-    a: "Absolut — das ist sogar einer unserer Schwerpunkte. Wir verstehen uns als Sparringspartner, der Ihr Team befaehigt, nicht ersetzt. Workshops, Briefing-Templates und regelmaessige Review-Sessions sind fester Bestandteil unserer Beratung.",
+    a: "Absolut — das ist sogar einer unserer Schwerpunkte. Wir verstehen uns als Sparringspartner, der Ihr Team befähigt, nicht ersetzt. Workshops, Briefing-Templates und regelmäßige Review-Sessions sind fester Bestandteil unserer Beratung.",
   },
 ];
 
@@ -138,12 +138,12 @@ export default function SEOBeratungPage() {
               </h1>
 
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted hero-description">
-                Rankings entstehen nicht zufaellig. Sie entstehen aus der richtigen Analyse, den richtigen Prioritaeten und einer Strategie, die zu Ihrem Geschaeft passt. Genau das liefert unsere SEO Beratung.
+                Rankings entstehen nicht zufällig. Sie entstehen aus der richtigen Analyse, den richtigen Prioritäten und einer Strategie, die zu Ihrem Geschäft passt. Genau das liefert unsere SEO Beratung.
               </p>
 
               {/* Selling points */}
               <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 animate-fade-up" style={{ animationDelay: "0.4s" }}>
-                {["Individuelle Strategie", "200+ Pruefpunkte", "Wissenstransfer"].map((point) => (
+                {["Individuelle Strategie", "200+ Prüfpunkte", "Wissenstransfer"].map((point) => (
                   <div key={point} className="flex items-center gap-2">
                     <svg className="h-4 w-4 text-primary shrink-0" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
@@ -159,7 +159,7 @@ export default function SEOBeratungPage() {
                   href="/kontakt"
                   className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark hover:shadow-xl hover:shadow-primary/30"
                 >
-                  Kostenloses Erstgespraech
+                  Kostenloses Erstgespräch
                   <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
                   </svg>
@@ -172,19 +172,6 @@ export default function SEOBeratungPage() {
                 </Link>
               </div>
 
-              {/* Trust indicator */}
-              <div className="mt-8 flex items-center gap-3 animate-fade-up" style={{ animationDelay: "0.6s" }}>
-                <div className="flex -space-x-2">
-                  {["AK", "LM", "TS", "JR", "PW"].map((initials, i) => (
-                    <div key={initials} className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary/80 to-secondary/80 text-[10px] font-semibold text-white ring-2 ring-white" style={{ zIndex: 5 - i }}>
-                      {initials}
-                    </div>
-                  ))}
-                </div>
-                <p className="text-xs text-muted">
-                  Vertrauen von <span className="font-semibold text-dark">200+ Unternehmen</span>
-                </p>
-              </div>
             </div>
 
             {/* Right — Dashboard */}
@@ -234,10 +221,10 @@ export default function SEOBeratungPage() {
             <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-16">
               <div className="lg:col-span-7 space-y-6">
                 <p className="text-muted text-base lg:text-lg leading-relaxed">
-                  Erst wenn wir Ihr Geschaeftsmodell, Ihre Zielgruppe und Ihre Wettbewerbssituation wirklich verstehen, koennen wir eine Strategie entwickeln, die funktioniert. Keine generischen Checklisten. Keine Standardloesungen, die fuer jeden Kunden gleich aussehen. Sondern ein massgeschneiderter Fahrplan, der zu Ihren Ressourcen, Ihrem Markt und Ihren Zielen passt.
+                  Erst wenn wir Ihr Geschäftsmodell, Ihre Zielgruppe und Ihre Wettbewerbssituation wirklich verstehen, können wir eine Strategie entwickeln, die funktioniert. Keine generischen Checklisten. Keine Standardlösungen, die für jeden Kunden gleich aussehen. Sondern ein massgeschneiderter Fahrplan, der zu Ihren Ressourcen, Ihrem Markt und Ihren Zielen passt.
                 </p>
                 <p className="text-muted text-base lg:text-lg leading-relaxed">
-                  Bei SeoForge analysieren wir nicht nur Ihre Website — wir analysieren die gesamte Customer Journey. Denn SEO ist kein isolierter Kanal. Es ist der Moment, in dem ein potenzieller Kunde aktiv nach einer Loesung sucht. Wer hier nicht sichtbar ist, verliert Geschaeft. Nicht irgendwann, sondern jetzt — bei jeder Suchanfrage, jeden Tag.
+                  Bei SeoForge analysieren wir nicht nur Ihre Website — wir analysieren die gesamte Customer Journey. Denn SEO ist kein isolierter Kanal. Es ist der Moment, in dem ein potenzieller Kunde aktiv nach einer Lösung sucht. Wer hier nicht sichtbar ist, verliert Geschäft. Nicht irgendwann, sondern jetzt — bei jeder Suchanfrage, jeden Tag.
                 </p>
               </div>
 
@@ -255,8 +242,8 @@ export default function SEOBeratungPage() {
                       "Warum ranken Ihre Wettbewerber besser?",
                       "Welche Inhalte sucht Ihre Zielgruppe wirklich?",
                       "Wo verlieren Sie Nutzer vor der Conversion?",
-                      "Welche Massnahmen bringen den groessten Return?",
-                      "Was koennen Sie intern umsetzen — und was nicht?",
+                      "Welche Maßnahmen bringen den groessten Return?",
+                      "Was können Sie intern umsetzen — und was nicht?",
                     ].map((q, i) => (
                       <li key={i} className="flex items-start gap-3 text-sm text-dark/80 leading-relaxed">
                         <span className="mt-0.5 text-primary font-bold font-[family-name:var(--font-heading)]">→</span>
@@ -316,7 +303,7 @@ export default function SEOBeratungPage() {
                     {[
                       { label: "Keyword-Chancen", value: "127", change: "+34", color: "text-primary" },
                       { label: "Techn. Fehler", value: "23", change: "kritisch", color: "text-red-500" },
-                      { label: "Content-Luecken", value: "41", change: "Seiten", color: "text-secondary" },
+                      { label: "Content-Lücken", value: "41", change: "Seiten", color: "text-secondary" },
                     ].map((m) => (
                       <div key={m.label} className="rounded-xl bg-white border border-border p-4">
                         <p className="text-[10px] text-muted uppercase tracking-wide mb-1">{m.label}</p>
@@ -332,16 +319,16 @@ export default function SEOBeratungPage() {
                   {/* Left: Priority matrix */}
                   <div className="lg:col-span-3 rounded-xl bg-white border border-border p-5">
                     <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-sm font-semibold text-dark">Massnahmen nach Impact priorisiert</h4>
+                      <h4 className="text-sm font-semibold text-dark">Maßnahmen nach Impact priorisiert</h4>
                       <span className="text-[10px] text-muted bg-offwhite px-2 py-1 rounded">Top 5</span>
                     </div>
                     <div className="space-y-2.5">
                       {[
                         { task: "Core Web Vitals: LCP von 4.2s auf <2.5s", impact: 95, tag: "Technik", tagColor: "bg-blue-100 text-blue-700" },
-                        { task: "Meta-Titles fuer 34 Hauptseiten optimieren", impact: 88, tag: "On-Page", tagColor: "bg-purple-100 text-purple-700" },
+                        { task: "Meta-Titles für 34 Hauptseiten optimieren", impact: 88, tag: "On-Page", tagColor: "bg-purple-100 text-purple-700" },
                         { task: "Content-Cluster 'Hauptkeyword' aufbauen", impact: 82, tag: "Content", tagColor: "bg-green-100 text-green-700" },
                         { task: "Interne Verlinkung: 12 verwaiste Seiten", impact: 74, tag: "Struktur", tagColor: "bg-orange-100 text-orange-700" },
-                        { task: "Schema Markup fuer Produkt-/FAQ-Seiten", impact: 68, tag: "Technik", tagColor: "bg-blue-100 text-blue-700" },
+                        { task: "Schema Markup für Produkt-/FAQ-Seiten", impact: 68, tag: "Technik", tagColor: "bg-blue-100 text-blue-700" },
                       ].map((item, i) => (
                         <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-offwhite/60 hover:bg-offwhite transition-colors">
                           <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary text-xs font-bold">
@@ -387,7 +374,7 @@ export default function SEOBeratungPage() {
                     </div>
 
                     <div className="rounded-xl bg-gradient-to-br from-primary/[0.06] to-secondary/[0.04] border border-primary/10 p-5">
-                      <h4 className="text-sm font-semibold text-dark mb-2">Geschaetztes Potenzial</h4>
+                      <h4 className="text-sm font-semibold text-dark mb-2">Geschätztes Potenzial</h4>
                       <p className="text-3xl font-bold text-primary font-[family-name:var(--font-heading)]">+340%</p>
                       <p className="text-xs text-muted">organischer Traffic in 12 Monaten</p>
                     </div>
@@ -408,7 +395,7 @@ export default function SEOBeratungPage() {
           <div className={`text-center mb-16 transition-all duration-700 ${compareInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-3">Der Unterschied</p>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">
-              Warum Strategie alles veraendert
+              Warum Strategie alles verändert
             </h2>
           </div>
 
@@ -426,11 +413,11 @@ export default function SEOBeratungPage() {
               </div>
               <ul className="space-y-4">
                 {[
-                  "Budget fuer Keywords ohne Geschaeftswert",
+                  "Budget für Keywords ohne Geschäftswert",
                   "Technische Fehler bremsen unsichtbar",
                   "Content ohne Suchintention erstellt",
-                  "Kein Ueberblick ueber Wettbewerber",
-                  "Massnahmen ohne Priorisierung",
+                  "Kein Ueberblick über Wettbewerber",
+                  "Maßnahmen ohne Priorisierung",
                   "Ergebnisse nicht messbar",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3 text-sm text-muted leading-relaxed">
@@ -458,10 +445,10 @@ export default function SEOBeratungPage() {
                 </div>
                 <ul className="space-y-4">
                   {[
-                    "Jede Massnahme datenbasiert begruendet",
+                    "Jede Maßnahme datenbasiert begründet",
                     "Technische Quick Wins sofort identifiziert",
                     "Content nach Suchintention geplant",
-                    "Wettbewerber-Luecken gezielt genutzt",
+                    "Wettbewerber-Lücken gezielt genutzt",
                     "Klare Roadmap nach Impact priorisiert",
                     "Fortschritt monatlich messbar",
                   ].map((item) => (
@@ -490,7 +477,7 @@ export default function SEOBeratungPage() {
               Das erhalten Sie von uns
             </h2>
             <p className="text-lg text-muted max-w-2xl">
-              Keine vagen Empfehlungen. Sondern Dokumente und Plaene, mit denen Ihr Team sofort arbeiten kann.
+              Keine vagen Empfehlungen. Sondern Dokumente und Pläne, mit denen Ihr Team sofort arbeiten kann.
             </p>
           </div>
 
@@ -499,7 +486,7 @@ export default function SEOBeratungPage() {
               {
                 num: "01",
                 title: "SEO-Audit Report",
-                desc: "200+ technische und inhaltliche Pruefpunkte, priorisiert nach Impact. Ihr Entwicklerteam kann sofort loslegen.",
+                desc: "200+ technische und inhaltliche Prüfpunkte, priorisiert nach Impact. Ihr Entwicklerteam kann sofort loslegen.",
                 icon: (
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z" /></svg>
                 ),
@@ -507,7 +494,7 @@ export default function SEOBeratungPage() {
               {
                 num: "02",
                 title: "Keyword-Strategie",
-                desc: "Recherchierte Keywords mit Suchvolumen, Wettbewerb und Suchintention — priorisiert nach Geschaeftswert.",
+                desc: "Recherchierte Keywords mit Suchvolumen, Wettbewerb und Suchintention — priorisiert nach Geschäftswert.",
                 icon: (
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" /></svg>
                 ),
@@ -515,7 +502,7 @@ export default function SEOBeratungPage() {
               {
                 num: "03",
                 title: "Wettbewerbsanalyse",
-                desc: "Ihre Top-Konkurrenten im Detail: deren Staerken, Schwaechen und die Luecken, die Sie nutzen koennen.",
+                desc: "Ihre Top-Konkurrenten im Detail: deren Stärken, Schwächen und die Lücken, die Sie nutzen können.",
                 icon: (
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" /></svg>
                 ),
@@ -523,7 +510,7 @@ export default function SEOBeratungPage() {
               {
                 num: "04",
                 title: "SEO-Roadmap",
-                desc: "Massnahmenplan mit Timelines, Verantwortlichkeiten und erwarteten Ergebnissen fuer 6–12 Monate.",
+                desc: "Massnahmenplan mit Timelines, Verantwortlichkeiten und erwarteten Ergebnissen für 6–12 Monate.",
                 icon: (
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" /></svg>
                 ),
@@ -556,7 +543,7 @@ export default function SEOBeratungPage() {
               Unsere Beratungsdisziplinen im Detail
             </h2>
             <p className="text-lg text-muted max-w-3xl">
-              Jedes Unternehmen hat andere SEO-Herausforderungen. Deshalb beraten wir nicht nach Schema — sondern in den Disziplinen, die fuer Sie den groessten Unterschied machen.
+              Jedes Unternehmen hat andere SEO-Herausforderungen. Deshalb beraten wir nicht nach Schema — sondern in den Disziplinen, die für Sie den groessten Unterschied machen.
             </p>
           </div>
 
@@ -564,26 +551,26 @@ export default function SEOBeratungPage() {
             {[
               {
                 title: "Strategische Keyword-Beratung",
-                desc: "Keyword-Recherche ist weit mehr als Suchvolumen pruefen. Wir analysieren die Suchintention hinter jedem Begriff, bewerten die realistische Ranking-Chance und ordnen Keywords nach ihrem tatsaechlichen Geschaeftswert ein — nicht nach Vanity-Metriken.",
-                desc2: "Das Ergebnis ist eine Keyword-Strategie, die Ihren Sales-Funnel abbildet: von informationalen Suchbegriffen, die Awareness schaffen, ueber Vergleichs-Keywords bis hin zu transaktionalen Begriffen, die direkt zu Conversions fuehren.",
+                desc: "Keyword-Recherche ist weit mehr als Suchvolumen prüfen. Wir analysieren die Suchintention hinter jedem Begriff, bewerten die realistische Ranking-Chance und ordnen Keywords nach ihrem tatsächlichen Geschäftswert ein — nicht nach Vanity-Metriken.",
+                desc2: "Das Ergebnis ist eine Keyword-Strategie, die Ihren Sales-Funnel abbildet: von informationalen Suchbegriffen, die Awareness schaffen, über Vergleichs-Keywords bis hin zu transaktionalen Begriffen, die direkt zu Conversions führen.",
                 items: ["Suchintentions-Mapping", "Keyword-Clustering nach Themen", "Commercial vs. Informational Priorisierung", "Long-Tail-Strategie", "Kannibalisierungs-Analyse", "Saisonale Keyword-Planung"],
               },
               {
                 title: "Technische SEO-Beratung",
                 desc: "Technische Probleme sind oft die unsichtbaren Bremsen Ihrer Rankings. Seiten, die Google nicht crawlen kann, werden nicht indexiert. Seiten, die zu langsam laden, verlieren Nutzer und Rankings. Fehlerhafte Weiterleitungen verwirren Suchmaschinen und Besucher gleichermassen.",
-                desc2: "Unser technisches Audit geht ueber Standard-Tools hinaus. Wir analysieren Crawl-Logs, pruefen JavaScript-Rendering, bewerten Ihre Website-Architektur und liefern Ihrem Entwicklungsteam einen priorisierten Aktionsplan mit exakten Anweisungen.",
+                desc2: "Unser technisches Audit geht über Standard-Tools hinaus. Wir analysieren Crawl-Logs, prüfen JavaScript-Rendering, bewerten Ihre Website-Architektur und liefern Ihrem Entwicklungsteam einen priorisierten Aktionsplan mit exakten Anweisungen.",
                 items: ["Core Web Vitals & Page Speed", "Crawl-Budget-Optimierung", "JavaScript-Rendering-Analyse", "Schema Markup Strategie", "Migration & Relaunch Planung", "Server-Log-Analyse"],
               },
               {
                 title: "Content-Strategie & Redaktion",
-                desc: "Content ohne Strategie ist wie eine Bibliothek ohne Ordnungssystem — viel Material, aber niemand findet, was er sucht. Wir entwickeln Content-Strategien, die auf Topic-Cluster-Architektur basieren und Ihre thematische Autoritaet systematisch aufbauen.",
-                desc2: "Dabei geht es nicht nur um neue Inhalte. Oft liegt das groesste Potenzial in der Optimierung bestehender Seiten: Content-Pruning, Zusammenlegung kannibalisierender Seiten und die Aktualisierung veralteter Artikel koennen schneller wirken als jeder neue Blogpost.",
-                items: ["Topic-Cluster-Architektur", "Content-Audit & Pruning-Plan", "E-E-A-T-Optimierung", "Briefing-Templates fuer Texter", "Redaktionskalender-Entwicklung", "Content-Gap-Analyse vs. Wettbewerb"],
+                desc: "Content ohne Strategie ist wie eine Bibliothek ohne Ordnungssystem — viel Material, aber niemand findet, was er sucht. Wir entwickeln Content-Strategien, die auf Topic-Cluster-Architektur basieren und Ihre thematische Autorität systematisch aufbauen.",
+                desc2: "Dabei geht es nicht nur um neue Inhalte. Oft liegt das groesste Potenzial in der Optimierung bestehender Seiten: Content-Pruning, Zusammenlegung kannibalisierender Seiten und die Aktualisierung veralteter Artikel können schneller wirken als jeder neue Blogpost.",
+                items: ["Topic-Cluster-Architektur", "Content-Audit & Pruning-Plan", "E-E-A-T-Optimierung", "Briefing-Templates für Texter", "Redaktionskalender-Entwicklung", "Content-Gap-Analyse vs. Wettbewerb"],
               },
               {
                 title: "Wettbewerbs- & Marktanalyse",
-                desc: "Ihre Rankings existieren nicht im Vakuum. Wer Ihre Konkurrenten sind, was sie gut machen und wo sie Schwaechen haben, bestimmt Ihre eigene Strategie. Wir analysieren nicht nur deren Keywords und Backlinks, sondern auch deren Content-Strategie und SERP-Positionierung.",
-                desc2: "Daraus leiten wir konkrete Chancen ab: Keywords, fuer die Ihre Wettbewerber ranken und Sie nicht. Content-Formate, die in Ihrer Branche funktionieren. Backlink-Quellen, die auch fuer Sie erreichbar sind. Und SERP-Features, die Sie gezielt besetzen koennen.",
+                desc: "Ihre Rankings existieren nicht im Vakuum. Wer Ihre Konkurrenten sind, was sie gut machen und wo sie Schwächen haben, bestimmt Ihre eigene Strategie. Wir analysieren nicht nur deren Keywords und Backlinks, sondern auch deren Content-Strategie und SERP-Positionierung.",
+                desc2: "Daraus leiten wir konkrete Chancen ab: Keywords, für die Ihre Wettbewerber ranken und Sie nicht. Content-Formate, die in Ihrer Branche funktionieren. Backlink-Quellen, die auch für Sie erreichbar sind. Und SERP-Features, die Sie gezielt besetzen können.",
                 items: ["Competitor Keyword-Gap-Analyse", "Backlink-Profil-Vergleich", "Content-Strategie der Wettbewerber", "SERP-Feature-Opportunities", "Share of Voice Tracking", "Markteintritts- & Nischenanalyse"],
               },
             ].map((disc, i) => (
@@ -664,10 +651,10 @@ export default function SEOBeratungPage() {
                 <div className="order-1 lg:order-2">
                   <div className="text-5xl lg:text-6xl font-bold text-primary/20 mb-2 font-[family-name:var(--font-heading)]">01</div>
                   <h3 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark mb-4">
-                    Erstgespraech & Bedarfsanalyse
+                    Erstgespräch & Bedarfsanalyse
                   </h3>
                   <p className="text-base lg:text-lg text-muted leading-relaxed">
-                    Alles beginnt mit Zuhoeren. In einem kostenlosen Gespraech lernen wir Ihr Unternehmen, Ihre Ziele und Ihre Herausforderungen kennen. Wir stellen die richtigen Fragen, um den Beratungsbedarf praezise zu definieren — kein Verkaufsdruck, nur ehrliche Einschaetzung.
+                    Alles beginnt mit Zuhoeren. In einem kostenlosen Gespräch lernen wir Ihr Unternehmen, Ihre Ziele und Ihre Herausforderungen kennen. Wir stellen die richtigen Fragen, um den Beratungsbedarf präzise zu definieren — kein Verkaufsdruck, nur ehrliche Einschätzung.
                   </p>
                 </div>
               </div>
@@ -683,7 +670,7 @@ export default function SEOBeratungPage() {
                     Umfassendes SEO-Audit
                   </h3>
                   <p className="text-base lg:text-lg text-muted leading-relaxed">
-                    Wir analysieren Ihre Website auf ueber 200 technische, inhaltliche und strategische Faktoren. Gleichzeitig untersuchen wir Ihre Keyword-Landschaft und bewerten Ihren Wettbewerb. Das Ergebnis: eine datenbasierte Diagnose Ihrer SEO-Situation mit klarer Priorisierung.
+                    Wir analysieren Ihre Website auf über 200 technische, inhaltliche und strategische Faktoren. Gleichzeitig untersuchen wir Ihre Keyword-Landschaft und bewerten Ihren Wettbewerb. Das Ergebnis: eine datenbasierte Diagnose Ihrer SEO-Situation mit klarer Priorisierung.
                   </p>
                 </div>
                 <div className="flex justify-center lg:justify-end order-2">
@@ -748,7 +735,7 @@ export default function SEOBeratungPage() {
                     Strategieworkshop & Roadmap
                   </h3>
                   <p className="text-base lg:text-lg text-muted leading-relaxed">
-                    In einem persoenlichen Workshop praesentieren wir die Audit-Ergebnisse und entwickeln gemeinsam Ihre SEO-Strategie. Sie erhalten eine klare Roadmap mit Meilensteinen, Priorisierung nach Impact und konkreten Handlungsempfehlungen, die Ihr Team direkt umsetzen kann.
+                    In einem persönlichen Workshop präsentieren wir die Audit-Ergebnisse und entwickeln gemeinsam Ihre SEO-Strategie. Sie erhalten eine klare Roadmap mit Meilensteinen, Priorisierung nach Impact und konkreten Handlungsempfehlungen, die Ihr Team direkt umsetzen kann.
                   </p>
                 </div>
               </div>
@@ -764,7 +751,7 @@ export default function SEOBeratungPage() {
                     Begleitung & Erfolgskontrolle
                   </h3>
                   <p className="text-base lg:text-lg text-muted leading-relaxed">
-                    Auf Wunsch begleiten wir die Umsetzung: regelmaessige Review-Calls, Fortschritts-Monitoring und Strategie-Anpassungen bei Google-Updates oder Marktveraenderungen. So stellen wir sicher, dass Ihre SEO-Massnahmen nachhaltig wirken.
+                    Auf Wunsch begleiten wir die Umsetzung: regelmäßige Review-Calls, Fortschritts-Monitoring und Strategie-Anpassungen bei Google-Updates oder Marktveränderungen. So stellen wir sicher, dass Ihre SEO-Maßnahmen nachhaltig wirken.
                   </p>
                 </div>
                 <div className="flex justify-center lg:justify-end order-2">
@@ -809,10 +796,10 @@ export default function SEOBeratungPage() {
             <div className="lg:col-span-5">
               <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Warum SeoForge</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark mb-6 leading-tight">
-                Beratung, die Ihr Team staerker macht
+                Beratung, die Ihr Team stärker macht
               </h2>
               <p className="text-muted text-base lg:text-lg leading-relaxed mb-8">
-                Wir machen Sie nicht abhaengig — wir machen Sie kompetent. Unsere Beratung zielt darauf ab, dass Ihr Team SEO versteht und eigenstaendig umsetzen kann. Natuerlich sind wir da, wenn Sie Unterstuetzung brauchen.
+                Wir machen Sie nicht abhängig — wir machen Sie kompetent. Unsere Beratung zielt darauf ab, dass Ihr Team SEO versteht und eigenständig umsetzen kann. Natürlich sind wir da, wenn Sie Unterstuetzung brauchen.
               </p>
 
               {/* Quote */}
@@ -824,7 +811,7 @@ export default function SEOBeratungPage() {
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white text-sm font-bold">JH</div>
                   <div>
                     <p className="text-sm font-semibold text-dark">Joel Heuchert</p>
-                    <p className="text-xs text-muted">CEO & Gruender</p>
+                    <p className="text-xs text-muted">CEO & Gründer</p>
                   </div>
                 </div>
               </div>
@@ -833,9 +820,9 @@ export default function SEOBeratungPage() {
             <div className="lg:col-span-7 grid sm:grid-cols-2 gap-5">
               {[
                 { title: "Direkter Draht zum Experten", desc: "Kein Account-Manager dazwischen. Sie sprechen direkt mit dem SEO-Strategen, der Ihr Projekt kennt.", icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg> },
-                { title: "Daten, keine Meinungen", desc: "Jede Empfehlung ist durch Daten begruendet. Kein Bauchgefuehl, keine Trends — nur messbare Fakten.", icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" /></svg> },
+                { title: "Daten, keine Meinungen", desc: "Jede Empfehlung ist durch Daten begründet. Kein Bauchgefühl, keine Trends — nur messbare Fakten.", icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" /></svg> },
                 { title: "Branchenwissen", desc: "200+ Projekte in diversen Branchen. Wir bringen Best Practices mit, ohne alles bei Null zu beginnen.", icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" /></svg> },
-                { title: "Ehrlich & transparent", desc: "Wir sagen Ihnen, was machbar ist — und was nicht. Keine uebertriebenen Versprechen, keine versteckten Kosten.", icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg> },
+                { title: "Ehrlich & transparent", desc: "Wir sagen Ihnen, was machbar ist — und was nicht. Keine übertriebenen Versprechen, keine versteckten Kosten.", icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg> },
               ].map((card, i) => (
                 <div key={card.title} className="rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/[0.03]">
                   <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/[0.08] text-primary">
@@ -858,7 +845,7 @@ export default function SEOBeratungPage() {
           <div className={`text-center mb-14 transition-all duration-700 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">FAQ</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">
-              Haeufig gestellte Fragen
+              Häufig gestellte Fragen
             </h2>
           </div>
 
@@ -893,16 +880,16 @@ export default function SEOBeratungPage() {
             <div>
               <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Jetzt starten</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-6 leading-tight">
-                Bereit fuer mehr<br />Sichtbarkeit?
+                Bereit für mehr<br />Sichtbarkeit?
               </h2>
               <p className="text-lg text-muted leading-relaxed mb-8">
-                Lassen Sie uns in einem kostenlosen Erstgespraech herausfinden, wie wir Ihr Unternehmen in den Suchergebnissen nach vorne bringen koennen. Keine Verpflichtungen — nur ehrliche Einschaetzungen.
+                Lassen Sie uns in einem kostenlosen Erstgespräch herausfinden, wie wir Ihr Unternehmen in den Suchergebnissen nach vorne bringen können. Keine Verpflichtungen — nur ehrliche Einschätzungen.
               </p>
 
               {/* Three promises */}
               <div className="space-y-4">
                 {[
-                  { title: "Kostenlose Erstanalyse Ihrer Website", desc: "Wir pruefen Ihre aktuelle SEO-Situation und zeigen erste Potenziale auf." },
+                  { title: "Kostenlose Erstanalyse Ihrer Website", desc: "Wir prüfen Ihre aktuelle SEO-Situation und zeigen erste Potenziale auf." },
                   { title: "Individueller SEO-Massnahmenplan", desc: "Kein Standardpaket — sondern Empfehlungen, die zu Ihrem Unternehmen passen." },
                   { title: "Transparente Preise ohne versteckte Kosten", desc: "Sie wissen vorher, was es kostet. Keine Ueberraschungen." },
                 ].map((item, i) => (
@@ -925,7 +912,7 @@ export default function SEOBeratungPage() {
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-white">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>
                 </div>
-                <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-dark mb-2">Gespraech vereinbaren</h3>
+                <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-dark mb-2">Gespräch vereinbaren</h3>
                 <p className="text-sm text-muted">Kostenlos und unverbindlich</p>
               </div>
 
@@ -934,7 +921,7 @@ export default function SEOBeratungPage() {
                   href="/kontakt"
                   className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-semibold text-white shadow-lg shadow-primary/20 hover:bg-primary-dark hover:shadow-xl transition-all"
                 >
-                  Erstgespraech anfragen
+                  Erstgespräch anfragen
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                 </Link>
                 <a
@@ -969,10 +956,10 @@ export default function SEOBeratungPage() {
           <div className="text-center mb-12">
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Kontakt</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark mb-4">
-              Erstgespraech vereinbaren
+              Erstgespräch vereinbaren
             </h2>
             <p className="text-lg text-muted">
-              Fuellen Sie das Formular aus — wir melden uns innerhalb von 24 Stunden.
+              Füllen Sie das Formular aus — wir melden uns innerhalb von 24 Stunden.
             </p>
           </div>
 

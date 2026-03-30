@@ -100,12 +100,12 @@ function StrategyMockup() {
 }
 
 const faqs = [
-  { q: "Was kostet eine SEO Content Strategie?", a: "Eine initiale Strategieentwicklung startet ab 3.000 Euro. Laufende Content-Planung und -Begleitung ab 1.500 Euro monatlich. Im Erstgespraech klaeren wir Ihren Bedarf." },
+  { q: "Was kostet eine SEO Content Strategie?", a: "Eine initiale Strategieentwicklung startet ab 3.000 Euro. Laufende Content-Planung und -Begleitung ab 1.500 Euro monatlich. Im Erstgespräch klären wir Ihren Bedarf." },
   { q: "Wie lange dauert die Strategieentwicklung?", a: "Die initiale Strategie steht nach 2–3 Wochen: Keyword-Recherche, Cluster-Planung, Redaktionskalender. Danach beginnt die laufende Content-Produktion." },
-  { q: "Schreibt ihr die Inhalte auch?", a: "Ja — oder wir liefern Briefings fuer Ihr Team. Beides ist moeglich. Die Strategie definiert Was und Warum, die Umsetzung koennen wir komplett uebernehmen." },
+  { q: "Schreibt ihr die Inhalte auch?", a: "Ja — oder wir liefern Briefings für Ihr Team. Beides ist moeglich. Die Strategie definiert Was und Warum, die Umsetzung können wir komplett übernehmen." },
   { q: "Wie schnell sehe ich Ergebnisse?", a: "Erste Rankings nach 2–3 Monaten, signifikanter Traffic-Aufbau nach 4–6 Monaten. Content-SEO ist ein Flywheel — je mehr guter Content, desto schneller das Wachstum." },
-  { q: "Was ist ein Topic Cluster?", a: "Ein Pillar-Artikel als zentraler Hub, umgeben von spezifischen Cluster-Artikeln die alle intern verlinkt sind. Baut thematische Autoritaet auf und staerkt Rankings fuer das gesamte Themenfeld." },
-  { q: "Brauche ich einen Blog dafuer?", a: "Nicht zwingend. Content-Strategie umfasst auch Service-Seiten, FAQ-Sektionen, Kategorietexte und Landing Pages. Ein Blog ist ein gutes Werkzeug, aber nicht das einzige." },
+  { q: "Was ist ein Topic Cluster?", a: "Ein Pillar-Artikel als zentraler Hub, umgeben von spezifischen Cluster-Artikeln die alle intern verlinkt sind. Baut thematische Autorität auf und stärkt Rankings für das gesamte Themenfeld." },
+  { q: "Brauche ich einen Blog dafür?", a: "Nicht zwingend. Content-Strategie umfasst auch Service-Seiten, FAQ-Sektionen, Kategorietexte und Landing Pages. Ein Blog ist ein gutes Werkzeug, aber nicht das einzige." },
 ];
 
 export default function SeoContentStrategiePage() {
@@ -139,7 +139,7 @@ export default function SeoContentStrategiePage() {
                 Content, der ein{" "}<span className="text-primary">System</span> hat
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted hero-description">
-                Keine zufaelligen Blog-Artikel. Sondern eine datengetriebene Content-Architektur aus Topic Clusters, Keyword-Mapping und redaktioneller Planung — die organischen Traffic planbar macht.
+                Keine zufälligen Blog-Artikel. Sondern eine datengetriebene Content-Architektur aus Topic Clusters, Keyword-Mapping und redaktioneller Planung — die organischen Traffic planbar macht.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 animate-fade-up" style={{ animationDelay: "0.4s" }}>
                 {["Topic Clusters", "Keyword Mapping", "Redaktionskalender"].map((p) => (
@@ -151,7 +151,7 @@ export default function SeoContentStrategiePage() {
               </div>
               <div className="mt-10 flex flex-wrap gap-4 hero-cta">
                 <Link href="/kontakt" className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark hover:shadow-xl">
-                  Strategie-Gespraech buchen
+                  Strategie-Gespräch buchen
                   <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" /></svg>
                 </Link>
                 <Link href="#framework" className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold text-dark transition-all hover:border-primary/30 hover:text-primary">
@@ -164,7 +164,7 @@ export default function SeoContentStrategiePage() {
                     <div key={init} className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary/80 to-secondary/80 text-[10px] font-semibold text-white ring-2 ring-white" style={{ zIndex: 5 - i }}>{init}</div>
                   ))}
                 </div>
-                <p className="text-xs text-muted">Ueber <span className="font-semibold text-dark">150 Content-Strategien</span> entwickelt</p>
+                <p className="text-xs text-muted">Über <span className="font-semibold text-dark">150 Content-Strategien</span> entwickelt</p>
               </div>
             </div>
             <StrategyMockup />
@@ -194,7 +194,7 @@ export default function SeoContentStrategiePage() {
                 Content ohne Strategie ist wie eine <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Bibliothek ohne System</span>
               </h2>
               <p className="text-lg lg:text-xl text-muted leading-relaxed">
-                Viel Material, aber niemand findet was er sucht. Eine SEO Content Strategie bringt Ordnung: Welche Themen, fuer wen, in welcher Reihenfolge, mit welchem Ziel. Datengetrieben statt aus dem Bauch.
+                Viel Material, aber niemand findet was er sucht. Eine SEO Content Strategie bringt Ordnung: Welche Themen, für wen, in welcher Reihenfolge, mit welchem Ziel. Datengetrieben statt aus dem Bauch.
               </p>
             </div>
 
@@ -205,7 +205,7 @@ export default function SeoContentStrategiePage() {
                 <div className="flex items-center gap-2 mb-6"><div className="w-2.5 h-2.5 rounded-full bg-red-400" /><span className="text-sm font-semibold text-red-500">Ohne Content-Strategie</span></div>
                 <div className="space-y-3 mb-6">
                   {[
-                    "Zufaellige Blog-Artikel ohne Zusammenhang",
+                    "Zufällige Blog-Artikel ohne Zusammenhang",
                     "Keywords die sich gegenseitig kannibalisieren",
                     "Kein Ueberblick welcher Content fehlt",
                     "Traffic stagniert trotz neuer Inhalte",
@@ -234,8 +234,8 @@ export default function SeoContentStrategiePage() {
                   {[
                     "Topic Clusters mit klarer Verlinkung",
                     "Jedes Keyword einer Seite zugeordnet",
-                    "Content-Luecken systematisch gefuellt",
-                    "Organischer Traffic waechst monatlich",
+                    "Content-Lücken systematisch gefüllt",
+                    "Organischer Traffic wächst monatlich",
                     "Jeder Artikel hat messbaren Business-Impact",
                   ].map((item) => (
                     <div key={item} className="flex items-start gap-2.5 text-sm text-dark/80">
@@ -271,8 +271,8 @@ export default function SeoContentStrategiePage() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className={`text-center mb-16 transition-all duration-700 ${pillarsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Das Framework</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">4 Saeulen — ein System</h2>
-            <p className="text-lg text-muted max-w-2xl mx-auto">Jede Saeule fuettert die naechste. Am Ende steht ein Content-Flywheel, das mit jeder Runde staerker wird.</p>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">4 Säulen — ein System</h2>
+            <p className="text-lg text-muted max-w-2xl mx-auto">Jede Säule füttert die nächste. Am Ende steht ein Content-Flywheel, das mit jeder Runde stärker wird.</p>
           </div>
 
           <div className={`relative transition-all duration-700 delay-200 ${pillarsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
@@ -304,7 +304,7 @@ export default function SeoContentStrategiePage() {
             <div className="mt-10 flex justify-center">
               <div className="inline-flex items-center gap-2 rounded-full bg-white border border-border px-5 py-2.5 shadow-sm">
                 <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
-                <span className="text-sm text-dark font-medium">Jede Runde staerker — das Content-Flywheel</span>
+                <span className="text-sm text-dark font-medium">Jede Runde stärker — das Content-Flywheel</span>
               </div>
             </div>
           </div>
@@ -317,7 +317,7 @@ export default function SeoContentStrategiePage() {
           <div className={`mb-14 transition-all duration-700 ${typesInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Der Content-Mix</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">6 Formate, ein Ziel: Traffic der bleibt</h2>
-            <p className="text-lg text-muted max-w-2xl">Jedes Format erfuellt eine andere Funktion in Ihrem Content-Oekosystem. Wir planen den richtigen Mix.</p>
+            <p className="text-lg text-muted max-w-2xl">Jedes Format erfüllt eine andere Funktion in Ihrem Content-Ökosystem. Wir planen den richtigen Mix.</p>
           </div>
 
           <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-5 transition-all duration-700 delay-200 ${typesInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
@@ -330,16 +330,16 @@ export default function SeoContentStrategiePage() {
                 <span className="text-xs font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-full">ANKER</span>
               </div>
               <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-dark mb-2">Pillar Pages</h3>
-              <p className="text-muted leading-relaxed">3000+ Woerter Hub-Seiten zu Ihren Kernthemen. Der zentrale Anker jedes Topic Clusters. Alle Cluster-Artikel verlinken hierhin — und bauen so thematische Autoritaet auf.</p>
+              <p className="text-muted leading-relaxed">3000+ Wörter Hub-Seiten zu Ihren Kernthemen. Der zentrale Anker jedes Topic Clusters. Alle Cluster-Artikel verlinken hierhin — und bauen so thematische Autorität auf.</p>
             </div>
 
             {/* Remaining formats — normal cards */}
             {[
-              { title: "Blog-Artikel", tag: "Traffic", desc: "Long-Tail-Keywords targetieren. 1500–2000 Woerter. Verlinkt zur Pillar Page." },
+              { title: "Blog-Artikel", tag: "Traffic", desc: "Long-Tail-Keywords targetieren. 1500–2000 Wörter. Verlinkt zur Pillar Page." },
               { title: "Landing Pages", tag: "Conversion", desc: "Kommerzielle Keywords. Aus organischem Traffic werden Anfragen und Kunden." },
-              { title: "FAQ-Seiten", tag: "Quick Win", desc: "Featured Snippet optimiert. Schnelle Rankings fuer Frage-Keywords." },
-              { title: "Case Studies", tag: "Trust", desc: "Messbarer Erfolg als Content. Baut Vertrauen und rankt fuer Long-Tail." },
-              { title: "Guides & Tools", tag: "Backlinks", desc: "Umfassende Evergreen-Assets die natuerlich Backlinks anziehen." },
+              { title: "FAQ-Seiten", tag: "Quick Win", desc: "Featured Snippet optimiert. Schnelle Rankings für Frage-Keywords." },
+              { title: "Case Studies", tag: "Trust", desc: "Messbarer Erfolg als Content. Baut Vertrauen und rankt für Long-Tail." },
+              { title: "Guides & Tools", tag: "Backlinks", desc: "Umfassende Evergreen-Assets die natürlich Backlinks anziehen." },
             ].map((type) => (
               <div key={type.title} className="rounded-2xl border border-border bg-offwhite/30 p-6 transition-all duration-300 hover:bg-white hover:shadow-lg hover:border-primary/20">
                 <div className="flex items-center justify-between mb-3">
@@ -359,15 +359,15 @@ export default function SeoContentStrategiePage() {
           <div className={`text-center mb-16 transition-all duration-700 ${processInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Der Ablauf</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">Von der Analyse zum ersten Artikel</h2>
-            <p className="text-lg text-muted max-w-2xl mx-auto">Fuenf Schritte. Am Ende steht ein Redaktionsplan, mit dem Ihr Team sofort loslegen kann.</p>
+            <p className="text-lg text-muted max-w-2xl mx-auto">Fünf Schritte. Am Ende steht ein Redaktionsplan, mit dem Ihr Team sofort loslegen kann.</p>
           </div>
 
           {/* Funnel-style: widest at top, narrowest at bottom */}
           <div className={`transition-all duration-700 delay-200 ${processInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <div className="space-y-3">
               {[
-                { num: "01", title: "Zielgruppe & Markt analysieren", desc: "Wer sucht was? In welcher Phase? Pain Points und Content-Luecken aufdecken.", width: "lg:max-w-full", color: "border-l-primary", bg: "bg-white" },
-                { num: "02", title: "Keyword-Universum aufbauen", desc: "Alle relevanten Keywords clustern, Suchintention definieren, nach Geschaeftswert priorisieren.", width: "lg:max-w-[92%] lg:mx-auto", color: "border-l-secondary", bg: "bg-white" },
+                { num: "01", title: "Zielgruppe & Markt analysieren", desc: "Wer sucht was? In welcher Phase? Pain Points und Content-Lücken aufdecken.", width: "lg:max-w-full", color: "border-l-primary", bg: "bg-white" },
+                { num: "02", title: "Keyword-Universum aufbauen", desc: "Alle relevanten Keywords clustern, Suchintention definieren, nach Geschäftswert priorisieren.", width: "lg:max-w-[92%] lg:mx-auto", color: "border-l-secondary", bg: "bg-white" },
                 { num: "03", title: "Topic Clusters definieren", desc: "Keywords zu Clustern gruppieren. Pillar Pages festlegen. Verlinkungsarchitektur planen.", width: "lg:max-w-[84%] lg:mx-auto", color: "border-l-primary", bg: "bg-white" },
                 { num: "04", title: "Redaktionskalender erstellen", desc: "Content-Pieces nach Impact priorisieren. Timelines, Verantwortlichkeiten, Quick Wins.", width: "lg:max-w-[76%] lg:mx-auto", color: "border-l-secondary", bg: "bg-white" },
                 { num: "05", title: "Produzieren & messen", desc: "Content erstellen, SEO-optimieren, intern verlinken. Ergebnisse tracken und iterieren.", width: "lg:max-w-[68%] lg:mx-auto", color: "border-l-primary", bg: "bg-gradient-to-r from-primary/[0.04] to-secondary/[0.02]" },
@@ -405,7 +405,7 @@ export default function SeoContentStrategiePage() {
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           <div className={`text-center mb-14 transition-all duration-700 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">FAQ</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Haeufig gestellte Fragen</h2>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Häufig gestellte Fragen</h2>
           </div>
           <div className={`space-y-3 transition-all duration-700 delay-100 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             {faqs.map((faq, i) => (
@@ -426,7 +426,7 @@ export default function SeoContentStrategiePage() {
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           <div className="text-center mb-12">
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Kontakt</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark mb-4">Strategie-Gespraech buchen</h2>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark mb-4">Strategie-Gespräch buchen</h2>
             <p className="text-lg text-muted">Wir analysieren Ihre Content-Situation und zeigen, wo die groessten Potenziale liegen.</p>
           </div>
           <div className="rounded-3xl border border-border bg-white p-8 lg:p-10 shadow-sm">
@@ -437,7 +437,7 @@ export default function SeoContentStrategiePage() {
               </div>
               <div><label htmlFor="cs-url" className="block text-sm font-medium text-dark mb-2">Website</label><input type="url" id="cs-url" name="website" className="w-full px-4 py-3 rounded-xl border border-border bg-white text-dark placeholder:text-muted outline-none transition-colors focus:border-primary/50 focus:ring-2 focus:ring-primary/10" placeholder="https://ihre-website.de" /></div>
               <div><label htmlFor="cs-msg" className="block text-sm font-medium text-dark mb-2">Was ist Ihr Content-Ziel? (optional)</label><textarea id="cs-msg" name="message" rows={3} className="w-full resize-none px-4 py-3 rounded-xl border border-border bg-white text-dark placeholder:text-muted outline-none transition-colors focus:border-primary/50 focus:ring-2 focus:ring-primary/10" placeholder="Mehr Traffic, bessere Rankings, Content-Plan..." /></div>
-              <button type="submit" className="w-full rounded-full bg-primary px-6 py-4 text-base font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/20">Gespraech anfragen</button>
+              <button type="submit" className="w-full rounded-full bg-primary px-6 py-4 text-base font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/20">Gespräch anfragen</button>
               <p className="text-center text-xs text-muted">* Pflichtfelder | Antwort innerhalb von 24 Stunden</p>
             </form>
           </div>

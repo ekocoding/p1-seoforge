@@ -96,12 +96,12 @@ function OnPageMockup() {
 /*  FAQ                                                                */
 /* ------------------------------------------------------------------ */
 const faqs = [
-  { q: "Was kostet On Page Optimierung?", a: "Einmalige Projekte ab 1.500 Euro, laufende Optimierung ab 990 Euro monatlich. Der Preis richtet sich nach Seitenanzahl und Komplexitaet." },
+  { q: "Was kostet On Page Optimierung?", a: "Einmalige Projekte ab 1.500 Euro, laufende Optimierung ab 990 Euro monatlich. Der Preis richtet sich nach Seitenanzahl und Komplexität." },
   { q: "Wie schnell sehe ich Ergebnisse?", a: "Technische Fixes wirken oft innerhalb von Wochen. Content- und Struktur-Optimierungen zeigen sich nach 2–4 Monaten in besseren Rankings." },
   { q: "Unterschied zu einem SEO Audit?", a: "Ein Audit ist die Diagnose, On-Page Optimierung die Therapie. Wir setzen konkret um: Meta-Tags, Headings, Verlinkung, Speed." },
-  { q: "Optimiert ihr auch bestehende Inhalte?", a: "Ja. Oft liegt das groesste Potenzial in vorhandenen Seiten: bessere Keywords, ueberarbeitete Headings, aktualisierte Meta-Daten." },
-  { q: "Arbeitet ihr direkt in meinem CMS?", a: "Bei WordPress, Shopify oder Typo3 setzen wir direkt um. Bei Custom-Systemen liefern wir detaillierte Anweisungen fuer Ihr Team." },
-  { q: "Brauche ich laufende Optimierung?", a: "Fuer einmalige Projekte reicht ein Durchgang. Bei regelmaessig neuem Content empfehlen wir laufende Optimierung." },
+  { q: "Optimiert ihr auch bestehende Inhalte?", a: "Ja. Oft liegt das groesste Potenzial in vorhandenen Seiten: bessere Keywords, überarbeitete Headings, aktualisierte Meta-Daten." },
+  { q: "Arbeitet ihr direkt in meinem CMS?", a: "Bei WordPress, Shopify oder Typo3 setzen wir direkt um. Bei Custom-Systemen liefern wir detaillierte Anweisungen für Ihr Team." },
+  { q: "Brauche ich laufende Optimierung?", a: "Für einmalige Projekte reicht ein Durchgang. Bei regelmäßig neuem Content empfehlen wir laufende Optimierung." },
 ];
 
 /* ================================================================== */
@@ -137,14 +137,14 @@ export default function OnPageOptimierungPage() {
                 Technische Perfektion
               </div>
               <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl leading-[1.18] text-dark font-[family-name:var(--font-heading)]">
-                Jedes Element zaehlt.{" "}
+                Jedes Element zählt.{" "}
                 <span className="text-primary">On Page Optimierung.</span>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted hero-description">
-                Title-Tags, Headings, interne Links, Ladezeiten, Alt-Texte — wir optimieren jedes Signal, das Google von Ihrer Seite liest. Systematisch, gruendlich und messbar.
+                Title-Tags, Headings, interne Links, Ladezeiten, Alt-Texte — wir optimieren jedes Signal, das Google von Ihrer Seite liest. Systematisch, gründlich und messbar.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 animate-fade-up" style={{ animationDelay: "0.4s" }}>
-                {["200+ Pruefpunkte", "Score 96+", "Direkte Umsetzung"].map((p) => (
+                {["200+ Prüfpunkte", "Score 96+", "Direkte Umsetzung"].map((p) => (
                   <div key={p} className="flex items-center gap-2">
                     <svg className="h-4 w-4 text-primary shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
                     <span className="text-sm text-muted">{p}</span>
@@ -159,14 +159,6 @@ export default function OnPageOptimierungPage() {
                 <Link href="#map" className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold text-dark transition-all hover:border-primary/30 hover:text-primary">
                   Was wir optimieren
                 </Link>
-              </div>
-              <div className="mt-8 flex items-center gap-3 animate-fade-up" style={{ animationDelay: "0.6s" }}>
-                <div className="flex -space-x-2">
-                  {["TK", "SM", "JR", "AH", "PW"].map((init, i) => (
-                    <div key={init} className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary/80 to-secondary/80 text-[10px] font-semibold text-white ring-2 ring-white" style={{ zIndex: 5 - i }}>{init}</div>
-                  ))}
-                </div>
-                <p className="text-xs text-muted">Ueber <span className="font-semibold text-dark">200+ Websites</span> optimiert</p>
               </div>
             </div>
             <OnPageMockup />
@@ -207,7 +199,7 @@ export default function OnPageOptimierungPage() {
                 <div className="space-y-2 mb-5">
                   <p className="text-xs text-muted">ihre-website.de/page?id=384</p>
                   <p className="text-blue-700 text-base font-medium">Startseite - Willkommen</p>
-                  <p className="text-sm text-muted/70 italic">Keine Beschreibung verfuegbar...</p>
+                  <p className="text-sm text-muted/70 italic">Keine Beschreibung verfügbar...</p>
                 </div>
                 <ul className="space-y-2 mb-5">
                   {["Title generisch oder fehlend", "Keine Meta-Description", "H1 fehlt oder 3x vorhanden", "Keine interne Verlinkung", "Bilder 2MB, kein Alt-Text"].map((item) => (
@@ -381,10 +373,10 @@ export default function OnPageOptimierungPage() {
             <div className="hidden lg:block absolute top-1/2 left-0 right-0 -translate-y-1/2"><div className="h-[2px] bg-gradient-to-r from-primary/30 via-secondary/20 to-green-500/30" /></div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
               {[
-                { num: "01", title: "Scannen", desc: "Jede URL durch unsere Tools. Meta-Daten, Headings, Links, Speed — alles erfassen.", result: "→ Vollstaendige Diagnose", color: "border-t-primary" },
-                { num: "02", title: "Sortieren", desc: "Impact-Matrix: Quick Wins oben, grosse Hebel danach. Kein Giesskannenprinzip.", result: "→ Priorisierter Plan", color: "border-t-secondary" },
+                { num: "01", title: "Scannen", desc: "Jede URL durch unsere Tools. Meta-Daten, Headings, Links, Speed — alles erfassen.", result: "→ Vollständige Diagnose", color: "border-t-primary" },
+                { num: "02", title: "Sortieren", desc: "Impact-Matrix: Quick Wins oben, große Hebel danach. Kein Giesskannenprinzip.", result: "→ Priorisierter Plan", color: "border-t-secondary" },
                 { num: "03", title: "Umsetzen", desc: "Direkt im CMS oder als Anleitung. Tags, Headings, Links, Bilder — hands-on.", result: "→ Optimierte Seiten", color: "border-t-primary" },
-                { num: "04", title: "Pruefen", desc: "Jede Aenderung verifizieren. Rankings tracken. Was fehlt, nachbessern.", result: "→ Score 96+", color: "border-t-green-500" },
+                { num: "04", title: "Prüfen", desc: "Jede Änderung verifizieren. Rankings tracken. Was fehlt, nachbessern.", result: "→ Score 96+", color: "border-t-green-500" },
               ].map((step) => (
                 <div key={step.num} className={`relative rounded-2xl ${step.color} border-t-[3px] border border-border bg-white p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-2`}>
                   <span className="text-4xl font-bold text-primary/8 font-[family-name:var(--font-heading)] absolute top-3 right-4">{step.num}</span>
@@ -406,19 +398,19 @@ export default function OnPageOptimierungPage() {
           <div className={`text-center mb-14 transition-all duration-700 ${checkInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Die Checkliste</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">So sieht eine optimierte Seite aus</h2>
-            <p className="text-lg text-muted max-w-2xl mx-auto">Jedes Element hat seine Regeln. Wir pruefen alle — und optimieren, bis nichts mehr fehlt.</p>
+            <p className="text-lg text-muted max-w-2xl mx-auto">Jedes Element hat seine Regeln. Wir prüfen alle — und optimieren, bis nichts mehr fehlt.</p>
           </div>
           <div className="grid md:grid-cols-2 gap-4">
             {[
               { el: "Title Tag", rule: "55–60 Zeichen, Keyword vorne, einzigartig", s: "pflicht" },
               { el: "Meta Description", rule: "150–160 Zeichen, Call-to-Action, Keyword", s: "pflicht" },
-              { el: "H1 Heading", rule: "Exakt 1x pro Seite, enthaelt Primaer-Keyword", s: "pflicht" },
+              { el: "H1 Heading", rule: "Exakt 1x pro Seite, enthält Primaer-Keyword", s: "pflicht" },
               { el: "H2–H6 Headings", rule: "Logische Hierarchie, Keywords in H2s", s: "pflicht" },
               { el: "Interne Links", rule: "Min. 3 kontextuelle Links zu relevanten Seiten", s: "pflicht" },
               { el: "URL-Struktur", rule: "Kurz, sprechend, mit Keyword, keine Parameter", s: "pflicht" },
               { el: "Bilder Alt-Tags", rule: "Beschreibend, Keyword wo passend", s: "pflicht" },
               { el: "Schema Markup", rule: "FAQ, Product, Article — passend zum Seitentyp", s: "empfohlen" },
-              { el: "Open Graph", rule: "Titel, Beschreibung, Bild fuer Social Sharing", s: "empfohlen" },
+              { el: "Open Graph", rule: "Titel, Beschreibung, Bild für Social Sharing", s: "empfohlen" },
               { el: "Core Web Vitals", rule: "LCP <2.5s, FID <100ms, CLS <0.1", s: "pflicht" },
             ].map((item, i) => (
               <Reveal key={item.el} delay={i * 50}>
@@ -442,7 +434,7 @@ export default function OnPageOptimierungPage() {
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           <div className={`text-center mb-14 transition-all duration-700 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">FAQ</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Haeufig gestellte Fragen</h2>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Häufig gestellte Fragen</h2>
           </div>
           <div className={`space-y-3 transition-all duration-700 delay-100 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             {faqs.map((faq, i) => (
@@ -464,7 +456,7 @@ export default function OnPageOptimierungPage() {
           <div className="text-center mb-12">
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Kontakt</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark mb-4">On Page Analyse anfragen</h2>
-            <p className="text-lg text-muted">Wir pruefen Ihre Website und zeigen, wo die groessten Potenziale liegen.</p>
+            <p className="text-lg text-muted">Wir prüfen Ihre Website und zeigen, wo die groessten Potenziale liegen.</p>
           </div>
           <div className="rounded-3xl border border-border bg-white p-8 lg:p-10 shadow-sm">
             <form className="space-y-5" action="/kontakt" method="POST">

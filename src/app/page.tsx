@@ -322,7 +322,7 @@ function ServicesStackSection() {
     {
       number: "01",
       title: "SEO Audit",
-      description: "Umfassende Analyse mit 200+ Pruefpunkten und konkretem Handlungsplan.",
+      description: "Umfassende Analyse mit 200+ Prüfpunkten und konkretem Handlungsplan.",
       href: "/seo-audit",
       tags: ["Technisch", "Content"],
       icon: (
@@ -334,7 +334,7 @@ function ServicesStackSection() {
     {
       number: "02",
       title: "On-Page SEO",
-      description: "Optimierung aller Seitenfaktoren fuer maximale Sichtbarkeit.",
+      description: "Optimierung aller Seitenfaktoren für maximale Sichtbarkeit.",
       href: "/on-page-optimierung",
       tags: ["Meta", "Content"],
       icon: (
@@ -346,7 +346,7 @@ function ServicesStackSection() {
     {
       number: "03",
       title: "E-Commerce SEO",
-      description: "Spezialisierte Optimierung fuer Online-Shops mit Fokus auf Conversion.",
+      description: "Spezialisierte Optimierung für Online-Shops mit Fokus auf Conversion.",
       href: "/shop-seo",
       tags: ["Produkte", "Kategorien", "CRO"],
       icon: (
@@ -373,7 +373,7 @@ function ServicesStackSection() {
     {
       number: "05",
       title: "Link Building",
-      description: "Aufbau hochwertiger Backlinks fuer mehr Autoritaet.",
+      description: "Aufbau hochwertiger Backlinks für mehr Autorität.",
       href: "/seo-beratung",
       tags: ["Outreach", "Digital PR"],
       icon: (
@@ -385,7 +385,7 @@ function ServicesStackSection() {
     {
       number: "06",
       title: "SEO Optimierung",
-      description: "Technische und inhaltliche Optimierung fuer Top-Platzierungen.",
+      description: "Technische und inhaltliche Optimierung für Top-Platzierungen.",
       href: "/seo-optimierung",
       tags: ["Technisch", "Performance"],
       icon: (
@@ -398,7 +398,7 @@ function ServicesStackSection() {
     {
       number: "07",
       title: "Content Strategie",
-      description: "Datengetriebene Content-Planung fuer nachhaltigen Traffic.",
+      description: "Datengetriebene Content-Planung für nachhaltigen Traffic.",
       href: "/seo-content-strategie",
       tags: ["Planung", "Hubs"],
       icon: (
@@ -412,7 +412,7 @@ function ServicesStackSection() {
     {
       number: "08",
       title: "Local SEO",
-      description: "Regionale Sichtbarkeit fuer lokale Kunden und Geschaefte.",
+      description: "Regionale Sichtbarkeit für lokale Kunden und Geschäfte.",
       href: "/seo-beratung",
       tags: ["Google Business", "Maps"],
       icon: (
@@ -605,7 +605,7 @@ function ServicesStackSection() {
         {/* Bottom Info Bar */}
         <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-4 p-6 bg-white border border-border rounded-2xl">
           <p className="text-sm text-muted text-center md:text-left">
-            <strong className="text-dark">Nicht sicher, was Sie brauchen?</strong> Vereinbaren Sie ein kostenloses Erstgespraech.
+            <strong className="text-dark">Nicht sicher, was Sie brauchen?</strong> Vereinbaren Sie ein kostenloses Erstgespräch.
           </p>
           <a 
             href="/kontakt" 
@@ -646,7 +646,7 @@ export default function Home() {
               <div>
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary hero-badge">
                   <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  Ihr Partner fuer nachhaltiges Wachstum
+                  Ihr Partner für nachhaltiges Wachstum
                 </div>
 
                 <h1 className="text-5xl lg:text-6xl leading-[1.15] text-dark font-[family-name:var(--font-heading)] hero-title">
@@ -707,24 +707,6 @@ export default function Home() {
                   </a>
                 </div>
 
-                {/* Trust indicator */}
-                <div className="mt-8 flex items-center gap-3 animate-fade-up" style={{ animationDelay: '0.6s' }}>
-                  {/* Avatar stack */}
-                  <div className="flex -space-x-2">
-                    {['MK', 'SM', 'TR', 'JW', 'AS'].map((initials, i) => (
-                      <div
-                        key={initials}
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary/80 to-secondary/80 text-[10px] font-semibold text-white ring-2 ring-white"
-                        style={{ zIndex: 5 - i }}
-                      >
-                        {initials}
-                      </div>
-                    ))}
-                  </div>
-                  <p className="text-xs text-muted">
-                    Vertrauen von <span className="font-semibold text-dark">200+ Unternehmen</span>
-                  </p>
-                </div>
               </div>
 
               {/* Dashboard visualization */}
@@ -1021,11 +1003,11 @@ export default function Home() {
               {[
                 {
                   value: "53.3%",
-                  label: "des Website-Traffics kommt ueber organische Suche",
+                  label: "des Website-Traffics kommt über organische Suche",
                 },
                 {
                   value: "748%",
-                  label: "durchschnittlicher ROI von SEO-Massnahmen",
+                  label: "durchschnittlicher ROI von SEO-Maßnahmen",
                 },
                 {
                   value: "14.6%",
@@ -1033,7 +1015,7 @@ export default function Home() {
                 },
                 {
                   value: "76%",
-                  label: "der lokalen Suchanfragen fuehren zu einem Besuch innerhalb von 24h",
+                  label: "der lokalen Suchanfragen führen zu einem Besuch innerhalb von 24h",
                 },
               ].map((stat, i) => (
                 <div
@@ -1059,8 +1041,8 @@ export default function Home() {
             <div className="grid gap-8 md:grid-cols-3">
               {[
                 {
-                  title: "Organischer Traffic waechst langfristig",
-                  desc: "Waehrend bezahlte Anzeigen nur so lange Traffic bringen, wie Sie dafuer zahlen, waechst organischer Traffic nachhaltig. Einmal optimiert, arbeitet Ihre Website kontinuierlich fuer Sie.",
+                  title: "Organischer Traffic wächst langfristig",
+                  desc: "Während bezahlte Anzeigen nur so lange Traffic bringen, wie Sie dafür zahlen, wächst organischer Traffic nachhaltig. Einmal optimiert, arbeitet Ihre Website kontinuierlich für Sie.",
                   icon: (
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
                       <path d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" strokeLinecap="round" strokeLinejoin="round" />
@@ -1068,8 +1050,8 @@ export default function Home() {
                   ),
                 },
                 {
-                  title: "Bessere Leads, hoehere Conversion",
-                  desc: "SEO-Nutzer haben bereits eine Kaufabsicht. Sie suchen aktiv nach Loesungen. Das fuehrt zu qualifizierten Leads mit hoeherer Conversion-Rate als bei Kaltakquise.",
+                  title: "Bessere Leads, höhere Conversion",
+                  desc: "SEO-Nutzer haben bereits eine Kaufabsicht. Sie suchen aktiv nach Lösungen. Das führt zu qualifizierten Leads mit höherer Conversion-Rate als bei Kaltakquise.",
                   icon: (
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
                       <path d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" strokeLinecap="round" strokeLinejoin="round" />
@@ -1077,8 +1059,8 @@ export default function Home() {
                   ),
                 },
                 {
-                  title: "Lokale Sichtbarkeit fuer Ihr Geschaeft",
-                  desc: "76% der Menschen, die lokal suchen, besuchen innerhalb von 24 Stunden ein Geschaeft. Local SEO bringt Kunden direkt vor Ihre Tuer.",
+                  title: "Lokale Sichtbarkeit für Ihr Geschäft",
+                  desc: "76% der Menschen, die lokal suchen, besuchen innerhalb von 24 Stunden ein Geschäft. Local SEO bringt Kunden direkt vor Ihre Tür.",
                   icon: (
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
                       <path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" strokeLinecap="round" strokeLinejoin="round" />
@@ -1142,12 +1124,6 @@ export default function Home() {
                 </svg>
                 96% Kundenbindung
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-offwhite px-4 py-2.5 text-sm font-medium text-dark">
-                <svg className="h-4 w-4 text-secondary" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M10 9a3 3 0 100-6 3 3 0 000 6zM6 8a2 2 0 11-4 0 2 2 0 014 0zM1.49 15.326a.78.78 0 01-.358-.442 3 3 0 014.308-3.516 6.484 6.484 0 00-1.905 3.959c-.023.222-.014.442.025.654a4.97 4.97 0 01-2.07-.655zM16.44 15.98a4.97 4.97 0 002.07-.654.78.78 0 00.357-.442 3 3 0 00-4.308-3.517 6.484 6.484 0 011.907 3.96 2.32 2.32 0 01-.026.654zM18 8a2 2 0 11-4 0 2 2 0 014 0zM5.304 16.19a.844.844 0 01-.277-.71 5 5 0 019.947 0 .843.843 0 01-.277.71A6.975 6.975 0 0110 18a6.974 6.974 0 01-4.696-1.81z" />
-                </svg>
-                200+ Unternehmen
-              </div>
             </div>
 
             {/* 3 Review cards side by side with floating animation */}
@@ -1162,7 +1138,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-sm leading-relaxed text-dark mb-4">
-                  &ldquo;SeoForge hat unseren organischen Traffic innerhalb von 8 Monaten verdreifacht. Die transparente Arbeitsweise und das tiefe Fachwissen haben uns ueberzeugt.&rdquo;
+                  &ldquo;SeoForge hat unseren organischen Traffic innerhalb von 8 Monaten verdreifacht. Die transparente Arbeitsweise und das tiefe Fachwissen haben uns überzeugt.&rdquo;
                 </p>
                 <div className="flex items-center gap-3 pt-4 border-t border-border">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
@@ -1170,7 +1146,7 @@ export default function Home() {
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-dark">Michael K.</p>
-                    <p className="text-xs text-muted">Geschaeftsfuehrer, TechStart GmbH</p>
+                    <p className="text-xs text-muted">Geschäftsführer, TechStart GmbH</p>
                   </div>
                   <div className="ml-auto text-xs font-medium text-muted bg-white px-2.5 py-1 rounded-full border border-border">
                     Google
@@ -1214,7 +1190,7 @@ export default function Home() {
                   ))}
                 </div>
                 <p className="text-sm leading-relaxed text-dark mb-4">
-                  &ldquo;Die Zusammenarbeit mit SeoForge ist unkompliziert und ergebnisorientiert. Das monatliche Reporting gibt uns volle Kontrolle ueber alle Massnahmen.&rdquo;
+                  &ldquo;Die Zusammenarbeit mit SeoForge ist unkompliziert und ergebnisorientiert. Das monatliche Reporting gibt uns volle Kontrolle über alle Maßnahmen.&rdquo;
                 </p>
                 <div className="flex items-center gap-3 pt-4 border-t border-border">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
@@ -1248,16 +1224,16 @@ export default function Home() {
               {/* Text */}
               <div>
                 <h2 className="text-4xl lg:text-5xl text-white font-[family-name:var(--font-heading)] animate-fade-up">
-                  Bereit fuer mehr{" "}
+                  Bereit für mehr{" "}
                   <span className="bg-gradient-to-r from-primary-light to-secondary bg-clip-text text-transparent">
                     Sichtbarkeit
                   </span>
                   ?
                 </h2>
                 <p className="mt-4 text-base leading-relaxed text-white/60 animate-fade-up" style={{ animationDelay: '0.05s' }}>
-                  Lassen Sie uns in einem kostenlosen Erstgespraech herausfinden,
-                  wie wir Ihr Unternehmen in den Suchergebnissen nach vorne bringen koennen.
-                  Keine Verpflichtungen &mdash; nur ehrliche Einschaetzungen.
+                  Lassen Sie uns in einem kostenlosen Erstgespräch herausfinden,
+                  wie wir Ihr Unternehmen in den Suchergebnissen nach vorne bringen können.
+                  Keine Verpflichtungen &mdash; nur ehrliche Einschätzungen.
                 </p>
 
                 <div className="mt-8 space-y-4 animate-fade-up" style={{ animationDelay: '0.1s' }}>
@@ -1352,7 +1328,7 @@ export default function Home() {
                         id="message"
                         name="message"
                         rows={4}
-                        placeholder="Wie koennen wir Ihnen helfen?"
+                        placeholder="Wie können wir Ihnen helfen?"
                         className="w-full resize-none rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
                       />
                     </div>
@@ -1552,7 +1528,7 @@ function WhySeoForgeSection() {
             </h2>
             <p className={`mt-4 text-base leading-relaxed text-muted ${inView ? 'animate-fade-up' : ''}`} style={{ animationDelay: '0.1s' }}>
               Wir setzen nicht auf schnelle Tricks, sondern auf fundierte Strategien,
-              die langfristig wirken. Jede Massnahme basiert auf Daten, und Sie behalten
+              die langfristig wirken. Jede Maßnahme basiert auf Daten, und Sie behalten
               jederzeit den vollen Ueberblick.
             </p>
 
@@ -1571,7 +1547,7 @@ function WhySeoForgeSection() {
                 {
                   step: "03",
                   title: "Umsetzung & Optimierung",
-                  desc: "Wir setzen die Massnahmen um und optimieren kontinuierlich fuer beste Ergebnisse.",
+                  desc: "Wir setzen die Maßnahmen um und optimieren kontinuierlich für beste Ergebnisse.",
                 },
                 {
                   step: "04",

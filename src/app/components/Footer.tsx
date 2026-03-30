@@ -15,7 +15,7 @@ export default function Footer() {
               height={35}
             />
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
-              SeoForge ist Ihre SEO Agentur fuer nachhaltige Sichtbarkeit
+              SeoForge ist Ihre SEO Agentur für nachhaltige Sichtbarkeit
               und messbare Ergebnisse in den Suchmaschinen.
             </p>
           </div>
@@ -72,7 +72,7 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-dark">Unternehmen</h4>
             <ul className="mt-4 space-y-3">
               {[
-                { label: "Ueber uns", href: "/" },
+                { label: "Über uns", href: "/" },
                 { label: "Referenzen", href: "/referenzen" },
                 { label: "Wissen", href: "/wissen" },
                 { label: "Kontakt", href: "/kontakt" },

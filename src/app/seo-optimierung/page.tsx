@@ -105,12 +105,12 @@ function RoadmapFinish() {
 /*  FAQ                                                                */
 /* ------------------------------------------------------------------ */
 const faqs = [
-  { q: "Was kostet SEO Optimierung bei SeoForge?", a: "Einmalige Optimierungsprojekte starten ab 3.000 Euro. Laufende Optimierung ab 1.500 Euro monatlich. Im kostenlosen Erstgespraech erstellen wir ein individuelles Angebot basierend auf Ihrem Projektumfang." },
+  { q: "Was kostet SEO Optimierung bei SeoForge?", a: "Einmalige Optimierungsprojekte starten ab 3.000 Euro. Laufende Optimierung ab 1.500 Euro monatlich. Im kostenlosen Erstgespräch erstellen wir ein individuelles Angebot basierend auf Ihrem Projektumfang." },
   { q: "Wie lange dauert es, bis SEO Optimierung wirkt?", a: "Technische Fixes wirken oft innerhalb von Wochen. Nachhaltige Ranking-Verbesserungen zeigen sich nach 3–6 Monaten. SEO ist ein Marathon — aber die Ergebnisse sind langfristig und wachsen mit der Zeit." },
   { q: "Was ist der Unterschied zwischen On-Page und Off-Page?", a: "On-Page betrifft alles auf Ihrer Website: Technik, Content, Struktur. Off-Page umfasst externe Faktoren wie Backlinks. Wir optimieren beides — mit Schwerpunkt auf On-Page, weil Sie dort die volle Kontrolle haben." },
-  { q: "Brauche ich SEO wenn meine Website schon gut ranked?", a: "Ja. Google aendert seinen Algorithmus ueber 500 Mal pro Jahr. Ohne laufende Optimierung verlieren Sie Positionen an Wettbewerber, die aktiv arbeiten." },
+  { q: "Brauche ich SEO wenn meine Website schon gut ranked?", a: "Ja. Google ändert seinen Algorithmus über 500 Mal pro Jahr. Ohne laufende Optimierung verlieren Sie Positionen an Wettbewerber, die aktiv arbeiten." },
   { q: "Welche Tools setzt SeoForge ein?", a: "Ahrefs, Sistrix, Screaming Frog, Google Search Console, Analytics, PageSpeed Insights und weitere spezialisierte Tools — ein Tool-Stack im Wert von mehreren tausend Euro monatlich." },
-  { q: "Kann ich SEO Optimierung selbst machen?", a: "Grundlegende Massnahmen ja. Aber professionelle SEO erfordert tiefes Fachwissen, teure Tools und viel Zeit. Die meisten Unternehmen unterschaetzen den Aufwand und machen kostspielige Fehler." },
+  { q: "Kann ich SEO Optimierung selbst machen?", a: "Grundlegende Maßnahmen ja. Aber professionelle SEO erfordert tiefes Fachwissen, teure Tools und viel Zeit. Die meisten Unternehmen unterschätzen den Aufwand und machen kostspielige Fehler." },
 ];
 
 /* ================================================================== */
@@ -174,14 +174,6 @@ export default function SeoOptimierungPage() {
                   Was wir optimieren
                 </Link>
               </div>
-              <div className="mt-8 flex items-center gap-3 animate-fade-up" style={{ animationDelay: "0.6s" }}>
-                <div className="flex -space-x-2">
-                  {["BK", "TS", "MR", "JW", "LH"].map((init, i) => (
-                    <div key={init} className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary/80 to-secondary/80 text-[10px] font-semibold text-white ring-2 ring-white" style={{ zIndex: 5 - i }}>{init}</div>
-                  ))}
-                </div>
-                <p className="text-xs text-muted">Vertrauen von <span className="font-semibold text-dark">200+ Unternehmen</span></p>
-              </div>
             </div>
             <DashboardMockup />
           </div>
@@ -211,13 +203,13 @@ export default function SeoOptimierungPage() {
 
             {/* Centered intro */}
             <div className="mx-auto max-w-3xl text-center mb-16">
-              <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Unser Verstaendnis</span>
+              <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Unser Verständnis</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-8 leading-tight">
                 SEO Optimierung ist kein Projekt.<br />
                 <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Es ist ein System.</span>
               </h2>
               <p className="text-lg lg:text-xl text-muted leading-relaxed">
-                Google aendert seinen Algorithmus ueber 500 Mal im Jahr. Ihre Wettbewerber optimieren taeglich. Nutzerverhalten verschiebt sich staendig. Wer SEO als einmalige Massnahme behandelt, wird abgehaengt. Wer es als kontinuierliches System begreift, baut einen nachhaltigen Wettbewerbsvorteil auf.
+                Google ändert seinen Algorithmus über 500 Mal im Jahr. Ihre Wettbewerber optimieren taeglich. Nutzerverhalten verschiebt sich ständig. Wer SEO als einmalige Maßnahme behandelt, wird abgehängt. Wer es als kontinuierliches System begreift, baut einen nachhaltigen Wettbewerbsvorteil auf.
               </p>
             </div>
 
@@ -227,21 +219,21 @@ export default function SeoOptimierungPage() {
                 {
                   num: "I",
                   title: "Analyse vor Aktion",
-                  text: "Wir optimieren nie blind. Jede Massnahme basiert auf Daten: Crawl-Analysen, Keyword-Recherche, Wettbewerbsvergleich. Erst verstehen, dann handeln.",
+                  text: "Wir optimieren nie blind. Jede Maßnahme basiert auf Daten: Crawl-Analysen, Keyword-Recherche, Wettbewerbsvergleich. Erst verstehen, dann handeln.",
                   accent: "border-t-primary",
                   bg: "from-primary/[0.03]",
                 },
                 {
                   num: "II",
-                  title: "Impact vor Vollstaendigkeit",
-                  text: "Nicht alles gleichzeitig. Wir priorisieren nach ROI: Quick Wins zuerst, dann die grossen Hebel. So sehen Sie schnell Ergebnisse, waehrend wir langfristig bauen.",
+                  title: "Impact vor Vollständigkeit",
+                  text: "Nicht alles gleichzeitig. Wir priorisieren nach ROI: Quick Wins zuerst, dann die großen Hebel. So sehen Sie schnell Ergebnisse, während wir langfristig bauen.",
                   accent: "border-t-secondary",
                   bg: "from-secondary/[0.03]",
                 },
                 {
                   num: "III",
                   title: "Iteration vor Perfektion",
-                  text: "SEO ist ein Zyklus: optimieren, messen, lernen, verbessern. Jede Runde macht Ihre Website staerker. Wer auf Perfektion wartet, faengt nie an.",
+                  text: "SEO ist ein Zyklus: optimieren, messen, lernen, verbessern. Jede Runde macht Ihre Website stärker. Wer auf Perfektion wartet, fängt nie an.",
                   accent: "border-t-primary",
                   bg: "from-primary/[0.03]",
                 },
@@ -381,9 +373,9 @@ export default function SeoOptimierungPage() {
       <section ref={pillarsRef as React.RefObject<HTMLElement>} className="bg-offwhite py-24 lg:py-32 border-y border-border">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className={`text-center mb-16 transition-all duration-700 ${pillarsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Zwei Saeulen</span>
+            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Zwei Säulen</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">Technik trifft Content</h2>
-            <p className="text-lg text-muted max-w-2xl mx-auto">Beide Seiten muessen stimmen. Wir optimieren parallel — fuer maximale Wirkung.</p>
+            <p className="text-lg text-muted max-w-2xl mx-auto">Beide Seiten müssen stimmen. Wir optimieren parallel — für maximale Wirkung.</p>
           </div>
 
           <div className={`grid lg:grid-cols-2 gap-8 transition-all duration-700 delay-200 ${pillarsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
@@ -408,7 +400,7 @@ export default function SeoOptimierungPage() {
               </div>
 
               <p className="text-muted mb-8 leading-relaxed">
-                Ohne solide Technik verpuffen selbst die besten Inhalte. Wir sorgen dafuer, dass Google Ihre Website versteht, schnell crawlt und korrekt indexiert.
+                Ohne solide Technik verpuffen selbst die besten Inhalte. Wir sorgen dafür, dass Google Ihre Website versteht, schnell crawlt und korrekt indexiert.
               </p>
 
               <div className="grid grid-cols-2 gap-2.5">
@@ -463,7 +455,7 @@ export default function SeoOptimierungPage() {
           <div className={`mb-14 transition-all duration-700 ${deepInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Die Roadmap</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">Was wir konkret optimieren</h2>
-            <p className="text-lg text-muted max-w-3xl">Jede Website hat andere Schwachstellen. Hier ist der Weg zu einer vollstaendig optimierten Website.</p>
+            <p className="text-lg text-muted max-w-3xl">Jede Website hat andere Schwachstellen. Hier ist der Weg zu einer vollständig optimierten Website.</p>
           </div>
 
           <div className="relative">
@@ -472,19 +464,19 @@ export default function SeoOptimierungPage() {
 
             <div className="space-y-12">
               <RoadmapCard num="01" title="Ladezeiten & Performance" color="bg-primary"
-                text="Google misst, wie schnell Ihre Seite laedt — und bestraft langsame Websites mit schlechteren Rankings. Wir optimieren Server-Response, Bildgroessen, JavaScript-Bundles und CSS-Delivery, bis Ihre Core Web Vitals im gruenen Bereich sind."
+                text="Google misst, wie schnell Ihre Seite lädt — und bestraft langsame Websites mit schlechteren Rankings. Wir optimieren Server-Response, Bildgrößen, JavaScript-Bundles und CSS-Delivery, bis Ihre Core Web Vitals im grünen Bereich sind."
                 items={["LCP unter 2.5 Sekunden", "CLS unter 0.1", "TTFB optimieren", "Lazy Loading & Code Splitting"]}
               />
               <RoadmapCard num="02" title="Crawlability & Indexierung" color="bg-secondary"
                 text="Seiten, die Google nicht crawlen kann, existieren nicht. Wir bereinigen Crawl-Fehler, optimieren Robots.txt und Sitemaps, loesen Redirect-Chains auf und stellen sicher, dass jede wichtige Seite indexiert wird — und keine unwichtige."
-                items={["Crawl-Budget-Management", "Index-Bloat vermeiden", "Canonical-Tags pruefen", "Log-File-Analyse"]}
+                items={["Crawl-Budget-Management", "Index-Bloat vermeiden", "Canonical-Tags prüfen", "Log-File-Analyse"]}
               />
               <RoadmapCard num="03" title="On-Page & Content-Signale" color="bg-primary"
-                text="Title-Tags, Meta-Descriptions, Heading-Hierarchie, Keyword-Platzierung — die Grundlagen klingen einfach, werden aber bei den meisten Websites stiefmuetterlich behandelt. Wir optimieren jede Seite so, dass Google die Relevanz sofort erkennt."
+                text="Title-Tags, Meta-Descriptions, Heading-Hierarchie, Keyword-Platzierung — die Grundlagen klingen einfach, werden aber bei den meisten Websites stiefmütterlich behandelt. Wir optimieren jede Seite so, dass Google die Relevanz sofort erkennt."
                 items={["Keyword-Mapping pro Seite", "Meta-Daten optimieren", "Interne Verlinkung aufbauen", "Duplicate Content loesen"]}
               />
               <RoadmapCard num="04" title="Struktur & Architektur" color="bg-secondary"
-                text="Die Art, wie Ihre Website aufgebaut ist, bestimmt, wie effizient Google sie versteht und wie einfach Nutzer finden, was sie suchen. Wir bauen klare Silo-Strukturen, optimieren URL-Hierarchien und schaffen Topic-Cluster, die thematische Autoritaet aufbauen."
+                text="Die Art, wie Ihre Website aufgebaut ist, bestimmt, wie effizient Google sie versteht und wie einfach Nutzer finden, was sie suchen. Wir bauen klare Silo-Strukturen, optimieren URL-Hierarchien und schaffen Topic-Cluster, die thematische Autorität aufbauen."
                 items={["URL-Taxonomie optimieren", "Topic-Cluster aufbauen", "Verwaiste Seiten verlinken", "Breadcrumb-Navigation"]}
               />
               <RoadmapFinish />
@@ -504,7 +496,7 @@ export default function SeoOptimierungPage() {
               Der Optimierungszyklus
             </h2>
             <p className="text-muted text-lg max-w-2xl mx-auto">
-              Kein Anfang, kein Ende — ein Kreislauf, der Ihre Website mit jeder Runde staerker macht.
+              Kein Anfang, kein Ende — ein Kreislauf, der Ihre Website mit jeder Runde stärker macht.
             </p>
           </div>
 
@@ -528,21 +520,21 @@ export default function SeoOptimierungPage() {
                 {[
                   {
                     step: "01", title: "Analysieren", subtitle: "Daten sammeln & verstehen",
-                    desc: "200+ Ranking-Faktoren durchleuchten. Technische Schwaechen, Content-Luecken und Wettbewerber-Vorteile aufdecken. Die Datenbasis fuer alles, was folgt.",
+                    desc: "200+ Ranking-Faktoren durchleuchten. Technische Schwächen, Content-Lücken und Wettbewerber-Vorteile aufdecken. Die Datenbasis für alles, was folgt.",
                     icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>,
                     accent: "border-t-primary bg-gradient-to-b from-primary/[0.02] to-transparent",
                     arrow: "→",
                   },
                   {
                     step: "02", title: "Priorisieren", subtitle: "Impact-Matrix aufstellen",
-                    desc: "Nicht alles gleichzeitig. Quick Wins identifizieren, die innerhalb von Wochen wirken. Grosse Hebel planen, die langfristiges Wachstum treiben. Jede Massnahme nach ROI sortiert.",
+                    desc: "Nicht alles gleichzeitig. Quick Wins identifizieren, die innerhalb von Wochen wirken. Große Hebel planen, die langfristiges Wachstum treiben. Jede Maßnahme nach ROI sortiert.",
                     icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" /></svg>,
                     accent: "border-t-secondary bg-gradient-to-b from-secondary/[0.02] to-transparent",
                     arrow: "↓",
                   },
                   {
                     step: "04", title: "Messen & Lernen", subtitle: "Ergebnisse auswerten",
-                    desc: "Rankings, Traffic, Conversions tracken. Was funktioniert hat, skalieren. Was nicht funktioniert hat, analysieren und anpassen. Dann: zurueck zu Schritt 1.",
+                    desc: "Rankings, Traffic, Conversions tracken. Was funktioniert hat, skalieren. Was nicht funktioniert hat, analysieren und anpassen. Dann: zurück zu Schritt 1.",
                     icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>,
                     accent: "border-t-primary bg-gradient-to-b from-primary/[0.02] to-transparent",
                     arrow: "←",
@@ -596,10 +588,10 @@ export default function SeoOptimierungPage() {
               <div>
                 <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Unsere Ergebnisse</span>
                 <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark leading-tight mb-6">
-                  Zahlen, die fuer sich sprechen
+                  Zahlen, die für sich sprechen
                 </h2>
                 <p className="text-base lg:text-lg text-muted leading-relaxed">
-                  Keine Theorie. Das sind echte Durchschnittswerte unserer Optimierungsprojekte — gemessen ueber alle Branchen und Projektgroessen.
+                  Keine Theorie. Das sind echte Durchschnittswerte unserer Optimierungsprojekte — gemessen über alle Branchen und Projektgrößen.
                 </p>
               </div>
               <div className="flex items-center justify-center lg:justify-end">
@@ -645,7 +637,7 @@ export default function SeoOptimierungPage() {
                 </div>
                 <div className="flex items-center gap-3 pt-4 border-t border-border">
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white text-sm font-bold">JH</div>
-                  <div><p className="text-dark text-sm font-semibold">Joel Heuchert</p><p className="text-muted text-xs">CEO & Gruender</p></div>
+                  <div><p className="text-dark text-sm font-semibold">Joel Heuchert</p><p className="text-muted text-xs">CEO & Gründer</p></div>
                 </div>
               </div>
             </div>
@@ -669,7 +661,7 @@ export default function SeoOptimierungPage() {
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           <div className={`text-center mb-14 transition-all duration-700 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">FAQ</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Haeufig gestellte Fragen</h2>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Häufig gestellte Fragen</h2>
           </div>
           <div className={`space-y-3 transition-all duration-700 delay-100 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             {faqs.map((faq, i) => (

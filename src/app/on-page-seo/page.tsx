@@ -41,7 +41,7 @@ function SeoGaugeMockup() {
       <div className="rounded-2xl border border-border bg-white shadow-xl overflow-hidden">
         <div className="border-b border-border px-5 py-3 bg-gradient-to-r from-offwhite to-white flex items-center justify-between">
           <div className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-primary animate-pulse" /><span className="text-xs font-semibold text-dark">On Page SEO Score</span></div>
-          <span className="text-[10px] text-muted">3 Saeulen</span>
+          <span className="text-[10px] text-muted">3 Säulen</span>
         </div>
         <div className="p-6">
           {/* Three gauges side by side */}
@@ -90,10 +90,10 @@ function SeoGaugeMockup() {
 }
 
 const faqs = [
-  { q: "Was ist der Unterschied zwischen On Page SEO und On Page Optimierung?", a: "On Page Optimierung bezeichnet einzelne technische Massnahmen (Meta-Tags, Headings). On Page SEO ist die uebergeordnete Strategie, die Technik, Content und User Experience ganzheitlich vereint." },
-  { q: "Was kostet ganzheitliches On Page SEO?", a: "Strategieentwicklung ab 2.500 Euro. Laufende Betreuung ab 1.500 Euro monatlich. Der Preis richtet sich nach Website-Groesse und Wettbewerbsintensitaet." },
+  { q: "Was ist der Unterschied zwischen On Page SEO und On Page Optimierung?", a: "On Page Optimierung bezeichnet einzelne technische Maßnahmen (Meta-Tags, Headings). On Page SEO ist die übergeordnete Strategie, die Technik, Content und User Experience ganzheitlich vereint." },
+  { q: "Was kostet ganzheitliches On Page SEO?", a: "Strategieentwicklung ab 2.500 Euro. Laufende Betreuung ab 1.500 Euro monatlich. Der Preis richtet sich nach Website-Größe und Wettbewerbsintensität." },
   { q: "Wie lange dauert es bis On Page SEO wirkt?", a: "Technische Quick Wins innerhalb von Wochen. Content- und UX-Verbesserungen zeigen sich nach 2–4 Monaten. Der volle Effekt der ganzheitlichen Strategie nach 4–6 Monaten." },
-  { q: "Brauche ich On Page SEO wenn ich schon On Page Optimierung mache?", a: "Ja — denn Optimierung allein reicht nicht. Ohne uebergreifende Strategie optimieren Sie moeglicherweise die falschen Dinge. On Page SEO sorgt dafuer, dass Technik, Content und UX als System funktionieren." },
+  { q: "Brauche ich On Page SEO wenn ich schon On Page Optimierung mache?", a: "Ja — denn Optimierung allein reicht nicht. Ohne übergreifende Strategie optimieren Sie moeglicherweise die falschen Dinge. On Page SEO sorgt dafür, dass Technik, Content und UX als System funktionieren." },
   { q: "Wie messt ihr den Erfolg von On Page SEO?", a: "Rankings, organischer Traffic, Core Web Vitals, Bounce Rate, Verweildauer, Conversion Rate und Page Experience Score. Monatliche Reports zeigen den Fortschritt transparent." },
   { q: "Macht ihr auch die Umsetzung?", a: "Ja — wir entwickeln die Strategie und setzen sie auch um. Direkt in Ihrem CMS oder in Zusammenarbeit mit Ihrem Entwicklerteam. Beides ist moeglich." },
 ];
@@ -144,17 +144,9 @@ export default function OnPageSeoPage() {
                   Kostenlose Analyse
                   <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" /></svg>
                 </Link>
-                <Link href="#drei-saeulen" className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold text-dark transition-all hover:border-primary/30 hover:text-primary">
-                  Die 3 Saeulen
+                <Link href="#drei-säulen" className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold text-dark transition-all hover:border-primary/30 hover:text-primary">
+                  Die 3 Säulen
                 </Link>
-              </div>
-              <div className="mt-8 flex items-center gap-3 animate-fade-up" style={{ animationDelay: "0.6s" }}>
-                <div className="flex -space-x-2">
-                  {["MK", "SL", "TR", "JW", "PH"].map((init, i) => (
-                    <div key={init} className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary/80 to-secondary/80 text-[10px] font-semibold text-white ring-2 ring-white" style={{ zIndex: 5 - i }}>{init}</div>
-                  ))}
-                </div>
-                <p className="text-xs text-muted">Ueber <span className="font-semibold text-dark">200+ Websites</span> ganzheitlich optimiert</p>
               </div>
             </div>
             <SeoGaugeMockup />
@@ -186,7 +178,7 @@ export default function OnPageSeoPage() {
                 </h2>
                 <div className="space-y-6">
                   <p className="text-muted text-base lg:text-lg leading-relaxed">
-                    Viele verwechseln <strong className="text-dark font-semibold">On Page SEO</strong> mit On Page Optimierung. Der Unterschied: Optimierung sind einzelne Massnahmen — ein Title-Tag hier, ein Alt-Text dort. On Page SEO ist die uebergreifende Strategie, die sicherstellt, dass alle Teile zusammenspielen.
+                    Viele verwechseln <strong className="text-dark font-semibold">On Page SEO</strong> mit On Page Optimierung. Der Unterschied: Optimierung sind einzelne Maßnahmen — ein Title-Tag hier, ein Alt-Text dort. On Page SEO ist die übergreifende Strategie, die sicherstellt, dass alle Teile zusammenspielen.
                   </p>
                   <p className="text-muted text-base lg:text-lg leading-relaxed">
                     Google bewertet Websites ganzheitlich. Eine technisch perfekte Seite mit schlechtem Content rankt nicht. Content ohne Technik wird nie gecrawlt. Und selbst die besten Rankings bringen nichts, wenn die UX so schlecht ist, dass Nutzer sofort abspringen.
@@ -213,12 +205,12 @@ export default function OnPageSeoPage() {
       </section>
 
       {/* DREI SAEULEN — Horizontal connected tabs */}
-      <section id="drei-saeulen" ref={pillarsRef as React.RefObject<HTMLElement>} className="bg-offwhite py-24 lg:py-32 border-y border-border">
+      <section id="drei-säulen" ref={pillarsRef as React.RefObject<HTMLElement>} className="bg-offwhite py-24 lg:py-32 border-y border-border">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className={`text-center mb-16 transition-all duration-700 ${pillarsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
-            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Die 3 Saeulen</span>
+            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Die 3 Säulen</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">Drei Disziplinen, ein Ergebnis</h2>
-            <p className="text-lg text-muted max-w-2xl mx-auto">Jede Saeule deckt einen Bereich ab. Zusammen ergeben sie nachhaltigen SEO-Erfolg.</p>
+            <p className="text-lg text-muted max-w-2xl mx-auto">Jede Säule deckt einen Bereich ab. Zusammen ergeben sie nachhaltigen SEO-Erfolg.</p>
           </div>
 
           <div className={`relative transition-all duration-700 delay-200 ${pillarsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
@@ -228,7 +220,7 @@ export default function OnPageSeoPage() {
             <div className="grid lg:grid-cols-3 gap-8">
               {[
                 { title: "Technisches SEO", score: "98%", color: "bg-green-500", borderColor: "border-t-green-500", items: ["Core Web Vitals", "Crawl-Budget", "Structured Data", "Mobile-First"] },
-                { title: "Content", score: "A+", color: "bg-primary", borderColor: "border-t-primary", items: ["Keyword-Strategie", "Suchintention", "E-E-A-T", "Content-Luecken"] },
+                { title: "Content", score: "A+", color: "bg-primary", borderColor: "border-t-primary", items: ["Keyword-Strategie", "Suchintention", "E-E-A-T", "Content-Lücken"] },
                 { title: "User Experience", score: "9.2", color: "bg-secondary", borderColor: "border-t-secondary", items: ["Navigation", "Bounce Rate", "Conversions", "Accessibility"] },
               ].map((pillar, i) => (
                 <Reveal key={pillar.title} delay={i * 120}>
@@ -263,7 +255,7 @@ export default function OnPageSeoPage() {
           <div className={`transition-all duration-700 ${diffInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <div className="mb-14">
               <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Der Unterschied</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">SEO vs. Optimierung — eine Ebene hoeher</h2>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">SEO vs. Optimierung — eine Ebene höher</h2>
               <p className="text-lg text-muted max-w-2xl">On Page Optimierung sind die Bausteine. On Page SEO ist der Bauplan.</p>
             </div>
 
@@ -287,11 +279,11 @@ export default function OnPageSeoPage() {
                     <span className="text-xs font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-full">Ebene 2</span>
                     <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark">On Page SEO Strategie</h3>
                   </div>
-                  <p className="text-sm text-muted leading-relaxed mb-5">Die uebergeordnete Strategie die definiert: Welche Seiten, welche Keywords, welche Struktur, welche UX — und warum. Verbindet alle Einzelmassnahmen zu einem System.</p>
+                  <p className="text-sm text-muted leading-relaxed mb-5">Die übergeordnete Strategie die definiert: Welche Seiten, welche Keywords, welche Struktur, welche UX — und warum. Verbindet alle Einzelmaßnahmen zu einem System.</p>
                   <div className="grid sm:grid-cols-3 gap-3">
                     {[
                       { label: "Technische Architektur", sub: "Wie ist die Website aufgebaut?" },
-                      { label: "Content-Strategie", sub: "Welche Inhalte fuer wen?" },
+                      { label: "Content-Strategie", sub: "Welche Inhalte für wen?" },
                       { label: "UX-Konzept", sub: "Wie navigieren Nutzer?" },
                     ].map((item) => (
                       <div key={item.label} className="rounded-xl bg-offwhite/50 border border-border p-4">
@@ -313,14 +305,14 @@ export default function OnPageSeoPage() {
           <div className={`transition-all duration-700 ${benefitsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <div className="text-center mb-16">
               <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Die Ergebnisse</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">Was passiert wenn alle 3 Saeulen stimmen</h2>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">Was passiert wenn alle 3 Säulen stimmen</h2>
             </div>
 
             {/* Result cards — horizontal scroll feel */}
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12">
               {[
                 { value: "+340%", label: "Organischer Traffic", sub: "Durchschnitt nach 6 Monaten" },
-                { value: "Top 3", label: "Ranking-Position", sub: "Fuer Haupt-Keywords" },
+                { value: "Top 3", label: "Ranking-Position", sub: "Für Haupt-Keywords" },
                 { value: "-62%", label: "Bounce Rate", sub: "Nutzer bleiben laenger" },
                 { value: "+180%", label: "Conversions", sub: "Mehr Anfragen & Leads" },
               ].map((stat) => (
@@ -338,7 +330,7 @@ export default function OnPageSeoPage() {
               <p className="font-[family-name:var(--font-heading)] text-xl lg:text-2xl text-dark leading-relaxed mb-6">Ganzheitliches On Page SEO ist der Unterschied zwischen einer Website die existiert — und einer die performt.</p>
               <div className="flex items-center justify-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white text-sm font-bold">JH</div>
-                <div className="text-left"><p className="text-sm font-semibold text-dark">Joel Heuchert</p><p className="text-xs text-muted">CEO & Gruender</p></div>
+                <div className="text-left"><p className="text-sm font-semibold text-dark">Joel Heuchert</p><p className="text-xs text-muted">CEO & Gründer</p></div>
               </div>
             </div>
           </div>
@@ -350,7 +342,7 @@ export default function OnPageSeoPage() {
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           <div className={`text-center mb-14 transition-all duration-700 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">FAQ</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Haeufig gestellte Fragen</h2>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Häufig gestellte Fragen</h2>
           </div>
           <div className={`space-y-3 transition-all duration-700 delay-100 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             {faqs.map((faq, i) => (
@@ -372,7 +364,7 @@ export default function OnPageSeoPage() {
           <div className="text-center mb-12">
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Kontakt</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark mb-4">On Page SEO Analyse anfragen</h2>
-            <p className="text-lg text-muted">Wir pruefen wie gut Technik, Content und UX auf Ihrer Website zusammenspielen.</p>
+            <p className="text-lg text-muted">Wir prüfen wie gut Technik, Content und UX auf Ihrer Website zusammenspielen.</p>
           </div>
           <div className="rounded-3xl border border-border bg-white p-8 lg:p-10 shadow-sm">
             <form className="space-y-5" action="/kontakt" method="POST">

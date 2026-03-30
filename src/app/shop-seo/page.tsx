@@ -67,7 +67,7 @@ function ShopMockup() {
             </div>
             <div className="divide-y divide-border/50">
               {[
-                { product: "Ergonomischer Buerostuhl Pro", pos: 2, trend: 5, vol: "2.400" },
+                { product: "Ergonomischer Bürostuhl Pro", pos: 2, trend: 5, vol: "2.400" },
                 { product: "Standing Desk Eiche 160cm", pos: 4, trend: 3, vol: "1.800" },
                 { product: "Monitor Arm Dual Premium", pos: 1, trend: 8, vol: "3.200" },
                 { product: "Schreibtischlampe LED dimmbar", pos: 6, trend: 2, vol: "980" },
@@ -103,12 +103,12 @@ function ShopMockup() {
 }
 
 const faqs = [
-  { q: "Was kostet Shop SEO?", a: "E-Commerce SEO Projekte starten ab 2.500 Euro. Laufende Shop-Optimierung ab 1.500 Euro monatlich. Der Preis richtet sich nach Produktanzahl, Shop-System und Wettbewerbsintensitaet." },
-  { q: "Welche Shop-Systeme unterstuetzt ihr?", a: "Shopify, WooCommerce, Magento, Shopware, PrestaShop und Custom-Loesungen. Das SEO-Prinzip ist ueberall gleich — die technische Umsetzung passen wir an Ihr System an." },
+  { q: "Was kostet Shop SEO?", a: "E-Commerce SEO Projekte starten ab 2.500 Euro. Laufende Shop-Optimierung ab 1.500 Euro monatlich. Der Preis richtet sich nach Produktanzahl, Shop-System und Wettbewerbsintensität." },
+  { q: "Welche Shop-Systeme unterstuetzt ihr?", a: "Shopify, WooCommerce, Magento, Shopware, PrestaShop und Custom-Lösungen. Das SEO-Prinzip ist überall gleich — die technische Umsetzung passen wir an Ihr System an." },
   { q: "Wie lange dauert es bis Shop SEO wirkt?", a: "Technische Fixes (Ladezeiten, Crawl-Fehler) wirken in Wochen. Produkt- und Kategorie-Rankings verbessern sich nach 2–4 Monaten. Voller Traffic-Impact nach 4–6 Monaten." },
   { q: "Optimiert ihr auch Produktbeschreibungen?", a: "Ja — entweder schreiben wir sie neu oder optimieren bestehende Texte. Jede Beschreibung wird auf das Ziel-Keyword, Suchintention und Conversion ausgerichtet." },
   { q: "Was ist mit Duplicate Content bei Produktvarianten?", a: "Ein klassisches E-Commerce Problem. Wir loesen es mit Canonical-Tags, Parameter-Handling und intelligenter Seitenarchitektur — damit Google nur die relevanten URLs indexiert." },
-  { q: "Koennt ihr auch internationales Shop SEO?", a: "Ja — hreflang-Tags, laenderspezifische URL-Strukturen und mehrsprachige Keyword-Strategien. Besonders wichtig fuer Shops die in mehreren Maerkten verkaufen." },
+  { q: "Könnt ihr auch internationales Shop SEO?", a: "Ja — hreflang-Tags, länderspezifische URL-Strukturen und mehrsprachige Keyword-Strategien. Besonders wichtig für Shops die in mehreren Märkten verkaufen." },
 ];
 
 export default function ShopSEOPage() {
@@ -139,10 +139,10 @@ export default function ShopSEOPage() {
                 E-Commerce SEO
               </div>
               <h1 className="hero-title text-4xl sm:text-5xl lg:text-6xl leading-[1.15] text-dark font-[family-name:var(--font-heading)]">
-                Shop SEO fuer mehr{" "}<span className="text-primary">Umsatz</span>
+                Shop SEO für mehr{" "}<span className="text-primary">Umsatz</span>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted hero-description">
-                Online-Shops haben eigene SEO-Regeln: Tausende Produktseiten, Filterkombinationen, Duplicate Content, Schema Markup. Wir kennen die Herausforderungen — und die Loesungen.
+                Online-Shops haben eigene SEO-Regeln: Tausende Produktseiten, Filterkombinationen, Duplicate Content, Schema Markup. Wir kennen die Herausforderungen — und die Lösungen.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 animate-fade-up" style={{ animationDelay: "0.4s" }}>
                 {["Produkt-Rankings", "Kategorie-SEO", "Schema Markup"].map((p) => (
@@ -167,7 +167,7 @@ export default function ShopSEOPage() {
                     <div key={init} className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary/80 to-secondary/80 text-[10px] font-semibold text-white ring-2 ring-white" style={{ zIndex: 5 - i }}>{init}</div>
                   ))}
                 </div>
-                <p className="text-xs text-muted">Ueber <span className="font-semibold text-dark">80+ Online-Shops</span> optimiert</p>
+                <p className="text-xs text-muted">Über <span className="font-semibold text-dark">80+ Online-Shops</span> optimiert</p>
               </div>
             </div>
             <ShopMockup />
@@ -216,7 +216,7 @@ export default function ShopSEOPage() {
                       { step: "Suche", desc: "Kunde sucht Produkt bei Google", width: "w-full", color: "bg-primary/10 border-primary/20" },
                       { step: "Kategorie", desc: "Findet Ihre optimierte Kategorie-Seite", width: "w-[90%] mx-auto", color: "bg-primary/15 border-primary/25" },
                       { step: "Produkt", desc: "Klickt auf das optimierte Produkt", width: "w-[78%] mx-auto", color: "bg-primary/20 border-primary/30" },
-                      { step: "Conversion", desc: "Kauft — dank ueberzeugender Seite", width: "w-[65%] mx-auto", color: "bg-primary text-white border-primary" },
+                      { step: "Conversion", desc: "Kauft — dank überzeugender Seite", width: "w-[65%] mx-auto", color: "bg-primary text-white border-primary" },
                     ].map((s) => (
                       <div key={s.step} className={`${s.width} rounded-xl border ${s.color} p-3 text-center transition-all duration-300`}>
                         <p className={`text-sm font-semibold ${s.step === "Conversion" ? "text-white" : "text-dark"}`}>{s.step}</p>
@@ -236,13 +236,13 @@ export default function ShopSEOPage() {
         <div className="mx-auto max-w-5xl px-6 lg:px-8">
           <div className={`mb-14 transition-all duration-700 ${challengesInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Die Herausforderungen</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">6 Shop-Probleme. 6 Loesungen.</h2>
-            <p className="text-lg text-muted max-w-2xl">Jedes E-Commerce SEO Problem hat eine klare Loesung — wenn man weiss, wo man ansetzen muss.</p>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">6 Shop-Probleme. 6 Lösungen.</h2>
+            <p className="text-lg text-muted max-w-2xl">Jedes E-Commerce SEO Problem hat eine klare Lösung — wenn man weiss, wo man ansetzen muss.</p>
           </div>
 
           <div className={`space-y-4 transition-all duration-700 delay-200 ${challengesInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             {[
-              { problem: "Tausende Produktseiten mit Hersteller-Texten", solution: "Unique Descriptions + Product Schema mit Preis, Sterne, Verfuegbarkeit" },
+              { problem: "Tausende Produktseiten mit Hersteller-Texten", solution: "Unique Descriptions + Product Schema mit Preis, Sterne, Verfügbarkeit" },
               { problem: "Kategorieseiten ohne rankenden Content", solution: "SEO-Content der informiert und verkauft + strategische interne Verlinkung" },
               { problem: "Filter erzeugen Millionen URL-Kombinationen", solution: "Canonical-Strategie + Parameter-Handling + Crawl-Budget-Management" },
               { problem: "Duplicate Content durch Varianten & Sortierung", solution: "Index-Management + Canonicals + intelligente Seitenarchitektur" },
@@ -312,7 +312,7 @@ export default function ShopSEOPage() {
           <div className={`space-y-3 transition-all duration-700 delay-200 ${processInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             {[
               { num: "01", title: "Shop-Audit", desc: "Technische Analyse, Crawl-Probleme, Duplicate Content, Schema Markup, Site Speed — alles durchleuchten.", width: "lg:max-w-full", color: "border-l-primary" },
-              { num: "02", title: "Kategorie & Produkt-Strategie", desc: "Keyword-Mapping fuer Kategorien und Top-Produkte. Suchintention matchen. Content-Plan erstellen.", width: "lg:max-w-[92%] lg:mx-auto", color: "border-l-secondary" },
+              { num: "02", title: "Kategorie & Produkt-Strategie", desc: "Keyword-Mapping für Kategorien und Top-Produkte. Suchintention matchen. Content-Plan erstellen.", width: "lg:max-w-[92%] lg:mx-auto", color: "border-l-secondary" },
               { num: "03", title: "Implementierung", desc: "Schema Markup, Meta-Daten, Produkttexte, interne Verlinkung, Filterseiten-Management umsetzen.", width: "lg:max-w-[84%] lg:mx-auto", color: "border-l-primary" },
               { num: "04", title: "Tracking & Skalierung", desc: "Rankings und Umsatz tracken. Was funktioniert auf weitere Produkte und Kategorien skalieren.", width: "lg:max-w-[76%] lg:mx-auto", color: "border-l-green-500 bg-gradient-to-r from-green-50/30 to-transparent" },
             ].map((step) => (
@@ -344,7 +344,7 @@ export default function ShopSEOPage() {
           <div className={`transition-all duration-700 ${resultsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <div className="text-center mb-14">
               <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Echte Ergebnisse</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">So veraendert Shop SEO das Geschaeft</h2>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">So verändert Shop SEO das Geschäft</h2>
               <p className="text-lg text-muted max-w-2xl mx-auto">Keine Theorie — echte Durchschnittswerte unserer E-Commerce Kunden nach 6 Monaten.</p>
             </div>
 
@@ -395,11 +395,11 @@ export default function ShopSEOPage() {
             {/* Quote below */}
             <div className="border-l-[3px] border-primary pl-6 max-w-2xl mx-auto">
               <p className="font-[family-name:var(--font-heading)] text-xl text-dark leading-relaxed mb-4">
-                Shop SEO ist die Disziplin, bei der technisches Know-how und E-Commerce Verstaendnis zusammenkommen muessen. Standard-SEO reicht hier nicht.
+                Shop SEO ist die Disziplin, bei der technisches Know-how und E-Commerce Verständnis zusammenkommen müssen. Standard-SEO reicht hier nicht.
               </p>
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white text-sm font-bold">JH</div>
-                <div><p className="text-sm font-semibold text-dark">Joel Heuchert</p><p className="text-xs text-muted">CEO & Gruender</p></div>
+                <div><p className="text-sm font-semibold text-dark">Joel Heuchert</p><p className="text-xs text-muted">CEO & Gründer</p></div>
               </div>
             </div>
           </div>
@@ -411,7 +411,7 @@ export default function ShopSEOPage() {
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           <div className={`text-center mb-14 transition-all duration-700 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">FAQ</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Haeufig gestellte Fragen</h2>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Häufig gestellte Fragen</h2>
           </div>
           <div className={`space-y-3 transition-all duration-700 delay-100 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             {faqs.map((faq, i) => (
@@ -433,7 +433,7 @@ export default function ShopSEOPage() {
           <div className="text-center mb-12">
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Kontakt</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark mb-4">Shop-Analyse anfragen</h2>
-            <p className="text-lg text-muted">Wir pruefen Ihren Online-Shop und zeigen, wo die groessten Umsatz-Potenziale liegen.</p>
+            <p className="text-lg text-muted">Wir prüfen Ihren Online-Shop und zeigen, wo die groessten Umsatz-Potenziale liegen.</p>
           </div>
           <div className="rounded-3xl border border-border bg-white p-8 lg:p-10 shadow-sm">
             <form className="space-y-5" action="/kontakt" method="POST">

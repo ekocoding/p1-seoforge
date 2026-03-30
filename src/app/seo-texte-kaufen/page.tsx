@@ -69,12 +69,12 @@ function RevealCard({ children, delay = 0 }: { children: React.ReactNode; delay?
 /*  FAQ                                                                */
 /* ------------------------------------------------------------------ */
 const faqs = [
-  { q: "Was kosten SEO Texte bei SeoForge?", a: "Die Preise richten sich nach Textlaenge, Recherche-Aufwand und Thema. Blog-Artikel ab 350 Euro, Landingpages ab 500 Euro, Produkttexte ab 80 Euro pro Stueck. Im Erstgespraech erstellen wir ein individuelles Angebot." },
+  { q: "Was kosten SEO Texte bei SeoForge?", a: "Die Preise richten sich nach Textlänge, Recherche-Aufwand und Thema. Blog-Artikel ab 350 Euro, Landingpages ab 500 Euro, Produkttexte ab 80 Euro pro Stück. Im Erstgespräch erstellen wir ein individuelles Angebot." },
   { q: "Wie lange dauert die Texterstellung?", a: "Standard-Lieferzeit ist 5–7 Werktage nach Briefing-Freigabe. Express-Lieferung in 2–3 Tagen ist gegen Aufpreis moeglich. Bei groesseren Projekten erstellen wir einen Redaktionsplan mit klaren Meilensteinen." },
-  { q: "Schreibt ihr auch in Englisch?", a: "Ja, wir erstellen SEO-Texte auf Deutsch und Englisch. Fuer andere Sprachen arbeiten wir mit muttersprachlichen Textern zusammen. Sprechen Sie uns an." },
-  { q: "Wie stellt ihr sicher, dass die Texte ranken?", a: "Jeder Text basiert auf Keyword-Recherche, Wettbewerbsanalyse und Suchintentions-Analyse. Wir optimieren Struktur, Meta-Daten und interne Verlinkung. Dazu pruefen wir jeden Text mit professionellen SEO-Tools vor der Lieferung." },
-  { q: "Kann ich Aenderungen anfordern?", a: "Selbstverstaendlich. Eine Korrekturschleife ist immer inklusive. Wir arbeiten eng mit Ihnen zusammen, bis der Text Ihren Vorstellungen entspricht." },
-  { q: "Liefert ihr auch die Meta-Daten mit?", a: "Ja, jeder Text wird mit optimiertem Meta-Title, Meta-Description und Empfehlungen fuer die URL-Struktur geliefert. Auf Wunsch auch mit internen Verlinkungsvorschlaegen und Schema-Markup-Empfehlungen." },
+  { q: "Schreibt ihr auch in Englisch?", a: "Ja, wir erstellen SEO-Texte auf Deutsch und Englisch. Für andere Sprachen arbeiten wir mit muttersprachlichen Textern zusammen. Sprechen Sie uns an." },
+  { q: "Wie stellt ihr sicher, dass die Texte ranken?", a: "Jeder Text basiert auf Keyword-Recherche, Wettbewerbsanalyse und Suchintentions-Analyse. Wir optimieren Struktur, Meta-Daten und interne Verlinkung. Dazu prüfen wir jeden Text mit professionellen SEO-Tools vor der Lieferung." },
+  { q: "Kann ich Änderungen anfordern?", a: "Selbstverstaendlich. Eine Korrekturschleife ist immer inklusive. Wir arbeiten eng mit Ihnen zusammen, bis der Text Ihren Vorstellungen entspricht." },
+  { q: "Liefert ihr auch die Meta-Daten mit?", a: "Ja, jeder Text wird mit optimiertem Meta-Title, Meta-Description und Empfehlungen für die URL-Struktur geliefert. Auf Wunsch auch mit internen Verlinkungsvorschlägen und Schema-Markup-Empfehlungen." },
 ];
 
 /* ================================================================== */
@@ -99,25 +99,25 @@ export default function SeoTextePage() {
     {
       title: "Blog-Artikel & Ratgeber",
       desc: "Informative Longreads, die Expertise demonstrieren, organischen Traffic aufbauen und Ihre Zielgruppe durch den Funnel begleiten. Recherchiert, strukturiert, optimiert.",
-      specs: "1.500–3.000 Woerter | 5–7 Werktage | inkl. Meta-Daten",
-      features: ["Keyword-Recherche & Mapping", "Wettbewerber-Content-Analyse", "Heading-Struktur (H1–H6)", "Interne Verlinkungsvorschlaege", "Featured-Snippet-Optimierung", "Lesbarkeits-Check"],
+      specs: "1.500–3.000 Wörter | 5–7 Werktage | inkl. Meta-Daten",
+      features: ["Keyword-Recherche & Mapping", "Wettbewerber-Content-Analyse", "Heading-Struktur (H1–H6)", "Interne Verlinkungsvorschläge", "Featured-Snippet-Optimierung", "Lesbarkeits-Check"],
     },
     {
       title: "Landingpages & Service-Seiten",
-      desc: "Conversion-fokussierte Seiten, die fuer spezifische Keywords ranken und Besucher in Anfragen verwandeln. Klar strukturiert, ueberzeugend getextet, SEO-optimiert.",
-      specs: "800–2.000 Woerter | 5–7 Werktage | inkl. CTA-Strategie",
+      desc: "Conversion-fokussierte Seiten, die für spezifische Keywords ranken und Besucher in Anfragen verwandeln. Klar strukturiert, überzeugend getextet, SEO-optimiert.",
+      specs: "800–2.000 Wörter | 5–7 Werktage | inkl. CTA-Strategie",
       features: ["Suchintentions-Analyse", "Conversion-Copywriting", "Trust-Elemente & Social Proof", "Schema Markup Empfehlungen", "A/B-Test-Varianten auf Wunsch", "Mobile-optimierte Struktur"],
     },
     {
       title: "Produktbeschreibungen",
-      desc: "SEO-optimierte Produkttexte, die sowohl in der Google-Suche als auch auf Kategorie-Seiten ueberzeugen. Einzigartig, nicht generiert, mit Verkaufspsychologie.",
-      specs: "150–500 Woerter | Bulk moeglich | inkl. Meta-Daten",
-      features: ["Unique Content pro Produkt", "Feature-Benefit-Struktur", "Keyword-Integration natuerlich", "Kategorie-Kontext beruecksichtigt", "Structured Data Empfehlung", "Skalierbar ab 10 Stueck"],
+      desc: "SEO-optimierte Produkttexte, die sowohl in der Google-Suche als auch auf Kategorie-Seiten überzeugen. Einzigartig, nicht generiert, mit Verkaufspsychologie.",
+      specs: "150–500 Wörter | Bulk moeglich | inkl. Meta-Daten",
+      features: ["Unique Content pro Produkt", "Feature-Benefit-Struktur", "Keyword-Integration natürlich", "Kategorie-Kontext beruecksichtigt", "Structured Data Empfehlung", "Skalierbar ab 10 Stück"],
     },
     {
       title: "Kategorietexte & Pillar Pages",
-      desc: "Umfassende Uebersichtsseiten, die thematische Autoritaet aufbauen und als Hub fuer Ihre Topic-Cluster dienen. Der Anker Ihrer Content-Strategie.",
-      specs: "2.000–5.000 Woerter | 7–10 Werktage | inkl. Cluster-Plan",
+      desc: "Umfassende Uebersichtsseiten, die thematische Autorität aufbauen und als Hub für Ihre Topic-Cluster dienen. Der Anker Ihrer Content-Strategie.",
+      specs: "2.000–5.000 Wörter | 7–10 Werktage | inkl. Cluster-Plan",
       features: ["Topic-Cluster-Architektur", "Interne Link-Strategie", "FAQ-Sektion mit Schema", "Visuelles Content-Konzept", "E-E-A-T-Signale eingebaut", "Update-Strategie inkludiert"],
     },
   ];
@@ -146,7 +146,7 @@ export default function SeoTextePage() {
                 <span className="text-primary">ranken und verkaufen</span>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted hero-description">
-                SEO Texte, die nicht nach SEO klingen. Wir schreiben Inhalte, die Google versteht und Ihre Zielgruppe ueberzeugt — recherchiert, strukturiert und auf Conversion optimiert.
+                SEO Texte, die nicht nach SEO klingen. Wir schreiben Inhalte, die Google versteht und Ihre Zielgruppe überzeugt — recherchiert, strukturiert und auf Conversion optimiert.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 animate-fade-up" style={{ animationDelay: "0.4s" }}>
                 {["Keyword-recherchiert", "Unique Content", "Lieferung in 5–7 Tagen"].map((p) => (
@@ -171,7 +171,7 @@ export default function SeoTextePage() {
                     <div key={init} className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary/80 to-secondary/80 text-[10px] font-semibold text-white ring-2 ring-white" style={{ zIndex: 5 - i }}>{init}</div>
                   ))}
                 </div>
-                <p className="text-xs text-muted">Ueber <span className="font-semibold text-dark">5.000 Texte</span> ausgeliefert</p>
+                <p className="text-xs text-muted">Über <span className="font-semibold text-dark">5.000 Texte</span> ausgeliefert</p>
               </div>
             </div>
             <EditorMockup />
@@ -209,17 +209,17 @@ export default function SeoTextePage() {
 
             <div className="mb-12 max-w-4xl">
               <p className="text-xl lg:text-2xl leading-relaxed text-dark/80 font-[family-name:var(--font-heading)]">
-                Jeder kann Texte schreiben. Aber Texte, die gleichzeitig <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">ranken, ueberzeugen und konvertieren</span> — das erfordert Methode, Recherche und Erfahrung.
+                Jeder kann Texte schreiben. Aber Texte, die gleichzeitig <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">ranken, überzeugen und konvertieren</span> — das erfordert Methode, Recherche und Erfahrung.
               </p>
             </div>
 
             <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-16">
               <div className="lg:col-span-7 space-y-6">
                 <p className="text-muted text-base lg:text-lg leading-relaxed">
-                  Die meisten Unternehmen unterschaetzen, was in einem guten SEO-Text steckt. Es beginnt mit der Keyword-Recherche: Welche Begriffe sucht Ihre Zielgruppe tatsaechlich? In welcher Phase der Customer Journey? Mit welcher Intention? Erst wenn diese Fragen beantwortet sind, beginnt das eigentliche Schreiben.
+                  Die meisten Unternehmen unterschätzen, was in einem guten SEO-Text steckt. Es beginnt mit der Keyword-Recherche: Welche Begriffe sucht Ihre Zielgruppe tatsächlich? In welcher Phase der Customer Journey? Mit welcher Intention? Erst wenn diese Fragen beantwortet sind, beginnt das eigentliche Schreiben.
                 </p>
                 <p className="text-muted text-base lg:text-lg leading-relaxed">
-                  Unsere Texter verbinden journalistische Qualitaet mit SEO-Expertise. Jeder Text wird individuell recherchiert, strukturiert und optimiert — kein Template, kein KI-Output, kein Copy-Paste. Das Ergebnis sind Inhalte, die Google als relevant einstuft und die Ihre Leser zum Handeln bewegen.
+                  Unsere Texter verbinden journalistische Qualität mit SEO-Expertise. Jeder Text wird individuell recherchiert, strukturiert und optimiert — kein Template, kein KI-Output, kein Copy-Paste. Das Ergebnis sind Inhalte, die Google als relevant einstuft und die Ihre Leser zum Handeln bewegen.
                 </p>
               </div>
 
@@ -232,7 +232,7 @@ export default function SeoTextePage() {
                     <h3 className="font-[family-name:var(--font-heading)] text-lg font-bold text-dark">Was guten SEO-Content ausmacht</h3>
                   </div>
                   <ul className="space-y-3">
-                    {["Basiert auf echter Keyword-Recherche", "Beantwortet die Suchintention vollstaendig", "Strukturiert fuer Leser UND Suchmaschinen", "Einzigartig — kein Duplicate Content", "Integriert natuerliche interne Verlinkung", "Liefert mehr Tiefe als die Konkurrenz"].map((item, i) => (
+                    {["Basiert auf echter Keyword-Recherche", "Beantwortet die Suchintention vollständig", "Strukturiert für Leser UND Suchmaschinen", "Einzigartig — kein Duplicate Content", "Integriert natürliche interne Verlinkung", "Liefert mehr Tiefe als die Konkurrenz"].map((item, i) => (
                       <li key={i} className="flex items-start gap-3 text-sm text-dark/80 leading-relaxed">
                         <span className="mt-0.5 text-primary font-bold font-[family-name:var(--font-heading)]">→</span>
                         {item}
@@ -261,7 +261,7 @@ export default function SeoTextePage() {
                     <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
                     <span className="text-[10px] font-semibold text-green-700">SEO Score: 94</span>
                   </div>
-                  <div className="px-3 py-1.5 rounded-full bg-offwhite border border-border text-[10px] text-muted font-medium">1.847 Woerter</div>
+                  <div className="px-3 py-1.5 rounded-full bg-offwhite border border-border text-[10px] text-muted font-medium">1.847 Wörter</div>
                 </div>
               </div>
 
@@ -340,7 +340,7 @@ export default function SeoTextePage() {
                 <div className="lg:col-span-2 space-y-5">
                   {/* Quality metrics */}
                   <div className="rounded-xl border border-border bg-white p-5">
-                    <h4 className="text-sm font-semibold text-dark mb-4">Content-Qualitaet</h4>
+                    <h4 className="text-sm font-semibold text-dark mb-4">Content-Qualität</h4>
                     <div className="space-y-4">
                       {[
                         { label: "Lesbarkeit", score: "A+", pct: 96, color: "bg-green-500" },
@@ -365,7 +365,7 @@ export default function SeoTextePage() {
                   <div className="rounded-xl border border-primary/15 bg-gradient-to-br from-primary/[0.04] to-secondary/[0.02] p-5">
                     <h4 className="text-sm font-semibold text-dark mb-3">Im Lieferumfang</h4>
                     <div className="space-y-2">
-                      {["SEO-optimierter Fliesstext", "Meta-Title & Description", "Heading-Struktur (H1–H3)", "Interne Link-Empfehlungen", "Keyword-Dichte geprueft", "Plagiatspruefung bestanden"].map((item) => (
+                      {["SEO-optimierter Fliesstext", "Meta-Title & Description", "Heading-Struktur (H1–H3)", "Interne Link-Empfehlungen", "Keyword-Dichte geprüft", "Plagiatsprüfung bestanden"].map((item) => (
                         <div key={item} className="flex items-center gap-2">
                           <svg className="w-4 h-4 text-green-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                           <span className="text-xs text-dark/70">{item}</span>
@@ -389,7 +389,7 @@ export default function SeoTextePage() {
           <div className={`text-center mb-14 transition-all duration-700 ${formatInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Content-Formate</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">Welchen Content brauchen Sie?</h2>
-            <p className="text-lg text-muted max-w-2xl mx-auto">Jedes Format hat seinen Zweck. Waehlen Sie, was zu Ihren Zielen passt.</p>
+            <p className="text-lg text-muted max-w-2xl mx-auto">Jedes Format hat seinen Zweck. Wählen Sie, was zu Ihren Zielen passt.</p>
           </div>
 
           <div className={`transition-all duration-700 delay-200 ${formatInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
@@ -443,7 +443,7 @@ export default function SeoTextePage() {
           <div className={`text-center mb-16 transition-all duration-700 ${processInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Der Prozess</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">Vom Briefing zum fertigen Text</h2>
-            <p className="text-lg text-muted max-w-2xl mx-auto">Fuenf Stationen, ein Ziel: Content, der rankt und konvertiert.</p>
+            <p className="text-lg text-muted max-w-2xl mx-auto">Fünf Stationen, ein Ziel: Content, der rankt und konvertiert.</p>
           </div>
 
           <div className={`transition-all duration-700 delay-200 ${processInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
@@ -456,31 +456,31 @@ export default function SeoTextePage() {
                 {[
                   {
                     num: "01", title: "Briefing", subtitle: "Was soll der Text leisten?",
-                    desc: "Wir klaeren gemeinsam: Wer ist die Zielgruppe? Welches Ziel verfolgt der Text? Welche Keywords sind relevant? Gibt es Vorgaben zu Tonalitaet und Laenge? Je praeziser das Briefing, desto besser das Ergebnis.",
+                    desc: "Wir klären gemeinsam: Wer ist die Zielgruppe? Welches Ziel verfolgt der Text? Welche Keywords sind relevant? Gibt es Vorgaben zu Tonalität und Länge? Je präziser das Briefing, desto besser das Ergebnis.",
                     detail: "Dauer: 30 Min. Call oder Briefing-Formular",
                     side: "left",
                   },
                   {
                     num: "02", title: "Recherche", subtitle: "Daten sammeln, Wettbewerb verstehen",
-                    desc: "Keyword-Recherche mit Suchvolumen und Wettbewerb. Analyse der Top-10-Ergebnisse: Was decken sie ab? Was fehlt? Wo koennen wir mehr Tiefe liefern? Suchintention klaren — informational, transaktional oder navigational.",
+                    desc: "Keyword-Recherche mit Suchvolumen und Wettbewerb. Analyse der Top-10-Ergebnisse: Was decken sie ab? Was fehlt? Wo können wir mehr Tiefe liefern? Suchintention klaren — informational, transaktional oder navigational.",
                     detail: "Tools: Ahrefs, Sistrix, Google Search Console",
                     side: "right",
                   },
                   {
                     num: "03", title: "Texterstellung", subtitle: "Schreiben mit System",
-                    desc: "Unsere Texter arbeiten nach dem Recherche-Briefing: Klare Heading-Struktur, natuerliche Keyword-Integration, ueberzeugende Argumentation. Jeder Absatz hat einen Zweck. Kein Fuelltext, kein generisches Gerede.",
+                    desc: "Unsere Texter arbeiten nach dem Recherche-Briefing: Klare Heading-Struktur, natürliche Keyword-Integration, überzeugende Argumentation. Jeder Absatz hat einen Zweck. Kein Fülltext, kein generisches Gerede.",
                     detail: "Lieferzeit: 5–7 Werktage ab Briefing-Freigabe",
                     side: "left",
                   },
                   {
                     num: "04", title: "SEO-Feinschliff", subtitle: "Jeden Hebel nutzen",
-                    desc: "Meta-Title und Description optimieren. Keyword-Dichte pruefen. Interne Verlinkung setzen. Lesbarkeit testen. Heading-Tags verifizieren. Duplicate-Content ausschliessen. Erst wenn alles stimmt, geht der Text in die finale Runde.",
-                    detail: "Geprueft mit: Surfer SEO, Hemingway, Copyscape",
+                    desc: "Meta-Title und Description optimieren. Keyword-Dichte prüfen. Interne Verlinkung setzen. Lesbarkeit testen. Heading-Tags verifizieren. Duplicate-Content ausschliessen. Erst wenn alles stimmt, geht der Text in die finale Runde.",
+                    detail: "Geprüft mit: Surfer SEO, Hemingway, Copyscape",
                     side: "right",
                   },
                   {
                     num: "05", title: "Qualitaetskontrolle & Lieferung", subtitle: "Perfektion vor Uebergabe",
-                    desc: "Lektorat, Korrekturlesen, finaler SEO-Audit. Sie erhalten den fertigen Text mit Meta-Daten, Strukturempfehlungen und internen Verlinkungsvorschlaegen. Eine Korrekturschleife ist immer inklusive.",
+                    desc: "Lektorat, Korrekturlesen, finaler SEO-Audit. Sie erhalten den fertigen Text mit Meta-Daten, Strukturempfehlungen und internen Verlinkungsvorschlägen. Eine Korrekturschleife ist immer inklusive.",
                     detail: "Format: Google Doc, Word oder direkt in Ihr CMS",
                     side: "left",
                   },
@@ -563,7 +563,7 @@ export default function SeoTextePage() {
                       <span className="text-xs font-semibold text-red-500">Vorher</span>
                       <span className="ml-auto text-[10px] text-red-400 bg-red-50 px-2 py-0.5 rounded-full">Score: 31</span>
                     </div>
-                    <p className="text-sm text-dark/50 leading-relaxed italic mb-5">"Wir bieten Projektmanagement Software an. Unsere Projektmanagement Software ist die beste. Mit unserer Projektmanagement Software koennen Sie Projekte besser managen. Testen Sie unsere Projektmanagement Software jetzt kostenlos."</p>
+                    <p className="text-sm text-dark/50 leading-relaxed italic mb-5">"Wir bieten Projektmanagement Software an. Unsere Projektmanagement Software ist die beste. Mit unserer Projektmanagement Software können Sie Projekte besser managen. Testen Sie unsere Projektmanagement Software jetzt kostenlos."</p>
                     <div className="space-y-2 pt-4 border-t border-border">
                       {[
                         { label: "Keyword-Dichte", value: "6.8%", verdict: "Ueberoptimiert" },
@@ -586,12 +586,12 @@ export default function SeoTextePage() {
                       <span className="text-xs font-semibold text-green-600">Nachher</span>
                       <span className="ml-auto text-[10px] text-green-600 bg-green-50 px-2 py-0.5 rounded-full font-semibold">Score: 94</span>
                     </div>
-                    <p className="text-sm text-dark leading-relaxed mb-5">"Projekte scheitern selten an fehlenden Ideen — sie scheitern an fehlender Uebersicht. Unsere Projektmanagement-Loesung gibt Teams die Struktur, die sie brauchen: von der Aufgabenplanung ueber Echtzeit-Kollaboration bis zum automatisierten Reporting. Fuer Teams, die liefern statt verwalten."</p>
+                    <p className="text-sm text-dark leading-relaxed mb-5">"Projekte scheitern selten an fehlenden Ideen — sie scheitern an fehlender Uebersicht. Unsere Projektmanagement-Lösung gibt Teams die Struktur, die sie brauchen: von der Aufgabenplanung über Echtzeit-Kollaboration bis zum automatisierten Reporting. Für Teams, die liefern statt verwalten."</p>
                     <div className="space-y-2 pt-4 border-t border-green-100">
                       {[
                         { label: "Keyword-Dichte", value: "2.1%", verdict: "Optimal" },
                         { label: "Lesbarkeit", value: "A+", verdict: "Sehr gut" },
-                        { label: "Suchintention", value: "Getroffen", verdict: "Loesungsorientiert" },
+                        { label: "Suchintention", value: "Getroffen", verdict: "Lösungsorientiert" },
                       ].map((m) => (
                         <div key={m.label} className="flex items-center justify-between text-[11px]">
                           <span className="text-muted">{m.label}</span>
@@ -617,7 +617,7 @@ export default function SeoTextePage() {
                   </div>
                   <div className="flex items-center gap-4 text-[10px] text-muted">
                     <span>Branche: E-Commerce</span>
-                    <span>Keyword: „ergonomischer buerostuhl"</span>
+                    <span>Keyword: „ergonomischer bürostuhl"</span>
                   </div>
                 </div>
                 <div className="grid md:grid-cols-2 gap-0">
@@ -627,7 +627,7 @@ export default function SeoTextePage() {
                       <span className="text-xs font-semibold text-red-500">Vorher</span>
                       <span className="ml-auto text-[10px] text-red-400 bg-red-50 px-2 py-0.5 rounded-full">Score: 28</span>
                     </div>
-                    <p className="text-sm text-dark/50 leading-relaxed italic mb-5">"Dieser ergonomische Buerostuhl ist sehr bequem. Er hat viele Funktionen und ist in verschiedenen Farben erhaeltlich. Der Stuhl ist gut fuer den Ruecken. Bestellen Sie jetzt."</p>
+                    <p className="text-sm text-dark/50 leading-relaxed italic mb-5">"Dieser ergonomische Bürostuhl ist sehr bequem. Er hat viele Funktionen und ist in verschiedenen Farben erhältlich. Der Stuhl ist gut für den Rücken. Bestellen Sie jetzt."</p>
                     <div className="flex flex-wrap gap-2 pt-4 border-t border-border">
                       <span className="text-[9px] text-red-500 bg-red-50 px-2 py-1 rounded">Keine Features</span>
                       <span className="text-[9px] text-red-500 bg-red-50 px-2 py-1 rounded">Kein USP</span>
@@ -641,7 +641,7 @@ export default function SeoTextePage() {
                       <span className="text-xs font-semibold text-green-600">Nachher</span>
                       <span className="ml-auto text-[10px] text-green-600 bg-green-50 px-2 py-0.5 rounded-full font-semibold">Score: 92</span>
                     </div>
-                    <p className="text-sm text-dark leading-relaxed mb-5">"8 Stunden sitzen, null Rueckenschmerzen: Der ErgoFlex Pro passt sich Ihrer Wirbelsaeule an — nicht umgekehrt. 4D-Armlehnen, atmungsaktives Mesh, 120kg Belastbarkeit. Entwickelt mit Orthpaeden, getestet von Teams, die taeglich 10+ Stunden am Schreibtisch verbringen."</p>
+                    <p className="text-sm text-dark leading-relaxed mb-5">"8 Stunden sitzen, null Rückenschmerzen: Der ErgoFlex Pro passt sich Ihrer Wirbelsäule an — nicht umgekehrt. 4D-Armlehnen, atmungsaktives Mesh, 120kg Belastbarkeit. Entwickelt mit Orthopäden, getestet von Teams, die taeglich 10+ Stunden am Schreibtisch verbringen."</p>
                     <div className="flex flex-wrap gap-2 pt-4 border-t border-green-100">
                       <span className="text-[9px] text-green-600 bg-green-50 px-2 py-1 rounded">Feature-Benefit</span>
                       <span className="text-[9px] text-green-600 bg-green-50 px-2 py-1 rounded">Klarer USP</span>
@@ -662,7 +662,7 @@ export default function SeoTextePage() {
                       Das Muster ist immer gleich
                     </h3>
                     <p className="text-sm text-muted leading-relaxed">
-                      Generische Texte reden ueber sich selbst. Gute SEO-Texte reden ueber das Problem des Lesers — und bieten die Loesung. Sie sind spezifisch statt vage, nutzenorientiert statt feature-lastig, und strukturiert fuer Leser UND Suchmaschinen.
+                      Generische Texte reden über sich selbst. Gute SEO-Texte reden über das Problem des Lesers — und bieten die Lösung. Sie sind spezifisch statt vage, nutzenorientiert statt feature-lastig, und strukturiert für Leser UND Suchmaschinen.
                     </p>
                   </div>
                   <div className="flex flex-col items-center gap-2 text-center">
@@ -683,7 +683,7 @@ export default function SeoTextePage() {
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           <div className={`text-center mb-14 transition-all duration-700 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">FAQ</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Haeufig gestellte Fragen</h2>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Häufig gestellte Fragen</h2>
           </div>
           <div className={`space-y-3 transition-all duration-700 delay-100 ${faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}>
             {faqs.map((faq, i) => (
