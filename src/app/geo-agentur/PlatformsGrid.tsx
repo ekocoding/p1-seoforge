@@ -8,8 +8,15 @@ const platforms = [
     name: "AI Overviews",
     company: "Google",
     users: "Milliarden",
-    description: "Generative Antworten direkt in der Google-Suche über den organischen Ergebnissen.",
+    description: "Google AI Overviews erscheinen direkt über allen organischen Suchergebnissen — und verdrängen klassische Blaulinks zunehmend aus dem Sichtfeld. Bis zu 50 % der Suchanfragen zeigen bereits eine AI Overview.",
     geoOpportunity: "Top-Position über allen organischen Ergebnissen",
+    details: [
+      "Erscheinen bei ca. 50 % aller Google-Suchen (Stand 2025)",
+      "Quellen werden als Karten unter dem Text angezeigt — direkte Linkouts",
+      "Besonders stark bei How-to, Definition & Vergleichs-Queries",
+      "E-E-A-T und strukturierte Inhalte sind entscheidend für Zitationen",
+    ],
+    strategy: "Answer-first Content mit klaren Abschnittstiteln + Schema.org FAQPage + HowTo Markup. Hochwertige externe Backlinks signalisieren Google Vertrauenswürdigkeit als Quelle.",
     color: "#EA4335",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
@@ -21,8 +28,15 @@ const platforms = [
     name: "ChatGPT",
     company: "OpenAI",
     users: "200M+",
-    description: "Der Marktführer unter den KI-Chatbots mit ausführlichen Antworten.",
+    description: "ChatGPT ist der meistgenutzte KI-Assistent weltweit. Mit ChatGPT Search durchsucht das Modell aktiv das Web — Marken mit guter Online-Präsenz werden als Quellen und Empfehlungen eingebunden.",
     geoOpportunity: "Als empfohlene Lösung in Antworten erscheinen",
+    details: [
+      "ChatGPT Search indiziert aktiv Webseiten in Echtzeit",
+      "Empfehlungen und Produktvergleiche sind hochwertige GEO-Slots",
+      "Nutzer fragen aktiv nach Dienstleistern, Tools und Lösungen",
+      "Konsistente Markenkommunikation über alle Kanäle erhöht Zitierrate",
+    ],
+    strategy: "Hochwertige, ausführliche Seiten mit klaren Empfehlungsformulierungen. Brand Mentions in Fachpublikationen und Bewertungsportalen stärken das Vertrauen des Modells in Ihre Marke.",
     color: "#10A37F",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
@@ -34,8 +48,15 @@ const platforms = [
     name: "Gemini",
     company: "Google",
     users: "150M+",
-    description: "Googles KI-Assistent, integriert in Search, Workspace und Android.",
+    description: "Gemini ist tief in das gesamte Google-Ökosystem integriert — von der Suche über Gmail bis Android. Als Googles primäres KI-Modell greift es direkt auf den Google Knowledge Graph und das Web zurück.",
     geoOpportunity: "Sichtbarkeit im gesamten Google-Ökosystem",
+    details: [
+      "Integration in Google Search, Gmail, Docs und Android",
+      "Greift auf Knowledge Graph, Maps und Business Profiles zu",
+      "Google My Business Präsenz direkt relevant für lokale Zitationen",
+      "Stärker als andere LLMs bei strukturierten Daten (Schema.org)",
+    ],
+    strategy: "Google My Business optimieren, Knowledge Panel aufbauen, strukturierte Daten (Schema.org) auf allen relevanten Seiten implementieren. Entity-basiertes SEO stärkt die Gemini-Sichtbarkeit direkt.",
     color: "#4285F4",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
@@ -47,8 +68,15 @@ const platforms = [
     name: "Copilot",
     company: "Microsoft",
     users: "100M+",
-    description: "In Bing, Edge, Windows und Office 365 integrierter KI-Assistent.",
+    description: "Microsoft Copilot ist in Bing, Edge, Windows, Teams und Office 365 integriert. Besonders im B2B-Segment und bei Enterprise-Nutzern ist Copilot ein dominanter Kanal für Recherche und Empfehlungen.",
     geoOpportunity: "Präsenz im Microsoft-Ökosystem",
+    details: [
+      "Zugriff über Bing auf aktuelle Webinhalte — Indexierung entscheidend",
+      "Stark im B2B- und Enterprise-Segment (Office 365 Integration)",
+      "Nutzt Bing-Index: klassisches technisches SEO bleibt relevant",
+      "Edge Browser Sidebar: aktive Seitenanalyse in Echtzeit",
+    ],
+    strategy: "Bing Webmaster Tools nutzen, technisches SEO für Bing-Crawling optimieren. B2B-orientierte Inhalte (Whitepapers, Studien, Case Studies) werden bevorzugt als Quellen eingebunden.",
     color: "#0078D4",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
@@ -60,8 +88,15 @@ const platforms = [
     name: "Perplexity",
     company: "Perplexity AI",
     users: "10M+",
-    description: "KI-Suchmaschine mit Fokus auf Quellenangaben und Links.",
-    geoOpportunity: "Direkte Verlinkung als Quelle",
+    description: "Perplexity ist die erste echte KI-Suchmaschine — jede Antwort enthält klickbare Quellen-Links direkt im Interface. Für GEO ist Perplexity besonders wertvoll, da Quellenlinks direkt sichtbar sind.",
+    geoOpportunity: "Direkte Verlinkung als Quelle mit klickbarem Link",
+    details: [
+      "Jede Antwort zeigt 3–6 Quellenlinks prominent oben an",
+      "Nutzer klicken aktiv auf Quellen — direkter Trafficzufluss",
+      "Wächst am schnellsten unter allen KI-Suchmaschinen (2024/25)",
+      "Besonders stark bei Recherche-Queries und Produktvergleichen",
+    ],
+    strategy: "Klare, gut strukturierte Antwortseiten mit Daten und Fakten. Citationswürdige Inhalte wie Studien, Statistiken und Expertenaussagen. llms.txt implementieren für bessere Crawler-Sichtbarkeit.",
     color: "#20808D",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
@@ -73,8 +108,15 @@ const platforms = [
     name: "Claude",
     company: "Anthropic",
     users: "Millionen",
-    description: "Fokus auf sichere, hilfreiche KI-Antworten für komplexe Recherche.",
-    geoOpportunity: "Als vertrauenswürdige Quelle für komplexe Themen",
+    description: "Claude von Anthropic wird bevorzugt für komplexe Analysen, Recherchen und strategische Fragestellungen genutzt. Mit claude.ai und API-Integrationen in Unternehmen wächst die Reichweite rasant.",
+    geoOpportunity: "Als Expertenquelle für komplexe Fachthemen zitiert werden",
+    details: [
+      "Bevorzugt von Professionals, Analysten und Entwicklern genutzt",
+      "Besonders stark bei strategischen und komplexen Recherchen",
+      "API-Integration in viele Unternehmenstools (hohe B2B-Reichweite)",
+      "Trainingsdaten-Optimierung via LLMO verbessert Markenpräsenz langfristig",
+    ],
+    strategy: "Tiefe, fachlich fundierte Inhalte mit klarer Autorschaft und Expertenpositionierung. Whitepapers, Branchenanalysen und strukturierte Fachartikel werden von Claude bevorzugt als Quellen verarbeitet.",
     color: "#CC785C",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor">
@@ -116,15 +158,6 @@ export default function PlatformsGrid() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-dark via-dark to-[#0a0a0a]" />
       
-      {/* Subtle Grid */}
-      <div className="absolute inset-0 opacity-[0.03]">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px),
-                           linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)`,
-          backgroundSize: '80px 80px'
-        }} />
-      </div>
-
       <div ref={sectionRef} className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <div className={`mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
@@ -198,12 +231,12 @@ export default function PlatformsGrid() {
           </div>
 
           {/* Right: Detail Panel */}
-          <div className={`transition-all duration-500 delay-300 h-[420px] ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
+          <div className={`transition-all duration-500 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
             {selectedPlatform ? (
-              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 h-full flex flex-col overflow-hidden">
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 h-full flex flex-col">
                 {/* Header */}
-                <div className="flex items-center gap-4 mb-4 pb-4 border-b border-white/10 flex-shrink-0">
-                  <div 
+                <div className="flex items-center gap-4 mb-5 pb-4 border-b border-white/10 flex-shrink-0">
+                  <div
                     className="w-14 h-14 rounded-xl flex items-center justify-center p-3 flex-shrink-0"
                     style={{ backgroundColor: `${selectedPlatform.color}15`, color: selectedPlatform.color }}
                   >
@@ -215,39 +248,46 @@ export default function PlatformsGrid() {
                     </h3>
                     <p className="text-xs text-white/40">{selectedPlatform.company} • {selectedPlatform.users} Nutzer</p>
                   </div>
+                  <div className="ml-auto">
+                    <span className="text-2xl font-[family-name:var(--font-heading)]" style={{ color: selectedPlatform.color }}>
+                      {selectedPlatform.users}
+                    </span>
+                    <p className="text-[10px] text-white/30 text-right">Nutzer</p>
+                  </div>
                 </div>
 
                 {/* Content */}
                 <div className="space-y-4 flex-1 overflow-y-auto pr-1 custom-scrollbar">
-                  <p className="text-sm text-white/80 leading-relaxed">
+                  <p className="text-sm text-white/70 leading-relaxed">
                     {selectedPlatform.description}
                   </p>
 
                   <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
-                    <h4 className="text-[11px] font-bold text-primary uppercase tracking-wider mb-1">
+                    <h4 className="text-[10px] font-bold text-primary uppercase tracking-wider mb-1.5">
                       GEO-Opportunität
                     </h4>
-                    <p className="text-sm text-white/90">
+                    <p className="text-sm text-white/90 font-medium">
                       {selectedPlatform.geoOpportunity}
                     </p>
                   </div>
 
                   <div>
-                    <h4 className="text-[10px] font-bold text-white/40 uppercase tracking-wider mb-2">Warum wichtig?</h4>
-                    <p className="text-xs text-white/60 leading-relaxed">
-                      Auf {selectedPlatform.name} suchen täglich Millionen Nutzer nach Antworten. 
-                      GEO sorgt dafür, dass Ihre Marke in diesen Antworten erscheint.
-                    </p>
+                    <h4 className="text-[10px] font-bold text-white/40 uppercase tracking-wider mb-2">Wichtige Fakten</h4>
+                    <ul className="space-y-1.5">
+                      {selectedPlatform.details.map((detail, i) => (
+                        <li key={i} className="flex items-start gap-2 text-xs text-white/60 leading-relaxed">
+                          <span className="w-1 h-1 rounded-full flex-shrink-0 mt-1.5" style={{ backgroundColor: selectedPlatform.color }} />
+                          {detail}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-white/10">
-                    <span className="text-xs text-white/40">Aktive Nutzer</span>
-                    <span 
-                      className="text-xl font-[family-name:var(--font-heading)]"
-                      style={{ color: selectedPlatform.color }}
-                    >
-                      {selectedPlatform.users}
-                    </span>
+                  <div className="p-3 rounded-lg bg-white/5 border border-white/10">
+                    <h4 className="text-[10px] font-bold text-white/40 uppercase tracking-wider mb-1.5">GEO-Strategie</h4>
+                    <p className="text-xs text-white/60 leading-relaxed">
+                      {selectedPlatform.strategy}
+                    </p>
                   </div>
                 </div>
               </div>

@@ -238,7 +238,7 @@ export default function GeoAgenturPage() {
               </h2>
               <div className="space-y-4 text-muted leading-relaxed">
                 <p className="text-lg">
-                  <strong className="text-dark">Generative Engine Optimization (GEO)</strong> ist die nächste Evolutionsstufe der digitalen Sichtbarkeit. Während eine traditionelle <Link href="/seo-agentur" className="text-primary hover:underline">SEO Agentur</Link> auf Google-Rankings optimiert, positioniert GEO Ihre Marke direkt in den Antworten von KI-Systemen wie ChatGPT, Gemini und Perplexity.
+                  <Link href="/was-ist-geo" className="font-bold text-dark hover:text-primary transition-colors">Generative Engine Optimization (GEO)</Link> ist die nächste Evolutionsstufe der digitalen Sichtbarkeit. Während eine traditionelle <Link href="/seo-agentur" className="text-primary hover:underline">SEO Agentur</Link> auf Google-Rankings optimiert, positioniert GEO Ihre Marke direkt in den Antworten von KI-Systemen wie ChatGPT, Gemini und Perplexity.
                 </p>
                 <p>
                   Das bedeutet konkret: Wenn Nutzer Fragen an KI-Systeme stellen, soll Ihre Marke als vertrauenswürdige Quelle genannt, zitiert oder empfohlen werden. Nicht auf Platz 1 der Suchergebnisse, sondern direkt in der Antwort selbst.
@@ -259,7 +259,7 @@ export default function GeoAgenturPage() {
               <img
                 src="/images/geo-diagram.png"
                 alt="GEO – Generative Engine Optimization Übersicht"
-                className="w-full rounded-2xl shadow-xl"
+                className="w-full"
               />
             </div>
           </div>

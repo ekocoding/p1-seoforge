@@ -46,9 +46,9 @@ const metrics = [
       </svg>
     ),
     kpis: [
-      { label: "Positiv", value: "87%", context: "der Erwähnungen" },
-      { label: "Neutral", value: "11%", context: "" },
-      { label: "Negativ", value: "2%", context: "" }
+      { label: "Positiv", value: "87%", context: "der Erwähnungen", color: "#22c55e" },
+      { label: "Neutral", value: "11%", context: "", color: "#94a3b8" },
+      { label: "Negativ", value: "2%", context: "", color: "#f87171" }
     ],
     tools: ["Alle Plattformen"],
     frequency: "Monatlich"
@@ -201,35 +201,60 @@ export default function GeoMetrics() {
               </div>
 
               {/* KPI Cards */}
-              <div className="grid sm:grid-cols-2 gap-4 mb-10">
-                {activeMetric.kpis.map((kpi, i) => (
-                  <div
-                    key={i}
-                    className={`relative p-6 rounded-2xl border transition-all duration-500 cursor-default ${
-                      hoveredKpi === i
-                        ? 'bg-primary/10 border-primary/30 scale-[1.02]'
-                        : 'bg-white/5 border-white/10'
-                    }`}
-                    onMouseEnter={() => setHoveredKpi(i)}
-                    onMouseLeave={() => setHoveredKpi(null)}
-                    style={{ transitionDelay: `${i * 100}ms` }}
-                  >
-                    {/* Background Glow on Hover */}
-                    <div className={`absolute inset-0 rounded-2xl bg-primary/5 transition-opacity duration-300 ${hoveredKpi === i ? 'opacity-100' : 'opacity-0'}`} />
-                    
-                    <div className="relative">
-                      <p className="text-sm text-white/50 mb-2">{kpi.label}</p>
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-4xl font-[family-name:var(--font-heading)] text-white">
-                          {kpi.value}
-                        </span>
-                        {kpi.context && (
-                          <span className="text-sm text-white/40">{kpi.context}</span>
+              <div className={`grid gap-4 mb-10 ${activeMetric.kpis.length === 3 ? 'grid-cols-3' : 'sm:grid-cols-2'}`}>
+                {activeMetric.kpis.map((kpi, i) => {
+                  const color = (kpi as typeof kpi & { color?: string }).color;
+                  const isSentiment = activeMetric.id === "sentiment";
+                  return (
+                    <div
+                      key={i}
+                      className={`relative rounded-2xl border transition-all duration-500 cursor-default ${
+                        isSentiment ? 'p-4' : 'p-6'
+                      } ${
+                        hoveredKpi === i
+                          ? 'bg-primary/10 border-primary/30 scale-[1.02]'
+                          : 'bg-white/5 border-white/10'
+                      }`}
+                      onMouseEnter={() => setHoveredKpi(i)}
+                      onMouseLeave={() => setHoveredKpi(null)}
+                      style={{ transitionDelay: `${i * 100}ms` }}
+                    >
+                      {/* Background Glow on Hover */}
+                      <div className={`absolute inset-0 rounded-2xl bg-primary/5 transition-opacity duration-300 ${hoveredKpi === i ? 'opacity-100' : 'opacity-0'}`} />
+
+                      <div className="relative">
+                        {isSentiment && color ? (
+                          <>
+                            <div className="flex items-center gap-2 mb-2">
+                              <div className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
+                              <p className="text-xs text-white/50 uppercase tracking-wider font-medium">{kpi.label}</p>
+                            </div>
+                            <div className="flex items-baseline gap-1.5">
+                              <span className="text-3xl font-[family-name:var(--font-heading)]" style={{ color }}>
+                                {kpi.value}
+                              </span>
+                            </div>
+                            {kpi.context && (
+                              <p className="text-xs text-white/30 mt-1">{kpi.context}</p>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <p className="text-sm text-white/50 mb-2">{kpi.label}</p>
+                            <div className="flex items-baseline gap-2">
+                              <span className="text-4xl font-[family-name:var(--font-heading)] text-white">
+                                {kpi.value}
+                              </span>
+                              {kpi.context && (
+                                <span className="text-sm text-white/40">{kpi.context}</span>
+                              )}
+                            </div>
+                          </>
                         )}
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               {/* Monitored Platforms */}
