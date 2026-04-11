@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="de" style="width:800px;height:500px;overflow:hidden;margin:0;padding:0;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=800">
+<title>PageSpeed Score Visualizer — SeoForge</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 800px;
+    height: 500px;
+    overflow: hidden;
+    background: #1A1A1A;
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    color: #fff;
+  }
+
+  .wrapper {
+    width: 800px;
+    height: 500px;
+    background: #1A1A1A;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 28px 32px 24px;
+    gap: 0;
+  }
+
+  /* Top bar */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+
+  .logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #C2722A;
+    text-transform: uppercase;
+  }
+
+  .logo span {
+    color: #D4A853;
+  }
+
+  .topbar-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: #6B6B6B;
+    text-transform: uppercase;
+  }
+
+  /* Main panels row */
+  .panels-row {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    flex: 1;
+  }
+
+  /* Panel */
+  .panel {
+    flex: 1;
+    background: #242424;
+    border-radius: 16px;
+    border: 1px solid #2e2e2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 22px 24px 20px;
+    position: relative;
+  }
+
+  .panel-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .panel-label.before { color: #ef4444; }
+  .panel-label.after  { color: #C2722A; }
+
+  /* Gauge */
+  .gauge-wrap {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    flex-shrink: 0;
+  }
+
+  .gauge-wrap svg {
+    width: 180px;
+    height: 180px;
+    transform: rotate(-90deg);
+  }
+
+  .gauge-track {
+    fill: none;
+    stroke: #333;
+    stroke-width: 12;
+  }
+
+  .gauge-fill {
+    fill: none;
+    stroke-width: 12;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0s;
+  }
+
+  .gauge-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    line-height: 1;
+  }
+
+  .score-number {
+    font-size: 48px;
+    font-weight: 800;
+    color: #fff;
+    display: block;
+    line-height: 1;
+  }
+
+  .score-denom {
+    font-size: 13px;
+    color: #6B6B6B;
+    display: block;
+    margin-top: 2px;
+    letter-spacing: 0.05em;
+  }
+
+  /* Metric pills */
+  .metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-top: 16px;
+    width: 100%;
+  }
+
+  .metric-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .metric-pill .metric-name {
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    font-size: 11px;
+  }
+
+  .metric-pill .metric-val {
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .pill-red  { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+  .pill-green{ background: rgba(34,197,94,0.13); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+
+  .panel-footnote {
+    font-size: 11px;
+    margin-top: 14px;
+    letter-spacing: 0.04em;
+  }
+
+  .panel-footnote.muted { color: #6B6B6B; }
+  .panel-footnote.brand { color: #C2722A; font-weight: 600; }
+
+  /* VS divider */
+  .vs-divider {
+    width: 56px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    position: relative;
+  }
+
+  .vs-line {
+    width: 1px;
+    flex: 1;
+    background: linear-gradient(to bottom, transparent, #333 30%, #333 70%, transparent);
+  }
+
+  .vs-badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: #2e2e2e;
+    border: 1px solid #3a3a3a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 800;
+    color: #6B6B6B;
+    letter-spacing: 0.05em;
+    flex-shrink: 0;
+  }
+
+  /* Bottom improvement bar */
+  .improvement-bar {
+    margin-top: 18px;
+    background: #242424;
+    border: 1px solid #2e2e2e;
+    border-radius: 10px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    flex-shrink: 0;
+  }
+
+  .improvement-stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .improvement-stat .stat-icon {
+    font-size: 14px;
+  }
+
+  .improvement-stat .stat-text {
+    font-size: 11.5px;
+    color: #6B6B6B;
+  }
+
+  .improvement-stat .stat-text strong {
+    color: #C2722A;
+    font-weight: 700;
+  }
+
+  .imp-sep {
+    width: 1px;
+    height: 20px;
+    background: #333;
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="logo">Seo<span>Forge</span></div>
+    <div class="topbar-label">PageSpeed Performance Analyse</div>
+  </div>
+
+  <!-- Panels row -->
+  <div class="panels-row">
+
+    <!-- LEFT: Vorher -->
+    <div class="panel">
+      <div class="panel-label before">Vorher</div>
+
+      <div class="gauge-wrap">
+        <svg viewBox="0 0 180 180">
+          <circle class="gauge-track" cx="90" cy="90" r="76"/>
+          <circle
+            class="gauge-fill"
+            id="gauge-before"
+            cx="90" cy="90" r="76"
+            stroke="#ef4444"
+          />
+        </svg>
+        <div class="gauge-center">
+          <span class="score-number" id="num-before">0</span>
+          <span class="score-denom">/100</span>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric-pill pill-red">
+          <span class="metric-name">LCP</span>
+          <span class="metric-val">4.8s</span>
+        </div>
+        <div class="metric-pill pill-red">
+          <span class="metric-name">CLS</span>
+          <span class="metric-val">0.31</span>
+        </div>
+        <div class="metric-pill pill-red">
+          <span class="metric-name">FID</span>
+          <span class="metric-val">180ms</span>
+        </div>
+      </div>
+
+      <div class="panel-footnote muted">Durchschnittliche Agentur</div>
+    </div>
+
+    <!-- VS Divider -->
+    <div class="vs-divider">
+      <div class="vs-line"></div>
+      <div class="vs-badge">VS</div>
+      <div class="vs-line"></div>
+    </div>
+
+    <!-- RIGHT: Nachher -->
+    <div class="panel">
+      <div class="panel-label after">Mit SeoForge</div>
+
+      <div class="gauge-wrap">
+        <svg viewBox="0 0 180 180">
+          <circle class="gauge-track" cx="90" cy="90" r="76"/>
+          <circle
+            class="gauge-fill"
+            id="gauge-after"
+            cx="90" cy="90" r="76"
+            stroke="#C2722A"
+          />
+        </svg>
+        <div class="gauge-center">
+          <span class="score-number" id="num-after">0</span>
+          <span class="score-denom">/100</span>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="metric-pill pill-green">
+          <span class="metric-name">LCP</span>
+          <span class="metric-val">1.1s</span>
+        </div>
+        <div class="metric-pill pill-green">
+          <span class="metric-name">CLS</span>
+          <span class="metric-val">0.02</span>
+        </div>
+        <div class="metric-pill pill-green">
+          <span class="metric-name">FID</span>
+          <span class="metric-val">8ms</span>
+        </div>
+      </div>
+
+      <div class="panel-footnote brand">SeoForge Website</div>
+    </div>
+
+  </div><!-- /panels-row -->
+
+  <!-- Bottom improvement bar -->
+  <div class="improvement-bar">
+    <div class="improvement-stat">
+      <span class="stat-icon">⚡</span>
+      <span class="stat-text">Score-Verbesserung: <strong>+54 Punkte</strong></span>
+    </div>
+    <div class="imp-sep"></div>
+    <div class="improvement-stat">
+      <span class="stat-icon">🚀</span>
+      <span class="stat-text">Ladezeit: <strong>4.4× schneller</strong></span>
+    </div>
+    <div class="imp-sep"></div>
+    <div class="improvement-stat">
+      <span class="stat-icon">📈</span>
+      <span class="stat-text">Google-Ranking: <strong>Top 3 Positionen</strong></span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const CIRCUMFERENCE = 2 * Math.PI * 76; // r=76
+
+  const gauges = [
+    { el: document.getElementById('gauge-before'), num: document.getElementById('num-before'), target: 42 },
+    { el: document.getElementById('gauge-after'),  num: document.getElementById('num-after'),  target: 96 },
+  ];
+
+  // Set initial state: full dash = no fill
+  gauges.forEach(g => {
+    g.el.style.strokeDasharray = CIRCUMFERENCE;
+    g.el.style.strokeDashoffset = CIRCUMFERENCE; // fully hidden
+  });
+
+  // Animate on load
+  window.addEventListener('load', () => {
+    const DURATION = 1500; // ms
+    const start = performance.now();
+
+    function easeOut(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    function tick(now) {
+      const elapsed = now - start;
+      const raw = Math.min(elapsed / DURATION, 1);
+      const t = easeOut(raw);
+
+      gauges.forEach(g => {
+        const current = Math.round(g.target * t);
+        g.num.textContent = current;
+        const filled = (g.target / 100) * CIRCUMFERENCE * t;
+        g.el.style.strokeDashoffset = CIRCUMFERENCE - filled;
+      });
+
+      if (raw < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        // Ensure final values
+        gauges.forEach(g => {
+          g.num.textContent = g.target;
+          g.el.style.strokeDashoffset = CIRCUMFERENCE - (g.target / 100) * CIRCUMFERENCE;
+        });
+      }
+    }
+
+    requestAnimationFrame(tick);
+  });
+</script>
+</body>
+</html>

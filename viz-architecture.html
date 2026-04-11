@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="de" style="width:800px;height:500px;overflow:hidden;margin:0;padding:0;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=800">
+<title>Website Architecture Stack — SeoForge</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 800px;
+    height: 500px;
+    overflow: hidden;
+    background: #F8F7F5;
+    font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+
+  .wrapper {
+    width: 800px;
+    height: 500px;
+    background: #F8F7F5;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Vertical side labels */
+  .side-label {
+    position: absolute;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    writing-mode: vertical-rl;
+    user-select: none;
+  }
+
+  .side-label.left {
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%) rotate(180deg);
+    color: #9B9B9B;
+  }
+
+  .side-label.right {
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #C2722A;
+  }
+
+  /* Main stack container */
+  .stack-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    width: 680px;
+    /* layers stack from bottom, so we reverse order visually */
+  }
+
+  /* Top cap badge */
+  .top-cap {
+    background: #1A1A1A;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    padding: 8px 22px;
+    border-radius: 20px;
+    margin-bottom: 6px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideUp 0.4s ease-out 1.3s forwards;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Layers */
+  .layer {
+    border-radius: 14px;
+    padding: 18px 28px;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(40px);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Layer widths — pyramid feel */
+  .layer-3 { width: 80%;  animation: slideUp 0.45s ease-out 0.2s forwards; }
+  .layer-2 { width: 90%;  animation: slideUp 0.45s ease-out 0.55s forwards; margin-top: -4px; }
+  .layer-1 { width: 100%; animation: slideUp 0.45s ease-out 0.9s forwards;  margin-top: -4px; }
+
+  /* Subtle inner shadow/depth */
+  .layer::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 30%;
+    background: rgba(0,0,0,0.12);
+    border-radius: 0 0 14px 14px;
+    pointer-events: none;
+  }
+
+  /* Layer 1 — Dark */
+  .layer-1 {
+    background: linear-gradient(135deg, #1A1A1A 0%, #2a2a2a 100%);
+  }
+
+  /* Layer 2 — Primary */
+  .layer-2 {
+    background: linear-gradient(135deg, #C2722A 0%, #a35f22 100%);
+  }
+
+  /* Layer 3 — Secondary/Gold */
+  .layer-3 {
+    background: linear-gradient(135deg, #D4A853 0%, #b8903a 100%);
+  }
+
+  /* Layer label line */
+  .layer-label {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  /* Layer big text */
+  .layer-title {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.015em;
+    color: #fff;
+    line-height: 1.3;
+  }
+
+  /* Chips row */
+  .chips {
+    display: flex;
+    gap: 7px;
+    flex-wrap: nowrap;
+    margin-top: 2px;
+    opacity: 0;
+  }
+
+  .layer-3 .chips { animation: fadeIn 0.35s ease-out 0.55s forwards; }
+  .layer-2 .chips { animation: fadeIn 0.35s ease-out 0.85s forwards; }
+  .layer-1 .chips { animation: fadeIn 0.35s ease-out 1.15s forwards; }
+
+  .chip {
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+  }
+
+  /* Connector dots between layers */
+  .connector {
+    width: 2px;
+    height: 0;
+    background: transparent;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+  <!-- Side labels -->
+  <div class="side-label left">Website-Architektur</div>
+  <div class="side-label right">SeoForge.de</div>
+
+  <!-- Stack (rendered top to bottom in DOM, but bottom layer is widest) -->
+  <div class="stack-container">
+
+    <!-- Top cap -->
+    <div class="top-cap">
+      🌐 Ihre Website
+    </div>
+
+    <!-- Layer 3: Design & UX (top, narrowest) -->
+    <div class="layer layer-3">
+      <div class="layer-label">03 — Design &amp; UX</div>
+      <div class="layer-title">Figma · Wireframes · Conversion-Optimierung</div>
+      <div class="chips">
+        <span class="chip">🎨 Figma</span>
+        <span class="chip">📱 Mobile-First</span>
+        <span class="chip">🖱 UX-Flows</span>
+        <span class="chip">📈 A/B-Tests</span>
+      </div>
+    </div>
+
+    <!-- Layer 2: Entwicklung (middle) -->
+    <div class="layer layer-2">
+      <div class="layer-label">02 — Entwicklung</div>
+      <div class="layer-title">Next.js · React · TypeScript · Netlify</div>
+      <div class="chips">
+        <span class="chip">⚡ SSR/SSG</span>
+        <span class="chip">🔧 TypeScript</span>
+        <span class="chip">🌿 Netlify</span>
+        <span class="chip">📦 Modularer Code</span>
+      </div>
+    </div>
+
+    <!-- Layer 1: Fundament (bottom, widest) -->
+    <div class="layer layer-1">
+      <div class="layer-label">01 — SEO-Fundament</div>
+      <div class="layer-title">Technisches SEO · Core Web Vitals · Schema Markup · URL-Struktur</div>
+      <div class="chips">
+        <span class="chip">⚡ PageSpeed</span>
+        <span class="chip">🔍 Schema</span>
+        <span class="chip">🗺 Sitemap</span>
+        <span class="chip">🔗 Interne Links</span>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
