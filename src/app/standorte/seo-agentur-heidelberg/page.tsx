@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Agentur Heidelberg | SeoForge – Biotech & Wissenschaft SEO",
   description:
     "SEO Agentur Heidelberg: Spezialisiert auf Biotech, Pharma und Wissensunternehmen. In einer Stadt, wo 60% aller Jobs in wissensintensiven Diensten liegen.",
+  robots: { index: true, follow: true },
 };
 
 const localBusinessSchema = {

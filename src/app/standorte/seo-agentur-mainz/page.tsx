@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Agentur Mainz | SeoForge – Medien & Healthcare SEO",
   description:
     "SEO Agentur Mainz: 1.710 Medienfirmen, ZDF, SWR und ARTE. In der Medienhauptstadt des Südwestens zählt Content-Qualität doppelt.",
+  robots: { index: true, follow: true },
 };
 
 const localBusinessSchema = {

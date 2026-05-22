@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Agentur Stuttgart | SeoForge – Automotive & B2B SEO",
   description:
     "SEO Agentur Stuttgart: Wir helfen Stuttgarter Unternehmen aus Automotive, IT und Engineering, bei Google top zu ranken. Jetzt kostenlose Analyse anfragen.",
+  robots: { index: true, follow: true },
 };
 
 const localBusinessSchema = {

@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Agentur Wiesbaden | SeoForge – Versicherung & IT SEO",
   description:
     "SEO Agentur Wiesbaden: Hessens Landeshauptstadt mit 85% Dienstleistungssektor. R+V Versicherung, Bundesbehörden, IT-Unternehmen. Jetzt anfragen.",
+  robots: { index: true, follow: true },
 };
 
 const localBusinessSchema = {

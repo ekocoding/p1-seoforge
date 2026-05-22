@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Agentur Frankfurt am Main | SeoForge – Finance & Consulting SEO",
   description:
     "SEO Agentur Frankfurt: Organische Sichtbarkeit in Europas Finanzhauptstadt. Spezialisiert auf Finance, Consulting und Logistik. Jetzt anfragen.",
+  robots: { index: true, follow: true },
 };
 
 const localBusinessSchema = {

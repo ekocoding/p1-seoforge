@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Agentur in Ihrer Region | SeoForge – Standorte",
   description:
     "SeoForge bietet lokale SEO-Expertise in Stuttgart, Frankfurt, Heidelberg, Karlsruhe und weiteren deutschen Städten. Jetzt regionale Beratung anfragen.",
+  robots: { index: true, follow: true },
 };
 
 const cities = [

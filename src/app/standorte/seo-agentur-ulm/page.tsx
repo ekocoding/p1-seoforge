@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Agentur Ulm | SeoForge – IT & Industrie SEO",
   description:
     "SEO Agentur Ulm: Eine der wirtschaftsstärksten Regionen Europas mit 6.500 Unternehmen. IT, Electronics und Fahrzeugtechnik brauchen starkes SEO.",
+  robots: { index: true, follow: true },
 };
 
 const localBusinessSchema = {

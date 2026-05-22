@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Agentur Pforzheim | SeoForge – Goldstadt & E-Commerce SEO",
   description:
     "SEO Agentur Pforzheim: Die Goldstadt – 80% aller deutschen Schmuckexporte kommen von hier. Nischen-Excellence braucht digitale Sichtbarkeit. Jetzt anfragen.",
+  robots: { index: true, follow: true },
 };
 
 const localBusinessSchema = {

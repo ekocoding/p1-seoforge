@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Agentur Darmstadt | SeoForge – Pharma & Software SEO",
   description:
     "SEO Agentur Darmstadt: Die Wissenschaftsstadt mit Merck KGaA und globalen Softwareführern braucht SEO, das Komplexität beherrscht. Jetzt anfragen.",
+  robots: { index: true, follow: true },
 };
 
 const localBusinessSchema = {

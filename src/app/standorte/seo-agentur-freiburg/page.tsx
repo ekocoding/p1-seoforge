@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Agentur Freiburg im Breisgau | SeoForge – Nachhaltigkeit & Tourismus SEO",
   description:
     "SEO Agentur Freiburg: Solar-Pionier, Universitätsstadt und Schwarzwald-Tor. Nachhaltige Wirtschaft, Forschung und Tourismus brauchen starkes SEO.",
+  robots: { index: true, follow: true },
 };
 
 const localBusinessSchema = {

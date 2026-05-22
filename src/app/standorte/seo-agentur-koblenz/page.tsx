@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Agentur Koblenz | SeoForge – Healthcare IT & Tourismus SEO",
   description:
     "SEO Agentur Koblenz: Weltmarktführer CompuGroup Medical, UNESCO Welterbe und 356.850 Touristen jährlich. Koblenz braucht starkes digitales SEO.",
+  robots: { index: true, follow: true },
 };
 
 const localBusinessSchema = {

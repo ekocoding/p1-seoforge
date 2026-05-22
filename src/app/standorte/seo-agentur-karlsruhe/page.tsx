@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Agentur Karlsruhe | SeoForge – IT & Tech SEO",
   description:
     "SEO Agentur Karlsruhe: Spezialisiert auf IT-Unternehmen, Tech-Startups und die TechnologieRegion. Mit 4.800 IT-Firmen braucht Karlsruhe starkes SEO.",
+  robots: { index: true, follow: true },
 };
 
 const localBusinessSchema = {
