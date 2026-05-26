@@ -44,11 +44,12 @@ export const metadata: Metadata = {
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "ProfessionalService",
   name: "SeoForge",
   url: "https://seoforge.de",
+  logo: "https://seoforge.de/logo.png",
   description:
-    "SEO Agentur fur nachhaltiges Wachstum und messbare Ergebnisse",
+    "SeoForge ist eine SEO-Agentur für nachhaltige Rankings, Webdesign und Generative Engine Optimization (GEO).",
   address: {
     "@type": "PostalAddress",
     streetAddress: "Kurpfalzstraße 16",
@@ -57,12 +58,29 @@ const jsonLd = {
     addressCountry: "DE",
   },
   telephone: "+4915203450695",
-  sameAs: [],
+  email: "info@seoforge.de",
+  areaServed: "DE",
+  priceRange: "€€",
+  openingHours: "Mo-Fr 09:00-18:00",
+  sameAs: [
+    "https://www.linkedin.com/company/seoforge",
+  ],
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+4915203450695",
     contactType: "customer service",
     availableLanguage: "German",
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "SEO & Webdesign Leistungen",
+    itemListElement: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "SEO Beratung" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "SEO Optimierung" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "SEO Audit" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Webdesign" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "GEO" } },
+    ],
   },
 };
 

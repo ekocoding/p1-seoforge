@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Local SEO: Google Business Profile & lokale Rankings | Wissen — SeoForge",
   description:
     "Alles über Local SEO: Google Business Profile optimieren, lokale Rankingfaktoren, NAP-Konsistenz, Bewertungsmanagement und lokale Keywords.",
+  alternates: { canonical: "https://seoforge.de/wissen/local-seo" },
 };
 
 const cluster: PillarCluster = {

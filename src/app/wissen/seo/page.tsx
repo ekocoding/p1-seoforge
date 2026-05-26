@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "SEO Grundlagen & Strategie | Wissen — SeoForge",
   description:
     "Alles über SEO-Grundlagen, Kosten, Agenturwahl und Strategie. Kostenlose Guides von SEO-Experten für Unternehmen.",
+  alternates: { canonical: "https://seoforge.de/wissen/seo" },
 };
 
 const cluster: PillarCluster = {

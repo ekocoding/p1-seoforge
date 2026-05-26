@@ -395,19 +395,18 @@ html {
 .stagger-5 { animation-delay: 0.5s; }
 .stagger-6 { animation-delay: 0.6s; }
 
-/* SEO-safe reveal — always plays on load, no JS trigger */
+/* SEO-safe reveal — immer im DOM sichtbar, Animation via keyframe
+   opacity: 0 liegt NUR im "from"-keyframe (animation-fill-mode: both).
+   Ohne JS / ohne Animation-Support → opacity default = 1 = indexierbar. */
 .reveal {
-  opacity: 0;
   animation: fadeUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
 .reveal-fade {
-  opacity: 0;
   animation: fadeIn 0.5s ease-out both;
 }
 
 .reveal-scale {
-  opacity: 0;
   animation: scaleIn 0.6s ease-out both;
 }
 
@@ -689,4 +688,40 @@ html {
 @keyframes borderGrow {
   from { transform: scaleY(0); }
   to   { transform: scaleY(1); }
+}
+
+/* ─── Pillar cards (SEO Optimierung page) ─── */
+.pillar-card {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pillar-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(194, 114, 42, 0.12);
+}
+.pillar-card:hover .pillar-icon {
+  transform: rotateY(180deg);
+}
+.pillar-icon {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pillar-card:hover .pillar-bar {
+  width: 100% !important;
+}
+.pillar-bar {
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.pillar-card:hover .pillar-tag {
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+.pillar-tag {
+  transition: all 0.3s ease;
+}
+.pillar-card-secondary:hover {
+  box-shadow: 0 25px 50px -12px rgba(212, 168, 83, 0.12);
+}
+.pillar-card-secondary:hover .pillar-tag {
+  background: var(--color-secondary);
+  border-color: var(--color-secondary);
 }

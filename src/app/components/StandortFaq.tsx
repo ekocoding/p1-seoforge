@@ -32,6 +32,7 @@ export default function StandortFaq({ items, defaultOpen = 0 }: StandortFaqProps
                 <button
                   onClick={() => setOpen(open === i ? null : i)}
                   className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-offwhite transition-colors"
+                  aria-expanded={open === i}
                 >
                   <span className="font-semibold text-dark pr-4">{faq.q}</span>
                   <span className={`shrink-0 h-6 w-6 rounded-full border border-border flex items-center justify-center transition-transform duration-200 ${open === i ? "rotate-45 bg-primary border-primary" : ""}`}>
@@ -40,11 +41,13 @@ export default function StandortFaq({ items, defaultOpen = 0 }: StandortFaqProps
                     </svg>
                   </span>
                 </button>
-                {open === i && (
-                  <div className="px-6 pb-5">
-                    <p className="text-sm text-muted leading-relaxed">{faq.a}</p>
-                  </div>
-                )}
+                {/* Antwort IMMER im DOM — CSS-only show/hide für Google-Indexierung */}
+                <div
+                  className={`overflow-hidden transition-all duration-300 ${open === i ? "max-h-96 pb-5" : "max-h-0"}`}
+                  aria-hidden={open !== i}
+                >
+                  <p className="px-6 text-sm text-muted leading-relaxed">{faq.a}</p>
+                </div>
               </div>
             </div>
           ))}

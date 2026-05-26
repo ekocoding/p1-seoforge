@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "On-Page SEO: Title Tags, Meta, Content & Struktur | Wissen — SeoForge",
   description:
     "Alles über On-Page SEO: Title Tags, Meta Descriptions, interne Verlinkung, Duplicate Content und Keyword-Recherche. Praxisnahe Guides.",
+  alternates: { canonical: "https://seoforge.de/wissen/on-page" },
 };
 
 const cluster: PillarCluster = {
