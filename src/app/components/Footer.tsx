@@ -25,13 +25,14 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-dark">Leistungen</h4>
             <ul className="mt-4 space-y-3">
               {[
-                { label: "SEO Beratung", href: "/seo-beratung" },
-                { label: "SEO Optimierung", href: "/seo-optimierung" },
-                { label: "SEO Audit", href: "/seo-audit" },
-                { label: "SEO Texte", href: "/seo-texte-kaufen" },
-                { label: "On Page SEO", href: "/on-page-seo" },
-                { label: "Shop SEO", href: "/shop-seo" },
-                { label: "SEO Betreuung", href: "/seo-betreuung" },
+                { label: "SEO Beratung", href: "/seo/beratung" },
+                { label: "SEO Optimierung", href: "/seo/optimierung" },
+                { label: "SEO Audit", href: "/seo/audit" },
+                { label: "SEO Texte", href: "/seo/texte" },
+                { label: "Content-Strategie", href: "/seo/content-strategie" },
+                { label: "On Page SEO", href: "/seo/on-page" },
+                { label: "Shop SEO", href: "/seo/shop" },
+                { label: "SEO Betreuung", href: "/seo/betreuung" },
               ].map((item) => (
                   <li key={item.label}>
                     <Link
@@ -53,7 +54,6 @@ export default function Footer() {
               {[
                 { label: "SEO Agentur", href: "/seo-agentur" },
                 { label: "GEO Agentur", href: "/geo-agentur" },
-                { label: "Linkbuilding Agentur", href: "/linkbuilding-agentur" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link
@@ -103,7 +103,7 @@ export default function Footer() {
                 <svg className="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                 </svg>
-                0152 03450695
+                <a href="tel:015203450695" className="hover:text-primary transition-colors">0152 03450695</a>
               </li>
             </ul>
 

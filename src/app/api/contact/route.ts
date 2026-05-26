@@ -1,0 +1,86 @@
+import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { name, firmenname, website, email, phone, selectedServices, message } = body;
+
+    if (!name || !email) {
+      return NextResponse.json({ error: "Name und E-Mail sind Pflichtfelder." }, { status: 400 });
+    }
+
+    const resendKey = process.env.RESEND_API_KEY;
+    if (!resendKey) {
+      console.error("RESEND_API_KEY not set");
+      return NextResponse.json({ error: "Konfigurationsfehler" }, { status: 500 });
+    }
+
+    const toEmail = process.env.CONTACT_EMAIL || "info@seoforge.de";
+    const servicesStr = Array.isArray(selectedServices) && selectedServices.length > 0
+      ? selectedServices.join(", ")
+      : null;
+
+    const htmlBody = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #f9fafb; padding: 32px; border-radius: 8px;">
+        <div style="background: #0f172a; padding: 24px 28px; border-radius: 8px; margin-bottom: 28px;">
+          <p style="color: #94a3b8; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin: 0 0 6px;">seoforge.de</p>
+          <h1 style="color: #ffffff; margin: 0; font-size: 22px; font-weight: 700;">Kontaktanfrage${firmenname ? ` – ${firmenname}` : ""}</h1>
+        </div>
+
+        <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 24px;">
+          <p style="color: #6b7280; font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; margin: 0; padding: 14px 20px; font-weight: 600; border-bottom: 1px solid #f3f4f6; background: #f9fafb;">Kontaktdaten</p>
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr style="border-bottom: 1px solid #f3f4f6;">
+              <td style="padding: 12px 20px; color: #9ca3af; font-size: 13px; width: 130px;">Name</td>
+              <td style="padding: 12px 20px; color: #111827; font-size: 14px; font-weight: 600;">${name}</td>
+            </tr>
+            ${firmenname ? `<tr style="border-bottom: 1px solid #f3f4f6;"><td style="padding: 12px 20px; color: #9ca3af; font-size: 13px;">Firmenname</td><td style="padding: 12px 20px; color: #111827; font-size: 14px; font-weight: 600;">${firmenname}</td></tr>` : ""}
+            <tr style="border-bottom: 1px solid #f3f4f6;">
+              <td style="padding: 12px 20px; color: #9ca3af; font-size: 13px;">E-Mail</td>
+              <td style="padding: 12px 20px; font-size: 14px;"><a href="mailto:${email}" style="color: #0891b2;">${email}</a></td>
+            </tr>
+            ${phone ? `<tr style="border-bottom: 1px solid #f3f4f6;"><td style="padding: 12px 20px; color: #9ca3af; font-size: 13px;">Telefon</td><td style="padding: 12px 20px; color: #111827; font-size: 14px;">${phone}</td></tr>` : ""}
+            ${website ? `<tr style="border-bottom: 1px solid #f3f4f6;"><td style="padding: 12px 20px; color: #9ca3af; font-size: 13px;">Website</td><td style="padding: 12px 20px; font-size: 14px;"><a href="${website}" style="color: #0891b2;">${website}</a></td></tr>` : ""}
+            ${servicesStr ? `<tr><td style="padding: 12px 20px; color: #9ca3af; font-size: 13px;">Leistungen</td><td style="padding: 12px 20px; color: #111827; font-size: 14px;">${servicesStr}</td></tr>` : ""}
+          </table>
+        </div>
+
+        ${message ? `
+        <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; overflow: hidden; margin-bottom: 28px;">
+          <p style="color: #6b7280; font-size: 12px; text-transform: uppercase; letter-spacing: 0.8px; margin: 0; padding: 14px 20px; font-weight: 600; border-bottom: 1px solid #f3f4f6; background: #f9fafb;">Nachricht</p>
+          <p style="color: #374151; font-size: 14px; line-height: 1.7; margin: 0; padding: 16px 20px; white-space: pre-wrap;">${message}</p>
+        </div>` : ""}
+
+        <div style="text-align: center;">
+          <a href="mailto:${email}" style="display: inline-block; background: #C2722A; color: white; padding: 13px 28px; border-radius: 7px; text-decoration: none; font-weight: 600; font-size: 14px;">Jetzt antworten</a>
+        </div>
+
+        <p style="color: #d1d5db; font-size: 12px; text-align: center; margin: 24px 0 0;">seoforge.de · Automatisch generierte Benachrichtigung</p>
+      </div>
+    `;
+
+    const emailRes = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${resendKey}`,
+      },
+      body: JSON.stringify({
+        from: "SeoForge <noreply@seoforge.de>",
+        to: toEmail,
+        subject: `Kontaktanfrage: ${name}${firmenname ? " – " + firmenname : ""}`,
+        html: htmlBody,
+      }),
+    });
+
+    if (!emailRes.ok) {
+      const err = await emailRes.json().catch(() => ({}));
+      console.error("Resend error:", err);
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    console.error("contact error:", err);
+    return NextResponse.json({ error: "Interner Fehler" }, { status: 500 });
+  }
+}

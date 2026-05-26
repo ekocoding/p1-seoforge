@@ -2,10 +2,13 @@ import type { Metadata } from "next";
 import SubpageLayout from "../components/SubpageLayout";
 import Link from "next/link";
 
+export const dynamic = 'force-static';
+
 export const metadata: Metadata = {
   title: "Referenzen | SeoForge - Erfolgreiche SEO-Projekte",
   description:
     "Entdecken Sie unsere erfolgreichen SEO-Projekte und Kundenerfolge. Realistische Fallstudien mit messbaren Ergebnissen.",
+  alternates: { canonical: "https://seoforge.de/referenzen" },
 };
 
 const caseStudies = [

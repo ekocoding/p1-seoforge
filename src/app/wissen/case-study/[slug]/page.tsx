@@ -1,0 +1,24 @@
+import { getArticleBySlug, getArticlesByType } from '../../data/articles'
+import ArticleLayout from '../../components/ArticleLayout'
+import { notFound } from 'next/navigation'
+
+export async function generateStaticParams() {
+  return getArticlesByType('case-study').map(a => ({ slug: a.slug }))
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const article = getArticleBySlug(slug)
+  if (!article) return {}
+  return {
+    title: `${article.title} — Case Study | SeoForge`,
+    description: article.excerpt,
+  }
+}
+
+export default async function CaseStudyArticlePage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const article = getArticleBySlug(slug)
+  if (!article || article.type !== 'case-study') notFound()
+  return <ArticleLayout article={article} />
+}

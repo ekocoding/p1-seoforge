@@ -1,303 +1,738 @@
 import type { Metadata } from "next";
 import SubpageLayout from "../components/SubpageLayout";
 import Link from "next/link";
+import Image from "next/image";
+
+export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur in Ihrer Region | SeoForge – Standorte",
+  title: "SEO Agentur in Ihrer Region | SeoForge – 11 Standorte in Deutschland",
   description:
-    "SeoForge bietet lokale SEO-Expertise in Stuttgart, Frankfurt, Heidelberg, Karlsruhe und weiteren deutschen Städten. Jetzt regionale Beratung anfragen.",
+    "SeoForge bietet lokale SEO-Expertise in Stuttgart, Frankfurt, Heidelberg, Karlsruhe, Freiburg, Mainz und weiteren deutschen Städten.",
   robots: { index: true, follow: true },
+  alternates: { canonical: "https://seoforge.de/standorte" },
 };
 
 const cities = [
   {
     slug: "seo-agentur-stuttgart",
     name: "Stuttgart",
-    teaser:
-      "Automotive-Hochburg mit 31.400 Unternehmen. Wir positionieren Zulieferer, Technologiefirmen und B2B-Anbieter in einem der härtesten SEO-Wettbewerbe Deutschlands.",
-    industry: "Automotive · IT · Engineering",
-    icon: (
-      <svg className="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12a7.5 7.5 0 0015 0m-15 0a7.5 7.5 0 1115 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077l1.41-.513m14.095-5.13l1.41-.513M5.106 17.785l1.15-.964m11.49-9.642l1.149-.964M7.501 19.795l.75-1.3m7.5-12.99l.75-1.3m-6.063 16.658l.26-1.477m2.605-14.772l.26-1.477m0 17.726l-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205L12 12m6.894 5.785l-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864l-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" />
-      </svg>
-    ),
+    image: "/images/cities/stuttgart-hero.jpg",
+    einwohner: "635.000",
+    focus: "Automotive · IT · Engineering",
+    tagline: "Automotive-Hauptstadt",
+    teaser: "Bosch, Porsche, Mercedes — B2B-SEO für den härtesten Industriemarkt Deutschlands.",
+    potential: 5,
+    potentialLabel: "Sehr hoch",
+    region: "Baden-Württemberg",
   },
   {
     slug: "seo-agentur-frankfurt",
-    name: "Frankfurt am Main",
-    teaser:
-      "Europas Finanzhauptstadt mit über 200 Banken. In diesem hart umkämpften Markt ist organische Sichtbarkeit der entscheidende Wettbewerbsvorteil.",
-    industry: "Finance · Consulting · Logistics",
-    icon: (
-      <svg className="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
-      </svg>
-    ),
-  },
-  {
-    slug: "seo-agentur-karlsruhe",
-    name: "Karlsruhe",
-    teaser:
-      "Mit 4.800 IT-Unternehmen und 30.000 IT-Jobs ist Karlsruhe Deutschlands Tech-Hub Nr. 1 – und ein Markt, in dem SEO über Wachstum entscheidet.",
-    industry: "IT · Cyber-Security · Research",
-    icon: (
-      <svg className="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-      </svg>
-    ),
+    name: "Frankfurt",
+    image: "/images/cities/frankfurt-hero.jpg",
+    einwohner: "773.000",
+    focus: "Finanz · FinTech · Consulting",
+    tagline: "Europas Finanzmetropole",
+    teaser: "EZB, 200+ Banken, internationaler B2B-Markt — die höchsten SEO-Suchvolumen Deutschlands.",
+    potential: 5,
+    potentialLabel: "Sehr hoch",
+    region: "Hessen",
   },
   {
     slug: "seo-agentur-heidelberg",
     name: "Heidelberg",
-    teaser:
-      "Wissenschaftsstadt mit 62 Biotech-Unternehmen und einer Universität, die seit 1386 Maßstäbe setzt. Wir helfen Wissensunternehmen, online sichtbar zu werden.",
-    industry: "Biotech · Pharma · Wissenschaft",
-    icon: (
-      <svg className="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23-.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5" />
-      </svg>
-    ),
+    image: "/images/cities/heidelberg-hero.jpg",
+    einwohner: "155.000",
+    focus: "Biotech · Wissenschaft · Tourismus",
+    tagline: "Biotech-Hub & Universitätsstadt",
+    teaser: "30+ Biotech-Firmen, 66% Wissensberufe — SEO für akademisch geprägte Märkte.",
+    potential: 4,
+    potentialLabel: "Hoch",
+    region: "Baden-Württemberg",
   },
   {
-    slug: "seo-agentur-darmstadt",
-    name: "Darmstadt",
-    teaser:
-      "Wissenschaftsstadt mit weltführenden Unternehmen wie Merck KGaA. Wir navigieren komplexe B2B-Märkte mit gezielter SEO-Strategie.",
-    industry: "Pharma · Software · Chemistry",
-    icon: (
-      <svg className="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />
-      </svg>
-    ),
+    slug: "seo-agentur-karlsruhe",
+    name: "Karlsruhe",
+    image: "/images/cities/karlsruhe-hero.jpg",
+    einwohner: "309.050",
+    focus: "IT · KI · Cyber Security",
+    tagline: "Deutschlands IT-Hauptstadt",
+    teaser: "KIT, Cyber Valley, 1.200+ Tech-Firmen — Nischen-SEO für den dichtesten Techmarkt.",
+    potential: 4,
+    potentialLabel: "Hoch",
+    region: "Baden-Württemberg",
   },
   {
     slug: "seo-agentur-mainz",
     name: "Mainz",
-    teaser:
-      "Medienhauptstadt mit 1.710 Medienfirmen und Heimat des ZDF. Content-starke Branchen brauchen SEO, das mithalten kann.",
-    industry: "Medien · Healthcare · Glas",
-    icon: (
-      <svg className="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 7.5l16.5-4.125M12 6.75c-2.708 0-5.363.224-7.948.655C2.999 7.58 2.25 8.507 2.25 9.574v9.176A2.25 2.25 0 004.5 21h15a2.25 2.25 0 002.25-2.25V9.574c0-1.067-.75-1.994-1.802-2.169A48.329 48.329 0 0012 6.75zm-1.683 6.443l-.005.005-.006-.005.006-.005.005.005zm-.005 2.824l-.005-.006.005-.005.005.005-.005.006zm-2.116-.006l-.005.006-.006-.006.005-.005.006.005zm0-2.824l-.005-.005.006-.005.005.005-.006.005zM9.255 13.5l.005.006h-.01l.005-.006zm3.249 2.24l-.005.005-.006-.005.006-.005.005.005zm-2.124-2.24l.005.006h-.01l.005-.006zm2.119-.005l.005.005-.006.005-.005-.005.006-.005zM12 18l-.005-.006.005-.005.005.005-.005.006z" />
-      </svg>
-    ),
+    image: "/images/cities/mainz-hero.jpg",
+    einwohner: "218.000",
+    focus: "Life Sciences · Medien · Wein",
+    tagline: "BioNTech-Heimat & ZDF-Standort",
+    teaser: "BioNTech, ZDF und Gutenberg-Uni — SEO für Life Sciences und Medienunternehmen.",
+    potential: 3,
+    potentialLabel: "Mittel-Hoch",
+    region: "Rheinland-Pfalz",
   },
   {
     slug: "seo-agentur-wiesbaden",
     name: "Wiesbaden",
-    teaser:
-      "Hessens Landeshauptstadt mit starkem Dienstleistungssektor. 85% der Beschäftigten arbeiten im Service – ein ideales Umfeld für lokales SEO.",
-    industry: "Versicherung · IT · Public Sector",
-    icon: (
-      <svg className="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.551 0-5.056.2-7.5.582V21M3 21h18M12 6.75h.008v.008H12V6.75z" />
-      </svg>
-    ),
+    image: "/images/cities/wiesbaden-hero.jpg",
+    einwohner: "285.000",
+    focus: "Versicherung · Finanz · Tourismus",
+    tagline: "Hessische Landeshauptstadt",
+    teaser: "Destatis, BKA und Rheingau — SEO für anspruchsvolle Dienstleistungsmärkte.",
+    potential: 3,
+    potentialLabel: "Mittel-Hoch",
+    region: "Hessen",
+  },
+  {
+    slug: "seo-agentur-darmstadt",
+    name: "Darmstadt",
+    image: "/images/cities/darmstadt-hero.jpg",
+    einwohner: "160.000",
+    focus: "Life Sciences · IT · Raumfahrt",
+    tagline: "Wissenschaftsstadt mit ESOC",
+    teaser: "TU Darmstadt, Merck KGaA, ESOC — hohe Tech-Dichte, internationaler Fachkräftepool.",
+    potential: 4,
+    potentialLabel: "Hoch",
+    region: "Hessen",
+  },
+  {
+    slug: "seo-agentur-freiburg",
+    name: "Freiburg",
+    image: "/images/cities/freiburg-hero.jpg",
+    einwohner: "235.000",
+    focus: "Cleantech · Solar · Tourismus",
+    tagline: "Solarhauptstadt Deutschlands",
+    teaser: "Fraunhofer ISE, Schwarzwald-Tourismus — SEO für grüne Technologie und Destinationen.",
+    potential: 3,
+    potentialLabel: "Mittel",
+    region: "Baden-Württemberg",
   },
   {
     slug: "seo-agentur-pforzheim",
     name: "Pforzheim",
-    teaser:
-      "Die Goldstadt: 80% allen aus Deutschland exportierten Schmucks kommen von hier. Nischen-Excellence braucht digitale Sichtbarkeit.",
-    industry: "Schmuck · E-Commerce · Precision",
-    icon: (
-      <svg className="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />
-      </svg>
-    ),
-  },
-  {
-    slug: "seo-agentur-ulm",
-    name: "Ulm",
-    teaser:
-      "Wirtschaftlich stärkste Region Europas mit 6.500 Unternehmen. Von Fahrzeugtechnik bis IT – Ulmer Firmen brauchen SEO, das wächst.",
-    industry: "IT · Electronics · Manufacturing",
-    icon: (
-      <svg className="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008zm0 3h.008v.008h-.008v-.008z" />
-      </svg>
-    ),
-  },
-  {
-    slug: "seo-agentur-freiburg",
-    name: "Freiburg im Breisgau",
-    teaser:
-      "Solar-Pionier und Universitätsstadt am Fuß des Schwarzwalds. Nachhaltige Wirtschaft braucht nachhaltige SEO-Strategien.",
-    industry: "Nachhaltigkeit · Tourismus · Wissenschaft",
-    icon: (
-      <svg className="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-      </svg>
-    ),
+    image: "/images/cities/pforzheim-hero.jpg",
+    einwohner: "125.000",
+    focus: "Schmuck · E-Commerce · Mittelstand",
+    tagline: "Die Goldstadt",
+    teaser: "700+ Schmuck- und Uhrenbetriebe — E-Commerce-SEO für Made-in-Pforzheim-Qualität.",
+    potential: 3,
+    potentialLabel: "Wächst",
+    region: "Baden-Württemberg",
   },
   {
     slug: "seo-agentur-koblenz",
     name: "Koblenz",
-    teaser:
-      "Weltmarktführer im Healthcare-IT und UNESCO-Welterbe am Rhein. Wir verbinden lokale Stärke mit digitaler Reichweite.",
-    industry: "Healthcare IT · Logistik · Tourismus",
-    icon: (
-      <svg className="h-6 w-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-      </svg>
-    ),
+    image: "/images/cities/koblenz-hero.jpg",
+    einwohner: "115.000",
+    focus: "Verwaltung · Tourismus · Logistik",
+    tagline: "Am Deutschen Eck",
+    teaser: "UNESCO Welterbe Mittelrhein, BAAINBw — SEO für Mittelrhein-Unternehmen.",
+    potential: 2,
+    potentialLabel: "Mittel",
+    region: "Rheinland-Pfalz",
+  },
+  {
+    slug: "seo-agentur-ulm",
+    name: "Ulm",
+    image: "/images/cities/ulm-hero.jpg",
+    einwohner: "128.000",
+    focus: "Medizintechnik · Automotive · IT",
+    tagline: "Einsteins Geburtsstadt",
+    teaser: "Daimler Truck und Medizintechnik-Cluster — SEO für Innovation an Donau und A8.",
+    potential: 3,
+    potentialLabel: "Wächst",
+    region: "Baden-Württemberg",
   },
 ];
 
+function PotentialBar({ count }: { count: number }) {
+  return (
+    <div className="flex gap-1 items-center">
+      {[1, 2, 3, 4, 5].map((i) => (
+        <div
+          key={i}
+          className="h-1.5 rounded-full transition-all"
+          style={{
+            width: "12px",
+            background: i <= count ? "#C2722A" : "rgba(255,255,255,0.1)",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function StandortePage() {
+  const featured = cities.slice(0, 3);
+  const mosaicCities = cities.slice(0, 9);
+
   return (
     <SubpageLayout>
-      <main className="min-h-screen bg-white">
-        {/* Hero */}
-        <section className="bg-offwhite border-b border-border">
-          <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8 lg:py-28">
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="hero-badge inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 mb-6">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary"></span>
-                <span className="text-xs font-semibold tracking-wider uppercase text-primary">
-                  Regionale SEO-Expertise
-                </span>
-              </div>
-              <h1 className="hero-title font-[family-name:var(--font-heading)] text-4xl font-bold tracking-tight text-dark sm:text-5xl lg:text-6xl">
-                SEO Agentur in{" "}
-                <span className="text-primary">Ihrer Region</span>
-              </h1>
-              <p className="hero-description mt-6 text-lg leading-relaxed text-muted max-w-2xl mx-auto">
-                Lokales SEO gewinnen, wer den Markt kennt. Unsere Experten
-                verstehen die wirtschaftlichen Besonderheiten jeder Stadt –
-                von der Automotive-Hochburg Stuttgart bis zur Medienstadt
-                Mainz. Wählen Sie Ihren Standort:
+
+      {/* ══════════════════════════════════════════════════════
+          1. HERO — dunkel, geteiltes Layout: Text + Mosaik
+      ══════════════════════════════════════════════════════ */}
+      <section className="relative bg-dark overflow-hidden" style={{ minHeight: "92vh" }}>
+        {/* Subtle dot grid */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
+          }}
+        />
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark to-transparent pointer-events-none" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 w-full py-28 lg:py-36">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-16 items-center">
+
+            {/* Left: Headline */}
+            <div>
+              <nav className="flex items-center gap-2 text-xs text-white/30 font-mono mb-10 hero-badge">
+                <Link href="/" className="hover:text-white/60 transition-colors">SeoForge</Link>
+                <span>/</span>
+                <span className="text-white/50">Standorte</span>
+              </nav>
+
+              <p className="font-mono text-xs font-semibold tracking-[0.3em] text-primary uppercase mb-6 hero-badge">
+                / 11 Städte · Südwest &amp; Rhein-Main
               </p>
-            </div>
-          </div>
-        </section>
 
-        {/* City Grid */}
-        <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {cities.map((city) => (
-              <Link
-                key={city.slug}
-                href={`/standorte/${city.slug}`}
-                className="group relative flex flex-col rounded-2xl border border-border bg-white p-6 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-md hover:-translate-y-0.5"
+              <h1
+                className="font-[family-name:var(--font-heading)] font-bold text-white hero-title"
+                style={{ fontSize: "clamp(52px, 7.5vw, 112px)", lineHeight: 1.0, letterSpacing: "-0.02em" }}
               >
-                {/* Top accent */}
-                <div className="absolute inset-x-0 top-0 h-0.5 rounded-t-2xl bg-gradient-to-r from-primary to-secondary opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                SEO wo<br />
+                der Markt<br />
+                <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  wirklich ist.
+                </span>
+              </h1>
 
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/8">
-                    {city.icon}
-                  </div>
-                  <svg
-                    className="h-5 w-5 text-muted transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={1.5}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
+              <p className="text-white/45 text-xl leading-relaxed mt-8 mb-10 max-w-md hero-description">
+                Lokaler Wettbewerb ist real. Regionale Suchintentionen auch.
+                Wir kennen Ihre Stadt — nicht nur von der Karte.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3 hero-cta">
+                <a
+                  href="#standorte"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-200"
+                  style={{ background: "linear-gradient(135deg, #C2722A, #a35f22)" }}
+                >
+                  Standort wählen
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
-                </div>
-
-                <h2 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark group-hover:text-primary transition-colors duration-200">
-                  {city.name}
-                </h2>
-
-                <p className="mt-2 text-sm text-muted leading-relaxed flex-1">
-                  {city.teaser}
-                </p>
-
-                <div className="mt-4 pt-4 border-t border-border">
-                  <span className="text-xs font-medium text-primary/70 tracking-wide">
-                    {city.industry}
-                  </span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-
-        {/* Why Local SEO */}
-        <section className="bg-offwhite border-y border-border">
-          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
-            <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 items-center">
-              <div>
-                <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 mb-6">
-                  <span className="text-xs font-semibold tracking-wider uppercase text-primary">
-                    Warum lokales SEO?
-                  </span>
-                </div>
-                <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-dark sm:text-4xl">
-                  Jeder Markt tickt anders.{" "}
-                  <span className="text-primary">Ihre SEO auch.</span>
-                </h2>
-                <p className="mt-4 text-base text-muted leading-relaxed">
-                  Ein Stuttgarter Automobilzulieferer konkurriert anders als
-                  eine Frankfurter Unternehmensberatung oder ein Pforzheimer
-                  Schmuckhändler. Wer diese Unterschiede nicht versteht,
-                  verschwendet SEO-Budget.
-                </p>
-                <p className="mt-3 text-base text-muted leading-relaxed">
-                  Wir analysieren den lokalen Wettbewerb, die Suchintentionen
-                  Ihrer Zielgruppe und die wirtschaftlichen Besonderheiten
-                  Ihres Standorts – und entwickeln daraus eine SEO-Strategie,
-                  die wirklich funktioniert.
-                </p>
+                </a>
+                <Link
+                  href="/seo/audit"
+                  className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl font-semibold text-sm text-white/70 border border-white/15 hover:border-white/30 hover:text-white transition-all duration-200"
+                >
+                  Kostenlosen Audit anfragen
+                </Link>
               </div>
-              <div className="grid grid-cols-2 gap-4">
+
+              {/* Stat row */}
+              <div className="mt-14 pt-8 border-t border-white/8 grid grid-cols-3 gap-6">
                 {[
-                  { label: "Lokale Märkte analysiert", value: "11+" },
-                  { label: "Städte & Regionen", value: "DE-weit" },
-                  { label: "Ø Traffic-Steigerung", value: "+240%" },
-                  { label: "Beratungsgespräche kostenlos", value: "100%" },
-                ].map((stat) => (
-                  <div
-                    key={stat.label}
-                    className="rounded-xl border border-border bg-white p-5"
-                  >
-                    <div className="font-[family-name:var(--font-heading)] text-3xl font-bold text-primary">
-                      {stat.value}
+                  { val: "11", sub: "Standorte" },
+                  { val: "5,8 Mio.", sub: "Einwohner im Einzugsgebiet" },
+                  { val: "4.9 ★", sub: "Kundenbewertung" },
+                ].map(({ val, sub }) => (
+                  <div key={sub}>
+                    <div
+                      className="font-[family-name:var(--font-heading)] font-bold text-white"
+                      style={{ fontSize: "clamp(20px, 2.5vw, 30px)" }}
+                    >
+                      {val}
                     </div>
-                    <div className="mt-1 text-sm text-muted">{stat.label}</div>
+                    <div className="text-xs text-white/30 font-mono mt-1">{sub}</div>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
-        </section>
 
-        {/* CTA */}
-        <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
-          <div className="rounded-3xl bg-dark px-8 py-14 text-center lg:px-16">
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-white sm:text-4xl">
-              Noch keinen passenden Standort gefunden?
-            </h2>
-            <p className="mt-4 text-base text-white/70 max-w-xl mx-auto">
-              Wir betreuen Kunden aus ganz Deutschland – auch aus Städten, die
-              oben nicht gelistet sind. Sprechen Sie uns an.
+            {/* Right: 3×3 Stadtmosaik */}
+            <div className="hidden lg:grid grid-cols-3 gap-1 rounded-2xl overflow-hidden" style={{ height: "480px" }}>
+              {mosaicCities.map((city) => (
+                <Link
+                  key={city.slug}
+                  href={`/standorte/${city.slug}`}
+                  className="group relative overflow-hidden"
+                >
+                  <Image
+                    src={city.image}
+                    alt={city.name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-110"
+                    sizes="160px"
+                  />
+                  <div className="absolute inset-0 bg-dark/65 group-hover:bg-dark/30 transition-colors duration-400" />
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: "linear-gradient(135deg, rgba(194,114,42,0.4), transparent)" }}
+                  />
+                  <div className="absolute bottom-2 left-2 right-2">
+                    <p className="text-white text-xs font-mono font-semibold truncate">{city.name}</p>
+                  </div>
+                  {/* Top line accent on hover */}
+                  <div className="absolute inset-x-0 top-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
+                  />
+                </Link>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          2. NUMBERED CITY LIST — Bloomberg-Terminal-Stil
+      ══════════════════════════════════════════════════════ */}
+      <section id="standorte" className="bg-dark border-t border-white/5">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20 lg:py-28">
+
+          <div className="flex items-end justify-between mb-10">
+            <div>
+              <p className="font-mono text-xs font-semibold tracking-[0.3em] uppercase text-primary mb-3">/ Alle Standorte</p>
+              <h2
+                className="font-[family-name:var(--font-heading)] font-bold text-white"
+                style={{ fontSize: "clamp(22px, 3vw, 40px)" }}
+              >
+                Wählen Sie Ihren Standort
+              </h2>
+            </div>
+            <p className="hidden sm:block font-mono text-xs text-white/25 pb-1">
+              11 Märkte · Südwest &amp; Rhein-Main
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+          </div>
+
+          <div className="divide-y divide-white/6">
+            {cities.map((city, i) => (
+              <Link
+                key={city.slug}
+                href={`/standorte/${city.slug}`}
+                className="group flex items-center gap-5 py-4 px-3 -mx-3 hover:bg-white/[0.03] rounded-lg transition-colors duration-150"
+              >
+                {/* Index */}
+                <span className="font-mono text-xs text-white/20 w-6 flex-shrink-0 tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+
+                {/* Thumbnail */}
+                <div className="relative w-12 h-12 rounded-lg overflow-hidden flex-shrink-0 opacity-50 group-hover:opacity-100 transition-opacity duration-200">
+                  <Image
+                    src={city.image}
+                    alt={city.name}
+                    fill
+                    className="object-cover"
+                    sizes="48px"
+                  />
+                </div>
+
+                {/* Name + tagline */}
+                <div className="flex-1 min-w-0">
+                  <p
+                    className="font-[family-name:var(--font-heading)] font-bold text-white group-hover:text-primary transition-colors duration-150 truncate"
+                    style={{ fontSize: "clamp(16px, 1.8vw, 22px)" }}
+                  >
+                    {city.name}
+                  </p>
+                  <p className="text-xs text-white/35 font-mono mt-0.5 truncate">{city.focus}</p>
+                </div>
+
+                {/* Einwohner */}
+                <p className="hidden md:block text-white/30 text-xs font-mono flex-shrink-0 tabular-nums">
+                  {city.einwohner} Einw.
+                </p>
+
+                {/* Potential bar */}
+                <div className="hidden lg:block flex-shrink-0">
+                  <PotentialBar count={city.potential} />
+                </div>
+
+                {/* Arrow */}
+                <div className="w-8 h-8 rounded-full border border-white/12 flex items-center justify-center flex-shrink-0 group-hover:border-primary group-hover:bg-primary transition-all duration-200">
+                  <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          3. EDITORIAL FEATURE — Asymmetrisches Layout
+      ══════════════════════════════════════════════════════ */}
+      <section className="border-t border-white/5" style={{ background: "#141414" }}>
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20 lg:py-28">
+
+          <div className="mb-14">
+            <p className="font-mono text-xs font-semibold tracking-[0.3em] uppercase text-primary mb-3">/ Kernmärkte</p>
+            <h2
+              className="font-[family-name:var(--font-heading)] font-bold text-white"
+              style={{ fontSize: "clamp(24px, 3.5vw, 48px)" }}
+            >
+              Drei Städte. Drei Strategien.
+            </h2>
+          </div>
+
+          {/* 1 gross + 2 gestapelt */}
+          <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-4" style={{ height: "clamp(480px, 60vh, 640px)" }}>
+
+            {/* Grosse linke Karte */}
+            <Link
+              href={`/standorte/${featured[0].slug}`}
+              className="group relative rounded-2xl overflow-hidden"
+            >
+              <Image
+                src={featured[0].image}
+                alt={featured[0].name}
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                priority
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-dark/10" />
+              <div className="absolute inset-x-0 top-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }} />
+
+              <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-10">
+                <span className="inline-flex items-center px-3 py-1 rounded-full border border-white/20 bg-white/8 text-xs font-mono text-white/70 mb-4 backdrop-blur-sm">
+                  {featured[0].einwohner} Einwohner · {featured[0].region}
+                </span>
+                <h3
+                  className="font-[family-name:var(--font-heading)] font-bold text-white mb-2"
+                  style={{ fontSize: "clamp(32px, 4vw, 56px)" }}
+                >
+                  {featured[0].name}
+                </h3>
+                <p className="text-primary font-mono text-xs mb-4">{featured[0].tagline}</p>
+                <p className="text-white/55 text-sm leading-relaxed mb-6 max-w-sm">{featured[0].teaser}</p>
+                <span
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold text-white transition-all duration-200 group-hover:gap-3"
+                  style={{ background: "rgba(194,114,42,0.75)", backdropFilter: "blur(8px)" }}
+                >
+                  Zur Standortseite
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </span>
+              </div>
+            </Link>
+
+            {/* Zwei rechte Karten gestapelt */}
+            <div className="grid grid-rows-2 gap-4">
+              {featured.slice(1).map((city) => (
+                <Link
+                  key={city.slug}
+                  href={`/standorte/${city.slug}`}
+                  className="group relative rounded-2xl overflow-hidden"
+                >
+                  <Image
+                    src={city.image}
+                    alt={city.name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    sizes="(max-width: 1024px) 100vw, 40vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark via-dark/50 to-dark/15" />
+                  <div className="absolute inset-x-0 top-0 h-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }} />
+
+                  <div className="absolute bottom-0 left-0 right-0 p-5 lg:p-6">
+                    <p className="text-primary font-mono text-xs mb-1">{city.tagline}</p>
+                    <h3
+                      className="font-[family-name:var(--font-heading)] font-bold text-white mb-2"
+                      style={{ fontSize: "clamp(20px, 2.5vw, 30px)" }}
+                    >
+                      {city.name}
+                    </h3>
+                    <p className="text-white/50 text-xs leading-relaxed line-clamp-2">{city.teaser}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          4. DATEN-TABELLE — einzige helle Sektion
+      ══════════════════════════════════════════════════════ */}
+      <section className="bg-offwhite border-t border-border">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20 lg:py-28">
+
+          <div className="mb-12">
+            <p className="font-mono text-xs font-semibold tracking-[0.3em] uppercase text-primary mb-3">/ Standort-Index</p>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-dark sm:text-4xl">
+              Alle 11 Märkte im Überblick
+            </h2>
+          </div>
+
+          <div className="overflow-x-auto rounded-2xl border border-border bg-white shadow-sm">
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr className="border-b border-border bg-offwhite">
+                  <th className="px-6 py-4 font-mono text-xs font-semibold text-muted uppercase tracking-wider">#</th>
+                  <th className="px-6 py-4 font-mono text-xs font-semibold text-muted uppercase tracking-wider">Stadt</th>
+                  <th className="px-6 py-4 font-mono text-xs font-semibold text-muted uppercase tracking-wider hidden sm:table-cell">Region</th>
+                  <th className="px-6 py-4 font-mono text-xs font-semibold text-muted uppercase tracking-wider hidden md:table-cell">Einwohner</th>
+                  <th className="px-6 py-4 font-mono text-xs font-semibold text-muted uppercase tracking-wider hidden lg:table-cell">Schwerpunkt</th>
+                  <th className="px-6 py-4 font-mono text-xs font-semibold text-muted uppercase tracking-wider">SEO-Potenzial</th>
+                  <th className="px-6 py-4"></th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {cities.map((city, i) => (
+                  <tr key={city.slug} className="group hover:bg-primary/5 transition-colors duration-100">
+                    <td className="px-6 py-4 font-mono text-xs text-muted tabular-nums">
+                      {String(i + 1).padStart(2, "0")}
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="relative w-8 h-8 rounded-md overflow-hidden flex-shrink-0">
+                          <Image src={city.image} alt={city.name} fill className="object-cover" sizes="32px" />
+                        </div>
+                        <div>
+                          <p className="font-semibold text-dark text-sm">{city.name}</p>
+                          <p className="text-xs text-muted font-mono">{city.tagline}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-muted text-xs hidden sm:table-cell">{city.region}</td>
+                    <td className="px-6 py-4 text-muted text-xs font-mono tabular-nums hidden md:table-cell">{city.einwohner}</td>
+                    <td className="px-6 py-4 hidden lg:table-cell">
+                      <p className="text-xs text-muted leading-tight">{city.focus}</p>
+                    </td>
+                    <td className="px-6 py-4">
+                      <div className="flex flex-col gap-1.5">
+                        <div className="flex gap-1">
+                          {[1, 2, 3, 4, 5].map((j) => (
+                            <div
+                              key={j}
+                              className="h-1.5 w-3 rounded-full"
+                              style={{ background: j <= city.potential ? "#C2722A" : "#E5E3DF" }}
+                            />
+                          ))}
+                        </div>
+                        <p className="text-xs font-mono text-muted">{city.potentialLabel}</p>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-right">
+                      <Link
+                        href={`/standorte/${city.slug}`}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold text-primary border border-primary/20 bg-primary/5 hover:bg-primary/10 hover:border-primary/40 transition-all"
+                      >
+                        Öffnen
+                        <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p className="mt-4 text-xs text-muted font-mono">
+            * SEO-Potenzial basiert auf Markttiefe, lokalem Wettbewerb und Suchvolumen-Analyse.
+          </p>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          5. STATEMENT — einziger schwarzer Moment
+      ══════════════════════════════════════════════════════ */}
+      <section
+        className="border-t border-white/5 flex items-center justify-center text-center"
+        style={{ background: "#080808", paddingTop: "clamp(80px, 10vw, 140px)", paddingBottom: "clamp(80px, 10vw, 140px)" }}
+      >
+        <div className="px-6 lg:px-8 max-w-5xl mx-auto">
+          <p className="font-mono text-xs font-semibold tracking-[0.3em] uppercase text-primary mb-8">
+            / Unsere Überzeugung
+          </p>
+          <h2
+            className="font-[family-name:var(--font-heading)] font-bold text-white leading-tight"
+            style={{ fontSize: "clamp(36px, 6vw, 88px)", letterSpacing: "-0.02em" }}
+          >
+            Lokaler Markt.
+            <br />
+            <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              Globale Methodik.
+            </span>
+          </h2>
+          <p className="text-white/35 text-lg leading-relaxed mt-8 max-w-2xl mx-auto">
+            Jede unserer Standortstrategien basiert auf denselben internationalen SEO-Standards —
+            angepasst an den lokalen Markt, die lokale Sprache und die lokale Konkurrenz.
+          </p>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          6. WARUM LOKAL — Process-Nummern-Stil
+      ══════════════════════════════════════════════════════ */}
+      <section className="bg-dark border-t border-white/5">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20 lg:py-28">
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+
+            <div>
+              <p className="font-mono text-xs font-semibold tracking-[0.3em] uppercase text-primary mb-4">/ Warum lokal?</p>
+              <h2
+                className="font-[family-name:var(--font-heading)] font-bold text-white mb-6"
+                style={{ fontSize: "clamp(24px, 3.5vw, 48px)" }}
+              >
+                Jeder Markt<br />tickt anders.
+              </h2>
+              <p className="text-white/45 leading-relaxed mb-6">
+                Ein Stuttgarter Automobilzulieferer konkurriert anders als eine
+                Frankfurter Unternehmensberatung oder ein Pforzheimer Schmuckhändler.
+                Wer diese Unterschiede nicht versteht, verschwendet SEO-Budget.
+              </p>
+              <p className="text-white/45 leading-relaxed mb-10">
+                Wir analysieren Suchintentionen, lokalen Wettbewerb und wirtschaftliche
+                Besonderheiten — und bauen daraus eine Strategie, die wirklich funktioniert.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Link
+                  href="/seo/audit"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-200"
+                  style={{ background: "linear-gradient(135deg, #C2722A, #a35f22)" }}
+                >
+                  Kostenloser SEO-Audit
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </svg>
+                </Link>
+                <Link
+                  href="/seo/beratung"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white/60 border border-white/15 hover:border-white/30 hover:text-white/90 transition-all duration-200"
+                >
+                  SEO Beratung anfragen
+                </Link>
+              </div>
+            </div>
+
+            {/* Numbered reasons */}
+            <div className="space-y-0 divide-y divide-white/6">
+              {[
+                {
+                  n: "01",
+                  title: "Lokale Suchintentionen",
+                  text: "Stuttgarter Einkäufer suchen anders als Frankfurter Finanzentscheider. Wir kennen die Keywords jedes Markts.",
+                },
+                {
+                  n: "02",
+                  title: "Regionaler Wettbewerb",
+                  text: "Wer Ihre Konkurrenten sind und wie sie ranken — das analysieren wir stadtteilgenau, nicht bundesweit.",
+                },
+                {
+                  n: "03",
+                  title: "Branchenspezifische SEO-Logik",
+                  text: "Automotive in Stuttgart, FinTech in Frankfurt, Solar in Freiburg: Jede Branche hat ihre eigene Mechanik.",
+                },
+                {
+                  n: "04",
+                  title: "Kein Vertrag nötig",
+                  text: "Monatliche Zusammenarbeit, transparent und messbar — für KMU und Mittelstand gleichermaßen.",
+                },
+              ].map((item) => (
+                <div key={item.n} className="group flex gap-6 py-6">
+                  <span
+                    className="font-mono font-bold text-white/10 flex-shrink-0 group-hover:text-primary/40 transition-colors"
+                    style={{ fontSize: "clamp(28px, 3.5vw, 48px)" }}
+                  >
+                    {item.n}
+                  </span>
+                  <div className="pt-1">
+                    <h3 className="font-semibold text-white text-base mb-2">{item.title}</h3>
+                    <p className="text-white/40 text-sm leading-relaxed">{item.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════
+          7. CTA — minimal, typografisch
+      ══════════════════════════════════════════════════════ */}
+      <section className="bg-dark border-t border-white/5">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20 lg:py-24">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 items-center">
+
+            <div>
+              <div className="flex items-center gap-2 mb-6">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400" />
+                </span>
+                <span className="font-mono text-xs text-green-400 uppercase tracking-[0.2em]">Beratungstermin verfügbar</span>
+              </div>
+
+              <h2
+                className="font-[family-name:var(--font-heading)] font-bold text-white"
+                style={{ fontSize: "clamp(28px, 4vw, 64px)", letterSpacing: "-0.02em" }}
+              >
+                Stadt nicht dabei?<br />
+                <span className="text-white/30" style={{ fontSize: "clamp(18px, 2.5vw, 40px)" }}>
+                  Wir betreuen Kunden aus ganz Deutschland.
+                </span>
+              </h2>
+
+              <div className="mt-8 flex flex-wrap gap-x-8 gap-y-2">
+                {["Keine Vertragsbindung", "Analyse in 48h", "Direkter Ansprechpartner"].map((item) => (
+                  <div key={item} className="inline-flex items-center gap-2 text-white/30 text-sm">
+                    <div
+                      className="w-3.5 h-3.5 rounded-full flex items-center justify-center flex-shrink-0"
+                      style={{ background: "rgba(194,114,42,0.2)" }}
+                    >
+                      <svg className="w-2 h-2 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Link
+                href="/seo/audit"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base text-white whitespace-nowrap transition-all duration-200"
+                style={{ background: "linear-gradient(135deg, #C2722A, #a35f22)" }}
+              >
+                Kostenlose SEO-Analyse
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
               <Link
                 href="/kontakt"
-                className="inline-flex items-center justify-center rounded-lg bg-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-primary-dark"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-base text-white/50 border border-white/12 hover:border-white/25 hover:text-white/80 whitespace-nowrap transition-all duration-200"
               >
-                Kostenlos beraten lassen
-              </Link>
-              <Link
-                href="/seo-agentur"
-                className="inline-flex items-center justify-center rounded-lg border border-white/20 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10"
-              >
-                Über SeoForge
+                Kontakt aufnehmen
               </Link>
             </div>
+
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
+
     </SubpageLayout>
   );
 }

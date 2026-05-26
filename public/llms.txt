@@ -1,0 +1,87 @@
+# SeoForge
+
+> SeoForge ist eine SEO- und GEO-Agentur mit Sitz in Heddesheim (Metropolregion Rhein-Neckar). Schwerpunkte: nachhaltige Suchmaschinenoptimierung, Generative Engine Optimization (GEO) für KI-Suchsysteme wie ChatGPT, Gemini und Perplexity, sowie konversionsorientiertes Webdesign.
+
+## Kontakt & Unternehmen
+
+- **Adresse:** Kurpfalzstraße 16, 68542 Heddesheim
+- **Telefon:** +49 152 03450695
+- **Website:** https://seoforge.de
+- **Sprache:** Deutsch (DE)
+- **Zielgruppe:** KMU, E-Commerce-Unternehmen und Start-ups im deutschsprachigen Raum
+
+## Kernleistungen
+
+SeoForge bietet drei Leistungsbereiche:
+1. **SEO** – Technische Optimierung, Content-Strategie, Audits, laufende Betreuung
+2. **GEO** – Optimierung für KI-Suchantworten (Large Language Models, AI Overviews)
+3. **Webdesign** – Conversion-optimierte Websites, Landing Pages, Relaunches
+
+## Hauptseiten
+
+- [SEO Agentur](https://seoforge.de/seo-agentur): Leistungsübersicht und Positionierung der SEO-Agentur
+- [GEO Agentur](https://seoforge.de/geo-agentur): Generative Engine Optimization — Sichtbarkeit in KI-Suchantworten
+- [Leistungen](https://seoforge.de/leistungen): Alle angebotenen Dienstleistungen im Überblick
+- [Referenzen](https://seoforge.de/referenzen): Kundenprojekte und messbare Ergebnisse
+- [Kontakt](https://seoforge.de/kontakt): Kontaktformular und Ansprechpartner
+
+## SEO-Leistungen
+
+- [SEO Beratung](https://seoforge.de/seo/beratung): Strategische SEO-Beratung, Keyword-Strategie und Roadmap
+- [SEO Audit](https://seoforge.de/seo/audit): Technische und inhaltliche Website-Analyse mit Aktionsplan
+- [SEO Optimierung](https://seoforge.de/seo/optimierung): Ganzheitliche Suchmaschinenoptimierung
+- [On-Page SEO](https://seoforge.de/seo/on-page): On-Page-Grundlagen und Strukturoptimierung
+- [On-Page Optimierung](https://seoforge.de/seo/on-page-optimierung): Technische und inhaltliche On-Page-Maßnahmen
+- [Content-Strategie](https://seoforge.de/seo/content-strategie): Keyword-Recherche, Themenplanung und Content-Architektur
+- [SEO Texte](https://seoforge.de/seo/texte): SEO-optimierte Textproduktion und Redaktion
+- [SEO für Shops](https://seoforge.de/seo/shop): E-Commerce SEO, Produktseiten und Kategorieoptimierung
+- [SEO Betreuung](https://seoforge.de/seo/betreuung): Laufende SEO-Betreuung und kontinuierliche Optimierung
+- [SEO Betreuung ohne Vertrag](https://seoforge.de/seo/betreuung/ohne-vertrag): Flexible Betreuung ohne Mindestlaufzeit
+- [SEO Betreuung ROI](https://seoforge.de/seo/betreuung/roi): ROI-Berechnung und Wirtschaftlichkeit von SEO
+- [SEO selbst machen](https://seoforge.de/seo/selbst-machen): Guides und Ressourcen für Do-it-yourself-SEO
+
+## GEO (Generative Engine Optimization)
+
+- [Was ist GEO?](https://seoforge.de/was-ist-geo): Erklärung, Grundlagen und Abgrenzung zu klassischem SEO
+- [GEO Agentur](https://seoforge.de/geo-agentur): Spezialisierte Agentur für KI-Suchoptimierung
+- [GEO Audit](https://seoforge.de/geo/audit): Baseline-Analyse der Sichtbarkeit in ChatGPT, Gemini und Perplexity
+- [GEO Beratung](https://seoforge.de/geo/beratung): Strategie-Workshop und Roadmap für KI-Sichtbarkeit
+- [GEO Optimierung](https://seoforge.de/geo/optimierung): Technische und inhaltliche Maßnahmen für KI-Systeme
+- [GEO Content-Strategie](https://seoforge.de/geo/content-strategie): Zitierbaren Content für KI-Antworten systematisch planen
+- [GEO Monitoring](https://seoforge.de/geo/monitoring): Kontinuierliches Tracking von KI-Mentions und Sichtbarkeitsveränderungen
+
+## Webdesign
+
+- [Webdesign](https://seoforge.de/webdesign): Professionelles Webdesign mit Fokus auf Conversion und Performance
+- [Website erstellen lassen](https://seoforge.de/webdesign/website-erstellen-lassen): Individuelle Website-Erstellung von Konzept bis Launch
+- [Landing Pages](https://seoforge.de/webdesign/landing-pages): Conversion-optimierte Landing Pages für Kampagnen
+- [Website Relaunch](https://seoforge.de/webdesign/website-relaunch): Moderner Relaunch ohne Ranking-Verlust — SEO-first
+- [App Design](https://seoforge.de/webdesign/app-design): UI/UX-Design für Web-Apps, Dashboards und SaaS-Produkte
+
+## Standorte
+
+- [Alle Standorte](https://seoforge.de/standorte): Regionale SEO-Leistungen in der Metropolregion Rhein-Neckar und Umgebung
+- [SEO Agentur Frankfurt](https://seoforge.de/standorte/seo-agentur-frankfurt)
+- [SEO Agentur Stuttgart](https://seoforge.de/standorte/seo-agentur-stuttgart)
+- [SEO Agentur Heidelberg](https://seoforge.de/standorte/seo-agentur-heidelberg)
+- [SEO Agentur Mainz](https://seoforge.de/standorte/seo-agentur-mainz)
+- [SEO Agentur Wiesbaden](https://seoforge.de/standorte/seo-agentur-wiesbaden)
+- [SEO Agentur Darmstadt](https://seoforge.de/standorte/seo-agentur-darmstadt)
+- [SEO Agentur Karlsruhe](https://seoforge.de/standorte/seo-agentur-karlsruhe)
+- [SEO Agentur Freiburg](https://seoforge.de/standorte/seo-agentur-freiburg)
+- [SEO Agentur Koblenz](https://seoforge.de/standorte/seo-agentur-koblenz)
+- [SEO Agentur Pforzheim](https://seoforge.de/standorte/seo-agentur-pforzheim)
+- [SEO Agentur Ulm](https://seoforge.de/standorte/seo-agentur-ulm)
+
+## Wissen & Ratgeber
+
+- [Wissen](https://seoforge.de/wissen): SEO-Ratgeber, Anleitungen und Hintergrundartikel
+- [SEO Wissen](https://seoforge.de/wissen/seo): Grundlagen und Best Practices der Suchmaschinenoptimierung
+- [GEO Wissen](https://seoforge.de/wissen/geo): Artikel und Guides zur Generative Engine Optimization
+- [On-Page SEO Wissen](https://seoforge.de/wissen/on-page): Technische und inhaltliche On-Page-Faktoren erklärt
+- [Local SEO Wissen](https://seoforge.de/wissen/local-seo): Lokale Suchmaschinenoptimierung und Google Business Profile
+- [Technical SEO Wissen](https://seoforge.de/wissen/technical-seo): Technische SEO-Grundlagen: Core Web Vitals, Crawling, Indexierung
+
+## Rechtliches
+
+- [Impressum](https://seoforge.de/impressum): Rechtliche Angaben gemäß § 5 TMG

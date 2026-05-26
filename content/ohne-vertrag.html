@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>SEO Betreuung ohne Vertrag – Monatlich kündbar | SEOforge</title>
+  <meta name="description" content="SEO Betreuung ohne Vertrag: monatlich kündbar, 15% Aufpreis gegenüber dem Vertragsmodell. Warum der Aufpreis existiert – und wann sich der Wechsel lohnt.">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: system-ui, -apple-system, sans-serif; color: #1a1a1a; background: #fff; line-height: 1.7; }
+    a { color: #C2722A; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 860px; margin: 0 auto; padding: 0 24px; }
+    .container-wide { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* HERO */
+    .hero { background: #1a1a1a; padding: 80px 24px 72px; }
+    .hero-inner { max-width: 780px; margin: 0 auto; }
+    .hero-badge { display: inline-block; background: rgba(194,114,42,0.12); border: 1px solid rgba(194,114,42,0.3); color: #C2722A; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 28px; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3rem); font-weight: 800; color: #fff; line-height: 1.15; margin-bottom: 20px; }
+    .hero h1 span { color: #C2722A; }
+    .hero-lead { color: rgba(255,255,255,0.62); font-size: 1.1rem; line-height: 1.75; max-width: 680px; margin-bottom: 32px; }
+    .hero-badges { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 36px; }
+    .badge-item { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.75); font-size: 13px; padding: 7px 16px; border-radius: 100px; }
+    .badge-item.accent { background: rgba(194,114,42,0.1); border-color: rgba(194,114,42,0.25); color: #C2722A; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 14px; }
+    .btn-primary { display: inline-block; background: #C2722A; color: #fff; font-weight: 700; font-size: 14px; padding: 14px 28px; border-radius: 100px; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.88; text-decoration: none; }
+    .btn-secondary { display: inline-block; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.75); font-weight: 600; font-size: 14px; padding: 14px 28px; border-radius: 100px; transition: border-color 0.2s; }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.4); text-decoration: none; color: #fff; }
+
+    /* SECTIONS */
+    .section { padding: 72px 24px; }
+    .section-alt { background: #f8f5f1; }
+    .section-dark { background: #1a1a1a; }
+    .section-label { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C2722A; margin-bottom: 12px; }
+    .section h2 { font-size: clamp(1.5rem, 3.5vw, 2.1rem); font-weight: 800; color: #1a1a1a; line-height: 1.2; margin-bottom: 20px; }
+    .section-dark h2 { color: #fff; }
+    .section p { color: #555; font-size: 0.97rem; line-height: 1.8; margin-bottom: 16px; }
+    .section-dark p { color: rgba(255,255,255,0.6); }
+    .section p:last-child { margin-bottom: 0; }
+
+    /* CALLOUT */
+    .callout { border-radius: 14px; padding: 22px 26px; margin: 28px 0; }
+    .callout-amber { background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.2); }
+    .callout-amber p, .callout-amber li { color: #92400e; font-size: 0.93rem; }
+    .callout-primary { background: rgba(194,114,42,0.06); border: 1px solid rgba(194,114,42,0.2); }
+    .callout-primary p, .callout-primary li { color: #7c3d0e; font-size: 0.93rem; }
+    .callout strong { font-weight: 700; }
+
+    /* COMPARISON TABLE */
+    .table-wrap { overflow-x: auto; margin: 32px 0; border-radius: 14px; border: 1px solid #e8e2da; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    thead th { background: #1a1a1a; color: #fff; padding: 14px 18px; text-align: left; font-weight: 700; font-size: 0.88rem; }
+    thead th:first-child { border-radius: 13px 0 0 0; }
+    thead th:last-child { border-radius: 0 13px 0 0; }
+    tbody tr { border-bottom: 1px solid #e8e2da; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody td { padding: 13px 18px; color: #444; vertical-align: top; }
+    tbody td:first-child { font-weight: 600; color: #1a1a1a; font-size: 0.9rem; }
+    tbody tr:nth-child(even) td { background: #faf7f4; }
+    .td-good { color: #166534; font-weight: 600; }
+    .td-bad { color: #991b1b; font-weight: 600; }
+    .td-neutral { color: #92400e; font-weight: 600; }
+
+    /* COST BREAKDOWN */
+    .cost-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 28px 0; }
+    @media (max-width: 560px) { .cost-grid { grid-template-columns: 1fr; } }
+    .cost-card { border-radius: 14px; padding: 22px; border: 1px solid #e8e2da; }
+    .cost-card.highlight { border-color: rgba(194,114,42,0.3); background: rgba(194,114,42,0.04); }
+    .cost-card .price { font-size: 1.9rem; font-weight: 800; color: #C2722A; margin-bottom: 4px; }
+    .cost-card .price-label { font-size: 0.82rem; color: #888; margin-bottom: 10px; }
+    .cost-card .note { font-size: 0.85rem; color: #555; line-height: 1.6; }
+
+    /* TIMELINE */
+    .timeline { margin: 36px 0; }
+    .timeline-item { display: grid; grid-template-columns: 100px 1fr; gap: 20px; margin-bottom: 20px; align-items: start; }
+    @media (max-width: 560px) { .timeline-item { grid-template-columns: 80px 1fr; gap: 12px; } }
+    .timeline-label { font-size: 0.78rem; font-weight: 700; color: #C2722A; text-transform: uppercase; letter-spacing: 0.05em; padding-top: 4px; }
+    .timeline-content { border-radius: 12px; padding: 16px 20px; border: 1px solid #e8e2da; background: #faf7f4; }
+    .timeline-content.phase-1 { border-color: rgba(255,255,255,0.1); background: rgba(255,255,255,0.04); }
+    .timeline-content.phase-2 { border-color: rgba(194,114,42,0.15); background: rgba(194,114,42,0.04); }
+    .timeline-content.phase-3 { border-color: rgba(245,158,11,0.2); background: rgba(245,158,11,0.04); }
+    .timeline-content.phase-4 { border-color: rgba(22,163,74,0.2); background: rgba(22,163,74,0.04); }
+    .timeline-title { font-weight: 700; font-size: 0.95rem; color: #1a1a1a; margin-bottom: 4px; }
+    .timeline-desc { font-size: 0.88rem; color: #666; line-height: 1.6; margin-bottom: 6px; }
+    .timeline-note { font-size: 0.82rem; font-weight: 600; }
+    .phase-1 .timeline-note { color: #888; }
+    .phase-2 .timeline-note { color: #C2722A; }
+    .phase-3 .timeline-note { color: #b45309; }
+    .phase-4 .timeline-note { color: #16a34a; }
+
+    /* STATS ROW */
+    .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 32px 0; }
+    @media (max-width: 640px) { .stats-row { grid-template-columns: 1fr; } }
+    .stat-card { border-radius: 14px; border: 1px solid #e8e2da; padding: 22px; }
+    .stat-card .stat-val { font-size: 1.8rem; font-weight: 800; color: #C2722A; margin-bottom: 4px; }
+    .stat-card .stat-desc { font-size: 0.88rem; color: #555; line-height: 1.55; margin-bottom: 6px; }
+    .stat-card .stat-source { font-size: 0.76rem; color: #aaa; }
+
+    /* WHO SHOULD */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 28px 0; }
+    @media (max-width: 640px) { .two-col { grid-template-columns: 1fr; } }
+    .col-card { border-radius: 14px; padding: 24px; }
+    .col-card.green-card { border: 1px solid rgba(22,163,74,0.2); background: rgba(22,163,74,0.04); }
+    .col-card.red-card { border: 1px solid rgba(153,27,27,0.15); background: rgba(153,27,27,0.04); }
+    .col-card h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 14px; }
+    .col-card.green-card h3 { color: #166534; }
+    .col-card.red-card h3 { color: #991b1b; }
+    .col-card ul { list-style: none; padding: 0; }
+    .col-card ul li { font-size: 0.9rem; color: #444; padding: 5px 0; display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+    .col-card ul li::before { content: ""; flex-shrink: 0; margin-top: 7px; }
+    .col-card.green-card ul li::before { width: 6px; height: 6px; border-radius: 50%; background: #16a34a; }
+    .col-card.red-card ul li::before { width: 6px; height: 6px; border-radius: 50%; background: #dc2626; }
+
+    /* PROCESS STEPS */
+    .steps { margin: 32px 0; display: flex; flex-direction: column; gap: 14px; }
+    .step { display: grid; grid-template-columns: 40px 1fr; gap: 18px; align-items: start; }
+    .step-num { width: 40px; height: 40px; border-radius: 50%; background: rgba(194,114,42,0.1); border: 1px solid rgba(194,114,42,0.25); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 800; color: #C2722A; flex-shrink: 0; }
+    .step-body h4 { font-size: 0.95rem; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+    .step-body p { font-size: 0.88rem; color: #666; line-height: 1.6; margin: 0; }
+
+    /* FAQ */
+    .faq-list { display: flex; flex-direction: column; gap: 12px; margin-top: 32px; }
+    details { border-radius: 12px; border: 1px solid #e8e2da; background: #fff; overflow: hidden; }
+    details[open] { border-color: rgba(194,114,42,0.25); }
+    summary { padding: 18px 22px; font-weight: 700; font-size: 0.95rem; color: #1a1a1a; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; font-size: 1.2rem; color: #C2722A; flex-shrink: 0; }
+    details[open] summary::after { content: "−"; }
+    .faq-answer { padding: 0 22px 18px; font-size: 0.92rem; color: #555; line-height: 1.75; border-top: 1px solid #e8e2da; padding-top: 16px; }
+
+    /* CTA SECTION */
+    .cta-section { text-align: center; padding: 72px 24px; background: #1a1a1a; }
+    .cta-section h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); font-weight: 800; color: #fff; margin-bottom: 16px; }
+    .cta-section p { color: rgba(255,255,255,0.55); font-size: 1rem; max-width: 560px; margin: 0 auto 32px; }
+
+    /* INTERNAL LINKS FOOTER */
+    .internal-links { padding: 56px 24px; background: #faf7f4; border-top: 1px solid #e8e2da; }
+    .internal-links h3 { font-size: 1rem; font-weight: 700; color: #1a1a1a; margin-bottom: 20px; }
+    .link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .link-card { border-radius: 12px; border: 1px solid #e8e2da; padding: 18px; background: #fff; transition: border-color 0.2s; }
+    .link-card:hover { border-color: rgba(194,114,42,0.3); text-decoration: none; }
+    .link-card h4 { font-size: 0.9rem; font-weight: 700; color: #C2722A; margin-bottom: 5px; }
+    .link-card p { font-size: 0.82rem; color: #777; line-height: 1.5; margin: 0; }
+  </style>
+
+  <!-- FAQPage JSON-LD Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Wie viel teurer ist SEO Betreuung ohne Vertrag?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Unsere ohne-Vertrag-Konditionen liegen 15% über dem regulären Monatspreis. Bei einem Basispaket von 1.200 €/Monat mit Vertrag zahlst du 1.380 €/Monat ohne Vertrag. Über sechs Monate macht das einen Unterschied von 1.080 € — etwa eine Gratis-Monat im Vertragsmodell."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Warum gibt es bei SEO ohne Vertrag einen Aufpreis?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Im ersten Monat einer SEO-Betreuung leisten wir strategische Planungsarbeit — Keyword-Recherche, technisches Audit, Content-Strategie, Wettbewerberanalyse — die auf 6–12 Monate im Voraus ausgelegt ist. Diese Arbeit kostet dasselbe, egal ob du danach 1 oder 12 Monate bleibst. Im Vertragsmodell wird dieses Risiko auf mehrere Monate verteilt; ohne Vertrag deckt der Aufpreis dieses Risiko ab."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Wann kann ich die SEO Betreuung ohne Vertrag kündigen?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Jederzeit, mit einer Frist von 14 Tagen zum Monatsende. Es gibt keine Mindestlaufzeit und keine Kündigungsgebühren. Du entscheidest monatlich, ob du weitermachst."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Was passiert mit der geleisteten Arbeit, wenn ich nach einem Monat kündige?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Du behältst alle erstellten Inhalte, Berichte und Optimierungen — alles bleibt dein Eigentum. Die Keyword-Strategie, das technische Audit und der Content-Plan gehören dir. Allerdings: SEO braucht Zeit, um zu wirken. Wer nach Monat 1 aufhört, bezahlt für die Planungsphase, erntet aber keine Ergebnisse — denn die kommen typischerweise ab Monat 3–6."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Kann ich nach dem Start ohne Vertrag später in ein Vertragsmodell wechseln?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ja. Jederzeit. Wenn du nach dem ersten Monat überzeugst bist, wechselst du zum regulären Vertragsmodell — der Aufpreis entfällt ab dem ersten Vertragsmonat. Du zahlst dann nur noch den günstigeren Standardpreis."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">SEO Betreuung · Ohne Laufzeitbindung</div>
+    <h1>SEO ohne Vertrag —<br><span>monatlich kündbar.</span></h1>
+    <p class="hero-lead">
+      Ja, das ist möglich. Wir bei SEOforge bieten <a href="/seo-betreuung" style="color:#C2722A;">monatliche SEO Betreuung</a> auch ohne Vertragsbindung an — mit einer Frist von 14 Tagen zum Monatsende. Der Aufpreis gegenüber dem Vertragsmodell beträgt 15%. Was dahinter steckt, erklären wir hier transparent.
+    </p>
+    <div class="hero-badges">
+      <span class="badge-item accent">+15% Aufpreis ohne Vertrag</span>
+      <span class="badge-item">Monatlich kündbar</span>
+      <span class="badge-item">Gleiche Leistungen</span>
+      <span class="badge-item">Kein Risiko für dich</span>
+    </div>
+    <div class="hero-ctas">
+      <a href="/kontakt" class="btn-primary">Kostenloses Erstgespräch →</a>
+      <a href="/seo-betreuung" class="btn-secondary">Vertragsmodelle vergleichen →</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════ WARUM 15% -->
+<section class="section">
+  <div class="container">
+    <span class="section-label">Warum 15% Aufpreis?</span>
+    <h2>SEO ist Planungsarbeit — kein Stundenlohn.</h2>
+
+    <p>
+      Der häufigste Einwand gegen SEO-Verträge lautet: "Warum soll ich mich binden, wenn ich noch nicht weiß, ob es funktioniert?" Das ist ein berechtigter Gedanke — und genau deshalb bieten wir das Ohne-Vertrag-Modell an. Aber es gibt einen Grund, warum der Preis höher ist, und den erklären wir dir hier gerade heraus.
+    </p>
+
+    <p>
+      Im ersten Monat einer SEO-Betreuung leisten wir eine Analyse- und Strategiearbeit, die auf die nächsten 6–12 Monate ausgelegt ist. Dazu gehören: vollständiges <a href="/seo-audit">kostenlosem SEO Audit</a> — hier in der Bezahlversion als vollumfängliches technisches Audit deiner gesamten Website — eine Keyword-Recherche mit Priorisierung nach Traffic-Potenzial und Wettbewerbsschwierigkeit, eine Wettbewerberanalyse und ein detaillierter Content-Plan.
+    </p>
+
+    <p>
+      Diese Arbeit kostet dasselbe, egal ob du danach 1 Monat oder 12 Monate bleibst. Im Vertragsmodell wird das Risiko der nicht amortisierten Vorlaufarbeit auf mehrere Monate verteilt — das ist der Grund, warum die Monatspauschale dort günstiger ist. Ohne Vertrag tragen wir dieses Risiko vollständig. Der 15%-Aufpreis ist keine Strafgebühr — er ist die ehrliche Kalkulation dieser Vorlaufkosten.
+    </p>
+
+    <div class="callout callout-amber">
+      <strong>Konkretes Rechenbeispiel:</strong>
+      <p style="margin-top:10px;">Basispaket mit 6-Monats-Vertrag: 1.200 €/Monat — Ohne-Vertrag-Preis: 1.380 €/Monat (+180 €). Über 6 Monate zahlst du ohne Vertrag 1.080 € mehr. Das entspricht einem vollen Gratis-Monat im Vertragsmodell.</p>
+    </div>
+
+    <div class="cost-grid">
+      <div class="cost-card highlight">
+        <div class="price">1.200 €</div>
+        <div class="price-label">pro Monat · mit Vertrag (6 Mo.)</div>
+        <div class="note">Planungsrisiko verteilt auf mehrere Monate. Günstigerer Monatspreis, dafür Laufzeitbindung.</div>
+      </div>
+      <div class="cost-card">
+        <div class="price">1.380 €</div>
+        <div class="price-label">pro Monat · ohne Vertrag</div>
+        <div class="note">Volle Flexibilität, 14 Tage Kündigungsfrist. Der Aufpreis deckt das Planungsrisiko ab.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ VERGLEICHSTABELLE -->
+<section class="section section-alt">
+  <div class="container">
+    <span class="section-label">Direktvergleich</span>
+    <h2>Mit Vertrag vs. Ohne Vertrag — was ist wann sinnvoll?</h2>
+
+    <p>
+      Es gibt keine universell richtige Antwort. Beide Modelle haben ihre Berechtigung — je nach Situation des Unternehmens. Die Tabelle zeigt die konkreten Unterschiede.
+    </p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Kriterium</th>
+            <th>Mit Vertrag (6–12 Monate)</th>
+            <th>Ohne Vertrag (monatlich)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Monatspreis (Beispiel)</td>
+            <td class="td-good">1.200 €/Monat</td>
+            <td class="td-neutral">1.380 €/Monat (+15%)</td>
+          </tr>
+          <tr>
+            <td>Gesamtkosten (6 Monate)</td>
+            <td class="td-good">7.200 €</td>
+            <td class="td-neutral">8.280 €</td>
+          </tr>
+          <tr>
+            <td>Flexibilität</td>
+            <td class="td-bad">Gebunden (mit Kündigungsfrist)</td>
+            <td class="td-good">Monatlich kündbar (14 Tage)</td>
+          </tr>
+          <tr>
+            <td>Leistungsumfang</td>
+            <td>Identisch</td>
+            <td>Identisch</td>
+          </tr>
+          <tr>
+            <td>Planungssicherheit für dich</td>
+            <td class="td-neutral">Mittel (feste Laufzeit)</td>
+            <td class="td-good">Hoch (keine Bindung)</td>
+          </tr>
+          <tr>
+            <td>Planungssicherheit für uns</td>
+            <td class="td-good">Hoch</td>
+            <td class="td-bad">Niedrig (Aufpreis gleicht aus)</td>
+          </tr>
+          <tr>
+            <td>Risiko bei schlechten Ergebnissen</td>
+            <td class="td-bad">Du zahlst bis Vertragsende</td>
+            <td class="td-good">Du kannst sofort kündigen</td>
+          </tr>
+          <tr>
+            <td>Empfehlung für</td>
+            <td>Unternehmen mit klarem SEO-Commitment</td>
+            <td>Test-Phase, Unsicherheit über Agentur</td>
+          </tr>
+          <tr>
+            <td>Wechsel möglich?</td>
+            <td>Zu ohne-Vertrag: nach Laufzeitende</td>
+            <td class="td-good">Zu Vertrag: jederzeit</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      Wichtig: Wer im Ohne-Vertrag-Modell startet und dann überzeugt ist, kann jederzeit in ein Vertragsmodell wechseln — ab dem ersten Vertragsmonat fällt der Aufpreis weg. Das macht das Ohne-Vertrag-Modell zu einer sinnvollen Einstiegsoption, wenn du eine Agentur erst kennenlernen willst.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ TIMELINE -->
+<section class="section">
+  <div class="container">
+    <span class="section-label">Der SEO-Zeithorizont</span>
+    <h2>Warum nach 1 Monat aufzuhören fast immer Geld verbrennt.</h2>
+
+    <p>
+      Ahrefs hat zwei Millionen Seiten analysiert und gemessen, wie lange es dauert, bis eine neue Seite in den Top 10 rankt. Das Ergebnis: im Durchschnitt 3–6 Monate — und das für Seiten, die bereits gut optimiert sind. Neue Domains brauchen länger. Wer nach einem Monat aufhört, bezahlt für die Planungsphase, sieht aber nie das Ergebnis der geleisteten Arbeit.
+    </p>
+
+    <p>
+      Das ist kein Argument dafür, einen Vertrag zu unterschreiben. Aber es ist ein Argument dafür, dass SEO nur funktioniert, wenn man ihm genug Zeit gibt. Und wer das Ohne-Vertrag-Modell nutzt, sollte das wissen — damit er eine informierte Entscheidung trifft.
+    </p>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-label">Monat 1</div>
+        <div class="timeline-content phase-1">
+          <div class="timeline-title">Analyse &amp; Strategie</div>
+          <div class="timeline-desc">Technisches Audit, Keyword-Mapping mit Suchvolumen und Wettbewerbsschwierigkeit, Content-Plan für 6+ Monate, Wettbewerberanalyse.</div>
+          <div class="timeline-note">Kein direkter Ranking-Effekt — aber das Fundament für alles Weitere.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-label">Monat 2–3</div>
+        <div class="timeline-content phase-2">
+          <div class="timeline-title">Umsetzung &amp; Onpage</div>
+          <div class="timeline-desc">Technische Fixes, Onpage-Optimierung bestehender Seiten, erste neue optimierte Inhalte, interne Verlinkung, Meta-Daten.</div>
+          <div class="timeline-note">Google crawlt erste Verbesserungen. Rankings beginnen sich minimal zu bewegen.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-label">Monat 4–6</div>
+        <div class="timeline-content phase-3">
+          <div class="timeline-title">Rankings &amp; Sichtbarkeit</div>
+          <div class="timeline-desc">Organische Rankings verbessern sich messbar. Traffic steigt. Erste Keywords in Top 10 oder Top 20 — abhängig von Wettbewerb.</div>
+          <div class="timeline-note">Erste deutlich sichtbare Ergebnisse. ROI beginnt sich abzuzeichnen.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-label">Monat 7–12+</div>
+        <div class="timeline-content phase-4">
+          <div class="timeline-title">Compounding &amp; Skalierung</div>
+          <div class="timeline-desc">Authority wächst, mehr Seiten ranken, organischer Traffic steigt exponentiell. Kosten pro Lead sinken monatlich.</div>
+          <div class="timeline-note">Der Compounding-Effekt wirkt. SEO zahlt sich langfristig überproportional aus.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout callout-primary">
+      <strong>Was passiert, wenn du nach Monat 1 kündigst?</strong>
+      <p style="margin-top:8px;">Du behältst alles — Audit, Keyword-Strategie, Content-Plan, alle umgesetzten Onpage-Maßnahmen. Dein Eigentum, ohne Wenn und Aber. Was du nicht bekommst: die Ergebnisse. Die kommen erst ab Monat 3–6. Wer nach einem Monat aufhört, hat das Fundament gebaut, aber kein Haus.</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-val">3–6 Mo.</div>
+        <div class="stat-desc">Ø Zeit bis erste Top-10-Rankings für neue, optimierte Seiten.</div>
+        <div class="stat-source">Ahrefs: "How Long Does SEO Take?" (2022), n = 2 Mio. Seiten</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">95%</div>
+        <div class="stat-desc">aller Webseiten erhalten keinen einzigen organischen Klick pro Monat.</div>
+        <div class="stat-source">Ahrefs, Analyse von 1 Mrd. Seiten (2020)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">12+ Mo.</div>
+        <div class="stat-desc">bis der Compounding-Effekt nachhaltig einsetzt und Kosten pro Lead sinken.</div>
+        <div class="stat-source">Eigene Projekterfahrung, n = 100+ Kundenprojekte</div>
+      </div>
+    </div>
+
+    <p>
+      Ob sich SEO rechnet und welchen ROI du realistisch erwarten kannst, erklären wir detailliert auf unserer Seite zu <a href="/seo-betreuung-roi">wie sich SEO rechnet</a> — mit echten Kalkulationsbeispielen.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ FÜR WEN -->
+<section class="section section-alt">
+  <div class="container">
+    <span class="section-label">Für wen ist welches Modell geeignet?</span>
+    <h2>Ohne Vertrag: Wann macht das wirklich Sinn?</h2>
+
+    <p>
+      Das Ohne-Vertrag-Modell ist nicht für jeden geeignet — und auch nicht in jedem Fall die klügere Wahl. Wir sind transparent darüber, weil wir langfristige Kunden wollen, keine Einmal-Kunden, die unzufrieden sind.
+    </p>
+
+    <div class="two-col">
+      <div class="col-card green-card">
+        <h3>Ohne Vertrag passt, wenn du…</h3>
+        <ul>
+          <li>eine neue Agentur erst testen willst, bevor du dich langfristig bindest</li>
+          <li>noch nie SEO gemacht hast und sehen willst, wie wir arbeiten</li>
+          <li>ein laufendes Projekt hast, bei dem du intern wechselst</li>
+          <li>saisonal planst und flexible Budgets brauchst</li>
+          <li>nach einem schlechten Agenturerlebnis vorsichtig geworden bist</li>
+        </ul>
+      </div>
+      <div class="col-card red-card">
+        <h3>Vertrag ist sinnvoller, wenn du…</h3>
+        <ul>
+          <li>weißt, dass SEO eine Langzeitinvestition ist und das Budget eingeplant hast</li>
+          <li>maximalen ROI pro investiertem Euro erzielen willst</li>
+          <li>in einem wettbewerbsintensiven Markt rankst und kein Momentum verlieren kannst</li>
+          <li>monatlich 1.080 € Unterschied über 6 Monate hinweg einsparen willst</li>
+          <li>bereits weißt, was du von einer Agentur erwartest</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>
+      Unsere Empfehlung: Starte im Zweifel ohne Vertrag — überzeug dich selbst. Wenn du nach Monat 1 oder 2 siehst, wie wir arbeiten und was wir liefern, dann wechsel ins Vertragsmodell und spar damit aktiv Geld. So funktioniert das bei uns.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ WAS PASSIERT IN MONAT 1 -->
+<section class="section">
+  <div class="container">
+    <span class="section-label">Was wir im ersten Monat leisten</span>
+    <h2>Was du für dein Geld bekommst — konkret.</h2>
+
+    <p>
+      Damit du weißt, was im ersten Monat passiert — unabhängig davon, ob du mit oder ohne Vertrag startest. Die Leistungen sind identisch. Der Unterschied liegt nur im Preis.
+    </p>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h4>Technisches Audit (vollständig)</h4>
+          <p>Crawl deiner gesamten Website: Core Web Vitals, Indexierungsprobleme, Duplicate Content, Crawl-Budget, Sitemap-Fehler, strukturierte Daten. Ergebnis: priorisierte Fehlerliste mit Impact-Bewertung.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h4>Keyword-Recherche &amp; Mapping</h4>
+          <p>Vollständige Keyword-Analyse mit echten Suchvolumina aus Ahrefs und Google Search Console. Priorisierung nach Traffic-Potenzial, Wettbewerbsschwierigkeit und Kaufintent. Zuordnung auf bestehende und neue Zielseiten.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h4>Wettbewerberanalyse</h4>
+          <p>Welche Keywords ranken deine Hauptkonkurrenten? Welche Content-Formate funktionieren? Wo sind ihre Backlink-Quellen? Daraus leiten wir ab, wo deine größten Chancen liegen.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <h4>Content-Strategie für 6+ Monate</h4>
+          <p>Einen vollständigen Content-Plan mit priorisierten Themen, Search-Intent-Klassifikation, internen Verlinkungsstrukturen und Ressourcenschätzung. Auch wenn du nach Monat 1 aufhörst — den Plan behältst du.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <h4>Erste Onpage-Maßnahmen</h4>
+          <p>Nicht nur planen — wir setzen im ersten Monat bereits um: Meta-Daten, Überschriften-Struktur, interne Verlinkung, erste optimierte Inhalte. Abhängig von Paketumfang und Website-Zustand.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">6</div>
+        <div class="step-body">
+          <h4>Monatliches Reporting</h4>
+          <p>Transparentes Dashboard mit Rankings, organischem Traffic, Crawl-Status und nächsten Maßnahmen. Du siehst jederzeit, was läuft — und was als nächstes kommt.</p>
+        </div>
+      </div>
+    </div>
+
+    <p>
+      Wenn du unsere Arbeitsweise zuerst unverbindlich kennenlernen willst, ist ein <a href="/kontakt">kostenloses Erstgespräch</a> der richtige erste Schritt. Wir analysieren dort deine aktuelle Situation und zeigen dir, was sinnvoll ist — mit oder ohne Vertrag.
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ FAQ -->
+<section class="section section-alt">
+  <div class="container">
+    <span class="section-label">Häufige Fragen</span>
+    <h2>SEO ohne Vertrag — alle Fragen beantwortet.</h2>
+
+    <div class="faq-list">
+
+      <details>
+        <summary>Wie viel teurer ist SEO Betreuung ohne Vertrag?</summary>
+        <div class="faq-answer">
+          Unsere ohne-Vertrag-Konditionen liegen 15% über dem regulären Monatspreis. Bei einem Basispaket von 1.200 €/Monat mit Vertrag zahlst du 1.380 €/Monat ohne Vertrag — ein Aufpreis von 180 € pro Monat. Über 6 Monate macht das einen Unterschied von 1.080 €, was einem vollen Gratis-Monat im Vertragsmodell entspricht. Der Aufpreis deckt das Planungsrisiko ab, das wir bei nicht amortisierten Vorlaufarbeiten tragen.
+        </div>
+      </details>
+
+      <details>
+        <summary>Warum gibt es bei SEO ohne Vertrag überhaupt einen Aufpreis?</summary>
+        <div class="faq-answer">
+          Im ersten Monat leisten wir Strategiearbeit — Keyword-Recherche, technisches Audit, Content-Plan, Wettbewerberanalyse — die für die nächsten 6–12 Monate geplant ist. Diese Arbeit kostet dasselbe, egal ob du danach 1 Monat oder 12 Monate bleibst. Im Vertragsmodell wird dieses Risiko auf mehrere Monate verteilt; ohne Vertrag tragen wir es vollständig. Der Aufpreis ist die ehrliche Kalkulation dieser Vorlaufkosten — keine Strafe für Flexibilität.
+        </div>
+      </details>
+
+      <details>
+        <summary>Wann kann ich die Betreuung ohne Vertrag kündigen?</summary>
+        <div class="faq-answer">
+          Jederzeit, mit einer Frist von 14 Tagen zum Monatsende. Es gibt keine Mindestlaufzeit, keine versteckten Gebühren und keine Kündigungsstrafen. Du entscheidest monatlich, ob du weiter machst — wir liefern, solange du uns das Mandat gibst.
+        </div>
+      </details>
+
+      <details>
+        <summary>Was passiert mit der geleisteten Arbeit, wenn ich nach einem Monat kündige?</summary>
+        <div class="faq-answer">
+          Alles bleibt dein Eigentum: Audit-Berichte, Keyword-Strategie, Content-Plan, alle umgesetzten Onpage-Maßnahmen. Wir übergeben alles sauber dokumentiert. Was du nicht bekommst: die Ranking-Ergebnisse — die brauchen laut Ahrefs-Daten im Schnitt 3–6 Monate. Wer nach Monat 1 aufhört, hat das Fundament gebaut, aber nie das Haus bezogen.
+        </div>
+      </details>
+
+      <details>
+        <summary>Kann ich später von ohne Vertrag zu einem Vertragsmodell wechseln?</summary>
+        <div class="faq-answer">
+          Ja, jederzeit. Wenn du nach dem ersten Monat siehst, wie wir arbeiten und was wir liefern, wechselst du zum regulären 6- oder 12-Monats-Modell — ab dem ersten Vertragsmonat fällt der Aufpreis weg. Du zahlst dann nur noch den günstigeren Standardpreis. Viele unserer Kunden starten ohne Vertrag und wechseln nach 1–2 Monaten ins Vertragsmodell.
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Lieber erst testen, dann entscheiden?</h2>
+    <p>
+      Verstehen wir. Buche ein <a href="/kontakt" style="color:#C2722A;">kostenloses Erstgespräch</a> — wir zeigen dir, was in deinem Fall sinnvoller ist: mit oder ohne Vertrag. Kein Verkaufsgespräch, sondern eine ehrliche Einschätzung.
+    </p>
+    <a href="/kontakt" class="btn-primary">Kostenloses SEO-Gespräch buchen →</a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════ INTERNAL LINKS -->
+<nav class="internal-links" aria-label="Verwandte Leistungen">
+  <div class="container-wide">
+    <h3>Verwandte Seiten</h3>
+    <div class="link-grid">
+      <a href="/seo-betreuung" class="link-card">
+        <h4>SEO Betreuung →</h4>
+        <p>Monatliche SEO Betreuung mit Vertrag — günstiger und strategisch planbar.</p>
+      </a>
+      <a href="/seo-betreuung-roi" class="link-card">
+        <h4>SEO ROI Rechner →</h4>
+        <p>Wie sich SEO rechnet — mit konkreten Kalkulationsbeispielen und Zeitachse.</p>
+      </a>
+      <a href="/seo-audit" class="link-card">
+        <h4>SEO Audit →</h4>
+        <p>Einmaliger kostenloser SEO Audit als Einstieg — ohne Verpflichtung.</p>
+      </a>
+      <a href="/kontakt" class="link-card">
+        <h4>Kontakt →</h4>
+        <p>Kostenloses Erstgespräch buchen — wir antworten innerhalb von 24 Stunden.</p>
+      </a>
+    </div>
+  </div>
+</nav>
+
+</body>
+</html>

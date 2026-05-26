@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 
 const services = [
   {
@@ -25,7 +24,7 @@ const services = [
         <circle cx="100" cy="100" r="4" fill="currentColor"/>
       </svg>
     ),
-    href: "/seo-audit"
+    href: "/seo/audit"
   },
   {
     number: "02",
@@ -49,7 +48,7 @@ const services = [
         <rect x="30" y="40" width="4" height="120" rx="1" fill="currentColor" opacity="0.5"/>
       </svg>
     ),
-    href: "/seo-content-strategie"
+    href: "/seo/content-strategie"
   },
   {
     number: "03",
@@ -74,55 +73,17 @@ const services = [
         <rect x="125" y="35" width="10" height="10" rx="2" fill="currentColor"/>
       </svg>
     ),
-    href: "/seo-optimierung"
+    href: "/seo/optimierung"
   }
 ];
 
-// Hook for scroll animations
-function useScrollAnimation(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold }
-    );
-
-    const currentRef = ref.current;
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
-    };
-  }, [threshold]);
-
-  return { ref, isVisible };
-}
-
 export default function ServicePillars() {
-  const { ref: headerRef, isVisible: headerVisible } = useScrollAnimation(0.2);
-  const { ref: cardsRef, isVisible: cardsVisible } = useScrollAnimation(0.1);
 
   return (
     <section id="services" className="py-24 lg:py-32 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header with slide animation */}
-        <div 
-          ref={headerRef}
-          className={`max-w-3xl mb-20 transition-all duration-700 ease-out ${
-            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}
-        >
+        <div className="reveal max-w-3xl mb-20">
           <span className="text-sm font-semibold uppercase tracking-widest text-primary mb-4 block">
             Services & Approach
           </span>
@@ -137,20 +98,13 @@ export default function ServicePillars() {
         </div>
 
         {/* Service Cards with staggered slide animation */}
-        <div 
-          ref={cardsRef}
-          className="grid lg:grid-cols-3 gap-8"
-        >
+        <div className="grid lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <Link
               key={service.number}
               href={service.href}
-              className={`group relative block transition-all duration-700 ease-out ${
-                cardsVisible 
-                  ? 'opacity-100 translate-y-0' 
-                  : 'opacity-0 translate-y-16'
-              }`}
-              style={{ transitionDelay: cardsVisible ? `${index * 150}ms` : '0ms' }}
+              className="reveal group relative block"
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
               {/* Card Container */}
               <div className="relative bg-offwhite rounded-3xl p-8 lg:p-10 h-full border border-border overflow-hidden transition-all duration-500 ease-out hover:border-primary/30 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-2">
@@ -230,11 +184,9 @@ export default function ServicePillars() {
         </div>
 
         {/* Bottom CTA with slide animation */}
-        <div 
-          className={`mt-20 pt-12 border-t border-border transition-all duration-700 ease-out ${
-            cardsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          }`}
-          style={{ transitionDelay: cardsVisible ? '600ms' : '0ms' }}
+        <div
+          className="reveal mt-20 pt-12 border-t border-border"
+          style={{ transitionDelay: '600ms' }}
         >
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
             <div>

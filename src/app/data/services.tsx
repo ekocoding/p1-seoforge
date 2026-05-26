@@ -4,7 +4,7 @@
 export const services = [
   {
     title: "SEO Beratung",
-    href: "/seo-beratung",
+    href: "/seo/beratung",
     description:
       "Individuelle Strategieentwicklung und kompetente Beratung, die Ihre Online-Praesenz auf das nächste Level hebt.",
     icon: (
@@ -15,7 +15,7 @@ export const services = [
   },
   {
     title: "SEO Optimierung",
-    href: "/seo-optimierung",
+    href: "/seo/optimierung",
     description:
       "Technische und inhaltliche Optimierung Ihrer Website für Top-Platzierungen in den Suchergebnissen.",
     icon: (
@@ -26,7 +26,7 @@ export const services = [
   },
   {
     title: "SEO Texte",
-    href: "/seo-texte-kaufen",
+    href: "/seo/texte",
     description:
       "Suchmaschinenoptimierte Inhalte, die sowohl Google als auch Ihre Zielgruppe überzeugen.",
     icon: (
@@ -37,7 +37,7 @@ export const services = [
   },
   {
     title: "SEO Audit",
-    href: "/seo-audit",
+    href: "/seo/audit",
     description:
       "Umfassende Analyse Ihrer Website mit konkreten Handlungsempfehlungen für sofortige Verbesserungen.",
     icon: (
@@ -48,7 +48,7 @@ export const services = [
   },
   {
     title: "On Page Optimierung",
-    href: "/on-page-optimierung",
+    href: "/seo/on-page-optimierung",
     description:
       "Optimierung aller On-Page-Faktoren wie Meta-Tags, Struktur, interne Verlinkung und Ladezeiten.",
     icon: (
@@ -59,7 +59,7 @@ export const services = [
   },
   {
     title: "On Page SEO",
-    href: "/on-page-seo",
+    href: "/seo/on-page",
     description:
       "Ganzheitliche On-Page-SEO-Strategie für bessere Rankings, mehr Traffic und höhere Conversions.",
     icon: (
@@ -70,7 +70,7 @@ export const services = [
   },
   {
     title: "SEO Content Strategie",
-    href: "/seo-content-strategie",
+    href: "/seo/content-strategie",
     description:
       "Datengetriebene Content-Planung, die Ihre Zielgruppe erreicht und nachhaltig organischen Traffic aufbaut.",
     icon: (
@@ -81,7 +81,7 @@ export const services = [
   },
   {
     title: "Shop SEO",
-    href: "/shop-seo",
+    href: "/seo/shop",
     description:
       "Spezialisierte E-Commerce-SEO für Online-Shops. Mehr Sichtbarkeit, mehr Kunden, mehr Umsatz.",
     icon: (
@@ -92,7 +92,7 @@ export const services = [
   },
   {
     title: "SEO Betreuung",
-    href: "/seo-betreuung",
+    href: "/seo/betreuung",
     description:
       "Monatliche SEO-Betreuung mit kontinuierlicher Optimierung, transparentem Reporting und messbaren Ergebnissen.",
     icon: (
@@ -112,7 +112,7 @@ export const services = [
 export const webdesignServices = [
   {
     title: "Website Erstellen",
-    href: "/webdesign",
+    href: "/webdesign/website-erstellen-lassen",
     description:
       "Professionelle Websites, die überzeugen — schnell, responsive und SEO-optimiert von Anfang an.",
     icon: (
@@ -134,7 +134,7 @@ export const webdesignServices = [
   },
   {
     title: "Landing Pages",
-    href: "/webdesign",
+    href: "/webdesign/landing-pages",
     description:
       "Conversion-optimierte Landingpages für Kampagnen, Launches und Lead-Generierung.",
     icon: (
@@ -145,7 +145,7 @@ export const webdesignServices = [
   },
   {
     title: "Website Relaunch",
-    href: "/webdesign",
+    href: "/webdesign/website-relaunch",
     description:
       "Bestehende Website modernisieren — ohne Rankings zu verlieren. SEO-sichere Migration inklusive.",
     icon: (
@@ -156,12 +156,73 @@ export const webdesignServices = [
   },
   {
     title: "App Design",
-    href: "/webdesign",
+    href: "/webdesign/app-design",
     description:
       "UI/UX Design für Mobile Apps und Web Apps — von der Idee über Prototypen bis zum fertigen Interface.",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
         <rect x="5" y="2" width="14" height="20" rx="2" ry="2" /><line x1="12" y1="18" x2="12.01" y2="18" />
+      </svg>
+    ),
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/*  GEO SERVICES                                                       */
+/* ------------------------------------------------------------------ */
+export const geoServices = [
+  {
+    title: "GEO Audit",
+    href: "/geo/audit",
+    description:
+      "Analyse Ihrer aktuellen KI-Sichtbarkeit bei ChatGPT, Gemini, Perplexity und Co. – mit konkretem Handlungsplan.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2v-4M9 21H5a2 2 0 0 1-2-2v-4m0 0h18" />
+      </svg>
+    ),
+  },
+  {
+    title: "GEO Beratung",
+    href: "/geo/beratung",
+    description:
+      "Individuelle Strategie, wie Ihre Marke in KI-Antworten sichtbar wird – datenbasiert, umsetzbar, zukunftssicher.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <path d="M12 20h9" /><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+      </svg>
+    ),
+  },
+  {
+    title: "GEO Optimierung",
+    href: "/geo/optimierung",
+    description:
+      "Technische und inhaltliche Anpassung Ihrer Website für maximale Präsenz in KI-generierten Antworten.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <circle cx="12" cy="12" r="3" /><path d="M19.07 4.93a10 10 0 0 1 0 14.14" /><path d="M4.93 4.93a10 10 0 0 0 0 14.14" />
+      </svg>
+    ),
+  },
+  {
+    title: "GEO Content Strategie",
+    href: "/geo/content-strategie",
+    description:
+      "Inhalte, die KI-Systeme als Antwort zitieren. Von Struktur über Tonalität bis zur semantischen Tiefe.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" />
+      </svg>
+    ),
+  },
+  {
+    title: "GEO Monitoring",
+    href: "/geo/monitoring",
+    description:
+      "Kontinuierliche Überwachung Ihrer Marken-Sichtbarkeit in KI-Antworten mit monatlichem Reporting.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
       </svg>
     ),
   },
@@ -190,5 +251,16 @@ export const serviceCategories = [
       </svg>
     ),
     services: webdesignServices,
+  },
+  {
+    id: "geo",
+    label: "GEO",
+    description: "5 Leistungen",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z" /><path d="M12 2c-2.76 3.45-4 6.9-4 10s1.24 6.55 4 10" /><path d="M12 2c2.76 3.45 4 6.9 4 10s-1.24 6.55-4 10" /><path d="M2 12h20" />
+      </svg>
+    ),
+    services: geoServices,
   },
 ];

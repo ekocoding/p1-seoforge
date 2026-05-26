@@ -1,0 +1,14 @@
+META TITLE (58 Zeichen):
+SEO Betreuung ohne Vertrag – monatlich kündbar
+
+META DESCRIPTION (158 Zeichen):
+SEO Betreuung ohne Vertrag: monatlich kündbar, 15% Aufpreis gegenüber dem Vertragsmodell. Warum der Aufpreis existiert – transparent erklärt. Jetzt Erstgespräch buchen.
+
+---
+HINWEISE:
+- Keyword: SEO Betreuung ohne Vertrag
+- Seiten-Route: /seo-betreuung/ohne-vertrag/
+- Canonical: https://seoforge.de/seo-betreuung/ohne-vertrag/
+- H1: SEO ohne Vertrag — monatlich kündbar.
+- Primäres Keyword in Title, H1, erster Absatz und Meta Description vorhanden.
+- FAQPage JSON-LD Schema im <head> des HTML eingebettet.

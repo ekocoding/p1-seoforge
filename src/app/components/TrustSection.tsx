@@ -1,0 +1,242 @@
+"use client";
+
+/**
+ * Trust section — three-part dark bar:
+ * Part A: Service icon bar
+ * Part B: Trust badges row
+ * Part C: Tool carousel (dark)
+ */
+
+// ── Part A: Service icon bar SVGs ──────────────────────────────────────────
+
+function IconSEO() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      {/* Magnifying glass */}
+      <circle cx="9" cy="9" r="5.5" />
+      <line x1="13.5" y1="13.5" x2="19" y2="19" />
+      {/* Upward trend line inside glass */}
+      <polyline points="6,11 8,8.5 10,9.5 12,7" strokeWidth="1.2" />
+    </svg>
+  );
+}
+
+function IconGEO() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      {/* Sparkle/AI star */}
+      <path d="M11 2 L12.2 8.8 L19 11 L12.2 13.2 L11 20 L9.8 13.2 L3 11 L9.8 8.8 Z" />
+      <circle cx="18" cy="4" r="1.2" />
+      <circle cx="4" cy="18" r="1" />
+    </svg>
+  );
+}
+
+function IconWebdesign() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      {/* Monitor */}
+      <rect x="2" y="3.5" width="18" height="12" rx="1.5" />
+      <line x1="7" y1="19" x2="15" y2="19" />
+      <line x1="11" y1="15.5" x2="11" y2="19" />
+      {/* Cursor */}
+      <path d="M13 10 L16 13 L14.5 13 L15.5 16 L14 16.5 L13 13.5 L11.5 15 Z" strokeWidth="1.2" />
+    </svg>
+  );
+}
+
+function IconContent() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      {/* Document */}
+      <path d="M6 2 L14 2 L18 6 L18 20 L4 20 L4 2 Z" />
+      <path d="M14 2 L14 6 L18 6" />
+      {/* Lines */}
+      <line x1="7" y1="10" x2="15" y2="10" />
+      <line x1="7" y1="13" x2="15" y2="13" />
+      <line x1="7" y1="16" x2="12" y2="16" />
+    </svg>
+  );
+}
+
+function IconTechnik() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      {/* Settings sliders */}
+      <line x1="3" y1="6" x2="19" y2="6" />
+      <circle cx="8" cy="6" r="2" fill="none" />
+      <line x1="3" y1="12" x2="19" y2="12" />
+      <circle cx="14" cy="12" r="2" fill="none" />
+      <line x1="3" y1="18" x2="19" y2="18" />
+      <circle cx="9" cy="18" r="2" fill="none" />
+    </svg>
+  );
+}
+
+function IconLocalSEO() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      {/* Map pin */}
+      <path d="M11 2 C7.5 2 4.5 5 4.5 8.5 C4.5 13 11 20 11 20 C11 20 17.5 13 17.5 8.5 C17.5 5 14.5 2 11 2 Z" />
+      <circle cx="11" cy="8.5" r="2.5" />
+      {/* Pulse circle */}
+      <circle cx="11" cy="8.5" r="5.5" strokeDasharray="2 2" opacity="0.5" />
+    </svg>
+  );
+}
+
+const SERVICE_ITEMS = [
+  { label: "SEO", Icon: IconSEO },
+  { label: "GEO / KI-Sichtbarkeit", Icon: IconGEO },
+  { label: "Webdesign", Icon: IconWebdesign },
+  { label: "Content", Icon: IconContent },
+  { label: "Technik", Icon: IconTechnik },
+  { label: "Local SEO", Icon: IconLocalSEO },
+];
+
+// ── Part C: Tool logos ─────────────────────────────────────────────────────
+
+function AhrefsLogo() {
+  return (
+    <div className="shrink-0 flex items-center">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://ahrefs.com/assets/esbuild/ahrefs-logo-blue-I5LZ4NMJ.svg"
+        alt="Ahrefs"
+        className="h-6 w-auto"
+      />
+    </div>
+  );
+}
+
+function SemrushLogo() {
+  return (
+    <div className="flex items-center gap-2 shrink-0">
+      <svg viewBox="0 0 24 24" className="h-9 w-9 shrink-0" aria-hidden="true">
+        <path fill="#FF642D" d="M20.698 11.911c0 .444-.226.516-.79.516-.596 0-.706-.1-.77-.554-.118-1.152-.896-2.13-2.201-2.24-.418-.034-.518-.19-.518-.706 0-.48.074-.708.446-.708 2.265.01 3.833 1.832 3.833 3.69v.002zm3.3 0c0-3.456-2.338-7.11-7.74-7.11H5.52c-.218 0-.354.11-.354.31 0 .109.082.209.156.26.388.31.97.654 1.73 1.036.743.372 1.323.616 1.903.852.246.1.336.208.336.344 0 .19-.136.308-.4.308H.372c-.254 0-.372.164-.372.326 0 .136.044.254.162.372.69.726 1.796 1.596 3.4 2.604 1.466.91 2.98 1.74 4.533 2.492.236.11.308.236.308.372-.008.154-.126.28-.4.28H4.1c-.216 0-.344.12-.344.3 0 .1.08.226.19.326.888.808 2.311 1.688 4.207 2.494 2.53 1.08 5.094 1.721 7.98 1.721 5.465 0 7.867-4.087 7.867-7.289l-.002.002zm-7.133 5.104c-2.794 0-5.132-2.276-5.132-5.114 0-2.794 2.33-5.04 5.132-5.04 2.863 0 5.111 2.24 5.111 5.04a5.086 5.086 0 0 1-5.111 5.114z" />
+      </svg>
+      <span className="text-lg font-bold text-[#FF642D] whitespace-nowrap tracking-tight">Semrush</span>
+    </div>
+  );
+}
+
+function MozLogo() {
+  return (
+    <div className="shrink-0 flex items-center">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/moz-logo.svg"
+        alt="Moz"
+        className="h-6 w-auto"
+      />
+    </div>
+  );
+}
+
+function GoogleAnalyticsLogo() {
+  return (
+    <div className="flex items-center gap-2 shrink-0">
+      <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" aria-hidden="true">
+        <path fill="#E37400" d="M22.84 2.9982v17.9987c.0086 1.6473-1.3197 2.9897-2.967 2.9984a2.9808 2.9808 0 01-.3677-.0208c-1.528-.226-2.6477-1.5558-2.6105-3.1V3.1204c-.0369-1.5458 1.0856-2.8762 2.6157-3.1 1.6361-.1915 3.1178.9796 3.3093 2.6158.014.1201.0208.241.0202.3619zM4.1326 18.0548c-1.6417 0-2.9726 1.331-2.9726 2.9726C1.16 22.6691 2.4909 24 4.1326 24s2.9726-1.3309 2.9726-2.9726-1.331-2.9726-2.9726-2.9726zm7.8728-9.0098c-.0171 0-.0342 0-.0513.0003-1.6495.0904-2.9293 1.474-2.891 3.1256v7.9846c0 2.167.9535 3.4825 2.3505 3.763 1.6118.3266 3.1832-.7152 3.5098-2.327.04-.1974.06-.3983.0593-.5998v-8.9585c.003-1.6474-1.33-2.9852-2.9773-2.9882z" />
+      </svg>
+      <span className="text-sm font-semibold text-dark/60 whitespace-nowrap">Google Analytics</span>
+    </div>
+  );
+}
+
+function SearchConsoleLogo() {
+  return (
+    <div className="flex items-center gap-2 shrink-0">
+      <svg viewBox="0 0 24 24" className="h-5 w-5 shrink-0" aria-hidden="true">
+        <path fill="#458CF5" d="M8.548 1.156L6.832 2.872v1.682h1.716zm0 3.398v.035H6.832v-.035H3.386L0 7.844v3.577h2.826V8.94c0-.525.429-.954.954-.954h16.476c.525 0 .954.43.954.954v2.48h2.754V7.844l-3.386-3.29H17.3v.035h-1.717v-.035zm7.035 0H17.3V2.872l-1.717-1.716zM8.679 1.188V2.84h6.773V1.188zm11.471 7.07a.834.834 0 00-.132.01l-.543.002c-5.216.014-10.432-.008-15.648.01-.435-.063-.794.436-.716.883v2.264h17.812c-.016-.888.045-1.782-.034-2.666-.104-.342-.427-.502-.739-.502zm-15.422.634a.689.698 0 01.689.698.689.698 0 01-.689.697.689.698 0 01-.688-.697.689.698 0 01.688-.698zm2.134 0a.689.698 0 01.689.698.689.698 0 01-.689.697.689.698 0 01-.688-.697.689.698 0 01.688-.698zM.036 11.645v9.156c0 1.05.858 1.908 1.907 1.908h.883V11.645zm21.174 0v11.064h.882c1.05 0 1.908-.858 1.908-1.908v-9.156zM4.057 13.133v6.85h6.137v-6.85zm13.243.021v3.777l-1.708.977-1.708-.977v-3.758a4.006 4.006 0 000 7.23v2.441h3.457v-2.442a4.006 4.006 0 00-.041-7.248zm-13.243 8.26v1.43h7.925v-1.43z" />
+      </svg>
+      <span className="text-sm font-semibold text-dark/60 whitespace-nowrap">Search Console</span>
+    </div>
+  );
+}
+
+function SimilarWebLogo() {
+  return (
+    <svg viewBox="0 0 164 24" className="h-5 w-auto shrink-0" aria-label="SimilarWeb">
+      <path fill="#092540" fillRule="evenodd" d="M75.676 4.6c-.571 0-1.044-.183-1.419-.549-.358-.365-.538-.83-.538-1.39 0-.558.18-1.013.538-1.362.375-.366.848-.549 1.419-.549.57 0 1.036.183 1.395.549.375.349.564.804.564 1.363 0 .558-.19 1.02-.564 1.39-.359.365-.825.548-1.395.548zM73.94 20.105V6.393h3.469v13.713H73.94zM43.14 4.052c.376.366.848.548 1.419.548.57 0 1.036-.182 1.395-.548.375-.37.564-.831.564-1.39 0-.558-.189-1.014-.564-1.363-.358-.366-.825-.548-1.395-.548-.57 0-1.044.182-1.419.548-.358.35-.537.805-.537 1.363 0 .559.179 1.024.538 1.39zm-.316 2.34v13.714h3.47V6.392h-3.47zm6.342 0v13.717h3.468V13.03c0-1.253.28-2.23.842-2.932.577-.702 1.327-1.05 2.25-1.05.938 0 1.633.312 2.086.94.453.625.678 1.53.678 2.71v7.41h3.469V13.03c0-1.253.28-2.23.84-2.932.578-.702 1.337-1.05 2.276-1.05.923 0 1.601.312 2.035.94.453.625.678 1.53.678 2.71v7.403h3.469V12.36c0-2.064-.47-3.63-1.409-4.7-.939-1.068-2.285-1.603-4.04-1.603a5.68 5.68 0 0 0-2.708.665 5.296 5.296 0 0 0-1.953 1.799c-.867-1.64-2.341-2.46-4.418-2.46-.939 0-1.77.202-2.494.608a4.706 4.706 0 0 0-1.708 1.576l-.297-1.852h-3.064zM80.286.867v19.242h3.468V.867h-3.468zm12.072 19.57c-1.265 0-2.396-.312-3.387-.94-.995-.628-1.78-1.483-2.357-2.57-.577-1.087-.868-2.324-.868-3.703 0-1.38.29-2.61.868-3.677.577-1.087 1.366-1.935 2.357-2.544.994-.628 2.122-.94 3.387-.94 1.01 0 1.898.192 2.657.581.76.386 1.373.931 1.842 1.633V6.395h3.469V20.11h-3.09l-.379-1.965c-.433.608-1.01 1.144-1.734 1.602-.708.463-1.627.692-2.765.692zm.73-3.094c1.122 0 2.035-.38 2.739-1.134.724-.774 1.086-1.762 1.086-2.959s-.362-2.174-1.086-2.932c-.704-.775-1.617-1.16-2.739-1.16-1.101 0-2.014.379-2.738 1.133-.724.755-1.086 1.732-1.086 2.933 0 1.197.362 2.184 1.086 2.959.724.77 1.637 1.16 2.739 1.16zM103.11 6.392v13.714h3.469v-6.25c0-1.051.16-1.872.486-2.46.345-.59.815-1.005 1.411-1.244.597-.24 1.275-.36 2.035-.36h.975l-.975-3.4c-.708 0-1.454.126-2.005.469a5.595 5.595 0 0 0-1.979 2.1l-.326-2.57h-3.091zm13.318 13.717-3.932-13.714h3.443l2.331 9.87 2.71-9.87h3.85l2.709 9.87 2.36-9.87h3.443l-3.958 13.714h-3.605l-2.873-10.26-2.875 10.26h-3.603zm20.467-.555c1.05.588 2.25.884 3.606.884 1.082 0 2.051-.203 2.902-.608a6.126 6.126 0 0 0 2.168-1.66 6.54 6.54 0 0 0 1.274-2.376h-3.524c-.238.518-.6.94-1.086 1.273-.472.312-1.059.469-1.763.469-.939 0-1.745-.303-2.413-.911-.649-.609-1.011-1.447-1.082-2.517h10.217c.016-.24.026-.469.026-.692.02-.219.03-.432.03-.635 0-1.253-.291-2.386-.868-3.4a6.142 6.142 0 0 0-2.36-2.434c-1.011-.588-2.175-.884-3.495-.884-1.412 0-2.637.312-3.687.94-1.03.609-1.842 1.463-2.439 2.57-.577 1.104-.867 2.367-.867 3.787 0 1.4.297 2.633.893 3.704a6.347 6.347 0 0 0 2.468 2.49zm1.382-9.87c.649-.5 1.399-.749 2.25-.749.887 0 1.627.27 2.223.801.597.535.92 1.254.975 2.158h-6.696c.182-.994.596-1.732 1.248-2.211zm18.616 10.754c-1.014 0-1.898-.193-2.657-.582a4.782 4.782 0 0 1-1.842-1.632l-.382 1.882h-3.09V.866h3.468v7.49c.434-.608 1.005-1.143 1.709-1.602.724-.462 1.653-.691 2.791-.691 1.264 0 2.393.312 3.387.94a6.693 6.693 0 0 1 2.357 2.57c.577 1.088.867 2.325.867 3.704 0 1.38-.29 2.617-.867 3.704a6.698 6.698 0 0 1-2.357 2.543c-.988.612-2.119.914-3.384.914zm-.731-3.095c1.102 0 2.015-.379 2.739-1.134.724-.754 1.086-1.732 1.086-2.932 0-1.197-.362-2.184-1.086-2.959-.724-.774-1.633-1.16-2.739-1.16-1.121 0-2.04.386-2.764 1.16-.704.755-1.056 1.732-1.056 2.933 0 1.196.352 2.184 1.056 2.958.72.755 1.643 1.134 2.764 1.134zM38.414 12.53c.796.26 1.428.655 1.898 1.19.469.519.704 1.263.707 2.24a3.907 3.907 0 0 1-.652 2.295c-.453.681-1.102 1.216-1.953 1.602-.85.39-1.852.582-3.01.582-1.192 0-2.242-.196-3.145-.582-.903-.405-1.627-.957-2.168-1.659a4.748 4.748 0 0 1-.887-1.918l3.14-.492c.114.256.55.91 1.017 1.25.034.032.068.06.104.092l.016.014c.49.37 1.112.552 1.872.552s1.31-.156 1.653-.468c.361-.313.54-.672.54-1.078 0-.592-.253-.987-.759-1.19-.508-.22-1.213-.432-2.116-.635a22.319 22.319 0 0 1-1.76-.469 9.089 9.089 0 0 1-1.653-.691 3.86 3.86 0 0 1-1.193-1.107c-.307-.459-.46-1.02-.46-1.686 0-1.217.47-2.237 1.408-3.068.959-.828 2.296-1.244 4.014-1.244 1.59 0 2.856.38 3.795 1.134A4.421 4.421 0 0 1 40.35 9.48l-2.899.732-.003-.014s-.381-.748-1-1.077c-.366-.216-.849-.326-1.448-.326-.652 0-1.158.127-1.52.386-.342.26-.515.582-.515.968 0 .405.264.728.786.967.522.24 1.22.462 2.087.665.938.223 1.8.472 2.575.748z" clipRule="evenodd" />
+      <path fill="#F4732A" d="M21.167 6.877c-1.2-1.871-2.937-3.434-4.93-4.228l-.59-.2a6.953 6.953 0 0 0-2.01-.31c-2.159.01-3.906 1.796-3.906 4 0 .918.303 1.762.811 2.434l-.244-.32c.117.174.244.346.391.52.62.75 1.5 1.529 2.64 2.413 2.805 2.17 4.624 4.096 4.774 6.483.036.322.058.651.058.984 0 1.213-.264 2.497-.714 3.4h.004s-.193.353-.072.456c.062.053.196.093.43-.05a11.323 11.323 0 0 0 3.182-3.115 11.33 11.33 0 0 0 1.953-6.207 11.317 11.317 0 0 0-1.777-6.26z" />
+      <path fill="#092540" d="m12.658 15.032-1.757-1.45c-3.68-2.685-5.594-5.581-4.545-9.152.095-.325.212-.641.346-.95v-.004s.26-.545-.306-.276A11.288 11.288 0 0 0 .51 12.532a11.329 11.329 0 0 0 1.92 6.942 8.788 8.788 0 0 0 2.015 2.028h-.003c3.88 2.856 7.208 1.353 7.208 1.353h.003a4.534 4.534 0 0 0 2.771-4.202 4.542 4.542 0 0 0-1.767-3.62z" />
+    </svg>
+  );
+}
+
+function ScreamingFrogLogo() {
+  return (
+    <div className="shrink-0 flex items-center">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="https://www.screamingfrog.co.uk/wp-content/themes/screamingfrog/public/images/logos/logo.png"
+        alt="Screaming Frog"
+        className="h-7 w-auto"
+      />
+    </div>
+  );
+}
+
+export const TOOL_LOGOS = [
+  AhrefsLogo,
+  SemrushLogo,
+  MozLogo,
+  GoogleAnalyticsLogo,
+  SearchConsoleLogo,
+  SimilarWebLogo,
+  ScreamingFrogLogo,
+];
+
+const TRUST_CHIPS = [
+  "B2B & B2C",
+  "Kein Mindestvertrag",
+  "Lokale Betriebe",
+  "Online Shops",
+  "100% Transparent",
+];
+
+export default function TrustSection() {
+  // Triple the logos so the track is always wider than the viewport
+  const tripled = [...TOOL_LOGOS, ...TOOL_LOGOS, ...TOOL_LOGOS];
+
+  return (
+    <div className="bg-white border-b border-border">
+      <div className="text-center pt-10 pb-6 px-6">
+        <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-3">
+          Unsere Werkzeuge
+        </p>
+        <h2 className="text-3xl md:text-4xl font-[family-name:var(--font-heading)] text-dark mb-4">
+          Gründliche Arbeit braucht die beste Software
+        </h2>
+        <p className="text-base text-muted max-w-4xl mx-auto leading-relaxed">
+          Wir setzen ausschließlich auf die führenden SEO-Tools der Branche. Denn präzise Daten, tiefe Analysen und professionelle Workflows sind die Basis für Ergebnisse, die halten — keine Experimente, keine Kompromisse.
+        </p>
+      </div>
+
+      {/* ── Infinite tool logo carousel ── */}
+      <div className="relative pb-7">
+        {/* Fade masks */}
+        <div
+          className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(to right, white, transparent)" }}
+          aria-hidden="true"
+        />
+        <div
+          className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          style={{ background: "linear-gradient(to left, white, transparent)" }}
+          aria-hidden="true"
+        />
+
+        {/* Scrolling track */}
+        <div className="overflow-hidden">
+          <div className="carousel-track flex items-center gap-14" style={{ width: "max-content" }}>
+            {tripled.map((Logo, i) => (
+              <Logo key={i} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

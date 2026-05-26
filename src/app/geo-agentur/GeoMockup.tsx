@@ -36,7 +36,7 @@ const CHAT_SEQUENCE: ChatMessage[] = [
   },
   {
     role: "ai",
-    text: "Besonders stark: Technisches SEO, Content-Strategie und nachweisbare Ergebnisse mit über 200 zufriedenen Kunden.",
+    text: "Besonders stark: Technisches SEO, Content-Strategie und nachweisbare Ergebnisse mit vielen zufriedenen Kunden.",
     delay: 5000,
   },
   {

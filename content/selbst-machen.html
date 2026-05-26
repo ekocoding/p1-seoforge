@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>SEO selbst machen – was geht, was nicht</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #1a1a2e;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+    h1 { font-size: 2.2rem; line-height: 1.2; margin-bottom: 1rem; }
+    h2 { font-size: 1.6rem; margin-top: 2.8rem; margin-bottom: 0.8rem; }
+    h3 { font-size: 1.15rem; margin-top: 1.8rem; margin-bottom: 0.5rem; }
+    p { margin: 0 0 1.1rem; }
+    ul, ol { margin: 0 0 1.2rem 1.4rem; }
+    li { margin-bottom: 0.4rem; }
+    a { color: #2563eb; text-decoration: underline; }
+    table { border-collapse: collapse; width: 100%; margin: 1.5rem 0; font-size: 0.92rem; }
+    th { background: #f0f4ff; text-align: left; padding: 0.65rem 0.9rem; border: 1px solid #d1d9f0; }
+    td { padding: 0.6rem 0.9rem; border: 1px solid #e2e8f0; vertical-align: top; }
+    tr:nth-child(even) td { background: #f8fafc; }
+    .label-diy { color: #16a34a; font-weight: 600; }
+    .label-agency { color: #2563eb; font-weight: 600; }
+    .callout {
+      background: #f0f4ff;
+      border-left: 4px solid #2563eb;
+      padding: 1rem 1.2rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.5rem 0;
+    }
+    .callout p { margin: 0; }
+    .warning {
+      background: #fff7ed;
+      border-left: 4px solid #f97316;
+      padding: 1rem 1.2rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.5rem 0;
+    }
+    .warning p { margin: 0; }
+    details { border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 0.75rem; padding: 0; }
+    summary { padding: 1rem 1.2rem; font-weight: 600; cursor: pointer; list-style: none; }
+    summary::-webkit-details-marker { display: none; }
+    details[open] summary { border-bottom: 1px solid #e2e8f0; }
+    .faq-answer { padding: 1rem 1.2rem; color: #475569; font-size: 0.95rem; line-height: 1.7; }
+    .time-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .time-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1rem;
+      background: #f8fafc;
+    }
+    .time-card .hours { font-size: 1.5rem; font-weight: 700; color: #2563eb; }
+    .time-card .task { font-size: 0.85rem; color: #64748b; margin-top: 0.2rem; }
+  </style>
+</head>
+<body>
+
+<h1>SEO selbst machen – was wirklich geht und wo es ohne Erfahrung teuer wird</h1>
+
+<p>Die ehrliche Antwort zuerst: Ja, du kannst einiges selbst tun. Wer sein Unternehmen kennt, seine Zielgruppe versteht und bereit ist, sich einzuarbeiten, kann mit den richtigen Schritten tatsächlich etwas bewegen — besonders in weniger umkämpften Nischen. Gleichzeitig gibt es Bereiche, in denen Halbwissen nicht nur wirkungslos ist, sondern aktiv schadet. Dabei denken wir an Penalty-Recovery nach einem Google Update, an technische Crawl-Fehler die monatelang unbemerkt bleiben, oder an Linkbuilding das nach hinten losgeht.</p>
+
+<p>Diese Seite ist kein Werbetext für unsere Dienstleistungen. Wir zeigen dir konkret, was Selbermachen bringt, was du dafür investieren musst, und wann der Punkt kommt, an dem externe Unterstützung sinnvoller ist als weiteres Trial and Error.</p>
+
+<div class="callout">
+  <p><strong>Kurz vorab:</strong> Realistisches DIY-SEO kostet dich 10–15 Stunden pro Monat. Nicht einmalig — jeden Monat. Was du in dieser Zeit sinnvoll tun kannst, hängt stark davon ab, wie wettbewerbsintensiv deine Branche ist.</p>
+</div>
+
+<h2>1. Was du selbst tun kannst — konkret und mit Anleitung</h2>
+
+<p>Diese fünf Bereiche sind gut dokumentiert, mit kostenlosen Tools umsetzbar, und der Lernaufwand ist überschaubar. Hier lohnt es sich definitiv, selbst anzufangen.</p>
+
+<h3>Google Search Console einrichten und verstehen</h3>
+
+<p>Die Search Console ist das wichtigste kostenlose SEO-Tool überhaupt — und erstaunlich viele Unternehmen nutzen sie nicht oder kaum. Einrichten geht in 20 Minuten: Domain in der GSC bestätigen, Sitemap eintragen, zwei Wochen abwarten. Dann zeigt dir die GSC genau, für welche Suchbegriffe du bereits rankst, welche Seiten gecrawlt werden, und ob Google Fehler findet.</p>
+
+<p>Was du konkret prüfen solltest:</p>
+<ul>
+  <li><strong>Leistung → Suchanfragen:</strong> Welche Keywords bringen schon Klicks? Gibt es Keywords mit hohen Impressionen aber wenig Klicks (CTR-Problem)?</li>
+  <li><strong>Indexabdeckung:</strong> Werden alle wichtigen Seiten indexiert? Welche Seiten sind ausgeschlossen und warum?</li>
+  <li><strong>Core Web Vitals:</strong> Erste Anhaltspunkte für Ladezeit-Probleme — auch wenn die Details Expertise erfordern.</li>
+  <li><strong>Manuelle Maßnahmen:</strong> Steht hier etwas? Dann hast du ein ernstes Problem das sofort Priorität hat.</li>
+</ul>
+
+<h3>Google Business Profile pflegen</h3>
+
+<p>Für alle Unternehmen mit lokalem Bezug ist das Google Business Profile (ehemals Google My Business) oft der wichtigste einzelne SEO-Hebel. Vollständig ausgefüllt, mit aktuellen Öffnungszeiten, regelmäßigen Beiträgen und professionellen Fotos — das ist etwas, das du selbst kontrollieren kannst und das direkt Auswirkungen auf die lokale Suche hat.</p>
+
+<p>Investiere hier 30 Minuten pro Woche für neue Beiträge und das Beantworten von Rezensionen. Die Wirkung auf das lokale Ranking ist messbar und kommt ohne technische Vorkenntnisse aus.</p>
+
+<h3>Title Tags und Meta Descriptions optimieren</h3>
+
+<p>Jede Seite braucht einen eindeutigen, relevanten Title Tag mit dem wichtigsten Keyword der Seite — maximal 60 Zeichen. Das ist nicht schwer, aber auf den meisten Websites entweder gar nicht gesetzt oder doppelt vorhanden. Prüfe das mit dem kostenlosen Screaming Frog (bis 500 URLs kostenlos).</p>
+
+<p>Gute Title Tags folgen einem simplen Muster: <strong>[Hauptkeyword] – [Zusatznutzen] | [Markenname]</strong>. Die Meta Description beeinflusst das Ranking selbst kaum — aber sie entscheidet, ob jemand klickt.</p>
+
+<h3>Interne Verlinkung verbessern</h3>
+
+<p>Interne Links sind einer der am meisten unterschätzten On-Page-Faktoren. Wenn du 20 Blogbeiträge hast und keiner davon auf deine wichtigste Leistungsseite verlinkt, verschenkst du Linkjuice und Relevanz. Geh einmal durch deine Inhalte und frag dich: Welche Seite soll ranken? Wird von anderen Seiten darauf verlinkt, mit sinnvollen Ankertexten?</p>
+
+<p>Das kostet Zeit, aber kein Geld — und ist einer der wenigen SEO-Hebel, den du vollständig selbst kontrollierst.</p>
+
+<h3>PageSpeed prüfen und grobe Probleme beheben</h3>
+
+<p>Google PageSpeed Insights (<a href="https://pagespeed.web.dev" target="_blank" rel="noopener">pagespeed.web.dev</a>) zeigt dir kostenlos, ob deine Website zu langsam lädt. Bilder mit 4 MB hochzuladen statt komprimiert zu servieren, kein Caching zu nutzen, riesige JavaScript-Dateien ungeminifiziert auszuliefern — das sind Fehler die du identifizieren und oft selbst beheben kannst (oder deinen Webentwickler darum bitten kannst).</p>
+
+<p>Die Umsetzung der Empfehlungen wird dann schon komplexer — aber das Problem zuerst zu kennen ist der wichtige erste Schritt.</p>
+
+<h2>2. Was echter Expertise erfordert — und warum Halbwissen hier schadet</h2>
+
+<p>Es gibt Bereiche im SEO, wo das Risiko falsch umgesetzter Maßnahmen den möglichen Nutzen bei weitem übersteigt. Kein Angriff auf deine Intelligenz — das liegt an der Komplexität und den unintuiven Abhängigkeiten zwischen Faktoren.</p>
+
+<h3>Technisches SEO</h3>
+
+<p>Robots.txt falsch konfiguriert → wichtige Seiten werden nicht gecrawlt. Canonical Tags falsch gesetzt → Google indexiert die falsche Version deiner Seiten. Hreflang-Attribute bei mehrsprachigen Seiten verwechselt → die deutsche Version erscheint in den englischen Suchergebnissen. Das sind keine theoretischen Szenarien — das passiert regelmäßig und oft bleibt es monatelang unbemerkt, weil die Auswirkungen verzögert eintreten.</p>
+
+<p>Ein <a href="/seo-audit">SEO Audit</a> deckt diese Probleme systematisch auf. Ohne strukturierte Analyse ist die Fehlersuche wie die Nadel im Heuhaufen.</p>
+
+<h3>Linkbuilding</h3>
+
+<p>Backlinks sind nach wie vor ein starkes Rankingsignal — aber der Aufbau qualitativ hochwertiger Links ist zeitaufwändig, erfordert Branchenkontakte und eine klare Strategie. Das Gegenteil von gutem Linkbuilding — gekaufte Links, Linkfarmen, irrelevante Verzeichniseinträge — ist ein Kurzticket in eine Google Penalty. Die Erholung davon dauert Monate, manchmal länger.</p>
+
+<div class="warning">
+  <p><strong>Praxisbeispiel:</strong> Ein Onlineshop mit 300 Backlinks aus einer alten Link-Einkauf-Kampagne verliert nach einem Core Update 60% seines organischen Traffics. Penalty-Recovery bedeutet dann: Backlink-Audit, Disavow-Datei erstellen, manuell Linkentfernungen anfordern, neu aufbauen. Das dauert 6–12 Monate, selbst wenn alles richtig gemacht wird.</p>
+</div>
+
+<h3>Keyword-Strategie und Suchintention</h3>
+
+<p>Ein Keyword zu kennen ist nicht dasselbe wie eine Keyword-Strategie zu haben. Wer für "SEO" ranken will ohne eine klare Keyword-Hierarchie, Silo-Struktur und Themencluster-Aufbau, verpufft seine Content-Ressourcen. Dazu kommt: dieselbe Suchanfrage kann informationalen, transaktionalen oder navigationalen Intent haben — und der falsche Content-Typ rankt einfach nicht, egal wie gut er geschrieben ist.</p>
+
+<h3>Core Web Vitals — Umsetzung, nicht nur Diagnose</h3>
+
+<p>Das Problem zu sehen ist einfach. Es zu beheben erfordert oft Eingriffe in Theme-Code, Server-Konfiguration, Ressourcen-Priorisierung im Browser, Lazy Loading, Render-Blocking-Skripte. Das ist Entwicklerarbeit — und günstig gemacht wird es selten besser.</p>
+
+<h3>Recovery nach Google Core Updates</h3>
+
+<p>Nach jedem Core Update gibt es Gewinner und Verlierer. Wer verliert, steht vor der Frage: Was war das Problem? E-E-A-T-Schwächen? Thin Content? Technische Issues? Zu viele affiliateähnliche Seiten? Die Antwort ist selten offensichtlich, und Googles eigene Empfehlungen bleiben bewusst vage.</p>
+
+<h2>3. Zeit-Realitätscheck — was DIY-SEO wirklich kostet</h2>
+
+<p>Wer ehrlich ist, sagt: SEO selbst machen ist kein Nachmittagsprojekt. Für messbare Ergebnisse brauchst du Kontinuität. Hier eine realistische Aufschlüsselung des monatlichen Zeitaufwands für Grundlagen-SEO:</p>
+
+<div class="time-grid">
+  <div class="time-card">
+    <div class="hours">2–3 h</div>
+    <div class="task">GSC auswerten, Rankings prüfen, Probleme identifizieren</div>
+  </div>
+  <div class="time-card">
+    <div class="hours">2–3 h</div>
+    <div class="task">1–2 neue Blogbeiträge oder Content-Updates</div>
+  </div>
+  <div class="time-card">
+    <div class="hours">1–2 h</div>
+    <div class="task">On-Page-Optimierung bestehender Seiten</div>
+  </div>
+  <div class="time-card">
+    <div class="hours">1–2 h</div>
+    <div class="task">Google Business Profile, Bewertungen, lokale Signale</div>
+  </div>
+  <div class="time-card">
+    <div class="hours">2–3 h</div>
+    <div class="task">Interne Verlinkung, technische Checks, PageSpeed</div>
+  </div>
+  <div class="time-card">
+    <div class="hours">2 h</div>
+    <div class="task">Weiterbildung: Algorithmus-Updates, neue Best Practices</div>
+  </div>
+</div>
+
+<p><strong>Summe: 10–15 Stunden pro Monat</strong> für solides Basiswissen. In umkämpften Branchen (Recht, Finanzen, Gesundheit, E-Commerce mit großen Mitbewerbern) reicht das nicht aus, um wettbewerbsfähig zu sein.</p>
+
+<p>Wichtig: Das ist die Zeit für die Umsetzung, nicht für das Lernen. In den ersten sechs Monaten kommen Einarbeitungszeit und Fehlerkorrektur noch obendrauf.</p>
+
+<h2>4. Tool-Empfehlungen für den DIY-Einstieg</h2>
+
+<p>Diese Tools sind kostenlos oder haben brauchbare Gratis-Versionen — ausreichend für Einsteiger und kleinere Websites.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Wofür</th>
+      <th>Kosten</th>
+      <th>Lernkurve</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Google Search Console</strong></td>
+      <td>Rankings, Crawl-Fehler, Indexabdeckung, CTR</td>
+      <td>Kostenlos</td>
+      <td>Niedrig</td>
+    </tr>
+    <tr>
+      <td><strong>Google Business Profile</strong></td>
+      <td>Lokale Sichtbarkeit, Bewertungsmanagement</td>
+      <td>Kostenlos</td>
+      <td>Niedrig</td>
+    </tr>
+    <tr>
+      <td><strong>Google PageSpeed Insights</strong></td>
+      <td>Ladezeiten, Core Web Vitals (Diagnose)</td>
+      <td>Kostenlos</td>
+      <td>Niedrig</td>
+    </tr>
+    <tr>
+      <td><strong>Screaming Frog (Free)</strong></td>
+      <td>On-Page-Audit bis 500 URLs, fehlende Title Tags, Duplikate</td>
+      <td>Kostenlos bis 500 URLs</td>
+      <td>Mittel</td>
+    </tr>
+    <tr>
+      <td><strong>Ubersuggest</strong></td>
+      <td>Keyword-Recherche, Konkurrenzanalyse (eingeschränkt)</td>
+      <td>3 Gratis-Suchen/Tag</td>
+      <td>Niedrig</td>
+    </tr>
+    <tr>
+      <td><strong>Ahrefs Webmaster Tools</strong></td>
+      <td>Backlink-Profil, technische Probleme der eigenen Domain</td>
+      <td>Kostenlos (eigene Domain)</td>
+      <td>Mittel</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Wer mehr will — zum Beispiel systematische Keyword-Recherche, vollständige Wettbewerbsanalyse oder Content-Gap-Analyse — braucht kostenpflichtige Tools wie Ahrefs (ab ca. 99 €/Monat) oder Semrush. Das ist sinnvoll, wenn du weißt, was du damit machst. Ohne Erfahrung wird das schnell teuer für wenig Ertrag.</p>
+
+<h2>5. DIY SEO vs. Agentur — direkter Vergleich</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kriterium</th>
+      <th class="label-diy">DIY SEO</th>
+      <th class="label-agency">SEO Agentur</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Monatliche Kosten</strong></td>
+      <td>Tool-Kosten 0–200 €, aber 10–15 h eigene Zeit</td>
+      <td>500–3.000+ € je nach Umfang und Wettbewerb</td>
+    </tr>
+    <tr>
+      <td><strong>Zeitaufwand intern</strong></td>
+      <td>Hoch — du machst alles selbst</td>
+      <td>Gering — Briefing, Reviews, Feedback</td>
+    </tr>
+    <tr>
+      <td><strong>Ergebnisgeschwindigkeit</strong></td>
+      <td>Langsamer durch Lernkurve und Teilzeiteinsatz</td>
+      <td>Schneller durch Erfahrung und Prozesse</td>
+    </tr>
+    <tr>
+      <td><strong>Qualität der Umsetzung</strong></td>
+      <td>Abhängig von deinem Wissensstand</td>
+      <td>Professionell bei guter Agenturwahl</td>
+    </tr>
+    <tr>
+      <td><strong>Technisches SEO</strong></td>
+      <td>Begrenzt — hohes Fehlerrisiko ohne Erfahrung</td>
+      <td>Vollständig abgedeckt</td>
+    </tr>
+    <tr>
+      <td><strong>Risiko</strong></td>
+      <td>Mittel bis hoch (Penalties, Zeitverlust)</td>
+      <td>Gering bei seriöser Agentur</td>
+    </tr>
+    <tr>
+      <td><strong>Skalierbarkeit</strong></td>
+      <td>Begrenzt durch deine verfügbare Zeit</td>
+      <td>Flexibel skalierbar</td>
+    </tr>
+    <tr>
+      <td><strong>Geeignet für</strong></td>
+      <td>Lokale Unternehmen, Nischenmärkte, Budget-Einschränkungen</td>
+      <td>Wachstumsziele, Wettbewerbsmärkte, komplexe Sites</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>6. Wann lohnt es sich, Hilfe zu holen?</h2>
+
+<p>Das ist keine rhetorische Frage mit der vorbereiteten Antwort "immer sofort eine Agentur buchen". Es gibt klare Kriterien.</p>
+
+<p><strong>Externe Unterstützung wird sinnvoll, wenn:</strong></p>
+<ul>
+  <li>Dein organischer Umsatz (oder dein Potenzial) über 5.000–10.000 € monatlich liegt — dann rechnet sich professionelle Betreuung in der Regel schnell, was wir auf unserer Seite zu <a href="/seo-betreuung-roi">wann sich externe Betreuung rechnet</a> konkret vorrechnen</li>
+  <li>Du in einer Branche mit starkem Wettbewerb operierst, wo Konkurrenten seit Jahren in SEO investieren</li>
+  <li>Du bereits eine Penalty hast oder Traffic-Einbrüche nach einem Core Update erlebt hast</li>
+  <li>Deine Website technisch komplex ist (große Shops, mehrsprachige Sites, JavaScript-Frameworks)</li>
+  <li>Du 10–15 Stunden pro Monat schlicht nicht entbehren kannst, ohne anderswo wichtigere Dinge liegen zu lassen</li>
+  <li>Du in den letzten 6 Monaten selbst optimiert hast, aber keine messbaren Fortschritte siehst</li>
+</ul>
+
+<p>Ein guter Einstieg ohne sofortige Vertragsbindung: eine <a href="/seo-beratung">einmalige SEO Beratung</a>. Dabei schaust du dir mit einem Experten gemeinsam an, wo deine größten Hebel liegen und was du selbst umsetzen kannst. Kein Dauerauftrag, keine Verpflichtung.</p>
+
+<p>Wer langfristiger denken will, findet bei unserer <a href="/seo-betreuung">professionellen SEO Betreuung</a> einen monatlichen Zyklus aus Analyse, Priorisierung, Umsetzung und transparentem Reporting — ohne lange Vertragslaufzeiten.</p>
+
+<p>Und wenn du erst mal verstehen willst, wo du gerade wirklich stehst: ein <a href="/seo-audit">SEO Audit</a> gibt dir eine vollständige Bestandsaufnahme — technisch, inhaltlich, und im Wettbewerbsvergleich.</p>
+
+<div class="callout">
+  <p>Du bist unsicher, ob dein Fall in die "selbst machen" oder "Hilfe holen" Kategorie fällt? Im <a href="/kontakt">kostenlosen Erstgespräch</a> schauen wir uns das gemeinsam an — ohne Verkaufsdruck, dafür mit einer ehrlichen Einschätzung. <a href="https://seoforge.de">SEOforge</a> arbeitet nur mit Projekten, bei denen SEO auch wirklich Sinn macht.</p>
+</div>
+
+<h2>Häufige Fragen zu SEO selbst machen</h2>
+
+<details>
+  <summary>Kann ich SEO wirklich ohne Vorkenntnisse selbst machen?</summary>
+  <div class="faq-answer">
+    <p>Für die Grundlagen — ja. Google Search Console einrichten, Title Tags setzen, das Google Business Profile pflegen, interne Verlinkung verbessern — das lernt man mit etwas Einarbeitung. Für technisches SEO, Linkbuilding und strategische Keyword-Arbeit wird Erfahrung schnell zum entscheidenden Unterschied. Wer ohne Vorkenntnisse zu tief in diese Bereiche geht, riskiert Fehler die schwer rückgängig zu machen sind.</p>
+  </div>
+</details>
+
+<details>
+  <summary>Wie lange dauert es, bis ich Ergebnisse sehe?</summary>
+  <div class="faq-answer">
+    <p>Lokale Maßnahmen wie das Google Business Profile können in 4–8 Wochen messbar wirken. Für Rankings auf organisch gesuchte Keywords rechne mit mindestens 3–6 Monaten kontinuierlicher Arbeit — in wettbewerbsintensiven Branchen länger. Wer nach zwei Monaten noch keine Bewegung sieht, sollte nicht die Strategie aufgeben, sondern prüfen, ob die Maßnahmen korrekt umgesetzt wurden.</p>
+  </div>
+</details>
+
+<details>
+  <summary>Welche SEO-Tools brauche ich mindestens?</summary>
+  <div class="faq-answer">
+    <p>Für den Einstieg reichen Google Search Console (kostenlos), Google Business Profile (kostenlos) und Screaming Frog in der kostenlosen Version bis 500 URLs vollkommen aus. Ubersuggest oder Ahrefs Webmaster Tools ergänzen das sinnvoll für erste Keyword-Recherchen. Kostenpflichtige Tools wie Ahrefs oder Semrush lohnen sich erst, wenn du weißt, wie du die Daten interpretierst und in Maßnahmen übersetzen kannst.</p>
+  </div>
+</details>
+
+<details>
+  <summary>Was ist der häufigste Fehler beim SEO selbst machen?</summary>
+  <div class="faq-answer">
+    <p>Zu viele Dinge gleichzeitig angehen ohne Priorisierung. Wer gleichzeitig Content produziert, technische Fehler behebt und Links aufbaut, ohne zu wissen welcher Hebel gerade der wichtigste ist, verschwendet Zeit ohne klare Ergebnisse zu sehen. Dazu kommt: Ungeduld. SEO braucht Monate, nicht Wochen — und wer nach vier Wochen die Strategie wechselt, verliert die Zeit die er schon investiert hat.</p>
+  </div>
+</details>
+
+<details>
+  <summary>Ab wann ist eine SEO Agentur günstiger als DIY?</summary>
+  <div class="faq-answer">
+    <p>Das hängt davon ab, was deine eigene Zeit wert ist. 12 Stunden pro Monat á 80 € Stundensatz entspricht 960 € Opportunitätskosten — ähnlich wie ein Entry-Level-Agenturpaket. Wer seinen Stundensatz kennt und weiß, dass er diese Zeit produktiver nutzen könnte, ist mit professioneller Betreuung oft günstiger unterwegs als mit Do-it-yourself. Wir haben das auf unserer Seite zu <a href="/seo-betreuung-roi">wann sich externe Betreuung rechnet</a> mit konkreten Zahlen durchgerechnet.</p>
+  </div>
+</details>
+
+</body>
+</html>

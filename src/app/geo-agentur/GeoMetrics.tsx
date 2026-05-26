@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 const metrics = [
   {
@@ -71,36 +71,12 @@ const metrics = [
   }
 ];
 
-function useScrollAnimation(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold }
-    );
-
-    const currentRef = ref.current;
-    if (currentRef) observer.observe(currentRef);
-    return () => { if (currentRef) observer.unobserve(currentRef); };
-  }, [threshold]);
-
-  return { ref, isVisible };
-}
-
 export default function GeoMetrics() {
-  const { ref: sectionRef, isVisible } = useScrollAnimation(0.1);
   const [activeMetric, setActiveMetric] = useState(metrics[0]);
   const [hoveredKpi, setHoveredKpi] = useState<number | null>(null);
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32 bg-dark text-white relative overflow-hidden">
+    <section className="py-24 lg:py-32 bg-dark text-white relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
@@ -118,7 +94,7 @@ export default function GeoMetrics() {
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div className={`text-center mb-16 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+        <div className="reveal text-center mb-16">
           <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
             <svg className="w-4 h-4 text-primary" viewBox="0 0 20 20" fill="currentColor">
               <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
@@ -138,7 +114,7 @@ export default function GeoMetrics() {
         {/* Dashboard Layout */}
         <div className="grid lg:grid-cols-12 gap-6">
           {/* Left Sidebar - Metric Navigation */}
-          <div className={`lg:col-span-4 space-y-3 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+          <div className="reveal lg:col-span-4 space-y-3">
             {metrics.map((metric, index) => (
               <button
                 key={metric.id}
@@ -179,7 +155,7 @@ export default function GeoMetrics() {
           </div>
 
           {/* Right Content - Metric Detail */}
-          <div className={`lg:col-span-8 transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
+          <div className="reveal lg:col-span-8">
             <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-3xl p-8 lg:p-10 h-full">
               {/* Header */}
               <div className="flex items-start justify-between mb-10">
@@ -282,7 +258,7 @@ export default function GeoMetrics() {
         </div>
 
         {/* Bottom Note */}
-        <div className={`mt-12 p-6 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-4 transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+        <div className="reveal mt-12 p-6 rounded-2xl bg-white/5 border border-white/10 flex items-start gap-4">
           <div className="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center flex-shrink-0">
             <svg className="w-5 h-5 text-primary" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd"/>

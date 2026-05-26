@@ -1,32 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import SubpageLayout from "../components/SubpageLayout";
-
-/* ------------------------------------------------------------------ */
-/*  INTERSECTION OBSERVER                                              */
-/* ------------------------------------------------------------------ */
-function useInView(opts = {}) {
-  const ref = useRef<HTMLElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.1, ...opts }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
-  return [ref, inView] as const;
-}
 
 /* ------------------------------------------------------------------ */
 /*  FAQ DATA                                                           */
@@ -150,14 +126,6 @@ const massnahmen = [
 export default function WasIstGeoClient() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const [definitionRef, definitionInView] = useInView();
-  const [stepsRef, stepsInView] = useInView();
-  const [compareRef, compareInView] = useInView();
-  const [statsRef, statsInView] = useInView();
-  const [massnahmenRef, massnahmenInView] = useInView();
-  const [faqRef, faqInView] = useInView();
-  const [ctaRef, ctaInView] = useInView();
-
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -218,15 +186,10 @@ export default function WasIstGeoClient() {
       {/*  DEFINITION BLOCK                                             */}
       {/* ============================================================ */}
       <section
-        ref={definitionRef as React.RefObject<HTMLElement>}
         className="bg-offwhite border-y border-border py-20 lg:py-28"
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div
-            className={`transition-all duration-700 ${
-              definitionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
-          >
+          <div className="reveal">
             <div className="grid lg:grid-cols-12 gap-12 items-start">
               {/* Left: prose text — 8 cols */}
               <div className="lg:col-span-8 space-y-5">
@@ -275,15 +238,10 @@ export default function WasIstGeoClient() {
       {/*  HOW GEO WORKS — 4 STEPS                                     */}
       {/* ============================================================ */}
       <section
-        ref={stepsRef as React.RefObject<HTMLElement>}
         className="bg-white py-24 lg:py-32"
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div
-            className={`transition-all duration-700 ${
-              stepsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
-          >
+          <div className="reveal">
             <div className="mb-10">
               <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">
                 So funktioniert es
@@ -311,7 +269,7 @@ export default function WasIstGeoClient() {
                 <div
                   key={step.number}
                   className="rounded-2xl border border-border bg-offwhite p-7 transition-all duration-300 hover:shadow-md hover:border-primary/20"
-                  style={{ transitionDelay: stepsInView ? `${i * 80}ms` : "0ms" }}
+                  style={{ transitionDelay: `${i * 80}ms` }}
                 >
                   <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-secondary text-white font-[family-name:var(--font-heading)] font-bold text-lg">
                     {step.number}
@@ -343,15 +301,10 @@ export default function WasIstGeoClient() {
       {/*  GEO VS SEO VS LLMO                                          */}
       {/* ============================================================ */}
       <section
-        ref={compareRef as React.RefObject<HTMLElement>}
         className="bg-offwhite border-y border-border py-24 lg:py-32"
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div
-            className={`transition-all duration-700 ${
-              compareInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
-          >
+          <div className="reveal">
             <div className="mb-14">
               <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">
                 Vergleich
@@ -451,15 +404,10 @@ export default function WasIstGeoClient() {
       {/*  WHY GEO MATTERS NOW                                         */}
       {/* ============================================================ */}
       <section
-        ref={statsRef as React.RefObject<HTMLElement>}
         className="bg-white py-24 lg:py-32"
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div
-            className={`transition-all duration-700 ${
-              statsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
-          >
+          <div className="reveal">
             <div className="mb-14">
               <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">
                 Warum jetzt
@@ -554,15 +502,10 @@ export default function WasIstGeoClient() {
       {/*  GEO MASSNAHMEN                                              */}
       {/* ============================================================ */}
       <section
-        ref={massnahmenRef as React.RefObject<HTMLElement>}
         className="bg-offwhite border-y border-border py-24 lg:py-32"
       >
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div
-            className={`transition-all duration-700 ${
-              massnahmenInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
-          >
+          <div className="reveal">
             <div className="mb-6">
               <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">
                 Konkrete Maßnahmen
@@ -637,15 +580,10 @@ export default function WasIstGeoClient() {
       {/*  FAQ                                                          */}
       {/* ============================================================ */}
       <section
-        ref={faqRef as React.RefObject<HTMLElement>}
         className="bg-white py-24 lg:py-32"
       >
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
-          <div
-            className={`transition-all duration-700 ${
-              faqInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
-          >
+          <div className="reveal">
             <div className="mb-12 text-center">
               <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">
                 Häufige Fragen
@@ -653,6 +591,16 @@ export default function WasIstGeoClient() {
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark">
                 FAQ zu GEO
               </h2>
+            </div>
+
+            <div className="mb-8 rounded-xl border border-primary/20 bg-primary/[0.03] p-5">
+              <p className="text-sm text-muted leading-relaxed">
+                Erfahren Sie mehr über unsere{" "}
+                <Link href="/geo" className="text-primary font-semibold hover:underline">
+                  GEO Leistungen
+                </Link>{" "}
+                und wie wir Ihre KI-Sichtbarkeit systematisch aufbauen — vom ersten Audit bis zum kontinuierlichen Monitoring.
+              </p>
             </div>
 
             <div className="space-y-3">
@@ -694,15 +642,10 @@ export default function WasIstGeoClient() {
       {/*  CTA                                                          */}
       {/* ============================================================ */}
       <section
-        ref={ctaRef as React.RefObject<HTMLElement>}
         className="bg-dark py-20 lg:py-28"
       >
         <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-          <div
-            className={`transition-all duration-700 ${
-              ctaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
-          >
+          <div className="reveal">
             <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-5">
               Nächster Schritt
             </span>

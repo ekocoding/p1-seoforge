@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 const faqs = [
   {
@@ -107,31 +107,7 @@ const faqs = [
 
 
 
-function useScrollAnimation(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold }
-    );
-
-    const currentRef = ref.current;
-    if (currentRef) observer.observe(currentRef);
-    return () => { if (currentRef) observer.unobserve(currentRef); };
-  }, [threshold]);
-
-  return { ref, isVisible };
-}
-
 export default function GeoFAQ() {
-  const { ref: sectionRef, isVisible } = useScrollAnimation(0.1);
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   
   const [searchQuery, setSearchQuery] = useState("");
@@ -148,13 +124,13 @@ export default function GeoFAQ() {
   };
 
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32 bg-offwhite relative overflow-hidden">
+    <section className="py-24 lg:py-32 bg-offwhite relative overflow-hidden">
       {/* Background Decoration */}
       <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-primary/[0.02] to-transparent" />
       
       <div className="relative max-w-5xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div className={`text-center mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+        <div className="reveal text-center mb-12">
           <span className="text-sm font-semibold uppercase tracking-widest text-primary mb-4 block">
             Häufige Fragen
           </span>
@@ -168,7 +144,7 @@ export default function GeoFAQ() {
         </div>
 
         {/* Search Bar */}
-        <div className={`relative max-w-2xl mx-auto mb-10 transition-all duration-700 delay-100 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+        <div className="reveal relative max-w-2xl mx-auto mb-10">
           <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
             <svg className="w-5 h-5 text-muted" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd"/>
@@ -192,10 +168,10 @@ export default function GeoFAQ() {
             return (
               <div
                 key={originalIndex}
-                className={`bg-white rounded-2xl border transition-all duration-500 ${
+                className={`reveal bg-white rounded-2xl border transition-all duration-500 ${
                   isOpen ? 'border-primary/30 shadow-xl shadow-primary/5' : 'border-border hover:border-primary/20'
-                } ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
-                style={{ transitionDelay: `${index * 50 + 300}ms` }}
+                }`}
+                style={{ transitionDelay: `${index * 50}ms` }}
               >
                 <button
                   onClick={() => toggleQuestion(originalIndex)}
@@ -260,7 +236,7 @@ export default function GeoFAQ() {
         )}
 
         {/* Bottom CTA */}
-        <div className={`mt-16 text-center transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+        <div className="reveal mt-16 text-center">
           <p className="text-muted mb-6">Noch Fragen offen? Wir beraten Sie gerne persönlich.</p>
           <a
             href="/kontakt"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 const rows = [
   {
@@ -71,28 +71,6 @@ const rows = [
   },
 ];
 
-function useScrollAnimation(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold }
-    );
-    const currentRef = ref.current;
-    if (currentRef) observer.observe(currentRef);
-    return () => { if (currentRef) observer.unobserve(currentRef); };
-  }, [threshold]);
-
-  return { ref, isVisible };
-}
-
 const columns = [
   {
     key: "geo" as const,
@@ -140,10 +118,8 @@ const columns = [
 const highlightedRows = ["Optimierungsschicht", "Verhältnis zueinander", "Ersetzt die anderen?"];
 
 export default function GeoComparison() {
-  const { ref: sectionRef, isVisible } = useScrollAnimation(0.08);
-
   return (
-    <section ref={sectionRef} className="py-24 lg:py-32 bg-offwhite relative overflow-hidden">
+    <section className="py-24 lg:py-32 bg-offwhite relative overflow-hidden">
       {/* Subtle dot grid */}
       <div className="absolute inset-0 opacity-[0.018]">
         <div className="absolute inset-0" style={{
@@ -155,7 +131,7 @@ export default function GeoComparison() {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
 
         {/* Header */}
-        <div className={`text-center mb-14 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className="reveal text-center mb-14">
           <span className="text-sm font-semibold uppercase tracking-widest text-primary mb-4 block">
             Begriffsklärung
           </span>
@@ -168,9 +144,7 @@ export default function GeoComparison() {
         </div>
 
         {/* Table */}
-        <div
-          className={`transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-        >
+        <div className="reveal">
           <div className="overflow-x-auto rounded-2xl border border-border shadow-xl shadow-dark/5">
             <table className="w-full border-collapse bg-white text-[15px]" style={{ minWidth: '800px' }}>
 

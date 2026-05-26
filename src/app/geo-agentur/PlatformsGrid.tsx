@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 const platforms = [
@@ -126,31 +126,7 @@ const platforms = [
   }
 ];
 
-function useScrollAnimation(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      },
-      { threshold }
-    );
-
-    const currentRef = ref.current;
-    if (currentRef) observer.observe(currentRef);
-    return () => { if (currentRef) observer.unobserve(currentRef); };
-  }, [threshold]);
-
-  return { ref, isVisible };
-}
-
 export default function PlatformsGrid() {
-  const { ref: sectionRef, isVisible } = useScrollAnimation(0.1);
   const [selectedPlatform, setSelectedPlatform] = useState<typeof platforms[0] | null>(platforms[0]);
 
   return (
@@ -158,9 +134,9 @@ export default function PlatformsGrid() {
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-dark via-dark to-[#0a0a0a]" />
       
-      <div ref={sectionRef} className="relative max-w-7xl mx-auto px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
-        <div className={`mb-12 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}>
+        <div className="reveal mb-12">
           <div className="max-w-3xl">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
@@ -181,7 +157,7 @@ export default function PlatformsGrid() {
         {/* Two Column Layout */}
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Left: Vertical Stack of Platform Cards */}
-          <div className={`flex flex-col gap-3 transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'}`}>
+          <div className="reveal flex flex-col gap-3">
             {platforms.map((platform, index) => (
               <button
                 key={platform.name}
@@ -231,7 +207,7 @@ export default function PlatformsGrid() {
           </div>
 
           {/* Right: Detail Panel */}
-          <div className={`transition-all duration-500 delay-300 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'}`}>
+          <div className="reveal">
             {selectedPlatform ? (
               <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 h-full flex flex-col">
                 {/* Header */}

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import WasIstGeoClient from "./WasIstGeoClient";
 
+export const dynamic = 'force-static';
+
 export const metadata: Metadata = {
   title: "Was ist GEO? Generative Engine Optimization erklärt | Seoforge",
   description:
@@ -28,6 +30,7 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  alternates: { canonical: "https://seoforge.de/was-ist-geo" },
 };
 
 export default function WasIstGeoPage() {
