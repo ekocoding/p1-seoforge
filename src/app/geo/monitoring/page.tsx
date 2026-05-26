@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "GEO Monitoring | KI-Sichtbarkeit messen | SeoForge",
   description:
     "GEO Monitoring von SeoForge: Monatlich messen, wie oft Ihre Marke in ChatGPT, Gemini & Perplexity erscheint. Wettbewerber-Benchmark, Sentiment-Analyse, Handlungsempfehlungen. Ab 490 €/Monat.",
-  alternates: { canonical: "/geo/monitoring" },
+  alternates: { canonical: "https://seoforge.de/geo/monitoring" },
 }
 
 export default function Page() {

@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "GEO Content Strategie | KI-Content erstellen | SeoForge",
   description:
     "GEO Content Strategie von SeoForge: Inhalte entwickeln, die ChatGPT, Gemini & Perplexity zitieren. 4 Prinzipien, 5-Schritt-Prozess, Vorher/Nachher-Beispiele. Jetzt anfragen.",
-  alternates: { canonical: "/geo/content-strategie" },
+  alternates: { canonical: "https://seoforge.de/geo/content-strategie" },
 }
 
 export default function Page() {
