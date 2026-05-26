@@ -4,9 +4,10 @@ import SeoOptimierungClient from "./SeoOptimierungClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Optimierung — Technisch & Inhaltlich | SeoForge",
+  title: "SEO Optimierung — Technik, Content & Struktur | SeoForge",
   description:
-    "Ganzheitliche SEO Optimierung von SeoForge: On-Page, Core Web Vitals, Backlinks und Content. Systematisch und datenbasiert für Top-Platzierungen.",
+    
+    "SeoForge optimiert ganzheitlich: Core Web Vitals, On-Page und Content — systematisch priorisiert für messbare Rankings und mehr organischen Traffic.",
   alternates: { canonical: "https://seoforge.de/seo/optimierung" },
 };
 

@@ -4,9 +4,10 @@ import OnPageOptClient from "./OnPageOptClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "On-Page Optimierung — 200+ Prüfpunkte pro Seite | SeoForge",
+  title: "On-Page Optimierung von SeoForge: direkt & messbar",
   description:
-    "Systematische On-Page Optimierung von SeoForge: Meta-Tags, Headings, Core Web Vitals, interne Verlinkung — direkte Umsetzung im CMS, messbare Ergebnisse.",
+    
+    "200+ Prüfpunkte, direkte CMS-Umsetzung: SeoForge optimiert Meta-Tags, Headings, Core Web Vitals und interne Verlinkung — Schritt für Schritt messbar.",
   alternates: { canonical: "https://seoforge.de/seo/on-page-optimierung" },
 };
 

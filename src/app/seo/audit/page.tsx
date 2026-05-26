@@ -4,9 +4,10 @@ import SeoAuditClient from "./SeoAuditClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Audit — Vollständige Website-Analyse | SeoForge",
+  title: "SEO Audit von SeoForge — Vollbild Ihrer Website",
   description:
-    "Professioneller SEO Audit von SeoForge: 200+ Prüfpunkte, Keyword-Gap-Analyse und priorisierter Maßnahmenplan. Volle Klarheit über Ihre SEO-Situation.",
+    
+    "Wissen, wo Sie stehen: Der SeoForge-Audit analysiert Technik, Content, Backlinks und Struktur — mit priorisiertem Maßnahmenplan statt Daten-Friedhof.",
   alternates: { canonical: "https://seoforge.de/seo/audit" },
 };
 

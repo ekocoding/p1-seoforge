@@ -4,9 +4,10 @@ import OnPageSeoClient from "./OnPageSeoClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "On-Page SEO — Technik, Content & UX als System | SeoForge",
+  title: "On-Page SEO — Technik, Content & UX vereint | SeoForge",
   description:
-    "On-Page SEO von SeoForge: technisches Fundament, semantische Content-Optimierung und UX. Alle Seitenfaktoren zusammen optimiert für maximale Sichtbarkeit.",
+    
+    "Alle Faktoren in einem Zug: SeoForge optimiert Technik, Content und UX — damit Google und Nutzer Ihre Seite gleichermaßen als relevant erkennen.",
   alternates: { canonical: "https://seoforge.de/seo/on-page" },
 };
 

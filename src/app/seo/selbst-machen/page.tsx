@@ -4,9 +4,10 @@ import SeoSelbstMachenClient from "./SeoSelbstMachenClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO selbst machen — Schritt-für-Schritt Guide | SeoForge",
+  title: "SEO selbst machen — Der ehrliche SeoForge-Guide",
   description:
-    "Schritt-für-Schritt SEO Guide von SeoForge: Keyword-Recherche, technische Basis, Content-Erstellung und erste Backlinks. Ehrlich, praxisnah, umsetzbar.",
+    
+    "SeoForge zeigt ehrlich, wie SEO wirklich funktioniert: Keyword-Recherche, Technik, Content — Schritt für Schritt, ohne verstecktes Verkaufspitch.",
   alternates: { canonical: "https://seoforge.de/seo/selbst-machen" },
 };
 

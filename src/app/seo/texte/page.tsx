@@ -4,9 +4,10 @@ import SeoTexteClient from "./SeoTexteClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Texte — Content der rankt und konvertiert | SeoForge",
+  title: "SEO Texte — Keyword-optimiert & lesenswert | SeoForge",
   description:
-    "Professionelle SEO-Texte von SeoForge: keyword-integriert, suchintentionsorientiert und E-E-A-T-konform. Für Websites, Blogs und Produktseiten.",
+    
+    "SeoForge schreibt SEO-Texte mit E-E-A-T-Fokus, Suchintention und Keyword-Strategie — für Websites, Blogs und Online-Shops die dauerhaft top performen.",
   alternates: { canonical: "https://seoforge.de/seo/texte" },
 };
 

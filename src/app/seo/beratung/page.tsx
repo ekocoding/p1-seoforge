@@ -4,9 +4,10 @@ import SeoBeratungClient from "./SeoBeratungClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Beratung — Strategie & Roadmap | SeoForge",
+  title: "SEO Beratung: Strategie, Roadmap & Klarheit — SeoForge",
   description:
-    "SEO Beratung von SeoForge: Keyword-Strategie, Wettbewerbs-Analyse und priorisierte SEO-Roadmap. Beratung vor Umsetzung — für nachhaltigen SEO-Erfolg.",
+    
+    "Klarheit statt Phrasen: SeoForge entwickelt Ihre SEO-Strategie, analysiert Wettbewerber und liefert eine priorisierte Roadmap — direkt, ohne Jargon.",
   alternates: { canonical: "https://seoforge.de/seo/beratung" },
 };
 
