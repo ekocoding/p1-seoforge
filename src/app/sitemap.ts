@@ -52,22 +52,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const articleUrls: MetadataRoute.Sitemap = articles.map((a) => ({
     url: `${BASE}/wissen/${a.type}/${a.slug}`,
-    lastModified: new Date(a.lastUpdated),
-    changeFrequency: "weekly" as const,
-    priority: 0.7,
   }));
 
   return [
-    ...staticRoutes.map((url) => {
-      const depth = url.split('/').filter(Boolean).length;
-      const priority = depth === 0 ? 1.0 : depth === 1 ? 0.8 : depth === 2 ? 0.7 : 0.6;
-      return {
-        url: `${BASE}${url}`,
-        lastModified: new Date(),
-        changeFrequency: depth <= 1 ? 'weekly' as const : 'monthly' as const,
-        priority,
-      };
-    }),
+    ...staticRoutes.map((url) => ({
+      url: `${BASE}${url}`,
+    })),
     ...articleUrls,
   ];
 }

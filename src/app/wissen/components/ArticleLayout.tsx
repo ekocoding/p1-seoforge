@@ -41,6 +41,26 @@ export function getThemaLabel(thema: ArticleThema): string {
   return labels[thema]
 }
 
+interface TocItem {
+  id: string
+  text: string
+  level: 2 | 3
+}
+
+function extractToc(html: string): TocItem[] {
+  const regex = /<h([23])[^>]*\sid="([^"]+)"[^>]*>([\s\S]*?)<\/h[23]>/gi
+  const items: TocItem[] = []
+  let match
+  while ((match = regex.exec(html)) !== null) {
+    items.push({
+      level: parseInt(match[1]) as 2 | 3,
+      id: match[2],
+      text: match[3].replace(/<[^>]+>/g, '').trim()
+    })
+  }
+  return items
+}
+
 function formatDate(dateStr: string): string {
   const date = new Date(dateStr)
   return date.toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' })
@@ -183,16 +203,42 @@ export default function ArticleLayout({ article, children }: ArticleLayoutProps)
         {/* C) Content or "Coming Soon" */}
         <section className="py-16 lg:py-20">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            {article.published && children ? (
+            {article.published && (children || article.content) ? (
               /* Two-column layout for published articles */
               <div className="grid lg:grid-cols-[65fr_35fr] gap-12 items-start">
                 {/* Left: prose content */}
                 <div className="prose prose-lg prose-headings:font-[family-name:var(--font-heading)] prose-headings:text-dark prose-a:text-primary prose-a:no-underline hover:prose-a:underline max-w-none">
-                  {children}
+                  {children ? children : (
+                    <div
+                      dangerouslySetInnerHTML={{ __html: article.content! }}
+                    />
+                  )}
                 </div>
 
                 {/* Right: sticky sidebar */}
                 <div className="lg:sticky lg:top-28 space-y-6">
+                  {/* TOC */}
+                  {article.content && (() => {
+                    const toc = extractToc(article.content)
+                    return toc.length > 0 ? (
+                      <nav className="rounded-2xl border border-border bg-offwhite p-5">
+                        <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-3">Inhalt</p>
+                        <ul className="flex flex-col gap-1">
+                          {toc.map(item => (
+                            <li key={item.id} className={item.level === 3 ? 'pl-3' : ''}>
+                              <a
+                                href={`#${item.id}`}
+                                className="block text-sm text-muted hover:text-primary transition-colors py-0.5 leading-snug"
+                              >
+                                {item.text}
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </nav>
+                    ) : null
+                  })()}
+
                   {/* CTA box */}
                   <div className="rounded-2xl bg-primary/[0.06] border border-primary/20 p-6">
                     <p className="text-sm font-semibold text-dark mb-4">Professionelle Unterstützung?</p>

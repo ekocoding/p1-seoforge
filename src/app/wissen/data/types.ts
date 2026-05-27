@@ -18,4 +18,5 @@ export interface Article {
   serviceLinks: ArticleServiceLink[]   // 2-3 kontextuelle Service-Links
   relatedSlugs: string[]               // Slugs anderer Artikel
   published: boolean                   // false = "Demnächst verfügbar"
+  content?: string                     // HTML-String mit id-Attributen auf Headings
 }
