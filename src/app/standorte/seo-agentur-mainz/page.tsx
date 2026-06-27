@@ -36,7 +36,7 @@ const localBusinessSchema = {
     "@type": "City",
     name: "Mainz",
   },
-  telephone: "+4915203450695",
+  telephone: "+4915129547343",
 };
 
 const faqSchema = {

@@ -36,7 +36,7 @@ export default function DatenschutzPage() {
                 <p>68542 Heddesheim</p>
                 <p>Deutschland</p>
                 <p className="mt-2">E-Mail: <a href="mailto:info@seoforge.de" className="text-primary hover:underline">info@seoforge.de</a></p>
-                <p>Telefon: <a href="tel:015203450695" className="text-primary hover:underline">0152 03450695</a></p>
+                <p>Telefon: <a href="tel:015129547343" className="text-primary hover:underline">0151 29547343</a></p>
               </div>
             </section>
 

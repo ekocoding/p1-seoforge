@@ -57,7 +57,7 @@ const jsonLd = {
     addressLocality: "Heddesheim",
     addressCountry: "DE",
   },
-  telephone: "+4915203450695",
+  telephone: "+4915129547343",
   email: "info@seoforge.de",
   areaServed: "DE",
   priceRange: "€€",
@@ -67,7 +67,7 @@ const jsonLd = {
   ],
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: "+4915203450695",
+    telephone: "+4915129547343",
     contactType: "customer service",
     availableLanguage: "German",
   },

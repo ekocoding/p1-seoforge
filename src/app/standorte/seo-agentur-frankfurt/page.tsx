@@ -32,7 +32,7 @@ const localBusinessSchema = {
     addressCountry: "DE",
   },
   areaServed: { "@type": "City", name: "Frankfurt am Main" },
-  telephone: "+4915203450695",
+  telephone: "+4915129547343",
 };
 
 const faqSchema = {

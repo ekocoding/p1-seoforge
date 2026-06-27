@@ -44,7 +44,7 @@ export default function ImpressumPage() {
               </h2>
               <div className="text-base leading-relaxed text-dark">
                 <p className="mb-2">
-                  <strong>Telefon:</strong> <a href="tel:015203450695" className="text-primary hover:underline">0152 03450695</a>
+                  <strong>Telefon:</strong> <a href="tel:015129547343" className="text-primary hover:underline">0151 29547343</a>
                 </p>
                 <p className="mb-2">
                   <strong>E-Mail:</strong> <a href="mailto:info@seoforge.de" className="text-primary hover:underline">info@seoforge.de</a>
