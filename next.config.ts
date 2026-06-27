@@ -31,6 +31,11 @@ const nextConfig: NextConfig = {
         destination: "/webdesign/firmenwebsite-erstellen-lassen",
         permanent: true,
       },
+      {
+        source: "/wissen/ratgeber/in-chatgpt-erscheinen",
+        destination: "/wissen/ratgeber/geo-ranking-faktoren",
+        permanent: true,
+      },
     ];
   },
 };
