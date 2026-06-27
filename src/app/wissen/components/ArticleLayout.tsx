@@ -1,5 +1,6 @@
 import type { Article, ArticleType, ArticleThema } from '../data/types'
 import Link from 'next/link'
+import Image from 'next/image'
 import Script from 'next/script'
 import SubpageLayout from '../../components/SubpageLayout'
 import { getRelatedArticles } from '../data/articles'
@@ -37,6 +38,7 @@ export function getThemaLabel(thema: ArticleThema): string {
     'on-page': 'On-Page SEO',
     'technical-seo': 'Technisches SEO',
     'local-seo': 'Local SEO',
+    webdesign: 'Webdesign',
   }
   return labels[thema]
 }
@@ -47,6 +49,22 @@ interface TocItem {
   level: 2 | 3
 }
 
+const NAMED_ENTITIES: Record<string, string> = {
+  amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', shy: '',
+  mdash: '—', ndash: '–', hellip: '…', laquo: '«', raquo: '»',
+  bdquo: '„', ldquo: '“', rdquo: '”', sbquo: '‚', lsquo: '‘', rsquo: '’',
+  auml: 'ä', ouml: 'ö', uuml: 'ü', Auml: 'Ä', Ouml: 'Ö', Uuml: 'Ü', szlig: 'ß',
+  eacute: 'é', egrave: 'è', agrave: 'à', ccedil: 'ç', euro: '€',
+}
+
+// Server-seitiges Decoding (kein DOM): named + numerische Entities → echte Zeichen.
+function decodeEntities(s: string): string {
+  return s
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(parseInt(d, 10)))
+    .replace(/&([a-zA-Z]+);/g, (m, name) => (name in NAMED_ENTITIES ? NAMED_ENTITIES[name] : m))
+}
+
 function extractToc(html: string): TocItem[] {
   const regex = /<h([23])[^>]*\sid="([^"]+)"[^>]*>([\s\S]*?)<\/h[23]>/gi
   const items: TocItem[] = []
@@ -55,7 +73,7 @@ function extractToc(html: string): TocItem[] {
     items.push({
       level: parseInt(match[1]) as 2 | 3,
       id: match[2],
-      text: match[3].replace(/<[^>]+>/g, '').trim()
+      text: decodeEntities(match[3].replace(/<[^>]+>/g, '')).replace(/\s+/g, ' ').trim()
     })
   }
   return items
@@ -113,6 +131,16 @@ export default function ArticleLayout({ article, children }: ArticleLayoutProps)
     ],
   }
 
+  const faqJsonLd = article.faq && article.faq.length > 0 ? {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: article.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  } : null
+
   return (
     <SubpageLayout>
       <Script
@@ -125,6 +153,13 @@ export default function ArticleLayout({ article, children }: ArticleLayoutProps)
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {faqJsonLd && (
+        <Script
+          id="faq-jsonld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      )}
 
       <main className="bg-white">
         {/* A) Breadcrumb Bar */}
@@ -154,8 +189,8 @@ export default function ArticleLayout({ article, children }: ArticleLayoutProps)
           </div>
         </div>
 
-        {/* B) Article Hero */}
-        <section className="bg-offwhite border-b border-border py-16 lg:py-20">
+        {/* B) Article Header — kein schwerer Hero: H1 → Banner */}
+        <section className="bg-white pt-10 lg:pt-14 pb-8 lg:pb-10">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="max-w-3xl">
               {/* Badges */}
@@ -163,11 +198,11 @@ export default function ArticleLayout({ article, children }: ArticleLayoutProps)
                 <span className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium ${getTypeBadgeClass(article.type)}`}>
                   {getTypeLabel(article.type)}
                 </span>
-                <span className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1 text-xs font-medium text-muted">
+                <span className="inline-flex items-center rounded-full border border-border bg-offwhite px-3 py-1 text-xs font-medium text-muted">
                   {getThemaLabel(article.thema)}
                 </span>
                 {!article.published && (
-                  <span className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1 text-xs font-medium text-muted">
+                  <span className="inline-flex items-center rounded-full border border-border bg-offwhite px-3 py-1 text-xs font-medium text-muted">
                     Demnächst verfügbar
                   </span>
                 )}
@@ -197,17 +232,31 @@ export default function ArticleLayout({ article, children }: ArticleLayoutProps)
                 <span>Aktualisiert: {formatDate(article.lastUpdated)}</span>
               </div>
             </div>
+
+            {/* Banner */}
+            {article.banner && (
+              <div className="relative mt-8 lg:mt-10 w-full h-[170px] sm:h-[240px] lg:h-[320px] overflow-hidden rounded-2xl border border-border bg-offwhite">
+                <Image
+                  src={article.banner}
+                  alt={article.title}
+                  fill
+                  priority
+                  sizes="(max-width: 1280px) 100vw, 1216px"
+                  className="object-cover object-center"
+                />
+              </div>
+            )}
           </div>
         </section>
 
         {/* C) Content or "Coming Soon" */}
-        <section className="py-16 lg:py-20">
+        <section className="pt-10 lg:pt-12 pb-16 lg:pb-20">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             {article.published && (children || article.content) ? (
               /* Two-column layout for published articles */
               <div className="grid lg:grid-cols-[65fr_35fr] gap-12 items-start">
-                {/* Left: prose content */}
-                <div className="prose prose-lg prose-headings:font-[family-name:var(--font-heading)] prose-headings:text-dark prose-a:text-primary prose-a:no-underline hover:prose-a:underline max-w-none">
+                {/* Left: prose content — großzügige vertikale Rhythmik (Heading-Abstand oben ~2-3x Absatz, unten kleiner) */}
+                <div className="prose prose-lg max-w-none prose-headings:font-[family-name:var(--font-heading)] prose-headings:text-dark prose-headings:scroll-mt-28 prose-h2:mt-16 prose-h2:mb-6 prose-h3:mt-11 prose-h3:mb-4 prose-p:leading-[1.8] prose-li:leading-[1.75] prose-a:text-primary prose-a:no-underline hover:prose-a:underline">
                   {children ? children : (
                     <div
                       dangerouslySetInnerHTML={{ __html: article.content! }}
@@ -221,16 +270,25 @@ export default function ArticleLayout({ article, children }: ArticleLayoutProps)
                   {article.content && (() => {
                     const toc = extractToc(article.content)
                     return toc.length > 0 ? (
-                      <nav className="rounded-2xl border border-border bg-offwhite p-5">
-                        <p className="text-xs font-semibold uppercase tracking-widest text-muted mb-3">Inhalt</p>
-                        <ul className="flex flex-col gap-1">
+                      <nav className="rounded-2xl border border-border bg-offwhite p-5" aria-label="Inhaltsverzeichnis">
+                        <p className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-muted">
+                          <svg className="h-3.5 w-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h10M4 18h7" />
+                          </svg>
+                          Inhalt
+                        </p>
+                        <ul className="space-y-0.5 border-l border-border">
                           {toc.map(item => (
-                            <li key={item.id} className={item.level === 3 ? 'pl-3' : ''}>
+                            <li key={item.id}>
                               <a
                                 href={`#${item.id}`}
-                                className="block text-sm text-muted hover:text-primary transition-colors py-0.5 leading-snug"
+                                className={`group relative -ml-px flex border-l-2 border-transparent transition-colors hover:border-primary ${
+                                  item.level === 3
+                                    ? 'py-1 pl-6 pr-2 text-[13px] text-muted hover:text-primary'
+                                    : 'py-1.5 pl-4 pr-2 text-sm font-medium text-dark/75 hover:text-primary'
+                                }`}
                               >
-                                {item.text}
+                                <span className="line-clamp-2">{item.text}</span>
                               </a>
                             </li>
                           ))}

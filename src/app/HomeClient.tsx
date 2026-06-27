@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HeroWithImage from "./components/HeroWithImage";
@@ -54,120 +55,75 @@ function Section({ children, className = "", id }: { children: React.ReactNode; 
 /*  GEO KREISLAUF INTERACTIVE COMPONENT                               */
 /* ------------------------------------------------------------------ */
 function LeistungenInteractive() {
-  const [activeTab, setActiveTab] = useState<"seo" | "geo" | "webdesign">("seo");
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-
-  const tabs = {
-    seo: {
-      label: "SEO",
-      count: "8 Leistungen",
-      color: "primary",
-      services: [
-        { label: "SEO Beratung", href: "/seo/beratung", desc: "Strategie, Roadmap & klare Prioritäten für Ihr Projekt.", tag: "Strategie" },
-        { label: "SEO Audit", href: "/seo/audit", desc: "Vollständige technische Analyse — Chancen und Baustellen auf einen Blick.", tag: "Analyse" },
-        { label: "SEO Optimierung", href: "/seo/optimierung", desc: "On-Page, Core Web Vitals und technische Seitenstruktur.", tag: "Technik" },
-        { label: "Content-Strategie", href: "/seo/content-strategie", desc: "Keyword-Architektur und Content-Planung, die dauerhaft rangiert.", tag: "Content" },
-        { label: "On Page SEO", href: "/seo/on-page", desc: "Texte, Meta-Daten, interne Verlinkung und Seitenstruktur optimiert.", tag: "On-Page" },
-        { label: "Shop SEO", href: "/seo/shop", desc: "E-Commerce-Rankings für Produktseiten, Kategorien und Landingpages.", tag: "E-Commerce" },
-        { label: "SEO Texte", href: "/seo/texte", desc: "SEO-Content der liest, überzeugt und in Google rangiert.", tag: "Content" },
-        { label: "SEO Betreuung", href: "/seo/betreuung", desc: "Laufende monatliche Betreuung ohne Mindestvertragslaufzeit.", tag: "Betreuung" },
-      ],
+  const PILLARS = [
+    {
+      img: "/images/home-pillars/seo.webp",
+      eyebrow: "Suchmaschinenoptimierung",
+      title: "SEO, die wirklich funktioniert",
+      text: "SEO ist kein Versprechen, sondern ein System aus Technik, Content und Autorität \u2014 messbar aufgebaut und kontinuierlich optimiert. Sie bekommen direkten Kontakt zum Experten: keine Account-Manager, keine Standard-Pakete, nur die Hebel mit dem gr\u00f6\u00dften Impact.",
+      highlights: ["Technik, Content & Autorit\u00e4t", "Direkt vom Experten", "Messbar & kontinuierlich"],
+      cta: "SEO entdecken",
+      href: "/seo",
     },
-    geo: {
-      label: "GEO",
-      count: "5 Leistungen",
-      color: "secondary",
-      services: [
-        { label: "GEO Audit", href: "/geo/audit", desc: "Baseline-Analyse Ihrer aktuellen KI-Sichtbarkeit in ChatGPT, Gemini und Perplexity.", tag: "Analyse" },
-        { label: "GEO Beratung", href: "/geo/beratung", desc: "Strategie-Workshop und Roadmap für nachhaltige KI-Sichtbarkeit.", tag: "Strategie" },
-        { label: "GEO Content-Strategie", href: "/geo/content-strategie", desc: "KI-zitierbaren Content systematisch planen und produzieren.", tag: "Content" },
-        { label: "GEO Monitoring", href: "/geo/monitoring", desc: "KI-Mentions kontinuierlich tracken und Veränderungen frühzeitig erkennen.", tag: "Monitoring" },
-        { label: "GEO Optimierung", href: "/geo/optimierung", desc: "Inhalte und technische Struktur für KI-Systeme optimieren.", tag: "Optimierung" },
-      ],
+    {
+      img: "/images/home-pillars/geo.webp",
+      eyebrow: "Generative Engine Optimization",
+      title: "Sichtbar in KI-Antworten",
+      text: "ChatGPT, Gemini, Perplexity und Claude bestimmen zunehmend, welche Marken empfohlen werden. Wir machen Ihre Marke dort sichtbar \u2014 durch systematische GEO-Optimierung, Tracking \u00fcber alle Plattformen und messbare KI-Pr\u00e4senz statt Versprechungen.",
+      highlights: ["In KI-Antworten zitiert", "Systematisch & messbar", "Alle Plattformen im Blick"],
+      cta: "GEO entdecken",
+      href: "/geo",
     },
-    webdesign: {
-      label: "Webdesign",
-      count: "5 Leistungen",
-      color: "dark",
-      services: [
-        { label: "Webdesign & UI/UX", href: "/webdesign", desc: "Professionelle Websites die überzeugen und konvertieren.", tag: "Design" },
-        { label: "Landing Pages", href: "/webdesign/landing-pages", desc: "Conversion-optimierte Seiten für Kampagnen und Produkte.", tag: "Conversion" },
-        { label: "Website Relaunch", href: "/webdesign/website-relaunch", desc: "Moderner Relaunch ohne Ranking-Verlust — SEO-first.", tag: "Relaunch" },
-        { label: "App Design", href: "/webdesign/app-design", desc: "UI/UX-Design für Web-Apps, Dashboards und SaaS-Produkte.", tag: "App" },
-        { label: "Website erstellen lassen", href: "/webdesign/website-erstellen-lassen", desc: "Vollständige Website-Erstellung aus einer Hand.", tag: "Komplett" },
-      ],
+    {
+      img: "/images/home-pillars/webdesign.webp",
+      eyebrow: "Webdesign & Entwicklung",
+      title: "Websites f\u00fcr Google und KI-Suche",
+      text: "Websites aus einem Team ranken besser, weil Strategie, Design, Code und SEO ineinandergreifen \u2014 kein Plugin-Overhead, keine Schnittstellenverluste. Custom Code mit DevOps, fairer Festpreis und ein pers\u00f6nlicher Ansprechpartner mit Antwort in unter 24 Stunden.",
+      highlights: ["Custom Code statt Baukasten", "Fairer Preis durch KI", "Google + KI-Suche ab Tag 1"],
+      cta: "Webdesign entdecken",
+      href: "/webdesign",
     },
-  };
-
-  const active = tabs[activeTab];
-  const cols = activeTab === "seo" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
+    {
+      img: "/images/home-pillars/wartung.webp",
+      eyebrow: "Website-Betreuung",
+      title: "Wartung sichert Rankings & Verf\u00fcgbarkeit",
+      text: "Eine Website ohne regelm\u00e4\u00dfige Wartung ist ein Sicherheitsrisiko: veraltete Plugins \u00f6ffnen bekannte Hintert\u00fcren, Performance verf\u00e4llt, Rankings sinken. Wir patchen automatisiert, sichern t\u00e4glich und \u00fcberwachen rund um die Uhr \u2014 mit pers\u00f6nlichem Support.",
+      highlights: ["Updates vor Angreifern", "T\u00e4gliche Backups & Monitoring", "Monatlich k\u00fcndbar"],
+      cta: "Wartung entdecken",
+      href: "/website-wartung",
+    },
+  ];
 
   return (
-    <div>
-      {/* Tab switcher — underline style */}
-      <div className="flex gap-0 border-b border-dark/[0.08] mb-12">
-        {(["seo", "geo", "webdesign"] as const).map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`relative flex flex-col items-start gap-0.5 px-6 py-4 transition-colors duration-200 ${
-              activeTab === tab ? "text-dark" : "text-dark/35 hover:text-dark/60"
-            }`}
-          >
-            <span className="text-base font-semibold">{tabs[tab].label}</span>
-            <span className="text-[11px]">{tabs[tab].count}</span>
-            <span
-              className={`absolute bottom-0 left-0 right-0 h-[2px] bg-primary transition-all duration-300 ${
-                activeTab === tab ? "opacity-100" : "opacity-0"
-              }`}
-            />
-          </button>
-        ))}
-      </div>
-
-      {/* Cards */}
-      <div className={`grid gap-3 ${cols}`}>
-        {active.services.map((item, i) => (
-          <a
-            key={item.label}
-            href={item.href}
-            onMouseEnter={() => setHoveredIndex(i)}
-            onMouseLeave={() => setHoveredIndex(null)}
-            className="group relative overflow-hidden rounded-2xl border border-dark/[0.07] bg-white p-6 transition-all duration-300 hover:border-primary/25 hover:shadow-xl hover:shadow-primary/[0.08] hover:-translate-y-1"
-          >
-            {/* Hovered background sweep */}
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-            {/* Index number */}
-            <span className="absolute -right-1 -top-5 font-[family-name:var(--font-heading)] text-[80px] font-bold leading-none select-none pointer-events-none" style={{ color: "rgba(26,26,26,0.04)" }}>
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <div className="relative">
-              <span className="inline-block text-[10px] font-bold uppercase tracking-[0.15em] text-primary/50 mb-3">{item.tag}</span>
-              <h3 className="font-[family-name:var(--font-heading)] text-[17px] text-dark mb-2 group-hover:text-primary transition-colors duration-200 leading-snug">{item.label}</h3>
-              <p className="text-[13px] text-dark/50 leading-relaxed mb-5">{item.desc}</p>
-              <div className="flex items-center gap-1.5 text-xs font-semibold text-primary opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200">
-                Mehr erfahren
-                <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd"/></svg>
-              </div>
+    <div className="flex flex-col gap-16 lg:gap-24">
+      {PILLARS.map((p, i) => (
+        <div key={p.href} className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          {/* Bild */}
+          <div className={`relative ${i % 2 === 1 ? "lg:order-2" : ""}`}>
+            <div className="overflow-hidden rounded-3xl border border-border/70 bg-offwhite/40">
+              <Image src={p.img} alt={p.title} width={1200} height={900} className="h-auto w-full" />
             </div>
-            <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-primary to-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-          </a>
-        ))}
-      </div>
-
-      {/* Footer bar */}
-      <div className="mt-10 flex items-center justify-between border-t border-dark/[0.07] pt-8">
-        <span className="text-sm text-dark/40">{active.count} — individuell kombinierbar</span>
-        <a
-          href={activeTab === "seo" ? "/seo-agentur" : activeTab === "geo" ? "/geo-agentur" : "/webdesign"}
-          className="inline-flex items-center gap-2 text-sm font-semibold text-dark hover:text-primary transition-colors"
-        >
-          {activeTab === "seo" ? "Alle SEO-Leistungen ansehen →" : `Alle ${tabs[activeTab].label}-Leistungen`}
-          {activeTab !== "seo" && (
-            <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd"/></svg>
-          )}
-        </a>
-      </div>
+          </div>
+          {/* Text */}
+          <div className={i % 2 === 1 ? "lg:order-1" : ""}>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[.14em] text-primary">{p.eyebrow}</p>
+            <h3 className="mb-4 font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold leading-tight text-dark">{p.title}</h3>
+            <p className="mb-5 text-base leading-relaxed text-muted">{p.text}</p>
+            <ul className="mb-7 flex flex-col gap-2.5">
+              {p.highlights.map((h) => (
+                <li key={h} className="flex items-center gap-2.5 text-sm text-dark/70">
+                  <svg className="h-4 w-4 shrink-0 text-primary" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-7.5 7.5a1 1 0 01-1.4 0L3.3 9.7a1 1 0 011.4-1.4l3.1 3.1 6.8-6.8a1 1 0 011.4 0z" clipRule="evenodd" /></svg>
+                  {h}
+                </li>
+              ))}
+            </ul>
+            <Link href={p.href} className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-xl">
+              {p.cta}
+              <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.6L11.2 6.3a.75.75 0 111-1.1l4.5 4.25a.75.75 0 010 1.1l-4.5 4.25a.75.75 0 11-1-1.1l3.15-2.95H3.75A.75.75 0 013 10z" clipRule="evenodd" /></svg>
+            </Link>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }
@@ -912,7 +868,7 @@ export default function HomeClient() {
         {/* ============================================================ */}
         {/*  WHAT MAKES US DIFFERENT - Bento Grid Typography               */}
         {/* ============================================================ */}
-        <section className="bg-white py-24 lg:py-32 overflow-hidden">
+        <section className="py-24 lg:py-36 bg-white">
           <style jsx>{`
             .highlight-word {
               background: linear-gradient(135deg, #C2722A 0%, #D4A853 100%);
@@ -920,153 +876,116 @@ export default function HomeClient() {
               -webkit-text-fill-color: transparent;
               background-clip: text;
             }
-            .bento-card {
-              transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            .diff-card-num {
+              transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
             }
-            .bento-card:hover {
-              transform: translateY(-4px);
-            }
-            .bento-card:hover .bento-number {
-              transform: scale(1.1) rotate(-5deg);
-            }
-            .bento-number {
-              transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            .diff-card:hover .diff-card-num {
+              background-color: #C2722A;
+              color: #fff;
+              border-color: #C2722A;
             }
           `}</style>
-          
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            {/* Section Header */}
-            <div className="mb-16">
-              <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-4">
+
+          <div className="mx-auto max-w-6xl px-6 lg:px-8">
+            {/* Header */}
+            <div className="mb-16 lg:mb-20">
+              <p className="text-xs font-semibold tracking-[0.2em] uppercase text-primary mb-4">
                 Unser Unterschied
               </p>
-              <h2 className="text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)] max-w-3xl">
+              <h2 className="text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)] leading-tight max-w-2xl">
                 Das macht <span className="highlight-word">SeoForge</span> anders
               </h2>
             </div>
 
-            {/* Bento Grid Layout */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
-              
-              {/* Card 1 - Large: Keine Pakete */}
-              <div className="bento-card md:col-span-2 md:row-span-2 rounded-3xl bg-offwhite border border-border p-8 lg:p-10 relative overflow-hidden group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/[0.04]">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-primary/10 to-secondary/5 rounded-full blur-3xl -mr-20 -mt-20 transition-all group-hover:from-primary/20 group-hover:to-secondary/10" />
-                <div className="relative z-10 h-full flex flex-col justify-between">
-                  <div>
-                    <span className="bento-number inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-primary/10 text-primary text-2xl font-bold mb-6">
-                      01
-                    </span>
-                    <h3 className="text-3xl lg:text-4xl text-dark font-[family-name:var(--font-heading)] leading-tight mb-4">
-                      Keine Pakete.<br />
-                      <span className="highlight-word">Kein Bullshit.</span>
-                    </h3>
-                  </div>
-                  <p className="text-muted text-base lg:text-lg leading-relaxed max-w-md">
-                    Wir verkaufen keine Fixpreis-Pakete. Jede Strategie wird individuell entwickelt - 
-                    weil Ihr Unternehmen einzigartig ist, nicht austauschbar.
-                  </p>
-                </div>
+            {/* Grid — gap-px + bg-border erzeugt die Trennlinien */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+
+              {/* 01 */}
+              <div className="diff-card bg-white p-8 lg:p-10 transition-colors hover:bg-offwhite">
+                <span className="diff-card-num inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border text-dark text-sm font-semibold mb-8">
+                  01
+                </span>
+                <h3 className="text-xl text-dark font-[family-name:var(--font-heading)] mb-3 leading-snug">
+                  Keine Pakete.<br />
+                  <span className="highlight-word">Kein Bullshit.</span>
+                </h3>
+                <p className="text-sm text-muted leading-relaxed">
+                  Wir verkaufen keine Fixpreis-Pakete. Jede Strategie wird individuell entwickelt — weil Ihr Unternehmen einzigartig ist.
+                </p>
               </div>
 
-              {/* Card 2: Individuell arbeiten */}
-              <div className="bento-card rounded-3xl bg-offwhite border border-border p-8 relative overflow-hidden group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/[0.04]">
-                <span className="bento-number inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary text-xl font-bold mb-5">
+              {/* 02 */}
+              <div className="diff-card bg-white p-8 lg:p-10 transition-colors hover:bg-offwhite">
+                <span className="diff-card-num inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border text-dark text-sm font-semibold mb-8">
                   02
                 </span>
-                <h3 className="text-2xl text-dark font-[family-name:var(--font-heading)] mb-3">
+                <h3 className="text-xl text-dark font-[family-name:var(--font-heading)] mb-3 leading-snug">
                   <span className="highlight-word">Maßgeschneidert</span><br />
                   statt Massenware
                 </h3>
-                <p className="text-muted text-sm leading-relaxed">
-                  Keine Copy-Paste-Lösungen. Wir analysieren Ihre spezifische Ausgangslage und entwickeln Strategien, die zu Ihrem Geschäftsmodell passen.
+                <p className="text-sm text-muted leading-relaxed">
+                  Keine Copy-Paste-Lösungen. Wir analysieren Ihre Ausgangslage und entwickeln Strategien, die zu Ihrem Modell passen.
                 </p>
               </div>
 
-              {/* Card 3: Immer auf dem neuesten Stand */}
-              <div className="bento-card rounded-3xl bg-primary/[0.03] border border-primary/10 p-8 relative overflow-hidden group hover:bg-primary/[0.06] hover:border-primary/20">
-                <span className="bento-number inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary text-white text-xl font-bold mb-5">
+              {/* 03 */}
+              <div className="diff-card bg-white p-8 lg:p-10 transition-colors hover:bg-offwhite">
+                <span className="diff-card-num inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border text-dark text-sm font-semibold mb-8">
                   03
                 </span>
-                <h3 className="text-2xl text-dark font-[family-name:var(--font-heading)] mb-3">
+                <h3 className="text-xl text-dark font-[family-name:var(--font-heading)] mb-3 leading-snug">
                   Immer einen<br />
                   <span className="highlight-word">Schritt voraus</span>
                 </h3>
-                <p className="text-muted text-sm leading-relaxed mb-4">
-                  Google-Algorithmus-Updates, GEO-Optimierung, KI-Sichtbarkeit. Wir bleiben am Puls der Zeit, damit Sie es nicht müssen.
+                <p className="text-sm text-muted leading-relaxed">
+                  Algorithm-Updates, GEO-Optimierung, KI-Sichtbarkeit. Wir bleiben am Puls der Zeit — damit Sie es nicht müssen.
+                </p>
+              </div>
+
+              {/* 04 */}
+              <div className="diff-card bg-white p-8 lg:p-10 transition-colors hover:bg-offwhite">
+                <span className="diff-card-num inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border text-dark text-sm font-semibold mb-8">
+                  04
+                </span>
+                <h3 className="text-xl text-dark font-[family-name:var(--font-heading)] mb-3 leading-snug">
+                  <span className="highlight-word">Direkter Draht</span><br />
+                  zum Experten
+                </h3>
+                <p className="text-sm text-muted leading-relaxed">
+                  Keine Account-Manager, keine Weiterleitungen. Sie sprechen direkt mit dem, der Ihre Strategie entwickelt.
+                </p>
+              </div>
+
+              {/* 05 */}
+              <div className="diff-card bg-white p-8 lg:p-10 transition-colors hover:bg-offwhite">
+                <span className="diff-card-num inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border text-dark text-sm font-semibold mb-8">
+                  05
+                </span>
+                <h3 className="text-xl text-dark font-[family-name:var(--font-heading)] mb-3 leading-snug">
+                  <span className="highlight-word">Kommunikation</span><br />
+                  = Qualität
+                </h3>
+                <p className="text-sm text-muted leading-relaxed">
+                  Erst echte Kommunikation macht den Unterschied. Transparent, ehrlich, proaktiv — und immer erreichbar.
+                </p>
+              </div>
+
+              {/* CTA-Tile */}
+              <div className="bg-dark p-8 lg:p-10 flex flex-col justify-between sm:col-span-2 lg:col-span-1">
+                <p className="text-sm text-white/60 leading-relaxed mb-8">
+                  Klingt das nach einer Zusammenarbeit, die Sie suchen?
                 </p>
                 <a
-                  href="/geo-agentur"
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+                  href="/kontakt"
+                  className="group/btn inline-flex items-center gap-2 text-white text-sm font-semibold"
                 >
-                  Mehr zur GEO-Optimierung
-                  <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+                  Lassen Sie uns reden
+                  <svg className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd"/>
                   </svg>
                 </a>
               </div>
 
-              {/* Card 4 - Wide: Service-Nähe */}
-              <div className="bento-card md:col-span-2 rounded-3xl bg-offwhite border border-border p-8 lg:p-10 relative overflow-hidden group hover:border-primary/30 hover:shadow-xl hover:shadow-primary/[0.04]">
-                <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
-                  <span className="bento-number inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-secondary/20 text-secondary text-2xl font-bold shrink-0">
-                    04
-                  </span>
-                  <div className="flex-1">
-                    <h3 className="text-2xl lg:text-3xl text-dark font-[family-name:var(--font-heading)] mb-3">
-                      <span className="highlight-word">Direkter Draht</span> zum Experten
-                    </h3>
-                    <p className="text-muted text-base leading-relaxed">
-                      Keine Account-Manager, keine Weiterleitungen. Sie sprechen direkt mit dem, der Ihre SEO-Strategie entwickelt und umsetzt. Persönlich, schnell, kompetent.
-                    </p>
-                  </div>
-                  <div className="hidden lg:flex shrink-0 gap-2">
-                    {['S', 'E', 'O'].map((letter, i) => (
-                      <div 
-                        key={letter} 
-                        className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-lg transition-all group-hover:bg-primary group-hover:text-white"
-                        style={{ transitionDelay: `${i * 50}ms` }}
-                      >
-                        {letter}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Card 5: Kommunikation */}
-              <div className="bento-card rounded-3xl bg-gradient-to-br from-secondary/[0.08] to-primary/[0.04] border border-secondary/20 p-8 relative overflow-hidden group hover:shadow-xl hover:shadow-secondary/[0.06]">
-                <span className="bento-number inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br from-secondary to-primary text-white text-xl font-bold mb-5">
-                  05
-                </span>
-                <h3 className="text-2xl text-dark font-[family-name:var(--font-heading)] mb-3">
-                  <span className="highlight-word">Kommunikation</span><br />
-                  = Qualität
-                </h3>
-                <p className="text-muted text-sm leading-relaxed mb-4">
-                  Produktqualität ist Standard. Erst echte Kommunikation macht den Unterschied. Transparent, ehrlich, proaktiv.
-                </p>
-                <div className="flex items-center gap-2 text-xs text-primary font-medium">
-                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                  Immer erreichbar
-                </div>
-              </div>
-
-            </div>
-
-            {/* Bottom CTA */}
-            <div className="mt-12 text-center">
-              <p className="text-muted mb-6">
-                Klingt das nach einer Zusammenarbeit, die Sie suchen?
-              </p>
-              <a 
-                href="/kontakt" 
-                className="inline-flex items-center gap-2 bg-dark text-white px-8 py-4 rounded-full text-sm font-semibold hover:bg-primary transition-all"
-              >
-                Lassen Sie uns reden
-                <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd"/>
-                </svg>
-              </a>
             </div>
           </div>
         </section>
@@ -1077,7 +996,7 @@ export default function HomeClient() {
         <Section className="bg-offwhite py-24 lg:py-32">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             {/* Section header */}
-            <div className="max-w-3xl mb-16">
+            <div className="max-w-2xl mb-16">
               <p className="text-xs font-bold uppercase tracking-[.18em] text-primary mb-4">Warum SEO?</p>
               <h2 className="text-4xl lg:text-5xl font-[family-name:var(--font-heading)] text-dark leading-[1.08]">
                 Organische Sichtbarkeit ist<br />
@@ -1085,137 +1004,70 @@ export default function HomeClient() {
               </h2>
             </div>
 
-            {/* Main layout: 3 facts left + big visual right */}
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-20">
-              {/* Left: stacked fact cards */}
-              <div className="space-y-4">
-                {[
-                  {
-                    stat: "53%",
-                    label: "Des Web-Traffics kommt organisch",
-                    detail: "Mehr als die Hälfte aller Website-Besucher kommen über Suchmaschinen — nicht über Ads.",
-                    accent: "border-l-primary",
-                  },
-                  {
-                    stat: "14×",
-                    label: "Höhere Conversion als Outbound",
-                    detail: "Wer sucht, hat Absicht. SEO-Leads konvertieren 8–14× besser als Kaltakquise-Kontakte.",
-                    accent: "border-l-secondary",
-                  },
-                  {
-                    stat: "76%",
-                    label: "Lokale Suchen enden im Geschäft",
-                    detail: "Drei von vier Menschen, die lokal suchen, besuchen innerhalb von 24h ein lokales Unternehmen.",
-                    accent: "border-l-primary",
-                  },
-                ].map((fact, i) => (
-                  <div
-                    key={i}
-                    className={`group flex items-start gap-6 rounded-2xl border border-border border-l-[3px] ${fact.accent} bg-white p-6 transition-all duration-300 hover:shadow-lg hover:shadow-primary/[0.05] hover:-translate-x-1`}
-                  >
-                    <div className="shrink-0">
-                      <p className="font-[family-name:var(--font-heading)] text-4xl font-bold text-primary leading-none">{fact.stat}</p>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-dark mb-1">{fact.label}</h3>
-                      <p className="text-sm text-muted leading-relaxed">{fact.detail}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Right: visual blocks */}
-              <div className="relative hidden lg:block">
-                {/* Background decoration */}
-                <div className="absolute -inset-6 bg-gradient-to-br from-primary/[0.04] to-secondary/[0.02] rounded-3xl" />
-                <div className="relative space-y-4">
-                  {/* Top row */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="rounded-2xl bg-dark p-6 text-white">
-                      <p className="text-[10px] uppercase tracking-widest text-white/40 mb-3">SEO Traffic</p>
-                      <p className="font-[family-name:var(--font-heading)] text-3xl font-bold mb-1">↗ Dauerhaft</p>
-                      <p className="text-xs text-white/50">wächst ohne Werbebudget</p>
-                    </div>
-                    <div className="rounded-2xl bg-primary/[0.08] border border-primary/15 p-6">
-                      <p className="text-[10px] uppercase tracking-widest text-primary/50 mb-3">Ads Traffic</p>
-                      <p className="font-[family-name:var(--font-heading)] text-3xl font-bold text-dark/50 mb-1">→ Endet</p>
-                      <p className="text-xs text-muted">wenn Budget stoppt</p>
-                    </div>
-                  </div>
-                  {/* Middle */}
-                  <div className="rounded-2xl bg-white border border-border p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <p className="text-sm font-semibold text-dark">Organisches Wachstum</p>
-                      <span className="text-xs text-primary font-medium">12 Monate</span>
-                    </div>
-                    <div className="flex items-end gap-1 h-14">
-                      {[15, 20, 25, 30, 38, 45, 55, 62, 72, 80, 90, 100].map((h, i) => (
-                        <div
-                          key={i}
-                          className="flex-1 rounded-t bg-gradient-to-t from-primary/40 to-primary/80 transition-all"
-                          style={{ height: `${h}%` }}
-                        />
-                      ))}
-                    </div>
-                    <div className="flex justify-between mt-2 text-[9px] text-muted">
-                      <span>Jan</span><span>Jun</span><span>Dez</span>
-                    </div>
-                  </div>
-                  {/* Bottom */}
-                  <div className="grid grid-cols-3 gap-3">
-                    {["Mehr Leads", "Mehr Sichtbarkeit", "Mehr Umsatz"].map((label) => (
-                      <div key={label} className="rounded-xl bg-offwhite border border-border p-3 text-center">
-                        <p className="text-xs font-semibold text-dark">{label}</p>
-                      </div>
-                    ))}
-                  </div>
+            {/* Stats row */}
+            <div className="grid md:grid-cols-3 gap-4 mb-16">
+              {[
+                {
+                  stat: "53%",
+                  label: "Des Web-Traffics kommt organisch",
+                  detail: "Mehr als die Hälfte aller Website-Besucher kommen über Suchmaschinen — nicht über Ads.",
+                },
+                {
+                  stat: "14×",
+                  label: "Höhere Conversion als Outbound",
+                  detail: "Wer sucht, hat Absicht. SEO-Leads konvertieren 8–14× besser als Kaltakquise-Kontakte.",
+                },
+                {
+                  stat: "76%",
+                  label: "Lokale Suchen enden im Geschäft",
+                  detail: "Drei von vier Menschen, die lokal suchen, besuchen innerhalb von 24h ein lokales Unternehmen.",
+                },
+              ].map((fact, i) => (
+                <div key={i} className="rounded-2xl border border-border bg-white p-6">
+                  <p className="font-[family-name:var(--font-heading)] text-5xl font-bold text-primary leading-none mb-3">{fact.stat}</p>
+                  <h3 className="font-semibold text-dark mb-2">{fact.label}</h3>
+                  <p className="text-sm text-muted leading-relaxed">{fact.detail}</p>
                 </div>
-              </div>
+              ))}
             </div>
 
-            {/* Bottom: 3 reason cards */}
+            {/* Reason cards */}
             <div className="grid md:grid-cols-3 gap-5">
               {[
                 {
                   icon: (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
                       <path d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   ),
                   title: "Organischer Traffic wächst dauerhaft",
                   desc: "Bezahlte Anzeigen liefern Traffic solange Sie zahlen. Organische Sichtbarkeit wächst mit der Zeit — ohne laufende Werbekosten.",
-                  accent: "from-primary/[0.04]",
                 },
                 {
                   icon: (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
                       <path d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   ),
                   title: "Qualifiziertere Leads, weniger Aufwand",
                   desc: "Wer sucht, hat bereits eine Kaufabsicht. SEO zieht Menschen an, die aktiv nach Ihrer Lösung suchen — keine Kaltakquise nötig.",
-                  accent: "from-secondary/[0.04]",
                 },
                 {
                   icon: (
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-5 h-5">
                       <path d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" strokeLinecap="round" strokeLinejoin="round"/>
                       <path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   ),
                   title: "Lokale Kunden finden Sie zuerst",
                   desc: "76% der lokalen Suchanfragen führen innerhalb von 24 Stunden zu einem Besuch. Local SEO bringt Kunden direkt zu Ihnen.",
-                  accent: "from-primary/[0.04]",
                 },
               ].map((item, i) => (
-                <div
-                  key={i}
-                  className={`group rounded-2xl border border-border bg-gradient-to-b ${item.accent} to-white p-8 transition-all duration-300 hover:shadow-lg hover:border-primary/20 hover:-translate-y-1`}
-                >
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/[0.08] text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                <div key={i} className="rounded-2xl border border-border bg-white p-6">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/[0.08] text-primary">
                     {item.icon}
                   </div>
-                  <h3 className="font-[family-name:var(--font-heading)] text-xl text-dark mb-3">{item.title}</h3>
+                  <h3 className="font-semibold text-dark mb-2">{item.title}</h3>
                   <p className="text-sm leading-relaxed text-muted">{item.desc}</p>
                 </div>
               ))}

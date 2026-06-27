@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import LeistungenHero from "./LeistungenHero";
 
 /* ─── Data ─────────────────────────────────────────────────────────────────── */
 
@@ -32,9 +33,9 @@ const GEO_SERVICES = [
 
 const WD_SERVICES = [
   { n: "01", title: "App Design",        href: "/webdesign/app-design",               desc: "Mobile & Web-Apps mit Fokus auf UX & Retention" },
-  { n: "02", title: "Landing Pages",     href: "/webdesign/landing-pages",            desc: "Conversion-optimierte Zielseiten, die verkaufen" },
+  { n: "02", title: "Landing Pages",     href: "/webdesign/landingpage-erstellen-lassen",            desc: "Conversion-optimierte Zielseiten, die verkaufen" },
   { n: "03", title: "Website erstellen", href: "/webdesign/website-erstellen-lassen", desc: "Professioneller Webauftritt von Grund auf neu" },
-  { n: "04", title: "Website Relaunch",  href: "/webdesign/website-relaunch",         desc: "Ihre bestehende Site — neu gedacht & umgesetzt" },
+  { n: "04", title: "Website Relaunch",  href: "/webdesign/website-relaunch-agentur",         desc: "Ihre bestehende Site — neu gedacht & umgesetzt" },
 ];
 
 /* ─── Scroll reveal ─────────────────────────────────────────────────────────── */
@@ -138,71 +139,7 @@ export default function LeistungenClient() {
   return (
     <>
       <Navbar />
-
-      {/* ══════════════════════════════════════════════════════════════════════
-          HERO  —  60% dark dominance, sparse orange accent
-      ══════════════════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center bg-dark overflow-hidden pt-20">
-
-        {/* Gradient mesh — subtle depth */}
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute top-1/3 left-1/3 w-[700px] h-[700px] rounded-full bg-primary/[0.05] blur-[140px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] rounded-full bg-secondary/[0.04] blur-[100px]" />
-        </div>
-
-        {/* Decorative number trio */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none select-none absolute inset-0 flex items-center justify-center opacity-[0.025]"
-        >
-          <span
-            className="font-[family-name:var(--font-heading)] font-black text-white leading-none"
-            style={{ fontSize: "clamp(160px, 28vw, 420px)" }}
-          >
-            03
-          </span>
-        </div>
-
-        <div className="relative text-center px-6 max-w-4xl mx-auto">
-          <p className="hero-badge text-[11px] font-semibold uppercase tracking-[0.3em] text-primary mb-7">
-            SeoForge · Leistungen
-          </p>
-
-          <h1 className="hero-title font-[family-name:var(--font-heading)] text-white leading-[1.05] mb-7">
-            Drei Bereiche.<br />
-            <span className="gradient-text">Eine Agentur.</span>
-          </h1>
-
-          <p className="hero-description text-lg text-white/45 max-w-lg mx-auto mb-14 leading-relaxed">
-            SEO, GEO und Webdesign — strategisch verzahnt, messbar wirksam,
-            vollständig aus einer Hand.
-          </p>
-
-          {/* Anchor pills */}
-          <div className="hero-cta flex flex-wrap items-center justify-center gap-3">
-            {[
-              { label: "01 · SEO", href: "#seo" },
-              { label: "02 · GEO", href: "#geo" },
-              { label: "03 · Webdesign", href: "#webdesign" },
-            ].map(({ label, href }) => (
-              <a
-                key={href}
-                href={href}
-                className="group inline-flex items-center gap-2.5 border border-white/12 text-white/60 px-6 py-3 rounded-full text-sm font-medium hover:border-primary/50 hover:text-white hover:bg-white/[0.04] transition-all duration-200"
-              >
-                {label}
-                <span className="text-primary text-xs float-chevron">↓</span>
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Scroll label */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
-          <span className="text-[10px] text-white font-mono tracking-[0.3em]">SCROLL</span>
-          <span className="text-white text-xs float-chevron">↓</span>
-        </div>
-      </section>
+      <LeistungenHero />
 
       {/* ══════════════════════════════════════════════════════════════════════
           01 · SEO  —  dark, 12 services, full grid

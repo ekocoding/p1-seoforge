@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function HeroWithImage() {
   return (
-    <section style={{ position: "relative", height: "92vh", minHeight: "680px", overflow: "hidden", background: "#0F0F0F" }}>
+    <section style={{ position: "relative", minHeight: "92vh", overflow: "hidden", background: "#0F0F0F" }}>
 
       {/* Full-bleed photo */}
       <Image
@@ -42,23 +42,25 @@ export default function HeroWithImage() {
         @media (max-width: 768px) {
           .hero-content-main { width: 100% !important; padding: 100px 24px 48px !important; }
           .hero-h1-main { font-size: 36px !important; }
+          .hero-overline-text { letter-spacing: .18em !important; }
+          .hero-overline-right { display: none !important; }
         }
       `}</style>
 
       {/* Content */}
       <div className="hero-content-main" style={{
         position: "relative", zIndex: 10,
-        height: "92vh", display: "flex", flexDirection: "column", justifyContent: "center",
-        padding: "88px 80px 48px 80px", width: "56vw", maxWidth: "820px",
+        minHeight: "92vh", display: "flex", flexDirection: "column", justifyContent: "center",
+        padding: "120px 80px 56px 80px", width: "56vw", maxWidth: "820px",
       }}>
 
         {/* Overline */}
-        <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "40px" }}>
-          <div style={{ width: "36px", height: "1px", background: "#C2722A", opacity: 0.7 }} />
-          <span style={{ fontSize: "9px", fontWeight: 700, letterSpacing: ".3em", textTransform: "uppercase", color: "#C2722A" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "40px", flexWrap: "nowrap", minWidth: 0 }}>
+          <div style={{ flexShrink: 0, width: "36px", height: "1px", background: "#C2722A", opacity: 0.7 }} />
+          <span className="hero-overline-text" style={{ fontSize: "9px", fontWeight: 700, letterSpacing: ".25em", textTransform: "uppercase", color: "#C2722A", whiteSpace: "nowrap" }}>
             SEO Agentur · Digital Growth
           </span>
-          <div style={{ width: "20px", height: "1px", background: "#C2722A", opacity: 0.3 }} />
+          <div className="hero-overline-right" style={{ flexShrink: 0, width: "20px", height: "1px", background: "#C2722A", opacity: 0.3 }} />
         </div>
 
         {/* Headline */}

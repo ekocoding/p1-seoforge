@@ -50,9 +50,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const appDir = path.join(process.cwd(), "src/app");
   const staticRoutes = ["/", ...walk(appDir)];
 
-  const articleUrls: MetadataRoute.Sitemap = articles.map((a) => ({
-    url: `${BASE}/wissen/${a.type}/${a.slug}`,
-  }));
+  const articleUrls: MetadataRoute.Sitemap = articles
+    .filter((a) => a.published)
+    .map((a) => ({
+      url: `${BASE}/wissen/${a.type}/${a.slug}`,
+    }));
 
   return [
     ...staticRoutes.map((url) => ({

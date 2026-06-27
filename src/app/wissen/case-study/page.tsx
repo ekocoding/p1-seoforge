@@ -5,6 +5,7 @@ import ArticleCard from '../components/ArticleCard'
 import { getArticlesByType } from '../data/articles'
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://seoforge.de/wissen/case-study" },
   title: 'SEO Case Studies | SeoForge Wissen',
   description: 'Echte Projektergebnisse und SEO-Erfolgsgeschichten von SeoForge — messbare Rankings, mehr Traffic und nachhaltiges Wachstum.',
 }

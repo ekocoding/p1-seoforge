@@ -1,1079 +1,553 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import SubpageLayout from "../components/SubpageLayout";
+import Footer from "../components/Footer";
+import WebdesignHero from "./WebdesignHero";
 
-// ─────────────────────────────────────────────────
-//  WEBGL SHADER — fractional Brownian motion / domain warping
-//  (Inigo Quilez technique — runs entirely on GPU)
-// ─────────────────────────────────────────────────
-function ShaderCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const rafRef = useRef<number>(0);
-  const t0Ref = useRef<number>(0);
-  const mouseRef = useRef<[number, number]>([0.5, 0.5]);
-
+/* ─── Scroll-Reveal (IntersectionObserver → .scroll-visible) ──────────────── */
+function useScrollReveal() {
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const glMaybe = canvas.getContext("webgl");
-    if (!glMaybe) return;
-    const gl = glMaybe;
-
-    // ── Vertex shader ──────────────────────────────
-    const VS = `
-      attribute vec2 a_pos;
-      void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }
-    `;
-
-    // ── Fragment shader ────────────────────────────
-    const FS = `
-      precision mediump float;
-      uniform float  u_time;
-      uniform vec2   u_res;
-      uniform vec2   u_mouse;
-
-      float hash(vec2 p) {
-        return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
-      }
-
-      float noise(vec2 p) {
-        vec2 i = floor(p), f = fract(p);
-        f = f * f * (3.0 - 2.0 * f);
-        return mix(
-          mix(hash(i), hash(i + vec2(1,0)), f.x),
-          mix(hash(i + vec2(0,1)), hash(i + vec2(1,1)), f.x),
-          f.y
-        );
-      }
-
-      float fbm(vec2 p) {
-        float v = 0.0, a = 0.5;
-        mat2 rot = mat2(0.8, 0.6, -0.6, 0.8);
-        for (int i = 0; i < 6; i++) {
-          v += a * noise(p);
-          p = rot * p * 2.1 + vec2(1.7, 9.2);
-          a *= 0.48;
-        }
-        return v;
-      }
-
-      void main() {
-        vec2 uv  = gl_FragCoord.xy / u_res;
-        float  t = u_time * 0.14;
-
-        vec2 q = vec2(
-          fbm(uv * 2.5 + t * 0.9),
-          fbm(uv * 2.5 + vec2(5.2, 1.3) + t)
-        );
-        vec2 r = vec2(
-          fbm(uv * 2.5 + 4.0*q + vec2(1.7, 9.2) + t * 1.1),
-          fbm(uv * 2.5 + 4.0*q + vec2(8.3, 2.8) + t * 0.9)
-        );
-        float f = fbm(uv * 2.5 + 4.0 * r);
-
-        // Mouse warm-glow
-        float md = length(uv - u_mouse);
-        f += 0.14 * smoothstep(0.55, 0.0, md);
-
-        // Palette — stays dark, subtle brand-colour swirls
-        vec3 base   = vec3(0.068, 0.062, 0.060);
-        vec3 warm   = vec3(0.13,  0.085, 0.045);
-        vec3 orange = vec3(0.761, 0.447, 0.165);
-        vec3 gold   = vec3(0.831, 0.659, 0.325);
-
-        vec3 col = mix(base, warm,   smoothstep(0.30, 0.55, f));
-        col = mix(col,  orange, smoothstep(0.55, 0.80, f) * 0.30);
-        col = mix(col,  gold,   pow(max(f - 0.7, 0.0), 2.0) * 1.8 * 0.18);
-
-        // Vignette
-        vec2 c = uv - 0.5;
-        float vign = 1.0 - dot(c, c) * 1.4;
-        col *= vign;
-
-        gl_FragColor = vec4(col, 1.0);
-      }
-    `;
-
-    function mkShader(type: number, src: string) {
-      const sh = gl.createShader(type)!;
-      gl.shaderSource(sh, src);
-      gl.compileShader(sh);
-      return sh;
-    }
-
-    const prog = gl.createProgram()!;
-    gl.attachShader(prog, mkShader(gl.VERTEX_SHADER, VS));
-    gl.attachShader(prog, mkShader(gl.FRAGMENT_SHADER, FS));
-    gl.linkProgram(prog);
-    gl.useProgram(prog);
-
-    const buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER,
-      new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
-    const aPos = gl.getAttribLocation(prog, "a_pos");
-    gl.enableVertexAttribArray(aPos);
-    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
-
-    const uTime  = gl.getUniformLocation(prog, "u_time");
-    const uRes   = gl.getUniformLocation(prog, "u_res");
-    const uMouse = gl.getUniformLocation(prog, "u_mouse");
-
-    const resize = () => {
-      canvas.width  = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      gl.viewport(0, 0, canvas.width, canvas.height);
-    };
-
-    const render = (ts: number) => {
-      if (!t0Ref.current) t0Ref.current = ts;
-      const t = (ts - t0Ref.current) / 1000;
-      gl.uniform1f(uTime, t);
-      gl.uniform2f(uRes, canvas.width, canvas.height);
-      gl.uniform2f(uMouse, mouseRef.current[0], mouseRef.current[1]);
-      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      rafRef.current = requestAnimationFrame(render);
-    };
-
-    const onMouse = (e: MouseEvent) => {
-      const r = canvas.getBoundingClientRect();
-      mouseRef.current = [
-        (e.clientX - r.left) / canvas.width,
-        1 - (e.clientY - r.top) / canvas.height,
-      ];
-    };
-
-    resize();
-    rafRef.current = requestAnimationFrame(render);
-    window.addEventListener("resize", resize);
-    canvas.addEventListener("mousemove", onMouse);
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("resize", resize);
-      canvas.removeEventListener("mousemove", onMouse);
-    };
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("scroll-visible");
+        }),
+      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+    );
+    document.querySelectorAll(".scroll-hidden, .m3d").forEach((el) => io.observe(el));
+    return () => io.disconnect();
   }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
-      aria-hidden="true"
-    />
-  );
 }
 
-// ─────────────────────────────────────────────────
-//  SCROLL REVEAL
-// ─────────────────────────────────────────────────
-function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
-  return (
-    <div
-      className="reveal"
-      style={{ transitionDelay: `${delay}ms` }}
-    >
-      {children}
-    </div>
-  );
-}
+/* ─── Daten ───────────────────────────────────────────────────────────────── */
+const icon = (d: string) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6">
+    <path d={d} strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
 
-// ─────────────────────────────────────────────────
-//  TECH STACK — interactive 3D-tilt cards + detail panel
-// ─────────────────────────────────────────────────
-const TECH_LAYERS = [
+const PILLARS = [
   {
-    num: "01",
-    category: "SEO-Fundament",
-    headline: "Technisches SEO · Core Web Vitals · Schema",
-    color: "#1A1A1A",
-    colorDark: "#2d2d2d",
-    accent: "rgba(194,114,42,0.15)",
-    desc: "Ohne ein starkes SEO-Fundament kann kein Design und keine Entwicklung etwas bewirken. Wir bauen es als erstes — nicht als letztes.",
-    items: [
-      { name: "URL-Struktur",   note: "SEO-optimierte Architektur" },
-      { name: "Schema Markup",  note: "Strukturierte Daten" },
-      { name: "LCP · CLS · FID", note: "Core Web Vitals" },
-      { name: "Interne Links",  note: "Linkarchitektur & PageRank" },
-      { name: "Sitemap & Robots", note: "Crawling & Indexierung" },
-      { name: "PageSpeed 96+",  note: "By default" },
-    ],
-    impact: { val: "#1", label: "Google-Ranking erreichbar" },
-    chipStyle: { bg: "rgba(255,255,255,0.12)", text: "rgba(255,255,255,0.85)" },
-    darkCard: true,
+    href: "/webdesign/website-erstellen-lassen",
+    title: "Website erstellen lassen",
+    desc: "Von der ersten Skizze bis zum optimierten Launch — individuell entwickelt, mit SEO als Fundament.",
+    meta: "Next.js · SEO-first",
+    svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6"><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" strokeLinecap="round" /></svg>,
   },
   {
-    num: "02",
-    category: "Entwicklung",
-    headline: "Next.js · React · TypeScript · Vercel",
-    color: "#C2722A",
-    colorDark: "#a05020",
-    accent: "rgba(212,168,83,0.12)",
-    desc: "Blazing-fast Websites mit dem modernsten Stack. Server-Side Rendering, statische Generierung und Edge-Deployment für maximale Performance.",
-    items: [
-      { name: "Next.js 15",      note: "App Router, SSR/SSG" },
-      { name: "TypeScript",      note: "Type-safe Code" },
-      { name: "CI/CD Pipeline",  note: "Netlify / Vercel Deploy" },
-      { name: "Edge Functions",  note: "Globale Performance" },
-      { name: "Image Optimization", note: "Automatisch & WebP" },
-      { name: "Web Vitals 96+",  note: "Performance by default" },
-    ],
-    impact: { val: "2–3×", label: "schneller als WordPress" },
-    chipStyle: { bg: "rgba(255,255,255,0.18)", text: "rgba(255,255,255,0.9)" },
-    darkCard: true,
+    href: "/webdesign/firmenwebsite-erstellen-lassen",
+    title: "Firmenwebsite erstellen lassen",
+    desc: "Professionelle, custom-coded Websites zum fairen Preis — dank KI-Workflows auch mit kleinerem Budget.",
+    meta: "Festpreis · ab 1.500 €",
+    svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5" strokeLinecap="round" strokeLinejoin="round" /></svg>,
   },
   {
-    num: "03",
-    category: "Design & UX",
-    headline: "Figma · Wireframes · Conversion-Opt.",
-    color: "#D4A853",
-    colorDark: "#b8903a",
-    accent: "rgba(194,114,42,0.08)",
-    desc: "Design, das nicht nur schön aussieht — sondern konvertiert. Figma-Prototypen, UX-Research und datengetriebene CRO sind unser Standard.",
-    items: [
-      { name: "Figma Prototypen", note: "UI-Design & Wireframes" },
-      { name: "Mobile-First",     note: "Responsive Layouts" },
-      { name: "UX-Flows",         note: "Nutzerführung" },
-      { name: "A/B-Testing",      note: "Conversion-Optimierung" },
-      { name: "Design System",    note: "Konsistente UI" },
-      { name: "Accessibility",    note: "WCAG 2.1 konform" },
-    ],
-    impact: { val: "+143%", label: "mehr Conversions" },
-    chipStyle: { bg: "rgba(255,255,255,0.20)", text: "rgba(255,255,255,0.9)" },
-    darkCard: true,
+    href: "/webdesign/landingpage-erstellen-lassen",
+    title: "Landing Pages",
+    desc: "Conversion-fokussierte Seiten für Kampagnen, Ads und Lead-Generierung — schnell live.",
+    meta: "CRO · Tracking",
+    svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="4.5" /><circle cx="12" cy="12" r="0.5" fill="currentColor" /></svg>,
+  },
+  {
+    href: "/webdesign/website-relaunch-agentur",
+    title: "Website Relaunch",
+    desc: "Bestehende Website modernisieren — ohne Ranking-Verlust, mit sauberem 301-Setup und Monitoring.",
+    meta: "Migration · 301",
+    svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6"><path d="M4 4v6h6M20 20v-6h-6" strokeLinecap="round" strokeLinejoin="round" /><path d="M20 10a8 8 0 0 0-14.3-3.7L4 8M4 14a8 8 0 0 0 14.3 3.7L20 16" strokeLinecap="round" strokeLinejoin="round" /></svg>,
+  },
+  {
+    href: "/webdesign/app-design",
+    title: "App Design",
+    desc: "UX/UI für Web-Apps und Mobile — von interaktiven Prototypen bis zur sauberen Implementierung.",
+    meta: "UX · UI",
+    svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6"><rect x="6" y="2" width="12" height="20" rx="3" /><path d="M11 18h2" strokeLinecap="round" /></svg>,
   },
 ];
 
-function TiltCard({
-  children, style = {}, onClick, isActive = false, className = "",
-}: {
-  children: React.ReactNode;
-  style?: React.CSSProperties;
-  onClick?: () => void;
-  isActive?: boolean;
-  className?: string;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const [hov, setHov] = useState(false);
+const PRINCIPLES = [
+  { t: "SEO & Webdesign aus einem Team", d: "Design, Technik und Sichtbarkeit kommen aus einer Hand — keine Schnittstellenverluste zwischen zwei Dienstleistern.", m: "Ein Team", s: "M9 5l7 7-7 7" },
+  { t: "DevOps & CI/CD", d: "Automatisierte Tests, Pipeline-Deployments und Versionierung. Änderungen gehen kontrolliert live — jederzeit zurückrollbar.", m: "Live in Minuten", s: "M5 13l4 4L19 7" },
+  { t: "KI-Workflows als Preisvorteil", d: "KI übernimmt die Routine — Boilerplate, Tests, Doku. Kürzere Laufzeiten und faire Festpreise bei gleicher Qualität.", m: "Fairer Festpreis", s: "M13 10V3L4 14h7v7l9-11h-7z" },
+  { t: "Custom Code statt Baukasten", d: "Handgeschriebener Code mit Next.js oder WordPress — kein Template, kein Plugin-Overhead, keine Sicherheitslast.", m: "Next.js · WordPress", s: "M16 18l6-6-6-6M8 6l-6 6 6 6" },
+  { t: "SEO + GEO ab der ersten Zeile", d: "Sichtbar in Google — und in der KI-Suche. Inhalte, die ChatGPT, Perplexity und AI Overviews als Quelle zitieren.", m: "Zwei Sichtbarkeits-Kanäle", s: "M21 21l-4.3-4.3M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" },
+  { t: "Antwort in unter 24 Stunden", d: "Du erreichst einen persönlichen Ansprechpartner statt ein Ticketsystem — und bekommst garantiert in unter 24 h eine Antwort.", m: "Direkt erreichbar", s: "M12 8v4l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" },
+];
 
-  const onMove = (e: React.MouseEvent) => {
-    const el = ref.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const nx = (e.clientX - r.left) / r.width - 0.5;
-    const ny = (e.clientY - r.top) / r.height - 0.5;
-    setTilt({ x: -ny * 8, y: nx * 8 });
-  };
+const TECH = [
+  {
+    num: "01", category: "SEO-Fundament", headline: "Technisches SEO · Core Web Vitals · Schema",
+    desc: "Ohne starkes SEO-Fundament wirken Design und Code nicht. Wir bauen es zuerst — nicht zuletzt.",
+    items: ["SEO-optimierte URL-Struktur", "Schema-Markup & strukturierte Daten", "Core Web Vitals (LCP · CLS · INP)", "Interne Linkarchitektur", "Sitemap, Robots & Indexierung", "GEO: zitierfähig für die KI-Suche"],
+    impact: { val: "SEO", label: "Fundament von Tag 1" },
+  },
+  {
+    num: "02", category: "Entwicklung", headline: "Next.js · React · TypeScript · CI/CD",
+    desc: "Schnelle Websites mit modernem Stack: SSR/SSG, Edge-Deployment und automatisierte Pipelines.",
+    items: ["Next.js · App Router", "TypeScript — type-safe", "CI/CD-Pipeline & Preview-Deploys", "Edge Functions", "Bildoptimierung (WebP / AVIF)", "Core Web Vitals optimiert"],
+    impact: { val: "Speed", label: "Performance by default" },
+  },
+  {
+    num: "03", category: "Design & UX", headline: "Wireframes · UI · Conversion",
+    desc: "Design, das nicht nur gut aussieht, sondern führt: durchdachte Wireframes, klare Nutzerführung, CRO.",
+    items: ["Wireframes & Klick-Prototypen", "Mobile-First & responsive", "Durchdachte UX-Flows", "Conversion-orientiertes Layout", "Konsistentes Design-System", "Barrierearm (WCAG-orientiert)"],
+    impact: { val: "CRO", label: "auf Conversion designt" },
+  },
+];
 
+const faqs = [
+  { q: "Was kostet eine professionelle Website?", a: "Der Preis hängt von Umfang, Design-Komplexität und Funktionen ab. Custom-coded Websites starten bei uns ab 1.500 € — dank KI-Workflows deutlich günstiger als klassische Agenturen. Im kostenlosen Erstgespräch bekommst du ein transparentes Festpreisangebot ohne versteckte Kosten." },
+  { q: "Wie lange dauert die Entwicklung?", a: "Das hängt vom Umfang ab: Nach dem Konzept folgen Design-Runden, Entwicklung und Testing. Durch KI-gestützte Workflows und automatisierte Deployments sind wir spürbar schneller als klassische Agenturen — den konkreten Zeitplan bekommst du mit dem Festpreisangebot." },
+  { q: "Was passiert, wenn mir das Design nicht gefällt?", a: "Design-Feedback gehört zum Prozess — deshalb bauen wir es strukturiert ein. Es gibt zwei feste Design-Review-Runden mit deiner Beteiligung, bevor die Entwicklung startet. Was darin abgenommen wird, ist verbindlich — so vermeiden wir Endlosschleifen auf beiden Seiten." },
+  { q: "Kann ich den Fortschritt verfolgen?", a: "Ja — ab dem ersten Entwicklungstag gibt es eine Staging-URL, auf die du jederzeit zugreifen kannst. Durch die CI/CD-Pipeline siehst du neue Änderungen oft innerhalb von Minuten am echten Produkt statt in einem Status-Meeting." },
+  { q: "Next.js oder WordPress — was ist besser?", a: "Beides hat seinen Platz. Next.js liefert sehr schnelle Ladezeiten, starke Core Web Vitals und keinen Plugin-Overhead; WordPress ist stark, wenn du Inhalte selbst pflegen willst. Wir empfehlen immer die Technologie, die zu deinen Zielen passt — nicht die teuerste." },
+  { q: "Was bedeutet „KI-gestützte Entwicklung“ — wird meine Website dann generisch?", a: "Nein. KI beschleunigt bei uns nur die Routine: Boilerplate-Code, Tests, Dokumentation, Copy-Varianten. Design und Entwicklung sind vollständig custom — auf Basis deiner Marke und Zielgruppe. Das Ergebnis ist maßgeschneidert, die Entwicklungszeit kürzer." },
+  { q: "Was passiert nach dem Launch?", a: "Nach dem Go-Live begleiten wir aktiv: Search-Console-Monitoring, Ranking-Verfolgung, Performance-Checks. Danach optional laufende Betreuung, Content-Updates oder ein SEO-Retainer. Wir übergeben nicht einfach und sind weg." },
+  { q: "Bietet ihr auch Website-Relaunches an?", a: "Ja. Wir analysieren zuerst deine bestehende Website und migrieren sauber mit 301-Weiterleitungen und Search-Console-Monitoring — kein Ranking-Verlust durch einen unsauber durchgeführten Relaunch. Mehr dazu auf der Seite Website Relaunch." },
+];
+
+/* ─── Content: Was gutes Webdesign ausmacht (rankingrelevant) ─────────────── */
+const ASPECTS: { t: string; d: string; s: string; link?: { href: string; label: string } }[] = [
+  { t: "Mobile-First & Responsive", d: "Über die Hälfte des Traffics kommt vom Smartphone. Wir entwerfen zuerst für kleine Screens und skalieren nach oben — auf Smartphone, Tablet und Desktop gleichermaßen scharf und bedienbar.", s: "M7 4h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm5 14h.01" },
+  { t: "Ladezeit & Core Web Vitals", d: "Google bewertet die echte Nutzererfahrung: LCP unter 2,5 s, CLS unter 0,1. Wir setzen auf einen schlanken Code-Stack, der diese Google-Benchmarks von Haus aus erreicht — nicht erst nach Plugins.", s: "M13 10V3L4 14h7v7l9-11h-7z" },
+  { t: "Durchdachte UX & Nutzerführung", d: "Gutes Design denkt in Nutzerzielen, nicht in Effekten. Eine klare Struktur bringt Besucher schneller zum Ziel — und damit zur Anfrage. Form folgt Funktion, nicht umgekehrt.", s: "M3 3h7v7H3zM14 3h7v4h-7zM14 11h7v10h-7zM3 14h7v7H3z" },
+  { t: "SEO-Fundament im Code", d: "Saubere URL-Struktur, Schema-Markup und schnelle Technik stecken im Code — nicht obendrauf. So ist deine Website von Tag 1 rankingfähig, in Google und in der KI-Suche.", s: "M21 21l-4.3-4.3M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z", link: { href: "/webdesign/website-erstellen-lassen", label: "Website erstellen lassen" } },
+  { t: "Barrierefreiheit (BFSG)", d: "Seit Juni 2025 ist Barrierefreiheit für viele Unternehmen Pflicht (Barrierefreiheitsstärkungsgesetz). Barrierearme Seiten ranken besser und konvertieren mehr — wir bauen sie standardmäßig zugänglich.", s: "M12 4a2 2 0 1 0 0-0.01M4.5 8.5l7.5 1.5 7.5-1.5M12 10v5l-2.5 5M12 15l2.5 5" },
+  { t: "Conversion-Optimierung", d: "Eine schöne Website ist wertlos, wenn niemand anfragt. Klare CTAs, Vertrauenselemente und conversion-orientierte Layouts machen aus Besuchern Kunden — besonders bei Kampagnen-Seiten.", s: "M3 17l6-6 4 4 8-8M21 7v4M21 7h-4", link: { href: "/webdesign/landingpage-erstellen-lassen", label: "Conversion-Landing-Pages" } },
+];
+
+const COST_FACTORS = [
+  ["Umfang & Seitenzahl", "One-Pager oder mehrseitige Unternehmens-Website mit Unterseiten."],
+  ["Individuelles Design", "Maßgeschneidertes UI statt Template — abgestimmt auf deine Marke."],
+  ["Funktionen", "Buchung, Mehrsprachigkeit, Schnittstellen oder ein Online-Shop."],
+  ["Content & Pflege", "Texte, Bilder, CMS-Einrichtung sowie laufendes Hosting & Wartung."],
+];
+
+/* ─── Editorial-Header ────────────────────────────────────────────────────── */
+function SectionHead({ eyebrow, title, copy }: { eyebrow: string; title: React.ReactNode; copy: string }) {
   return (
-    <div
-      ref={ref}
-      onMouseMove={onMove}
-      onMouseEnter={() => setHov(true)}
-      onMouseLeave={() => { setTilt({ x: 0, y: 0 }); setHov(false); }}
-      onClick={onClick}
-      className={className}
-      style={{
-        transform: `perspective(700px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) scale(${isActive ? 1.015 : hov ? 1.005 : 1})`,
-        transition: hov ? "transform 0.08s ease, box-shadow 0.2s" : "transform 0.5s ease, box-shadow 0.35s",
-        willChange: "transform",
-        cursor: "pointer",
-        ...style,
-      }}
-    >
-      {children}
+    <div className="scroll-hidden grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-16 items-end mb-12 lg:mb-16">
+      <div>
+        <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">{eyebrow}</span>
+        <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12]">{title}</h2>
+      </div>
+      <p className="text-muted leading-relaxed lg:pb-1.5 lg:text-right">{copy}</p>
     </div>
   );
 }
 
-function TechStackInteractive() {
+/* ─── Interaktiver Tech-Stack (hell) ──────────────────────────────────────── */
+function TechSwitcher() {
   const [active, setActive] = useState(0);
-  const layer = TECH_LAYERS[active];
-
+  const t = TECH[active];
   return (
-    <div className="grid lg:grid-cols-[1fr_360px] gap-5 lg:gap-8 items-start">
-
-      {/* ── Left: clickable layer cards ── */}
-      <div className="space-y-3">
-        {TECH_LAYERS.map((l, i) => {
+    <div className="scroll-hidden grid lg:grid-cols-[minmax(0,380px)_1fr] gap-6 lg:gap-10 items-stretch">
+      {/* Auswahl */}
+      <div className="flex flex-col gap-3">
+        {TECH.map((layer, i) => {
           const on = active === i;
           return (
-            <TiltCard
-              key={i}
-              isActive={on}
+            <button
+              key={layer.num}
+              type="button"
               onClick={() => setActive(i)}
-              className="rounded-2xl overflow-hidden select-none"
+              onMouseEnter={() => setActive(i)}
+              className="flex-1 text-left rounded-2xl border p-5 lg:p-6 transition-all duration-300 cursor-pointer"
               style={{
-                background: on
-                  ? `linear-gradient(135deg, ${l.color} 0%, ${l.colorDark} 100%)`
-                  : "white",
-                border: on ? "none" : "1px solid #E5E3DF",
-                boxShadow: on
-                  ? `0 24px 56px rgba(0,0,0,0.20), 0 0 0 1px rgba(255,255,255,0.06)`
-                  : "0 2px 12px rgba(0,0,0,0.05)",
+                background: on ? "#fff" : "transparent",
+                borderColor: on ? "rgba(194,114,42,0.3)" : "var(--color-border)",
+                boxShadow: on ? "0 18px 44px -20px rgba(194,114,42,0.25)" : "none",
               }}
             >
-              {/* Inner glow for active */}
-              {on && (
-                <div className="absolute inset-0 pointer-events-none"
-                  style={{ background: "radial-gradient(ellipse at 90% 10%, rgba(255,255,255,0.09) 0%, transparent 55%)" }}
-                  aria-hidden="true" />
-              )}
-
-              <div className="relative flex items-center gap-5 px-6 py-5 lg:py-6">
-                {/* Step circle */}
-                <div className={`shrink-0 w-11 h-11 rounded-full flex items-center justify-center font-bold text-sm transition-all duration-300 ${
-                  on ? "bg-white/20 text-white" : "bg-offwhite text-primary border border-primary/15"
-                }`}>
-                  {i + 1}
-                </div>
-
-                {/* Title block */}
+              <div className="flex items-center gap-4">
+                <span className="font-mono text-xs font-bold" style={{ color: on ? "#C2722A" : "rgba(26,26,26,0.3)" }}>{layer.num}</span>
                 <div className="flex-1 min-w-0">
-                  <p className={`text-[10px] font-bold tracking-[0.22em] uppercase mb-0.5 transition-colors duration-300 ${on ? "text-white/50" : "text-primary/55"}`}>
-                    {l.category}
-                  </p>
-                  <h3 className={`font-[family-name:var(--font-heading)] font-bold leading-snug transition-colors duration-300 ${on ? "text-white" : "text-dark"}`}
-                    style={{ fontSize: "clamp(13px, 1.4vw, 17px)" }}>
-                    {l.headline}
-                  </h3>
+                  <div className="font-[family-name:var(--font-heading)] text-lg font-black text-dark leading-tight">{layer.category}</div>
+                  <div className="text-[11px] text-muted truncate">{layer.headline}</div>
                 </div>
-
-                {/* Indicator */}
-                <svg
-                  className={`shrink-0 w-5 h-5 transition-all duration-300 ${on ? "text-white rotate-180" : "text-muted/40"}`}
-                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
+                <span className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300" style={{ background: on ? "#C2722A" : "rgba(26,26,26,0.05)", color: on ? "#fff" : "rgba(26,26,26,0.35)" }}>
+                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                </span>
               </div>
-
-              {/* Chip row */}
-              <div className={`flex flex-wrap gap-1.5 px-6 pb-5 transition-opacity duration-300 ${on ? "opacity-100" : "opacity-50"}`}>
-                {l.items.slice(0, 4).map(item => (
-                  <span key={item.name}
-                    className="text-[10px] font-bold px-2.5 py-1 rounded-full"
-                    style={on
-                      ? { background: l.chipStyle.bg, color: l.chipStyle.text }
-                      : { background: "#F8F7F5", color: "#6B6B6B", border: "1px solid #E5E3DF" }
-                    }>
-                    {item.name}
-                  </span>
-                ))}
-              </div>
-            </TiltCard>
+            </button>
           );
         })}
       </div>
 
-      {/* ── Right: detail panel ── */}
-      <div
-        key={active}
-        className="rounded-3xl border border-border bg-white p-7 lg:p-8 relative overflow-hidden"
-        style={{ animation: "fadeUpIn 0.3s ease" }}
-      >
-        {/* Ghost number */}
-        <span
-          className="absolute -right-3 -top-4 font-[family-name:var(--font-heading)] font-bold leading-none select-none pointer-events-none"
-          style={{ fontSize: "120px", color: "transparent", WebkitTextStroke: "1px rgba(26,26,26,0.045)" }}
-          aria-hidden="true"
-        >
-          {layer.num}
-        </span>
-
-        <div className="relative">
-          {/* Eyebrow */}
-          <p className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-3">{layer.category}</p>
-
-          {/* Impact stat */}
-          <div className="flex items-baseline gap-2 mb-4">
-            <span
-              className="font-[family-name:var(--font-heading)] font-bold text-dark leading-none"
-              style={{ fontSize: "clamp(40px, 4.5vw, 56px)" }}
-            >
-              {layer.impact.val}
-            </span>
-            <span className="text-sm text-muted font-medium leading-tight max-w-[100px]">{layer.impact.label}</span>
-          </div>
-
-          {/* Accent line */}
-          <div className="h-px mb-5 rounded-full"
-            style={{ background: `linear-gradient(to right, ${layer.color}50, transparent)` }} />
-
-          {/* Description */}
-          <p className="text-muted text-sm leading-relaxed mb-6">{layer.desc}</p>
-
-          {/* Tech grid */}
-          <div className="grid grid-cols-2 gap-2">
-            {layer.items.map(item => (
-              <div key={item.name}
-                className="bg-offwhite rounded-xl p-3 border border-border hover:border-primary/20 hover:bg-white transition-all duration-200 group">
-                <p className="text-xs font-bold text-dark group-hover:text-primary transition-colors mb-0.5">{item.name}</p>
-                <p className="text-[10px] text-muted leading-tight">{item.note}</p>
+      {/* Panel */}
+      <div className="relative rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)] flex flex-col">
+        <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
+          <span className="w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
+          <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-dark/45">{t.category}</span>
+          <span className="ml-auto inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-3 py-1">
+            <span className="font-[family-name:var(--font-heading)] text-sm font-black text-primary">{t.impact.val}</span>
+            <span className="text-[11px] text-dark/55">{t.impact.label}</span>
+          </span>
+        </div>
+        <div key={active} className="flex-1 p-6 lg:p-8">
+          <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark mb-2">{t.headline}</h3>
+          <p className="text-muted text-sm leading-relaxed mb-6 max-w-xl">{t.desc}</p>
+          <div className="grid sm:grid-cols-2 gap-px bg-border border border-border rounded-2xl overflow-hidden">
+            {t.items.map((it, i) => (
+              <div key={it} className="bg-white p-4 flex items-center gap-3" style={{ animation: `tsIn 0.4s ease both ${i * 70}ms` }}>
+                <span className="shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
+                  <svg className="w-3 h-3 text-primary" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
+                </span>
+                <span className="text-sm text-dark font-medium">{it}</span>
               </div>
             ))}
           </div>
-
-          {/* Bottom label */}
-          <div className="mt-5 flex items-center gap-2">
-            <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            <span className="text-[10px] font-bold tracking-widest uppercase text-muted/60">
-              Layer {layer.num} von 03
-            </span>
-          </div>
         </div>
       </div>
+      <style>{`@keyframes tsIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }`}</style>
     </div>
   );
 }
 
-// ─────────────────────────────────────────────────
-//  PROCESS STEPPER
-// ─────────────────────────────────────────────────
-const STEPS = [
-  {
-    num: "01", title: "Analyse & Strategie", short: "Fundament legen",
-    desc: "Wir analysieren deine Ziele, deine Wettbewerber und das Keyword-Potenzial — bevor eine Linie gezeichnet wird. Die SEO-Architektur ist der erste Schritt.",
-    items: ["Anforderungsanalyse", "Keyword-Research", "Seitenarchitektur", "Wettbewerberanalyse"],
-  },
-  {
-    num: "02", title: "Design & Konzept", short: "Vision sichtbar machen",
-    desc: "Wireframes in Figma, vollständiges UI-Design-System, interaktive Prototypen. Du gibst Feedback, bevor eine Zeile Code geschrieben wird. Mobile-First ist Standard.",
-    items: ["Wireframes & Flows", "UI-Design in Figma", "Interaktive Prototypen", "Design-Review-Runden"],
-  },
-  {
-    num: "03", title: "Entwicklung", short: "Code trifft Performance",
-    desc: "Next.js nach höchsten Standards. Server-Side Rendering, statische Generierung, Core Web Vitals optimiert bis jede Millisekunde stimmt.",
-    items: ["Next.js / TypeScript", "CMS-Integration", "Core Web Vitals 96+", "Performance-Tests"],
-  },
-  {
-    num: "04", title: "Launch & SEO", short: "Live und sichtbar",
-    desc: "Go-Live mit Search-Console-Setup, Analytics-Konfiguration und initialem Ranking-Monitoring. Wir begleiten die ersten Wochen nach dem Launch aktiv.",
-    items: ["Launch & Deployment", "Google Search Console", "Analytics-Setup", "Ranking-Monitoring"],
-  },
-];
-
-function ProcessStepper() {
+/* ─── So arbeiten wir — interaktives Radial (Hub + Satelliten) ─────────────── */
+function WorkWheel() {
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const N = PRINCIPLES.length;
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => setActive((a) => (a + 1) % N), 3000);
+    return () => clearInterval(id);
+  }, [paused, N]);
+
+  const nodes = PRINCIPLES.map((_, i) => {
+    const ang = (-90 + (360 / N) * i) * (Math.PI / 180);
+    return { x: 50 + 39 * Math.cos(ang), y: 50 + 39 * Math.sin(ang) };
+  });
+  const p = PRINCIPLES[active];
 
   return (
-    <div>
-      {/* Timeline */}
-      <div className="relative flex items-start justify-between max-w-2xl mx-auto mb-12 px-2">
-        <div className="absolute top-5 left-8 right-8 h-px bg-border" />
-        <div
-          className="absolute top-5 left-8 h-px bg-primary transition-all duration-700 ease-out"
-          style={{ width: `calc(${(active / 3) * 100}% * ((100% - 64px) / 100%))`, maxWidth: "calc(100% - 64px)" }}
-        />
-        {STEPS.map((step, i) => (
-          <button key={step.num} onClick={() => setActive(i)} className="relative flex flex-col items-center gap-2.5 group">
-            <div className={`relative z-10 w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-all duration-300 ${
-              active === i ? "bg-primary text-white scale-110 shadow-lg shadow-primary/25"
-                : i < active ? "bg-primary/15 text-primary border border-primary/30"
-                : "bg-white text-muted border border-border group-hover:border-primary/30 group-hover:text-primary"
-            }`}>
-              {i < active ? (
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-              ) : (i + 1)}
-            </div>
-            <span className={`text-xs font-semibold hidden sm:block transition-colors ${active === i ? "text-primary" : "text-muted/50"}`}>
-              {step.short}
-            </span>
-          </button>
-        ))}
+    <div
+      className="scroll-hidden grid lg:grid-cols-[minmax(0,440px)_1fr] gap-12 lg:gap-16 items-center"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
+      {/* Radial (Desktop) */}
+      <div className="relative hidden lg:block w-full max-w-[440px] aspect-square mx-auto">
+        <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full" aria-hidden="true">
+          <defs><linearGradient id="wwg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#C2722A" /><stop offset="1" stopColor="#D4A853" /></linearGradient></defs>
+          <circle cx="50" cy="50" r="39" fill="none" stroke="rgba(26,26,26,0.08)" strokeWidth="0.35" strokeDasharray="0.6 2.6" />
+          {nodes.map((n, i) => (
+            <line key={i} x1="50" y1="50" x2={n.x} y2={n.y} stroke={i === active ? "url(#wwg)" : "rgba(26,26,26,0.07)"} strokeWidth={i === active ? 1 : 0.4} style={{ transition: "all 0.4s ease" }} />
+          ))}
+        </svg>
+        {/* Hub */}
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[36%] aspect-square rounded-full bg-white border border-border shadow-[0_22px_50px_-26px_rgba(26,26,26,0.3)] flex flex-col items-center justify-center text-center">
+          <span className="text-2xl leading-none mb-1" style={{ color: "#C2722A" }}>✻</span>
+          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-dark/45 leading-tight">So<br />arbeiten<br />wir</span>
+        </div>
+        {/* Satelliten */}
+        {PRINCIPLES.map((pr, i) => {
+          const n = nodes[i]; const on = i === active;
+          return (
+            <button
+              key={pr.t}
+              type="button"
+              onClick={() => setActive(i)}
+              onMouseEnter={() => setActive(i)}
+              aria-label={pr.t}
+              className="absolute -translate-x-1/2 -translate-y-1/2 rounded-2xl flex items-center justify-center transition-all duration-300"
+              style={{
+                left: `${n.x}%`, top: `${n.y}%`,
+                width: on ? 80 : 66, height: on ? 80 : 66,
+                background: on ? "linear-gradient(135deg,#C2722A,#D4A853)" : "#fff",
+                border: on ? "none" : "1px solid var(--color-border)",
+                color: on ? "#fff" : "rgba(26,26,26,0.55)",
+                boxShadow: on ? "0 16px 32px -10px rgba(194,114,42,0.55)" : "0 8px 18px -12px rgba(26,26,26,0.25)",
+              }}
+            >
+              {icon(pr.s)}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Detail card */}
-      <div
-        key={active}
-        className="max-w-3xl mx-auto rounded-3xl border border-border bg-white p-8 lg:p-10 shadow-sm"
-        style={{ animation: "fadeUpIn 0.35s ease" }}
-      >
-        <style>{`@keyframes fadeUpIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}`}</style>
-        <div className="flex items-start gap-6">
-          <div className="shrink-0 w-14 h-14 rounded-2xl bg-primary/[0.08] flex items-center justify-center">
-            <span className="text-lg font-bold text-primary">{STEPS[active].num}</span>
-          </div>
-          <div className="flex-1">
-            <h3 className="text-2xl font-bold text-dark font-[family-name:var(--font-heading)] mb-3">{STEPS[active].title}</h3>
-            <p className="text-muted leading-relaxed mb-6">{STEPS[active].desc}</p>
-            <div className="grid sm:grid-cols-2 gap-2">
-              {STEPS[active].items.map(item => (
-                <div key={item} className="flex items-center gap-2.5">
-                  <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                  <span className="text-sm font-medium text-dark">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+      {/* Detail */}
+      <div className="relative">
+        {/* Mobile-Auswahl */}
+        <div className="lg:hidden flex flex-wrap gap-2 mb-7">
+          {PRINCIPLES.map((pr, i) => {
+            const on = i === active;
+            return (
+              <button key={pr.t} type="button" onClick={() => setActive(i)} aria-label={pr.t}
+                className="w-10 h-10 rounded-xl flex items-center justify-center transition-all"
+                style={{ background: on ? "linear-gradient(135deg,#C2722A,#D4A853)" : "#fff", color: on ? "#fff" : "rgba(26,26,26,0.55)", border: on ? "none" : "1px solid var(--color-border)" }}>
+                {icon(pr.s)}
+              </button>
+            );
+          })}
         </div>
-        <div className="mt-8 pt-6 border-t border-border flex items-center justify-between">
-          <button onClick={() => setActive(Math.max(0, active - 1))} disabled={active === 0}
-            className="flex items-center gap-2 text-sm font-medium text-muted hover:text-dark disabled:opacity-25 transition-colors">
-            <svg className="w-4 h-4 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-            Zurück
-          </button>
-          <div className="flex gap-1.5">
-            {STEPS.map((_, i) => (
-              <button key={i} onClick={() => setActive(i)}
-                className={`rounded-full transition-all duration-200 ${i === active ? "w-5 h-1.5 bg-primary" : "w-1.5 h-1.5 bg-border hover:bg-primary/30"}`} />
+        <div key={active} className="ww-fade">
+          <div className="flex items-center gap-4 mb-4">
+            <span className="font-[family-name:var(--font-heading)] font-black leading-none" style={{ fontSize: "clamp(48px,6vw,68px)", background: "linear-gradient(135deg,#C2722A,#D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{String(active + 1).padStart(2, "0")}</span>
+            <span className="inline-flex items-center rounded-full border border-primary/15 bg-primary/[0.06] px-3 py-1 text-[10px] font-bold tracking-[0.14em] uppercase text-primary">{p.m}</span>
+          </div>
+          <h3 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark mb-3">{p.t}</h3>
+          <p className="text-muted leading-relaxed max-w-lg">{p.d}</p>
+          <div className="flex gap-1.5 mt-8">
+            {PRINCIPLES.map((_, i) => (
+              <button key={i} type="button" onClick={() => setActive(i)} aria-label={`Prinzip ${i + 1}`} className="h-1.5 rounded-full transition-all duration-300" style={{ width: i === active ? 28 : 8, background: i === active ? "#C2722A" : "rgba(26,26,26,0.15)" }} />
             ))}
           </div>
-          <button onClick={() => setActive(Math.min(3, active + 1))} disabled={active === 3}
-            className="flex items-center gap-2 text-sm font-medium text-muted hover:text-dark disabled:opacity-25 transition-colors">
-            Weiter
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </button>
         </div>
       </div>
+      <style>{`@keyframes wwFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } } .ww-fade { animation: wwFade 0.4s ease; }`}</style>
     </div>
   );
 }
 
-// ─────────────────────────────────────────────────
-//  DATA
-// ─────────────────────────────────────────────────
-const PILLAR_SERVICES = [
-  { href: "/webdesign/website-erstellen-lassen", num: "01", title: "Website erstellen lassen", short: "Von der ersten Wireframe-Skizze bis zum perfekt optimierten Launch — maßgeschneidert.", tags: ["Next.js", "SEO-ready", "Mobile-First"] },
-  { href: "/webdesign/landing-pages",            num: "02", title: "Landing Pages",             short: "High-converting Seiten für Kampagnen, Ads und maximale Lead-Generierung.",          tags: ["A/B Testing", "CRO", "Schnell live"] },
-  { href: "/webdesign/website-relaunch",         num: "03", title: "Website Relaunch",          short: "Modernisierung deiner bestehenden Website ohne einen einzigen Ranking-Verlust.",    tags: ["301-Weiterleitungen", "Migration", "Performance"] },
-  { href: "/webdesign/app-design",               num: "04", title: "App Design",                short: "Native UX/UI für Web-Apps und Mobile — Figma-Prototypen bis zur Implementierung.", tags: ["Figma", "UX Research", "Prototyping"] },
-];
-
-const faqs = [
-  { q: "Was kostet eine professionelle Website?", a: "Die Investition hängt von Umfang und Komplexität ab. Business-Websites starten ab 2.500 €, E-Commerce-Lösungen ab 5.000 €. Im kostenlosen Erstgespräch erstellen wir ein transparentes Angebot." },
-  { q: "Wie lange dauert die Entwicklung?", a: "Standard-Websites sind in 4–6 Wochen fertig: 1 Woche Analyse, 2 Wochen Design, 2 Wochen Entwicklung, 1 Woche Testing & Launch. E-Commerce-Projekte dauern 8–12 Wochen." },
-  { q: "Was ist der Vorteil von Next.js gegenüber WordPress?", a: "Next.js liefert 2–3× schnellere Ladezeiten, bessere Core Web Vitals und mehr Sicherheit als WordPress — direkt messbar in besseren Google-Rankings." },
-  { q: "Wie stellt ihr sicher, dass meine Website bei Google rankt?", a: "Als SEO-Agentur bauen wir SEO von Anfang an ein: saubere URL-Struktur, Schema-Markup, technische Optimierung, Core Web Vitals und ein Content-Plan. Deine Website ist vom ersten Tag rankingfähig." },
-  { q: "Bietet ihr auch Website-Relaunches an?", a: "Ja. Wir analysieren zuerst deine bestehende Website und migrieren sauber mit 301-Weiterleitungen und Search-Console-Monitoring — kein Ranking-Verlust." },
-  { q: "Kann ich meine Website nach dem Launch selbst bearbeiten?", a: "Absolut. Je nach Projekt integrieren wir Sanity, Contentful oder WordPress — du bearbeitest Inhalte ohne technische Kenntnisse." },
-];
-
-// ─────────────────────────────────────────────────
-//  MAIN
-// ─────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════════════════════
+   PAGE
+═══════════════════════════════════════════════════════════════════════════ */
 export default function WebdesignClient() {
+  useScrollReveal();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [heroVisible, setHeroVisible] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setHeroVisible(true), 100);
-    return () => clearTimeout(t);
-  }, []);
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map(f => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
   };
 
   return (
-    <SubpageLayout>
+    <>
+      <WebdesignHero />
+
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <style>{`
+        .m3d { opacity: 0; transform: translateY(60px) rotateX(-14deg) scale(0.97); transform-origin: 50% 18%; transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1); will-change: transform; backface-visibility: hidden; }
+        .m3d.scroll-visible { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); }
+        @media (prefers-reduced-motion: reduce), (scripting: none) { .m3d { opacity: 1; transform: none; transition: none; } }
+      `}</style>
 
-      {/* ══════════════════════════════════════════
-          HERO — the ONLY dark section
-          WebGL shader fills the canvas
-      ══════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-20" style={{ background: "#0e0d0d" }}>
-        {/* WebGL Shader */}
-        <ShaderCanvas />
+      {/* ══ WARUM SEOFORGE — Fließtext ══ */}
+      <section className="py-20 lg:py-28" style={{ background: "#F8F5F1" }}>
+        <div className="mx-auto max-w-5xl px-6 lg:px-8 text-center scroll-hidden">
+          <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Warum SeoForge</span>
+          <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[44px] font-bold text-dark leading-[1.12] mb-7">
+            SEO und Webdesign gehören zusammen.
+          </h2>
+          <div className="space-y-5 text-lg lg:text-xl text-muted leading-relaxed">
+            <p>
+              Die meisten Agenturen trennen Design und Sichtbarkeit: Die einen bauen etwas Schönes,
+              die anderen sollen es hinterher „ranken lassen". Heraus kommen Websites, die gut aussehen,
+              aber langsam laden, schlecht gefunden werden und kaum Anfragen bringen. Wer beides auf zwei
+              Dienstleister verteilt, zahlt doppelt — und verliert trotzdem.
+            </p>
+            <p>
+              Bei SeoForge kommt alles aus einem Team: Strategie, Design, Code und SEO greifen von der
+              ersten Zeile ineinander. Wir bauen Websites, die nicht nur überzeugen, sondern von Anfang an
+              dafür gemacht sind, in Google <strong className="text-dark font-semibold">und</strong> in der
+              KI-Suche gefunden zu werden — schnell, sauber entwickelt und messbar wirksam.
+            </p>
+          </div>
+        </div>
+      </section>
 
-        {/* Gradient fade at bottom */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
-          style={{ background: "linear-gradient(to bottom, transparent, #0e0d0d)" }} aria-hidden="true" />
-
-        {/* Content */}
-        <div className="relative z-10 mx-auto max-w-7xl px-6 pb-24 pt-8 lg:px-8 lg:pb-32 lg:pt-16 w-full">
-          <div className="grid lg:grid-cols-[1fr_420px] gap-16 lg:items-center">
-
-            {/* ── Text column ── */}
-            <div>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary"
-                style={{ opacity: heroVisible ? 1 : 0, transform: heroVisible ? "none" : "translateY(12px)", transition: "opacity 0.6s 0.1s, transform 0.6s 0.1s" }}>
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                Webdesign & SEO — aus einer Hand
+      {/* ══ LEISTUNGEN — Internal-Link-Hub ══ */}
+      <section id="leistungen" className="bg-white py-24 lg:py-32 scroll-mt-20">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <SectionHead
+            eyebrow="Webdesign Leistungen"
+            title={<>Alles, was deine<br />Website braucht.</>}
+            copy="Fünf Wege zu professionellem Webdesign, das rankt und konvertiert — wähle deinen Einstieg. Ein Team, ein Festpreis, ein Ansprechpartner."
+          />
+          <div className="m3d grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border rounded-2xl overflow-hidden">
+            {PILLARS.map((p) => (
+              <Link key={p.href} href={p.href} className="group relative flex flex-col bg-white p-7 lg:p-8 transition-colors duration-300 hover:bg-[#FBF8F4]">
+                <div className="absolute top-0 left-0 right-0 h-[2.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }} aria-hidden="true" />
+                <div className="mb-5 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                  {p.svg}
+                </div>
+                <h3 className="font-bold text-dark text-lg mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
+                <p className="text-muted text-sm leading-relaxed">{p.desc}</p>
+                <div className="mt-auto pt-6 flex items-center justify-between">
+                  <span className="text-[10px] font-mono tracking-wide text-dark/30 group-hover:text-primary/70 transition-colors">{p.meta}</span>
+                  <span className="text-primary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</span>
+                </div>
+              </Link>
+            ))}
+            {/* CTA-Karte füllt das Raster */}
+            <Link href="/kontakt" className="group relative flex flex-col bg-white p-7 lg:p-8 transition-colors duration-300 hover:bg-[#FBF8F4]">
+              <div className="mb-5 inline-flex items-center justify-center w-12 h-12 rounded-xl text-white" style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)" }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5Z" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </div>
-
-              {/* Ghost display text */}
-              <div aria-hidden="true"
-                className="leading-none font-[family-name:var(--font-heading)] font-bold uppercase select-none mb-1"
-                style={{
-                  fontSize: "clamp(70px, 11vw, 150px)",
-                  color: "transparent",
-                  WebkitTextStroke: "1px rgba(255,255,255,0.06)",
-                  opacity: heroVisible ? 1 : 0,
-                  transform: heroVisible ? "none" : "translateY(16px)",
-                  transition: "opacity 0.7s 0.2s, transform 0.7s 0.2s",
-                }}
-              >
-                DESIGN
+              <h3 className="font-bold text-dark text-lg mb-2 group-hover:text-primary transition-colors">Nicht sicher, was du brauchst?</h3>
+              <p className="text-muted text-sm leading-relaxed">Erzähl uns in zwei Sätzen dein Vorhaben — wir empfehlen den passenden Weg. Kostenlos &amp; unverbindlich.</p>
+              <div className="mt-auto pt-6 flex items-center justify-between">
+                <span className="text-[10px] font-mono tracking-wide text-primary/70">Kostenloses Gespräch</span>
+                <span className="text-primary group-hover:translate-x-0.5 transition-all">→</span>
               </div>
+            </Link>
+          </div>
+        </div>
+      </section>
 
-              {/* Real headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-[3.6rem] font-bold leading-[1.07] text-white font-[family-name:var(--font-heading)] mb-6 -mt-2 lg:-mt-5"
-                style={{ opacity: heroVisible ? 1 : 0, transform: heroVisible ? "none" : "translateY(16px)", transition: "opacity 0.7s 0.3s, transform 0.7s 0.3s" }}>
-                Websites, die ranken.
-                <br />
-                <span style={{ background: "linear-gradient(95deg, #C2722A 10%, #D4A853 90%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                  Designs, die konvertieren.
-                </span>
-              </h1>
+      {/* ══ CONTENT — Was gutes Webdesign ausmacht ══ */}
+      <section className="bg-white py-24 lg:py-32 border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <SectionHead
+            eyebrow="Webdesign-Ratgeber"
+            title={<>Was professionelles<br />Webdesign 2026 ausmacht.</>}
+            copy="Modernes Webdesign ist mehr als Optik. Diese sechs Faktoren entscheiden 2026 über Sichtbarkeit, Nutzererlebnis und Anfragen — und sind bei uns Standard, nicht Aufpreis."
+          />
+          <div className="grid md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-10">
+            {ASPECTS.map((a, i) => (
+              <div key={a.t} className="scroll-hidden flex gap-5" style={{ transitionDelay: `${(i % 2) * 80}ms` }}>
+                <div className="shrink-0 w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">{icon(a.s)}</div>
+                <div>
+                  <h3 className="font-bold text-dark text-lg mb-1.5">{a.t}</h3>
+                  <p className="text-muted text-sm leading-relaxed">{a.d}</p>
+                  {a.link && (
+                    <Link href={a.link.href} className="mt-2.5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary hover:gap-2.5 transition-all">
+                      {a.link.label}
+                      <span>→</span>
+                    </Link>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="scroll-hidden mt-8 text-sm text-muted leading-relaxed max-w-3xl">
+            Du planst ein konkretes Projekt? Ob{" "}
+            <Link href="/webdesign/website-erstellen-lassen" className="text-primary font-semibold hover:underline">neue Website</Link>,{" "}
+            <Link href="/webdesign/firmenwebsite-erstellen-lassen" className="text-primary font-semibold hover:underline">Firmenwebsite für den Mittelstand</Link>,{" "}
+            <Link href="/webdesign/landingpage-erstellen-lassen" className="text-primary font-semibold hover:underline">Landing Page</Link>,{" "}
+            <Link href="/webdesign/website-relaunch-agentur" className="text-primary font-semibold hover:underline">Relaunch</Link>{" "}oder{" "}
+            <Link href="/webdesign/app-design" className="text-primary font-semibold hover:underline">App-Design</Link>{" "}— wir bauen den passenden Weg, mit SEO als Fundament. Und nach dem Launch:{" "}
+            <Link href="/website-wartung" className="text-primary font-semibold hover:underline">laufende Website-Wartung &amp; Betreuung</Link>.
+          </p>
+        </div>
+      </section>
 
-              <p className="text-white/50 text-lg leading-relaxed max-w-lg mb-10"
-                style={{ opacity: heroVisible ? 1 : 0, transform: heroVisible ? "none" : "translateY(12px)", transition: "opacity 0.7s 0.4s, transform 0.7s 0.4s" }}>
-                Als SEO-Agentur bauen wir Websites anders: Core Web Vitals,
-                technisches SEO und Conversion-Optimierung sind keine Extras —
-                sie sind das Fundament.
+      {/* ══ PRINZIPIEN ══ */}
+      <section className="py-24 lg:py-32 overflow-hidden border-t border-border" style={{ background: "#F8F5F1" }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <SectionHead
+            eyebrow="So arbeiten wir"
+            title={<>Sechs Prinzipien,<br />ein messbares Ergebnis.</>}
+            copy="Keine Hochglanz-Versprechen — der konkrete Unterschied zwischen uns und einer klassischen Webdesign-Agentur."
+          />
+          <WorkWheel />
+        </div>
+      </section>
+
+      {/* ══ TECH-STACK (interaktiv) ══ */}
+      <section className="bg-white py-24 lg:py-32 overflow-hidden">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <SectionHead
+            eyebrow="Tech-Stack"
+            title={<>Technologie,<br />die liefert.</>}
+            copy="Drei Schichten, ein Ergebnis. Wähle eine Schicht — rechts siehst du, was drinsteckt."
+          />
+          <TechSwitcher />
+        </div>
+      </section>
+
+      {/* ══ CONTENT — Was kostet eine Website ══ */}
+      <section className="bg-white py-24 lg:py-32 border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <SectionHead
+            eyebrow="Kosten & Investition"
+            title={<>Was kostet eine<br />professionelle Website?</>}
+            copy="Die ehrliche Antwort: Es kommt auf den Umfang an. Vier Faktoren bestimmen den Preis — den verbindlichen Festpreis legen wir transparent im Erstgespräch fest."
+          />
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+            <div className="scroll-hidden">
+              <p className="text-muted leading-relaxed mb-5">
+                Seriöse Pauschalpreise gibt es im Webdesign nicht — ein einfacher One-Pager
+                kostet weniger als eine mehrsprachige Unternehmens-Website mit Shop. Entscheidend
+                ist nicht der niedrigste Preis, sondern was du dafür bekommst: Custom Code,
+                Performance und ein SEO-Fundament, das Anfragen bringt.
               </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-4 mb-12"
-                style={{ opacity: heroVisible ? 1 : 0, transform: heroVisible ? "none" : "translateY(10px)", transition: "opacity 0.7s 0.5s, transform 0.7s 0.5s" }}>
-                <Link href="/kontakt"
-                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark hover:shadow-xl hover:-translate-y-0.5">
-                  Kostenloses Gespräch
-                  <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </Link>
-                <a href="#leistungen"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-sm font-semibold text-white/75 transition-all hover:border-white/30 hover:bg-white/5 hover:text-white">
-                  Leistungen ansehen
-                </a>
+              <p className="text-muted leading-relaxed mb-7">
+                Bei uns starten custom-coded Websites <strong className="text-dark font-semibold">ab 1.500 €</strong> —
+                dank KI-Workflows und DevOps-Automatisierung deutlich unter klassischen
+                Agenturpreisen. Gerade für den{" "}
+                <Link href="/webdesign/firmenwebsite-erstellen-lassen" className="text-primary font-semibold hover:underline">Mittelstand</Link>{" "}
+                rechnet sich das. Den Festpreis bekommst du nach einem kostenlosen Erstgespräch —
+                ohne versteckte Kosten.
+              </p>
+              <Link href="/kontakt" className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-xl">
+                Festpreis anfragen
+                <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+              </Link>
+            </div>
+            <div className="m3d rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-30px_rgba(26,26,26,0.18)]">
+              <div className="px-6 py-4 border-b border-border bg-offwhite/60">
+                <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-dark/45">Preisfaktoren</span>
               </div>
-
-              {/* Metrics row */}
-              <div className="flex flex-wrap gap-8"
-                style={{ opacity: heroVisible ? 1 : 0, transition: "opacity 0.7s 0.65s" }}>
-                {[
-                  { val: "96+",    label: "PageSpeed by default" },
-                  { val: "4–6 W",  label: "Time to Launch" },
-                  { val: "200+",   label: "Websites gebaut" },
-                ].map(m => (
-                  <div key={m.val} className="flex items-baseline gap-2">
-                    <span className="font-[family-name:var(--font-heading)] text-2xl font-bold text-white">{m.val}</span>
-                    <span className="text-xs text-white/35 font-medium leading-tight max-w-[64px]">{m.label}</span>
+              <div className="divide-y divide-border">
+                {COST_FACTORS.map(([k, v], i) => (
+                  <div key={k} className="flex gap-4 px-6 py-4">
+                    <span className="font-mono text-xs font-bold text-primary pt-0.5">{String(i + 1).padStart(2, "0")}</span>
+                    <div>
+                      <div className="font-bold text-dark text-sm">{k}</div>
+                      <div className="text-muted text-[13px] leading-relaxed">{v}</div>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* ── Image column ── */}
-            <div className="relative hidden lg:block"
-              style={{ opacity: heroVisible ? 1 : 0, transform: heroVisible ? "none" : "translateY(20px) scale(0.97)", transition: "opacity 0.8s 0.5s, transform 0.8s 0.5s" }}>
-              {/* Photo */}
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/5] shadow-2xl"
-                style={{ boxShadow: "0 40px 80px rgba(0,0,0,0.6)" }}>
-                <Image
-                  src="/images/webdesign-hero-workspace.jpg"
-                  alt="Web Designer Workspace"
-                  fill
-                  sizes="420px"
-                  className="object-cover"
-                  style={{ objectPosition: "center 30%" }}
-                  priority
-                />
-                {/* Gradient overlay */}
-                <div className="absolute inset-0"
-                  style={{ background: "linear-gradient(180deg, rgba(14,13,13,0.1) 0%, rgba(14,13,13,0.5) 100%)" }} />
-
-                {/* Floating stats */}
-                <div className="absolute top-6 left-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3 flex items-center gap-3"
-                  style={{ animation: "float 4s ease-in-out infinite" }}>
-                  <div className="w-8 h-8 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center">
-                    <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="text-xs text-white/50 font-medium">PageSpeed</div>
-                    <div className="text-base font-bold text-white">96 / 100</div>
-                  </div>
-                </div>
-
-                <div className="absolute bottom-6 right-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3 flex items-center gap-3"
-                  style={{ animation: "float 4.5s ease-in-out infinite 0.8s" }}>
-                  <div className="w-8 h-8 rounded-xl bg-secondary/20 border border-secondary/30 flex items-center justify-center">
-                    <svg className="w-4 h-4 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <div className="text-xs text-white/50 font-medium">Google Ranking</div>
-                    <div className="text-base font-bold text-white">#1 in 8 Wochen</div>
-                  </div>
-                </div>
-
-                <div className="absolute top-1/2 -translate-y-1/2 right-6 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl px-4 py-3"
-                  style={{ animation: "float 5s ease-in-out infinite 1.4s" }}>
-                  <div className="text-xs text-white/50 font-medium mb-0.5">Launch in</div>
-                  <div className="text-base font-bold text-white">4–6 Wochen</div>
-                </div>
-              </div>
-
-              {/* Subtle outer glow */}
-              <div className="absolute inset-0 rounded-2xl pointer-events-none"
-                style={{ boxShadow: "0 0 60px rgba(194,114,42,0.15)" }} aria-hidden="true" />
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll cue */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30"
-          style={{ animation: "fadeIn 1s ease 1.5s both" }}>
-          <span className="text-[10px] text-white font-medium tracking-[0.25em] uppercase">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-white/60 to-transparent" />
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          SECTION 2 — PILLAR SERVICES (offwhite — LIGHT)
-      ══════════════════════════════════════════ */}
-      <section id="leistungen"
-        className="bg-offwhite py-24 lg:py-32">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-
-          {/* Header */}
-          <div className="reveal mb-16 max-w-2xl">
-            <span className="text-xs font-bold tracking-[0.25em] uppercase text-primary block mb-4">Webdesign Leistungen</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-5 leading-tight">
-              Alles, was deine
-              <br />
-              <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                Website braucht.
-              </span>
-            </h2>
-            <p className="text-muted text-lg leading-relaxed">
-              Vier spezialisierte Leistungen — ein integriertes Ergebnis.
-              Klick auf eine Leistung für alle Details.
-            </p>
-          </div>
-
-          {/* Service rows */}
-          <div className="reveal">
-            {PILLAR_SERVICES.map((svc) => (
-              <Link key={svc.num} href={svc.href} className="group block">
-                <div className="relative overflow-hidden border-t border-border py-7 lg:py-9 flex items-center gap-6 lg:gap-10 hover:bg-white/70 -mx-4 px-4 rounded-xl transition-all duration-400">
-                  {/* Ghost number */}
-                  <span className="absolute right-6 top-1/2 -translate-y-1/2 font-bold font-[family-name:var(--font-heading)] select-none pointer-events-none leading-none"
-                    style={{ fontSize: "clamp(80px, 10vw, 130px)", color: "transparent", WebkitTextStroke: "1px rgba(26,26,26,0.05)", opacity: 1 }}
-                    aria-hidden="true">
-                    {svc.num}
-                  </span>
-
-                  {/* Small number */}
-                  <div className="shrink-0 w-12 text-right">
-                    <span className="text-xs font-bold tracking-[0.2em] text-primary/40 group-hover:text-primary transition-colors duration-300">{svc.num}</span>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark mb-1.5 group-hover:text-primary transition-colors duration-300">
-                      {svc.title}
-                    </h3>
-                    <p className="text-sm lg:text-base text-transparent group-hover:text-muted transition-all duration-500 leading-relaxed max-w-md">
-                      {svc.short}
-                    </p>
-                    <div className="flex flex-wrap gap-1.5 mt-2.5">
-                      {svc.tags.map(tag => (
-                        <span key={tag}
-                          className="text-[10px] font-bold tracking-widest uppercase text-muted/50 border border-border px-2.5 py-0.5 rounded-full group-hover:border-primary/25 group-hover:text-primary/60 transition-all duration-300">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Arrow */}
-                  <div className="shrink-0 ml-4">
-                    <div className="w-11 h-11 rounded-full border border-border flex items-center justify-center group-hover:border-primary group-hover:bg-primary/5 transition-all duration-300">
-                      <svg className="w-5 h-5 text-muted group-hover:text-primary group-hover:translate-x-0.5 transition-all duration-300"
-                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-            <div className="border-t border-border" />
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          SECTION 3 — STATS (white)
-      ══════════════════════════════════════════ */}
-      <section
-        className="bg-white border-y border-border py-16">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
-          <div className="reveal grid grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              { val: "200+", label: "Websites gebaut",   sub: "Seit 2019" },
-              { val: "96+",  label: "PageSpeed Score",   sub: "By default" },
-              { val: "4–6W", label: "Time to Launch",    sub: "Standard-Projekt" },
-              { val: "#1",   label: "Google-Ranking",    sub: "Für unsere Kunden" },
-            ].map((s, i) => (
-              <div key={i} className={`text-center flex flex-col items-center ${i < 3 ? "lg:border-r lg:border-border" : ""}`}>
-                <span className="font-[family-name:var(--font-heading)] font-bold text-dark leading-none mb-1"
-                  style={{ fontSize: "clamp(34px, 4vw, 54px)" }}>{s.val}</span>
-                <span className="text-sm font-semibold text-dark mb-0.5">{s.label}</span>
-                <span className="text-xs text-muted">{s.sub}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          SECTION 4 — PAIN POINTS (offwhite)
-      ══════════════════════════════════════════ */}
-      <section
-        className="bg-offwhite py-24 lg:py-32">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
-          <div className="reveal mb-16">
-            <span className="text-xs font-bold tracking-[0.25em] uppercase text-primary block mb-4">Das kennen wir.</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark leading-tight">
-              Warum scheitern
-              <br />die meisten Websites?
-            </h2>
-          </div>
-          <div className="space-y-0">
-            {[
-              { num: "01", title: "Langsame Ladezeit", desc: "Google bestraft Sites unter 90 PageSpeed mit schlechteren Rankings. Besucher springen ab, bevor sie deine Leistungen sehen." },
-              { num: "02", title: "Kein organischer Traffic", desc: "Eine schöne Website bringt nichts, wenn sie niemand findet. SEO wird beim Bau ignoriert — und später teuer nachgerüstet." },
-              { num: "03", title: "Zero Conversions", desc: "Besucher kommen und gehen ohne Kontakt aufzunehmen. Fehlende CTA-Struktur und schlechte UX kosten täglich Aufträge." },
-              { num: "04", title: "Veraltetes Design", desc: "Deine Website signalisiert 2014. Das Vertrauen ist weg, bevor ein Besucher zum ersten Absatz scrollt." },
-            ].map((item, i) => (
-              <Reveal key={item.num} delay={i * 75}>
-                <div className="group flex items-start gap-8 lg:gap-14 py-7 border-b border-border last:border-0 hover:border-primary/15 transition-colors duration-300 cursor-default">
-                  <span className="shrink-0 font-[family-name:var(--font-heading)] font-bold leading-none mt-1 transition-colors duration-300 group-hover:text-primary/15"
-                    style={{ fontSize: "clamp(38px, 4.5vw, 64px)", color: "rgba(26,26,26,0.08)", minWidth: "72px", textAlign: "right" }}>
-                    {item.num}
-                  </span>
-                  <div>
-                    <h3 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark mb-2">{item.title}</h3>
-                    <p className="text-muted leading-relaxed max-w-2xl">{item.desc}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          SECTION 5 — PROCESS (white)
-      ══════════════════════════════════════════ */}
-      <section
-        className="bg-white py-24 lg:py-32">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
-          <div className="reveal text-center mb-16">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary mb-5">
-              Prozess
-            </span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">So entsteht deine Website.</h2>
-            <p className="text-muted text-lg max-w-xl mx-auto">In 4 Phasen zum Launch — transparent, termingebunden. Wähle eine Phase für Details.</p>
-          </div>
-          <div className="reveal">
-            <ProcessStepper />
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          SECTION 6 — COMPARISON (offwhite)
-      ══════════════════════════════════════════ */}
-      <section
-        className="bg-offwhite py-24 lg:py-32">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8">
-          <div className="reveal text-center mb-16">
-            <span className="text-xs font-bold tracking-[0.25em] uppercase text-primary block mb-4">Die Realität</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark leading-tight mb-5">
-              Warum SEO und Webdesign zusammengehören
-            </h2>
-            <p className="text-muted text-lg max-w-2xl mx-auto">Wer beides trennt, zahlt doppelt — und verliert trotzdem.</p>
-          </div>
-
-          <div className="reveal">
-            <div className="grid grid-cols-[1fr_32px_1fr] gap-0 pb-5">
-              <div className="text-center">
-                <span className="text-xs font-bold tracking-widest uppercase text-muted/45 inline-flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-muted/20" />Andere Agenturen
-                </span>
-              </div>
-              <div />
-              <div className="text-center">
-                <span className="text-xs font-bold tracking-widest uppercase text-primary inline-flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-primary" />SeoForge
-                </span>
-              </div>
-            </div>
-
-            {[
-              { bad: "Website zuerst, SEO später", good: "SEO-Architektur von Tag 1" },
-              { bad: "Schönes Design, langsam geladen", good: "PageSpeed 96+ by default" },
-              { bad: "Getrennte Ansprechpartner", good: "Ein Team, eine Strategie" },
-              { bad: "SEO als Zusatzpaket", good: "SEO ist das Fundament" },
-              { bad: "Launch und Tschüss", good: "Laufende Betreuung & Rankings" },
-            ].map((row, i) => (
-              <Reveal key={i} delay={i * 65}>
-                <div className="grid grid-cols-[1fr_32px_1fr] items-center border-t border-border py-4 lg:py-5 group hover:bg-white/60 rounded-lg -mx-3 px-3 transition-colors">
-                  <div className="pr-4 text-right">
-                    <span className="text-sm lg:text-base text-muted/40 line-through decoration-muted/20">{row.bad}</span>
-                  </div>
-                  <div className="flex justify-center">
-                    <svg className="w-4 h-4 text-primary/25 group-hover:text-primary transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                  </div>
-                  <div className="pl-4">
-                    <span className="text-sm lg:text-base font-semibold text-dark">{row.good}</span>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-            <div className="border-t border-border" />
-
-            <Reveal delay={430}>
-              <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                <p className="text-lg font-[family-name:var(--font-heading)] font-bold text-dark">Bereit für den Unterschied?</p>
-                <Link href="/kontakt"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all">
-                  Kostenloses Gespräch
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </Link>
-              </div>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          SECTION 7 — TECH STACK (offwhite, interactive)
-      ══════════════════════════════════════════ */}
-      <section
-        className="bg-offwhite py-24 lg:py-32 border-t border-border">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <div className="reveal mb-14">
-            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-5">
-              <div>
-                <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary mb-4">
-                  Tech Stack
-                </span>
-                <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-3">
-                  Technologie, die liefert.
-                </h2>
-                <p className="text-muted text-lg max-w-xl">
-                  Drei Schichten — ein Ergebnis. Klick auf eine Schicht für Details.
-                </p>
-              </div>
-              <p className="text-xs text-muted/50 font-medium tracking-wide hidden lg:block shrink-0">
-                Hover für 3D-Effekt
-              </p>
-            </div>
-          </div>
-
-          <div className="reveal">
-            <TechStackInteractive />
-          </div>
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════
-          SECTION 8 — FAQ (offwhite)
-      ══════════════════════════════════════════ */}
-      <section
-        className="bg-offwhite py-24 lg:py-32">
+      {/* ══ FAQ ══ */}
+      <section className="py-24 lg:py-32 border-t border-border" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
-          <div className="reveal text-center mb-14">
-            <span className="text-xs font-bold tracking-[0.25em] uppercase text-primary block mb-4">FAQ</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Häufige Fragen</h2>
+          <div className="scroll-hidden mb-12 text-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary mb-4">Häufige Fragen</span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-dark">Alles zum Webdesign</h2>
           </div>
-          <div className="reveal space-y-3">
-            {faqs.map((faq, i) => (
-              <div key={i}
-                className="rounded-2xl border border-border bg-white overflow-hidden transition-all duration-300 hover:border-primary/20 hover:shadow-sm">
-                <button onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between p-6 text-left">
-                  <span className="font-semibold text-dark pr-4 leading-snug">{faq.q}</span>
-                  <div className={`shrink-0 w-7 h-7 rounded-full border flex items-center justify-center transition-all duration-300 ${
-                    openFaq === i ? "bg-primary border-primary text-white rotate-180" : "border-border text-muted"
-                  }`}>
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
+          <div className="space-y-3">
+            {faqs.map((faq, i) => {
+              const open = openFaq === i;
+              return (
+                <div key={i} className="scroll-hidden" style={{ transitionDelay: `${i * 40}ms` }}>
+                  <div className={`rounded-2xl border bg-white overflow-hidden transition-colors duration-300 ${open ? "border-primary/30" : "border-border"}`}>
+                    <button className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer" onClick={() => setOpenFaq(open ? null : i)} aria-expanded={open}>
+                      <span className="font-semibold text-dark text-sm pr-4">{faq.q}</span>
+                      <span className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${open ? "bg-primary text-white rotate-180" : "bg-primary/[0.08] text-primary"}`}>
+                        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 9l-7 7-7-7" /></svg>
+                      </span>
+                    </button>
+                    <div className="grid transition-[grid-template-rows] duration-400 ease-out" style={{ gridTemplateRows: open ? "1fr" : "0fr" }}>
+                      <div className="overflow-hidden">
+                        <div className="px-6 pb-5 text-sm text-muted leading-relaxed border-t border-border pt-4">{faq.a}</div>
+                      </div>
+                    </div>
                   </div>
-                </button>
-                <div className={`overflow-hidden transition-all duration-300 ${openFaq === i ? "max-h-64 pb-6" : "max-h-0"}`}>
-                  <p className="px-6 text-sm leading-relaxed text-muted">{faq.a}</p>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          SECTION 9 — CTA (orange gradient — NOT dark)
-      ══════════════════════════════════════════ */}
-      <section className="relative py-28 lg:py-36 overflow-hidden bg-gradient-to-br from-primary to-primary-dark">
-        {/* Subtle noise overlay */}
-        <div className="absolute inset-0 pointer-events-none opacity-[0.04]"
-          style={{ backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")", backgroundSize: "256px" }}
-          aria-hidden="true" />
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full pointer-events-none"
-          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%)" }} aria-hidden="true" />
-
-        <div className="relative mx-auto max-w-3xl px-6 lg:px-8 text-center">
-          <Reveal>
-            <span className="text-xs font-bold tracking-[0.25em] uppercase text-white/60 block mb-6">Nächster Schritt</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-4xl lg:text-6xl font-bold text-white mb-6 leading-[1.05]">
-              Bereit für eine Website,
-              <br />die wirklich liefert?
-            </h2>
-            <p className="text-white/70 text-lg mb-8 max-w-xl mx-auto leading-relaxed">
-              Kostenloses Erstgespräch — wir analysieren deine Situation und zeigen dir, was realistisch möglich ist.
-            </p>
-            <p className="text-white/40 text-sm mb-10 leading-relaxed">
-              Auch als{" "}
-              <Link href="/webdesign/website-erstellen-lassen" className="text-white/65 hover:text-white underline underline-offset-2 transition-colors">Website-Erstellung</Link>
-              ,{" "}
-              <Link href="/webdesign/landing-pages" className="text-white/65 hover:text-white underline underline-offset-2 transition-colors">Landing Page</Link>
-              ,{" "}
-              <Link href="/webdesign/website-relaunch" className="text-white/65 hover:text-white underline underline-offset-2 transition-colors">Relaunch</Link>
-              {" "}oder{" "}
-              <Link href="/webdesign/app-design" className="text-white/65 hover:text-white underline underline-offset-2 transition-colors">App Design</Link>
-              {" "}buchbar.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link href="/kontakt"
-                className="group inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-bold text-dark shadow-xl transition-all hover:bg-gray-50 hover:-translate-y-0.5 hover:shadow-2xl">
-                Jetzt Gespräch buchen
-                <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </Link>
-              <a href="#leistungen"
-                className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-white/20">
-                Alle Leistungen
-              </a>
-            </div>
-          </Reveal>
+      {/* ══ CTA ══ */}
+      <section className="relative py-24 overflow-hidden" style={{ background: "#1A1A1A" }}>
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[340px] rounded-full bg-primary/[0.07] blur-[120px]" />
+        </div>
+        <div className="relative mx-auto max-w-3xl px-6 text-center">
+          <div className="scroll-hidden">
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-white mb-4">Bereit für eine Website, die wirklich liefert?</h2>
+            <p className="text-white/60 text-lg mb-3 leading-relaxed">Kostenloses Erstgespräch — wir klären in 30 Minuten, was dein Projekt braucht und was es kostet.</p>
+            <p className="text-white/40 text-sm mb-9">Persönlicher Ansprechpartner · Antwort in unter 24 Stunden · Festpreis nach Erstgespräch</p>
+            <Link href="/kontakt" className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-xl transition-all">
+              Kostenloses Gespräch buchen →
+            </Link>
+          </div>
         </div>
       </section>
-    </SubpageLayout>
+
+      <Footer />
+    </>
   );
 }

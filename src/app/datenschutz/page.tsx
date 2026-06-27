@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SubpageLayout from "../components/SubpageLayout";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://seoforge.de/datenschutz" },
   title: "Datenschutzerklärung | SeoForge",
   description: "Datenschutzerklärung von SeoForge gemäß DSGVO",
   robots: { index: false, follow: false },
@@ -34,7 +35,7 @@ export default function DatenschutzPage() {
                 <p>Kurpfalzstraße 16</p>
                 <p>68542 Heddesheim</p>
                 <p>Deutschland</p>
-                <p className="mt-2">E-Mail: <a href="mailto:info@seomannheim.com" className="text-primary hover:underline">info@seomannheim.com</a></p>
+                <p className="mt-2">E-Mail: <a href="mailto:info@seoforge.de" className="text-primary hover:underline">info@seoforge.de</a></p>
                 <p>Telefon: <a href="tel:015203450695" className="text-primary hover:underline">0152 03450695</a></p>
               </div>
             </section>
@@ -80,7 +81,7 @@ export default function DatenschutzPage() {
                 <li>Ihre Daten in einem maschinenlesbaren Format zu erhalten (Art. 20 DSGVO)</li>
               </ul>
               <p className="text-muted">
-                Zur Ausübung Ihrer Rechte wenden Sie sich bitte an: <a href="mailto:info@seomannheim.com" className="text-primary hover:underline">info@seomannheim.com</a>
+                Zur Ausübung Ihrer Rechte wenden Sie sich bitte an: <a href="mailto:info@seoforge.de" className="text-primary hover:underline">info@seoforge.de</a>
               </p>
               <p className="text-muted mt-4">
                 Sie haben zudem das Recht, sich bei der zuständigen Datenschutz-Aufsichtsbehörde zu beschweren. Die zuständige Aufsichtsbehörde für Baden-Württemberg ist der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Baden-Württemberg.

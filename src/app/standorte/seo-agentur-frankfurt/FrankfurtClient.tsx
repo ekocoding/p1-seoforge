@@ -3,24 +3,6 @@ import Link from "next/link";
 import StandortFaq from "@/app/components/StandortFaq";
 import CityContactForm from "@/app/components/CityContactForm";
 
-function IndustryIcon({ title }: { title: string }) {
-  const cls = "w-4 h-4";
-  switch (title) {
-    case "IT & Consulting":
-      return <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>;
-    case "Immobilien & Investment":
-      return <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>;
-    case "Pharma & Chemie":
-      return <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>;
-    case "Logistik & Aviation":
-      return <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>;
-    case "Messe & Events":
-      return <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>;
-    default:
-      return <svg className={cls} fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>;
-  }
-}
-
 function ToolLogo({ name }: { name: string }) {
   const wrap = "rounded-xl overflow-hidden w-9 h-9 flex items-center justify-center flex-shrink-0";
   switch (name) {
@@ -387,63 +369,38 @@ export default function FrankfurtClient({ articleHtml }: { articleHtml: string }
         </div>
       </section>
 
+      {/* ═══ CONTACT ═══ */}
+      <div id="kontakt"><CityContactForm city="Frankfurt" /></div>
+
       {/* ═══ INDUSTRY FOCUS ═══ */}
-      <section className="bg-dark">
+      <section className="bg-offwhite border-y border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20 lg:py-28">
           <div className="reveal mb-14">
             <p className="font-mono text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">/ Branchen-SEO</p>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-white sm:text-4xl">
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-dark sm:text-4xl">
                 SEO für Frankfurts <span className="gradient-text">führende Branchen</span>
               </h2>
-              <p className="text-sm text-white/40 max-w-xs lg:text-right">Jede Branche, eigene Anforderungen — Compliance, Wettbewerb, Zielgruppe.</p>
+              <p className="text-sm text-muted max-w-xs lg:text-right">Jede Branche, eigene Anforderungen — Compliance, Wettbewerb, Zielgruppe.</p>
             </div>
           </div>
-
-          {/* Featured card */}
-          <div className="reveal mb-4">
-            <div className="relative rounded-2xl border border-primary/25 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/12 via-primary/5 to-transparent pointer-events-none" />
-              <div className="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-0">
-                <div className="p-8 lg:p-10">
-                  <span className="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-primary uppercase tracking-wider mb-5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    Schwerpunkt Frankfurt
-                  </span>
-                  <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-white mb-3">Finanz & FinTech</h3>
-                  <p className="text-sm text-white/60 leading-relaxed max-w-2xl">
-                    EZB, Deutsche Bank, Commerzbank und 200+ weitere Banken machen Frankfurt zum Finanzzentrum Europas. FinTech-Startups konkurrieren um dieselben Keywords. Wir entwickeln compliance-konformen SEO-Content, der BaFin-regulierte Produkte korrekt und überzeugend darstellt.
-                  </p>
-                </div>
-                <div className="border-t lg:border-t-0 lg:border-l border-white/8 p-8 flex flex-col justify-center gap-2.5">
-                  {["EZB", "Deutsche Bank", "200+ Banken", "BaFin-konform", "FinTech-Ecosystem"].map((tag) => (
-                    <span key={tag} className="flex items-center gap-2 text-xs text-white/50 font-mono">
-                      <span className="h-1 w-1 rounded-full bg-primary/60 flex-shrink-0" />
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Secondary grid */}
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {industries.slice(1).map((ind, i) => (
+          <div className="divide-y divide-border border-y border-border">
+            {industries.map((ind, i) => (
               <div className="reveal" key={ind.title} style={{ animationDelay: `${i * 60}ms` }}>
-                <div className="group rounded-xl border border-white/8 bg-white/[0.02] p-5 h-full hover:border-primary/25 hover:bg-primary/[0.04] transition-all duration-300">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="h-8 w-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/40 group-hover:text-primary/70 group-hover:border-primary/20 transition-colors flex-shrink-0">
-                      <IndustryIcon title={ind.title} />
-                    </div>
-                    <h3 className="font-semibold text-white text-sm">{ind.title}</h3>
+                <div className="group grid md:grid-cols-[56px_260px_1fr] gap-2 md:gap-8 py-7 px-4 -mx-4 items-baseline hover:bg-white rounded-xl transition-colors duration-300">
+                  <span className="font-mono text-xs font-bold text-primary/40 group-hover:text-primary transition-colors">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="font-semibold text-dark leading-snug">{ind.title}</h3>
+                    {ind.featured && (
+                      <span className="mt-1.5 inline-flex items-center gap-1.5 text-[10px] font-mono font-semibold text-primary uppercase tracking-wider">
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                        Schwerpunkt
+                      </span>
+                    )}
                   </div>
-                  <p className="text-xs text-white/50 leading-relaxed mb-4">{ind.desc}</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {ind.tags.map((tag) => (
-                      <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 border border-white/8 text-white/35 font-mono">{tag}</span>
-                    ))}
-                  </div>
+                  <p className="text-sm text-muted leading-relaxed">{ind.desc}</p>
                 </div>
               </div>
             ))}
@@ -503,21 +460,21 @@ export default function FrankfurtClient({ articleHtml }: { articleHtml: string }
             <p className="font-mono text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">/ Unser Prozess</p>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-dark sm:text-4xl">So bringen wir Sie auf Seite&nbsp;1</h2>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {process.map((p, i) => (
-              <div className="reveal" key={p.step} style={{ animationDelay: `${i * 80}ms` }}>
-                <div className="relative bg-white rounded-xl border border-border p-6 h-full">
-                  <div className="font-mono text-3xl font-bold text-primary/20 mb-4">{p.step}</div>
-                  <h3 className="font-semibold text-dark mb-2">{p.title}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{p.desc}</p>
-                  {i < process.length - 1 && (
-                    <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
-                      <svg className="w-6 h-6 text-border" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" /></svg>
-                    </div>
-                  )}
+          <div className="relative max-w-3xl mx-auto">
+            <div className="absolute left-[25px] top-4 bottom-4 w-px bg-primary/15" aria-hidden="true" />
+            <div className="space-y-5">
+              {process.map((p, i) => (
+                <div className="reveal relative flex gap-6 items-start" key={p.step} style={{ animationDelay: `${i * 80}ms` }}>
+                  <div className="relative z-10 shrink-0 w-[52px] h-[52px] rounded-2xl bg-white border border-primary/25 shadow-sm flex items-center justify-center">
+                    <span className="font-mono text-sm font-bold text-primary">{p.step}</span>
+                  </div>
+                  <div className="flex-1 bg-white rounded-2xl border border-border p-6 hover:border-primary/25 hover:shadow-md transition-all duration-300">
+                    <h3 className="font-semibold text-dark mb-1.5">{p.title}</h3>
+                    <p className="text-sm text-muted leading-relaxed">{p.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -572,7 +529,7 @@ export default function FrankfurtClient({ articleHtml }: { articleHtml: string }
             <p className="font-mono text-xs font-semibold tracking-[0.25em] uppercase text-primary mb-3">/ Warum SeoForge</p>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-dark sm:text-4xl">Ihr Vorteil mit SeoForge Frankfurt</h2>
           </div>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
             {[
               {
                 title: "Direkter Kundenkontakt",
@@ -592,10 +549,14 @@ export default function FrankfurtClient({ articleHtml }: { articleHtml: string }
               },
             ].map((b, i) => (
               <div className="reveal" key={b.title} style={{ animationDelay: `${i * 70}ms` }}>
-                <div className="rounded-xl border border-border bg-white p-6 h-full">
-                  <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center mb-4"><div className="h-3 w-3 rounded-full bg-primary" /></div>
-                  <h3 className="font-semibold text-dark mb-2">{b.title}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{b.desc}</p>
+                <div className="rounded-2xl border border-border bg-white p-7 h-full flex gap-5 items-start hover:border-primary/25 hover:shadow-md transition-all duration-300">
+                  <div className="shrink-0 h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <div className="h-3.5 w-3.5 rounded-full bg-primary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-dark mb-1.5">{b.title}</h3>
+                    <p className="text-sm text-muted leading-relaxed">{b.desc}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -604,8 +565,6 @@ export default function FrankfurtClient({ articleHtml }: { articleHtml: string }
       </section>
 
       <StandortFaq items={faqs} defaultOpen={0} />
-
-      <div id="kontakt"><CityContactForm city="Frankfurt" /></div>
 
       <section className="border-t border-border bg-white">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-10">
@@ -619,4 +578,3 @@ export default function FrankfurtClient({ articleHtml }: { articleHtml: string }
     </main>
   );
 }
-

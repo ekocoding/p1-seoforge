@@ -180,6 +180,11 @@ export default function MainzClient({ articleHtml }: { articleHtml: string }) {
         </div>
       </section>
 
+      {/* ═══ CONTACT ═══ */}
+      <div id="kontakt">
+        <CityContactForm city="Mainz" />
+      </div>
+
       {/* ═══ INDUSTRY FOCUS ═══ */}
       <section className="bg-offwhite border-y border-border">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20 lg:py-28">
@@ -189,17 +194,22 @@ export default function MainzClient({ articleHtml }: { articleHtml: string }) {
               SEO für jede Branche in Mainz
             </h2>
           </div>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="divide-y divide-border border-y border-border">
             {industries.map((ind, i) => (
-              <div className="reveal" key={ind.title} style={{ animationDelay: `${i * 70}ms` }}>
-                <div className={`rounded-xl border p-6 h-full ${ind.featured ? "border-primary/30 bg-primary/5 shadow-sm" : "border-border bg-white"}`}>
-                  {ind.featured && (
-                    <span className="inline-flex items-center gap-1.5 mb-3 text-xs font-mono font-semibold text-primary uppercase tracking-wider">
-                      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                      Schwerpunkt
-                    </span>
-                  )}
-                  <h3 className="font-semibold text-dark mb-2">{ind.title}</h3>
+              <div className="reveal" key={ind.title} style={{ animationDelay: `${i * 60}ms` }}>
+                <div className="group grid md:grid-cols-[56px_260px_1fr] gap-2 md:gap-8 py-7 px-4 -mx-4 items-baseline hover:bg-offwhite rounded-xl transition-colors duration-300">
+                  <span className="font-mono text-xs font-bold text-primary/40 group-hover:text-primary transition-colors">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="font-semibold text-dark leading-snug">{ind.title}</h3>
+                    {ind.featured && (
+                      <span className="mt-1.5 inline-flex items-center gap-1.5 text-[10px] font-mono font-semibold text-primary uppercase tracking-wider">
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                        Schwerpunkt
+                      </span>
+                    )}
+                  </div>
                   <p className="text-sm text-muted leading-relaxed">{ind.desc}</p>
                 </div>
               </div>
@@ -220,23 +230,21 @@ export default function MainzClient({ articleHtml }: { articleHtml: string }) {
               So bringen wir Sie auf Seite&nbsp;1
             </h2>
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {process.map((p, i) => (
-              <div className="reveal" key={p.step} style={{ animationDelay: `${i * 80}ms` }}>
-                <div className="relative bg-white rounded-xl border border-border p-6 h-full">
-                  <div className="font-mono text-3xl font-bold text-primary/20 mb-4">{p.step}</div>
-                  <h3 className="font-semibold text-dark mb-2">{p.title}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{p.desc}</p>
-                  {i < process.length - 1 && (
-                    <div className="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10">
-                      <svg className="w-6 h-6 text-border" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  )}
+          <div className="relative max-w-3xl mx-auto">
+            <div className="absolute left-[25px] top-4 bottom-4 w-px bg-primary/15" aria-hidden="true" />
+            <div className="space-y-5">
+              {process.map((p, i) => (
+                <div className="reveal relative flex gap-6 items-start" key={p.step} style={{ animationDelay: `${i * 80}ms` }}>
+                  <div className="relative z-10 shrink-0 w-[52px] h-[52px] rounded-2xl bg-white border border-primary/25 shadow-sm flex items-center justify-center">
+                    <span className="font-mono text-sm font-bold text-primary">{p.step}</span>
+                  </div>
+                  <div className="flex-1 bg-white rounded-2xl border border-border p-6 hover:border-primary/25 hover:shadow-md transition-all duration-300">
+                    <h3 className="font-semibold text-dark mb-1.5">{p.title}</h3>
+                    <p className="text-sm text-muted leading-relaxed">{p.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -304,7 +312,7 @@ export default function MainzClient({ articleHtml }: { articleHtml: string }) {
               Ihr Vorteil mit SeoForge Mainz
             </h2>
           </div>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
             {[
               { title: "Life-Sciences-Expertise", desc: "E-E-A-T Content für Biotech und Pharma, der Investoren-Kommunikation standhält und gleichzeitig Fachkräfte und Partner anzieht — im BioNTech-Umfeld unverzichtbar." },
               { title: "Medien & PR-Synergien", desc: "SEO ergänzt die starke Medienpräsenz am ZDF-Standort. Content-Qualität auf Medienstandard — weil Mainzer Zielgruppen das gewohnt sind und erwarten." },
@@ -312,12 +320,14 @@ export default function MainzClient({ articleHtml }: { articleHtml: string }) {
               { title: "Keine Verträge", desc: "Monatliche Zusammenarbeit ohne Mindestlaufzeit. Unsere Leistung überzeugt — nicht der Vertrag. Transparente Berichte inklusive." },
             ].map((b, i) => (
               <div className="reveal" key={b.title} style={{ animationDelay: `${i * 70}ms` }}>
-                <div className="rounded-xl border border-border bg-white p-6 h-full">
-                  <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <div className="h-3 w-3 rounded-full bg-primary" />
+                <div className="rounded-2xl border border-border bg-white p-7 h-full flex gap-5 items-start hover:border-primary/25 hover:shadow-md transition-all duration-300">
+                  <div className="shrink-0 h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                    <div className="h-3.5 w-3.5 rounded-full bg-primary" />
                   </div>
-                  <h3 className="font-semibold text-dark mb-2">{b.title}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{b.desc}</p>
+                  <div>
+                    <h3 className="font-semibold text-dark mb-1.5">{b.title}</h3>
+                    <p className="text-sm text-muted leading-relaxed">{b.desc}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -327,11 +337,6 @@ export default function MainzClient({ articleHtml }: { articleHtml: string }) {
 
       {/* ═══ FAQ ═══ */}
       <StandortFaq items={faqs} defaultOpen={0} />
-
-      {/* ═══ CONTACT ═══ */}
-      <div id="kontakt">
-        <CityContactForm city="Mainz" />
-      </div>
 
       {/* ═══ BOTTOM NAV ═══ */}
       <section className="border-t border-border bg-white">

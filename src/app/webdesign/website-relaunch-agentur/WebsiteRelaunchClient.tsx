@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import HeroShaderWhite from "@/app/components/HeroShaderWhite";
 import SubpageLayout from "@/app/components/SubpageLayout";
 import RankingMigrationApp from "./RankingMigrationApp";
 import PageSpeedBeforeAfter from "./PageSpeedBeforeAfter";
@@ -83,90 +83,96 @@ export default function WebsiteRelaunchClient() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* HERO */}
-      <section
-        className="relative min-h-screen flex items-center overflow-hidden"
-        style={{ background: "#1A1A1A" }}
-      >
-        <Image
-          src="/images/hero-website-relaunch.jpg"
-          alt="Website Relaunch Agentur"
-          fill
-          className="object-cover object-center opacity-25"
-          priority
-          sizes="100vw"
-        />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(105deg, rgba(26,26,26,0.97) 0%, rgba(26,26,26,0.85) 50%, rgba(26,26,26,0.50) 100%)" }} />
+      {/* HERO — weißer Shader, voll-flächig, KEIN dunkler Dimmer */}
+      <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-white">
+        <HeroShaderWhite />
+
         <div
-          className="absolute top-0 right-0 h-[700px] w-[700px] pointer-events-none"
           aria-hidden="true"
-          style={{
-            background:
-              "radial-gradient(circle at 70% 30%, rgba(194,114,42,0.18) 0%, rgba(212,168,83,0.08) 40%, transparent 70%)",
-          }}
+          className="absolute bottom-0 left-0 right-0 h-44 pointer-events-none"
+          style={{ background: "linear-gradient(to bottom, transparent, #ffffff)" }}
         />
 
-        <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-8 lg:px-8 lg:pb-32 lg:pt-12 w-full">
-          <div className="max-w-3xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-              Website Relaunch · SEO-sichere Migration
-            </div>
+        {/* Ghost-Wasserzeichen */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute inset-0 flex items-center justify-center"
+          style={{ opacity: 0.05 }}
+        >
+          <span
+            className="font-[family-name:var(--font-heading)] font-black text-dark leading-none tracking-tight"
+            style={{ fontSize: "clamp(90px, 15vw, 240px)" }}
+          >
+            RELAUNCH
+          </span>
+        </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] text-white font-[family-name:var(--font-heading)] mb-6">
-              Website Relaunch —{" "}
-              <span className="border-b-2 border-primary pb-1">
-                ohne Rankingverluste.
-              </span>
-            </h1>
+        <div className="relative z-10 mx-auto w-full max-w-5xl px-6 lg:px-8 pt-24 pb-24 text-center">
 
-            <p className="text-white/60 text-lg leading-relaxed max-w-2xl mb-8">
-              Wir modernisieren deine Website vollständig — neues Design, bessere Performance, klarere User Journey. Und das wichtigste: Alle deine hart erarbeiteten Google-Rankings bleiben erhalten. SEO-Migration ist unser Kerngeschäft.
-            </p>
-
-            <ul className="space-y-3 mb-10">
-              {[
-                "Vollständige 301-Redirect-Map — kein Ranking geht verloren",
-                "Audit der bestehenden Website vor jedem Relaunch",
-                "Search Console Monitoring 4–8 Wochen nach Launch",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <svg className="h-5 w-5 text-primary shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-white/80 text-sm">{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/kontakt"
-                className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:shadow-xl"
-              >
-                Kostenloses Relaunch-Gespräch →
-              </Link>
-              <Link
-                href="/seo/audit"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-sm font-semibold text-white transition-all hover:border-white/40 hover:bg-white/5"
-              >
-                SEO-Audit anfragen →
-              </Link>
-            </div>
-
-            <div className="mt-14 grid grid-cols-3 gap-6 max-w-lg">
-              {[
-                { val: "50+", label: "Relaunches durchgeführt" },
-                { val: "0%", label: "Ø Rankingverlust" },
-                { val: "6–10 Wo.", label: "Projektlaufzeit" },
-              ].map((m) => (
-                <div key={m.label} className="border-l-2 border-primary/40 pl-4">
-                  <div className="text-2xl font-bold text-white">{m.val}</div>
-                  <div className="text-xs text-white/50 mt-0.5">{m.label}</div>
-                </div>
-              ))}
-            </div>
+          <div className="hero-badge mb-8 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-white/55 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-primary">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            Website-Relaunch Agentur · SEO-sichere Migration
           </div>
+
+          {/* H1 — zwei Zeilen */}
+          <h1
+            className="hero-title font-[family-name:var(--font-heading)] font-bold text-dark leading-[1.08] mb-7"
+            style={{ fontSize: "clamp(38px, 5.2vw, 72px)", letterSpacing: "-0.025em" }}
+          >
+            Website-Relaunch Agentur —
+            <br />
+            <span
+              style={{
+                background: "linear-gradient(95deg, #C2722A 12%, #D4A853 88%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              ohne Rankingverluste.
+            </span>
+          </h1>
+
+          <div className="hero-description mb-8 flex items-center justify-center gap-4">
+            <div className="h-px w-10 bg-primary/40" />
+            <span className="text-[10px] font-bold tracking-[0.26em] uppercase text-dark/30">
+              301-Redirects · SEO-Audit · Search Console · CI/CD
+            </span>
+            <div className="h-px w-10 bg-primary/40" />
+          </div>
+
+          <p className="hero-description text-muted leading-[1.85] mb-11 max-w-3xl mx-auto" style={{ fontSize: "clamp(15px, 1.1vw, 17px)" }}>
+            Als Website-Relaunch Agentur modernisieren wir deine Website vollständig — neues Design, bessere
+            Performance, klarere User Journey. Und das Wichtigste: Deine hart
+            erarbeiteten Google-Rankings bleiben erhalten. Vor jedem Relaunch steht
+            ein vollständiges Audit der bestehenden Seite, jede alte URL bekommt
+            ihren Platz in der 301-Redirect-Map, und nach dem Go-Live überwachen
+            wir die Search Console engmaschig. Deployt wird über unsere
+            CI/CD-Pipeline — kontrolliert, getestet, jederzeit zurückrollbar.
+            SEO-sichere Migration ist unser Kerngeschäft.
+          </p>
+
+          <div className="hero-cta flex flex-wrap justify-center gap-4">
+            <Link
+              href="/kontakt"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark hover:shadow-xl hover:-translate-y-0.5"
+            >
+              Kostenloses Relaunch-Gespräch
+              <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+            <Link
+              href="/seo/audit"
+              className="inline-flex items-center gap-2 rounded-full border border-dark/15 bg-white/55 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-dark/65 transition-all hover:border-dark/30 hover:bg-white/80 hover:text-dark"
+            >
+              SEO-Audit anfragen
+            </Link>
+          </div>
+        </div>
+
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
+          <span className="text-[10px] text-dark/50 font-mono tracking-[0.28em] uppercase">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-dark/30 to-transparent" />
         </div>
       </section>
 

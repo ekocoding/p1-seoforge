@@ -5,6 +5,7 @@ import ArticleCard from '../components/ArticleCard'
 import { getArticlesByType } from '../data/articles'
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://seoforge.de/wissen/ratgeber" },
   title: 'SEO Ratgeber & Guides | SeoForge Wissen',
   description: 'Praxisnahe SEO-Ratgeber und Schritt-für-Schritt-Guides von Experten.',
 }
@@ -16,6 +17,7 @@ const themaFilters = [
   { label: 'On-Page SEO', href: '/wissen/on-page' },
   { label: 'Technisches SEO', href: '/wissen/technical-seo' },
   { label: 'Local SEO', href: '/wissen/local-seo' },
+  { label: 'Webdesign', href: '/wissen/webdesign' },
 ]
 
 export default function RatgeberListPage() {

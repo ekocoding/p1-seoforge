@@ -13,9 +13,9 @@
 ## Kernleistungen
 
 SeoForge bietet drei Leistungsbereiche:
-1. **SEO** – Technische Optimierung, Content-Strategie, Audits, laufende Betreuung
-2. **GEO** – Optimierung für KI-Suchantworten (Large Language Models, AI Overviews)
-3. **Webdesign** – Conversion-optimierte Websites, Landing Pages, Relaunches
+1. **SEO** — Technische Optimierung, Content-Strategie, Audits, laufende Betreuung
+2. **GEO** — Optimierung für KI-Suchantworten (Large Language Models, AI Overviews)
+3. **Webdesign** — Conversion-optimierte Websites, Landing Pages, Relaunches
 
 ## Hauptseiten
 
@@ -27,6 +27,7 @@ SeoForge bietet drei Leistungsbereiche:
 
 ## SEO-Leistungen
 
+- [SEO Leistungen](https://seoforge.de/seo): Überblick über alle SEO-Leistungen von Audit bis laufende Betreuung
 - [SEO Beratung](https://seoforge.de/seo/beratung): Strategische SEO-Beratung, Keyword-Strategie und Roadmap
 - [SEO Audit](https://seoforge.de/seo/audit): Technische und inhaltliche Website-Analyse mit Aktionsplan
 - [SEO Optimierung](https://seoforge.de/seo/optimierung): Ganzheitliche Suchmaschinenoptimierung
@@ -42,6 +43,7 @@ SeoForge bietet drei Leistungsbereiche:
 
 ## GEO (Generative Engine Optimization)
 
+- [GEO Leistungen](https://seoforge.de/geo): Überblick über alle GEO-Leistungen für Sichtbarkeit in KI-Suchsystemen
 - [Was ist GEO?](https://seoforge.de/was-ist-geo): Erklärung, Grundlagen und Abgrenzung zu klassischem SEO
 - [GEO Agentur](https://seoforge.de/geo-agentur): Spezialisierte Agentur für KI-Suchoptimierung
 - [GEO Audit](https://seoforge.de/geo/audit): Baseline-Analyse der Sichtbarkeit in ChatGPT, Gemini und Perplexity
@@ -54,28 +56,33 @@ SeoForge bietet drei Leistungsbereiche:
 
 - [Webdesign](https://seoforge.de/webdesign): Professionelles Webdesign mit Fokus auf Conversion und Performance
 - [Website erstellen lassen](https://seoforge.de/webdesign/website-erstellen-lassen): Individuelle Website-Erstellung von Konzept bis Launch
-- [Landing Pages](https://seoforge.de/webdesign/landing-pages): Conversion-optimierte Landing Pages für Kampagnen
-- [Website Relaunch](https://seoforge.de/webdesign/website-relaunch): Moderner Relaunch ohne Ranking-Verlust — SEO-first
+- [Firmenwebsite erstellen lassen](https://seoforge.de/webdesign/firmenwebsite-erstellen-lassen): Firmenwebsite für KMU & Mittelstand — DSGVO- und BFSG-konform, branchenspezifisch, mit planbaren Kosten
+- [Landing Pages](https://seoforge.de/webdesign/landingpage-erstellen-lassen): Conversion-optimierte Landing Pages für Kampagnen
+- [Website Relaunch](https://seoforge.de/webdesign/website-relaunch-agentur): Moderner Relaunch ohne Ranking-Verlust — SEO-first
 - [App Design](https://seoforge.de/webdesign/app-design): UI/UX-Design für Web-Apps, Dashboards und SaaS-Produkte
 
 ## Standorte
 
 - [Alle Standorte](https://seoforge.de/standorte): Regionale SEO-Leistungen in der Metropolregion Rhein-Neckar und Umgebung
-- [SEO Agentur Frankfurt](https://seoforge.de/standorte/seo-agentur-frankfurt)
-- [SEO Agentur Stuttgart](https://seoforge.de/standorte/seo-agentur-stuttgart)
-- [SEO Agentur Heidelberg](https://seoforge.de/standorte/seo-agentur-heidelberg)
-- [SEO Agentur Mainz](https://seoforge.de/standorte/seo-agentur-mainz)
-- [SEO Agentur Wiesbaden](https://seoforge.de/standorte/seo-agentur-wiesbaden)
-- [SEO Agentur Darmstadt](https://seoforge.de/standorte/seo-agentur-darmstadt)
-- [SEO Agentur Karlsruhe](https://seoforge.de/standorte/seo-agentur-karlsruhe)
-- [SEO Agentur Freiburg](https://seoforge.de/standorte/seo-agentur-freiburg)
-- [SEO Agentur Koblenz](https://seoforge.de/standorte/seo-agentur-koblenz)
-- [SEO Agentur Pforzheim](https://seoforge.de/standorte/seo-agentur-pforzheim)
-- [SEO Agentur Ulm](https://seoforge.de/standorte/seo-agentur-ulm)
+- [SEO Agentur Frankfurt](https://seoforge.de/standorte/seo-agentur-frankfurt): SEO-Agentur für Frankfurt und das Rhein-Main-Gebiet
+- [SEO Agentur Stuttgart](https://seoforge.de/standorte/seo-agentur-stuttgart): SEO-Agentur für Stuttgart und die Region
+- [SEO Agentur Heidelberg](https://seoforge.de/standorte/seo-agentur-heidelberg): SEO-Agentur für Heidelberg und die Rhein-Neckar-Region
+- [SEO Agentur Mainz](https://seoforge.de/standorte/seo-agentur-mainz): SEO-Agentur für Mainz und Rheinhessen
+- [SEO Agentur Wiesbaden](https://seoforge.de/standorte/seo-agentur-wiesbaden): SEO-Agentur für Wiesbaden und Umgebung
+- [SEO Agentur Darmstadt](https://seoforge.de/standorte/seo-agentur-darmstadt): SEO-Agentur für Darmstadt und Südhessen
+- [SEO Agentur Karlsruhe](https://seoforge.de/standorte/seo-agentur-karlsruhe): SEO-Agentur für Karlsruhe und die TechnologieRegion
+- [SEO Agentur Freiburg](https://seoforge.de/standorte/seo-agentur-freiburg): SEO-Agentur für Freiburg und den Breisgau
+- [SEO Agentur Koblenz](https://seoforge.de/standorte/seo-agentur-koblenz): SEO-Agentur für Koblenz und das Mittelrheintal
+- [SEO Agentur Pforzheim](https://seoforge.de/standorte/seo-agentur-pforzheim): SEO-Agentur für Pforzheim und den Enzkreis
+- [SEO Agentur Ulm](https://seoforge.de/standorte/seo-agentur-ulm): SEO-Agentur für Ulm und die Region Donau-Iller
 
 ## Wissen & Ratgeber
 
 - [Wissen](https://seoforge.de/wissen): SEO-Ratgeber, Anleitungen und Hintergrundartikel
+- [Ratgeber](https://seoforge.de/wissen/ratgeber): Ausführliche SEO- und Webdesign-Ratgeber mit Schritt-für-Schritt-Anleitungen
+- [Glossar](https://seoforge.de/wissen/glossar): Begriffe aus SEO, GEO und Webdesign verständlich erklärt
+- [News](https://seoforge.de/wissen/news): Aktuelles zu Google-Updates, KI-Suche und Online-Marketing
+- [Case Studies](https://seoforge.de/wissen/case-study): Dokumentierte Kundenprojekte mit Vorgehen und Ergebnissen
 - [SEO Wissen](https://seoforge.de/wissen/seo): Grundlagen und Best Practices der Suchmaschinenoptimierung
 - [GEO Wissen](https://seoforge.de/wissen/geo): Artikel und Guides zur Generative Engine Optimization
 - [On-Page SEO Wissen](https://seoforge.de/wissen/on-page): Technische und inhaltliche On-Page-Faktoren erklärt

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Unser Unterschied — SeoForge</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary:    '#C2722A',
+            secondary:  '#D4A853',
+            dark:       '#1A1A1A',
+            muted:      '#6B6B6B',
+            offwhite:   '#F8F7F5',
+            border:     '#E5E3DF',
+          },
+          fontFamily: {
+            heading: ['Georgia', 'serif'],
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #C2722A 0%, #D4A853 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .card:hover .card-num {
+      background-color: #C2722A;
+      color: #fff;
+    }
+  </style>
+</head>
+<body class="bg-white font-sans antialiased">
+
+<!-- ======================================================
+     SECTION: Unser Unterschied
+     ====================================================== -->
+<section class="py-24 lg:py-36 bg-white">
+  <div class="mx-auto max-w-6xl px-6 lg:px-8">
+
+    <!-- Header -->
+    <div class="mb-16 lg:mb-20">
+      <p class="text-xs font-semibold tracking-[0.2em] uppercase text-primary mb-4">
+        Unser Unterschied
+      </p>
+      <h2 class="text-4xl lg:text-5xl font-heading text-dark leading-tight max-w-2xl">
+        Das macht <span class="gradient-text">SeoForge</span> anders
+      </h2>
+    </div>
+
+    <!-- Grid: 3 top + 2 bottom -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+
+      <!-- Card 1 -->
+      <div class="card group bg-white p-8 lg:p-10 transition-colors hover:bg-offwhite">
+        <span class="card-num inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border text-dark text-sm font-semibold mb-8 transition-all duration-300">
+          01
+        </span>
+        <h3 class="text-xl font-heading text-dark mb-3 leading-snug">
+          Keine Pakete.<br />
+          <span class="gradient-text">Kein Bullshit.</span>
+        </h3>
+        <p class="text-sm text-muted leading-relaxed">
+          Wir verkaufen keine Fixpreis-Pakete. Jede Strategie wird individuell entwickelt — weil Ihr Unternehmen einzigartig ist.
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="card group bg-white p-8 lg:p-10 transition-colors hover:bg-offwhite">
+        <span class="card-num inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border text-dark text-sm font-semibold mb-8 transition-all duration-300">
+          02
+        </span>
+        <h3 class="text-xl font-heading text-dark mb-3 leading-snug">
+          <span class="gradient-text">Maßgeschneidert</span><br />
+          statt Massenware
+        </h3>
+        <p class="text-sm text-muted leading-relaxed">
+          Keine Copy-Paste-Lösungen. Wir analysieren Ihre Ausgangslage und entwickeln Strategien, die zu Ihrem Modell passen.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="card group bg-white p-8 lg:p-10 transition-colors hover:bg-offwhite">
+        <span class="card-num inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border text-dark text-sm font-semibold mb-8 transition-all duration-300">
+          03
+        </span>
+        <h3 class="text-xl font-heading text-dark mb-3 leading-snug">
+          Immer einen<br />
+          <span class="gradient-text">Schritt voraus</span>
+        </h3>
+        <p class="text-sm text-muted leading-relaxed">
+          Algorithm-Updates, GEO-Optimierung, KI-Sichtbarkeit. Wir bleiben am Puls der Zeit — damit Sie es nicht müssen.
+        </p>
+      </div>
+
+      <!-- Card 4 (sm: col-span-1, lg: col-span-1 → push left of center) -->
+      <div class="card group bg-white p-8 lg:p-10 transition-colors hover:bg-offwhite sm:col-span-1 lg:col-span-1">
+        <span class="card-num inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border text-dark text-sm font-semibold mb-8 transition-all duration-300">
+          04
+        </span>
+        <h3 class="text-xl font-heading text-dark mb-3 leading-snug">
+          <span class="gradient-text">Direkter Draht</span><br />
+          zum Experten
+        </h3>
+        <p class="text-sm text-muted leading-relaxed">
+          Keine Account-Manager, keine Weiterleitungen. Sie sprechen direkt mit dem, der Ihre Strategie entwickelt.
+        </p>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="card group bg-white p-8 lg:p-10 transition-colors hover:bg-offwhite sm:col-span-1 lg:col-span-1">
+        <span class="card-num inline-flex items-center justify-center w-10 h-10 rounded-lg border border-border text-dark text-sm font-semibold mb-8 transition-all duration-300">
+          05
+        </span>
+        <h3 class="text-xl font-heading text-dark mb-3 leading-snug">
+          <span class="gradient-text">Kommunikation</span><br />
+          = Qualität
+        </h3>
+        <p class="text-sm text-muted leading-relaxed">
+          Erst echte Kommunikation macht den Unterschied. Transparent, ehrlich, proaktiv — und immer erreichbar.
+        </p>
+      </div>
+
+      <!-- CTA-Tile (3rd col on lg) -->
+      <div class="bg-dark p-8 lg:p-10 flex flex-col justify-between sm:col-span-2 lg:col-span-1">
+        <p class="text-sm text-white/60 leading-relaxed mb-8">
+          Klingt das nach einer Zusammenarbeit, die Sie suchen?
+        </p>
+        <a
+          href="/kontakt"
+          class="group/btn inline-flex items-center gap-2 text-white text-sm font-semibold"
+        >
+          Lassen Sie uns reden
+          <svg class="w-4 h-4 transition-transform group-hover/btn:translate-x-1" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clip-rule="evenodd"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+    <!-- /Grid -->
+
+  </div>
+</section>
+<!-- /SECTION -->
+
+</body>
+</html>

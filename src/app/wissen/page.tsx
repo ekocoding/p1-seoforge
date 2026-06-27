@@ -169,9 +169,41 @@ const clusters = {
       },
     ],
   },
+  webdesign: {
+    key: "webdesign",
+    label: "Webdesign",
+    color: "bg-amber-50 text-amber-700 border-amber-200",
+    dotColor: "bg-amber-500",
+    leistungHref: "/webdesign",
+    description:
+      "One-Pager, Landingpages, Conversion und Website-Aufbau — die Design-Grundlagen, die über Nutzererlebnis und Anfragen entscheiden.",
+    articles: [
+      {
+        title: "Onepager: Was ist eine One-Page-Website, wann lohnt sie sich + Beispiele",
+        excerpt:
+          "Wann eine einzelne Scroll-Seite stärker ist als eine Multipage-Website — und wo ihre Grenzen liegen.",
+        readTime: "9 Min.",
+        slug: "one-pager-website",
+      },
+      {
+        title: "Landingpage-Beispiele: Vorlagen, die wirklich konvertieren",
+        excerpt:
+          "Die Anatomie konversionsstarker Landingpages anhand konkreter Beispiel-Pattern.",
+        readTime: "10 Min.",
+        slug: "landingpage-beispiele",
+      },
+      {
+        title: "Call-to-Action: Beispiele + Best Practices für mehr Conversions",
+        excerpt:
+          "Wie Text, Farbe und Platzierung des wichtigsten Buttons über Anfragen entscheiden.",
+        readTime: "9 Min.",
+        slug: "call-to-action-website",
+      },
+    ],
+  },
 };
 
-const clusterOrder = ["seo", "on-page", "technical-seo", "geo", "local-seo"] as const;
+const clusterOrder = ["seo", "on-page", "technical-seo", "geo", "local-seo", "webdesign"] as const;
 
 const formatTabs = [
   { label: "Alle Formate", href: "/wissen" },

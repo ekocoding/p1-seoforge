@@ -13,6 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${article.title} — SEO News | SeoForge`,
     description: article.excerpt,
+    alternates: { canonical: `https://seoforge.de/wissen/news/${slug}` },
   }
 }
 

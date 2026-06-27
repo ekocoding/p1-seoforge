@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+import HeroShaderWhite from "@/app/components/HeroShaderWhite";
 import SubpageLayout from "@/app/components/SubpageLayout";
 import RetentionDataApp from "./RetentionDataApp";
 import DesignSystemApp from "./DesignSystemApp";
@@ -37,7 +37,7 @@ const faqs = [
   },
   {
     q: "Was bekomme ich am Ende als Deliverable?",
-    a: "Du erhältst: vollständige Figma-Dateien mit allen Screens und Varianten, ein klickbares Prototyp, ein dokumentiertes Design System (Farben, Typografie, Komponenten), und Export-Assets im benötigten Format für deine Entwickler. Alles übergeben in einem Handoff-Meeting.",
+    a: "Du erhältst: vollständige Design-Dateien mit allen Screens und Varianten, ein klickbares Prototyp, ein dokumentiertes Design System (Farben, Typografie, Komponenten), und Export-Assets im benötigten Format für deine Entwickler. Alles übergeben in einem Handoff-Meeting.",
   },
   {
     q: "Macht ihr auch User Research und Usability Testing?",
@@ -80,7 +80,7 @@ const leistungen = [
       </svg>
     ),
     title: "Klickbarer Prototyp",
-    desc: "Interaktiver Prototyp in Figma — zum Testen mit echten Nutzern, für Investor-Demos oder als Referenz für dein Entwicklungsteam.",
+    desc: "Interaktiver klickbarer Prototyp — zum Testen mit echten Nutzern, für Investor-Demos oder als Referenz für dein Entwicklungsteam.",
   },
   {
     icon: (
@@ -98,7 +98,7 @@ const leistungen = [
       </svg>
     ),
     title: "Developer Handoff",
-    desc: "Vollständige Figma-Übergabe mit Design System, exportierten Assets und einem persönlichen Handoff-Meeting für dein Entwicklungsteam.",
+    desc: "Vollständige Design-Übergabe mit Design System, exportierten Assets und einem persönlichen Handoff-Meeting für dein Entwicklungsteam.",
   },
 ];
 
@@ -106,8 +106,8 @@ const prozessSteps = [
   { nr: "01", title: "Discovery & Research", desc: "Nutzerinterviews, Marktanalyse, Personas und User Journey Mapping — wir verstehen deine Zielgruppe, bevor wir ein Pixel setzen." },
   { nr: "02", title: "Wireframing & Konzept", desc: "Grobe Struktur, User Flow und Informationsarchitektur — schnell iterierbar, bevor das Visual Design beginnt." },
   { nr: "03", title: "Visual Design & Design System", desc: "Pixel-perfektes UI nach deiner Brand Identity — inklusive vollständigem Komponenten-System für konsistente Entwicklung." },
-  { nr: "04", title: "Prototyp & Usability Test", desc: "Klickbarer Prototyp in Figma, Test mit echten Nutzern, iterative Verbesserung auf Basis von Feedback." },
-  { nr: "05", title: "Developer Handoff", desc: "Vollständige Figma-Übergabe, Export-Assets, Annotationen und persönliches Handoff-Meeting mit deinem Entwicklungsteam." },
+  { nr: "04", title: "Prototyp & Usability Test", desc: "Klickbarer klickbarer Prototyp, Test mit echten Nutzern, iterative Verbesserung auf Basis von Feedback." },
+  { nr: "05", title: "Developer Handoff", desc: "Vollständige Design-Übergabe, Export-Assets, Annotationen und persönliches Handoff-Meeting mit deinem Entwicklungsteam." },
 ];
 
 const branchen = [
@@ -139,99 +139,95 @@ export default function AppDesignClient() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* HERO */}
-      <section
-        className="relative min-h-screen flex items-center overflow-hidden"
-        style={{ background: "#1A1A1A" }}
-      >
-        <Image
-          src="/images/hero-app-design.jpg"
-          alt="App Design Agentur"
-          fill
-          className="object-cover object-center opacity-25"
-          priority
-          sizes="100vw"
-        />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(105deg, rgba(26,26,26,0.97) 0%, rgba(26,26,26,0.85) 50%, rgba(26,26,26,0.50) 100%)" }} />
+      {/* HERO — weißer Shader, voll-flächig, KEIN dunkler Dimmer */}
+      <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-white">
+        <HeroShaderWhite />
+
         <div
-          className="absolute top-0 right-0 h-[700px] w-[700px] pointer-events-none"
           aria-hidden="true"
-          style={{
-            background:
-              "radial-gradient(circle at 70% 30%, rgba(194,114,42,0.18) 0%, rgba(212,168,83,0.08) 40%, transparent 70%)",
-          }}
+          className="absolute bottom-0 left-0 right-0 h-44 pointer-events-none"
+          style={{ background: "linear-gradient(to bottom, transparent, #ffffff)" }}
         />
 
-        {/* Floating stat */}
-        <div className="absolute bottom-16 right-12 hidden lg:block">
-          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm p-5">
-            <div className="text-3xl font-bold text-primary mb-1">77%</div>
-            <div className="text-xs text-white/50">App-Nutzer weg in 72h</div>
-            <div className="text-xs text-white/30 mt-1">Gutes Design ändert das.</div>
+        {/* Ghost-Wasserzeichen */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute inset-0 flex items-center justify-center"
+          style={{ opacity: 0.05 }}
+        >
+          <span
+            className="font-[family-name:var(--font-heading)] font-black text-dark leading-none tracking-tight"
+            style={{ fontSize: "clamp(130px, 26vw, 420px)" }}
+          >
+            APP
+          </span>
+        </div>
+
+        <div className="relative z-10 mx-auto w-full max-w-5xl px-6 lg:px-8 pt-24 pb-24 text-center">
+
+          <div className="hero-badge mb-8 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-white/55 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-primary">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+            App Design · iOS, Android & Web Apps
+          </div>
+
+          {/* H1 — zwei Zeilen */}
+          <h1
+            className="hero-title font-[family-name:var(--font-heading)] font-bold text-dark leading-[1.08] mb-7"
+            style={{ fontSize: "clamp(38px, 5.2vw, 72px)", letterSpacing: "-0.025em" }}
+          >
+            App Design, das begeistert —
+            <br />
+            <span
+              style={{
+                background: "linear-gradient(95deg, #C2722A 12%, #D4A853 88%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+              }}
+            >
+              von der Skizze zum Prototyp.
+            </span>
+          </h1>
+
+          <div className="hero-description mb-8 flex items-center justify-center gap-4">
+            <div className="h-px w-10 bg-primary/40" />
+            <span className="text-[10px] font-bold tracking-[0.26em] uppercase text-dark/30">
+              UX Research · Prototyping · Design Systems
+            </span>
+            <div className="h-px w-10 bg-primary/40" />
+          </div>
+
+          <p className="hero-description text-muted leading-[1.85] mb-11 max-w-3xl mx-auto" style={{ fontSize: "clamp(15px, 1.1vw, 17px)" }}>
+            Die meisten Apps scheitern nicht an der Technik — sondern an schlechter
+            UX und fehlender Nutzerforschung. Wir designen nutzerorientiert und
+            iterativ: UX-Research vor dem ersten Pixel, klickbare Prototypen
+            für Tests, Demos und Investoren-Pitches, dazu ein vollständiges Design
+            System für die konsistente Entwicklung. Mit echten Usability-Tests statt
+            Annahmen — damit deine App nicht nur gut aussieht, sondern im Alltag
+            besteht und Nutzer langfristig hält.
+          </p>
+
+          <div className="hero-cta flex flex-wrap justify-center gap-4">
+            <Link
+              href="/kontakt"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark hover:shadow-xl hover:-translate-y-0.5"
+            >
+              Kostenloses Design-Gespräch
+              <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+            <Link
+              href="/webdesign"
+              className="inline-flex items-center gap-2 rounded-full border border-dark/15 bg-white/55 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-dark/65 transition-all hover:border-dark/30 hover:bg-white/80 hover:text-dark"
+            >
+              Alle Webdesign-Leistungen
+            </Link>
           </div>
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-8 lg:px-8 lg:pb-32 lg:pt-12 w-full">
-          <div className="max-w-3xl">
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
-              <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-              App Design · iOS, Android & Web Apps
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.1] text-white font-[family-name:var(--font-heading)] mb-6">
-              App Design, das{" "}
-              <span className="border-b-2 border-primary pb-1">
-                Nutzer begeistert.
-              </span>
-            </h1>
-
-            <p className="text-white/60 text-lg leading-relaxed max-w-2xl mb-8">
-              99,5% aller Apps scheitern. Meistens nicht wegen der Technik — sondern wegen schlechtem UX und fehlender Nutzerforschung. Wir designen nutzerorientiert, iterativ und mit echten Tests: von der ersten Skizze bis zum klickbaren Prototyp.
-            </p>
-
-            <ul className="space-y-3 mb-10">
-              {[
-                "UX Research vor dem ersten Pixel — nicht danach",
-                "Klickbare Prototypen für Tests, Demos und Handoff",
-                "Vollständiges Design System für konsistente Entwicklung",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-3">
-                  <svg className="h-5 w-5 text-primary shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                  </svg>
-                  <span className="text-white/80 text-sm">{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="/kontakt"
-                className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary/90 hover:shadow-xl"
-              >
-                Kostenloses Design-Gespräch →
-              </Link>
-              <Link
-                href="/webdesign"
-                className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-sm font-semibold text-white transition-all hover:border-white/40 hover:bg-white/5"
-              >
-                Alle Webdesign-Leistungen →
-              </Link>
-            </div>
-
-            <div className="mt-14 grid grid-cols-3 gap-6 max-w-lg">
-              {[
-                { val: "iOS & Android", label: "Plattformen" },
-                { val: "Figma", label: "Design Tool" },
-                { val: "MVP-ready", label: "Deliverable" },
-              ].map((m) => (
-                <div key={m.label} className="border-l-2 border-primary/40 pl-4">
-                  <div className="text-xl font-bold text-white">{m.val}</div>
-                  <div className="text-xs text-white/50 mt-0.5">{m.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
+          <span className="text-[10px] text-dark/50 font-mono tracking-[0.28em] uppercase">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-dark/30 to-transparent" />
         </div>
       </section>
 
@@ -457,8 +453,8 @@ export default function AppDesignClient() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               { title: "Website erstellen lassen", href: "/webdesign/website-erstellen-lassen", desc: "Professionelle Unternehmenswebsite — SEO-first und conversion-optimiert." },
-              { title: "Landing Pages", href: "/webdesign/landing-pages", desc: "Fokussierte Seiten für Kampagnen und Lead-Generierung." },
-              { title: "Website Relaunch", href: "/webdesign/website-relaunch", desc: "Bestehende Website modernisieren — ohne Rankings zu verlieren." },
+              { title: "Landing Pages", href: "/webdesign/landingpage-erstellen-lassen", desc: "Fokussierte Seiten für Kampagnen und Lead-Generierung." },
+              { title: "Website Relaunch", href: "/webdesign/website-relaunch-agentur", desc: "Bestehende Website modernisieren — ohne Rankings zu verlieren." },
               { title: "SEO Optimierung", href: "/seo/optimierung", desc: "Technisches SEO für maximale Sichtbarkeit in Google." },
             ].map((link) => (
               <Link

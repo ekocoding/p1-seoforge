@@ -66,9 +66,10 @@ export async function POST(req: NextRequest) {
         Authorization: `Bearer ${resendKey}`,
       },
       body: JSON.stringify({
-        from: "SeoForge <noreply@seoforge.de>",
+        from: "SeoForge Kontakt <noreply@seomannheim.com>",
         to: toEmail,
-        subject: `Kontaktanfrage: ${name}${firmenname ? " – " + firmenname : ""}`,
+        reply_to: email,
+        subject: `[SeoForge] Kontaktanfrage: ${name}${firmenname ? " – " + firmenname : ""}`,
         html: htmlBody,
       }),
     });

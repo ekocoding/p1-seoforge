@@ -1,5 +1,5 @@
 export type ArticleType = 'ratgeber' | 'glossar' | 'case-study' | 'news'
-export type ArticleThema = 'seo' | 'geo' | 'on-page' | 'technical-seo' | 'local-seo'
+export type ArticleThema = 'seo' | 'geo' | 'on-page' | 'technical-seo' | 'local-seo' | 'webdesign'
 
 export interface ArticleServiceLink {
   label: string
@@ -18,5 +18,7 @@ export interface Article {
   serviceLinks: ArticleServiceLink[]   // 2-3 kontextuelle Service-Links
   relatedSlugs: string[]               // Slugs anderer Artikel
   published: boolean                   // false = "Demnächst verfügbar"
+  banner?: string                      // Pfad zum Banner-Bild unter /public (optional)
+  faq?: { q: string; a: string }[]     // FAQ-Q&A für FAQPage-Schema (JSON-LD); Anzeige bleibt im content
   content?: string                     // HTML-String mit id-Attributen auf Headings
 }

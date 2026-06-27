@@ -3,6 +3,7 @@ import Link from "next/link";
 import SubpageLayout from "../components/SubpageLayout";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "https://seoforge.de/impressum" },
   title: "Impressum | SeoForge",
   description: "Impressum und rechtliche Informationen von SeoForge",
   robots: {
@@ -46,7 +47,7 @@ export default function ImpressumPage() {
                   <strong>Telefon:</strong> <a href="tel:015203450695" className="text-primary hover:underline">0152 03450695</a>
                 </p>
                 <p className="mb-2">
-                  <strong>E-Mail:</strong> <a href="mailto:info@seomannheim.com" className="text-primary hover:underline">info@seomannheim.com</a>
+                  <strong>E-Mail:</strong> <a href="mailto:info@seoforge.de" className="text-primary hover:underline">info@seoforge.de</a>
                 </p>
               </div>
             </section>

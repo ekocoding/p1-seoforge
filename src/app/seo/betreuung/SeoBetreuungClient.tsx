@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import SubpageLayout from "@/app/components/SubpageLayout";
 import FaqAccordion from "@/app/components/FaqAccordion";
 import WachstumSection from "@/app/components/WachstumSection";
@@ -248,19 +249,17 @@ export default function SeoBetreuungClient() {
           {/* RIGHT — numbered editorial list */}
           <div className="transition-all duration-700 delay-150 reveal">
             {[
-              { num: "01", title: "Algorithmus-Resilienz", desc: "Google Core Updates können Rankings über Nacht verschieben. Wir beobachten jeden Update-Zyklus aktiv und passen Ihre Strategie proaktiv an — nicht erst wenn der Traffic einbricht." },
-              { num: "02", title: "Topical Authority", desc: "Einzelne Keywords gewinnen Sie mit Tricks. Dauerhaft sichtbar werden Sie durch systematischen Aufbau von Themen-Clustern. E-E-A-T-Signale machen Sie zur vertrauenswürdigsten Quelle in Ihrer Nische." },
-              { num: "03", title: "ROI-Fokus", desc: "Traffic ist kein Selbstzweck. Jede Maßnahme hat ein Geschäftsziel — mehr qualifizierte Leads, höhere Conversion-Rate, messbaren Umsatz. Wir optimieren auf das, was zählt." },
-              { num: "04", title: "Datenbasierte Agilität", desc: "Kontinuierliches Monitoring von Rankings, Wettbewerb und Suchintentionen gibt uns den Vorsprung. Wir erkennen Chancen früh und reagieren auf Veränderungen, bevor sie zur Bedrohung werden." },
+              { num: "01", icon: "resilienz", title: "Algorithmus-Resilienz", desc: "Google Core Updates können Rankings über Nacht verschieben. Wir beobachten jeden Update-Zyklus aktiv und passen Ihre Strategie proaktiv an — nicht erst wenn der Traffic einbricht." },
+              { num: "02", icon: "authority", title: "Topical Authority", desc: "Einzelne Keywords gewinnen Sie mit Tricks. Dauerhaft sichtbar werden Sie durch systematischen Aufbau von Themen-Clustern. E-E-A-T-Signale machen Sie zur vertrauenswürdigsten Quelle in Ihrer Nische." },
+              { num: "03", icon: "roi", title: "ROI-Fokus", desc: "Traffic ist kein Selbstzweck. Jede Maßnahme hat ein Geschäftsziel — mehr qualifizierte Leads, höhere Conversion-Rate, messbaren Umsatz. Wir optimieren auf das, was zählt." },
+              { num: "04", icon: "agilitaet", title: "Datenbasierte Agilität", desc: "Kontinuierliches Monitoring von Rankings, Wettbewerb und Suchintentionen gibt uns den Vorsprung. Wir erkennen Chancen früh und reagieren auf Veränderungen, bevor sie zur Bedrohung werden." },
             ].map((item, i) => (
               <div key={item.num} style={{
                 display: "grid", gridTemplateColumns: "64px 1fr", gap: "24px", alignItems: "start",
                 paddingTop: i === 0 ? "0" : "36px", paddingBottom: "36px",
                 borderBottom: i < 3 ? "1px solid rgba(0,0,0,0.07)" : "none",
               }}>
-                <span style={{ fontFamily: "var(--font-heading)", fontSize: "56px", fontWeight: 700, lineHeight: 1, color: "rgba(194,114,42,0.13)", letterSpacing: "-0.03em" }}>
-                  {item.num}
-                </span>
+                <Image src={`/images/betreuung-icons/${item.icon}.png`} alt="" width={48} height={48} style={{ width: "48px", height: "48px", objectFit: "contain" }} />
                 <div style={{ paddingTop: "6px" }}>
                   <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "21px", fontWeight: 700, color: "#0F0F0F", marginBottom: "10px", letterSpacing: "-0.01em", lineHeight: 1.2 }}>
                     {item.title}
@@ -550,20 +549,38 @@ export default function SeoBetreuungClient() {
                     ))}
                   </ul>
                 </div>
-                <div className="p-8 lg:p-10 bg-white border-l border-border">
-                  <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark mb-6">Was Sie erwarten können</h3>
-                  <div className="space-y-4 mb-6">
-                    {[
-                      { label: "Traffic-Wachstum", value: "+40–120%" },
-                      { label: "ROI-Timeline", value: "6–12 Monate" },
-                      { label: "Vertragslaufzeit", value: "Flexibel" },
-                      { label: "Kündbarkeit", value: "Monatlich" },
-                    ].map((m) => (
-                      <div key={m.label} className="flex items-center justify-between pb-3 border-b border-border/50 last:border-0 last:pb-0">
-                        <span className="text-sm text-muted">{m.label}</span>
-                        <span className="text-sm font-bold text-dark">{m.value}</span>
-                      </div>
-                    ))}
+                <div className="p-8 lg:p-10 bg-white border-l border-border flex flex-col">
+                  <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark mb-3">Investition, die sich verzinst</h3>
+                  <p className="text-sm text-muted leading-relaxed mb-6">SEO wirkt über Zinseszins: Die Investition bleibt planbar, der Ertrag wächst überproportional. Ab dem Break-even arbeitet Ihre Seite für Sie.</p>
+
+                  <div className="relative">
+                    <svg viewBox="0 0 340 210" className="w-full h-auto" role="img" aria-label="Schematischer Verlauf: Investition gegen Ertrag über die Zeit">
+                      <style>{`
+                        @keyframes roiDraw { to { stroke-dashoffset: 0; } }
+                        @keyframes roiFade { to { opacity: 1; } }
+                        .roi-l { stroke-dasharray: 440; stroke-dashoffset: 440; animation: roiDraw 1.7s ease-out forwards; }
+                        .roi-l2 { animation-delay: .2s; }
+                        .roi-rev, .roi-dot, .roi-belab { opacity: 0; animation: roiFade .6s ease-out forwards; animation-delay: 1.35s; }
+                      `}</style>
+                      <line x1="40" y1="22" x2="40" y2="190" stroke="rgba(0,0,0,0.12)" strokeWidth="1" />
+                      <line x1="40" y1="190" x2="324" y2="190" stroke="rgba(0,0,0,0.12)" strokeWidth="1" />
+                      <path className="roi-rev" d="M195 120 C 235 84 285 60 316 44 L 316 96 L 195 120 Z" fill="rgba(194,114,42,0.12)" />
+                      <path className="roi-l" d="M44 158 L 316 96" fill="none" stroke="#9b9b9b" strokeWidth="2.5" strokeLinecap="round" />
+                      <path className="roi-l roi-l2" d="M44 182 C 120 176 165 148 195 120 C 235 84 285 60 316 44" fill="none" stroke="#C2722A" strokeWidth="3" strokeLinecap="round" />
+                      <g className="roi-dot">
+                        <line x1="195" y1="120" x2="195" y2="190" stroke="rgba(194,114,42,0.35)" strokeWidth="1" strokeDasharray="3 3" />
+                        <circle cx="195" cy="120" r="5" fill="#fff" stroke="#C2722A" strokeWidth="2.5" />
+                      </g>
+                      <text className="roi-belab" x="195" y="205" textAnchor="middle" fontSize="9" fill="rgba(15,15,15,0.5)" fontWeight="600">Break-even</text>
+                      <text x="46" y="18" fontSize="9" fill="rgba(15,15,15,0.4)">Wert</text>
+                      <text x="300" y="185" fontSize="9" fill="rgba(15,15,15,0.4)">Zeit</text>
+                    </svg>
+                  </div>
+
+                  <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 text-xs">
+                    <span className="inline-flex items-center gap-1.5 text-dark"><span className="inline-block w-4 h-[3px] rounded bg-[#9b9b9b]" />Investition</span>
+                    <span className="inline-flex items-center gap-1.5 text-dark"><span className="inline-block w-4 h-[3px] rounded bg-primary" />Ertrag</span>
+                    <span className="text-muted">ohne Mindestlaufzeit · monatlich kündbar</span>
                   </div>
                 </div>
               </div>
@@ -692,18 +709,6 @@ export default function SeoBetreuungClient() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="bg-offwhite py-24 lg:py-32 border-t border-border">
-        <div className="mx-auto max-w-3xl px-6 lg:px-8">
-          <div className="text-center mb-14 transition-all duration-700 reveal">
-            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">FAQ</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Häufig gestellte Fragen</h2>
-          </div>
-          <div className="transition-all duration-700 delay-100 reveal">
-            <FaqAccordion items={faqs} />
-          </div>
-        </div>
-      </section>
 
       {/* ============================================================ */}
       {/*  JETZT STARTEN — CTA                                          */}
@@ -764,6 +769,18 @@ export default function SeoBetreuungClient() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+      {/* FAQ */}
+      <section className="bg-offwhite py-24 lg:py-32 border-t border-border">
+        <div className="mx-auto max-w-3xl px-6 lg:px-8">
+          <div className="text-center mb-14 transition-all duration-700 reveal">
+            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">FAQ</span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Häufig gestellte Fragen</h2>
+          </div>
+          <div className="transition-all duration-700 delay-100 reveal">
+            <FaqAccordion items={faqs} />
           </div>
         </div>
       </section>

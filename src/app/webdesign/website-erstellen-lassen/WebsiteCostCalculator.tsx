@@ -7,7 +7,7 @@ const types = [
     label: "Unternehmenswebsite",
     price: "ab 2.500 €",
     timeline: "4–6 Wochen",
-    features: ["Custom UI/UX Design", "SEO-Setup inklusive", "CMS für eigenständige Pflege", "Core Web Vitals 96+"],
+    features: ["Custom UI/UX Design", "SEO-Setup inklusive", "CMS für eigenständige Pflege", "Core Web Vitals optimiert"],
   },
   {
     id: "ecommerce",

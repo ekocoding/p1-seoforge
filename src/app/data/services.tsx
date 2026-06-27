@@ -122,6 +122,17 @@ export const webdesignServices = [
     ),
   },
   {
+    title: "Firmenwebsite erstellen lassen",
+    href: "/webdesign/firmenwebsite-erstellen-lassen",
+    description:
+      "Professionelle, custom-coded Websites zum fairen Preis — dank KI-Workflows auch mit kleinerem Budget.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5" />
+      </svg>
+    ),
+  },
+  {
     title: "Webdesign & UI/UX",
     href: "/webdesign",
     description:
@@ -134,7 +145,7 @@ export const webdesignServices = [
   },
   {
     title: "Landing Pages",
-    href: "/webdesign/landing-pages",
+    href: "/webdesign/landingpage-erstellen-lassen",
     description:
       "Conversion-optimierte Landingpages für Kampagnen, Launches und Lead-Generierung.",
     icon: (
@@ -145,7 +156,7 @@ export const webdesignServices = [
   },
   {
     title: "Website Relaunch",
-    href: "/webdesign/website-relaunch",
+    href: "/webdesign/website-relaunch-agentur",
     description:
       "Bestehende Website modernisieren — ohne Rankings zu verlieren. SEO-sichere Migration inklusive.",
     icon: (
@@ -228,6 +239,45 @@ export const geoServices = [
   },
 ];
 
+/* ------------------------------------------------------------------ */
+/*  BETREUUNG & WARTUNG SERVICES                                       */
+/* ------------------------------------------------------------------ */
+export const wartungServices = [
+  {
+    title: "Website-Wartung & Betreuung",
+    href: "/website-wartung",
+    description:
+      "Updates, Backups, Security & Performance — Ihre Website bleibt sicher, schnell und aktuell.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+      </svg>
+    ),
+  },
+  {
+    title: "WordPress-Wartung",
+    href: "/website-wartung/wordpress",
+    description:
+      "Core-, Plugin- & Theme-Updates, Backups und Security-Hardening für WordPress.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /><path d="M9 12l2 2 4-4" />
+      </svg>
+    ),
+  },
+  {
+    title: "SEO Betreuung",
+    href: "/seo/betreuung",
+    description:
+      "Laufende monatliche SEO-Betreuung mit Reporting — ohne Mindestvertragslaufzeit.",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+      </svg>
+    ),
+  },
+];
+
 export const serviceCategories = [
   {
     id: "seo",
@@ -244,7 +294,7 @@ export const serviceCategories = [
   {
     id: "webdesign",
     label: "Webdesign",
-    description: "5 Leistungen",
+    description: "6 Leistungen",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
         <rect x="2" y="3" width="20" height="14" rx="2" ry="2" /><line x1="8" y1="21" x2="16" y2="21" /><line x1="12" y1="17" x2="12" y2="21" />
@@ -262,5 +312,16 @@ export const serviceCategories = [
       </svg>
     ),
     services: geoServices,
+  },
+  {
+    id: "wartung",
+    label: "Betreuung & Wartung",
+    description: "3 Leistungen",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+    ),
+    services: wartungServices,
   },
 ];

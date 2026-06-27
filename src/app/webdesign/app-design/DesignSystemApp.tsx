@@ -4,12 +4,12 @@ import { useEffect, useRef, useState } from "react";
 const process = [
   { step: "01", title: "Discovery & Briefing", desc: "Zielgruppe, Konkurrenz, Brand-Werte — bevor ein Pixel gesetzt wird." },
   { step: "02", title: "Wireframes & Flow", desc: "Seitenstruktur und User-Journey ohne visuellen Ablenkungen." },
-  { step: "03", title: "Design System", desc: "Farben, Typografie, Komponenten — als Figma-Bibliothek." },
+  { step: "03", title: "Design System", desc: "Farben, Typografie, Komponenten — als Komponenten-Bibliothek." },
   { step: "04", title: "UI Design & Prototyp", desc: "Klickbarer Prototyp vor der Entwicklung — kein Blindflug." },
-  { step: "05", title: "Übergabe an Entwicklung", desc: "Dev-ready Figma mit Tokens, Specs und Komponenten-Doku." },
+  { step: "05", title: "Übergabe an Entwicklung", desc: "Dev-ready Design-Dateien mit Tokens, Specs und Komponenten-Doku." },
 ];
 
-const deliverables = ["Figma Source File", "Design Tokens (JSON)", "Komponentenbibliothek", "Style Guide PDF", "Icon Set (SVG)", "Responsive Breakpoints"];
+const deliverables = ["Design-Quelldatei", "Design Tokens (JSON)", "Komponentenbibliothek", "Style Guide PDF", "Icon Set (SVG)", "Responsive Breakpoints"];
 
 export default function DesignSystemApp() {
   const ref = useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ export default function DesignSystemApp() {
           </div>
         </div>
         <p className="text-xs text-muted mt-4 border-t border-border pt-4">
-          Jedes App-Design-Projekt beinhaltet ein vollständiges Figma Design System — als Dokumentation für dein Entwicklerteam.
+          Jedes App-Design-Projekt beinhaltet ein vollständiges Design System — als Dokumentation für dein Entwicklerteam.
         </p>
       </div>
     </div>

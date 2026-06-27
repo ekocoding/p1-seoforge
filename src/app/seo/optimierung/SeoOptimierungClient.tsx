@@ -270,42 +270,6 @@ export default function SeoOptimierungClient() {
       {/* ============================================================ */}
       {/*  TWO PILLARS — Interactive flip cards                         */}
       {/* ============================================================ */}
-      <style jsx>{`
-        .pillar-card {
-          transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .pillar-card:hover {
-          transform: translateY(-8px) scale(1.02);
-          box-shadow: 0 25px 50px -12px rgba(194, 114, 42, 0.12);
-        }
-        .pillar-card:hover .pillar-icon {
-          transform: rotateY(180deg);
-        }
-        .pillar-icon {
-          transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .pillar-card:hover .pillar-bar {
-          width: 100% !important;
-        }
-        .pillar-bar {
-          transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .pillar-card:hover .pillar-tag {
-          background: var(--color-primary);
-          color: white;
-          border-color: var(--color-primary);
-        }
-        .pillar-tag {
-          transition: all 0.3s ease;
-        }
-        .pillar-card-secondary:hover {
-          box-shadow: 0 25px 50px -12px rgba(212, 168, 83, 0.12);
-        }
-        .pillar-card-secondary:hover .pillar-tag {
-          background: var(--color-secondary);
-          border-color: var(--color-secondary);
-        }
-      `}</style>
       <section className="bg-offwhite py-24 lg:py-32 border-y border-border">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="text-center mb-16 transition-all duration-700 reveal">
