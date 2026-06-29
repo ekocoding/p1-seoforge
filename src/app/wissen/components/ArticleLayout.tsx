@@ -296,25 +296,6 @@ export default function ArticleLayout({ article, children }: ArticleLayoutProps)
                       </nav>
                     ) : null
                   })()}
-
-                  {/* CTA box */}
-                  <div className="rounded-2xl bg-primary/[0.06] border border-primary/20 p-6">
-                    <p className="text-sm font-semibold text-dark mb-4">Professionelle Unterstützung?</p>
-                    <div className="flex flex-col gap-2.5">
-                      {article.serviceLinks.map((link) => (
-                        <Link
-                          key={link.href}
-                          href={link.href}
-                          className="inline-flex items-center justify-center gap-2 rounded-full bg-primary hover:bg-primary-dark px-5 py-2.5 text-sm font-semibold text-white transition-all"
-                        >
-                          {link.label}
-                          <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                            <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
-                          </svg>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
                 </div>
               </div>
             ) : (
@@ -344,31 +325,6 @@ export default function ArticleLayout({ article, children }: ArticleLayoutProps)
             )}
           </div>
         </section>
-
-        {/* D) Inline Service CTA Block */}
-        {article.serviceLinks.length > 0 && (
-          <section className="py-8">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="rounded-2xl bg-primary/[0.06] border border-primary/20 p-8">
-                <p className="text-base font-semibold text-dark mb-5">Professionelle Unterstützung?</p>
-                <div className="flex flex-wrap gap-3">
-                  {article.serviceLinks.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className="inline-flex items-center gap-2 rounded-full bg-primary hover:bg-primary-dark px-6 py-3 text-sm font-semibold text-white transition-all"
-                    >
-                      {link.label}
-                      <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
-                      </svg>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* E) End CTA */}
         <section className="py-12 lg:py-16">
