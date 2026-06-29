@@ -54,6 +54,8 @@ export default function Footer() {
               {[
                 { label: "SEO Agentur", href: "/seo-agentur" },
                 { label: "GEO Agentur", href: "/geo-agentur" },
+                { label: "KI-SEO Agentur", href: "/ki-seo-agentur" },
+                { label: "Website-Relaunch Agentur", href: "/webdesign/website-relaunch-agentur" },
               ].map((item) => (
                 <li key={item.label}>
                   <Link

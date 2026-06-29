@@ -4393,6 +4393,403 @@ export const articles: Article[] = [
 <p>Realistische Ergebnisse zeigen sich nach 3–6 Monaten, messbare organische Sichtbarkeit nach 6–12 Monaten. Das hängt stark vom Wettbewerb, dem Ausgangszustand der Website und der Qualität der umgesetzten Maßnahmen ab.</p>`
   },
   {
+    slug: "marken-sichtbarkeit-in-ki",
+    type: 'ratgeber',
+    thema: "geo",
+    title: "Marken-Sichtbarkeit in KI aufbauen: Der vollständige Ratgeber",
+    excerpt: "Nicht zitiert in ChatGPT, Perplexity oder Google AI? Dann bist du für diese Nutzer unsichtbar. Hier zeigen wir, wie Marken-Sichtbarkeit in KI funktioniert.",
+    readTime: "12 min",
+    publishDate: "2026-06-28",
+    lastUpdated: "2026-06-29",
+    published: true,
+    banner: "/wissen/marken-sichtbarkeit-in-ki-banner.webp",
+    serviceLinks: [
+      { label: "GEO-Agentur", href: "/geo-agentur" },
+      { label: "GEO-Optimierung anfragen", href: "/geo/optimierung" },
+    ],
+    relatedSlugs: ["geo-ranking-faktoren", "geo-vs-seo"],
+    faq: [{"q": "Was bedeutet Marken-Sichtbarkeit in KI?", "a": "Marken-Sichtbarkeit in KI beschreibt, wie häufig und wie prominent eine Marke in generierten Antworten von KI-Systemen wie ChatGPT, Perplexity oder Google AI Mode als Entität genannt oder zitiert wird — unabhängig von klassischen Suchmaschinen-Rankings."}, {"q": "Reicht klassisches SEO für KI-Sichtbarkeit aus?", "a": "Nein. Klassisches SEO optimiert Seiten für Keywords und Positionen. KI-Systeme verarbeiten Marken als Entitäten — die Frage ist nicht mehr, welche Seite rankt, sondern welche Marke in diesem Kontext relevant und glaubwürdig ist. Beide Disziplinen ergänzen sich, aber SEO allein deckt KI-Sichtbarkeit nicht ab."}, {"q": "Wie erscheine ich in ChatGPT und Perplexity?", "a": "Durch eine konsistente Marken-Entität (Wikidata, Knowledge Graph), hochwertigen zitierfähigen Content, breite digitale Erwähnungen in Fachmedien sowie strukturierte Daten. KI-Systeme trainieren auf öffentlichen Daten und zitieren Quellen, die konsistent und fachlich belegt auftreten."}, {"q": "Wie messe ich meine KI-Sichtbarkeit?", "a": "Über spezialisierte Tools wie Profound oder Otterly.ai, die automatisch prüfen, ob deine Marke in KI-Antworten erscheint. Ergänzend empfiehlt sich manuelles Prompt-Monitoring in ChatGPT und Perplexity sowie die Analyse von KI-Referral-Traffic in Google Analytics 4."}, {"q": "Was ist llms.txt und brauche ich es?", "a": "llms.txt ist eine Textdatei im Stammverzeichnis einer Domain ähnlich robots.txt, die KI-Crawlern zeigt, welche Inhalte besonders relevant sind. Noch kein etablierter Standard, aber ein risikofreies, einfach umzusetzendes Signal für jede Domain, die aktiv an ihrer KI-Sichtbarkeit arbeitet."}, {"q": "Wie lange dauert es, bis KI-Sichtbarkeit messbar wird?", "a": "Erste messbare Effekte zeigen sich typischerweise nach drei bis sechs Monaten konsequenter Arbeit. Wie schnell das geht, hängt von der bestehenden digitalen Präsenz der Marke ab. Unternehmen mit breitem digitalen Fußabdruck sehen früher Ergebnisse."}],
+    content: `<style>
+  .kms-lead {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    border-left: 4px solid #C2722A;
+    padding: 1rem 1.35rem;
+    margin-bottom: 2rem;
+    background: #F8F7F5;
+    border-radius: 0 5px 5px 0;
+  }
+
+  .kms-box {
+    background: #F8F7F5;
+    border: 1px solid #e2ddd8;
+    border-radius: 6px;
+    padding: 1.4rem 1.6rem;
+    margin: 2rem 0;
+  }
+
+  .kms-box--gold {
+    border-left: 4px solid #D4A853;
+  }
+
+  .kms-callout {
+    background: #1A1A1A;
+    color: #F8F7F5;
+    border-radius: 8px;
+    padding: 1.875rem 2rem;
+    margin: 2.5rem 0;
+  }
+
+  .kms-callout__label {
+    display: block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #C2722A;
+    margin-bottom: 0.75rem;
+  }
+
+  .kms-callout__body {
+    font-size: 1rem;
+    line-height: 1.72;
+    margin: 0 0 1.25rem;
+    color: #e8e4e0;
+  }
+
+  .kms-callout__cta {
+    display: inline-block;
+    color: #D4A853;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-size: 0.9375rem;
+  }
+
+  .kms-callout__cta:hover {
+    color: #e8bc65;
+  }
+
+  .kms-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .kms-table thead th {
+    background: #1A1A1A;
+    color: #F8F7F5;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    letter-spacing: 0.02em;
+  }
+
+  .kms-table tbody td {
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid #e2ddd8;
+    vertical-align: top;
+    line-height: 1.55;
+  }
+
+  .kms-table tbody tr:nth-child(even) td {
+    background: #F8F7F5;
+  }
+
+  .kms-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .kms-phase {
+    border-left: 3px solid #C2722A;
+    padding: 0.15rem 0 0.15rem 1.25rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .kms-phase__head {
+    font-weight: 700;
+    color: #1A1A1A;
+    margin: 0 0 0.5rem;
+    font-size: 1.0625rem;
+  }
+
+  .kms-phase__head em {
+    font-style: normal;
+    color: #C2722A;
+  }
+
+  .kms-phase ul {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  .kms-phase li {
+    margin-bottom: 0.4rem;
+    line-height: 1.6;
+  }
+
+  .kms-meta-proof {
+    font-size: 0.8125rem;
+    color: #999;
+    font-style: italic;
+    border-top: 1px solid #e2ddd8;
+    padding-top: 1.25rem;
+    margin-top: 2.5rem;
+    line-height: 1.65;
+  }
+</style>
+
+<p class="kms-lead">
+  <strong>Marken-Sichtbarkeit in KI</strong> bezeichnet den Grad, zu dem eine Marke von LLM-basierten Systemen als eindeutige Entität erkannt, einem Themenfeld zugeordnet und in generierten Antworten aktiv genannt oder als Quelle zitiert wird.
+</p>
+
+<p>Das klingt abstrakt — ist es aber im Kern nicht. Stell dir vor, ein potenzieller Kunde fragt ChatGPT: „Welche SEO-Agentur ist empfehlenswert in Deutschland?" Wenn dein Unternehmensname in der Antwort nicht auftaucht, existierst du für diesen Nutzer schlicht nicht. Nicht auf Seite zwei. Gar nicht.</p>
+
+<p>Genau das verändert sich gerade, und zwar schnell. KI-Antwortmaschinen wie ChatGPT Search, Perplexity und Google AI Mode ersetzen für einen wachsenden Teil der Suchanfragen die klassischen zehn blauen Links. Nutzer stellen Fragen und bekommen Antworten — keine Trefferliste, aus der sie selbst auswählen. Wer in diesen Antworten fehlt, verliert Kontaktpunkte, ohne dass ein einziges Ranking schlechter geworden ist. Das ist das neue Problem, und es trifft Unternehmen, die nur klassisches SEO betreiben, unbemerkt.</p>
+
+<p>Wer heute gezielt an seiner <a href="/geo-agentur">KI-Sichtbarkeit als Marke</a> arbeitet, sichert sich eine Position, die sich von klassischen Rankings fundamental unterscheidet: Sie basiert auf Entitäts-Autorität, nicht auf technischen Optimierungen, die ein Mitbewerber in zwei Wochen replizieren kann. Dieser Ratgeber zeigt, was dahintersteckt und wie der Aufbau konkret aussieht.</p>
+
+<h2 id="was-ist-marken-sichtbarkeit-in-ki">Was ist Marken-Sichtbarkeit in KI?</h2>
+
+<p>Eine Abgrenzung ist nötig, weil der Begriff leicht mit klassischen SEO-Konzepten vermischt wird.</p>
+
+<p><strong>Marken-Sichtbarkeit in KI ist keine Positions-Metrik.</strong> Der traditionelle Sichtbarkeitsindex misst, auf welchen Positionen eine Domain für welche Keywords rankt — ablesbar in Tools wie Sistrix oder Searchmetrics. Das ist eine Seiten-Metrik.</p>
+
+<p>KI-Systeme ranken keine Seiten. Sie generieren Antworten. Die entscheidende Frage lautet nicht mehr: <em>Welche URL steht auf Position 1?</em> Sie lautet: <em>Kennt das Modell meine Marke? Ordnet es sie dem richtigen Kontext zu? Und hält es sie für glaubwürdig genug, um sie zu nennen?</em></p>
+
+<p>Die Antwort darauf hängt an der Entität — nicht an der Seite.</p>
+
+<div class="kms-box kms-box--gold">
+  <strong>Entität vs. Seite — der entscheidende Unterschied:</strong><br>
+  Eine Seite rankt für ein Keyword. Eine Entität wird in einem Kontext zitiert. Entitäten können Unternehmen, Personen, Produkte oder Konzepte sein. Google und KI-Systeme verarbeiten Entitäten — nicht Keyword-Strings. Wer als Entität im Modell verankert ist, erscheint auch dann in Antworten, wenn die eigene Website gar nicht direkt als Live-Quelle abgerufen wird.
+</div>
+
+<p>KI-Sichtbarkeit aufzubauen bedeutet daher: die Marke als eindeutige, konsistent beschriebene und thematisch klare Entität in den Daten zu verankern, auf denen KI-Modelle basieren.</p>
+
+<h2 id="warum-klassisches-seo-allein-nicht-reicht">Warum klassisches SEO allein nicht reicht</h2>
+
+<p>SEO funktioniert. Das wird noch lange so bleiben. Aber SEO allein deckt nicht mehr alle relevanten Sichtbarkeits-Kanäle ab — das ist keine Prognose, sondern eine beobachtbare Verschiebung.</p>
+
+<p>Google selbst hat das Sucherlebnis verändert: AI Overviews erscheinen bei einem substanziellen und weiter wachsenden Anteil informativer Suchanfragen oberhalb aller organischen Ergebnisse. Wer auf Position 1 rankt, aber nicht in der AI Overview erscheint, verliert Klicks — ohne Verschlechterung im Ranking. Der klassische Sichtbarkeitsindex bildet das nicht ab. KI-Sichtbarkeit passiert in einem Bereich, den die meisten bestehenden Tools noch nicht erfassen.</p>
+
+<p>Perplexity, ChatGPT Search und Microsoft Copilot haben gemeinsam Milliarden monatlicher Anfragen. Nutzer, die dort recherchieren, verlassen die Plattform häufig gar nicht — sie bekommen ihre Antwort direkt, inklusive Quellenangaben. Für diese Nutzer ist nur relevant, was in der Antwort erscheint.</p>
+
+<p>Das führt zu einem anderen Optimierungs-Ziel. Klassisches SEO arbeitet auf der Ebene <em>Keyword → Seite → Position → Klick</em>. GEO — Generative Engine Optimization — arbeitet auf der Ebene <em>Entität → Erwähnung → Vertrauen → Konversion</em>. Was der Unterschied zwischen beiden Ansätzen konkret bedeutet, erklären wir im <a href="/wissen/ratgeber/geo-vs-seo">Vergleich GEO vs. SEO</a>.</p>
+
+<p>Kurzfassung: Wer nur in klassischen Suchmaschinen optimiert, baut organische Sichtbarkeit in einem Kanal auf — und lässt einen zweiten, schnell wachsenden Kanal unbearbeitet.</p>
+
+<h2 id="die-hebel-wie-deine-marke-als-entitaet-in-ki-sichtbar-wird">Die Hebel: Wie deine Marke als Entität in KI sichtbar wird</h2>
+
+<p>Es gibt keine einzelne Maßnahme, die KI-Sichtbarkeit garantiert. Mehrere Faktoren greifen ineinander und verstärken sich gegenseitig. Wir beschreiben hier die Marken- und Entitäts-Perspektive. Für die technische Tiefe zu einzelnen Inhalts- und Quellensignalen verweisen wir auf den Artikel zu den <a href="/wissen/ratgeber/geo-ranking-faktoren">GEO-Ranking-Faktoren</a>.</p>
+
+<h3 id="konsistente-marken-entitaet">Konsistente Marken-Entität</h3>
+
+<p>Ein Sprachmodell lernt, wer eine Marke ist, aus allem, was öffentlich über sie existiert. Wenn der Markenname auf der Website anders geschrieben ist als in Presseartikeln oder im Google-Business-Profil, entstehen für das Modell mehrere widersprüchliche oder schwache Entitäten. Das schwächt das Entitäts-Signal erheblich.</p>
+
+<p>Konsistenz bedeutet: derselbe Name, dieselbe Beschreibung des Leistungsangebots, dieselbe geografische Verortung — kanalübergreifend und ohne Widersprüche. In der Praxis ist das bei vielen Unternehmen überraschend oft nicht sauber umgesetzt.</p>
+
+<h3 id="wikidata-knowledge-graph">Wikidata und Knowledge Graph</h3>
+
+<p>Googles Knowledge Graph lernt unter anderem aus strukturierten Daten in Wikidata. Marken mit einem eigenen Wikidata-Datensatz werden von Modellen deutlich verlässlicher erkannt — das Modell weiß, was diese Marke ist, was sie macht und in welchen Kontext sie gehört. Das bedeutet nicht, dass Wikipedia-Relevanz vorausgesetzt wird. Auch ein gepflegter Wikidata-Eintrag ohne eigenen Wikipedia-Artikel stärkt die Entitäts-Erkennung. Ergänzend wirken Google Business Profile, LinkedIn Company Page und Branchenverzeichnisse mit konsistenten NAP-Daten.</p>
+
+<h3 id="digitaler-fussabdruck-und-pr">Digitaler Fußabdruck und digitale PR</h3>
+
+<p>KI-Modelle trainieren auf öffentlich verfügbaren Texten. Je häufiger eine Marke in hochwertigen, thematisch passenden Quellen erwähnt wird — Fachpublikationen, Interviews, Gastartikel, Podcast-Transkripte — desto stärker wird ihre Entität im Modell verankert.</p>
+
+<p>Bemerkenswert dabei: Unverlinkte Erwähnungen spielen eine Rolle, die klassisches Link-Building so nicht kennt. Ein Fachartikel, der eine Marke als Experten zitiert, hat für die KI-Sichtbarkeit erhebliches Gewicht — auch ohne Backlink. Digitale PR ist damit kein Nice-to-have, sondern ein direkter Hebel, um KI-Sichtbarkeit zu erhöhen.</p>
+
+<h3 id="zitierfaehige-inhalte">Zitierfähige Inhalte</h3>
+
+<p>KI-Systeme, die Live-Quellen einbeziehen (Perplexity, ChatGPT Search, Google AI Mode), bevorzugen Inhalte, die klar strukturiert, faktisch belastbar und direkt antwortend sind. Konkret: klare Definitionen zu Beginn von Abschnitten, FAQ-Strukturen, knappe Zusammenfassungen, Heading-Hierarchien, die eine Frage-Antwort-Logik abbilden. Dieser Ratgeber ist selbst nach diesen Prinzipien aufgebaut — das ist keine Theorie, das ist die Praxis, die wir für Kunden und für uns selbst anwenden.</p>
+
+<h3 id="strukturierte-daten">Strukturierte Daten (Schema.org)</h3>
+
+<p>Organization-Schema, Article-Schema, FAQ-Schema und Author-Schema machen Inhalte für Crawler maschinenlesbar — für KI-Crawler genauso wie für klassische Suchmaschinen-Bots. Gut implementiertes Schema stärkt die Entitäts-Zuordnung: Wer ist der Autor, welche Organisation steckt dahinter, zu welchem Thema gehört dieser Content?</p>
+
+<h3 id="llms-txt">llms.txt</h3>
+
+<p>llms.txt ist eine Textdatei im Stammverzeichnis einer Domain — dem Konzept von robots.txt ähnlich. Sie listet die wichtigsten Seiten auf, die für LLM-Crawler besonders relevant sind. Noch kein etablierter Industriestandard, wird aber von einer wachsenden Zahl von KI-Systemen gelesen. Für Domains, die aktiv an ihrer KI-Sichtbarkeit arbeiten, ist es ein einfaches, risikofreies Signal.</p>
+
+<table class="kms-table">
+  <thead>
+    <tr>
+      <th>Hebel</th>
+      <th>Wirkung auf KI-Sichtbarkeit</th>
+      <th>Aufwand</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Konsistente Marken-Entität</strong></td>
+      <td>Grundlage für Entitäts-Erkennung in allen KI-Systemen</td>
+      <td>Gering (einmalig)</td>
+    </tr>
+    <tr>
+      <td><strong>Wikidata-Eintrag</strong></td>
+      <td>Direkte Verknüpfung mit Knowledge Graph</td>
+      <td>Gering bis mittel</td>
+    </tr>
+    <tr>
+      <td><strong>Digitale PR / Mentions</strong></td>
+      <td>Stärkt Entitäts-Training; höchste Wirkung bei Fachmedien</td>
+      <td>Mittel bis hoch</td>
+    </tr>
+    <tr>
+      <td><strong>Zitierfähiger Content</strong></td>
+      <td>Direkte Quellennutzung durch Live-KI-Systeme</td>
+      <td>Mittel (dauerhaft)</td>
+    </tr>
+    <tr>
+      <td><strong>Schema.org / Strukturierte Daten</strong></td>
+      <td>Maschinenlesbare Entitäts-Zuordnung für alle Crawler</td>
+      <td>Gering bis mittel</td>
+    </tr>
+    <tr>
+      <td><strong>llms.txt</strong></td>
+      <td>Direktes Signal an LLM-Crawler zu priorisierten Inhalten</td>
+      <td>Gering (einmalig)</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="kms-callout icg-callout">
+  <span class="kms-callout__label">So setzen wir das um</span>
+  <p class="kms-callout__body">Bei SeoForge kombinieren wir Entitäts-Aufbau, zitierfähige Content-Architektur und digitale PR in einem strukturierten GEO-Prozess — messbar, dokumentiert und auf die Ziele einer Marke abgestimmt. Wie das für dein Unternehmen konkret aussieht, findest du auf unserer <a class="kms-callout__cta" href="/geo-agentur">GEO-Agentur-Seite →</a></p>
+</div>
+
+<h2 id="wie-misst-du-deine-ki-sichtbarkeit">Wie misst du deine KI-Sichtbarkeit?</h2>
+
+<p>Das ist die Frage, die in fast jedem Erstgespräch kommt — zu Recht. Wer KI-Sichtbarkeit nicht messen kann, kann sie nicht gezielt verbessern. Die Mess-Infrastruktur ist noch im Aufbau, aber es gibt bereits valide Methoden.</p>
+
+<h3 id="share-of-voice-in-ki-antworten">Share of Voice in KI-Antworten</h3>
+
+<p>Share of Voice (SoV) in KI-Antworten misst, wie oft eine Marke in generierten Antworten zu relevanten Fragen erscheint — im Vergleich zu definierten Wettbewerbern. Das ist das direkteste Maß für KI-Sichtbarkeit: Ein SoV von 0 % für ein Kernthema bedeutet, dass das Modell die Marke in diesem Kontext nicht nennt. Spezialisierte AI-powered Monitoring-Agenten senden automatisch Test-Prompts an verschiedene KI-Systeme und analysieren, welche Marken in den Antworten erscheinen, wie häufig und in welchem Kontext.</p>
+
+<h3 id="ki-monitoring-tools">KI-Monitoring-Tools im Überblick</h3>
+
+<table class="kms-table">
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Was es misst</th>
+      <th>Besonderheit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Profound</strong></td>
+      <td>Brand Mentions in ChatGPT, Perplexity, Gemini, Claude</td>
+      <td>Detailliertes SoV-Dashboard; Prompt-Kategorisierung nach Themen</td>
+    </tr>
+    <tr>
+      <td><strong>Otterly.ai</strong></td>
+      <td>AI Visibility Score; Wettbewerber-Vergleich</td>
+      <td>Guter Einstieg für B2B und E-Commerce</td>
+    </tr>
+    <tr>
+      <td><strong>Brandwatch (AI-Modul)</strong></td>
+      <td>Mentions in KI-generierten Texten und News-Quellen</td>
+      <td>Breite Datenbasis; Enterprise-Preisklasse</td>
+    </tr>
+    <tr>
+      <td><strong>Manuelles Prompt-Monitoring</strong></td>
+      <td>Direkte Tests in ChatGPT, Perplexity, Gemini</td>
+      <td>Kostenlos; zeitaufwändig; kein KI-Ranking-Reporting, aber sofortiger Einblick</td>
+    </tr>
+    <tr>
+      <td><strong>GA4 / Referral-Traffic</strong></td>
+      <td>Tatsächliche Klicks aus KI-Systemen auf die eigene Website</td>
+      <td>Perplexity-Referrals klar erkennbar; ChatGPT teils als Direct erfasst</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="manuelles-prompt-monitoring">Manuelles Prompt-Monitoring als Einstieg</h3>
+
+<p>Wer noch kein dediziertes Tool einsetzt, beginnt mit manuellen Tests. Die Methode: Stelle die Fragen, die deine Zielgruppe typischerweise stellt, direkt in ChatGPT, Perplexity und Google AI Mode. Werden Wettbewerber genannt? Wirst du genannt? Wie wird deine Marke beschrieben?</p>
+
+<p>Sinnvolle Testfragen für B2B-Dienstleister: „Welche [Branche]-Agenturen gibt es in Deutschland?", „Wer ist ein guter Anbieter für [deine Kernleistung]?", „Erkläre mir [dein Hauptthema] und nenne relevante Experten." Diese Tests decken Lücken auf — und liefern direkte Hinweise, welche Inhalte und Kontexte fehlen, um den Sichtbarkeitsindex in KI-Antworten zu verbessern.</p>
+
+<h3 id="referral-traffic-aus-ki-systemen">Referral-Traffic aus KI-Systemen</h3>
+
+<p>Perplexity leitet Traffic mit einer klar erkennbaren Referral-URL weiter (perplexity.ai). ChatGPT taucht in GA4 teils als chatgpt.com-Referral auf, teils wird er als Direct-Traffic klassifiziert. Wer diesen Traffic systematisch beobachtet, sieht, welche Seiten tatsächlich von KI-Systemen als Quellen verwendet werden. Das ist ein indirekter, aber valider Indikator — und zeigt, welcher Content bereits in ChatGPT, Perplexity und Google AI erscheint.</p>
+
+<h2 id="fahrplan-marken-sichtbarkeit-in-ki-aufbauen">Fahrplan: Marken-Sichtbarkeit in KI aufbauen</h2>
+
+<p>KI-Sichtbarkeit entsteht nicht über Nacht — aber sie ist planbar. Der folgende Fahrplan zeigt, wie ein strukturierter Aufbau in vier Phasen aussieht. Die genaue Taktung hängt von der Ausgangssituation ab: Marken mit bestehendem digitalen Fußabdruck kommen schneller in Phase 3.</p>
+
+<div class="kms-phase">
+  <p class="kms-phase__head"><em>Phase 1</em> — Fundament (Monat 1–2)</p>
+  <ul>
+    <li>Entitäts-Audit: Ist die Marke konsistent über alle Kanäle? Name, Beschreibung und NAP-Daten prüfen</li>
+    <li>Wikidata-Eintrag anlegen oder bestehenden Datensatz aktualisieren</li>
+    <li>Organization-Schema auf der Website implementieren</li>
+    <li>llms.txt erstellen und die wichtigsten Ziel-Seiten auflisten</li>
+    <li>Baseline messen: Manuelles Prompt-Monitoring in ChatGPT, Perplexity und Google AI Mode; ersten Referral-Traffic-Bericht anlegen</li>
+  </ul>
+</div>
+
+<div class="kms-phase">
+  <p class="kms-phase__head"><em>Phase 2</em> — Content-Architektur (Monat 2–4)</p>
+  <ul>
+    <li>Zitierfähige Pillar-Content-Seiten und Ratgeber erstellen: klare Definitionen, FAQ-Strukturen, aussagekräftige Heading-Hierarchien</li>
+    <li>FAQ-Schema für alle relevanten Seiten implementieren</li>
+    <li>Author-Schema und E-E-A-T-Signale stärken: Autorenprofile, Qualifikationen, Expertise-Nachweise</li>
+    <li>Bestehenden Content auf Zitierfähigkeit prüfen: Gibt es klare Definitionen? Sind Fakten direkt und überprüfbar formuliert?</li>
+    <li>Interne Verlinkung auf thematische Cluster ausrichten statt rein keyword-basierte Silos</li>
+  </ul>
+</div>
+
+<div class="kms-phase">
+  <p class="kms-phase__head"><em>Phase 3</em> — Digitale PR und Mentions (Monat 3–6)</p>
+  <ul>
+    <li>Digitale PR-Strategie aufsetzen: Ziel-Medien identifizieren, Themen-Pitches vorbereiten</li>
+    <li>Gastartikel und Expertenkommentare in Fachpublikationen platzieren</li>
+    <li>Unlinked Mentions identifizieren und für Link-Building nutzen</li>
+    <li>Podcast-Auftritte, Webinare und LinkedIn-Expertise als öffentliche Entitäts-Signale aufbauen</li>
+    <li>Wikidata-nahe Quellen prüfen und ergänzen</li>
+  </ul>
+</div>
+
+<div class="kms-phase">
+  <p class="kms-phase__head"><em>Phase 4</em> — Monitoring und Iteration (laufend)</p>
+  <ul>
+    <li>Monatliches KI-Monitoring: Prompt-Tests oder Tool-gestütztes Tracking (Profound/Otterly)</li>
+    <li>Referral-Traffic aus KI-Systemen beobachten und mit Content-Aktionen korrelieren</li>
+    <li>Content-Gaps schließen: Für welche Fragen gibt KI Antworten, ohne die eigene Marke zu nennen?</li>
+    <li>Neue KI-Kanäle und Modell-Updates beobachten; Strategie bei Bedarf anpassen</li>
+  </ul>
+</div>
+
+<p>KI-Sichtbarkeit ist kein Projekt mit Enddatum — es ist ein Kanal, der dauerhafter Pflege bedarf, genau wie organische Sichtbarkeit im klassischen SEO. Wer das früh versteht, baut einen Vorsprung auf, der sich schwer einholen lässt.</p>
+
+<p>Unternehmen, die diesen Prozess nicht intern aufbauen wollen oder können, finden bei einer spezialisierten <a href="/geo-agentur">GEO-Agentur</a> den strukturierten Rahmen, die nötigen Tools und die Projekterfahrung — ohne bei null anfangen zu müssen.</p>
+
+<p class="kms-meta-proof">Dieser Ratgeber ist selbst nach GEO-Prinzipien aufgebaut: zitierbare Definition im ersten Satz, strukturierte Abschnitte mit klarer Heading-Hierarchie, FAQ-Markup mit Schema.org-Auszeichnung, direkte Antworten statt Fließtext-Blöcke. Er ist damit ein Praxisbeispiel der Methoden, die er beschreibt.</p>
+
+<h2 id="faq">Häufig gestellte Fragen</h2>
+
+<h3 id="faq-was-bedeutet-marken-sichtbarkeit-in-ki">Was bedeutet Marken-Sichtbarkeit in KI?</h3>
+<p>Marken-Sichtbarkeit in KI beschreibt, wie häufig und wie prominent eine Marke in generierten Antworten von KI-Systemen wie ChatGPT, Perplexity oder Google AI Mode als Entität genannt oder zitiert wird — unabhängig von klassischen Suchmaschinen-Rankings.</p>
+
+<h3 id="faq-reicht-klassisches-seo-fuer-ki-sichtbarkeit">Reicht klassisches SEO für KI-Sichtbarkeit aus?</h3>
+<p>Nein. Klassisches SEO optimiert Seiten für Keywords und Positionen. KI-Systeme verarbeiten Marken als Entitäten — die Frage ist nicht mehr, welche Seite rankt, sondern welche Marke in diesem Kontext relevant und glaubwürdig ist. Beide Disziplinen ergänzen sich, aber SEO allein deckt KI-Sichtbarkeit nicht ab.</p>
+
+<h3 id="faq-wie-erscheine-ich-in-chatgpt-und-perplexity">Wie erscheine ich in ChatGPT und Perplexity?</h3>
+<p>Durch eine konsistente Marken-Entität (Wikidata, Knowledge Graph), hochwertigen zitierfähigen Content, breite digitale Erwähnungen in Fachmedien sowie strukturierte Daten. KI-Systeme trainieren auf öffentlichen Daten und zitieren Quellen, die konsistent und fachlich belegt auftreten.</p>
+
+<h3 id="faq-wie-messe-ich-meine-ki-sichtbarkeit">Wie messe ich meine KI-Sichtbarkeit?</h3>
+<p>Über spezialisierte Tools wie Profound oder Otterly.ai, die automatisch prüfen, ob deine Marke in KI-Antworten erscheint. Ergänzend empfiehlt sich manuelles Prompt-Monitoring in ChatGPT und Perplexity sowie die Analyse von KI-Referral-Traffic in Google Analytics 4.</p>
+
+<h3 id="faq-was-ist-llms-txt">Was ist llms.txt und brauche ich es?</h3>
+<p>llms.txt ist eine Textdatei im Stammverzeichnis einer Domain — ähnlich wie robots.txt — die KI-Crawlern zeigt, welche Inhalte besonders relevant sind. Noch kein etablierter Standard, aber ein risikofreies, einfach umzusetzendes Signal für jede Domain, die aktiv an ihrer KI-Sichtbarkeit arbeitet.</p>
+
+<h3 id="faq-wie-lange-dauert-ki-sichtbarkeit">Wie lange dauert es, bis KI-Sichtbarkeit messbar wird?</h3>
+<p>Erste messbare Effekte zeigen sich typischerweise nach drei bis sechs Monaten konsequenter Arbeit. Wie schnell das geht, hängt von der bestehenden digitalen Präsenz der Marke ab. Unternehmen mit einem bereits breiten digitalen Fußabdruck sehen früher Ergebnisse als solche, die bei sehr geringer öffentlicher Präsenz starten.</p>`
+  },
+  {
     slug: "geo-ranking-faktoren",
     type: 'ratgeber',
     thema: "geo",
@@ -4407,7 +4804,7 @@ export const articles: Article[] = [
       { label: "GEO-Optimierung anfragen", href: "/geo/optimierung" },
       { label: "GEO-Agentur", href: "/geo-agentur" },
     ],
-    relatedSlugs: ["geo-vs-seo"],
+    relatedSlugs: ["geo-vs-seo", "marken-sichtbarkeit-in-ki"],
     faq: [{"q": "Was ist der Unterschied zwischen GEO und SEO?", "a": "SEO optimiert für die Platzierung in Suchmaschinen-Ergebnissen. GEO optimiert dafür, dass KI-Systeme wie ChatGPT, Perplexity oder Googles AI Overviews deine Inhalte als Quelle zitieren. Die Hebel überlappen teilweise, unterscheiden sich aber im Kern: GEO priorisiert Zitierbarkeit, Autorenschaft und Entitätserkennung stärker als klassische Keyword-Optimierung."}, {"q": "Wie schnell zeigt GEO erste Ergebnisse?", "a": "Erste Zitierungen in Perplexity oder ChatGPT Search sind oft innerhalb von vier bis acht Wochen nach gezielter Optimierung messbar. Langfristige Faktoren wie externer digitaler Fußabdruck oder Entitätsaufbau wirken über drei bis zwölf Monate. GEO ist schneller als klassisches SEO, aber kein Sofort-Kanal."}, {"q": "Ist Schema-Markup für GEO wirklich notwendig?", "a": "Nicht zwingend — es gibt Seiten ohne Schema-Markup, die dennoch zitiert werden. Aber Schema erhöht die Maschinenlesbarkeit messbar und gibt LLMs zusätzliche Kontextsignale. FAQPage-Schema ist das Einstiegsmittel mit dem besten Aufwand-Wirkung-Verhältnis: schnell implementiert, direkter Nutzen bei der FAQ-Extraktion durch LLMs."}, {"q": "Können kleine Unternehmen in KI-Antworten erscheinen?", "a": "Ja. LLMs priorisieren inhaltliche Qualität und Zitierbarkeit stärker als Domänengröße. Eine kleine Agentur mit einem präzisen, gut strukturierten Ratgeber zu einem Nischenthema kann einen großen Generalist-Anbieter bei KI-Antworten übertreffen. Der Schlüssel ist Tiefe, nicht Breite."}, {"q": "Welche KI-Systeme sind für GEO im deutschsprachigen Raum relevant?", "a": "ChatGPT mit Websuche, Perplexity und Googles AI Overviews sind die wichtigsten Systeme. Hinzu kommen Microsoft Copilot und Gemini Advanced. Die Optimierungslogik ist ähnlich, Unterschiede gibt es bei der Gewichtung von Echtzeit-Suche versus Training-Daten. Perplexity ist Echtzeit-fokussiert, ChatGPT-Modelle ohne Websuche greifen stärker auf Trainingsdaten zurück."}, {"q": "Wie messe ich GEO-Sichtbarkeit ohne spezialisierte Tools?", "a": "Fünf bis zehn Kernfragen der Zielgruppe monatlich manuell in ChatGPT, Perplexity und Google AI Overviews eingeben und dokumentieren, wer zitiert wird. Ergänzend Brand-Monitoring mit Mention oder Brand24 und Referral-Traffic aus KI-Quellen in Google Analytics beobachten. Das reicht als Basis-Monitoring, bis spezialisierte Tools ausgereifter sind."}, {"q": "Wann lohnt es sich, eine GEO-Agentur zu beauftragen?", "a": "Wenn intern Zeit oder Know-how fehlen, GEO konsequent über mehrere Monate umzusetzen. GEO ist operativ — Seiten müssen überarbeitet, Schema implementiert, Mentions aufgebaut und Monitoring ausgewertet werden. Wer das nebenbei macht, macht es meistens halb. Eine spezialisierte GEO-Agentur bringt Projekterfahrung mit und vermeidet typische Fehler beim ersten Anlauf."}],
     content: `<style>
 .icg-box{border-left:4px solid #C2722A;background:#F8F7F5;padding:1rem 1.25rem;margin:1.5rem 0;border-radius:0 6px 6px 0}
