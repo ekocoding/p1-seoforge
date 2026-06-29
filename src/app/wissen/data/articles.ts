@@ -11,6 +11,7 @@ export const articles: Article[] = [
     publishDate: '2026-05-22',
     lastUpdated: '2026-05-22',
     published: true,
+    banner: '/wissen/orphan-pages-banner.webp',
     serviceLinks: [
       { label: 'SEO-Audit anfragen', href: '/seo/audit' },
       { label: 'Technisches SEO', href: '/wissen/technical-seo' },
@@ -65,6 +66,7 @@ export const articles: Article[] = [
     publishDate: '2026-05-23',
     lastUpdated: '2026-05-23',
     published: true,
+    banner: '/wissen/crawl-budget-banner.webp',
     serviceLinks: [
       { label: 'SEO-Audit anfragen', href: '/seo/audit' },
       { label: 'Technisches SEO', href: '/wissen/technical-seo' },
@@ -118,6 +120,7 @@ export const articles: Article[] = [
     publishDate: '2026-05-24',
     lastUpdated: '2026-05-24',
     published: true,
+    banner: '/wissen/log-file-analyse-banner.webp',
     serviceLinks: [
       { label: 'SEO-Audit anfragen', href: '/seo/audit' },
       { label: 'Technisches SEO', href: '/wissen/technical-seo' },
@@ -178,6 +181,7 @@ export const articles: Article[] = [
     publishDate: '2026-05-25',
     lastUpdated: '2026-05-25',
     published: true,
+    banner: '/wissen/content-pruning-banner.webp',
     serviceLinks: [
       { label: 'SEO-Texte anfragen', href: '/seo/texte' },
       { label: 'Content-Strategie', href: '/seo/content-strategie' },
@@ -230,6 +234,7 @@ export const articles: Article[] = [
     publishDate: '2026-05-26',
     lastUpdated: '2026-05-26',
     published: true,
+    banner: '/wissen/nap-konsistenz-banner.webp',
     serviceLinks: [
       { label: 'Local SEO anfragen', href: '/geo/optimierung' },
       { label: 'GEO-Beratung', href: '/geo/beratung' },
@@ -3301,7 +3306,7 @@ export const articles: Article[] = [
     publishDate: "2026-06-18",
     lastUpdated: "2026-06-27",
     published: true,
-    banner: "/wissen/in-chatgpt-erscheinen-banner.webp",
+    banner: "/wissen/geo-ranking-faktoren-banner.webp",
     serviceLinks: [
       { label: "GEO-Optimierung anfragen", href: "/geo/optimierung" },
       { label: "GEO-Agentur", href: "/geo-agentur" },
