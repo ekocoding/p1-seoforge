@@ -88,22 +88,27 @@ const USPS = [
 
 const PROZESS = [
   {
+    icon: "/images/prozess-icons/analyse.png",
     title: "KI-Sichtbarkeits-Analyse",
     desc: "Wir prüfen, wie Ihre Marke heute in ChatGPT, Perplexity und Google AI Overviews erscheint, welche Signale fehlen und wo Mitbewerber aktuell stehen.",
   },
   {
+    icon: "/images/prozess-icons/strategie.png",
     title: "Strategie und Priorisierung",
     desc: "Auf Basis der Analyse legen wir fest, welche Maßnahmen den größten und nachhaltigsten Effekt auf Ihre Sichtbarkeit haben — in welcher Reihenfolge und warum.",
   },
   {
+    icon: "/images/prozess-icons/fundament.png",
     title: "Technisches Fundament",
     desc: "Strukturierte Daten, Entitätskonsistenz und technische Sauberkeit werden systematisch aufgebaut — die Basis, auf der Content und PR erst richtig wirken.",
   },
   {
+    icon: "/images/prozess-icons/umsetzung.png",
     title: "Content- und PR-Umsetzung",
     desc: "Wir entwickeln zitierfähige Inhalte und platzieren Ihre Marke in relevanten Quellen — koordiniert auf das Ziel, nicht beliebig gestreut.",
   },
   {
+    icon: "/images/prozess-icons/monitoring.png",
     title: "Monitoring und Iteration",
     desc: "KI-Systeme verändern sich. Wir beobachten die Entwicklung Ihrer KI-Sichtbarkeit fortlaufend und passen die Maßnahmen an, was tatsächlich wirkt.",
   },
@@ -286,11 +291,14 @@ export default function KiSeoAgenturClient() {
               className="absolute left-0 right-0 top-0 h-[3px]"
               style={{ background: "linear-gradient(90deg,#C2722A 0%,transparent 60%)" }}
             />
-            <span className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-primary/25 bg-primary/[0.06] px-3.5 py-1.5 text-xs font-semibold uppercase tracking-widest text-primary">
-              KI-SEO &amp; KI-Sichtbarkeit
-            </span>
-            <h1 className="max-w-2xl font-[family-name:var(--font-heading)] text-4xl leading-[1.08] tracking-tight text-dark sm:text-5xl lg:text-[3.4rem]">
-              Die KI-SEO-Agentur für Marken, die in{" "}
+            <div className="mb-6 flex items-center gap-3">
+              <span className="h-px w-8 bg-primary" />
+              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+                KI-SEO-Agentur · KI-Sichtbarkeit
+              </span>
+            </div>
+            <h1 className="max-w-2xl font-[family-name:var(--font-heading)] text-[2.7rem] leading-[1.04] tracking-tight text-dark sm:text-6xl lg:text-[4.1rem]">
+              Die KI-SEO-Agentur, die Ihre Marke{" "}
               <span
                 style={{
                   background: "linear-gradient(90deg,#C2722A,#D4A853)",
@@ -298,15 +306,14 @@ export default function KiSeoAgenturClient() {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                KI-Antworten zitiert
-              </span>{" "}
-              werden
+                zur Antwort macht
+              </span>
+              .
             </h1>
-            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
-              Wenn Nutzer ChatGPT, Perplexity oder Google AI Overviews befragen, soll Ihre
-              Marke die Antwort sein — nicht die Ihrer Mitbewerber. Wir strukturieren Ihre
-              digitale Präsenz so, dass KI-Systeme Sie als relevante, zitierfähige Quelle
-              erkennen.
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted">
+              Wenn Ihre Kunden ChatGPT, Perplexity oder Google AI Overviews fragen, soll Ihre
+              Marke die Antwort sein — nicht die Ihrer Mitbewerber. Wir machen Sie zur
+              zitierfähigen Quelle: messbar, technisch sauber, ohne leere Versprechen.
             </p>
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Link
@@ -384,35 +391,75 @@ export default function KiSeoAgenturClient() {
           </div>
         </section>
 
-        {/* ── C) Value-Prop / Shift ──────────────────────────────────────── */}
+        {/* ── C) Was ist eine KI-SEO-Agentur? + Warum jetzt ──────────────── */}
         <section className="bg-offwhite py-24 lg:py-32">
-          <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl leading-tight tracking-tight text-dark lg:text-[2.6rem]">
-              Wer in KI-Antworten fehlt, existiert für einen wachsenden Teil der Nutzer nicht
-            </h2>
-            <div className="mt-8 space-y-5 text-left text-[17px] leading-relaxed text-muted">
-              <p>
-                Google, ChatGPT und Perplexity liefern heute direkte Antworten — keine
-                Link-Liste, in der Ihre Position sichtbar wird. KI-Systeme destillieren Wissen
-                aus Quellen, die als glaubwürdig, strukturiert und thematisch relevant
-                eingestuft werden. Klassische Rankings allein reichen dafür nicht mehr aus.
+          <div className="mx-auto max-w-4xl px-6 lg:px-8">
+            <div className="scroll-hidden">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">
+                KI-SEO erklärt
               </p>
-              <p>
-                Die zugrundeliegende Logik hat sich verschoben. Was zählt: wie eindeutig Ihre
-                Marke im semantischen Feld der KI definiert ist, wie zitierfähig Ihre Inhalte
-                sind und wie konsistent Ihre Erwähnungen in autoritativen Quellen auftreten.
-                Das ist eine andere Arbeit als Backlinks sammeln oder Texte auf Keywords
-                optimieren.
-              </p>
-              <p>
-                KI-SEO ist deshalb eine eigene Disziplin — fachlich auch{" "}
-                <Link href="/geo-agentur" className="font-medium text-primary hover:underline">
-                  Generative Engine Optimization (GEO)
-                </Link>{" "}
-                genannt. Entitätsaufbau, strukturierte Daten, zitierfähiger Content und digitale
-                PR greifen ineinander. Wer das jetzt aufbaut, sichert sich einen Vorsprung, der
-                sich mit der Zeit festigt.
-              </p>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl leading-tight tracking-tight text-dark lg:text-[2.6rem]">
+                Was ist eine KI-SEO-Agentur?
+              </h2>
+              <div className="mt-6 space-y-5 text-[17px] leading-relaxed text-muted">
+                <p>
+                  Eine KI-SEO-Agentur optimiert die digitale Sichtbarkeit eines Unternehmens
+                  nicht mehr nur für klassische Suchmaschinen, sondern gezielt für KI-gestützte
+                  Antwortsysteme wie ChatGPT, Perplexity, Claude oder Googles AI Overviews. Das
+                  klingt nach einer Erweiterung des klassischen SEO — ist aber in der Praxis eine
+                  grundlegend andere Arbeit. Während bei Google Backlinks, Ladezeit und
+                  Keyword-Dichte eine Rolle spielen, entscheidet bei KI-Systemen die semantische
+                  Autorität: Wird eine Marke in vertrauenswürdigen Quellen konsistent als
+                  kompetent und relevant erwähnt?
+                </p>
+                <p>
+                  Eine KI-SEO-Agentur analysiert, wie KI-Sprachmodelle eine Marke aktuell
+                  wahrnehmen, welche Wettbewerber in Antworten genannt werden und warum. Daraus
+                  leitet sie gezielte Maßnahmen ab — strukturierte Entitätspflege in
+                  Wissensbasen, thematische Content-Tiefe, digitale PR in zitierwürdigen Quellen
+                  und technische Strukturierung der Website nach Schema-Markup. Das Ziel ist,
+                  dass ChatGPT, Perplexity und Co. das Unternehmen als relevante Antwort liefern,
+                  wenn potenzielle Kunden dort nach Lösungen suchen.
+                </p>
+                <p>
+                  Was eine echte KI-SEO-Agentur vom SEO-Generalisten unterscheidet: Sie versteht,
+                  wie Sprachmodelle Informationen gewichten, welche Signale außerhalb der eigenen
+                  Website zählen und wie sich KI-Sichtbarkeit messen lässt — nicht durch
+                  Bauchgefühl, sondern durch systematisches Prompt-Monitoring und
+                  Share-of-Voice-Auswertungen.
+                </p>
+              </div>
+            </div>
+
+            <div className="scroll-hidden mt-16 border-t border-border pt-14">
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl leading-tight tracking-tight text-dark lg:text-[2.4rem]">
+                Warum KI-Sichtbarkeit heute über Wachstum entscheidet
+              </h2>
+              <div className="mt-6 space-y-5 text-[17px] leading-relaxed text-muted">
+                <p>
+                  Die Art, wie Menschen online nach Produkten, Dienstleistungen und Anbietern
+                  suchen, hat sich in den letzten zwei Jahren schneller verändert als in den zehn
+                  Jahren davor. KI-Chatbots werden für komplexe, beratungsintensive Anfragen zur
+                  ersten Anlaufstelle — nicht weil Nutzer Google nicht mehr kennen, sondern weil
+                  eine direkte, strukturierte Antwort effizienter ist als zehn blaue Links. Wer
+                  in dieser Antwort nicht vorkommt, existiert für diesen Nutzer schlicht nicht.
+                </p>
+                <p>
+                  Das Problem für viele Unternehmen ist die Zeitverzögerung. KI-Sichtbarkeit
+                  entsteht nicht über Nacht. Sprachmodelle lernen aus Daten, die Monate oder
+                  Jahre zurückliegen. Wer heute anfängt, die richtigen Signale zu setzen —
+                  redaktionelle Erwähnungen, konsistente Entitätsdaten, thematische Autorität in
+                  Fachpublikationen — sichert sich einen Platz in zukünftigen Modellupdates. Wer
+                  wartet, bis der Wettbewerber dort sichtbar ist, hat einen Rückstand, der schwer
+                  aufzuholen ist.
+                </p>
+                <p>
+                  Hinzu kommt der Zero-Click-Effekt: Selbst wenn ein Nutzer nach dem KI-Ergebnis
+                  noch auf eine Website klickt, filtert die vorangegangene KI-Antwort bereits,
+                  welche Marken als Optionen in Betracht kommen. KI-Sichtbarkeit ist damit
+                  Awareness-Arbeit — sie findet statt, bevor der Klick überhaupt passiert.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -464,6 +511,59 @@ export default function KiSeoAgenturClient() {
           </div>
         </section>
 
+        {/* ── D2) KI-SEO vs. klassisches SEO vs. GEO ─────────────────────── */}
+        <section className="border-t border-border bg-white py-24 lg:py-32">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mb-12 max-w-2xl">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">
+                Einordnung
+              </p>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl leading-tight tracking-tight text-dark lg:text-[2.6rem]">
+                KI-SEO, klassisches SEO und GEO — was ist was?
+              </h2>
+              <p className="mt-5 text-[16px] leading-relaxed text-muted">
+                Die Begriffe überschneiden sich, bezeichnen aber unterschiedliche Disziplinen.
+                Eine KI-SEO-Agentur denkt diese drei Ebenen zusammen, weil sich Sichtbarkeit
+                heute nicht mehr auf einen einzigen Kanal reduzieren lässt.
+              </p>
+            </div>
+            <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-3">
+              <div className="scroll-hidden bg-white p-7">
+                <h3 className="text-lg font-bold text-dark">Klassisches SEO</h3>
+                <p className="mt-3 text-[14.5px] leading-relaxed text-muted">
+                  Klassisches SEO zielt darauf ab, in den organischen Suchergebnissen einer
+                  Suchmaschine möglichst weit oben zu erscheinen. Bewertungsgrundlage sind
+                  Faktoren wie Domain-Autorität, Backlinkprofil, technische Seitenstruktur und
+                  Keyword-Relevanz. Das hat weiterhin seine Berechtigung — Google bleibt ein
+                  zentraler Traffic-Kanal.
+                </p>
+              </div>
+              <div className="scroll-hidden bg-white p-7">
+                <h3 className="text-lg font-bold text-dark">GEO</h3>
+                <p className="mt-3 text-[14.5px] leading-relaxed text-muted">
+                  <Link href="/geo-agentur" className="font-semibold text-primary hover:underline">
+                    Generative Engine Optimization
+                  </Link>
+                  , kurz GEO, ist der Begriff für die gezielte Optimierung auf KI-generierte
+                  Antworten. Das Ziel ist nicht ein Ranking auf Seite 1, sondern eine direkte
+                  Nennung in der Antwort eines Sprachmodells — über thematische Tiefe,
+                  Quellen-Reputation und Entitätsverknüpfungen.
+                </p>
+              </div>
+              <div className="scroll-hidden bg-white p-7">
+                <h3 className="text-lg font-bold text-dark">KI-SEO</h3>
+                <p className="mt-3 text-[14.5px] leading-relaxed text-muted">
+                  KI-SEO als übergeordneter Begriff verbindet beide Disziplinen mit dem
+                  technischen Unterbau — Schema-Markup, strukturierte Daten, Crawlbarkeit für
+                  KI-Bots, Knowledge-Graph-Einträge. Unternehmen, die nur klassisches SEO
+                  betreiben, verlieren schrittweise Präsenz in den Kanälen, in denen
+                  Kaufentscheidungen vorbereitet werden.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ── E) Prozess ─────────────────────────────────────────────────── */}
         <section className="bg-offwhite py-24 lg:py-32">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -478,10 +578,10 @@ export default function KiSeoAgenturClient() {
             <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2 lg:grid-cols-5">
               {PROZESS.map((s, i) => (
                 <div key={i} className="scroll-hidden flex flex-col bg-white p-6">
-                  <span className="font-mono text-sm font-bold text-primary">
-                    0{i + 1}
-                  </span>
-                  <h3 className="mt-3 text-[15px] font-bold leading-snug text-dark">{s.title}</h3>
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/[0.08]">
+                    <Image src={s.icon} alt="" width={28} height={28} className="h-7 w-7" />
+                  </div>
+                  <h3 className="text-[15px] font-bold leading-snug text-dark">{s.title}</h3>
                   <p className="mt-2 text-[13.5px] leading-relaxed text-muted">{s.desc}</p>
                 </div>
               ))}
@@ -526,16 +626,69 @@ export default function KiSeoAgenturClient() {
           </div>
         </section>
 
+        {/* ── F2) Für wen sich eine KI-SEO-Agentur lohnt ─────────────────── */}
+        <section className="border-t border-border bg-white py-24 lg:py-32">
+          <div className="mx-auto max-w-4xl scroll-hidden px-6 lg:px-8">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">
+              Zielgruppe
+            </p>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl leading-tight tracking-tight text-dark lg:text-[2.6rem]">
+              Für wen sich eine KI-SEO-Agentur lohnt
+            </h2>
+            <div className="mt-6 space-y-5 text-[17px] leading-relaxed text-muted">
+              <p>
+                Besonders deutlich ist der Mehrwert bei Unternehmen, deren Produkte oder
+                Dienstleistungen erklärungsbedürftig sind. Wer B2B-Software verkauft,
+                Beratungsleistungen anbietet oder in einer Branche tätig ist, in der Vertrauen
+                vor dem Erstkontakt aufgebaut werden muss, profitiert direkt davon, wenn
+                KI-Systeme ihn als kompetenten Anbieter nennen. Diese Nutzer fragen ChatGPT nicht
+                nach dem günstigsten Anbieter — sie fragen nach dem richtigen. Wer dort genannt
+                wird, kommt auf die Shortlist.
+              </p>
+              <p>
+                Auch für Marken mit mittlerem bis hohem Wettbewerbsdruck in ihrer Nische ist
+                KI-Sichtbarkeit strategisch relevant. Wenn drei bis fünf Wettbewerber regelmäßig
+                in KI-Antworten auftauchen und die eigene Marke fehlt, verschiebt sich die
+                wahrgenommene Marktführerschaft — ohne dass dies in klassischen Rankings sichtbar
+                wird. Eine KI-SEO-Agentur macht diese Lücke messbar und schließt sie
+                systematisch.
+              </p>
+              <p>
+                Weniger zentral ist KI-SEO für lokale Dienstleister mit stark transaktionalem
+                Suchverhalten, bei denen Google Maps und lokales SEO dominieren. Sobald jedoch
+                regionale Anbieter überregionale Kunden ansprechen oder ihre Positionierung als
+                Fachexperte ausbauen wollen, rückt auch für sie die KI-Sichtbarkeit in den Fokus.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* ── G) USPs ────────────────────────────────────────────────────── */}
         <section className="bg-offwhite py-24 lg:py-32">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mb-14 max-w-2xl">
+            <div className="mb-10 max-w-3xl">
               <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">
                 Warum SeoForge
               </p>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl leading-tight tracking-tight text-dark lg:text-[2.6rem]">
                 Ehrliche Umsetzung statt Buzzword-Beratung
               </h2>
+              <div className="mt-6 space-y-5 text-[16px] leading-relaxed text-muted">
+                <p>
+                  Das wichtigste Merkmal einer guten KI-SEO-Agentur ist Messbarkeit. Eine
+                  seriöse Agentur kann zeigen, wie häufig eine Marke in relevanten KI-Antworten
+                  auftaucht, welche Themengebiete abgedeckt werden und wie sich das im Vergleich
+                  zum Wettbewerb entwickelt. Wer auf diese Frage ausweicht oder allgemeine
+                  Rankings als Ersatzmetrik anbietet, hat das Handwerk entweder nicht verstanden
+                  oder will es nicht transparent machen.
+                </p>
+                <p>
+                  Ein weiteres Kriterium ist technische Eigenständigkeit: Strategie, technische
+                  Umsetzung und redaktionelle Arbeit aus einem Verständnis heraus zu denken,
+                  statt drei separate Gewerke zu koordinieren, die aneinander vorbei arbeiten.
+                  Genau so arbeiten wir.
+                </p>
+              </div>
             </div>
             <div className="m3d grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
               {USPS.map((u) => (
@@ -567,46 +720,108 @@ export default function KiSeoAgenturClient() {
           </div>
         </section>
 
-        {/* ── I) Dark CTA ────────────────────────────────────────────────── */}
-        <section className="bg-white pb-24 lg:pb-32">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="relative overflow-hidden rounded-3xl bg-dark px-8 py-16 text-center lg:px-14 lg:py-20">
-              <div
-                className="pointer-events-none absolute -right-20 -top-24 h-80 w-80"
-                style={{
-                  background:
-                    "radial-gradient(circle at 50% 50%, rgba(194,114,42,0.28) 0%, transparent 65%)",
-                }}
-              />
-              <div
-                className="pointer-events-none absolute -bottom-24 -left-16 h-80 w-80"
-                style={{
-                  background:
-                    "radial-gradient(circle at 50% 50%, rgba(212,168,83,0.18) 0%, transparent 65%)",
-                }}
-              />
-              <div className="relative">
-                <h2 className="mx-auto max-w-2xl font-[family-name:var(--font-heading)] text-3xl leading-tight text-white lg:text-[2.7rem]">
-                  Erfahren Sie, wo Ihre Marke in KI-Antworten heute steht
+        {/* ── I) CTA (Stil von der Homepage übernommen) ──────────────────── */}
+        <section className="bg-dark py-24 lg:py-32" id="kontakt">
+          <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+              <div className="absolute -top-20 right-0 h-[300px] w-[300px] rounded-full bg-primary/[0.06] blur-3xl" />
+              <div className="absolute -bottom-10 left-0 h-[200px] w-[200px] rounded-full bg-secondary/[0.04] blur-3xl" />
+            </div>
+
+            <div className="relative grid gap-16 lg:grid-cols-2 lg:items-center">
+              {/* Text + Vorteile */}
+              <div>
+                <h2 className="font-[family-name:var(--font-heading)] text-4xl text-white lg:text-5xl">
+                  Bereit für mehr{" "}
+                  <span className="bg-gradient-to-r from-primary-light to-secondary bg-clip-text text-transparent">
+                    Sichtbarkeit in KI
+                  </span>
+                  ?
                 </h2>
-                <p className="mx-auto mt-5 max-w-xl leading-relaxed text-white/60">
-                  Wir analysieren Ihre aktuelle KI-Sichtbarkeit und zeigen konkret, was es
-                  braucht, damit ChatGPT, Perplexity und Google AI Overviews Ihre Marke nennen.
+                <p className="mt-4 text-base leading-relaxed text-white/60">
+                  Lassen Sie uns in einem kostenlosen Erstgespräch herausfinden, wie wir Ihre
+                  Marke in ChatGPT, Perplexity und Google AI Overviews sichtbar machen. Keine
+                  Verpflichtungen &mdash; nur ehrliche Einschätzungen.
                 </p>
-                <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                  <Link
-                    href="/kontakt"
-                    className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white transition-all hover:bg-primary-dark"
-                  >
-                    Kostenlose KI-Sichtbarkeits-Analyse anfragen
-                    <Arrow />
-                  </Link>
-                  <Link
-                    href="/geo-agentur"
-                    className="inline-flex items-center gap-2 rounded-full border border-white/20 px-8 py-4 text-sm font-semibold text-white/80 transition-all hover:border-white/40 hover:text-white"
-                  >
-                    GEO-Agentur entdecken
-                  </Link>
+                <div className="mt-8 space-y-4">
+                  {[
+                    "Kostenlose KI-Sichtbarkeits-Analyse Ihrer Marke",
+                    "Individueller KI-SEO- & GEO-Massnahmenplan",
+                    "Transparente Preise ohne versteckte Kosten",
+                  ].map((item) => (
+                    <div key={item} className="flex items-center gap-3">
+                      <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/20">
+                        <svg className="h-3 w-3 text-primary-light" viewBox="0 0 20 20" fill="currentColor">
+                          <path
+                            fillRule="evenodd"
+                            d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <span className="text-sm text-white/80">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Kontaktformular */}
+              <div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm">
+                  <h3 className="font-[family-name:var(--font-heading)] text-2xl text-white">
+                    Jetzt Kontakt aufnehmen
+                  </h3>
+                  <p className="mt-1 text-sm text-white/50">
+                    Wir melden uns innerhalb von 24 Stunden bei Ihnen.
+                  </p>
+                  <form className="mt-6 space-y-4" onSubmit={(e) => e.preventDefault()}>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <input
+                        type="text"
+                        name="name"
+                        aria-label="Ihr Name"
+                        placeholder="Ihr Name"
+                        className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
+                      />
+                      <input
+                        type="text"
+                        name="company"
+                        aria-label="Unternehmen"
+                        placeholder="Unternehmen"
+                        className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
+                      />
+                    </div>
+                    <input
+                      type="email"
+                      name="email"
+                      aria-label="Ihre E-Mail-Adresse"
+                      placeholder="Ihre E-Mail-Adresse"
+                      className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
+                    />
+                    <input
+                      type="url"
+                      name="website"
+                      aria-label="Ihre Website-URL"
+                      placeholder="Ihre Website-URL"
+                      className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
+                    />
+                    <textarea
+                      name="message"
+                      rows={4}
+                      aria-label="Nachricht"
+                      placeholder="Wie können wir Ihnen helfen?"
+                      className="w-full resize-none rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
+                    />
+                    <button
+                      type="submit"
+                      className="w-full rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-light hover:shadow-lg hover:shadow-primary/20"
+                    >
+                      Kostenlose Beratung anfordern
+                    </button>
+                    <p className="text-center text-xs text-white/30">
+                      Ihre Daten werden vertraulich behandelt.
+                    </p>
+                  </form>
                 </div>
               </div>
             </div>
