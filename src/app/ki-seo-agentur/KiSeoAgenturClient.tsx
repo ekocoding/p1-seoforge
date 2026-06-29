@@ -61,31 +61,6 @@ const LEISTUNGEN = [
   },
 ];
 
-const USPS = [
-  {
-    title: "Technisch umgesetzt, nicht nur beraten",
-    desc: "Wir bauen Ihre KI-Sichtbarkeit selbst auf — custom-coded, kein Baukasten, direkt in Ihrer bestehenden Infrastruktur verankert.",
-    icon: (
-      <path d="M16 18l6-6-6-6M8 6l-6 6 6 6" />
-    ),
-  },
-  {
-    title: "KI-Kompetenz aus eigener Entwicklungsarbeit",
-    desc: "Wir setzen KI täglich in eigenen Prozessen ein und verstehen aus erster Hand, wie diese Systeme Inhalte bewerten und welche Signale zählen.",
-    icon: <path d="M12 2a7 7 0 0 0-4 12.7V17a2 2 0 0 0 2 2h4a2 2 0 0 0 2-2v-2.3A7 7 0 0 0 12 2zM9 22h6" />,
-  },
-  {
-    title: "Messbare Ergebnisse, keine leeren Versprechen",
-    desc: "Unsere Reports zeigen reale Entwicklungen: Mentions, Zitierhäufigkeit, Share of Voice in KI-Antworten — keine aufgeblähten Vanity-Metriken.",
-    icon: <path d="M3 3v18h18M7 15l4-4 3 3 5-6" />,
-  },
-  {
-    title: "Direkte Kommunikation, schnelle Reaktion",
-    desc: "Kein Account-Manager-Relay. Sie sprechen direkt mit den Leuten, die Ihre KI-Sichtbarkeit aufbauen — Rückmeldungen ohne Warteschleife.",
-    icon: <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />,
-  },
-];
-
 const PROZESS = [
   {
     icon: "/images/prozess-icons/analyse.png",
@@ -229,6 +204,90 @@ function SovDashboard() {
 }
 
 /* ── FAQ-Accordion (grid-template-rows-Animation) ─────────────────────────── */
+/* ── Interaktive App #2: SEO vs. GEO vs. KI-SEO ───────────────────────────── */
+const VS_DIMENSIONS = [
+  {
+    key: "Ziel",
+    seo: "Position 1 in den klassischen Suchergebnissen.",
+    geo: "Direkte Nennung in der Antwort eines KI-Systems.",
+    kiseo: "Sichtbarkeit über alle Kanäle — klassische Suche und KI.",
+  },
+  {
+    key: "Haupthebel",
+    seo: "Backlinks, Keyword-Relevanz, technische Seitenstruktur.",
+    geo: "Zitierbarkeit, Quellen-Reputation, Entitätsverknüpfungen.",
+    kiseo: "Beides — plus Schema-Markup, Knowledge Graph und Crawlbarkeit für KI-Bots.",
+  },
+  {
+    key: "Erfolgsmessung",
+    seo: "Rankings, Klicks, Impressionen.",
+    geo: "Nennungen und Share of Voice in KI-Antworten.",
+    kiseo: "Klassische KPIs kombiniert mit messbarer KI-Sichtbarkeit.",
+  },
+  {
+    key: "Zeithorizont",
+    seo: "Wirkung meist nach 3–6 Monaten.",
+    geo: "Erste Effekte oft schon nach 4–8 Wochen.",
+    kiseo: "Kurzfristige Effekte und nachhaltiger Vorsprung zugleich.",
+  },
+];
+
+function VsComparison() {
+  const [dim, setDim] = useState(0);
+  const d = VS_DIMENSIONS[dim];
+  const cols = [
+    { label: "Klassisches SEO", val: d.seo, hot: false },
+    { label: "GEO", val: d.geo, hot: false },
+    { label: "KI-SEO", val: d.kiseo, hot: true },
+  ];
+  return (
+    <div>
+      <div className="mb-6 flex flex-wrap gap-2">
+        {VS_DIMENSIONS.map((x, i) => {
+          const on = i === dim;
+          return (
+            <button
+              key={x.key}
+              onClick={() => setDim(i)}
+              className="rounded-full px-4 py-2 text-sm font-semibold transition-all"
+              style={{
+                background: on ? "var(--color-dark)" : "#fff",
+                color: on ? "#fff" : "var(--color-muted)",
+                border: on ? "1px solid var(--color-dark)" : "1px solid var(--color-border)",
+              }}
+            >
+              {x.key}
+            </button>
+          );
+        })}
+      </div>
+      <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-3">
+        {cols.map((c) => (
+          <div
+            key={c.label}
+            className="p-7"
+            style={{ background: c.hot ? "#fbf4ea" : "#fff" }}
+          >
+            <div className="mb-3 flex items-center gap-2">
+              <h3 className={`text-lg font-bold ${c.hot ? "text-primary" : "text-dark"}`}>
+                {c.label}
+              </h3>
+              {c.hot && (
+                <span className="rounded-full bg-primary px-2.5 py-0.5 text-[11px] font-bold text-white">
+                  Unser Fokus
+                </span>
+              )}
+            </div>
+            <p key={dim} className="text-[14.5px] leading-relaxed text-muted" style={{ animation: "fadeUp 0.35s ease both" }}>
+              {c.val}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function FaqAccordion() {
   const [open, setOpen] = useState<number | null>(0);
   return (
@@ -284,21 +343,59 @@ export default function KiSeoAgenturClient() {
   return (
     <SubpageLayout>
       <main className="bg-white">
-        {/* ── A) HERO (Magazine-Split) ───────────────────────────────────── */}
-        <section className="grid grid-cols-1 lg:grid-cols-[55fr_45fr]">
-          <div className="relative flex flex-col justify-center bg-offwhite px-6 pb-16 pt-28 sm:px-10 lg:pb-24 lg:pl-20 lg:pr-16 lg:pt-32">
+        {/* ── A) HERO (immersiv, zentriert) ──────────────────────────────── */}
+        <section className="relative overflow-hidden bg-offwhite">
+          {/* Atmosphärischer dekorativer Hintergrund */}
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
             <div
-              className="absolute left-0 right-0 top-0 h-[3px]"
-              style={{ background: "linear-gradient(90deg,#C2722A 0%,transparent 60%)" }}
+              className="absolute left-1/2 top-[-12%] h-[620px] w-[1100px] -translate-x-1/2 rounded-full"
+              style={{ background: "radial-gradient(ellipse at center, rgba(212,168,83,0.20), transparent 62%)" }}
             />
-            <div className="mb-6 flex items-center gap-3">
-              <span className="h-px w-8 bg-primary" />
+            <div
+              className="absolute right-[-8%] top-[28%] h-[440px] w-[440px] rounded-full"
+              style={{ background: "radial-gradient(circle, rgba(194,114,42,0.12), transparent 66%)" }}
+            />
+            <div
+              className="absolute inset-0 opacity-[0.5]"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle at 1px 1px, rgba(26,26,26,0.05) 1px, transparent 0)",
+                backgroundSize: "26px 26px",
+                maskImage: "radial-gradient(ellipse 80% 60% at 50% 35%, #000 30%, transparent 75%)",
+                WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 35%, #000 30%, transparent 75%)",
+              }}
+            />
+            {/* Knowledge-Graph-Linienkunst */}
+            <svg className="absolute inset-x-0 top-0 mx-auto h-[560px] w-full max-w-6xl opacity-[0.10]" viewBox="0 0 1200 560" fill="none" preserveAspectRatio="xMidYMid slice">
+              <g stroke="#C2722A" strokeWidth="1.5">
+                <line x1="180" y1="120" x2="430" y2="260" />
+                <line x1="430" y1="260" x2="240" y2="430" />
+                <line x1="430" y1="260" x2="680" y2="180" />
+                <line x1="680" y1="180" x2="950" y2="300" />
+                <line x1="680" y1="180" x2="820" y2="420" />
+                <line x1="950" y1="300" x2="1040" y2="120" />
+                <line x1="240" y1="430" x2="560" y2="470" />
+                <line x1="820" y1="420" x2="560" y2="470" />
+              </g>
+              <g fill="#C2722A">
+                <circle cx="180" cy="120" r="5" /><circle cx="240" cy="430" r="5" /><circle cx="950" cy="300" r="5" /><circle cx="1040" cy="120" r="5" /><circle cx="560" cy="470" r="5" /><circle cx="820" cy="420" r="5" />
+              </g>
+              <g fill="#D4A853">
+                <circle cx="430" cy="260" r="9" /><circle cx="680" cy="180" r="7" />
+              </g>
+            </svg>
+          </div>
+
+          <div className="relative mx-auto max-w-4xl px-6 pb-16 pt-28 text-center sm:pt-32 lg:pt-40">
+            <div className="mb-6 inline-flex items-center gap-2.5">
+              <span className="h-px w-7 bg-primary" />
               <span className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
                 KI-SEO-Agentur · KI-Sichtbarkeit
               </span>
+              <span className="h-px w-7 bg-primary" />
             </div>
-            <h1 className="max-w-2xl font-[family-name:var(--font-heading)] text-[2.7rem] leading-[1.04] tracking-tight text-dark sm:text-6xl lg:text-[4.1rem]">
-              Die KI-SEO-Agentur, die Ihre Marke{" "}
+            <h1 className="mx-auto max-w-4xl font-[family-name:var(--font-heading)] text-[2.7rem] leading-[1.05] tracking-tight text-dark sm:text-6xl lg:text-[4.4rem]">
+              Werden Sie die{" "}
               <span
                 style={{
                   background: "linear-gradient(90deg,#C2722A,#D4A853)",
@@ -306,16 +403,16 @@ export default function KiSeoAgenturClient() {
                   WebkitTextFillColor: "transparent",
                 }}
               >
-                zur Antwort macht
+                Antwort
               </span>
-              .
+              , wenn die KI gefragt wird.
             </h1>
-            <p className="mt-6 max-w-lg text-lg leading-relaxed text-muted">
-              Wenn Ihre Kunden ChatGPT, Perplexity oder Google AI Overviews fragen, soll Ihre
-              Marke die Antwort sein — nicht die Ihrer Mitbewerber. Wir machen Sie zur
-              zitierfähigen Quelle: messbar, technisch sauber, ohne leere Versprechen.
+            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+              Als spezialisierte KI-SEO-Agentur machen wir Ihre Marke in ChatGPT, Perplexity und
+              Google AI Overviews sichtbar und zitierfähig — messbar, technisch sauber, ohne leere
+              Versprechen.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link
                 href="/kontakt"
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark"
@@ -330,43 +427,41 @@ export default function KiSeoAgenturClient() {
                 Leistungen ansehen
               </a>
             </div>
-            <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3 text-[13px] text-muted">
-              {["Messbarer Share of Voice", "Custom-coded Umsetzung", "Direkte Kommunikation"].map(
-                (t) => (
-                  <span key={t} className="flex items-center gap-1.5">
-                    <svg className="h-4 w-4 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                      <path
-                        fillRule="evenodd"
-                        d="M16.7 5.3a1 1 0 010 1.4l-7.5 7.5a1 1 0 01-1.4 0L3.3 9.7a1 1 0 011.4-1.4l3.3 3.3 6.8-6.8a1 1 0 011.4 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    {t}
+
+            {/* Fokus-Element: KI-Antwort, in der die Marke zitiert wird */}
+            <div className="relative mx-auto mt-16 max-w-2xl">
+              <div
+                className="pointer-events-none absolute -inset-6 rounded-[2rem]"
+                style={{ background: "radial-gradient(ellipse at center, rgba(212,168,83,0.22), transparent 70%)" }}
+              />
+              <div className="relative overflow-hidden rounded-2xl border border-border bg-white text-left shadow-[0_36px_90px_-44px_rgba(26,26,26,0.32)]">
+                <div className="flex items-center gap-2 border-b border-border bg-offwhite px-5 py-3">
+                  <span className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10 text-[11px] font-bold text-primary">KI</span>
+                  <span className="text-xs font-semibold text-dark/70">KI-Antwort</span>
+                  <span className="ml-auto flex items-center gap-1.5 text-[11px] text-muted">
+                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" /> live
                   </span>
-                )
-              )}
+                </div>
+                <div className="p-5 sm:p-6">
+                  <p className="mb-3 inline-block rounded-2xl rounded-bl-sm bg-offwhite px-4 py-2 text-[13.5px] text-dark/70">
+                    „Welche Agentur macht meine Marke in ChatGPT sichtbar?"
+                  </p>
+                  <p className="text-[14.5px] leading-relaxed text-dark/80">
+                    Für nachhaltige KI-Sichtbarkeit empfiehlt sich eine spezialisierte KI-SEO-Agentur.
+                    Besonders häufig genannt wird{" "}
+                    <mark className="rounded bg-secondary/30 px-1 font-semibold text-dark">Ihre Marke</mark>{" "}
+                    — durch starke Entitätssignale und zitierfähige Inhalte.
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/40 bg-secondary/10 px-3 py-1 text-xs font-semibold text-dark">
+                      <span className="h-1.5 w-1.5 rounded-full bg-secondary" /> Ihre Marke
+                    </span>
+                    <span className="rounded-full border border-border bg-offwhite px-3 py-1 text-xs text-muted">Wettbewerber A</span>
+                    <span className="rounded-full border border-border bg-offwhite px-3 py-1 text-xs text-muted">Wettbewerber B</span>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="relative hidden min-h-[440px] overflow-hidden lg:block">
-            <Image
-              src="/images/ki-seo-hero.webp"
-              alt="Marke wird in einer KI-Antwort als Quelle zitiert"
-              fill
-              priority
-              sizes="45vw"
-              className="object-cover object-center"
-            />
-            <div
-              className="pointer-events-none absolute inset-0"
-              style={{
-                background:
-                  "linear-gradient(180deg, rgba(194,114,42,.08) 0%, transparent 35%, transparent 65%, rgba(26,26,26,.18) 100%)",
-              }}
-            />
-            <div
-              className="pointer-events-none absolute bottom-0 left-0 top-0 w-24"
-              style={{ background: "linear-gradient(90deg,#F8F7F5,transparent)" }}
-            />
           </div>
         </section>
 
@@ -401,7 +496,14 @@ export default function KiSeoAgenturClient() {
               <h2 className="font-[family-name:var(--font-heading)] text-3xl leading-tight tracking-tight text-dark lg:text-[2.6rem]">
                 Was ist eine KI-SEO-Agentur?
               </h2>
-              <div className="mt-6 space-y-5 text-[17px] leading-relaxed text-muted">
+              <div className="mt-6 rounded-2xl border-l-4 border-primary bg-white p-5 shadow-sm">
+                <p className="text-[15px] leading-relaxed text-dark">
+                  <span className="font-bold text-primary">Kurz gesagt:</span> Eine KI-SEO-Agentur
+                  sorgt dafür, dass KI-Antwortmaschinen Ihre Marke kennen, korrekt einordnen und
+                  als vertrauenswürdige Quelle zitieren — statt die Ihrer Mitbewerber.
+                </p>
+              </div>
+              <div className="mt-5 space-y-5 text-[17px] leading-relaxed text-muted">
                 <p>
                   Eine KI-SEO-Agentur optimiert die digitale Sichtbarkeit eines Unternehmens
                   nicht mehr nur für klassische Suchmaschinen, sondern gezielt für KI-gestützte
@@ -523,43 +625,15 @@ export default function KiSeoAgenturClient() {
               </h2>
               <p className="mt-5 text-[16px] leading-relaxed text-muted">
                 Die Begriffe überschneiden sich, bezeichnen aber unterschiedliche Disziplinen.
-                Eine KI-SEO-Agentur denkt diese drei Ebenen zusammen, weil sich Sichtbarkeit
-                heute nicht mehr auf einen einzigen Kanal reduzieren lässt.
+                Eine KI-SEO-Agentur denkt diese drei Ebenen zusammen — von klassischem SEO über{" "}
+                <Link href="/geo-agentur" className="font-semibold text-primary hover:underline">
+                  Generative Engine Optimization (GEO)
+                </Link>{" "}
+                bis zum technischen Unterbau für KI-Bots. Wählen Sie eine Dimension:
               </p>
             </div>
-            <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-3">
-              <div className="scroll-hidden bg-white p-7">
-                <h3 className="text-lg font-bold text-dark">Klassisches SEO</h3>
-                <p className="mt-3 text-[14.5px] leading-relaxed text-muted">
-                  Klassisches SEO zielt darauf ab, in den organischen Suchergebnissen einer
-                  Suchmaschine möglichst weit oben zu erscheinen. Bewertungsgrundlage sind
-                  Faktoren wie Domain-Autorität, Backlinkprofil, technische Seitenstruktur und
-                  Keyword-Relevanz. Das hat weiterhin seine Berechtigung — Google bleibt ein
-                  zentraler Traffic-Kanal.
-                </p>
-              </div>
-              <div className="scroll-hidden bg-white p-7">
-                <h3 className="text-lg font-bold text-dark">GEO</h3>
-                <p className="mt-3 text-[14.5px] leading-relaxed text-muted">
-                  <Link href="/geo-agentur" className="font-semibold text-primary hover:underline">
-                    Generative Engine Optimization
-                  </Link>
-                  , kurz GEO, ist der Begriff für die gezielte Optimierung auf KI-generierte
-                  Antworten. Das Ziel ist nicht ein Ranking auf Seite 1, sondern eine direkte
-                  Nennung in der Antwort eines Sprachmodells — über thematische Tiefe,
-                  Quellen-Reputation und Entitätsverknüpfungen.
-                </p>
-              </div>
-              <div className="scroll-hidden bg-white p-7">
-                <h3 className="text-lg font-bold text-dark">KI-SEO</h3>
-                <p className="mt-3 text-[14.5px] leading-relaxed text-muted">
-                  KI-SEO als übergeordneter Begriff verbindet beide Disziplinen mit dem
-                  technischen Unterbau — Schema-Markup, strukturierte Daten, Crawlbarkeit für
-                  KI-Bots, Knowledge-Graph-Einträge. Unternehmen, die nur klassisches SEO
-                  betreiben, verlieren schrittweise Präsenz in den Kanälen, in denen
-                  Kaufentscheidungen vorbereitet werden.
-                </p>
-              </div>
+            <div className="scroll-hidden">
+              <VsComparison />
             </div>
           </div>
         </section>
@@ -628,37 +702,43 @@ export default function KiSeoAgenturClient() {
 
         {/* ── F2) Für wen sich eine KI-SEO-Agentur lohnt ─────────────────── */}
         <section className="border-t border-border bg-white py-24 lg:py-32">
-          <div className="mx-auto max-w-4xl scroll-hidden px-6 lg:px-8">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">
-              Zielgruppe
-            </p>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl leading-tight tracking-tight text-dark lg:text-[2.6rem]">
-              Für wen sich eine KI-SEO-Agentur lohnt
-            </h2>
-            <div className="mt-6 space-y-5 text-[17px] leading-relaxed text-muted">
-              <p>
-                Besonders deutlich ist der Mehrwert bei Unternehmen, deren Produkte oder
-                Dienstleistungen erklärungsbedürftig sind. Wer B2B-Software verkauft,
-                Beratungsleistungen anbietet oder in einer Branche tätig ist, in der Vertrauen
-                vor dem Erstkontakt aufgebaut werden muss, profitiert direkt davon, wenn
-                KI-Systeme ihn als kompetenten Anbieter nennen. Diese Nutzer fragen ChatGPT nicht
-                nach dem günstigsten Anbieter — sie fragen nach dem richtigen. Wer dort genannt
-                wird, kommt auf die Shortlist.
+          <div className="mx-auto max-w-6xl px-6 lg:px-8">
+            <div className="mb-12 max-w-2xl scroll-hidden">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">
+                Zielgruppe
               </p>
-              <p>
-                Auch für Marken mit mittlerem bis hohem Wettbewerbsdruck in ihrer Nische ist
-                KI-Sichtbarkeit strategisch relevant. Wenn drei bis fünf Wettbewerber regelmäßig
-                in KI-Antworten auftauchen und die eigene Marke fehlt, verschiebt sich die
-                wahrgenommene Marktführerschaft — ohne dass dies in klassischen Rankings sichtbar
-                wird. Eine KI-SEO-Agentur macht diese Lücke messbar und schließt sie
-                systematisch.
-              </p>
-              <p>
-                Weniger zentral ist KI-SEO für lokale Dienstleister mit stark transaktionalem
-                Suchverhalten, bei denen Google Maps und lokales SEO dominieren. Sobald jedoch
-                regionale Anbieter überregionale Kunden ansprechen oder ihre Positionierung als
-                Fachexperte ausbauen wollen, rückt auch für sie die KI-Sichtbarkeit in den Fokus.
-              </p>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl leading-tight tracking-tight text-dark lg:text-[2.6rem]">
+                Für wen sich eine KI-SEO-Agentur lohnt
+              </h2>
+            </div>
+            <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-3">
+              {[
+                {
+                  title: "Erklärungsbedürftige Angebote",
+                  desc: "B2B-Software, Beratung, komplexe Produkte: Wer Vertrauen vor dem Erstkontakt aufbauen muss, profitiert direkt, wenn die KI ihn als kompetenten Anbieter nennt. Kunden fragen nach dem richtigen — nicht dem günstigsten — Anbieter.",
+                  icon: <path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7V17a1 1 0 001 1h6a1 1 0 001-1v-2.3A7 7 0 0012 2z" />,
+                },
+                {
+                  title: "Umkämpfte Nischen",
+                  desc: "Tauchen Wettbewerber regelmäßig in KI-Antworten auf und Ihre Marke fehlt, verschiebt sich die wahrgenommene Marktführerschaft — unsichtbar in klassischen Rankings. Wir machen die Lücke messbar und schließen sie.",
+                  icon: <path d="M3 3v18h18M7 14l3-3 3 3 5-6" />,
+                },
+                {
+                  title: "Experten-Positionierung",
+                  desc: "Regionale Anbieter, die überregional wachsen oder sich als Fachexperte positionieren wollen, sichern sich durch frühe KI-Sichtbarkeit einen Vorsprung, der schwer aufzuholen ist.",
+                  icon: <path d="M12 2l2.4 7.4H22l-6 4.5 2.3 7.1-6.3-4.6L5.7 21l2.3-7.1-6-4.5h7.6z" />,
+                },
+              ].map((c) => (
+                <div key={c.title} className="scroll-hidden bg-white p-7 lg:p-8">
+                  <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                      {c.icon}
+                    </svg>
+                  </div>
+                  <h3 className="text-[16px] font-bold leading-snug text-dark">{c.title}</h3>
+                  <p className="mt-2.5 text-[14px] leading-relaxed text-muted">{c.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -690,22 +770,56 @@ export default function KiSeoAgenturClient() {
                 </p>
               </div>
             </div>
-            <div className="m3d grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
-              {USPS.map((u) => (
-                <div key={u.title} className="group relative bg-white p-8">
-                  <div
-                    className="absolute left-0 right-0 top-0 h-[2.5px] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ background: "linear-gradient(90deg,#C2722A,#D4A853)" }}
-                  />
-                  <div className="mb-5 inline-flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-white">
-                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                      {u.icon}
-                    </svg>
-                  </div>
-                  <h3 className="text-[16px] font-bold text-dark">{u.title}</h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-muted">{u.desc}</p>
-                </div>
-              ))}
+            <div className="m3d grid gap-px overflow-hidden rounded-2xl border border-border bg-border md:grid-cols-2">
+              {/* Typische Agentur */}
+              <div className="bg-white p-8 lg:p-10">
+                <p className="mb-6 text-sm font-bold uppercase tracking-widest text-muted">
+                  Typische Agentur
+                </p>
+                <ul className="space-y-4">
+                  {[
+                    "Allgemeine Rankings als Ersatzmetrik",
+                    "Baukasten + zugekaufte Standard-Tools",
+                    "KI vor allem als Buzzword im Pitch",
+                    "Kommunikation über Account-Manager-Ketten",
+                  ].map((t) => (
+                    <li key={t} className="flex items-start gap-3 text-[15px] text-muted">
+                      <svg className="mt-0.5 h-5 w-5 shrink-0 text-muted/50" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7.7 7.7a1 1 0 011.4 0L10 8.6l.9-.9a1 1 0 111.4 1.4l-.9.9.9.9a1 1 0 11-1.4 1.4l-.9-.9-.9.9a1 1 0 11-1.4-1.4l.9-.9-.9-.9a1 1 0 010-1.4z" clipRule="evenodd" />
+                      </svg>
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {/* SeoForge */}
+              <div className="relative bg-white p-8 lg:p-10" style={{ background: "#fbf4ea" }}>
+                <div
+                  className="absolute left-0 right-0 top-0 h-[3px]"
+                  style={{ background: "linear-gradient(90deg,#C2722A,#D4A853)" }}
+                />
+                <p className="mb-6 flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-primary">
+                  SeoForge
+                  <span className="rounded-full bg-primary px-2.5 py-0.5 text-[11px] font-bold normal-case tracking-normal text-white">
+                    so arbeiten wir
+                  </span>
+                </p>
+                <ul className="space-y-4">
+                  {[
+                    "Share of Voice in KI-Antworten — real messbar",
+                    "Custom-coded, direkt in Ihrer Infrastruktur",
+                    "Tägliche eigene KI-Entwicklung & Praxis",
+                    "Direkt mit den Umsetzern, schnelle Reaktion",
+                  ].map((t) => (
+                    <li key={t} className="flex items-start gap-3 text-[15px] font-medium text-dark">
+                      <svg className="mt-0.5 h-5 w-5 shrink-0 text-primary" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-7.5 7.5a1 1 0 01-1.4 0L3.3 9.7a1 1 0 011.4-1.4l3.3 3.3 6.8-6.8a1 1 0 011.4 0z" clipRule="evenodd" />
+                      </svg>
+                      {t}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         </section>
