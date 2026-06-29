@@ -430,121 +430,135 @@ export default function KiSeoAgenturClient() {
   return (
     <SubpageLayout>
       <main className="bg-white">
-        {/* ── A) HERO (immersiv, zentriert) ──────────────────────────────── */}
-        <section className="relative overflow-hidden bg-offwhite">
-          {/* Atmosphärischer dekorativer Hintergrund */}
-          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-            <div
-              className="absolute left-1/2 top-[-12%] h-[620px] w-[1100px] -translate-x-1/2 rounded-full"
-              style={{ background: "radial-gradient(ellipse at center, rgba(212,168,83,0.20), transparent 62%)" }}
-            />
-            <div
-              className="absolute right-[-8%] top-[28%] h-[440px] w-[440px] rounded-full"
-              style={{ background: "radial-gradient(circle, rgba(194,114,42,0.12), transparent 66%)" }}
-            />
-            <div
-              className="absolute inset-0 opacity-[0.5]"
-              style={{
-                backgroundImage:
-                  "radial-gradient(circle at 1px 1px, rgba(26,26,26,0.05) 1px, transparent 0)",
-                backgroundSize: "26px 26px",
-                maskImage: "radial-gradient(ellipse 80% 60% at 50% 35%, #000 30%, transparent 75%)",
-                WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 35%, #000 30%, transparent 75%)",
-              }}
-            />
-            {/* Knowledge-Graph-Linienkunst */}
-            <svg className="absolute inset-x-0 top-0 mx-auto h-[560px] w-full max-w-6xl opacity-[0.10]" viewBox="0 0 1200 560" fill="none" preserveAspectRatio="xMidYMid slice">
-              <g stroke="#C2722A" strokeWidth="1.5">
-                <line x1="180" y1="120" x2="430" y2="260" />
-                <line x1="430" y1="260" x2="240" y2="430" />
-                <line x1="430" y1="260" x2="680" y2="180" />
-                <line x1="680" y1="180" x2="950" y2="300" />
-                <line x1="680" y1="180" x2="820" y2="420" />
-                <line x1="950" y1="300" x2="1040" y2="120" />
-                <line x1="240" y1="430" x2="560" y2="470" />
-                <line x1="820" y1="420" x2="560" y2="470" />
-              </g>
-              <g fill="#C2722A">
-                <circle cx="180" cy="120" r="5" /><circle cx="240" cy="430" r="5" /><circle cx="950" cy="300" r="5" /><circle cx="1040" cy="120" r="5" /><circle cx="560" cy="470" r="5" /><circle cx="820" cy="420" r="5" />
-              </g>
-              <g fill="#D4A853">
-                <circle cx="430" cy="260" r="9" /><circle cx="680" cy="180" r="7" />
-              </g>
-            </svg>
-          </div>
+        {/* ── A) HERO (dunkles Panel + Produkt-Mockup) ───────────────────── */}
+        <section className="bg-offwhite pb-6 pt-8 sm:pt-10 lg:pt-12">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="relative overflow-hidden rounded-[1.75rem] bg-dark px-6 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-20">
+              {/* dekorativer Hintergrund im Panel */}
+              <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div
+                  className="absolute -right-24 -top-24 h-[460px] w-[460px] rounded-full"
+                  style={{ background: "radial-gradient(circle, rgba(194,114,42,0.32), transparent 65%)" }}
+                />
+                <div
+                  className="absolute -bottom-28 -left-16 h-[380px] w-[380px] rounded-full"
+                  style={{ background: "radial-gradient(circle, rgba(212,168,83,0.14), transparent 68%)" }}
+                />
+                <svg className="absolute right-0 top-0 h-full w-2/3 opacity-[0.13]" viewBox="0 0 600 500" fill="none" preserveAspectRatio="xMidYMid slice">
+                  <g stroke="#D4A853" strokeWidth="1.2">
+                    <line x1="120" y1="80" x2="320" y2="200" />
+                    <line x1="320" y1="200" x2="180" y2="360" />
+                    <line x1="320" y1="200" x2="500" y2="140" />
+                    <line x1="500" y1="140" x2="560" y2="320" />
+                    <line x1="180" y1="360" x2="430" y2="400" />
+                    <line x1="430" y1="400" x2="560" y2="320" />
+                  </g>
+                  <g fill="#D4A853">
+                    <circle cx="120" cy="80" r="4" /><circle cx="180" cy="360" r="4" /><circle cx="500" cy="140" r="4" /><circle cx="560" cy="320" r="4" /><circle cx="430" cy="400" r="4" />
+                  </g>
+                  <circle cx="320" cy="200" r="7" fill="#C2722A" />
+                </svg>
+              </div>
 
-          <div className="relative mx-auto max-w-4xl px-6 pb-16 pt-28 text-center sm:pt-32 lg:pt-40">
-            <div className="mb-6 inline-flex items-center gap-2.5">
-              <span className="h-px w-7 bg-primary" />
-              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-primary">
-                KI-SEO-Agentur · KI-Sichtbarkeit
-              </span>
-              <span className="h-px w-7 bg-primary" />
-            </div>
-            <h1 className="mx-auto max-w-4xl font-[family-name:var(--font-heading)] text-[2.7rem] leading-[1.05] tracking-tight text-dark sm:text-6xl lg:text-[4.4rem]">
-              Werden Sie die{" "}
-              <span
-                style={{
-                  background: "linear-gradient(90deg,#C2722A,#D4A853)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                }}
-              >
-                Antwort
-              </span>
-              , wenn die KI gefragt wird.
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-              Als spezialisierte KI-SEO-Agentur machen wir Ihre Marke in ChatGPT, Perplexity und
-              Google AI Overviews sichtbar und zitierfähig — messbar, technisch sauber, ohne leere
-              Versprechen.
-            </p>
-            <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-              <Link
-                href="/kontakt"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark"
-              >
-                Kostenlose KI-Sichtbarkeits-Analyse
-                <Arrow />
-              </Link>
-              <a
-                href="#leistungen"
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-7 py-3.5 text-sm font-semibold text-dark transition-all hover:border-primary/40"
-              >
-                Leistungen ansehen
-              </a>
-            </div>
-
-            {/* Fokus-Element: KI-Antwort, in der die Marke zitiert wird */}
-            <div className="relative mx-auto mt-16 max-w-2xl">
-              <div
-                className="pointer-events-none absolute -inset-6 rounded-[2rem]"
-                style={{ background: "radial-gradient(ellipse at center, rgba(212,168,83,0.22), transparent 70%)" }}
-              />
-              <div className="relative overflow-hidden rounded-2xl border border-border bg-white text-left shadow-[0_36px_90px_-44px_rgba(26,26,26,0.32)]">
-                <div className="flex items-center gap-2 border-b border-border bg-offwhite px-5 py-3">
-                  <span className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10 text-[11px] font-bold text-primary">KI</span>
-                  <span className="text-xs font-semibold text-dark/70">KI-Antwort</span>
-                  <span className="ml-auto flex items-center gap-1.5 text-[11px] text-muted">
-                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" /> live
+              <div className="relative grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
+                {/* LINKS: Text */}
+                <div>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-secondary">
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary" /> KI-SEO-Agentur · KI-Sichtbarkeit
                   </span>
-                </div>
-                <div className="p-5 sm:p-6">
-                  <p className="mb-3 inline-block rounded-2xl rounded-bl-sm bg-offwhite px-4 py-2 text-[13.5px] text-dark/70">
-                    „Welche Agentur macht meine Marke in ChatGPT sichtbar?"
-                  </p>
-                  <p className="text-[14.5px] leading-relaxed text-dark/80">
-                    Für nachhaltige KI-Sichtbarkeit empfiehlt sich eine spezialisierte KI-SEO-Agentur.
-                    Besonders häufig genannt wird{" "}
-                    <mark className="rounded bg-secondary/30 px-1 font-semibold text-dark">Ihre Marke</mark>{" "}
-                    — durch starke Entitätssignale und zitierfähige Inhalte.
-                  </p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-secondary/40 bg-secondary/10 px-3 py-1 text-xs font-semibold text-dark">
-                      <span className="h-1.5 w-1.5 rounded-full bg-secondary" /> Ihre Marke
+                  <h1 className="mt-6 font-[family-name:var(--font-heading)] text-[2.6rem] leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-[3.7rem]">
+                    Werden Sie die{" "}
+                    <span
+                      style={{
+                        background: "linear-gradient(90deg,#e0975a,#D4A853)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                      }}
+                    >
+                      Antwort
                     </span>
-                    <span className="rounded-full border border-border bg-offwhite px-3 py-1 text-xs text-muted">Wettbewerber A</span>
-                    <span className="rounded-full border border-border bg-offwhite px-3 py-1 text-xs text-muted">Wettbewerber B</span>
+                    , wenn die KI gefragt wird.
+                  </h1>
+                  <p className="mt-5 max-w-xl text-lg leading-relaxed text-white/65">
+                    Als spezialisierte KI-SEO-Agentur machen wir Ihre Marke in ChatGPT, Perplexity
+                    und Google AI Overviews sichtbar und zitierfähig — messbar, technisch sauber,
+                    ohne leere Versprechen.
+                  </p>
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                    <Link
+                      href="/kontakt"
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/30 transition-all hover:bg-primary-light"
+                    >
+                      Kostenlose KI-Sichtbarkeits-Analyse
+                      <Arrow />
+                    </Link>
+                    <a
+                      href="#leistungen"
+                      className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-sm font-semibold text-white/85 transition-all hover:border-white/40 hover:text-white"
+                    >
+                      Leistungen ansehen
+                    </a>
+                  </div>
+                  <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] text-white/55">
+                    {["Antwort innerhalb von 24 Stunden", "ChatGPT · Perplexity · Google AI"].map((t) => (
+                      <span key={t} className="flex items-center gap-1.5">
+                        <svg className="h-4 w-4 text-primary" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-7.5 7.5a1 1 0 01-1.4 0L3.3 9.7a1 1 0 011.4-1.4l3.3 3.3 6.8-6.8a1 1 0 011.4 0z" clipRule="evenodd" />
+                        </svg>
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* RECHTS: Produkt-Mockup */}
+                <div className="relative">
+                  <div
+                    className="pointer-events-none absolute -inset-5 rounded-[2rem]"
+                    style={{ background: "radial-gradient(ellipse at center, rgba(212,168,83,0.25), transparent 70%)" }}
+                  />
+                  <div className="relative overflow-hidden rounded-2xl bg-white shadow-[0_40px_90px_-34px_rgba(0,0,0,0.65)]">
+                    <div className="flex items-center gap-2 border-b border-border bg-offwhite px-5 py-3">
+                      <span className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10 text-[11px] font-bold text-primary">KI</span>
+                      <span className="text-xs font-semibold text-dark/70">KI-Antwort</span>
+                      <span className="ml-auto flex items-center gap-1.5 text-[11px] text-muted">
+                        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-primary" /> live
+                      </span>
+                    </div>
+                    <div className="p-5">
+                      <p className="mb-3 inline-block rounded-2xl rounded-bl-sm bg-offwhite px-4 py-2 text-[13px] text-dark/70">
+                        „Beste Agentur für KI-Sichtbarkeit?"
+                      </p>
+                      <p className="text-[13.5px] leading-relaxed text-dark/80">
+                        Empfohlen wird eine spezialisierte KI-SEO-Agentur — besonders häufig
+                        genannt:{" "}
+                        <mark className="rounded bg-secondary/30 px-1 font-semibold text-dark">Ihre Marke</mark>.
+                      </p>
+                      <div className="mt-4 space-y-2.5">
+                        {[
+                          { n: "Ihre Marke", v: 38, hot: true },
+                          { n: "Wettbewerber A", v: 22, hot: false },
+                          { n: "Wettbewerber B", v: 15, hot: false },
+                        ].map((b) => (
+                          <div key={b.n}>
+                            <div className="mb-1 flex items-center justify-between text-[11.5px]">
+                              <span className={b.hot ? "font-bold text-dark" : "text-muted"}>{b.n}</span>
+                              <span className={b.hot ? "font-bold text-primary" : "text-muted"}>{b.v}%</span>
+                            </div>
+                            <div className="h-2 w-full overflow-hidden rounded-full bg-offwhite">
+                              <div
+                                className="h-full rounded-full"
+                                style={{ width: `${b.v}%`, background: b.hot ? "linear-gradient(90deg,#C2722A,#D4A853)" : "#dcd7d0" }}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="absolute -bottom-4 -left-4 hidden rounded-xl border border-border bg-white px-3.5 py-2 shadow-lg sm:block">
+                    <p className="text-[10px] uppercase tracking-wider text-muted">Ergebnis</p>
+                    <p className="text-sm font-bold text-dark">Sie werden zitiert.</p>
                   </div>
                 </div>
               </div>
