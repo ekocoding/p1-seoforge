@@ -575,8 +575,8 @@ export default function KiSeoAgenturClient() {
 
         {/* ── C) Was ist eine KI-SEO-Agentur? + Warum jetzt ──────────────── */}
         <section className="bg-offwhite py-24 lg:py-32">
-          <div className="mx-auto max-w-4xl px-6 lg:px-8">
-            <div className="scroll-hidden">
+          <div className="mx-auto max-w-6xl px-6 lg:px-8">
+            <div className="scroll-hidden max-w-3xl">
               <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">
                 KI-SEO erklärt
               </p>
@@ -624,7 +624,7 @@ export default function KiSeoAgenturClient() {
               <h2 className="font-[family-name:var(--font-heading)] text-3xl leading-tight tracking-tight text-dark lg:text-[2.4rem]">
                 Warum KI-Sichtbarkeit heute über Wachstum entscheidet
               </h2>
-              <div className="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
+              <div className="mt-8 grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
                 <div className="space-y-5 text-[16.5px] leading-relaxed text-muted">
                   <p>
                     Die Art, wie Menschen online nach Produkten, Dienstleistungen und Anbietern
