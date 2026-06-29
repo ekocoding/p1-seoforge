@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SubpageLayout from "../components/SubpageLayout";
@@ -204,6 +204,93 @@ function SovDashboard() {
 }
 
 /* ── FAQ-Accordion (grid-template-rows-Animation) ─────────────────────────── */
+/* ── Visualisierung: Wachstums-/Vorsprung-Kurve (zeichnet sich beim Scrollen) ── */
+function GrowthChart() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [on, setOn] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) {
+          setOn(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  const DASH = 900;
+  return (
+    <div
+      ref={ref}
+      className="rounded-2xl border border-border bg-white p-6 shadow-[0_30px_70px_-44px_rgba(26,26,26,0.28)]"
+    >
+      <p className="text-xs font-semibold uppercase tracking-widest text-muted">
+        Vorsprung durch frühe KI-Sichtbarkeit
+      </p>
+      <svg viewBox="0 0 400 250" className="mt-4 w-full" role="img" aria-label="Wachstumskurve: früher Start vs. später Start bei KI-Sichtbarkeit">
+        <defs>
+          <linearGradient id="gcArea" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#C2722A" stopOpacity="0.22" />
+            <stop offset="100%" stopColor="#C2722A" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        {/* Achsen */}
+        <line x1="40" y1="212" x2="390" y2="212" stroke="#E5E3DF" strokeWidth="1.5" />
+        <line x1="40" y1="20" x2="40" y2="212" stroke="#E5E3DF" strokeWidth="1.5" />
+        {/* Fläche unter der frühen Kurve */}
+        <path
+          d="M40 202 C 150 190, 250 120, 388 38 L 388 212 L 40 212 Z"
+          fill="url(#gcArea)"
+          style={{ opacity: on ? 1 : 0, transition: "opacity 1s ease 0.7s" }}
+        />
+        {/* Später Start (grau) */}
+        <path
+          d="M40 202 C 160 198, 270 190, 388 152"
+          fill="none"
+          stroke="#cfc9c1"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeDasharray={DASH}
+          style={{ strokeDashoffset: on ? 0 : DASH, transition: "stroke-dashoffset 1.6s ease 0.2s" }}
+        />
+        {/* Früher Start (terracotta) */}
+        <path
+          d="M40 202 C 150 190, 250 120, 388 38"
+          fill="none"
+          stroke="#C2722A"
+          strokeWidth="3.5"
+          strokeLinecap="round"
+          strokeDasharray={DASH}
+          style={{ strokeDashoffset: on ? 0 : DASH, transition: "stroke-dashoffset 1.9s ease" }}
+        />
+        {/* Endpunkte */}
+        <circle cx="388" cy="152" r="4" fill="#cfc9c1" style={{ opacity: on ? 1 : 0, transition: "opacity .4s ease 1.6s" }} />
+        <circle cx="388" cy="38" r="5.5" fill="#C2722A" style={{ opacity: on ? 1 : 0, transition: "opacity .4s ease 1.9s" }} />
+        {/* Achsenbeschriftung */}
+        <text x="215" y="240" fill="#9a948c" fontSize="12" textAnchor="middle">Zeit →</text>
+        <text x="-130" y="16" fill="#9a948c" fontSize="12" textAnchor="middle" transform="rotate(-90)">KI-Sichtbarkeit</text>
+      </svg>
+      <div className="mt-3 flex flex-wrap gap-x-5 gap-y-1.5 text-xs">
+        <span className="flex items-center gap-1.5 font-semibold text-dark">
+          <span className="h-2 w-2 rounded-full bg-primary" /> Früher Start (mit KI-SEO)
+        </span>
+        <span className="flex items-center gap-1.5 text-muted">
+          <span className="h-2 w-2 rounded-full bg-[#cfc9c1]" /> Später Start
+        </span>
+      </div>
+      <p className="mt-3 text-xs italic text-muted">
+        Illustrative Darstellung: KI-Sichtbarkeit ist ein kumulativer Vorsprung — früh aufgebaut,
+        schwer einzuholen.
+      </p>
+    </div>
+  );
+}
+
 /* ── Interaktive App #2: SEO vs. GEO vs. KI-SEO ───────────────────────────── */
 const VS_DIMENSIONS = [
   {
@@ -537,30 +624,30 @@ export default function KiSeoAgenturClient() {
               <h2 className="font-[family-name:var(--font-heading)] text-3xl leading-tight tracking-tight text-dark lg:text-[2.4rem]">
                 Warum KI-Sichtbarkeit heute über Wachstum entscheidet
               </h2>
-              <div className="mt-6 space-y-5 text-[17px] leading-relaxed text-muted">
-                <p>
-                  Die Art, wie Menschen online nach Produkten, Dienstleistungen und Anbietern
-                  suchen, hat sich in den letzten zwei Jahren schneller verändert als in den zehn
-                  Jahren davor. KI-Chatbots werden für komplexe, beratungsintensive Anfragen zur
-                  ersten Anlaufstelle — nicht weil Nutzer Google nicht mehr kennen, sondern weil
-                  eine direkte, strukturierte Antwort effizienter ist als zehn blaue Links. Wer
-                  in dieser Antwort nicht vorkommt, existiert für diesen Nutzer schlicht nicht.
-                </p>
-                <p>
-                  Das Problem für viele Unternehmen ist die Zeitverzögerung. KI-Sichtbarkeit
-                  entsteht nicht über Nacht. Sprachmodelle lernen aus Daten, die Monate oder
-                  Jahre zurückliegen. Wer heute anfängt, die richtigen Signale zu setzen —
-                  redaktionelle Erwähnungen, konsistente Entitätsdaten, thematische Autorität in
-                  Fachpublikationen — sichert sich einen Platz in zukünftigen Modellupdates. Wer
-                  wartet, bis der Wettbewerber dort sichtbar ist, hat einen Rückstand, der schwer
-                  aufzuholen ist.
-                </p>
-                <p>
-                  Hinzu kommt der Zero-Click-Effekt: Selbst wenn ein Nutzer nach dem KI-Ergebnis
-                  noch auf eine Website klickt, filtert die vorangegangene KI-Antwort bereits,
-                  welche Marken als Optionen in Betracht kommen. KI-Sichtbarkeit ist damit
-                  Awareness-Arbeit — sie findet statt, bevor der Klick überhaupt passiert.
-                </p>
+              <div className="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center lg:gap-14">
+                <div className="space-y-5 text-[16.5px] leading-relaxed text-muted">
+                  <p>
+                    Die Art, wie Menschen online nach Produkten, Dienstleistungen und Anbietern
+                    suchen, hat sich in den letzten zwei Jahren schneller verändert als in den
+                    zehn Jahren davor. KI-Chatbots werden für komplexe, beratungsintensive
+                    Anfragen zur ersten Anlaufstelle — eine direkte, strukturierte Antwort ist
+                    effizienter als zehn blaue Links. Wer in dieser Antwort nicht vorkommt,
+                    existiert für diesen Nutzer schlicht nicht.
+                  </p>
+                  <p>
+                    Entscheidend ist die Zeitverzögerung: KI-Sichtbarkeit entsteht nicht über
+                    Nacht. Wer heute die richtigen Signale setzt — Erwähnungen, konsistente
+                    Entitätsdaten, thematische Autorität —, sichert sich einen Platz in
+                    zukünftigen Modellupdates. Wer wartet, bis der Wettbewerber dort sichtbar ist,
+                    hat einen Rückstand, der schwer aufzuholen ist.
+                  </p>
+                  <p>
+                    Hinzu kommt der Zero-Click-Effekt: Schon bevor ein Klick passiert, filtert die
+                    KI-Antwort, welche Marken überhaupt als Option in Betracht kommen.
+                    KI-Sichtbarkeit ist damit Awareness-Arbeit — sie wirkt früher als jeder Klick.
+                  </p>
+                </div>
+                <GrowthChart />
               </div>
             </div>
           </div>
