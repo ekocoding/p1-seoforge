@@ -366,6 +366,43 @@ export default function WebdesignClient() {
         </div>
       </section>
 
+      {/* ══ CONTENT — Was gutes Webdesign ausmacht ══ */}
+      <section className="bg-white py-24 lg:py-32 border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <SectionHead
+            eyebrow="Webdesign-Ratgeber"
+            title={<>Was professionelles<br />Webdesign 2026 ausmacht.</>}
+            copy="Modernes Webdesign ist mehr als Optik. Diese sechs Faktoren entscheiden 2026 über Sichtbarkeit, Nutzererlebnis und Anfragen — und sind bei uns Standard, nicht Aufpreis."
+          />
+          <div className="grid md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-10">
+            {ASPECTS.map((a, i) => (
+              <div key={a.t} className="scroll-hidden flex gap-5" style={{ transitionDelay: `${(i % 2) * 80}ms` }}>
+                <div className="shrink-0 w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">{icon(a.s)}</div>
+                <div>
+                  <h3 className="font-bold text-dark text-lg mb-1.5">{a.t}</h3>
+                  <p className="text-muted text-sm leading-relaxed">{a.d}</p>
+                  {a.link && (
+                    <Link href={a.link.href} className="mt-2.5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary hover:gap-2.5 transition-all">
+                      {a.link.label}
+                      <span>→</span>
+                    </Link>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="scroll-hidden mt-8 text-sm text-muted leading-relaxed max-w-3xl">
+            Du planst ein konkretes Projekt? Ob{" "}
+            <Link href="/webdesign/website-erstellen-lassen" className="text-primary font-semibold hover:underline">neue Website</Link>,{" "}
+            <Link href="/webdesign/firmenwebsite-erstellen-lassen" className="text-primary font-semibold hover:underline">Firmenwebsite für den Mittelstand</Link>,{" "}
+            <Link href="/webdesign/landingpage-erstellen-lassen" className="text-primary font-semibold hover:underline">Landing Page</Link>,{" "}
+            <Link href="/webdesign/website-relaunch-agentur" className="text-primary font-semibold hover:underline">Relaunch</Link>{" "}oder{" "}
+            <Link href="/webdesign/app-design" className="text-primary font-semibold hover:underline">App-Design</Link>{" "}— wir bauen den passenden Weg, mit SEO als Fundament. Und nach dem Launch:{" "}
+            <Link href="/website-wartung" className="text-primary font-semibold hover:underline">laufende Website-Wartung &amp; Betreuung</Link>.
+          </p>
+        </div>
+      </section>
+
       {/* ══ LEISTUNGEN — Splitscreens zu allen Unterseiten ══ */}
       {DETAIL_SPLITS.map((s, i) => {
         const imgRight = i % 2 === 0;
@@ -410,43 +447,6 @@ export default function WebdesignClient() {
           </section>
         );
       })}
-
-      {/* ══ CONTENT — Was gutes Webdesign ausmacht ══ */}
-      <section className="bg-white py-24 lg:py-32 border-t border-border">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <SectionHead
-            eyebrow="Webdesign-Ratgeber"
-            title={<>Was professionelles<br />Webdesign 2026 ausmacht.</>}
-            copy="Modernes Webdesign ist mehr als Optik. Diese sechs Faktoren entscheiden 2026 über Sichtbarkeit, Nutzererlebnis und Anfragen — und sind bei uns Standard, nicht Aufpreis."
-          />
-          <div className="grid md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-10">
-            {ASPECTS.map((a, i) => (
-              <div key={a.t} className="scroll-hidden flex gap-5" style={{ transitionDelay: `${(i % 2) * 80}ms` }}>
-                <div className="shrink-0 w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">{icon(a.s)}</div>
-                <div>
-                  <h3 className="font-bold text-dark text-lg mb-1.5">{a.t}</h3>
-                  <p className="text-muted text-sm leading-relaxed">{a.d}</p>
-                  {a.link && (
-                    <Link href={a.link.href} className="mt-2.5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary hover:gap-2.5 transition-all">
-                      {a.link.label}
-                      <span>→</span>
-                    </Link>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-          <p className="scroll-hidden mt-8 text-sm text-muted leading-relaxed max-w-3xl">
-            Du planst ein konkretes Projekt? Ob{" "}
-            <Link href="/webdesign/website-erstellen-lassen" className="text-primary font-semibold hover:underline">neue Website</Link>,{" "}
-            <Link href="/webdesign/firmenwebsite-erstellen-lassen" className="text-primary font-semibold hover:underline">Firmenwebsite für den Mittelstand</Link>,{" "}
-            <Link href="/webdesign/landingpage-erstellen-lassen" className="text-primary font-semibold hover:underline">Landing Page</Link>,{" "}
-            <Link href="/webdesign/website-relaunch-agentur" className="text-primary font-semibold hover:underline">Relaunch</Link>{" "}oder{" "}
-            <Link href="/webdesign/app-design" className="text-primary font-semibold hover:underline">App-Design</Link>{" "}— wir bauen den passenden Weg, mit SEO als Fundament. Und nach dem Launch:{" "}
-            <Link href="/website-wartung" className="text-primary font-semibold hover:underline">laufende Website-Wartung &amp; Betreuung</Link>.
-          </p>
-        </div>
-      </section>
 
       {/* ══ PRINZIPIEN ══ */}
       <section className="py-24 lg:py-32 overflow-hidden border-t border-border" style={{ background: "#F8F5F1" }}>
