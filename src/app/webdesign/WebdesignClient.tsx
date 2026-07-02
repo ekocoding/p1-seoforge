@@ -28,13 +28,13 @@ const icon = (d: string) => (
   </svg>
 );
 
-const PRINCIPLES = [
-  { t: "SEO & Webdesign aus einem Team", d: "Design, Technik und Sichtbarkeit kommen aus einer Hand — keine Schnittstellenverluste zwischen zwei Dienstleistern.", m: "Ein Team", s: "M9 5l7 7-7 7" },
-  { t: "DevOps & CI/CD", d: "Automatisierte Tests, Pipeline-Deployments und Versionierung. Änderungen gehen kontrolliert live — jederzeit zurückrollbar.", m: "Live in Minuten", s: "M5 13l4 4L19 7" },
-  { t: "KI-Workflows als Preisvorteil", d: "KI übernimmt die Routine — Boilerplate, Tests, Doku. Kürzere Laufzeiten und faire Festpreise bei gleicher Qualität.", m: "Fairer Festpreis", s: "M13 10V3L4 14h7v7l9-11h-7z" },
-  { t: "Custom Code statt Baukasten", d: "Handgeschriebener Code mit Next.js oder WordPress — kein Template, kein Plugin-Overhead, keine Sicherheitslast.", m: "Next.js · WordPress", s: "M16 18l6-6-6-6M8 6l-6 6 6 6" },
-  { t: "SEO + GEO ab der ersten Zeile", d: "Sichtbar in Google — und in der KI-Suche. Inhalte, die ChatGPT, Perplexity und AI Overviews als Quelle zitieren.", m: "Zwei Sichtbarkeits-Kanäle", s: "M21 21l-4.3-4.3M11 19a8 8 0 1 1 0-16 8 8 0 0 1 0 16Z" },
-  { t: "Antwort in unter 24 Stunden", d: "Du erreichst einen persönlichen Ansprechpartner statt ein Ticketsystem — und bekommst garantiert in unter 24 h eine Antwort.", m: "Direkt erreichbar", s: "M12 8v4l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" },
+const VS_ROWS = [
+  { alt: "Design hier, SEO dort — zwei Dienstleister, doppelte Abstimmung", forge: "Design, Code und SEO aus einem Team — verzahnt ab der ersten Zeile" },
+  { alt: "Template vom Baukasten, Plugin-Overhead inklusive", forge: "Custom Code mit Next.js oder WordPress — schlank, schnell, sicher" },
+  { alt: "Änderungen dauern Wochen und gehen ungetestet live", forge: "CI/CD-Pipeline: kontrolliert live in Minuten — jederzeit zurückrollbar" },
+  { alt: "Abrechnung nach Aufwand — der Preis wächst mit", forge: "KI-Workflows übernehmen die Routine — fairer, verbindlicher Festpreis" },
+  { alt: "Nur auf Google optimiert — die KI-Suche wird ignoriert", forge: "SEO + GEO: sichtbar in Google und zitierfähig für ChatGPT & Co." },
+  { alt: "Ticketsystem — Antwort irgendwann", forge: "Persönlicher Ansprechpartner — Antwort in unter 24 Stunden" },
 ];
 
 const TECH = [
@@ -79,14 +79,14 @@ const ASPECTS: { t: string; d: string; s: string; link?: { href: string; label: 
   { t: "Conversion-Optimierung", d: "Eine schöne Website ist wertlos, wenn niemand anfragt. Klare CTAs, Vertrauenselemente und conversion-orientierte Layouts machen aus Besuchern Kunden — besonders bei Kampagnen-Seiten.", s: "M3 17l6-6 4 4 8-8M21 7v4M21 7h-4", link: { href: "/webdesign/landingpage-erstellen-lassen", label: "Conversion-Landing-Pages" } },
 ];
 
-const COST_FACTORS = [
-  ["Umfang & Seitenzahl", "One-Pager oder mehrseitige Unternehmens-Website mit Unterseiten."],
-  ["Individuelles Design", "Maßgeschneidertes UI statt Template — abgestimmt auf deine Marke."],
-  ["Funktionen", "Buchung, Mehrsprachigkeit, Schnittstellen oder ein Online-Shop."],
-  ["Content & Pflege", "Texte, Bilder, CMS-Einrichtung sowie laufendes Hosting & Wartung."],
+const COST_TILES = [
+  { t: "Umfang & Seitenzahl", d: "One-Pager oder mehrseitige Unternehmens-Website mit Unterseiten.", s: "M3 3h18v18H3zM3 9h18M9 21V9" },
+  { t: "Individuelles Design", d: "Maßgeschneidertes UI statt Template — abgestimmt auf deine Marke.", s: "M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13L2 21.75l.8-2.935a4.5 4.5 0 011.13-1.897l12.932-12.43z" },
+  { t: "Funktionen", d: "Buchung, Mehrsprachigkeit, Schnittstellen oder ein Online-Shop.", s: "M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" },
+  { t: "Content & Pflege", d: "Texte, Bilder, CMS-Einrichtung sowie laufendes Hosting & Wartung.", s: "M9 12h6M9 16h6M9 8h6M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z" },
 ];
 
-/* ─── Editorial-Header ────────────────────────────────────────────────────── */
+/* ─── Editorial-Header/* ─── Editorial-Header ────────────────────────────────────────────────────── */
 function SectionHead({ eyebrow, title, copy }: { eyebrow: string; title: React.ReactNode; copy: string }) {
   return (
     <div className="scroll-hidden grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-16 items-end mb-12 lg:mb-16">
@@ -163,103 +163,6 @@ function TechSwitcher() {
         </div>
       </div>
       <style>{`@keyframes tsIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }`}</style>
-    </div>
-  );
-}
-
-/* ─── So arbeiten wir — interaktives Radial (Hub + Satelliten) ─────────────── */
-function WorkWheel() {
-  const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
-  const N = PRINCIPLES.length;
-  useEffect(() => {
-    if (paused) return;
-    const id = setInterval(() => setActive((a) => (a + 1) % N), 3000);
-    return () => clearInterval(id);
-  }, [paused, N]);
-
-  const nodes = PRINCIPLES.map((_, i) => {
-    const ang = (-90 + (360 / N) * i) * (Math.PI / 180);
-    return { x: 50 + 39 * Math.cos(ang), y: 50 + 39 * Math.sin(ang) };
-  });
-  const p = PRINCIPLES[active];
-
-  return (
-    <div
-      className="scroll-hidden grid lg:grid-cols-[minmax(0,440px)_1fr] gap-12 lg:gap-16 items-center"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-    >
-      {/* Radial (Desktop) */}
-      <div className="relative hidden lg:block w-full max-w-[440px] aspect-square mx-auto">
-        <svg viewBox="0 0 100 100" className="absolute inset-0 w-full h-full" aria-hidden="true">
-          <defs><linearGradient id="wwg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#C2722A" /><stop offset="1" stopColor="#D4A853" /></linearGradient></defs>
-          <circle cx="50" cy="50" r="39" fill="none" stroke="rgba(26,26,26,0.08)" strokeWidth="0.35" strokeDasharray="0.6 2.6" />
-          {nodes.map((n, i) => (
-            <line key={i} x1="50" y1="50" x2={n.x} y2={n.y} stroke={i === active ? "url(#wwg)" : "rgba(26,26,26,0.07)"} strokeWidth={i === active ? 1 : 0.4} style={{ transition: "all 0.4s ease" }} />
-          ))}
-        </svg>
-        {/* Hub */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[36%] aspect-square rounded-full bg-white border border-border shadow-[0_22px_50px_-26px_rgba(26,26,26,0.3)] flex flex-col items-center justify-center text-center">
-          <span className="text-2xl leading-none mb-1" style={{ color: "#C2722A" }}>✻</span>
-          <span className="text-[10px] font-bold tracking-[0.18em] uppercase text-dark/45 leading-tight">So<br />arbeiten<br />wir</span>
-        </div>
-        {/* Satelliten */}
-        {PRINCIPLES.map((pr, i) => {
-          const n = nodes[i]; const on = i === active;
-          return (
-            <button
-              key={pr.t}
-              type="button"
-              onClick={() => setActive(i)}
-              onMouseEnter={() => setActive(i)}
-              aria-label={pr.t}
-              className="absolute -translate-x-1/2 -translate-y-1/2 rounded-2xl flex items-center justify-center transition-all duration-300"
-              style={{
-                left: `${n.x}%`, top: `${n.y}%`,
-                width: on ? 80 : 66, height: on ? 80 : 66,
-                background: on ? "linear-gradient(135deg,#C2722A,#D4A853)" : "#fff",
-                border: on ? "none" : "1px solid var(--color-border)",
-                color: on ? "#fff" : "rgba(26,26,26,0.55)",
-                boxShadow: on ? "0 16px 32px -10px rgba(194,114,42,0.55)" : "0 8px 18px -12px rgba(26,26,26,0.25)",
-              }}
-            >
-              {icon(pr.s)}
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Detail */}
-      <div className="relative">
-        {/* Mobile-Auswahl */}
-        <div className="lg:hidden flex flex-wrap gap-2 mb-7">
-          {PRINCIPLES.map((pr, i) => {
-            const on = i === active;
-            return (
-              <button key={pr.t} type="button" onClick={() => setActive(i)} aria-label={pr.t}
-                className="w-10 h-10 rounded-xl flex items-center justify-center transition-all"
-                style={{ background: on ? "linear-gradient(135deg,#C2722A,#D4A853)" : "#fff", color: on ? "#fff" : "rgba(26,26,26,0.55)", border: on ? "none" : "1px solid var(--color-border)" }}>
-                {icon(pr.s)}
-              </button>
-            );
-          })}
-        </div>
-        <div key={active} className="ww-fade">
-          <div className="flex items-center gap-4 mb-4">
-            <span className="font-[family-name:var(--font-heading)] font-black leading-none" style={{ fontSize: "clamp(48px,6vw,68px)", background: "linear-gradient(135deg,#C2722A,#D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>{String(active + 1).padStart(2, "0")}</span>
-            <span className="inline-flex items-center rounded-full border border-primary/15 bg-primary/[0.06] px-3 py-1 text-[10px] font-bold tracking-[0.14em] uppercase text-primary">{p.m}</span>
-          </div>
-          <h3 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark mb-3">{p.t}</h3>
-          <p className="text-muted leading-relaxed max-w-lg">{p.d}</p>
-          <div className="flex gap-1.5 mt-8">
-            {PRINCIPLES.map((_, i) => (
-              <button key={i} type="button" onClick={() => setActive(i)} aria-label={`Prinzip ${i + 1}`} className="h-1.5 rounded-full transition-all duration-300" style={{ width: i === active ? 28 : 8, background: i === active ? "#C2722A" : "rgba(26,26,26,0.15)" }} />
-            ))}
-          </div>
-        </div>
-      </div>
-      <style>{`@keyframes wwFade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } } .ww-fade { animation: wwFade 0.4s ease; }`}</style>
     </div>
   );
 }
@@ -342,31 +245,57 @@ export default function WebdesignClient() {
         @media (prefers-reduced-motion: reduce), (scripting: none) { .m3d { opacity: 1; transform: none; transition: none; } }
       `}</style>
 
-      {/* ══ WARUM SEOFORGE — Fließtext ══ */}
-      <section className="py-20 lg:py-28" style={{ background: "#F8F5F1" }}>
-        <div className="mx-auto max-w-5xl px-6 lg:px-8 text-center scroll-hidden">
-          <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Warum SeoForge</span>
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[44px] font-bold text-dark leading-[1.12] mb-7">
-            SEO und Webdesign gehören zusammen.
-          </h2>
-          <div className="space-y-5 text-lg lg:text-xl text-muted leading-relaxed">
-            <p>
-              Die meisten Agenturen trennen Design und Sichtbarkeit: Die einen bauen etwas Schönes,
-              die anderen sollen es hinterher „ranken lassen". Heraus kommen Websites, die gut aussehen,
-              aber langsam laden, schlecht gefunden werden und kaum Anfragen bringen. Wer beides auf zwei
-              Dienstleister verteilt, zahlt doppelt — und verliert trotzdem.
-            </p>
-            <p>
-              Bei SeoForge kommt alles aus einem Team: Strategie, Design, Code und SEO greifen von der
-              ersten Zeile ineinander. Wir bauen Websites, die nicht nur überzeugen, sondern von Anfang an
-              dafür gemacht sind, in Google <strong className="text-dark font-semibold">und</strong> in der
-              KI-Suche gefunden zu werden — schnell, sauber entwickelt und messbar wirksam.
-            </p>
+      {/* ══ WARUM SEOFORGE — Editorial + Belege ══ */}
+      <section className="py-20 lg:py-28 overflow-hidden" style={{ background: "#F8F5F1" }}>
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
+            <div className="scroll-hidden">
+              <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Warum SeoForge</span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[44px] font-bold text-dark leading-[1.12] mb-7">
+                SEO und Webdesign<br />
+                <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>gehören zusammen.</span>
+              </h2>
+              <div className="space-y-5 text-muted text-lg leading-relaxed">
+                <p>
+                  Die meisten Agenturen trennen Design und Sichtbarkeit: Die einen bauen etwas Schönes,
+                  die anderen sollen es hinterher „ranken lassen“. Heraus kommen Websites, die gut
+                  aussehen, aber langsam laden, schlecht gefunden werden und kaum Anfragen bringen.
+                </p>
+                <p>
+                  Bei SeoForge kommt alles aus einem Team: Strategie, Design, Code und SEO greifen von
+                  der ersten Zeile ineinander — für Websites, die in Google{" "}
+                  <strong className="text-dark font-semibold">und</strong> in der KI-Suche gefunden
+                  werden. Schnell, sauber entwickelt, messbar wirksam.
+                </p>
+              </div>
+            </div>
+            <div className="relative">
+              <div className="pointer-events-none absolute -inset-8 rounded-[2.5rem]" style={{ background: "radial-gradient(ellipse at 70% 40%, rgba(212,168,83,0.14), transparent 70%)" }} aria-hidden="true" />
+              <div className="relative flex flex-col gap-4">
+                {[
+                  { t: "DevOps & CI/CD", d: "Änderungen gehen kontrolliert live — in Minuten, jederzeit zurückrollbar.", s: "M5 13l4 4L19 7", off: "lg:translate-x-0" },
+                  { t: "KI-Workflows", d: "Routine automatisiert — kürzere Laufzeiten, fairer Festpreis.", s: "M13 10V3L4 14h7v7l9-11h-7z", off: "lg:translate-x-10" },
+                  { t: "Antwort in unter 24 h", d: "Persönlicher Ansprechpartner statt Ticketsystem — garantiert.", s: "M12 8v4l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z", off: "lg:translate-x-20" },
+                ].map((c, i) => (
+                  <div key={c.t} className={`scroll-hidden ${c.off}`} style={{ transitionDelay: `${i * 90}ms` }}>
+                    <div className="group flex items-center gap-5 rounded-2xl border border-border bg-white p-5 lg:p-6 shadow-[0_16px_40px_-24px_rgba(26,26,26,0.18)] hover:border-primary/30 hover:-translate-y-0.5 transition-all duration-300">
+                      <div className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center text-white" style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)" }}>
+                        {icon(c.s)}
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-dark text-base mb-0.5">{c.t}</h3>
+                        <p className="text-muted text-sm leading-relaxed">{c.d}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ══ CONTENT — Was gutes Webdesign ausmacht ══ */}
+      {/* ══ CONTENT — Was gutes Webdesign ausmacht (Bento) ══ */}
       <section className="bg-white py-24 lg:py-32 border-t border-border">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <SectionHead
@@ -374,22 +303,37 @@ export default function WebdesignClient() {
             title={<>Was professionelles<br />Webdesign 2026 ausmacht.</>}
             copy="Modernes Webdesign ist mehr als Optik. Diese sechs Faktoren entscheiden 2026 über Sichtbarkeit, Nutzererlebnis und Anfragen — und sind bei uns Standard, nicht Aufpreis."
           />
-          <div className="grid md:grid-cols-2 gap-x-12 lg:gap-x-20 gap-y-10">
-            {ASPECTS.map((a, i) => (
-              <div key={a.t} className="scroll-hidden flex gap-5" style={{ transitionDelay: `${(i % 2) * 80}ms` }}>
-                <div className="shrink-0 w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">{icon(a.s)}</div>
-                <div>
-                  <h3 className="font-bold text-dark text-lg mb-1.5">{a.t}</h3>
-                  <p className="text-muted text-sm leading-relaxed">{a.d}</p>
-                  {a.link && (
-                    <Link href={a.link.href} className="mt-2.5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary hover:gap-2.5 transition-all">
-                      {a.link.label}
-                      <span>→</span>
-                    </Link>
-                  )}
+          <div className="grid md:grid-cols-6 gap-4">
+            {ASPECTS.map((a, i) => {
+              const featured = i === 0;
+              const wide = i === ASPECTS.length - 1;
+              const span = featured ? "md:col-span-4" : wide ? "md:col-span-6" : "md:col-span-2";
+              return (
+                <div key={a.t} className={`scroll-hidden ${span}`} style={{ transitionDelay: `${(i % 3) * 80}ms` }}>
+                  <div
+                    className={`group relative h-full rounded-3xl border border-border overflow-hidden transition-all duration-300 hover:border-primary/30 hover:shadow-[0_24px_50px_-30px_rgba(194,114,42,0.35)] hover:-translate-y-1 ${wide ? "flex flex-col sm:flex-row sm:items-center gap-5 p-7 lg:p-8" : "p-7 lg:p-8"}`}
+                    style={{ background: featured ? "linear-gradient(135deg, #FBF6EF 0%, #fff 55%)" : "#fff" }}
+                  >
+                    {featured && (
+                      <div className="pointer-events-none absolute -right-10 -top-10 h-44 w-44 rounded-full" style={{ background: "radial-gradient(circle, rgba(212,168,83,0.16), transparent 70%)" }} aria-hidden="true" />
+                    )}
+                    <div className={`${wide ? "shrink-0" : "mb-5"} inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300`}>
+                      {icon(a.s)}
+                    </div>
+                    <div className={wide ? "flex-1" : undefined}>
+                      <h3 className={`font-bold text-dark mb-2 ${featured ? "font-[family-name:var(--font-heading)] text-2xl" : "text-lg"}`}>{a.t}</h3>
+                      <p className={`text-muted leading-relaxed ${featured ? "text-base max-w-xl" : "text-sm"}`}>{a.d}</p>
+                      {a.link && (
+                        <Link href={a.link.href} className="mt-3 inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary hover:gap-2.5 transition-all">
+                          {a.link.label}
+                          <span>→</span>
+                        </Link>
+                      )}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           <p className="scroll-hidden mt-8 text-sm text-muted leading-relaxed max-w-3xl">
             Du planst ein konkretes Projekt? Ob{" "}
@@ -448,15 +392,50 @@ export default function WebdesignClient() {
         );
       })}
 
-      {/* ══ PRINZIPIEN ══ */}
-      <section className="py-24 lg:py-32 overflow-hidden border-t border-border" style={{ background: "#F8F5F1" }}>
+      {/* ══ VERGLEICH — Typische Agentur vs. SeoForge ══ */}
+      <section className="py-24 lg:py-32 border-t border-border" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <SectionHead
-            eyebrow="So arbeiten wir"
-            title={<>Sechs Prinzipien,<br />ein messbares Ergebnis.</>}
-            copy="Keine Hochglanz-Versprechen — der konkrete Unterschied zwischen uns und einer klassischen Webdesign-Agentur."
+            eyebrow="Der Unterschied"
+            title={<>Typische Webdesign-Agentur<br />vs. SeoForge.</>}
+            copy="Keine Hochglanz-Versprechen — der konkrete Unterschied in sechs Punkten. So arbeiten wir, und so rechnet es sich für dich."
           />
-          <WorkWheel />
+          <div className="grid md:grid-cols-2 gap-4 lg:gap-6 items-stretch">
+            <div className="scroll-hidden">
+              <div className="h-full rounded-3xl border border-border bg-white/60 p-7 lg:p-9">
+                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-dark/45 mb-7">
+                  Typische Agentur
+                </span>
+                <ul className="space-y-5">
+                  {VS_ROWS.map((r) => (
+                    <li key={r.alt} className="flex gap-3.5 items-start">
+                      <span className="mt-0.5 shrink-0 w-5 h-5 rounded-full bg-dark/[0.06] flex items-center justify-center">
+                        <svg className="w-3 h-3 text-dark/35" viewBox="0 0 20 20" fill="currentColor"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" /></svg>
+                      </span>
+                      <span className="text-sm lg:text-[15px] text-dark/55 leading-relaxed">{r.alt}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+            <div className="scroll-hidden" style={{ transitionDelay: "120ms" }}>
+              <div className="relative h-full rounded-3xl border p-7 lg:p-9 shadow-[0_28px_60px_-30px_rgba(194,114,42,0.35)]" style={{ background: "#fbf4ea", borderColor: "#ecd3ba" }}>
+                <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-white mb-7" style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}>
+                  SeoForge
+                </span>
+                <ul className="space-y-5">
+                  {VS_ROWS.map((r) => (
+                    <li key={r.forge} className="flex gap-3.5 items-start">
+                      <span className="mt-0.5 shrink-0 w-5 h-5 rounded-full bg-primary/15 flex items-center justify-center">
+                        <svg className="w-3 h-3 text-primary" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
+                      </span>
+                      <span className="text-sm lg:text-[15px] text-dark font-medium leading-relaxed">{r.forge}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -500,22 +479,21 @@ export default function WebdesignClient() {
                 Festpreis anfragen
                 <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
               </Link>
+              <p className="mt-5 text-sm text-muted">
+                Ausführlich im Ratgeber:{" "}
+                <Link href="/wissen/ratgeber/was-kostet-eine-website" className="text-primary font-semibold hover:underline">Was kostet eine Website?</Link>
+              </p>
             </div>
-            <div className="m3d rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-30px_rgba(26,26,26,0.18)]">
-              <div className="px-6 py-4 border-b border-border bg-offwhite/60">
-                <span className="text-[11px] font-bold tracking-[0.18em] uppercase text-dark/45">Preisfaktoren</span>
-              </div>
-              <div className="divide-y divide-border">
-                {COST_FACTORS.map(([k, v], i) => (
-                  <div key={k} className="flex gap-4 px-6 py-4">
-                    <span className="font-mono text-xs font-bold text-primary pt-0.5">{String(i + 1).padStart(2, "0")}</span>
-                    <div>
-                      <div className="font-bold text-dark text-sm">{k}</div>
-                      <div className="text-muted text-[13px] leading-relaxed">{v}</div>
-                    </div>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {COST_TILES.map((f, i) => (
+                <div key={f.t} className="scroll-hidden" style={{ transitionDelay: `${i * 70}ms` }}>
+                  <div className="group h-full rounded-2xl border border-border bg-white p-6 hover:border-primary/30 hover:shadow-md hover:-translate-y-1 transition-all duration-300">
+                    <div className="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">{icon(f.s)}</div>
+                    <div className="font-bold text-dark text-sm mb-1.5">{f.t}</div>
+                    <p className="text-muted text-[13px] leading-relaxed">{f.d}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -523,49 +501,144 @@ export default function WebdesignClient() {
 
       {/* ══ FAQ ══ */}
       <section className="py-24 lg:py-32 border-t border-border" style={{ background: "#F8F5F1" }}>
-        <div className="mx-auto max-w-3xl px-6 lg:px-8">
-          <div className="scroll-hidden mb-12 text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary mb-4">Häufige Fragen</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-dark">Alles zum Webdesign</h2>
-          </div>
-          <div className="space-y-3">
-            {faqs.map((faq, i) => {
-              const open = openFaq === i;
-              return (
-                <div key={i} className="scroll-hidden" style={{ transitionDelay: `${i * 40}ms` }}>
-                  <div className={`rounded-2xl border bg-white overflow-hidden transition-colors duration-300 ${open ? "border-primary/30" : "border-border"}`}>
-                    <button className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer" onClick={() => setOpenFaq(open ? null : i)} aria-expanded={open}>
-                      <span className="font-semibold text-dark text-sm pr-4">{faq.q}</span>
-                      <span className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${open ? "bg-primary text-white rotate-180" : "bg-primary/[0.08] text-primary"}`}>
-                        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 9l-7 7-7-7" /></svg>
-                      </span>
-                    </button>
-                    <div className="grid transition-[grid-template-rows] duration-400 ease-out" style={{ gridTemplateRows: open ? "1fr" : "0fr" }}>
-                      <div className="overflow-hidden">
-                        <div className="px-6 pb-5 text-sm text-muted leading-relaxed border-t border-border pt-4">{faq.a}</div>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="grid lg:grid-cols-[minmax(0,360px)_1fr] gap-10 lg:gap-16 items-start">
+            <div className="scroll-hidden lg:sticky lg:top-28">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary mb-4">Häufige Fragen</span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight mb-4">
+                Alles zum<br />Webdesign.
+              </h2>
+              <p className="text-muted leading-relaxed mb-6">
+                Deine Frage ist nicht dabei? Schreib uns — wir antworten garantiert in unter 24 Stunden.
+              </p>
+              <Link href="/kontakt" className="group inline-flex items-center gap-2 text-sm font-semibold text-dark border-b border-dark/20 pb-0.5 hover:border-primary hover:text-primary transition-colors">
+                Frage stellen
+                <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+              </Link>
+            </div>
+            <div className="space-y-3">
+              {faqs.map((faq, i) => {
+                const open = openFaq === i;
+                return (
+                  <div key={i} className="scroll-hidden" style={{ transitionDelay: `${i * 40}ms` }}>
+                    <div className={`rounded-2xl border bg-white overflow-hidden transition-colors duration-300 ${open ? "border-primary/30" : "border-border"}`}>
+                      <button className="w-full flex items-center justify-between px-6 py-5 text-left cursor-pointer" onClick={() => setOpenFaq(open ? null : i)} aria-expanded={open}>
+                        <span className="font-semibold text-dark text-sm pr-4">{faq.q}</span>
+                        <span className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${open ? "bg-primary text-white rotate-180" : "bg-primary/[0.08] text-primary"}`}>
+                          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 9l-7 7-7-7" /></svg>
+                        </span>
+                      </button>
+                      <div className="grid transition-[grid-template-rows] duration-400 ease-out" style={{ gridTemplateRows: open ? "1fr" : "0fr" }}>
+                        <div className="overflow-hidden">
+                          <div className="px-6 pb-5 text-sm text-muted leading-relaxed border-t border-border pt-4">{faq.a}</div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ══ CTA ══ */}
-      <section className="relative py-24 overflow-hidden" style={{ background: "#1A1A1A" }}>
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[340px] rounded-full bg-primary/[0.07] blur-[120px]" />
-        </div>
-        <div className="relative mx-auto max-w-3xl px-6 text-center">
-          <div className="scroll-hidden">
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-white mb-4">Bereit für eine Website, die wirklich liefert?</h2>
-            <p className="text-white/60 text-lg mb-3 leading-relaxed">Kostenloses Erstgespräch — wir klären in 30 Minuten, was dein Projekt braucht und was es kostet.</p>
-            <p className="text-white/40 text-sm mb-9">Persönlicher Ansprechpartner · Antwort in unter 24 Stunden · Festpreis nach Erstgespräch</p>
-            <Link href="/kontakt" className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-xl transition-all">
-              Kostenloses Gespräch buchen →
-            </Link>
+      <section className="bg-dark py-24 lg:py-32" id="kontakt">
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+            <div className="absolute -top-20 right-0 h-[300px] w-[300px] rounded-full bg-primary/[0.06] blur-3xl" />
+            <div className="absolute -bottom-10 left-0 h-[200px] w-[200px] rounded-full bg-secondary/[0.04] blur-3xl" />
+          </div>
+
+          <div className="relative grid gap-16 lg:grid-cols-2 lg:items-center">
+            <div className="scroll-hidden">
+              <h2 className="font-[family-name:var(--font-heading)] text-4xl text-white lg:text-5xl">
+                Bereit für eine Website, die{" "}
+                <span className="bg-gradient-to-r from-primary-light to-secondary bg-clip-text text-transparent">
+                  wirklich liefert
+                </span>
+                ?
+              </h2>
+              <p className="mt-4 text-base leading-relaxed text-white/60">
+                Lass uns in einem kostenlosen Erstgespräch klären, was dein Projekt braucht und
+                was es kostet. Keine Verpflichtungen — nur eine ehrliche Einschätzung.
+              </p>
+              <div className="mt-8 space-y-4">
+                {[
+                  "Kostenloses Erstgespräch — in 30 Minuten weißt du, woran du bist",
+                  "Verbindlicher Festpreis statt Stundensatz-Überraschungen",
+                  "Persönlicher Ansprechpartner — Antwort in unter 24 Stunden",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/20">
+                      <svg className="h-3 w-3 text-primary-light" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <span className="text-sm text-white/80">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="scroll-hidden" style={{ transitionDelay: "100ms" }}>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm">
+                <h3 className="font-[family-name:var(--font-heading)] text-2xl text-white">
+                  Jetzt Kontakt aufnehmen
+                </h3>
+                <p className="mt-1 text-sm text-white/50">
+                  Wir melden uns innerhalb von 24 Stunden bei dir.
+                </p>
+                <form className="mt-6 space-y-4" onSubmit={(e) => e.preventDefault()}>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <input
+                      type="text"
+                      name="name"
+                      aria-label="Dein Name"
+                      placeholder="Dein Name"
+                      className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
+                    />
+                    <input
+                      type="text"
+                      name="company"
+                      aria-label="Unternehmen"
+                      placeholder="Unternehmen"
+                      className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
+                    />
+                  </div>
+                  <input
+                    type="email"
+                    name="email"
+                    aria-label="Deine E-Mail-Adresse"
+                    placeholder="Deine E-Mail-Adresse"
+                    className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
+                  />
+                  <input
+                    type="url"
+                    name="website"
+                    aria-label="Deine Website-URL (optional)"
+                    placeholder="Deine Website-URL (optional)"
+                    className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
+                  />
+                  <textarea
+                    name="message"
+                    rows={4}
+                    aria-label="Nachricht"
+                    placeholder="Worum geht es? Neue Website, Relaunch, Landing Page …"
+                    className="w-full resize-none rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
+                  />
+                  <button
+                    type="submit"
+                    className="w-full rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-light hover:shadow-lg hover:shadow-primary/20"
+                  >
+                    Kostenlose Beratung anfordern
+                  </button>
+                  <p className="text-center text-xs text-white/30">
+                    Deine Daten werden vertraulich behandelt.
+                  </p>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </section>
