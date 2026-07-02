@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Footer from "../components/Footer";
 import WebdesignHero from "./WebdesignHero";
 
@@ -301,6 +302,60 @@ function WorkWheel() {
   );
 }
 
+/* ─── Leistungen im Detail: Splitscreens zu allen Unterseiten ─────────────── */
+const DETAIL_SPLITS = [
+  {
+    href: "/webdesign/website-erstellen-lassen",
+    eyebrow: "Neue Website",
+    t1: "Website erstellen lassen —",
+    t2: "individuell statt Baukasten.",
+    copy: "Von der ersten Skizze bis zum Launch: custom Design, sauberer Code und ein SEO-Fundament ab der ersten Zeile — zum transparenten Festpreis. Der komplette Überblick über Prozess, Kosten und Technologie.",
+    cta: "Website-Erstellung ansehen",
+    img: "/images/webdesign-3d-neuewebsite.png",
+    alt: "3D-Illustration: neue Website wird aus einzelnen Design-Bausteinen individuell zusammengesetzt",
+  },
+  {
+    href: "/webdesign/firmenwebsite-erstellen-lassen",
+    eyebrow: "Für den Mittelstand",
+    t1: "Professionelle Website —",
+    t2: "auch mit kleinerem Budget.",
+    copy: "Nicht jedes Unternehmen braucht ein 10.000-€-Projekt. Wir entwickeln solide, schnelle und SEO-taugliche Websites für den Mittelstand — ohne Abstriche bei Qualität und Code.",
+    cta: "Firmenwebsite-Angebot ansehen",
+    img: "/images/webdesign-3d-mittelstand.png",
+    alt: "3D-Illustration: professionelle Unternehmens-Website zum fairen Preis für den Mittelstand",
+  },
+  {
+    href: "/webdesign/landingpage-erstellen-lassen",
+    eyebrow: "Alles auf einer Seite",
+    t1: "One Pager & Landing Pages —",
+    t2: "konzentriert, schnell, überzeugend.",
+    copy: "Ein One Pager bringt deine Kernbotschaft auf den Punkt — ohne Ablenkung. Ideal für Kampagnen, Gründer und Unternehmen, die schnell und günstig online sein wollen. Mit SEO-Fundament und vollständigem Custom Design.",
+    cta: "One Pager entdecken",
+    img: "/images/webdesign-3d-onepager.png",
+    alt: "3D-Illustration: One-Pager-Website als durchgehende Seite mit einem klaren Call-to-Action",
+  },
+  {
+    href: "/webdesign/website-relaunch-agentur",
+    eyebrow: "Bestandswebsite",
+    t1: "Website Relaunch —",
+    t2: "ohne Ranking-Verlust.",
+    copy: "Bestehende Website veraltet, aber die Rankings sollen bleiben? Wir modernisieren mit sauberem 301-Setup, Search-Console-Monitoring und einer Migration, die Google nicht bemerkt — deployt über unsere CI/CD-Pipeline.",
+    cta: "Relaunch-Prozess ansehen",
+    img: "/images/webdesign-3d-relaunch.png",
+    alt: "3D-Illustration: Website-Relaunch — alte graue Website wird zur modernen Website mit warmen Akzenten",
+  },
+  {
+    href: "/webdesign/app-design",
+    eyebrow: "Digitale Produkte",
+    t1: "App-Design —",
+    t2: "durchdacht bis ins letzte Pixel.",
+    copy: "UX und UI für Web-Apps und Mobile: von interaktiven Prototypen über durchdachte User Flows bis zur sauberen Implementierung — mit einem konsistenten Design-System als Fundament.",
+    cta: "App-Design entdecken",
+    img: "/images/webdesign-3d-appdesign.png",
+    alt: "3D-Illustration: App-Design — Smartphone mit schwebenden UI-Karten, Charts und Bedienelementen",
+  },
+];
+
 /* ═══════════════════════════════════════════════════════════════════════════
    PAGE
 ═══════════════════════════════════════════════════════════════════════════ */
@@ -497,6 +552,50 @@ export default function WebdesignClient() {
           </div>
         </div>
       </section>
+
+      {/* ══ LEISTUNGEN IM DETAIL — Splitscreens zu allen Unterseiten ══ */}
+      {DETAIL_SPLITS.map((s, i) => {
+        const imgRight = i % 2 === 0;
+        return (
+          <section
+            key={s.href}
+            className={`border-t border-border overflow-hidden py-20 lg:py-28 ${imgRight ? "bg-white" : ""}`}
+            style={imgRight ? undefined : { background: "#F8F5F1" }}
+          >
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div className="scroll-hidden">
+                  <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">{s.eyebrow}</span>
+                  <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight mb-5">
+                    {s.t1}<br />
+                    <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                      {s.t2}
+                    </span>
+                  </h2>
+                  <p className="text-muted leading-relaxed mb-8 max-w-md">{s.copy}</p>
+                  <Link
+                    href={s.href}
+                    className="group inline-flex items-center gap-2 text-sm font-semibold text-dark border-b border-dark/20 pb-0.5 hover:border-primary hover:text-primary transition-colors w-fit"
+                  >
+                    {s.cta}
+                    <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </Link>
+                </div>
+                <div
+                  className={`scroll-hidden flex justify-center ${imgRight ? "lg:justify-end" : "lg:order-first lg:justify-start"}`}
+                  style={{ transitionDelay: "120ms" }}
+                >
+                  <div className="relative rounded-2xl overflow-hidden shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
+                    <Image src={s.img} alt={s.alt} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 600px" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        );
+      })}
 
       {/* ══ FAQ ══ */}
       <section className="py-24 lg:py-32 border-t border-border" style={{ background: "#F8F5F1" }}>

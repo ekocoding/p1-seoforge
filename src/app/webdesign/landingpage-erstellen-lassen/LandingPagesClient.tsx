@@ -577,6 +577,9 @@ export default function LandingPagesClient() {
             <h2 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-dark">
               Mehr aus deinem Online-Marketing herausholen
             </h2>
+            <Link href="/webdesign" className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-2.5 transition-all">
+              Alle Webdesign-Leistungen im Überblick <span>→</span>
+            </Link>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
