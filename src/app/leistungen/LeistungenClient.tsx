@@ -365,6 +365,117 @@ export default function LeistungenClient() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════════
+          04 · KI-SEO  —  offwhite, gespiegeltes Split-Layout, 1 Pillar-Page
+      ══════════════════════════════════════════════════════════════════════ */}
+      <section id="ki-seo" className="relative bg-offwhite py-24 lg:py-32 scroll-mt-20 overflow-hidden">
+
+        {/* Top accent line */}
+        <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+
+        {/* Watermark */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none select-none absolute -bottom-6 -right-4 font-[family-name:var(--font-heading)] font-black leading-none text-dark/[0.035]"
+          style={{ fontSize: "clamp(110px, 18vw, 260px)" }}
+        >
+          KI-SEO
+        </div>
+
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+
+          {/* Section strip */}
+          <div className="scroll-hidden">
+            <SectionStrip num="04" tag="KI-SEO & Marken-Sichtbarkeit" href="/ki-seo-agentur" dark={false} />
+          </div>
+
+          {/* Two-column layout — gespiegelt zu GEO: Panel links, Heading rechts */}
+          <div className="grid lg:grid-cols-[1fr_1fr] gap-16 items-start">
+
+            {/* Left: Bausteine-Panel */}
+            <div className="scroll-hidden order-last lg:order-first" style={{ transitionDelay: "0.14s" }}>
+              <Link
+                href="/ki-seo-agentur"
+                className="group block bg-white rounded-3xl border border-border hover:border-primary/30 hover:shadow-lg hover:shadow-primary/[0.07] transition-all duration-300 overflow-hidden"
+              >
+                <div className="flex items-center gap-3 px-7 py-4 border-b border-border bg-offwhite/60">
+                  <span className="text-[10px] font-mono font-bold tracking-[0.25em] text-secondary">DER ANSATZ</span>
+                  <span className="ml-auto inline-flex items-center rounded-full bg-primary/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-primary">
+                    Neu
+                  </span>
+                </div>
+                <div className="p-7 space-y-5">
+                  {[
+                    ["01", "Entitäten & technisches Fundament", "Strukturierte Daten, die KI-Systeme verstehen"],
+                    ["02", "Content-Autorität", "Inhalte, die als zitierfähige Quelle gelten"],
+                    ["03", "Digitale PR & Quellenaufbau", "Erwähnungen dort, wo KI-Modelle lesen"],
+                    ["04", "KI-Monitoring & Share of Voice", "Messen, wie oft Ihre Marke genannt wird"],
+                  ].map(([n, t, d]) => (
+                    <div key={n} className="flex items-start gap-5">
+                      <span className="text-[10px] font-mono font-bold tracking-[0.25em] text-secondary pt-1 shrink-0">{n}</span>
+                      <div>
+                        <p className="font-[family-name:var(--font-heading)] text-dark text-base leading-snug">{t}</p>
+                        <p className="text-xs text-muted mt-0.5">{d}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="px-7 pb-6">
+                  <span className="text-sm font-semibold text-primary flex items-center gap-2 transition-all duration-200 group-hover:gap-3">
+                    Zur KI-SEO-Agentur <span>→</span>
+                  </span>
+                </div>
+              </Link>
+            </div>
+
+            {/* Right: heading + Ratgeber-Links */}
+            <div className="scroll-hidden" style={{ transitionDelay: "0.08s" }}>
+              <h2 className="font-[family-name:var(--font-heading)] text-dark mb-6 leading-tight">
+                Werden Sie die<br />Antwort der KI.
+              </h2>
+              <p className="text-muted text-lg leading-relaxed mb-10">
+                Immer mehr Kaufentscheidungen beginnen mit einer Frage an ChatGPT,
+                Perplexity oder Google AI Overviews. KI-SEO macht Ihre Marke zu der
+                Empfehlung, die diese Systeme aussprechen — messbar über alle Plattformen.
+              </p>
+
+              <div className="flex flex-col gap-2.5">
+                {[
+                  { title: "GEO-Ranking-Faktoren", href: "/wissen/ratgeber/geo-ranking-faktoren", desc: "Wonach ChatGPT & Perplexity Quellen auswählen" },
+                  { title: "Marken-Sichtbarkeit in KI aufbauen", href: "/wissen/ratgeber/marken-sichtbarkeit-in-ki", desc: "Der vollständige Ratgeber mit Praxis-Schritten" },
+                ].map((s) => (
+                  <Link
+                    key={s.href}
+                    href={s.href}
+                    className="group flex items-center justify-between p-5 bg-white rounded-2xl border border-border hover:border-primary/30 hover:shadow-md hover:shadow-primary/[0.06] transition-all duration-200"
+                  >
+                    <div>
+                      <p className="font-[family-name:var(--font-heading)] text-dark text-base leading-snug">{s.title}</p>
+                      <p className="text-xs text-muted mt-0.5">{s.desc}</p>
+                    </div>
+                    <span className="text-primary text-sm shrink-0 ml-4 transition-transform duration-200 group-hover:translate-x-1">→</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom strip */}
+          <div className="scroll-hidden mt-14 pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-5">
+            <p className="text-muted/60 text-xs font-mono tracking-wider">
+              1 Spezialgebiet · 4 Bausteine · Entitäten → Content → PR → Monitoring
+            </p>
+            <Link
+              href="/ki-seo-agentur"
+              className="inline-flex items-center gap-2 bg-primary text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-primary-dark transition-all duration-200 group shrink-0"
+            >
+              Zur KI-SEO-Übersicht
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════════
           BOTTOM CTA  —  10% accent: the one orange section on the whole page
       ══════════════════════════════════════════════════════════════════════ */}
       <section className="bg-primary py-24 lg:py-28">

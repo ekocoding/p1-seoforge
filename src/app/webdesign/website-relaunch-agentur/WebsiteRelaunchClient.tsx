@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import HeroShaderWhite from "@/app/components/HeroShaderWhite";
 import SubpageLayout from "@/app/components/SubpageLayout";
 import RankingMigrationApp from "./RankingMigrationApp";
 import PageSpeedBeforeAfter from "./PageSpeedBeforeAfter";
@@ -83,78 +82,61 @@ export default function WebsiteRelaunchClient() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* HERO — weißer Shader, voll-flächig, KEIN dunkler Dimmer */}
-      <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-white">
-        <HeroShaderWhite />
-
-        <div
-          aria-hidden="true"
-          className="absolute bottom-0 left-0 right-0 h-44 pointer-events-none"
-          style={{ background: "linear-gradient(to bottom, transparent, #ffffff)" }}
-        />
-
-        {/* Ghost-Wasserzeichen */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none select-none absolute inset-0 flex items-center justify-center"
-          style={{ opacity: 0.05 }}
-        >
-          <span
-            className="font-[family-name:var(--font-heading)] font-black text-dark leading-none tracking-tight"
-            style={{ fontSize: "clamp(90px, 15vw, 240px)" }}
-          >
-            RELAUNCH
-          </span>
+      {/* HERO — hell, minimal, zentriert (bekannte UI-Regeln: Hierarchie, kurze Copy, 1 primärer CTA) */}
+      <section className="relative overflow-hidden bg-white">
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div
+            className="absolute left-1/2 top-[-22%] h-[620px] w-[980px] -translate-x-1/2 rounded-full"
+            style={{ background: "radial-gradient(ellipse at center, rgba(212,168,83,0.16), transparent 62%)" }}
+          />
+          <div
+            className="absolute inset-0 opacity-60"
+            style={{
+              backgroundImage: "radial-gradient(circle at 1px 1px, rgba(26,26,26,0.045) 1px, transparent 0)",
+              backgroundSize: "30px 30px",
+              maskImage: "radial-gradient(ellipse 70% 55% at 50% 32%, #000 35%, transparent 75%)",
+              WebkitMaskImage: "radial-gradient(ellipse 70% 55% at 50% 32%, #000 35%, transparent 75%)",
+            }}
+          />
         </div>
 
-        <div className="relative z-10 mx-auto w-full max-w-5xl px-6 lg:px-8 pt-24 pb-24 text-center">
+        <div className="relative z-10 mx-auto w-full max-w-5xl px-6 lg:px-8 pt-28 pb-20 lg:pt-36 lg:pb-24 text-center">
 
-          <div className="hero-badge mb-8 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-white/55 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-primary">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Website-Relaunch Agentur · SEO-sichere Migration
+          <div className="hero-badge mb-7 inline-flex items-center gap-2.5">
+            <span className="h-px w-8 bg-primary" />
+            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">
+              Website-Relaunch Agentur
+            </span>
+            <span className="h-px w-8 bg-primary" />
           </div>
 
-          {/* H1 — zwei Zeilen */}
           <h1
-            className="hero-title font-[family-name:var(--font-heading)] font-bold text-dark leading-[1.08] mb-7"
-            style={{ fontSize: "clamp(38px, 5.2vw, 72px)", letterSpacing: "-0.025em" }}
+            className="hero-title font-[family-name:var(--font-heading)] font-medium tracking-tight text-dark leading-[1.02] mb-7"
+            style={{ fontSize: "clamp(42px, 5.8vw, 82px)" }}
           >
-            Website-Relaunch Agentur —
+            Website-Relaunch,
             <br />
             <span
               style={{
-                background: "linear-gradient(95deg, #C2722A 12%, #D4A853 88%)",
+                background: "linear-gradient(90deg, #C2722A, #D4A853)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
             >
-              ohne Rankingverluste.
+              der keine Rankings kostet.
             </span>
           </h1>
 
-          <div className="hero-description mb-8 flex items-center justify-center gap-4">
-            <div className="h-px w-10 bg-primary/40" />
-            <span className="text-[10px] font-bold tracking-[0.26em] uppercase text-dark/30">
-              301-Redirects · SEO-Audit · Search Console · CI/CD
-            </span>
-            <div className="h-px w-10 bg-primary/40" />
-          </div>
-
-          <p className="hero-description text-muted leading-[1.85] mb-11 max-w-3xl mx-auto" style={{ fontSize: "clamp(15px, 1.1vw, 17px)" }}>
-            Als Website-Relaunch Agentur modernisieren wir deine Website vollständig — neues Design, bessere
-            Performance, klarere User Journey. Und das Wichtigste: Deine hart
-            erarbeiteten Google-Rankings bleiben erhalten. Vor jedem Relaunch steht
-            ein vollständiges Audit der bestehenden Seite, jede alte URL bekommt
-            ihren Platz in der 301-Redirect-Map, und nach dem Go-Live überwachen
-            wir die Search Console engmaschig. Deployt wird über unsere
-            CI/CD-Pipeline — kontrolliert, getestet, jederzeit zurückrollbar.
-            SEO-sichere Migration ist unser Kerngeschäft.
+          <p className="hero-description mx-auto mb-10 max-w-2xl text-lg leading-relaxed text-muted">
+            Als Website-Relaunch Agentur bauen wir deine Website komplett neu — Design,
+            Performance, User Journey. Deine Rankings sichern wir systematisch: vollständiges
+            SEO-Audit, lückenlose 301-Redirect-Map und engmaschiges Monitoring nach dem Go-Live.
           </p>
 
-          <div className="hero-cta flex flex-wrap justify-center gap-4">
+          <div className="hero-cta flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               href="/kontakt"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark hover:shadow-xl hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark"
             >
               Kostenloses Relaunch-Gespräch
               <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -163,16 +145,28 @@ export default function WebsiteRelaunchClient() {
             </Link>
             <Link
               href="/seo/audit"
-              className="inline-flex items-center gap-2 rounded-full border border-dark/15 bg-white/55 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-dark/65 transition-all hover:border-dark/30 hover:bg-white/80 hover:text-dark"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-8 py-4 text-sm font-semibold text-dark transition-all hover:border-primary/40"
             >
               SEO-Audit anfragen
             </Link>
           </div>
-        </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
-          <span className="text-[10px] text-dark/50 font-mono tracking-[0.28em] uppercase">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-dark/30 to-transparent" />
+          <div className="hero-description mt-14 flex flex-col items-center gap-3">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted/70">
+              SEO-sichere Migration
+            </span>
+            <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2">
+              {["Audit", "Redirect-Map", "Launch", "Monitoring"].map((step, i) => (
+                <span key={step} className="flex items-center gap-3">
+                  {i > 0 && <span className="text-primary/45 text-sm">→</span>}
+                  <span className="text-sm font-semibold text-dark/55">
+                    <span className="font-mono text-[11px] text-primary/70 mr-1.5">0{i + 1}</span>
+                    {step}
+                  </span>
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

@@ -233,13 +233,13 @@ export default function LeistungenHero() {
         <h1
           className="hero-title font-[family-name:var(--font-heading)] text-dark leading-[1.05] mb-7"
         >
-          Drei Bereiche.<br />
+          Vier Bereiche.<br />
           <span className="gradient-text">Eine Agentur.</span>
         </h1>
 
         {/* Sub-copy */}
         <p className="hero-description text-lg text-muted max-w-lg mx-auto mb-14 leading-relaxed">
-          SEO, GEO und Webdesign — strategisch verzahnt, messbar wirksam,
+          SEO, GEO, Webdesign und KI-SEO — strategisch verzahnt, messbar wirksam,
           vollständig aus einer Hand.
         </p>
 
@@ -249,6 +249,7 @@ export default function LeistungenHero() {
             { label: "01 · SEO",       href: "#seo"       },
             { label: "02 · GEO",       href: "#geo"       },
             { label: "03 · Webdesign", href: "#webdesign" },
+            { label: "04 · KI-SEO",    href: "#ki-seo"    },
           ].map(({ label, href }) => (
             <a
               key={href}
