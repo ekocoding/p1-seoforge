@@ -40,14 +40,14 @@ export default function PageSpeedBeforeAfter() {
   ];
 
   return (
-    <div ref={ref} className="rounded-2xl border border-border bg-white overflow-hidden h-full">
+    <div ref={ref} className="bg-white h-full">
       {/* Header */}
       <div className="px-7 pt-7 pb-5 border-b border-border">
         <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-2">Relaunch Impact</p>
         <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark">
           Was ein Relaunch verändert
         </h3>
-        <p className="text-muted text-sm mt-1">Typische Ergebnisse 6 Monate nach Launch</p>
+        <p className="text-muted text-sm mt-1">Beispielhafte Größenordnung nach einem technischen Relaunch</p>
       </div>
 
       {/* Metric cards */}
@@ -82,7 +82,7 @@ export default function PageSpeedBeforeAfter() {
       {/* Source */}
       <div className="px-7 pb-6">
         <p className="text-xs text-muted border-t border-border pt-4 leading-relaxed">
-          Quelle: Eigene Projektdaten (2023–2025), n=47 Relaunch-Projekte. Google/Deloitte (2019): 1 s Ladezeitverzögerung reduziert Conversions um 7 %.
+          Illustratives Beispiel, keine Garantiewerte. Google/Deloitte (2019): 1 s Ladezeitverzögerung reduziert Conversions um bis zu 7 %.
         </p>
       </div>
     </div>

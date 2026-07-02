@@ -27,7 +27,7 @@ export default function RankingMigrationApp() {
   }, []);
 
   return (
-    <div ref={ref} className="rounded-2xl border border-border bg-white overflow-hidden h-full">
+    <div ref={ref} className="bg-white h-full">
       {/* Header */}
       <div className="px-7 pt-7 pb-5 border-b border-border">
         <p className="text-xs font-semibold uppercase tracking-widest text-primary mb-2">Ranking Migration</p>
