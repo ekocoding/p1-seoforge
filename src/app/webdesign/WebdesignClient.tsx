@@ -28,44 +28,6 @@ const icon = (d: string) => (
   </svg>
 );
 
-const PILLARS = [
-  {
-    href: "/webdesign/website-erstellen-lassen",
-    title: "Website erstellen lassen",
-    desc: "Von der ersten Skizze bis zum optimierten Launch — individuell entwickelt, mit SEO als Fundament.",
-    meta: "Next.js · SEO-first",
-    svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6"><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" strokeLinecap="round" /></svg>,
-  },
-  {
-    href: "/webdesign/firmenwebsite-erstellen-lassen",
-    title: "Firmenwebsite erstellen lassen",
-    desc: "Professionelle, custom-coded Websites zum fairen Preis — dank KI-Workflows auch mit kleinerem Budget.",
-    meta: "Festpreis · ab 1.500 €",
-    svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-5h6v5" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-  },
-  {
-    href: "/webdesign/landingpage-erstellen-lassen",
-    title: "Landing Pages",
-    desc: "Conversion-fokussierte Seiten für Kampagnen, Ads und Lead-Generierung — schnell live.",
-    meta: "CRO · Tracking",
-    svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="4.5" /><circle cx="12" cy="12" r="0.5" fill="currentColor" /></svg>,
-  },
-  {
-    href: "/webdesign/website-relaunch-agentur",
-    title: "Website Relaunch",
-    desc: "Bestehende Website modernisieren — ohne Ranking-Verlust, mit sauberem 301-Setup und Monitoring.",
-    meta: "Migration · 301",
-    svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6"><path d="M4 4v6h6M20 20v-6h-6" strokeLinecap="round" strokeLinejoin="round" /><path d="M20 10a8 8 0 0 0-14.3-3.7L4 8M4 14a8 8 0 0 0 14.3 3.7L20 16" strokeLinecap="round" strokeLinejoin="round" /></svg>,
-  },
-  {
-    href: "/webdesign/app-design",
-    title: "App Design",
-    desc: "UX/UI für Web-Apps und Mobile — von interaktiven Prototypen bis zur sauberen Implementierung.",
-    meta: "UX · UI",
-    svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6"><rect x="6" y="2" width="12" height="20" rx="3" /><path d="M11 18h2" strokeLinecap="round" /></svg>,
-  },
-];
-
 const PRINCIPLES = [
   { t: "SEO & Webdesign aus einem Team", d: "Design, Technik und Sichtbarkeit kommen aus einer Hand — keine Schnittstellenverluste zwischen zwei Dienstleistern.", m: "Ein Team", s: "M9 5l7 7-7 7" },
   { t: "DevOps & CI/CD", d: "Automatisierte Tests, Pipeline-Deployments und Versionierung. Änderungen gehen kontrolliert live — jederzeit zurückrollbar.", m: "Live in Minuten", s: "M5 13l4 4L19 7" },
@@ -404,44 +366,50 @@ export default function WebdesignClient() {
         </div>
       </section>
 
-      {/* ══ LEISTUNGEN — Internal-Link-Hub ══ */}
-      <section id="leistungen" className="bg-white py-24 lg:py-32 scroll-mt-20">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <SectionHead
-            eyebrow="Webdesign Leistungen"
-            title={<>Alles, was deine<br />Website braucht.</>}
-            copy="Fünf Wege zu professionellem Webdesign, das rankt und konvertiert — wähle deinen Einstieg. Ein Team, ein Festpreis, ein Ansprechpartner."
-          />
-          <div className="m3d grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border rounded-2xl overflow-hidden">
-            {PILLARS.map((p) => (
-              <Link key={p.href} href={p.href} className="group relative flex flex-col bg-white p-7 lg:p-8 transition-colors duration-300 hover:bg-[#FBF8F4]">
-                <div className="absolute top-0 left-0 right-0 h-[2.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }} aria-hidden="true" />
-                <div className="mb-5 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                  {p.svg}
+      {/* ══ LEISTUNGEN — Splitscreens zu allen Unterseiten ══ */}
+      {DETAIL_SPLITS.map((s, i) => {
+        const imgRight = i % 2 === 0;
+        return (
+          <section
+            key={s.href}
+            id={i === 0 ? "leistungen" : undefined}
+            className={`border-t border-border overflow-hidden py-20 lg:py-28 scroll-mt-20 ${imgRight ? "bg-white" : ""}`}
+            style={imgRight ? undefined : { background: "#F8F5F1" }}
+          >
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <div className="scroll-hidden">
+                  <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">{s.eyebrow}</span>
+                  <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight mb-5">
+                    {s.t1}<br />
+                    <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                      {s.t2}
+                    </span>
+                  </h2>
+                  <p className="text-muted leading-relaxed mb-8 max-w-md">{s.copy}</p>
+                  <Link
+                    href={s.href}
+                    className="group inline-flex items-center gap-2 text-sm font-semibold text-dark border-b border-dark/20 pb-0.5 hover:border-primary hover:text-primary transition-colors w-fit"
+                  >
+                    {s.cta}
+                    <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </Link>
                 </div>
-                <h3 className="font-bold text-dark text-lg mb-2 group-hover:text-primary transition-colors">{p.title}</h3>
-                <p className="text-muted text-sm leading-relaxed">{p.desc}</p>
-                <div className="mt-auto pt-6 flex items-center justify-between">
-                  <span className="text-[10px] font-mono tracking-wide text-dark/30 group-hover:text-primary/70 transition-colors">{p.meta}</span>
-                  <span className="text-primary opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</span>
+                <div
+                  className={`scroll-hidden flex justify-center ${imgRight ? "lg:justify-end" : "lg:order-first lg:justify-start"}`}
+                  style={{ transitionDelay: "120ms" }}
+                >
+                  <div className="relative rounded-2xl overflow-hidden shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
+                    <Image src={s.img} alt={s.alt} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 600px" />
+                  </div>
                 </div>
-              </Link>
-            ))}
-            {/* CTA-Karte füllt das Raster */}
-            <Link href="/kontakt" className="group relative flex flex-col bg-white p-7 lg:p-8 transition-colors duration-300 hover:bg-[#FBF8F4]">
-              <div className="mb-5 inline-flex items-center justify-center w-12 h-12 rounded-xl text-white" style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)" }}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7A8.38 8.38 0 0 1 4 11.5 8.5 8.5 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5Z" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </div>
-              <h3 className="font-bold text-dark text-lg mb-2 group-hover:text-primary transition-colors">Nicht sicher, was du brauchst?</h3>
-              <p className="text-muted text-sm leading-relaxed">Erzähl uns in zwei Sätzen dein Vorhaben — wir empfehlen den passenden Weg. Kostenlos &amp; unverbindlich.</p>
-              <div className="mt-auto pt-6 flex items-center justify-between">
-                <span className="text-[10px] font-mono tracking-wide text-primary/70">Kostenloses Gespräch</span>
-                <span className="text-primary group-hover:translate-x-0.5 transition-all">→</span>
-              </div>
-            </Link>
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
+        );
+      })}
 
       {/* ══ CONTENT — Was gutes Webdesign ausmacht ══ */}
       <section className="bg-white py-24 lg:py-32 border-t border-border">
@@ -552,50 +520,6 @@ export default function WebdesignClient() {
           </div>
         </div>
       </section>
-
-      {/* ══ LEISTUNGEN IM DETAIL — Splitscreens zu allen Unterseiten ══ */}
-      {DETAIL_SPLITS.map((s, i) => {
-        const imgRight = i % 2 === 0;
-        return (
-          <section
-            key={s.href}
-            className={`border-t border-border overflow-hidden py-20 lg:py-28 ${imgRight ? "bg-white" : ""}`}
-            style={imgRight ? undefined : { background: "#F8F5F1" }}
-          >
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-                <div className="scroll-hidden">
-                  <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">{s.eyebrow}</span>
-                  <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight mb-5">
-                    {s.t1}<br />
-                    <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-                      {s.t2}
-                    </span>
-                  </h2>
-                  <p className="text-muted leading-relaxed mb-8 max-w-md">{s.copy}</p>
-                  <Link
-                    href={s.href}
-                    className="group inline-flex items-center gap-2 text-sm font-semibold text-dark border-b border-dark/20 pb-0.5 hover:border-primary hover:text-primary transition-colors w-fit"
-                  >
-                    {s.cta}
-                    <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                  </Link>
-                </div>
-                <div
-                  className={`scroll-hidden flex justify-center ${imgRight ? "lg:justify-end" : "lg:order-first lg:justify-start"}`}
-                  style={{ transitionDelay: "120ms" }}
-                >
-                  <div className="relative rounded-2xl overflow-hidden shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
-                    <Image src={s.img} alt={s.alt} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 600px" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        );
-      })}
 
       {/* ══ FAQ ══ */}
       <section className="py-24 lg:py-32 border-t border-border" style={{ background: "#F8F5F1" }}>
