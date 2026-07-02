@@ -17,6 +17,12 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
   );
 }
 
+const icon = (d: string) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6">
+    <path d={d} strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+);
+
 const faqs = [
   {
     q: "Verliere ich meine Google-Rankings beim Website-Relaunch?",
@@ -45,12 +51,12 @@ const faqs = [
 ];
 
 const gruende = [
-  { icon: "🕰️", title: "Veraltetes Design", desc: "Wenn deine Website aussieht wie 2015 und Besucher abspringen, weil sie kein Vertrauen aufbauen können." },
-  { icon: "📱", title: "Nicht Mobile-optimiert", desc: "Über 60% des Traffics kommt vom Smartphone. Eine nicht-responsive Website verliert jeden zweiten Besucher." },
-  { icon: "🐌", title: "Schlechter PageSpeed", desc: "Google bestraft langsame Websites — und Besucher verlassen sie nach 3 Sekunden. PageSpeed ist SEO." },
-  { icon: "🎨", title: "Rebranding", desc: "Neue Unternehmensidentität, neues Logo, neues Messaging — dann muss auch die Website neu sein." },
-  { icon: "📉", title: "Niedrige Conversion Rate", desc: "Wenn Traffic da ist, aber Leads oder Käufe ausbleiben, ist das oft ein Design- und UX-Problem." },
-  { icon: "🔧", title: "Technische Schulden", desc: "Wenn das CMS veraltet ist, Plugins crashen und jede Änderung zum Risiko wird — Zeit für Neuanfang." },
+  { icon: "M12 8v4l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z", title: "Veraltetes Design", desc: "Wenn deine Website aussieht wie 2015 und Besucher abspringen, weil sie kein Vertrauen aufbauen können." },
+  { icon: "M7 4h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Zm5 14h.01", title: "Nicht Mobile-optimiert", desc: "Über 60% des Traffics kommt vom Smartphone. Eine nicht-responsive Website verliert jeden zweiten Besucher." },
+  { icon: "M13 10V3L4 14h7v7l9-11h-7z", title: "Schlechter PageSpeed", desc: "Google bestraft langsame Websites — und Besucher verlassen sie nach 3 Sekunden. PageSpeed ist SEO." },
+  { icon: "M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13L2 21.75l.8-2.935a4.5 4.5 0 011.13-1.897l12.932-12.43z", title: "Rebranding", desc: "Neue Unternehmensidentität, neues Logo, neues Messaging — dann muss auch die Website neu sein." },
+  { icon: "M3 17l6-6 4 4 8-8M21 7v4M21 7h-4", title: "Niedrige Conversion Rate", desc: "Wenn Traffic da ist, aber Leads oder Käufe ausbleiben, ist das oft ein Design- und UX-Problem." },
+  { icon: "M16 18l6-6-6-6M8 6l-6 6 6 6", title: "Technische Schulden", desc: "Wenn das CMS veraltet ist, Plugins crashen und jede Änderung zum Risiko wird — Zeit für Neuanfang." },
 ];
 
 const relaunchSchritte = [
@@ -189,8 +195,10 @@ export default function WebsiteRelaunchClient() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {gruende.map((g, i) => (
               <Reveal key={i} delay={i * 80}>
-                <div className="rounded-2xl border border-border p-7 hover:shadow-lg hover:border-primary/20 transition-all duration-300">
-                  <div className="text-3xl mb-4">{g.icon}</div>
+                <div className="group rounded-2xl border border-border p-7 hover:shadow-lg hover:border-primary/20 transition-all duration-300">
+                  <div className="mb-5 inline-flex items-center justify-center w-12 h-12 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                    {icon(g.icon)}
+                  </div>
                   <h3 className="font-bold text-dark text-lg mb-2">{g.title}</h3>
                   <p className="text-muted text-sm leading-relaxed">{g.desc}</p>
                 </div>
