@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SubpageLayout from "@/app/components/SubpageLayout";
-import RankingMigrationApp from "./RankingMigrationApp";
 import PageSpeedBeforeAfter from "./PageSpeedBeforeAfter";
 
 /* ─── Scroll-Reveal (IntersectionObserver → .scroll-visible) ──────────────── */
@@ -83,11 +82,13 @@ const STEPS = [
   { nr: "06", t: "Launch & Monitoring", d: "Der Launch läuft kontrolliert über unsere CI/CD-Pipeline. Anschließend beobachten wir Rankings und Search Console 4–8 Wochen aktiv und reagieren sofort, wenn etwas auffällt." },
 ];
 
-const RANKING_FACTS = [
-  "Vollständige Weiterleitungsmap: jede alte URL bekommt vor dem Launch ein festes neues Ziel",
-  "301 statt 302 — dauerhafte Weiterleitungen, damit Ranking-Signale nicht verloren gehen",
-  "Kontrollierter Go-live über unsere CI/CD-Pipeline, bei Problemen in Minuten rückrollbar",
-  "Search-Console-Monitoring 4–8 Wochen nach dem Launch, mit direktem Eingreifen bei Auffälligkeiten",
+const RELAUNCH_FALLEN = [
+  { falle: "Alte URLs werden ohne Weiterleitung abgeschaltet — Google läuft auf 404, Rankings und Backlink-Signale verpuffen.", schutz: "Vollständige 301-Redirect-Map vor dem Launch: jede alte URL bekommt ein festes neues Ziel — auch PDFs und Bilder." },
+  { falle: "Das Noindex der Staging-Umgebung oder eine blockierende robots.txt geht mit live — Google wirft Seiten aus dem Index.", schutz: "Pre-Launch-Check von Meta-Robots, robots.txt und Sitemap auf der finalen Umgebung — bevor irgendetwas live geht." },
+  { falle: "Weiterleitungen als 302 statt 301 oder in langen Ketten — Ranking-Signale kommen nur verwässert an.", schutz: "Direkte 301-Weiterleitungen ohne Ketten: alt zeigt in einem Sprung auf neu, dauerhaft statt temporär." },
+  { falle: "Inhalte mit Traffic, Rankings oder Backlinks werden beim Aufräumen gelöscht — niemand merkt es vor dem Launch.", schutz: "Content-Inventur vor dem Konzept: alles mit Traffic, Rankings oder Backlinks wird migriert oder gezielt weitergeleitet." },
+  { falle: "Canonical-Tags zeigen nach dem Launch auf Staging-URLs oder die falsche Domain — Google indexiert am Ziel vorbei.", schutz: "Jede Canonical-URL, jedes Meta-Tag und das Schema-Markup werden vor dem Go-live einzeln geprüft." },
+  { falle: "Nach dem Launch schaut niemand mehr hin — Indexierungsfehler bleiben wochenlang unbemerkt und kosten Sichtbarkeit.", schutz: "Letzter Voll-Crawl der alten Website als Sicherheitsnetz plus 4–8 Wochen Search-Console-Monitoring — Korrekturen gehen über CI/CD in Minuten live." },
 ];
 
 const BENEFITS = [
@@ -409,26 +410,40 @@ export default function WebsiteRelaunchClient() {
           </div>
 
           <div className="m3d rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
-            <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
-              <span className="w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
-              <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45">Ranking-Monitor — 301-Migration live</span>
+            <div className="hidden md:grid md:grid-cols-2 border-b border-border">
+              <div className="flex items-center gap-2.5 px-6 py-4">
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-dark/[0.06]">
+                  <svg className="h-3 w-3 text-dark/40" viewBox="0 0 20 20" fill="currentColor"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" /></svg>
+                </span>
+                <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45">Die typische Falle</span>
+              </div>
+              <div className="flex items-center gap-2.5 px-6 py-4 border-l border-border" style={{ background: "#fbf4ea" }}>
+                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/15">
+                  <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
+                </span>
+                <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-primary">So sichern wir ab</span>
+              </div>
             </div>
-            <RankingMigrationApp />
+            <div className="divide-y divide-border">
+              {RELAUNCH_FALLEN.map((r, i) => (
+                <div key={i} className="grid md:grid-cols-2">
+                  <div className="flex items-start gap-3 px-6 py-5">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-dark/[0.06] md:hidden">
+                      <svg className="h-3 w-3 text-dark/40" viewBox="0 0 20 20" fill="currentColor"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" /></svg>
+                    </span>
+                    <p className="text-sm text-dark/55 leading-relaxed">{r.falle}</p>
+                  </div>
+                  <div className="flex items-start gap-3 px-6 py-5 md:border-l md:border-border" style={{ background: "#fbf4ea" }}>
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 md:hidden">
+                      <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
+                    </span>
+                    <p className="text-sm text-dark font-medium leading-relaxed">{r.schutz}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
-          <div className="scroll-hidden mt-6 flex flex-wrap items-start gap-x-8 gap-y-3">
-            {RANKING_FACTS.map((f) => (
-              <span key={f} className="flex items-start gap-2.5">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                  <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                  </svg>
-                </span>
-                <span className="text-sm text-dark font-medium max-w-md">{f}</span>
-              </span>
-            ))}
-          </div>
-          <p className="scroll-hidden mt-4 text-xs italic text-muted">Illustrative Darstellung — keine realen Kundenzahlen.</p>
         </div>
       </section>
 
