@@ -176,9 +176,12 @@ export default function WebsiteRelaunchClient() {
         .m3d.scroll-visible { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); }
         @keyframes chipPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
         .chip-dot { animation: chipPulse 2.4s ease-in-out infinite; }
+        .journey-line { transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s; }
+        .scroll-visible .journey-line { transform: scaleX(1); }
         @media (prefers-reduced-motion: reduce), (scripting: none) {
           .m3d { opacity: 1; transform: none; transition: none; }
           .chip-dot { animation: none; }
+          .journey-line { transform: none; transition: none; }
         }
       `}</style>
 
@@ -461,7 +464,7 @@ export default function WebsiteRelaunchClient() {
         </div>
       </section>
 
-      {/* ══ PROZESS — 6 Schritte + sticky 301-Brücke ══ */}
+      {/* ══ PROZESS — vertikale Rail + Stufen-Bild ══ */}
       <section id="prozess" className="bg-white py-24 lg:py-32 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHead
@@ -470,43 +473,60 @@ export default function WebsiteRelaunchClient() {
             copy="Strukturiert, transparent und mit einem Monitoring, das nach dem Launch nicht aufhört."
           />
 
-          <div className="grid lg:grid-cols-[1fr_minmax(0,420px)] gap-10 lg:gap-16 items-start">
-            <div className="rounded-2xl border border-border bg-white overflow-hidden divide-y divide-border">
-              {STEPS.map((s, i) => {
-                const last = i === STEPS.length - 1;
-                return (
-                  <div key={s.nr} className="scroll-hidden" style={{ transitionDelay: `${i * 60}ms` }}>
-                    <div
-                      className="relative flex gap-5 p-6 lg:p-7 transition-colors duration-300 hover:bg-[#FBF8F4]"
-                      style={last ? { background: "#fbf4ea" } : undefined}
-                    >
-                      {last && (
-                        <span className="absolute left-0 top-0 bottom-0 w-[3px]" style={{ background: "linear-gradient(180deg, #C2722A, #D4A853)" }} aria-hidden="true" />
-                      )}
-                      <span className="font-[family-name:var(--font-heading)] text-4xl font-black text-primary/20 w-14 shrink-0 leading-none pt-0.5">{s.nr}</span>
-                      <div>
-                        <h3 className="font-bold text-dark mb-1.5">{s.t}</h3>
-                        <p className="text-sm text-muted leading-relaxed">{s.d}</p>
+          <div className="grid lg:grid-cols-[1fr_minmax(0,400px)] gap-12 lg:gap-20 items-start">
+            <div className="relative">
+              <div
+                className="absolute left-[43px] top-8 bottom-8 w-px"
+                style={{ background: "linear-gradient(180deg, #C2722A 0%, #D4A853 75%, transparent 100%)", opacity: 0.35 }}
+                aria-hidden="true"
+              />
+              <div className="space-y-1">
+                {STEPS.map((st, i) => {
+                  const last = i === STEPS.length - 1;
+                  return (
+                    <div key={st.nr} className="scroll-hidden" style={{ transitionDelay: `${i * 70}ms` }}>
+                      <div className="group relative flex gap-6 rounded-2xl p-4 lg:p-5 transition-colors duration-300 hover:bg-[#FBF8F4]">
+                        <div
+                          className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full font-mono text-sm font-bold transition-transform duration-300 group-hover:-translate-y-0.5"
+                          style={
+                            last
+                              ? { background: "linear-gradient(135deg, #C2722A, #D4A853)", color: "#fff", boxShadow: "0 12px 28px -12px rgba(194,114,42,0.55)" }
+                              : { background: "#fff", color: "#C2722A", border: "1px solid #ecd3ba" }
+                          }
+                        >
+                          {st.nr}
+                        </div>
+                        <div className="pt-1.5 min-w-0">
+                          <div className="mb-1.5 flex flex-wrap items-center gap-2.5">
+                            <h3 className="font-bold text-dark text-lg leading-snug">{st.t}</h3>
+                            {last && (
+                              <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] font-semibold" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba", color: "#C2722A" }}>
+                                4–8 Wochen inklusive
+                              </span>
+                            )}
+                          </div>
+                          <p className="text-sm lg:text-[15px] text-muted leading-relaxed max-w-xl">{st.d}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </div>
             </div>
 
-            <div className="scroll-hidden lg:sticky lg:top-28" style={{ transitionDelay: "120ms" }}>
-              <div className="relative rounded-2xl overflow-hidden shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full transform-gpu [backface-visibility:hidden]">
+            <div className="scroll-hidden lg:sticky lg:top-24" style={{ transitionDelay: "120ms" }}>
+              <div className="relative rounded-2xl overflow-hidden border border-border shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[4/5] w-full transform-gpu [backface-visibility:hidden]">
                 <Image
-                  src="/images/relaunch-3d-bruecke.png"
-                  alt="3D-Illustration: goldene 301-Brücke trägt Rankings von der alten zur neuen Website"
+                  src="/images/relaunch-3d-stufen.png"
+                  alt="3D-Illustration: Website entsteht in sechs Ebenen auf einem Gerüst — vom grauen Fundament bis zum glühenden Go-live-Button"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 420px"
+                  sizes="(max-width: 1024px) 100vw, 400px"
                 />
               </div>
               <p className="mt-3 text-xs text-muted">
-                Jede alte URL bekommt vor dem Launch ihr neues Ziel — die 301-Map ist die Brücke,
-                über die deine Rankings umziehen.
+                Ebene für Ebene nach oben: Jede Stufe wird abgehakt, bevor die nächste beginnt —
+                bis der Go-live-Button glüht.
               </p>
             </div>
           </div>
@@ -630,47 +650,73 @@ export default function WebsiteRelaunchClient() {
             copy="Keine Agentur-Warteschleife: klarer Start, klare Zahlung, voller Einblick — so läuft die Zusammenarbeit ab."
           />
 
-          <div className="relative">
+          <div className="scroll-hidden relative">
             <div
-              className="hidden lg:block absolute top-[19px] left-[10%] right-[10%] h-px opacity-40"
-              style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
+              className="journey-line hidden lg:block absolute top-[31px] left-[4%] right-[4%] h-[2px] rounded-full"
+              style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", opacity: 0.45 }}
               aria-hidden="true"
             />
-            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {KAUF_STATIONEN.map((st, i) => (
-                <div key={st.t} className="scroll-hidden" style={{ transitionDelay: `${i * 90}ms` }}>
-                  <div className="relative z-10 mb-5 inline-flex items-center gap-2 rounded-full border bg-white px-4 py-2 shadow-sm" style={{ borderColor: "#ecd3ba" }}>
-                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                    <span className="font-mono text-[12px] font-bold uppercase tracking-[0.1em] text-primary">{st.zeit}</span>
+                <div key={st.t} className="scroll-hidden h-full" style={{ transitionDelay: `${i * 90}ms` }}>
+                  <div className="group relative h-full rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-[0_24px_50px_-30px_rgba(194,114,42,0.35)] hover:-translate-y-1">
+                    <span
+                      className="absolute top-0 left-0 right-0 h-[2.5px] rounded-t opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
+                      aria-hidden="true"
+                    />
+                    <div className="mb-4 flex items-start justify-between gap-3">
+                      <span className="relative z-10 inline-flex items-center gap-2 rounded-full border bg-white px-3.5 py-1.5 shadow-sm" style={{ borderColor: "#ecd3ba" }}>
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                        <span className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-primary whitespace-nowrap">{st.zeit}</span>
+                      </span>
+                      <span className="font-[family-name:var(--font-heading)] text-4xl font-black leading-none select-none" style={{ color: "rgba(194,114,42,0.14)" }}>
+                        0{i + 1}
+                      </span>
+                    </div>
+                    <h3 className="font-bold text-dark mb-2">{st.t}</h3>
+                    <p className="text-sm text-muted leading-relaxed">{st.d}</p>
+                    {st.chip && (
+                      <span className="mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] font-semibold" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba", color: "#C2722A" }}>
+                        <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
+                        {st.chip}
+                      </span>
+                    )}
                   </div>
-                  <h3 className="font-bold text-dark mb-2">{st.t}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{st.d}</p>
-                  {st.chip && (
-                    <span className="mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] font-semibold" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba", color: "#C2722A" }}>
-                      <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
-                      {st.chip}
-                    </span>
-                  )}
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="scroll-hidden mt-12 lg:mt-14 border-t border-border pt-8">
-            <p className="font-mono text-[11px] tracking-[0.16em] uppercase text-dark/45 mb-4">Gut zu wissen</p>
-            <div className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
-              {GUT_ZU_WISSEN.map((g) => (
-                <div key={g} className="flex items-start gap-2.5">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                    <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                    </svg>
-                  </span>
-                  <span className="text-sm text-dark leading-relaxed">{g}</span>
+          <div className="scroll-hidden mt-10 lg:mt-14" style={{ transitionDelay: "120ms" }}>
+            <div className="relative overflow-hidden rounded-3xl bg-dark px-7 py-9 lg:px-12 lg:py-11">
+              <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div className="absolute -top-16 right-0 h-[240px] w-[240px] rounded-full bg-primary/[0.08] blur-3xl" />
+                <div className="absolute -bottom-16 left-8 h-[200px] w-[200px] rounded-full bg-secondary/[0.05] blur-3xl" />
+              </div>
+              <div className="relative grid gap-8 lg:grid-cols-[minmax(0,320px)_1px_1fr] lg:gap-10 items-center">
+                <div>
+                  <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-secondary">Gut zu wissen</span>
+                  <h3 className="mt-3 font-[family-name:var(--font-heading)] text-2xl lg:text-[1.9rem] font-bold text-white leading-tight">
+                    Kein Risiko,<br />kein Kleingedrucktes.
+                  </h3>
                 </div>
-              ))}
+                <div className="hidden lg:block h-full w-px bg-white/10" aria-hidden="true" />
+                <div className="grid gap-x-10 gap-y-4 sm:grid-cols-2">
+                  {GUT_ZU_WISSEN.map((g) => (
+                    <div key={g} className="flex items-start gap-3">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/20">
+                        <svg className="h-3 w-3 text-primary-light" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                      <span className="text-sm text-white/75 leading-relaxed">{g}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            <p className="mt-8 text-sm text-muted">
+            <p className="mt-7 text-sm text-muted">
               Klingt machbar?{" "}
               <a href="#kontakt" className="font-semibold text-primary border-b border-primary/30 pb-px hover:border-primary transition-colors">
                 Starte mit dem kostenlosen Erstgespräch
