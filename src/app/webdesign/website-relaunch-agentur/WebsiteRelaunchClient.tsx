@@ -82,6 +82,20 @@ const STEPS = [
   { nr: "06", t: "Launch & Monitoring", d: "Der Launch läuft kontrolliert über unsere CI/CD-Pipeline. Anschließend beobachten wir Rankings und Search Console 4–8 Wochen aktiv und reagieren sofort, wenn etwas auffällt." },
 ];
 
+const PROJEKT_FAKTEN = [
+  { val: "2–3 Wochen", t: "Bis zum Go-live", d: "Ein typischer Relaunch mit 5–15 Seiten ist in zwei bis drei Wochen live — von Kickoff bis Launch." },
+  { val: "< 1 Woche", t: "Projektstart", d: "Nach der Beauftragung starten wir innerhalb einer Woche mit dem Kickoff — kein monatelanges Warten auf einen Slot." },
+  { val: "50 / 50", t: "Zahlung", d: "Die Hälfte des Festpreises bei Projektstart, die andere Hälfte nach dem Go-live — keine versteckten Kosten." },
+  { val: "ab Tag 1", t: "Dein Einblick", d: "Staging-URL ab dem ersten Tag: du siehst jeden Stand live und gibst Feedback, wann es dir passt — keine starren Runden." },
+];
+
+const GUT_ZU_WISSEN = [
+  "Deine alte Website bleibt bis zum Go-live unverändert online.",
+  "Der Go-live läuft ohne nennenswerte Ausfallzeit — und ist jederzeit rückrollbar.",
+  "4–8 Wochen Ranking-Monitoring nach dem Launch sind inklusive.",
+  "Volle Zugänge, Standard-Technologie — kein Baukasten-Lock-in.",
+];
+
 const RELAUNCH_FALLEN = [
   { falle: "Alte URLs werden ohne Weiterleitung abgeschaltet — Google läuft auf 404, Rankings und Backlink-Signale verpuffen.", schutz: "Vollständige 301-Redirect-Map vor dem Launch: jede alte URL bekommt ein festes neues Ziel — auch PDFs und Bilder." },
   { falle: "Das Noindex der Staging-Umgebung oder eine blockierende robots.txt geht mit live — Google wirft Seiten aus dem Index.", schutz: "Pre-Launch-Check von Meta-Robots, robots.txt und Sitemap auf der finalen Umgebung — bevor irgendetwas live geht." },
@@ -109,7 +123,7 @@ const faqs = [
   { q: "Wie läuft ein Website-Relaunch ohne Rankingverlust ab?", a: "Der Schlüssel liegt in der Vorbereitung, nicht im Launch selbst. Wir erfassen vor dem Relaunch jede rankende URL, erstellen eine vollständige 301-Weiterleitungsmap und prüfen vor dem Go-live jede Canonical-URL und jedes Meta-Tag einzeln. Nach dem Launch beobachten wir Search Console und Rankings 4–8 Wochen aktiv. Rankingverluste entstehen fast immer durch fehlende Weiterleitungen — genau das schließen wir systematisch aus." },
   { q: "Wann ist ein Relaunch überhaupt sinnvoll?", a: "Wenn mehrere Dinge gleichzeitig nicht mehr passen: veraltetes Design, schlechte mobile Darstellung, niedriger Page-Speed-Wert, eine neue Markenidentität oder eine Conversion Rate, die trotz stabilem Traffic nicht überzeugt. Im kostenlosen Erstgespräch schauen wir uns deine Situation an und sagen dir ehrlich, ob ein vollständiger Relaunch oder eine schrittweise Optimierung die bessere Lösung ist." },
   { q: "Was kostet ein Website-Relaunch bei SeoForge?", a: "Einfachere Relaunches mit 5 bis 15 Seiten starten ab 3.500 €, komplexere Projekte mit Onlineshop oder umfangreicher SEO-Migration ab 8.000 €. Den genauen Preis legen wir als verbindlichen Festpreis im kostenlosen Erstgespräch fest — abhängig vom Umfang deiner bestehenden Website und deinen Zielen. Eine pauschale Zahl ohne dieses Gespräch wäre unseriös." },
-  { q: "Wie lange dauert ein Website-Relaunch?", a: "Für ein typisches Projekt mit 10 bis 30 Seiten kalkulieren wir 6 bis 10 Wochen — von der ersten SEO-Analyse über Konzept und Design bis zur Entwicklung und dem Pre-Launch-Check. Nach dem Go-live läuft zusätzlich ein 4- bis 8-wöchiges Monitoring, in dem wir Rankings und Search Console aktiv beobachten." },
+  { q: "Wie lange dauert ein Website-Relaunch?", a: "Ein typischer Relaunch mit 5 bis 15 Seiten ist bei uns in 2 bis 3 Wochen live — von Kickoff bis Go-live, Projektstart innerhalb einer Woche nach Beauftragung. Größere Projekte mit Onlineshop oder vielen URLs brauchen entsprechend länger; den konkreten Zeitplan bekommst du mit dem Festpreisangebot. Nach dem Go-live läuft zusätzlich das 4- bis 8-wöchige Ranking-Monitoring." },
   { q: "Kann ich meine bestehenden Inhalte behalten?", a: "Ja. Wir legen gemeinsam fest, welche Inhalte migriert, überarbeitet oder ersetzt werden. Besonders wichtig ist uns, keine Seite zu verlieren, die aktuell organischen Traffic bringt — sie wird entweder migriert oder erhält eine korrekte Weiterleitung. Guter, bereits rankender Content ist Kapital — ein Relaunch sollte ihn erhalten, nicht wegwerfen." },
   { q: "Betreut ihr die Website auch nach dem Relaunch weiter?", a: "Ja, und wir empfehlen das ausdrücklich. Nach einem Relaunch zeigen sich meist neue Optimierungspotenziale — durch die neue Struktur, frische Content-Chancen oder technische Feinheiten, die erst im laufenden Betrieb auffallen. Unsere monatliche SEO-Betreuung setzt direkt auf dem sauberen technischen Fundament auf, das der Relaunch geschaffen hat." },
 ];
@@ -452,9 +466,27 @@ export default function WebsiteRelaunchClient() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHead
             eyebrow="Unser Relaunch-Prozess"
-            title={<>Sechs Schritte,<br />null Ranking-Risiko.</>}
-            copy="Strukturiert, transparent und mit einem Monitoring, das nach dem Launch nicht aufhört."
+            title={<>Sechs Schritte — und die<br />Fakten zu deinem Projekt.</>}
+            copy="Strukturiert, ohne Ranking-Risiko — und mit den Antworten, die du vor dem Auftrag wirklich brauchst."
           />
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10 lg:mb-14">
+            {PROJEKT_FAKTEN.map((f, i) => (
+              <div key={f.t} className="scroll-hidden" style={{ transitionDelay: `${i * 70}ms` }}>
+                <div className="group h-full rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-md hover:-translate-y-1">
+                  <div className="font-mono text-[11px] tracking-[0.16em] text-dark/45 mb-3">FAKT 0{i + 1}</div>
+                  <div
+                    className="font-[family-name:var(--font-heading)] text-3xl font-black leading-none mb-2"
+                    style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                  >
+                    {f.val}
+                  </div>
+                  <div className="font-bold text-dark text-sm mb-1.5">{f.t}</div>
+                  <p className="text-muted text-[13px] leading-relaxed">{f.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
 
           <div className="grid lg:grid-cols-[1fr_minmax(0,420px)] gap-10 lg:gap-16 items-start">
             <div className="rounded-2xl border border-border bg-white overflow-hidden divide-y divide-border">
@@ -494,6 +526,21 @@ export default function WebsiteRelaunchClient() {
                 Jede alte URL bekommt vor dem Launch ihr neues Ziel — die 301-Map ist die Brücke,
                 über die deine Rankings umziehen.
               </p>
+              <div className="mt-6 rounded-2xl border border-border bg-white p-5">
+                <p className="font-mono text-[11px] tracking-[0.16em] uppercase text-dark/45 mb-3">Gut zu wissen</p>
+                <div className="space-y-2.5">
+                  {GUT_ZU_WISSEN.map((g) => (
+                    <div key={g} className="flex items-start gap-2.5">
+                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                        <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
+                          <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
+                        </svg>
+                      </span>
+                      <span className="text-[13px] text-dark leading-relaxed">{g}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
