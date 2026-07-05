@@ -53,13 +53,6 @@ function ScrollProgressBar() {
   );
 }
 
-/* ─── Icon-Helper ─────────────────────────────────────────────────────────── */
-const icon = (d: string) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="w-6 h-6">
-    <path d={d} strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
 /* ─── Editorial-Header ────────────────────────────────────────────────────── */
 function SectionHead({ eyebrow, title, copy }: { eyebrow: string; title: React.ReactNode; copy: string }) {
   return (
@@ -737,8 +730,6 @@ function KiAnswerMockup() {
 }
 
 /* ─── Daten ───────────────────────────────────────────────────────────────── */
-const DATEN_STACK = ["Google Search Console", "Semrush", "Ahrefs", "Screaming Frog"];
-
 const BAND_ROW1 = [
   { label: "SEO-Audit", d: "m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" },
   { label: "SEO-Beratung", d: "M21 12c0 4.556-4.03 8.25-9 8.25a9.76 9.76 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" },
@@ -759,6 +750,75 @@ const BAND_ROW2 = [
   { label: "Lokale Betriebe", accent: false },
   { label: "Monatliches Reporting", accent: true },
   { label: "SaaS", accent: false },
+];
+
+/* Intro-Dossier — die 3 Original-Absätze als nummerierte Blöcke im Katalog-Duktus */
+const INTRO_BLOCKS: { kicker: string; chips: string[]; text: React.ReactNode }[] = [
+  {
+    kicker: "01 — Was eine SEO Agentur leistet",
+    chips: ["Audit", "Strategie", "Umsetzung", "Autorität"],
+    text: (
+      <>
+        Eine SEO Agentur übernimmt die technische, inhaltliche und strukturelle Arbeit, die nötig ist, damit
+        eine Website in Suchmaschinen gefunden und in ihrer Branche als relevant eingestuft wird. Dazu gehört
+        die <strong className="text-dark font-semibold">nüchterne Bestandsaufnahme</strong> —{" "}
+        <strong className="text-dark font-semibold">Crawling-Barrieren</strong>, Indexierungsprobleme,
+        Ladezeiten, inhaltliche Lücken —, die Entwicklung einer{" "}
+        <strong className="text-dark font-semibold">Keyword- und Themenstrategie</strong> sowie die technische
+        und redaktionelle Umsetzung dieser Strategie über Monate hinweg. Genauso gehört der aktive Aufbau von
+        Relevanz durch <strong className="text-dark font-semibold">Backlinks, Erwähnungen und Digital PR</strong>{" "}
+        dazu, denn Inhalte allein reichen selten aus, wenn der Wettbewerb um dieselben Suchbegriffe ebenfalls
+        investiert und ähnliche Themen bereits gut abdeckt. Wer diese Kette nicht mit einem eigenen Team in
+        ausreichender Tiefe abdecken kann, beauftragt eine Agentur — idealerweise eine, die{" "}
+        <strong className="text-dark font-semibold">alle Disziplinen im Zusammenspiel</strong> plant statt sie
+        isoliert abzuarbeiten, denn ein technisch perfekter Auftritt ohne passenden Content bringt ebenso wenig
+        wie brillanter Content auf einer technisch fehlerhaften Website.
+      </>
+    ),
+  },
+  {
+    kicker: "02 — Unser Ansatz: SEO + GEO",
+    chips: ["GSC", "Semrush", "Ahrefs", "Prompt-Monitoring"],
+    text: (
+      <>
+        Bei{" "}
+        <Link href="/" className="text-primary font-semibold hover:underline">SeoForge</Link>{" "}
+        verbinden wir klassisches SEO mit{" "}
+        <strong className="text-dark font-semibold">Generative Engine Optimization (GEO)</strong>. Google
+        bleibt der Kanal mit dem größten Suchvolumen, gleichzeitig beantworten{" "}
+        <strong className="text-dark font-semibold">ChatGPT, Perplexity und Google AI Overviews</strong> einen
+        wachsenden Teil der Anfragen bereits direkt in der KI-Antwort, ohne dass ein Klick auf eine Website
+        erfolgt. Wir arbeiten mit denselben Datenquellen, die auch intern genutzt werden können —{" "}
+        <strong className="text-dark font-semibold">Google Search Console, Semrush, Ahrefs</strong> — und
+        ergänzen sie um eigene <strong className="text-dark font-semibold">Prompt-Monitoring-Setups</strong>,
+        mit denen sich nachvollziehen lässt, ob und wie eine Marke in KI-generierten Antworten überhaupt
+        vorkommt und welche Konkurrenten stattdessen zitiert werden. Diese Kombination ist der Grund, warum wir
+        uns als <strong className="text-dark font-semibold">SEO Agentur mit GEO-Kompetenz</strong> verstehen,
+        nicht als reine Text- oder Linkagentur, die GEO nur als zusätzliches Schlagwort in ihr Angebot
+        aufnimmt.
+      </>
+    ),
+  },
+  {
+    kicker: "03 — Wie wir arbeiten",
+    chips: ["CI/CD", "KI-Workflows", "Antwort < 24 h"],
+    text: (
+      <>
+        Technisch und inhaltlich setzen wir über eine{" "}
+        <strong className="text-dark font-semibold">CI/CD-Infrastruktur</strong> um, wodurch Änderungen{" "}
+        <strong className="text-dark font-semibold">innerhalb von Minuten live</strong> gehen und nicht erst
+        nach tagelanger Abstimmung mit einer externen Entwicklungsabteilung oder einem separaten
+        Freigabeprozess. Repetitive Aufgaben — Datenaufbereitung, Crawling-Auswertung, Reporting-Vorbereitung —
+        übernehmen bei uns <strong className="text-dark font-semibold">KI-gestützte Workflows</strong>, wodurch
+        mehr Zeit für strategische Entscheidungen bleibt statt für manuelle Fleißarbeit, die sich ebenso gut
+        automatisieren lässt. Daraus ergeben sich{" "}
+        <strong className="text-dark font-semibold">faire Preise</strong> bei einem festen Ansprechpartner, der{" "}
+        <strong className="text-dark font-semibold">innerhalb von 24 Stunden</strong> antwortet, und eine
+        Arbeitsweise, die sich an nachvollziehbaren Daten orientiert statt an pauschalen Versprechen, die sich
+        im Nachhinein nicht überprüfen lassen.
+      </>
+    ),
+  },
 ];
 
 /* Leistungskatalog — 9 Teilleistungen in 3 Kapiteln, Links exakt wie im Content */
@@ -1038,27 +1098,42 @@ const KORRIDOR_ZELLEN = [
   },
 ];
 
-/* Kosten — 4 Faktor-Kacheln (Content-Kostenfaktoren) */
+/* Kosten — 4 Kostenfaktoren als kompakte Mono-Chips (Beschreibung als title-Attribut) */
 const FAKTOREN = [
   {
-    s: "M3 17l6-6 4 4 8-8M21 7v4M21 7h-4",
     t: "Wettbewerbsintensität",
     d: "Je mehr Unternehmen um dieselben Keywords konkurrieren, desto mehr Aufwand ist nötig, um sich davon abzuheben.",
   },
   {
-    s: "M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z",
     t: "Technische Ausgangslage",
     d: "Technische Altlasten aus früheren Relaunches oder CMS-Wechseln erhöhen den Aufwand in der ersten Projektphase.",
   },
   {
-    s: "M9 12h6M9 16h6M9 8h6M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z",
     t: "Content-Umfang",
     d: "Je mehr Themen und Zielseiten abgedeckt werden müssen, desto mehr redaktionelle Kapazität wird benötigt.",
   },
   {
-    s: "M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z",
     t: "Standorte & Sprachversionen",
     d: "Mehrere Standorte oder Sprachversionen vervielfachen den Aufwand für lokale und internationale Optimierung.",
+  },
+];
+
+/* Kosten — Preis-Logik-Tafel: 3 Zeilen, keine erfundenen Werte (800 € aus dem Bestandstext) */
+const PREIS_LOGIK: { wert: React.ReactNode; titel: string; satz: string }[] = [
+  {
+    wert: (<>ab <CountUp to={800} /> €</>),
+    titel: "Laufende SEO-Betreuung",
+    satz: "Monatliches Mandat mit Monitoring, Umsetzung und Reporting.",
+  },
+  {
+    wert: "individuell",
+    titel: "Einmalprojekte & Audits",
+    satz: "Nach Umfang und Ausgangslage — Festangebot nach der Analyse.",
+  },
+  {
+    wert: "0 €",
+    titel: "Kostenlose Erstanalyse",
+    satz: "Der Startpunkt jeder Zusammenarbeit — unverbindlich.",
   },
 ];
 
@@ -1204,25 +1279,28 @@ export default function SeoAgenturClient() {
         </div>
 
         <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8 pt-28 lg:pt-36 pb-16 lg:pb-24">
-          <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-[1fr_1.05fr] gap-12 lg:gap-16 items-center">
             {/* Links — Text */}
             <div>
-              <div className="hero-badge mb-6 inline-flex items-center gap-2.5">
+              <div className="hero-badge mb-5 inline-flex items-center gap-2.5">
                 <span className="h-px w-8 bg-primary" />
                 <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">SEO Agentur</span>
               </div>
 
-              <h1 className="hero-title font-[family-name:var(--font-heading)] text-[3rem] sm:text-[3.8rem] lg:text-[4.6rem] font-medium leading-[1.01] tracking-tight text-dark">
+              <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.7rem] sm:text-[3.4rem] lg:text-[4.2rem] font-medium leading-[0.99] tracking-tight text-dark">
                 SEO Agentur für Sichtbarkeit <span style={grad}>in Google und in der KI-Suche</span>
               </h1>
 
-              <p className="hero-description mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              <p className="hero-description mt-5 max-w-xl text-lg leading-relaxed text-muted">
                 Wir sind die SEO Agentur, die klassische Suchmaschinenoptimierung und Generative Engine
-                Optimization aus einer Hand liefert. Statt Versprechen erhalten Sie eine Methodik, die auf
-                überprüfbaren Daten aufbaut und in nachvollziehbaren Prozessschritten umgesetzt wird.
+                Optimization aus einer Hand liefert.
+              </p>
+              <p className="hero-description mt-4 max-w-xl text-[15px] leading-relaxed text-muted">
+                Statt Versprechen erhalten Sie eine Methodik, die auf überprüfbaren Daten aufbaut und in
+                nachvollziehbaren Prozessschritten umgesetzt wird.
               </p>
 
-              <div className="hero-cta mt-8 flex flex-col sm:flex-row gap-3">
+              <div className="hero-cta mt-7 flex flex-col sm:flex-row gap-3">
                 <a
                   href="#kontakt"
                   className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark"
@@ -1240,21 +1318,10 @@ export default function SeoAgenturClient() {
                 </a>
               </div>
 
-              {/* Tool-Strip statt Logos */}
-              <div className="hero-description mt-12 flex flex-col gap-3.5">
-                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-muted/70">Unser Daten-Stack</span>
-                <div className="flex flex-wrap items-center gap-2.5">
-                  {DATEN_STACK.map((t) => (
-                    <span
-                      key={t}
-                      className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-2 font-mono text-[11px] uppercase tracking-[0.14em] text-dark/70 transition-colors hover:border-primary/40"
-                    >
-                      <span className="chip-dot h-1.5 w-1.5 rounded-full bg-primary" />
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              {/* Deliverable-Zeile — eine ruhige Mono-Zeile mit Punkt-Trennern statt Chip-Leiste */}
+              <p className="hero-description mt-9 font-mono text-[11px] uppercase tracking-[0.16em] text-dark/50">
+                Technischer Audit · Keyword-Roadmap · Transparentes Reporting · GEO-Monitoring
+              </p>
             </div>
 
             {/* Rechts — SerpLiveDemo */}
@@ -1320,70 +1387,41 @@ export default function SeoAgenturClient() {
         </div>
       </section>
 
-      {/* ══ 03 INTRO — Was eine SEO Agentur wirklich leistet ══ */}
-      <section className="py-20 lg:py-28 overflow-hidden" style={{ background: "#F8F5F1" }}>
+      {/* ══ 03 INTRO — Nummeriertes Dossier im Katalog-Duktus + Sticky-Werkbank ══ */}
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div className="scroll-hidden rv-left">
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Was eine SEO Agentur leistet</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight mb-5">
-                Technik, Content, Autorität —<br />
-                <span style={grad}>ein System statt Einzelteile.</span>
-              </h2>
-              <div className="space-y-4 text-muted leading-relaxed max-w-lg">
-                <p>
-                  Eine SEO Agentur übernimmt die technische, inhaltliche und strukturelle Arbeit, die nötig ist, damit
-                  eine Website in Suchmaschinen gefunden und in ihrer Branche als relevant eingestuft wird. Dazu gehört
-                  die nüchterne Bestandsaufnahme — Crawling-Barrieren, Indexierungsprobleme, Ladezeiten, inhaltliche
-                  Lücken —, die Entwicklung einer Keyword- und Themenstrategie sowie die technische und redaktionelle
-                  Umsetzung dieser Strategie über Monate hinweg. Genauso gehört der aktive Aufbau von Relevanz durch
-                  Backlinks, Erwähnungen und Digital PR dazu, denn Inhalte allein reichen selten aus, wenn der
-                  Wettbewerb um dieselben Suchbegriffe ebenfalls investiert und ähnliche Themen bereits gut abdeckt.
-                  Wer diese Kette nicht mit einem eigenen Team in ausreichender Tiefe abdecken kann, beauftragt eine
-                  Agentur — idealerweise eine, die alle Disziplinen im Zusammenspiel plant statt sie isoliert
-                  abzuarbeiten, denn ein technisch perfekter Auftritt ohne passenden Content bringt ebenso wenig wie
-                  brillanter Content auf einer technisch fehlerhaften Website.
-                </p>
-                <p>
-                  Bei{" "}
-                  <Link href="/" className="text-primary font-semibold hover:underline">SeoForge</Link>{" "}
-                  verbinden wir klassisches SEO mit Generative Engine Optimization (GEO). Google bleibt der Kanal mit
-                  dem größten Suchvolumen, gleichzeitig beantworten ChatGPT, Perplexity und Google AI Overviews einen
-                  wachsenden Teil der Anfragen bereits direkt in der KI-Antwort, ohne dass ein Klick auf eine Website
-                  erfolgt. Wir arbeiten mit denselben Datenquellen, die auch intern genutzt werden können — Google
-                  Search Console, Semrush, Ahrefs — und ergänzen sie um eigene Prompt-Monitoring-Setups, mit denen sich
-                  nachvollziehen lässt, ob und wie eine Marke in KI-generierten Antworten überhaupt vorkommt und welche
-                  Konkurrenten stattdessen zitiert werden. Diese Kombination ist der Grund, warum wir uns als SEO
-                  Agentur mit GEO-Kompetenz verstehen, nicht als reine Text- oder Linkagentur, die GEO nur als
-                  zusätzliches Schlagwort in ihr Angebot aufnimmt.
-                </p>
-                <p>
-                  Technisch und inhaltlich setzen wir über eine CI/CD-Infrastruktur um, wodurch Änderungen innerhalb
-                  von Minuten live gehen und nicht erst nach tagelanger Abstimmung mit einer externen
-                  Entwicklungsabteilung oder einem separaten Freigabeprozess. Repetitive Aufgaben — Datenaufbereitung,
-                  Crawling-Auswertung, Reporting-Vorbereitung — übernehmen bei uns KI-gestützte Workflows, wodurch mehr
-                  Zeit für strategische Entscheidungen bleibt statt für manuelle Fleißarbeit, die sich ebenso gut
-                  automatisieren lässt. Daraus ergeben sich faire Preise bei einem festen Ansprechpartner, der
-                  innerhalb von 24 Stunden antwortet, und eine Arbeitsweise, die sich an nachvollziehbaren Daten
-                  orientiert statt an pauschalen Versprechen, die sich im Nachhinein nicht überprüfen lassen.
-                </p>
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+            {/* Links — Dossier: 3 Blöcke mit Mono-Kicker, Originaltext und Chip-Zeile */}
+            <div>
+              <div className="scroll-hidden rv-left">
+                <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Was eine SEO Agentur leistet</span>
+                <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight">
+                  Technik, Content, Autorität —<br />
+                  <span style={grad}>ein System statt Einzelteile.</span>
+                </h2>
               </div>
-              {/* Mono-Faktenzeile (Graft) — „24" zählt beim Viewport-Eintritt hoch */}
-              <div className="border-t border-border pt-5 mt-6 flex flex-wrap gap-x-8 gap-y-2">
-                {[
-                  { k: "Monatlich kündbar", n: "Monatlich kündbar" as React.ReactNode },
-                  { k: "Antwort < 24 h", n: (<>{"Antwort < "}<CountUp to={24} />{" h"}</>) as React.ReactNode },
-                  { k: "Monatliches Reporting", n: "Monatliches Reporting" as React.ReactNode },
-                ].map((f) => (
-                  <span key={f.k} className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-dark/60">
-                    <span className="chip-dot h-1.5 w-1.5 rounded-full bg-primary" />
-                    {f.n}
-                  </span>
+              <div className="mt-2 divide-y divide-border">
+                {INTRO_BLOCKS.map((b, i) => (
+                  <div key={b.kicker} className="scroll-hidden rv-right py-7 lg:py-8" style={{ transitionDelay: `${i * 90}ms` }}>
+                    <span className="block font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45 mb-3">{b.kicker}</span>
+                    <p className="text-[15px] text-muted leading-relaxed">{b.text}</p>
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {b.chips.map((c) => (
+                        <span
+                          key={c}
+                          className="inline-flex items-center rounded-full border border-border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/50"
+                        >
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
 
-            <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
+            {/* Rechts — Werkbank-Bild, wandert beim Lesen mit */}
+            <div className="scroll-hidden rv-right lg:sticky lg:top-28" style={{ transitionDelay: "120ms" }}>
               <div className="group relative rounded-2xl overflow-hidden border border-border shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
                 <Image
                   src="/images/seo-3d-werkbank.png"
@@ -1846,7 +1884,7 @@ export default function SeoAgenturClient() {
         </div>
       </section>
 
-      {/* ══ 09 KOSTEN — Transparente Investition + 4 Faktor-Kacheln ══ */}
+      {/* ══ 09 KOSTEN — Preis-Logik-Tafel + kompakte Kostenfaktoren ══ */}
       <section id="kosten" className="scroll-mt-20 py-24 lg:py-32" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
@@ -1856,7 +1894,7 @@ export default function SeoAgenturClient() {
                 Was kostet eine<br />
                 <span style={grad}>SEO Agentur?</span>
               </h2>
-              <p className="text-muted leading-relaxed mb-5">
+              <p className="text-[15px] text-muted leading-relaxed mb-4">
                 Die Kosten für SEO hängen in erster Linie vom Wettbewerbsumfeld und der Ausgangslage der Website ab,
                 nicht von einer Preisliste, die für jede Branche gleichermaßen gilt. Eine Website mit sauberer
                 technischer Basis und etabliertem Content-Bestand benötigt einen anderen Ansatz als eine Website, die
@@ -1864,18 +1902,19 @@ export default function SeoAgenturClient() {
                 um dieselben Keywords steht, in dem bereits mehrere gut aufgestellte Wettbewerber aktiv sind. Auch der
                 Umfang — Anzahl der Zielseiten, Sprachen, Standorte, Produktkategorien — beeinflusst, wie viel Aufwand
                 realistisch eingeplant werden muss, bevor sich erste Ergebnisse zeigen. Zur Orientierung: Eine laufende
-                SEO-Betreuung beginnt bei uns in der Regel <strong className="text-dark font-semibold">ab <CountUp to={800} /> € pro Monat</strong>;
+                SEO-Betreuung beginnt bei uns in der Regel <strong className="text-dark font-semibold">ab 800 € pro Monat</strong>;
                 einmalige Leistungen wie ein SEO-Audit kalkulieren wir als{" "}
                 <strong className="text-dark font-semibold">separate Pakete</strong>.
               </p>
-              <p className="text-muted leading-relaxed mb-7">
+              <p className="text-[15px] text-muted leading-relaxed mb-7">
                 Wie viel Content-Bedarf entsteht, hängt zusätzlich davon ab, wie viele Themen bereits gut abgedeckt
                 sind und wie viele Seiten neu aufgebaut werden müssen, um bestehende Lücken im Vergleich zum Wettbewerb
-                zu schließen. Aus diesen Gründen kalkulieren wir kein pauschales Angebot, sondern erstellen nach einer
-                kostenlosen Erstanalyse ein individuelles Angebot, das sich an der tatsächlichen Ausgangslage
-                orientiert statt an einem Standardpaket von der Stange. Die Abrechnung ist dabei transparent
-                nachvollziehbar — Sie wissen, wofür budgetierte Leistungen eingesetzt werden und welchen Umfang sie
-                haben, statt eine Pauschale ohne Aufschlüsselung zu erhalten.
+                zu schließen. Aus diesen Gründen kalkulieren wir kein pauschales Angebot, sondern erstellen nach einer{" "}
+                <strong className="text-dark font-semibold">kostenlosen Erstanalyse</strong> ein individuelles Angebot,
+                das sich an der tatsächlichen Ausgangslage orientiert statt an einem Standardpaket von der Stange. Die
+                Abrechnung ist dabei <strong className="text-dark font-semibold">transparent</strong> nachvollziehbar —
+                Sie wissen, wofür budgetierte Leistungen eingesetzt werden und welchen Umfang sie haben, statt eine
+                Pauschale ohne Aufschlüsselung zu erhalten.
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <a
@@ -1891,19 +1930,51 @@ export default function SeoAgenturClient() {
               </div>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-4">
-              {FAKTOREN.map((f, i) => (
-                <div key={f.t} className="scroll-hidden rv-scale" style={{ transitionDelay: `${i * 70}ms` }}>
-                  <div className="group h-full rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-md hover:-translate-y-1">
-                    <div className="font-mono text-[11px] tracking-[0.16em] text-dark/45 mb-4">FAKTOR 0{i + 1}</div>
-                    <div className="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
-                      {icon(f.s)}
-                    </div>
-                    <div className="font-bold text-dark text-sm mb-1.5">{f.t}</div>
-                    <p className="text-muted text-[13px] leading-relaxed">{f.d}</p>
+            {/* Rechts — Preis-Logik-Tafel + Kostenfaktoren als Chip-Reihe */}
+            <div>
+              <div className="scroll-hidden rv-scale">
+                <div className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
+                  <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
+                    <span className="chip-dot w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
+                    <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45">Preis-Logik — ohne versteckte Posten</span>
+                  </div>
+                  <div className="divide-y divide-border">
+                    {PREIS_LOGIK.map((r) => (
+                      <div
+                        key={r.titel}
+                        className="flex flex-col gap-2 p-6 sm:flex-row sm:items-center sm:gap-6 lg:p-7 transition-colors duration-300 hover:bg-[#FBF8F4]"
+                      >
+                        <span
+                          className="whitespace-nowrap font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-black leading-none sm:w-[180px] lg:w-[205px] shrink-0"
+                          style={grad}
+                        >
+                          {r.wert}
+                        </span>
+                        <span className="min-w-0">
+                          <span className="block font-bold text-dark">{r.titel}</span>
+                          <span className="mt-1 block text-sm text-muted leading-relaxed">{r.satz}</span>
+                        </span>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
+              </div>
+
+              <div className="scroll-hidden rv-blur mt-5" style={{ transitionDelay: "140ms" }}>
+                <span className="block font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40 mb-2.5">Kostenfaktoren</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {FAKTOREN.map((f) => (
+                    <span
+                      key={f.t}
+                      title={f.d}
+                      className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/60"
+                    >
+                      <span className="h-1.5 w-1.5 rounded-full bg-primary/50" aria-hidden="true" />
+                      {f.t}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>

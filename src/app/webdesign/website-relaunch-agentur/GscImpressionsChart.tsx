@@ -79,7 +79,7 @@ export default function GscImpressionsChart() {
   useEffect(() => {
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) setPhase((p) => (p === "idle" ? "drawing" : p)); },
-      { threshold: 0.45 }
+      { threshold: 0.6, rootMargin: "0px 0px -15% 0px" }
     );
     if (chartRef.current) obs.observe(chartRef.current);
     return () => obs.disconnect();

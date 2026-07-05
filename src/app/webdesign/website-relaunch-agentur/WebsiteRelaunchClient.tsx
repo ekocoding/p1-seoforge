@@ -752,9 +752,13 @@ export default function WebsiteRelaunchClient() {
 
                 <p className="mt-5 text-[12px] italic text-muted">Keine Nachträge, keine versteckten Stunden — was im Angebot steht, gilt.</p>
 
-                <div className="stamp-in pointer-events-none absolute -right-2 bottom-20 select-none lg:-right-4">
-                  <div className="rounded-lg border-[3px] border-primary px-4 py-1.5 font-mono text-sm font-black uppercase tracking-[0.22em] text-primary" style={{ boxShadow: "inset 0 0 0 2px rgba(194,114,42,0.3)", background: "rgba(255,255,255,0.75)" }}>
-                    Festpreis
+                <div className="stamp-in pointer-events-none absolute -right-2 bottom-10 select-none lg:-right-4">
+                  <div className="flex items-center gap-2 rounded-lg border-[3px] border-primary px-3.5 py-1.5" style={{ boxShadow: "inset 0 0 0 2px rgba(194,114,42,0.3)", background: "rgba(255,255,255,0.78)" }}>
+                    <svg viewBox="0 0 32 32" className="h-4 w-4" aria-hidden="true">
+                      <polygon points="16,2 28,8 28,24 16,30 4,24 4,8" fill="#C2722A" />
+                      <polygon points="16,7 23,11 23,21 16,25 9,21 9,11" fill="#D4A853" />
+                    </svg>
+                    <span className="font-mono text-[12px] font-black uppercase tracking-[0.2em] text-primary">SeoForge</span>
                   </div>
                 </div>
               </div>
