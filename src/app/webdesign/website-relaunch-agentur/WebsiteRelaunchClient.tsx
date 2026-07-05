@@ -82,12 +82,12 @@ const STEPS = [
   { nr: "06", t: "Launch & Monitoring", d: "Der Launch läuft kontrolliert über unsere CI/CD-Pipeline. Anschließend beobachten wir Rankings und Search Console 4–8 Wochen aktiv und reagieren sofort, wenn etwas auffällt." },
 ];
 
-const KAUF_STATIONEN = [
-  { zeit: "Tag 0", t: "Kostenloses Erstgespräch", d: "Wir schauen uns deine Website und deine Rankings an. Danach bekommst du einen verbindlichen Festpreis — entscheiden kannst du in Ruhe.", chip: null },
-  { zeit: "binnen 1 Woche", t: "Kickoff & Projektstart", d: "Nach deiner Beauftragung starten wir innerhalb einer Woche — kein monatelanges Warten auf einen Agentur-Slot.", chip: "50 % bei Start" },
-  { zeit: "ab Kickoff", t: "Du schaust live zu", d: "Deine Staging-URL zeigt jeden Stand in Echtzeit. Feedback gibst du, wann es dir passt — ohne starre Review-Runden.", chip: null },
-  { zeit: "Woche 2–3", t: "Go-live & Monitoring", d: "Ein typischer Relaunch mit 5–15 Seiten geht nach zwei bis drei Wochen kontrolliert live. Danach läuft das Ranking-Monitoring 4–8 Wochen weiter.", chip: "50 % nach Go-live" },
-] as { zeit: string; t: string; d: string; chip: string | null }[];
+const KAUF_FAKTEN = [
+  { val: "2–3 Wochen", t: "Von Kickoff bis Go-live", d: "Ein typischer Relaunch mit 5–15 Seiten ist in zwei bis drei Wochen live. Danach läuft das Ranking-Monitoring 4–8 Wochen weiter — inklusive.", chip: null },
+  { val: "< 1 Woche", t: "Projektstart nach Beauftragung", d: "Kein monatelanges Warten auf einen Agentur-Slot: Nach deiner Zusage starten wir innerhalb einer Woche mit dem Kickoff.", chip: null },
+  { val: "50 / 50", t: "Zahlung in zwei Hälften", d: "Die Hälfte des Festpreises bei Projektstart, die andere nach dem Go-live — keine versteckten Kosten, keine Nachträge.", chip: "Verbindlicher Festpreis" },
+  { val: "Tag 1", t: "Voller Einblick ab dem ersten Tag", d: "Deine Staging-URL zeigt jeden Stand in Echtzeit. Feedback gibst du, wann es dir passt — ohne starre Review-Runden.", chip: null },
+] as { val: string; t: string; d: string; chip: string | null }[];
 
 const GUT_ZU_WISSEN = [
   "Deine alte Website bleibt bis zum Go-live unverändert online.",
@@ -176,12 +176,9 @@ export default function WebsiteRelaunchClient() {
         .m3d.scroll-visible { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); }
         @keyframes chipPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
         .chip-dot { animation: chipPulse 2.4s ease-in-out infinite; }
-        .journey-line { transform: scaleX(0); transform-origin: left; transition: transform 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.25s; }
-        .scroll-visible .journey-line { transform: scaleX(1); }
         @media (prefers-reduced-motion: reduce), (scripting: none) {
           .m3d { opacity: 1; transform: none; transition: none; }
           .chip-dot { animation: none; }
-          .journey-line { transform: none; transition: none; }
         }
       `}</style>
 
@@ -464,7 +461,7 @@ export default function WebsiteRelaunchClient() {
         </div>
       </section>
 
-      {/* ══ PROZESS — vertikale Rail + Stufen-Bild ══ */}
+      {/* ══ PROZESS — Editorial-Liste + Stufen-Bild ══ */}
       <section id="prozess" className="bg-white py-24 lg:py-32 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHead
@@ -474,44 +471,39 @@ export default function WebsiteRelaunchClient() {
           />
 
           <div className="grid lg:grid-cols-[1fr_minmax(0,400px)] gap-12 lg:gap-20 items-start">
-            <div className="relative">
-              <div
-                className="absolute left-[43px] top-8 bottom-8 w-px"
-                style={{ background: "linear-gradient(180deg, #C2722A 0%, #D4A853 75%, transparent 100%)", opacity: 0.35 }}
-                aria-hidden="true"
-              />
-              <div className="space-y-1">
-                {STEPS.map((st, i) => {
-                  const last = i === STEPS.length - 1;
-                  return (
-                    <div key={st.nr} className="scroll-hidden" style={{ transitionDelay: `${i * 70}ms` }}>
-                      <div className="group relative flex gap-6 rounded-2xl p-4 lg:p-5 transition-colors duration-300 hover:bg-[#FBF8F4]">
-                        <div
-                          className="relative z-10 flex h-14 w-14 shrink-0 items-center justify-center rounded-full font-mono text-sm font-bold transition-transform duration-300 group-hover:-translate-y-0.5"
-                          style={
-                            last
-                              ? { background: "linear-gradient(135deg, #C2722A, #D4A853)", color: "#fff", boxShadow: "0 12px 28px -12px rgba(194,114,42,0.55)" }
-                              : { background: "#fff", color: "#C2722A", border: "1px solid #ecd3ba" }
-                          }
+            <div className="border-t border-border">
+              {STEPS.map((st, i) => {
+                const last = i === STEPS.length - 1;
+                return (
+                  <div key={st.nr} className="scroll-hidden" style={{ transitionDelay: `${i * 60}ms` }}>
+                    <div className="group grid grid-cols-[64px_1fr] sm:grid-cols-[96px_1fr] gap-5 sm:gap-7 items-start border-b border-border px-2 py-6 lg:py-7 transition-colors duration-300 hover:bg-[#FBF8F4]">
+                      {last ? (
+                        <span
+                          className="font-[family-name:var(--font-heading)] text-5xl lg:text-6xl font-black leading-none select-none"
+                          style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
                         >
                           {st.nr}
+                        </span>
+                      ) : (
+                        <span className="font-[family-name:var(--font-heading)] text-5xl lg:text-6xl font-black leading-none select-none text-primary/15 transition-colors duration-300 group-hover:text-primary/35">
+                          {st.nr}
+                        </span>
+                      )}
+                      <div className="pt-1 min-w-0">
+                        <div className="mb-1.5 flex flex-wrap items-center gap-2.5">
+                          <h3 className="font-bold text-dark text-lg leading-snug">{st.t}</h3>
+                          {last && (
+                            <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] font-semibold" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba", color: "#C2722A" }}>
+                              4–8 Wochen inklusive
+                            </span>
+                          )}
                         </div>
-                        <div className="pt-1.5 min-w-0">
-                          <div className="mb-1.5 flex flex-wrap items-center gap-2.5">
-                            <h3 className="font-bold text-dark text-lg leading-snug">{st.t}</h3>
-                            {last && (
-                              <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] font-semibold" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba", color: "#C2722A" }}>
-                                4–8 Wochen inklusive
-                              </span>
-                            )}
-                          </div>
-                          <p className="text-sm lg:text-[15px] text-muted leading-relaxed max-w-xl">{st.d}</p>
-                        </div>
+                        <p className="text-sm lg:text-[15px] text-muted leading-relaxed max-w-xl">{st.d}</p>
                       </div>
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
             </div>
 
             <div className="scroll-hidden lg:sticky lg:top-24" style={{ transitionDelay: "120ms" }}>
@@ -641,50 +633,47 @@ export default function WebsiteRelaunchClient() {
         </div>
       </section>
 
-      {/* ══ BEAUFTRAGUNG — Kauf-Journey mit echten Fakten ══ */}
+      {/* ══ BEAUFTRAGUNG — Konditionen-Tafel mit echten Fakten ══ */}
       <section id="beauftragung" className="py-24 lg:py-32 scroll-mt-20" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <SectionHead
             eyebrow="Beauftragung & Ablauf"
             title={<>Vom Erstgespräch bis live —<br />in zwei bis drei Wochen.</>}
-            copy="Keine Agentur-Warteschleife: klarer Start, klare Zahlung, voller Einblick — so läuft die Zusammenarbeit ab."
+            copy="Die vier Fakten, die vor einer Beauftragung wirklich zählen — schwarz auf weiß."
           />
 
-          <div className="scroll-hidden relative">
-            <div
-              className="journey-line hidden lg:block absolute top-[31px] left-[4%] right-[4%] h-[2px] rounded-full"
-              style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", opacity: 0.45 }}
-              aria-hidden="true"
-            />
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-              {KAUF_STATIONEN.map((st, i) => (
-                <div key={st.t} className="scroll-hidden h-full" style={{ transitionDelay: `${i * 90}ms` }}>
-                  <div className="group relative h-full rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-[0_24px_50px_-30px_rgba(194,114,42,0.35)] hover:-translate-y-1">
-                    <span
-                      className="absolute top-0 left-0 right-0 h-[2.5px] rounded-t opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
-                      aria-hidden="true"
-                    />
-                    <div className="mb-4 flex items-start justify-between gap-3">
-                      <span className="relative z-10 inline-flex items-center gap-2 rounded-full border bg-white px-3.5 py-1.5 shadow-sm" style={{ borderColor: "#ecd3ba" }}>
-                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                        <span className="font-mono text-[11px] font-bold uppercase tracking-[0.1em] text-primary whitespace-nowrap">{st.zeit}</span>
-                      </span>
-                      <span className="font-[family-name:var(--font-heading)] text-4xl font-black leading-none select-none" style={{ color: "rgba(194,114,42,0.14)" }}>
-                        0{i + 1}
-                      </span>
+          <div className="scroll-hidden">
+            <div className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
+              <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
+                <span className="w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
+                <span className="font-mono text-[11px] font-bold tracking-[0.18em] uppercase text-dark/45">Deine Konditionen — ohne Sternchen</span>
+              </div>
+              <div className="divide-y divide-border">
+                {KAUF_FAKTEN.map((f, i) => (
+                  <div key={f.t} className="scroll-hidden" style={{ transitionDelay: `${i * 70}ms` }}>
+                    <div className="grid sm:grid-cols-[minmax(0,270px)_1fr] gap-2 sm:gap-8 items-center px-6 lg:px-9 py-6 lg:py-7 transition-colors duration-300 hover:bg-[#FBF8F4]">
+                      <div
+                        className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-black leading-none whitespace-nowrap"
+                        style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                      >
+                        {f.val}
+                      </div>
+                      <div className="min-w-0">
+                        <div className="mb-1 flex flex-wrap items-center gap-2.5">
+                          <span className="font-bold text-dark">{f.t}</span>
+                          {f.chip && (
+                            <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] font-semibold" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba", color: "#C2722A" }}>
+                              <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
+                              {f.chip}
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-sm text-muted leading-relaxed">{f.d}</p>
+                      </div>
                     </div>
-                    <h3 className="font-bold text-dark mb-2">{st.t}</h3>
-                    <p className="text-sm text-muted leading-relaxed">{st.d}</p>
-                    {st.chip && (
-                      <span className="mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] font-semibold" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba", color: "#C2722A" }}>
-                        <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
-                        {st.chip}
-                      </span>
-                    )}
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
 
