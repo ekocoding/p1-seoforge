@@ -30,6 +30,8 @@ const faqs = [
   { q: "Was unterscheidet SeoForge von anderen Agenturen?", a: "Direkter Kontakt zum Chef — keine Account-Manager. Wir kombinieren klassische SEO mit GEO für KI-Sichtbarkeit. Datengetrieben, transparent, ohne Vertragsfalle." },
   { q: "Kann ich jederzeit kündigen?", a: "Nach 3 Monaten Mindestlaufzeit monatlich kündbar. Wir setzen auf Qualität und Ergebnisse — nicht auf lange Vertragsbindungen." },
   { q: "Was kostet die monatliche Betreuung?", a: "Die Investition richtet sich nach Projektumfang, Wettbewerb und Zielen. Im kostenlosen Erstgespräch erstellen wir ein transparentes, individuelles Angebot." },
+  { q: "Was passiert, wenn ich kündige — gehen Rankings verloren?", a: "Rankings, die durch gute Inhalte, saubere Technik und relevante Backlinks entstanden sind, verschwinden nicht automatisch, weil die Betreuung endet. Ohne laufende Pflege verlieren Sie aber tendenziell an Boden, weil Wettbewerber aktiv bleiben und Google seine Bewertungskriterien fortlaufend anpasst. Kündigen Sie, bleibt der bisherige Stand zunächst erhalten und verwässert schrittweise statt schlagartig. Gerade gut rankende Websites profitieren deshalb von kontinuierlicher Betreuung." },
+  { q: "Deckt die Betreuung auch KI-Sichtbarkeit (ChatGPT & Co.) ab?", a: "Ja. Neben klassischen Google-Rankings arbeiten wir auch an Ihrer Sichtbarkeit in ChatGPT, Perplexity und den AI Overviews von Google, kurz GEO genannt. Beide Disziplinen hängen enger zusammen, als es zunächst scheint, denn KI-Systeme greifen häufig auf dieselben Inhalte und Signale zurück wie die klassische Suche. Wir behandeln SEO und GEO deshalb als ein gemeinsames Arbeitsfeld, nicht als zwei getrennte Leistungen." },
 ];
 
 export default function SeoBetreuungClient() {
@@ -270,6 +272,133 @@ export default function SeoBetreuungClient() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* BETREUUNGSMONAT — Editorial fact sheet, mono week labels */}
+      <section style={{ background: "#fff", padding: "120px 0", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+        <style>{`
+          @media (max-width: 768px) {
+            .btm-split { grid-template-columns: 1fr !important; gap: 36px !important; }
+            .btm-row { grid-template-columns: 1fr !important; gap: 10px !important; }
+          }
+        `}</style>
+        <div className="betreuung-section-inner" style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 80px" }}>
+
+          {/* Header row */}
+          <div className="btm-split transition-all duration-700 reveal" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "end", marginBottom: "56px", paddingBottom: "44px", borderBottom: "1px solid rgba(0,0,0,0.07)" }}>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+                <div style={{ width: "28px", height: "1px", background: "#C2722A", opacity: 0.7 }} />
+                <span style={{ fontSize: "9px", fontWeight: 700, letterSpacing: ".3em", textTransform: "uppercase", color: "#C2722A" }}>Der Ablauf</span>
+              </div>
+              <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(28px, 2.8vw, 42px)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.02em", color: "#0F0F0F", margin: 0 }}>
+                So sieht ein<br />Betreuungsmonat aus
+              </h2>
+            </div>
+            <p style={{ fontSize: "15px", fontWeight: 300, lineHeight: 1.85, color: "rgba(15,15,15,0.52)", margin: 0, paddingBottom: "4px" }}>
+              Viele Kunden fragen sich, was in einem SEO-Betreuungsmonat tatsächlich passiert, außer dass am Ende ein Report im Postfach landet. Bei uns folgt jeder Monat einem Ablauf aus Analyse, Umsetzung, Monitoring und Abstimmung, der sich an Ihrer Website und der aktuellen Wettbewerbssituation ausrichtet statt an einem starren Schema.
+            </p>
+          </div>
+
+          {/* 4 editorial rows — mono label left, copy right */}
+          <div>
+            {[
+              { label: "Woche 1", title: "Analyse & Priorisierung", desc: "Wir werten die aktuellen Daten aus Google Search Console, Semrush und Ahrefs aus und ordnen ein, wo die größten Potenziale liegen. Daraus entsteht eine Prioritätenliste nach Aufwand und Wirkung, nicht danach, was sich am schnellsten abhaken lässt." },
+              { label: "Woche 2–3", title: "Umsetzung", desc: "In diesen zwei Wochen setzen wir die priorisierten Maßnahmen um, von technischen Korrekturen über Content-Überarbeitung bis zu strukturellen Änderungen an der Seite. Dank unserer CI/CD-Pipeline sind Anpassungen innerhalb von Minuten live, ein Wartefenster wie bei klassischen Deployment-Prozessen kennen wir nicht." },
+              { label: "Laufend", title: "Monitoring", desc: "Rankings, Sichtbarkeit in der klassischen Suche und zunehmend auch in KI-Antworten wie ChatGPT oder Perplexity beobachten wir während des gesamten Monats, nicht nur zu festen Stichtagen. So fällt uns ein Ranking-Einbruch oder ein technisches Problem auf, bevor er sich negativ in Ihrem nächsten Report niederschlägt." },
+              { label: "Monatsende", title: "Reporting & Abstimmung", desc: "Zum Monatsende bündeln wir die Ergebnisse und besprechen mit Ihnen, was als Nächstes Priorität hat. In diesem Gespräch passen wir bei Bedarf auch die Ausrichtung für den kommenden Monat an, etwa wenn sich Wettbewerb oder Geschäftsschwerpunkte verschoben haben." },
+            ].map((step, i) => (
+              <Reveal key={step.label} delay={i * 100}>
+                <div className="btm-row" style={{
+                  display: "grid", gridTemplateColumns: "180px 1fr", gap: "48px", alignItems: "start",
+                  paddingTop: i === 0 ? "0" : "36px", paddingBottom: i === 3 ? "0" : "36px",
+                  borderBottom: i < 3 ? "1px solid rgba(0,0,0,0.07)" : "none",
+                }}>
+                  <span style={{ fontFamily: "var(--font-mono), ui-monospace, 'SFMono-Regular', Menlo, monospace", fontSize: "11px", fontWeight: 500, letterSpacing: ".18em", textTransform: "uppercase", color: "#C2722A", paddingTop: "7px" }}>
+                    {step.label}
+                  </span>
+                  <div>
+                    <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "21px", fontWeight: 700, color: "#0F0F0F", marginBottom: "10px", letterSpacing: "-0.01em", lineHeight: 1.2 }}>
+                      {step.title}
+                    </h3>
+                    <p style={{ fontSize: "14px", fontWeight: 300, lineHeight: 1.85, color: "rgba(15,15,15,0.52)", maxWidth: "760px", margin: 0 }}>
+                      {step.desc}
+                    </p>
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* TRANSPARENZ & REPORTING — Report-Panel mit Mono-Header */}
+      <section style={{ background: "#FAFAF8", padding: "120px 0", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+        <div className="betreuung-section-inner" style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 80px", display: "grid", gridTemplateColumns: "1fr 1.05fr", gap: "90px", alignItems: "center" }}>
+
+          {/* LEFT — copy */}
+          <div className="transition-all duration-700 reveal">
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+              <div style={{ width: "28px", height: "1px", background: "#C2722A", opacity: 0.7 }} />
+              <span style={{ fontSize: "9px", fontWeight: 700, letterSpacing: ".3em", textTransform: "uppercase", color: "#C2722A" }}>Ihr Monatsreport</span>
+            </div>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(26px, 2.4vw, 38px)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.02em", color: "#0F0F0F", marginBottom: "16px" }}>
+              Transparenz &amp; Reporting
+            </h2>
+            <div style={{ width: "36px", height: "2px", background: "#C2722A", opacity: 0.5, marginBottom: "18px" }} />
+            <p style={{ fontSize: "14px", fontWeight: 300, lineHeight: 1.85, color: "rgba(15,15,15,0.52)", marginBottom: "16px" }}>
+              Ein SEO-Report, den niemand versteht, nützt niemandem. Unser monatliches Reporting zeigt die Entwicklung Ihrer Rankings für die vereinbarten Keywords, den organischen Traffic im Zeitverlauf, welche Maßnahmen wir im abgelaufenen Monat konkret umgesetzt haben und was als Nächstes ansteht. Da Sichtbarkeit heute auch in ChatGPT, Perplexity und den AI Overviews von Google stattfindet, fließt die Entwicklung Ihrer KI-Sichtbarkeit ebenfalls in den Bericht ein.
+            </p>
+            <p style={{ fontSize: "14px", fontWeight: 300, lineHeight: 1.85, color: "rgba(15,15,15,0.52)", margin: 0 }}>
+              Dabei arbeiten wir nicht mit intern geschönten Auswertungen, die Sie nie zu Gesicht bekommen: Sie sehen dieselben Daten aus Google Search Console, Semrush und Ahrefs, mit denen auch wir arbeiten. Weil Rankings allein noch keine Rechnung bezahlen, ordnen wir die Ergebnisse zusätzlich in eine{" "}
+              <Link
+                href="/seo/betreuung/roi"
+                style={{ color: "#C2722A", fontWeight: 500, textDecoration: "underline", textUnderlineOffset: "3px", textDecorationColor: "rgba(194,114,42,0.4)", transition: "text-decoration-color .2s" }}
+                onMouseOver={(e) => (e.currentTarget.style.textDecorationColor = "#C2722A")}
+                onMouseOut={(e) => (e.currentTarget.style.textDecorationColor = "rgba(194,114,42,0.4)")}
+              >
+                ROI-Analyse
+              </Link>{" "}
+              ein, die zeigt, was die Betreuung wirtschaftlich tatsächlich einbringt.
+            </p>
+          </div>
+
+          {/* RIGHT — Report panel */}
+          <div className="transition-all duration-700 delay-150 reveal">
+            <div style={{ background: "#fff", border: "1px solid #E5E3DF", borderRadius: "16px", overflow: "hidden", boxShadow: "0 24px 60px rgba(15,15,15,0.06)" }}>
+
+              {/* Mono header row */}
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 24px", borderBottom: "1px solid #E5E3DF", background: "#FAFAF8" }}>
+                <span style={{ fontFamily: "var(--font-mono), ui-monospace, 'SFMono-Regular', Menlo, monospace", fontSize: "10px", fontWeight: 500, letterSpacing: ".22em", textTransform: "uppercase", color: "rgba(15,15,15,0.45)" }}>
+                  Monatsreport
+                </span>
+                <div style={{ display: "flex", gap: "6px" }} aria-hidden="true">
+                  <span style={{ display: "block", width: "8px", height: "8px", borderRadius: "50%", background: "#E5E3DF" }} />
+                  <span style={{ display: "block", width: "8px", height: "8px", borderRadius: "50%", background: "#D4A853" }} />
+                  <span style={{ display: "block", width: "8px", height: "8px", borderRadius: "50%", background: "#C2722A" }} />
+                </div>
+              </div>
+
+              {/* 4 report items */}
+              {[
+                { title: "Ranking-Entwicklung", desc: "Positionsveränderungen der vereinbarten Keywords im Zeitverlauf, nicht nur eine Momentaufnahme." },
+                { title: "Organischer Traffic", desc: "Besucherentwicklung aus der Suche, aufgeschlüsselt nach den wichtigsten Landingpages." },
+                { title: "Umgesetzte Maßnahmen", desc: "Eine nachvollziehbare Liste dessen, was im Monat tatsächlich passiert ist." },
+                { title: "Nächste Schritte", desc: "Die priorisierten Punkte für den kommenden Monat, mit kurzer Begründung." },
+              ].map((item, i) => (
+                <div key={item.title} style={{ display: "grid", gridTemplateColumns: "44px 1fr", gap: "16px", alignItems: "start", padding: "22px 24px", borderBottom: i < 3 ? "1px solid #EDEAE3" : "none" }}>
+                  <span style={{ fontFamily: "var(--font-mono), ui-monospace, 'SFMono-Regular', Menlo, monospace", fontSize: "11px", fontWeight: 500, letterSpacing: ".08em", color: "#C2722A", paddingTop: "3px" }}>
+                    0{i + 1}
+                  </span>
+                  <div>
+                    <p style={{ fontSize: "14px", fontWeight: 600, color: "#0F0F0F", marginBottom: "4px" }}>{item.title}</p>
+                    <p style={{ fontSize: "13px", fontWeight: 300, lineHeight: 1.7, color: "rgba(15,15,15,0.52)", margin: 0 }}>{item.desc}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -585,6 +714,43 @@ export default function SeoBetreuungClient() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* LAUFZEIT & FAIRNESS — Kompaktes dunkles Statement */}
+      <section style={{ background: "#111111", padding: "96px 0" }}>
+        <div className="betreuung-section-inner" style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 80px", display: "grid", gridTemplateColumns: "1fr 1.7fr", gap: "90px", alignItems: "start" }}>
+
+          {/* LEFT — heading anchor */}
+          <div className="transition-all duration-700 reveal">
+            <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "20px" }}>
+              <div style={{ width: "28px", height: "1px", background: "#C2722A", opacity: 0.7 }} />
+              <span style={{ fontSize: "9px", fontWeight: 700, letterSpacing: ".3em", textTransform: "uppercase", color: "#C2722A" }}>Faire Zusammenarbeit</span>
+            </div>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(28px, 2.6vw, 40px)", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.02em", color: "#F0EAE0", marginBottom: "18px" }}>
+              Laufzeit &amp; Fairness
+            </h2>
+            <div style={{ width: "36px", height: "2px", background: "#C2722A", opacity: 0.5 }} />
+          </div>
+
+          {/* RIGHT — copy */}
+          <div className="transition-all duration-700 delay-150 reveal">
+            <p style={{ fontSize: "15px", fontWeight: 300, lineHeight: 1.9, color: "rgba(240,234,224,0.5)", marginBottom: "20px" }}>
+              Seriöse SEO-Arbeit braucht Zeit. Erste messbare Effekte zeigen sich in der Regel nach drei bis sechs Monaten, weil Google neue Inhalte und technische Änderungen erst crawlen, bewerten und einordnen muss, bevor sich das in den Rankings niederschlägt. Wer Ihnen signifikante Ergebnisse nach zwei oder drei Wochen verspricht, verspricht etwas, das technisch kaum haltbar ist. Diese Zeitspanne ändert aber nichts daran, dass die vertragliche Bindung fair bleiben muss und nicht länger laufen sollte, als für seriöse Arbeit nötig ist.
+            </p>
+            <p style={{ fontSize: "15px", fontWeight: 300, lineHeight: 1.9, color: "rgba(240,234,224,0.5)", margin: 0 }}>
+              Deshalb bieten wir SEO-Betreuung auch{" "}
+              <Link
+                href="/seo/betreuung/ohne-vertrag"
+                style={{ color: "#C2722A", fontWeight: 600, textDecoration: "underline", textUnderlineOffset: "4px", textDecorationColor: "rgba(194,114,42,0.45)", transition: "text-decoration-color .2s" }}
+                onMouseOver={(e) => (e.currentTarget.style.textDecorationColor = "#C2722A")}
+                onMouseOut={(e) => (e.currentTarget.style.textDecorationColor = "rgba(194,114,42,0.45)")}
+              >
+                ohne Mindestlaufzeit
+              </Link>{" "}
+              an, für Kunden, die sich nicht langfristig binden möchten oder uns zunächst im laufenden Betrieb kennenlernen wollen. Die monatliche Kündbarkeit ist dabei kein Kompromiss, sondern Prinzip: Wenn wir uns jeden Monat neu bewähren müssen, bleibt die Qualität unserer Arbeit die einzige Bindung, die zählt, nicht eine Unterschrift aus dem ersten Monat.
+            </p>
           </div>
         </div>
       </section>
