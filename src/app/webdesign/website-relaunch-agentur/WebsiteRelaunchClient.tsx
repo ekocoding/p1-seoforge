@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SubpageLayout from "@/app/components/SubpageLayout";
-import PageSpeedBeforeAfter from "./PageSpeedBeforeAfter";
+import GscImpressionsChart from "./GscImpressionsChart";
 
 /* ─── Scroll-Reveal (IntersectionObserver → .scroll-visible) ──────────────── */
 function useScrollReveal() {
@@ -507,11 +507,11 @@ export default function WebsiteRelaunchClient() {
               <div className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
                 <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
                   <span className="w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
-                  <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45">Pagespeed — Vorher/Nachher</span>
+                  <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45">Google Search Console — Leistung</span>
                 </div>
-                <PageSpeedBeforeAfter />
+                <GscImpressionsChart />
               </div>
-              <p className="mt-3 text-xs italic text-muted">Illustrative Darstellung — typische Größenordnung, keine Garantiewerte.</p>
+              <p className="mt-3 text-xs italic text-muted">Illustrative Darstellung einer Search-Console-Kurve — keine realen Kundendaten.</p>
             </div>
 
             <div className="scroll-hidden">
