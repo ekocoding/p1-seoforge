@@ -82,12 +82,12 @@ const STEPS = [
   { nr: "06", t: "Launch & Monitoring", d: "Der Launch läuft kontrolliert über unsere CI/CD-Pipeline. Anschließend beobachten wir Rankings und Search Console 4–8 Wochen aktiv und reagieren sofort, wenn etwas auffällt." },
 ];
 
-const PROJEKT_FAKTEN = [
-  { val: "2–3 Wochen", t: "Bis zum Go-live", d: "Ein typischer Relaunch mit 5–15 Seiten ist in zwei bis drei Wochen live — von Kickoff bis Launch." },
-  { val: "< 1 Woche", t: "Projektstart", d: "Nach der Beauftragung starten wir innerhalb einer Woche mit dem Kickoff — kein monatelanges Warten auf einen Slot." },
-  { val: "50 / 50", t: "Zahlung", d: "Die Hälfte des Festpreises bei Projektstart, die andere Hälfte nach dem Go-live — keine versteckten Kosten." },
-  { val: "ab Tag 1", t: "Dein Einblick", d: "Staging-URL ab dem ersten Tag: du siehst jeden Stand live und gibst Feedback, wann es dir passt — keine starren Runden." },
-];
+const KAUF_STATIONEN = [
+  { zeit: "Tag 0", t: "Kostenloses Erstgespräch", d: "Wir schauen uns deine Website und deine Rankings an. Danach bekommst du einen verbindlichen Festpreis — entscheiden kannst du in Ruhe.", chip: null },
+  { zeit: "binnen 1 Woche", t: "Kickoff & Projektstart", d: "Nach deiner Beauftragung starten wir innerhalb einer Woche — kein monatelanges Warten auf einen Agentur-Slot.", chip: "50 % bei Start" },
+  { zeit: "ab Kickoff", t: "Du schaust live zu", d: "Deine Staging-URL zeigt jeden Stand in Echtzeit. Feedback gibst du, wann es dir passt — ohne starre Review-Runden.", chip: null },
+  { zeit: "Woche 2–3", t: "Go-live & Monitoring", d: "Ein typischer Relaunch mit 5–15 Seiten geht nach zwei bis drei Wochen kontrolliert live. Danach läuft das Ranking-Monitoring 4–8 Wochen weiter.", chip: "50 % nach Go-live" },
+] as { zeit: string; t: string; d: string; chip: string | null }[];
 
 const GUT_ZU_WISSEN = [
   "Deine alte Website bleibt bis zum Go-live unverändert online.",
@@ -466,27 +466,9 @@ export default function WebsiteRelaunchClient() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHead
             eyebrow="Unser Relaunch-Prozess"
-            title={<>Sechs Schritte — und die<br />Fakten zu deinem Projekt.</>}
-            copy="Strukturiert, ohne Ranking-Risiko — und mit den Antworten, die du vor dem Auftrag wirklich brauchst."
+            title={<>Sechs Schritte,<br />null Ranking-Risiko.</>}
+            copy="Strukturiert, transparent und mit einem Monitoring, das nach dem Launch nicht aufhört."
           />
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-10 lg:mb-14">
-            {PROJEKT_FAKTEN.map((f, i) => (
-              <div key={f.t} className="scroll-hidden" style={{ transitionDelay: `${i * 70}ms` }}>
-                <div className="group h-full rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-md hover:-translate-y-1">
-                  <div className="font-mono text-[11px] tracking-[0.16em] text-dark/45 mb-3">FAKT 0{i + 1}</div>
-                  <div
-                    className="font-[family-name:var(--font-heading)] text-3xl font-black leading-none mb-2"
-                    style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
-                  >
-                    {f.val}
-                  </div>
-                  <div className="font-bold text-dark text-sm mb-1.5">{f.t}</div>
-                  <p className="text-muted text-[13px] leading-relaxed">{f.d}</p>
-                </div>
-              </div>
-            ))}
-          </div>
 
           <div className="grid lg:grid-cols-[1fr_minmax(0,420px)] gap-10 lg:gap-16 items-start">
             <div className="rounded-2xl border border-border bg-white overflow-hidden divide-y divide-border">
@@ -526,21 +508,6 @@ export default function WebsiteRelaunchClient() {
                 Jede alte URL bekommt vor dem Launch ihr neues Ziel — die 301-Map ist die Brücke,
                 über die deine Rankings umziehen.
               </p>
-              <div className="mt-6 rounded-2xl border border-border bg-white p-5">
-                <p className="font-mono text-[11px] tracking-[0.16em] uppercase text-dark/45 mb-3">Gut zu wissen</p>
-                <div className="space-y-2.5">
-                  {GUT_ZU_WISSEN.map((g) => (
-                    <div key={g} className="flex items-start gap-2.5">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                        <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                      <span className="text-[13px] text-dark leading-relaxed">{g}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -654,8 +621,67 @@ export default function WebsiteRelaunchClient() {
         </div>
       </section>
 
+      {/* ══ BEAUFTRAGUNG — Kauf-Journey mit echten Fakten ══ */}
+      <section id="beauftragung" className="py-24 lg:py-32 scroll-mt-20" style={{ background: "#F8F5F1" }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <SectionHead
+            eyebrow="Beauftragung & Ablauf"
+            title={<>Vom Erstgespräch bis live —<br />in zwei bis drei Wochen.</>}
+            copy="Keine Agentur-Warteschleife: klarer Start, klare Zahlung, voller Einblick — so läuft die Zusammenarbeit ab."
+          />
+
+          <div className="relative">
+            <div
+              className="hidden lg:block absolute top-[19px] left-[10%] right-[10%] h-px opacity-40"
+              style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
+              aria-hidden="true"
+            />
+            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+              {KAUF_STATIONEN.map((st, i) => (
+                <div key={st.t} className="scroll-hidden" style={{ transitionDelay: `${i * 90}ms` }}>
+                  <div className="relative z-10 mb-5 inline-flex items-center gap-2 rounded-full border bg-white px-4 py-2 shadow-sm" style={{ borderColor: "#ecd3ba" }}>
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                    <span className="font-mono text-[12px] font-bold uppercase tracking-[0.1em] text-primary">{st.zeit}</span>
+                  </div>
+                  <h3 className="font-bold text-dark mb-2">{st.t}</h3>
+                  <p className="text-sm text-muted leading-relaxed">{st.d}</p>
+                  {st.chip && (
+                    <span className="mt-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] font-semibold" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba", color: "#C2722A" }}>
+                      <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
+                      {st.chip}
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="scroll-hidden mt-12 lg:mt-14 border-t border-border pt-8">
+            <p className="font-mono text-[11px] tracking-[0.16em] uppercase text-dark/45 mb-4">Gut zu wissen</p>
+            <div className="grid gap-x-8 gap-y-3 sm:grid-cols-2">
+              {GUT_ZU_WISSEN.map((g) => (
+                <div key={g} className="flex items-start gap-2.5">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                    <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
+                    </svg>
+                  </span>
+                  <span className="text-sm text-dark leading-relaxed">{g}</span>
+                </div>
+              ))}
+            </div>
+            <p className="mt-8 text-sm text-muted">
+              Klingt machbar?{" "}
+              <a href="#kontakt" className="font-semibold text-primary border-b border-primary/30 pb-px hover:border-primary transition-colors">
+                Starte mit dem kostenlosen Erstgespräch
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ══ FAQ — schmal, ruhig, vor dem Finale ══ */}
-      <section className="py-24 lg:py-32" style={{ background: "#F8F5F1" }}>
+      <section className="bg-white py-24 lg:py-32">
         <div className="mx-auto max-w-3xl px-6 lg:px-8">
           <div className="scroll-hidden mb-12 text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary mb-4">
