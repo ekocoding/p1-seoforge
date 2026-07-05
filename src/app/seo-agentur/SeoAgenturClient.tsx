@@ -79,54 +79,127 @@ const grad: React.CSSProperties = {
   WebkitTextFillColor: "transparent",
 };
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   SERP-LIVE-DEMO — Interaktions-Höhepunkt 1/2 (Hero)
-   Umgebauter Bestand (SerpRankingMockup): helles App-Panel statt dunkler
-   SVG-Karte. Keine erfundenen Zahlen — nur Positionsbewegung 5 → 3 → 1.
-   SSR/No-JS/Reduced-Motion zeigen statisch den Endzustand (Platz 1 + Stempel).
-═══════════════════════════════════════════════════════════════════════════ */
-const SERP_OFFSETS = [0, 74, 148, 222, 296]; // 5 Slots à 64px + 10px Abstand
-
-function SerpLiveDemo() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [started, setStarted] = useState(false);
-  const [step, setStep] = useState(3); // 3 = statischer Endzustand (Fallback)
-  const [cycle, setCycle] = useState(0);
-
+/* ─── Count-Up — Zahl zählt beim Viewport-Eintritt hoch (rAF → textContent,
+   quantisiert, kein Re-Render; SSR/No-JS/Reduced-Motion zeigen den Endwert) ── */
+function CountUp({ to, dauer = 1400 }: { to: number; dauer?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
   useEffect(() => {
     const el = ref.current;
-    if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return; // Endzustand stehen lassen
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    el.textContent = (0).toLocaleString("de-DE");
+    let raf = 0;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        const start = performance.now();
+        let last = -1;
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - start) / dauer);
+          const val = Math.round((1 - Math.pow(1 - t, 3)) * to);
+          if (val !== last) {
+            last = val;
+            el.textContent = val.toLocaleString("de-DE");
+          }
+          if (t < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      },
+      { threshold: 0.6 }
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [to, dauer]);
+  return <span ref={ref}>{to.toLocaleString("de-DE")}</span>;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SERP-LIVE-DEMO — Interaktions-Höhepunkt 1/2 (Hero)
+   Story-Animation beim Viewport-Eintritt (IO threshold 0.4, einmalig):
+   (a) Suchfeld tippt „seo agentur" Zeichen für Zeichen (rAF, ~80ms/Zeichen,
+       blinkender Cursor), (b) Ergebnis-Zeilen staggern ein — seoforge.de
+   startet auf Position 4, (c) klettert FLIP-artig Position für Position
+   nach oben (translateY-Tausch mit den Skeleton-Zeilen, ~450ms Move +
+   ~500ms Pause), (d) oben: „PLATZ 1"-Stempel + Tint #fbf4ea + Topline.
+   Keine erfundenen Zahlen — nur Positionsbewegung. SSR/No-JS/Reduced-Motion
+   zeigen statisch den Endzustand; alle echten Texte bleiben im DOM.
+═══════════════════════════════════════════════════════════════════════════ */
+const SERP_OFFSETS = [0, 74, 148, 222, 296]; // 5 Slots à 64px + 10px Abstand
+const SERP_QUERY = "seo agentur";
+
+/* -1 = statischer Endzustand · -2 = armiert (leer) · 0 = tippen ·
+   1 = Zeilen staggern ein · 2–4 = Kletter-Schritte (Pos 4→3→2→1) · 5 = Stempel */
+type SerpAnim = -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5;
+
+function SerpLiveDemo() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const queryRef = useRef<HTMLSpanElement>(null);
+  const [anim, setAnim] = useState<SerpAnim>(-1);
+
+  /* Armieren + IO-Start (einmalig; bei Reduced-Motion bleibt der Endzustand) */
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (queryRef.current) queryRef.current.textContent = "";
+    setAnim(-2);
     const io = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
-          setStarted(true);
           io.disconnect();
+          setAnim(0);
         }
       },
-      { threshold: 0.35 }
+      { threshold: 0.4 }
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
+  /* (a) Tippen — rAF, auf Zeichen quantisiert (~80ms/Zeichen), kein Interval */
   useEffect(() => {
-    if (!started) return;
-    setStep(0);
-    const t1 = setTimeout(() => setStep(1), 900);
-    const t2 = setTimeout(() => setStep(2), 1900);
-    const t3 = setTimeout(() => setStep(3), 2650);
-    const t4 = setTimeout(() => setCycle((c) => c + 1), 5900); // 3s Pause, dann Loop-Reset
-    return () => [t1, t2, t3, t4].forEach(clearTimeout);
-  }, [started, cycle]);
+    if (anim !== 0) return;
+    const span = queryRef.current;
+    if (!span) {
+      setAnim(1);
+      return;
+    }
+    const start = performance.now();
+    let raf = 0;
+    let last = -1;
+    const tick = (now: number) => {
+      const n = Math.min(SERP_QUERY.length, Math.floor((now - start) / 80));
+      if (n !== last) {
+        last = n;
+        span.textContent = SERP_QUERY.slice(0, n);
+      }
+      if (n < SERP_QUERY.length) raf = requestAnimationFrame(tick);
+      else setAnim(1);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [anim]);
 
-  const seofSlot = step === 0 ? 4 : step === 1 ? 2 : 0;
-  const skelSlot = (i: number) => (step === 0 ? i : step === 1 ? (i < 2 ? i : i + 1) : i + 1);
-  const pos = step === 0 ? "5" : step === 1 ? "3" : "1";
-  const rowTransition = "transform 0.6s cubic-bezier(0.16,1,0.3,1)";
+  /* (b)–(d) Stagger → drei Kletter-Schritte (~450ms Move + ~500ms Pause) → Stempel */
+  useEffect(() => {
+    if (anim < 1 || anim >= 5) return;
+    const delay = anim === 1 ? 1400 : anim === 4 ? 650 : 950;
+    const t = setTimeout(() => setAnim((a) => (a >= 1 && a < 5 ? ((a + 1) as SerpAnim) : a)), delay);
+    return () => clearTimeout(t);
+  }, [anim]);
+
+  const slot = anim === -1 || anim >= 4 ? 0 : anim === 2 ? 2 : anim === 3 ? 1 : 3;
+  const rowsIn = anim === -1 || anim >= 1;
+  const entering = anim === 1;
+  const done = anim === -1 || anim === 5;
+  const skelSlot = (i: number) => (i < slot ? i : i + 1);
+  const rowTransition =
+    "transform 0.45s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease, background-color 0.4s ease, border-color 0.4s ease";
 
   return (
-    <div ref={ref} className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_28px_70px_-26px_rgba(26,26,26,0.28)]">
+    <div ref={wrapRef} className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_28px_70px_-26px_rgba(26,26,26,0.28)]">
       {/* Fake-App-Header */}
       <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
         <span className="chip-dot w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
@@ -135,21 +208,38 @@ function SerpLiveDemo() {
       </div>
 
       <div className="p-5 lg:p-6 bg-offwhite/40">
-        {/* Suchleiste */}
+        {/* Mono-Status: begleitet die Story-Animation */}
+        <div className="mb-3 flex h-4 items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-primary" aria-hidden="true">
+          <span className={`h-1.5 w-1.5 rounded-full bg-primary ${done ? "" : "animate-pulse"}`} />
+          {done ? "Platz 1 erreicht" : "Ranking wird aufgebaut …"}
+        </div>
+
+        {/* Suchleiste — tippt sich beim Viewport-Eintritt */}
         <div className="flex items-center gap-2.5 rounded-full border border-border bg-white px-4 py-2.5 mb-5">
           <svg className="w-4 h-4 text-muted shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
             <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
           </svg>
-          <span className="font-mono text-sm text-dark">seo agentur</span>
+          <span className="flex items-center font-mono text-sm text-dark">
+            <span ref={queryRef}>seo agentur</span>
+            <span
+              className={`ml-0.5 inline-block h-[14px] w-[7px] rounded-[1px] bg-dark/60 ${done ? "opacity-0" : "serp-caret"}`}
+              aria-hidden="true"
+            />
+          </span>
         </div>
 
-        {/* 5 Ergebnis-Zeilen — Reorder ausschließlich über translateY */}
-        <div key={cycle} className="relative h-[360px]">
+        {/* 5 Ergebnis-Zeilen — Reorder ausschließlich über translateY (FLIP-artig) */}
+        <div className="relative h-[360px]">
           {[0, 1, 2, 3].map((i) => (
             <div
               key={`skel-${i}`}
               className="absolute left-0 right-0 top-0 flex h-16 items-center gap-3 rounded-xl border border-border bg-white px-4"
-              style={{ transform: `translateY(${SERP_OFFSETS[skelSlot(i)]}px)`, transition: rowTransition }}
+              style={{
+                transform: `translateY(${SERP_OFFSETS[skelSlot(i)] + (rowsIn ? 0 : 14)}px)`,
+                opacity: rowsIn ? 1 : 0,
+                transition: rowTransition,
+                transitionDelay: entering ? `${i * 90}ms` : "0ms",
+              }}
               aria-hidden="true"
             >
               <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-dark/10" />
@@ -160,28 +250,35 @@ function SerpLiveDemo() {
             </div>
           ))}
 
-          {/* seoforge.de — getönte Karte mit Positions-Badge */}
+          {/* seoforge.de — klettert von Position 4 auf Position 1 */}
           <div
             className="absolute left-0 right-0 top-0 flex h-16 items-center gap-3 rounded-xl px-4"
             style={{
-              background: "#fbf4ea",
-              border: "1px solid #ecd3ba",
-              transform: `translateY(${SERP_OFFSETS[seofSlot]}px)`,
+              background: done ? "#fbf4ea" : "#ffffff",
+              border: done ? "1px solid #ecd3ba" : "1px solid var(--color-border)",
+              transform: `translateY(${SERP_OFFSETS[slot] + (rowsIn ? 0 : 14)}px)`,
+              opacity: rowsIn ? 1 : 0,
               transition: rowTransition,
+              transitionDelay: entering ? "360ms" : "0ms",
               zIndex: 5,
             }}
           >
             <span
+              className="pointer-events-none absolute top-0 left-4 right-4 h-[2.5px] rounded-b transition-opacity duration-500"
+              style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", opacity: done ? 1 : 0 }}
+              aria-hidden="true"
+            />
+            <span
               className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg font-mono text-sm font-bold text-white"
               style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)" }}
             >
-              {pos}
+              {slot + 1}
             </span>
             <span className="min-w-0">
               <span className="block truncate text-[13px] font-semibold text-dark">SEO Agentur für Google &amp; KI-Suche</span>
               <span className="block font-mono text-[11px] text-primary">seoforge.de</span>
             </span>
-            {step === 3 && (
+            {done && (
               <span
                 className="serp-stamp pointer-events-none absolute -right-3 -top-4 z-10 rounded-full px-3.5 py-1.5 font-mono text-[11px] font-black uppercase tracking-[0.18em] text-white"
                 style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)", boxShadow: "0 10px 24px -8px rgba(194,114,42,0.6)" }}
@@ -197,95 +294,443 @@ function SerpLiveDemo() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   ERWARTUNGS-KORRIDOR — passives Draw-on-Scroll-Chart (GrowthChart-Muster)
+   ERWARTUNGS-KORRIDOR — Live-Plotter nach dem GscImpressionsChart-Muster:
+   Links-nach-rechts-Reveal über clipPath-rect, glühender Scan-Punkt am
+   Kurvenende während des Zeichnens, danach dezenter SMIL-Endpunkt-Puls.
+   rAF setzt quantisierte Schritte direkt als DOM-Attribute — kein Re-Render.
+   Die drei Monats-Zellen (1–3/3–6/6–12) aktivieren sequenziell, sobald der
+   Scan ihre Zone passiert (classList auf refs, Ghost-Ziffer färbt kurz auf).
 ═══════════════════════════════════════════════════════════════════════════ */
+const KOR_W = 640;
+const KOR_H = 220;
+const KOR_SEGS: [number, number][][] = [
+  [[16, 184], [140, 180], [220, 168], [320, 138]],
+  [[320, 138], [420, 108], [520, 78], [624, 60]],
+];
+const KOR_PTS: [number, number][] = (() => {
+  const pts: [number, number][] = [];
+  const N = 30;
+  KOR_SEGS.forEach(([p0, p1, p2, p3], s) => {
+    for (let i = s === 0 ? 0 : 1; i <= N; i++) {
+      const t = i / N;
+      const u = 1 - t;
+      pts.push([
+        u * u * u * p0[0] + 3 * u * u * t * p1[0] + 3 * u * t * t * p2[0] + t * t * t * p3[0],
+        u * u * u * p0[1] + 3 * u * u * t * p1[1] + 3 * u * t * t * p2[1] + t * t * t * p3[1],
+      ]);
+    }
+  });
+  return pts;
+})();
+const KOR_ZONEN_X = [40, 168, 320]; // Zonen-Starts: Monat 1–3 / 3–6 / 6–12
+const KOR_DRAW_MS = 2400;
+const KOR_STEPS = 40; // quantisierte Zeichen-Schritte — steppig wie einlaufende Daten
+
 function KorridorChart() {
   const ref = useRef<HTMLDivElement>(null);
-  const [drawn, setDrawn] = useState(false);
+  const clipRef = useRef<SVGRectElement>(null);
+  const scanRef = useRef<SVGLineElement>(null);
+  const glowRef = useRef<SVGCircleElement>(null);
+  const dotRef = useRef<SVGCircleElement>(null);
+  const cellRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [phase, setPhase] = useState<"idle" | "drawing" | "done">("idle");
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setDrawn(true);
-      return;
-    }
     const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setDrawn(true);
-          io.disconnect();
-        }
+      ([e]) => {
+        if (e.isIntersecting) setPhase((p) => (p === "idle" ? "drawing" : p));
       },
-      { threshold: 0.35 }
+      { threshold: 0.45 }
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
+  /* Plotter: rAF → quantisierte DOM-Attribut-Updates, kein React-Re-Render */
+  useEffect(() => {
+    if (phase !== "drawing") return;
+
+    const activateCell = (z: number) => {
+      const c = cellRefs.current[z];
+      if (c && !c.classList.contains("kz-on")) c.classList.add("kz-on", "kz-flash");
+    };
+    const finish = () => {
+      clipRef.current?.setAttribute("width", String(KOR_W));
+      [0, 1, 2].forEach(activateCell);
+      setPhase("done");
+    };
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      finish();
+      return;
+    }
+
+    const start = performance.now();
+    let raf = 0;
+    let lastStep = -1;
+
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / KOR_DRAW_MS);
+      const eased = 1 - Math.pow(1 - t, 2.2);
+      const step = Math.round(eased * KOR_STEPS);
+      if (step !== lastStep) {
+        lastStep = step;
+        const p = step / KOR_STEPS;
+        const [x, y] = KOR_PTS[Math.min(KOR_PTS.length - 1, Math.round(p * (KOR_PTS.length - 1)))];
+        clipRef.current?.setAttribute("width", String(p * KOR_W));
+        scanRef.current?.setAttribute("x1", String(x));
+        scanRef.current?.setAttribute("x2", String(x));
+        glowRef.current?.setAttribute("cx", String(x));
+        glowRef.current?.setAttribute("cy", String(y));
+        dotRef.current?.setAttribute("cx", String(x));
+        dotRef.current?.setAttribute("cy", String(y));
+        KOR_ZONEN_X.forEach((zx, z) => {
+          if (x >= zx) activateCell(z);
+        });
+      }
+      if (t < 1) raf = requestAnimationFrame(tick);
+      else finish();
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [phase]);
+
   return (
-    <div ref={ref} className="p-6 lg:p-8">
-      <svg viewBox="0 0 640 220" className="w-full h-[200px] lg:h-[220px]" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <linearGradient id="korridorFill" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#C2722A" stopOpacity="0.22" />
-            <stop offset="100%" stopColor="#C2722A" stopOpacity="0" />
-          </linearGradient>
-        </defs>
+    <>
+      <div ref={ref} className="relative p-6 lg:p-8">
+        {phase === "drawing" && (
+          <span className="absolute right-6 top-4 hidden sm:inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-primary" aria-hidden="true">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+            Korridor wird gezeichnet …
+          </span>
+        )}
+        <svg viewBox={`0 0 ${KOR_W} ${KOR_H}`} className="w-full h-[200px] lg:h-[220px]" preserveAspectRatio="none" aria-hidden="true">
+          <defs>
+            <linearGradient id="korridorFill" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#C2722A" stopOpacity="0.22" />
+              <stop offset="100%" stopColor="#C2722A" stopOpacity="0" />
+            </linearGradient>
+            <radialGradient id="korridorGlow">
+              <stop offset="0" stopColor="#D4A853" stopOpacity="0.55" />
+              <stop offset="1" stopColor="#D4A853" stopOpacity="0" />
+            </radialGradient>
+            <clipPath id="korridorReveal">
+              <rect ref={clipRef} x="0" y="0" height={KOR_H} width="0" />
+            </clipPath>
+          </defs>
 
-        {/* Referenzlinie ohne SEO — immer sichtbar */}
-        <path
-          d="M16 178 C 180 180, 400 186, 624 189"
-          fill="none"
-          stroke="#cfc9c1"
-          strokeWidth="3"
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
-        />
+          {/* Referenzlinie ohne SEO — immer sichtbar */}
+          <path
+            d="M16 178 C 180 180, 400 186, 624 189"
+            fill="none"
+            stroke="#cfc9c1"
+            strokeWidth="3"
+            strokeLinecap="round"
+            vectorEffect="non-scaling-stroke"
+          />
 
-        {/* Flächen-Gradient unter der Hauptkurve */}
-        <path
-          d="M16 184 C 140 180, 220 168, 320 138 C 420 108, 520 78, 624 60 L 624 208 L 16 208 Z"
-          fill="url(#korridorFill)"
-          style={{ opacity: drawn ? 1 : 0, transition: "opacity 0.9s ease 0.7s" }}
-        />
+          {/* Hauptkurve + Flächen-Gradient — vom Plotter links nach rechts aufgedeckt */}
+          <g clipPath="url(#korridorReveal)">
+            <path
+              d="M16 184 C 140 180, 220 168, 320 138 C 420 108, 520 78, 624 60 L 624 208 L 16 208 Z"
+              fill="url(#korridorFill)"
+            />
+            <path
+              d="M16 184 C 140 180, 220 168, 320 138 C 420 108, 520 78, 624 60"
+              fill="none"
+              stroke="#C2722A"
+              strokeWidth="3.5"
+              strokeLinecap="round"
+              vectorEffect="non-scaling-stroke"
+            />
+          </g>
 
-        {/* Terracotta-Hauptkurve — zeichnet sich einmalig */}
-        <path
-          d="M16 184 C 140 180, 220 168, 320 138 C 420 108, 520 78, 624 60"
-          fill="none"
-          stroke="#C2722A"
-          strokeWidth="3.5"
-          strokeLinecap="round"
-          vectorEffect="non-scaling-stroke"
-          strokeDasharray="900"
-          style={{ strokeDashoffset: drawn ? 0 : 900, transition: "stroke-dashoffset 1.8s ease" }}
-        />
+          {/* Live-Plotter: Scan-Linie + glühender Zeichen-Punkt (nur während drawing) */}
+          {phase === "drawing" && (
+            <g pointerEvents="none">
+              <line ref={scanRef} x1="16" y1="16" x2="16" y2="200" stroke="#C2722A" strokeWidth="1" opacity="0.22" vectorEffect="non-scaling-stroke" />
+              <circle ref={glowRef} cx="16" cy="184" r="16" fill="url(#korridorGlow)" />
+              <circle ref={dotRef} cx="16" cy="184" r="4.5" fill="#fff" stroke="#C2722A" strokeWidth="2.5" vectorEffect="non-scaling-stroke" />
+            </g>
+          )}
 
-        {/* Endpunkt */}
-        <g style={{ opacity: drawn ? 1 : 0, transition: "opacity 0.4s ease 1.7s" }}>
-          <circle cx="624" cy="60" r="9" fill="#D4A853" opacity="0.25" />
-          <circle cx="624" cy="60" r="4.5" fill="#D4A853" />
-        </g>
-      </svg>
+          {/* Endpunkt-Puls nach Abschluss (SMIL) */}
+          {phase === "done" && (
+            <g pointerEvents="none">
+              <circle cx="624" cy="60" r="9" fill="#C2722A" opacity="0.15">
+                <animate attributeName="r" values="6;11;6" dur="2.4s" repeatCount="indefinite" />
+              </circle>
+              <circle cx="624" cy="60" r="4.5" fill="#D4A853" stroke="#fff" strokeWidth="1.5" />
+            </g>
+          )}
+        </svg>
 
-      <div className="mt-2 flex justify-between font-mono text-[10px] text-muted" aria-hidden="true">
-        <span>Monat 1</span>
-        <span>Monat 3</span>
-        <span>Monat 6</span>
-        <span>Monat 9</span>
-        <span>Monat 12</span>
+        <div className="mt-2 flex justify-between font-mono text-[10px] text-muted" aria-hidden="true">
+          <span>Monat 1</span>
+          <span>Monat 3</span>
+          <span>Monat 6</span>
+          <span>Monat 9</span>
+          <span>Monat 12</span>
+        </div>
+
+        <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2">
+          <span className="flex items-center gap-2 text-xs text-muted">
+            <span className="h-2 w-2 rounded-full" style={{ background: "#C2722A" }} />
+            Mit systematischem SEO — illustrativ
+          </span>
+          <span className="flex items-center gap-2 text-xs text-muted">
+            <span className="h-2 w-2 rounded-full" style={{ background: "#cfc9c1" }} />
+            Ohne SEO-Investition
+          </span>
+        </div>
+
+        <style>{`
+          @media (prefers-reduced-motion: reduce), (scripting: none) {
+            #korridorReveal rect { width: ${KOR_W}px !important; }
+          }
+        `}</style>
       </div>
 
-      <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-2">
-        <span className="flex items-center gap-2 text-xs text-muted">
-          <span className="h-2 w-2 rounded-full" style={{ background: "#C2722A" }} />
-          Mit systematischem SEO — illustrativ
+      {/* Monats-Zellen — aktivieren sequenziell synchron zum Scan-Fortschritt */}
+      <div className="grid gap-px bg-border border-t border-border md:grid-cols-3">
+        {KORRIDOR_ZELLEN.map((z, i) => (
+          <div
+            key={z.ziffer}
+            ref={(el) => {
+              cellRefs.current[i] = el;
+            }}
+            className="scroll-hidden rv-scale relative bg-white p-7 lg:p-8"
+            style={{ transitionDelay: `${i * 80}ms` }}
+          >
+            <div className="flex items-baseline gap-2 mb-3">
+              <span className="kz-ghost font-[family-name:var(--font-heading)] text-6xl font-black text-primary/10 leading-none">{z.ziffer}</span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">Monat</span>
+            </div>
+            <div className="font-bold text-dark mb-3">{z.titel}</div>
+            <ul className="space-y-2 mb-4">
+              {z.punkte.map((p) => (
+                <li key={p} className="flex items-start gap-2.5 text-sm text-muted leading-relaxed">
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary/50" />
+                  {p}
+                </li>
+              ))}
+            </ul>
+            <div className="border-t border-border pt-3 mt-4">
+              <span className="block text-[11px] uppercase tracking-[0.14em] text-muted mb-1">Woran Sie es messen:</span>
+              <span className="font-mono text-xs text-dark">{z.messung}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+/* ─── Leistungs-Register — Scroll-Spy über die 9 Katalog-Einträge ───────────
+   IO (rootMargin −40 % oben / −50 % unten) markiert den aktiven Eintrag;
+   Klick scrollt smooth (scrollIntoView block:center); Mini-Fortschritt zählt. */
+function KatalogRegister() {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const els = KATALOG_FLAT.map((l) => document.getElementById(`katalog-${l.nr}`)).filter(
+      (el): el is HTMLElement => el !== null
+    );
+    if (!els.length) return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          const idx = els.indexOf(e.target as HTMLElement);
+          if (idx >= 0) setActive(idx);
+        });
+      },
+      { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
+    );
+    els.forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+
+  const springe = (e: React.MouseEvent<HTMLAnchorElement>, nr: string) => {
+    const el = document.getElementById(`katalog-${nr}`);
+    if (!el) return; // Fallback: normaler Anker-Sprung
+    e.preventDefault();
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+  };
+
+  return (
+    <div className="rounded-2xl border border-border bg-white p-6">
+      <span className="block font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45 mb-4">Leistungsverzeichnis</span>
+      <nav className="divide-y divide-border/60">
+        {KATALOG_FLAT.map((l, i) => {
+          const on = active === i;
+          return (
+            <a
+              key={l.nr}
+              href={`#katalog-${l.nr}`}
+              onClick={(e) => springe(e, l.nr)}
+              aria-current={on ? "true" : undefined}
+              className="relative flex items-center justify-between gap-3 py-1.5 pl-3 text-sm transition-colors"
+            >
+              <span
+                className="absolute left-0 top-1.5 bottom-1.5 w-[2.5px] rounded-full transition-opacity duration-300"
+                style={{ background: "linear-gradient(180deg, #C2722A, #D4A853)", opacity: on ? 1 : 0 }}
+                aria-hidden="true"
+              />
+              <span className={`transition-colors duration-300 ${on ? "font-semibold text-primary" : "text-dark/70 hover:text-primary"}`}>
+                {l.titel}
+              </span>
+              <span
+                className={`flex h-6 w-8 shrink-0 items-center justify-center rounded-full font-mono text-[10px] font-bold transition-all duration-300 ${
+                  on ? "text-white" : "text-dark/40"
+                }`}
+                style={on ? { background: "linear-gradient(135deg, #C2722A, #D4A853)" } : undefined}
+              >
+                {l.nr}
+              </span>
+            </a>
+          );
+        })}
+      </nav>
+      {/* Mini-Fortschrittszeile — zählt beim Scrollen mit */}
+      <div className="mt-4 flex items-center gap-3 border-t border-border pt-4" aria-hidden="true">
+        <span className="font-mono text-[11px] tracking-[0.14em] text-dark">
+          {String(active + 1).padStart(2, "0")} / 09
         </span>
-        <span className="flex items-center gap-2 text-xs text-muted">
-          <span className="h-2 w-2 rounded-full" style={{ background: "#cfc9c1" }} />
-          Ohne SEO-Investition
+        <span className="relative h-[3px] flex-1 overflow-hidden rounded-full" style={{ background: "var(--color-border)" }}>
+          <span
+            className="absolute inset-y-0 left-0 rounded-full transition-[width] duration-500 ease-out"
+            style={{ width: `${((active + 1) / KATALOG_FLAT.length) * 100}%`, background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
+          />
         </span>
+      </div>
+      <p className="mt-4 text-xs text-muted leading-relaxed">
+        Jede Teilleistung hat eine eigene Detailseite mit Ablauf, Umfang und Preislogik — direkt aus dem
+        Katalog verlinkt.
+      </p>
+    </div>
+  );
+}
+
+/* ─── KI-Antwort-Mockup — Typewriter + Quellen-Chip-Pop (IO, einmalig) ──────
+   Die sichtbare Antwort-Zeile tippt sich beim Viewport-Eintritt (rAF,
+   quantisiert auf Zeichen), danach poppt der seoforge.de-Chip mit
+   Scale-Bounce; Skeleton-Zeilen tragen einen dezenten CSS-Shimmer.
+   SSR/No-JS/Reduced-Motion zeigen den vollständigen statischen Zustand.     */
+const KI_ANTWORT =
+  "Achten Sie auf Agenturen, die klassisches SEO und Generative Engine Optimization kombinieren und beide Kanäle messbar machen.";
+
+function KiAnswerMockup() {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLSpanElement>(null);
+  const [phase, setPhase] = useState<"static" | "armed" | "typing" | "done">("static");
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (textRef.current) textRef.current.textContent = "";
+    setPhase("armed");
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          io.disconnect();
+          setPhase("typing");
+        }
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (phase !== "typing") return;
+    const span = textRef.current;
+    if (!span) {
+      setPhase("done");
+      return;
+    }
+    const start = performance.now();
+    let raf = 0;
+    let last = -1;
+    let doneT: ReturnType<typeof setTimeout> | undefined;
+    const tick = (now: number) => {
+      const n = Math.min(KI_ANTWORT.length, Math.floor((now - start) / 16));
+      if (n !== last) {
+        last = n;
+        span.textContent = KI_ANTWORT.slice(0, n);
+      }
+      if (n < KI_ANTWORT.length) raf = requestAnimationFrame(tick);
+      else doneT = setTimeout(() => setPhase("done"), 200);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      if (doneT) clearTimeout(doneT);
+    };
+  }, [phase]);
+
+  const fertig = phase === "static" || phase === "done";
+  const restStyle: React.CSSProperties = {
+    opacity: fertig ? 1 : 0,
+    transform: fertig ? "none" : "translateY(6px)",
+    transition: "opacity 0.5s ease, transform 0.5s ease",
+  };
+
+  return (
+    <div ref={wrapRef} className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
+      <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
+        <span className="w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
+        <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45">KI-Assistent · Beispielansicht</span>
+      </div>
+      <div className="p-6">
+        <p className="font-medium text-dark mb-4">„Wie finde ich eine SEO Agentur, die auch KI-Suche abdeckt?“</p>
+        <div className="space-y-3">
+          <p className="text-sm text-muted leading-relaxed">
+            <span ref={textRef}>{KI_ANTWORT}</span>
+            <span
+              className={`ml-0.5 inline-block h-[12px] w-[6px] rounded-[1px] bg-primary/60 align-middle ${phase === "typing" ? "serp-caret" : "hidden"}`}
+              aria-hidden="true"
+            />
+          </p>
+          <div style={restStyle}>
+            <div className="space-y-2" aria-hidden="true">
+              <div className="ki-shimmer h-2 rounded" style={{ width: "92%" }} />
+              <div className="ki-shimmer h-2 rounded" style={{ width: "78%" }} />
+            </div>
+            <p className="mt-3 text-sm text-muted leading-relaxed">
+              Als Quelle zitiert wird bevorzugt, wer klar strukturierte, eindeutig beantwortete Inhalte über
+              konsistente Signale hinweg bereitstellt.
+            </p>
+            <div className="mt-3 space-y-2" aria-hidden="true">
+              <div className="ki-shimmer h-2 rounded" style={{ width: "84%" }} />
+              <div className="ki-shimmer h-2 rounded" style={{ width: "56%" }} />
+            </div>
+          </div>
+        </div>
+        <div className="mt-6 border-t border-border pt-4">
+          <span className="block font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40 mb-2.5">Quellen</span>
+          <div className="flex flex-wrap items-center gap-2">
+            <span
+              className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] text-dark ${
+                phase === "done" ? "ki-chip-pop" : fertig ? "" : "opacity-0"
+              }`}
+              style={{ background: "#fbf4ea", border: "1px solid #ecd3ba" }}
+            >
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              seoforge.de
+            </span>
+            <span className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1.5" style={restStyle} aria-hidden="true">
+              <span className="h-1.5 w-14 rounded" style={{ background: "#ece8e2" }} />
+            </span>
+            <span className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1.5" style={restStyle} aria-hidden="true">
+              <span className="h-1.5 w-10 rounded" style={{ background: "#ece8e2" }} />
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -714,12 +1159,29 @@ export default function SeoAgenturClient() {
         @keyframes aeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
         .ae-in { animation: aeIn 0.4s ease both; }
         @keyframes marquee-rtl { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+        .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+        @keyframes serpCaret { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+        .serp-caret { animation: serpCaret 0.9s step-end infinite; }
+        @keyframes chipPop { 0% { opacity: 0; transform: scale(0.4); } 65% { opacity: 1; transform: scale(1.12); } 100% { opacity: 1; transform: scale(1); } }
+        .ki-chip-pop { animation: chipPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+        @keyframes kiShimmer { 0% { background-position: 180% 0; } 100% { background-position: -80% 0; } }
+        .ki-shimmer { background-image: linear-gradient(100deg, #F1EDE7 38%, #FAF7F2 50%, #F1EDE7 62%); background-size: 200% 100%; animation: kiShimmer 2.6s linear infinite; }
+        .kz-ghost { transition: color 0.5s ease; }
+        .kz-on .kz-ghost { color: rgba(194,114,42,0.26); }
+        @keyframes kzFlash { 0% { color: rgba(194,114,42,0.10); } 40% { color: rgba(194,114,42,0.8); } 100% { color: rgba(194,114,42,0.26); } }
+        .kz-flash .kz-ghost { animation: kzFlash 1s ease both; }
         @media (prefers-reduced-motion: reduce), (scripting: none) {
           .m3d { opacity: 1; transform: none; transition: none; }
           .chip-dot { animation: none; }
           .scroll-hidden.rv-left, .scroll-hidden.rv-right, .scroll-hidden.rv-scale, .scroll-hidden.rv-blur { transform: none; filter: none; transition: none; }
           .serp-stamp { opacity: 1; animation: none; transform: rotate(-10deg); }
           .ae-in { animation: none; opacity: 1; transform: none; }
+          .marquee-track { animation: none !important; }
+          .serp-caret { animation: none; opacity: 0; }
+          .ki-chip-pop { animation: none; opacity: 1; transform: none; }
+          .ki-shimmer { animation: none; }
+          .kz-ghost { transition: none; }
+          .kz-flash .kz-ghost { animation: none; }
         }
       `}</style>
 
@@ -811,11 +1273,11 @@ export default function SeoAgenturClient() {
         className="py-10 overflow-hidden"
         style={{ background: "#111111", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}
       >
-        {/* Row 1 — LTR: die 9 Teilleistungen als Icon-Pills */}
-        <div className="relative mb-4">
+        {/* Row 1 — LTR: die 9 Teilleistungen als Icon-Pills (hover pausiert) */}
+        <div className="marquee-wrap relative mb-4">
           <div className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #111111, transparent)" }} />
           <div className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #111111, transparent)" }} />
-          <div className="flex" style={{ width: "max-content", animation: "marquee-ltr 28s linear infinite", willChange: "transform" }}>
+          <div className="marquee-track flex" style={{ width: "max-content", animation: "marquee-ltr 28s linear infinite", willChange: "transform" }}>
             {[0, 1].map((copy) => (
               <div key={copy} className="flex items-center gap-4 px-3 flex-shrink-0" aria-hidden={copy === 1}>
                 {BAND_ROW1.map((item) => (
@@ -834,11 +1296,11 @@ export default function SeoAgenturClient() {
           </div>
         </div>
 
-        {/* Row 2 — RTL: Zusicherungen + Zielgruppen */}
-        <div className="relative">
+        {/* Row 2 — RTL (gegenläufig): Zusicherungen + Zielgruppen (hover pausiert) */}
+        <div className="marquee-wrap relative">
           <div className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #111111, transparent)" }} />
           <div className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #111111, transparent)" }} />
-          <div className="flex" style={{ width: "max-content", animation: "marquee-rtl 38s linear infinite", willChange: "transform" }}>
+          <div className="marquee-track flex" style={{ width: "max-content", animation: "marquee-rtl 38s linear infinite", willChange: "transform" }}>
             {[0, 1].map((copy) => (
               <div key={copy} className="flex items-center gap-3 px-3 flex-shrink-0" aria-hidden={copy === 1}>
                 {BAND_ROW2.map((item) => (
@@ -906,24 +1368,28 @@ export default function SeoAgenturClient() {
                   orientiert statt an pauschalen Versprechen, die sich im Nachhinein nicht überprüfen lassen.
                 </p>
               </div>
-              {/* Mono-Faktenzeile (Graft) */}
+              {/* Mono-Faktenzeile (Graft) — „24" zählt beim Viewport-Eintritt hoch */}
               <div className="border-t border-border pt-5 mt-6 flex flex-wrap gap-x-8 gap-y-2">
-                {["Monatlich kündbar", "Antwort < 24 h", "Monatliches Reporting"].map((f) => (
-                  <span key={f} className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-dark/60">
+                {[
+                  { k: "Monatlich kündbar", n: "Monatlich kündbar" as React.ReactNode },
+                  { k: "Antwort < 24 h", n: (<>{"Antwort < "}<CountUp to={24} />{" h"}</>) as React.ReactNode },
+                  { k: "Monatliches Reporting", n: "Monatliches Reporting" as React.ReactNode },
+                ].map((f) => (
+                  <span key={f.k} className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-dark/60">
                     <span className="chip-dot h-1.5 w-1.5 rounded-full bg-primary" />
-                    {f}
+                    {f.n}
                   </span>
                 ))}
               </div>
             </div>
 
             <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
-              <div className="relative rounded-2xl overflow-hidden border border-border shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
+              <div className="group relative rounded-2xl overflow-hidden border border-border shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
                 <Image
                   src="/images/seo-3d-werkbank.png"
                   alt="3D-Illustration einer Werkbank mit drei Werkstücken: Zahnrad für Technik, gestapelte Textblöcke für Content und Kettenglied für Autorität"
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   sizes="(max-width: 1024px) 100vw, 600px"
                 />
               </div>
@@ -1007,53 +1473,9 @@ export default function SeoAgenturClient() {
               </a>
             </div>
 
-            {/* Statisches KI-Antwort-Mockup */}
+            {/* KI-Antwort-Mockup — tippt sich beim Viewport-Eintritt */}
             <div className="m3d">
-              <div className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
-                <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
-                  <span className="w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
-                  <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45">KI-Assistent · Beispielansicht</span>
-                </div>
-                <div className="p-6">
-                  <p className="font-medium text-dark mb-4">„Wie finde ich eine SEO Agentur, die auch KI-Suche abdeckt?“</p>
-                  <div className="space-y-3">
-                    <p className="text-sm text-muted leading-relaxed">
-                      Achten Sie auf Agenturen, die klassisches SEO und Generative Engine Optimization kombinieren und
-                      beide Kanäle messbar machen.
-                    </p>
-                    <div className="space-y-2" aria-hidden="true">
-                      <div className="h-2 rounded bg-offwhite" style={{ width: "92%" }} />
-                      <div className="h-2 rounded bg-offwhite" style={{ width: "78%" }} />
-                    </div>
-                    <p className="text-sm text-muted leading-relaxed">
-                      Als Quelle zitiert wird bevorzugt, wer klar strukturierte, eindeutig beantwortete Inhalte über
-                      konsistente Signale hinweg bereitstellt.
-                    </p>
-                    <div className="space-y-2" aria-hidden="true">
-                      <div className="h-2 rounded bg-offwhite" style={{ width: "84%" }} />
-                      <div className="h-2 rounded bg-offwhite" style={{ width: "56%" }} />
-                    </div>
-                  </div>
-                  <div className="mt-6 border-t border-border pt-4">
-                    <span className="block font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40 mb-2.5">Quellen</span>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span
-                        className="inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] text-dark"
-                        style={{ background: "#fbf4ea", border: "1px solid #ecd3ba" }}
-                      >
-                        <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                        seoforge.de
-                      </span>
-                      <span className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1.5" aria-hidden="true">
-                        <span className="h-1.5 w-14 rounded bg-offwhite" style={{ background: "#ece8e2" }} />
-                      </span>
-                      <span className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1.5" aria-hidden="true">
-                        <span className="h-1.5 w-10 rounded" style={{ background: "#ece8e2" }} />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <KiAnswerMockup />
               <p className="mt-3 text-xs italic text-muted">Illustrative Darstellung — keine echte KI-Ausgabe.</p>
             </div>
           </div>
@@ -1075,27 +1497,9 @@ export default function SeoAgenturClient() {
           />
 
           <div className="grid lg:grid-cols-[300px_1fr] gap-10 lg:gap-16 items-start">
-            {/* Register-Karte (sticky) */}
+            {/* Register-Karte (sticky) — Scroll-Spy wandert beim Scrollen mit */}
             <div className="scroll-hidden rv-left lg:sticky lg:top-28">
-              <div className="rounded-2xl border border-border bg-white p-6">
-                <span className="block font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45 mb-4">Leistungsverzeichnis</span>
-                <nav className="divide-y divide-border/60">
-                  {KATALOG_FLAT.map((l) => (
-                    <a
-                      key={l.nr}
-                      href={`#katalog-${l.nr}`}
-                      className="flex items-baseline justify-between gap-3 py-1.5 text-sm text-dark/70 hover:text-primary transition-colors"
-                    >
-                      <span>{l.titel}</span>
-                      <span className="font-mono text-xs text-dark/40">{l.nr}</span>
-                    </a>
-                  ))}
-                </nav>
-                <p className="border-t border-border mt-4 pt-4 text-xs text-muted leading-relaxed">
-                  Jede Teilleistung hat eine eigene Detailseite mit Ablauf, Umfang und Preislogik — direkt aus dem
-                  Katalog verlinkt.
-                </p>
-              </div>
+              <KatalogRegister />
             </div>
 
             {/* Katalog-Dokument */}
@@ -1123,7 +1527,10 @@ export default function SeoAgenturClient() {
                         aria-hidden="true"
                       />
                       <div className="grid md:grid-cols-[80px_1fr_auto] gap-4 lg:gap-6 p-6 lg:p-7 items-start">
-                        <span className="font-[family-name:var(--font-heading)] text-5xl font-black text-primary/15 leading-none" aria-hidden="true">
+                        <span
+                          className="font-[family-name:var(--font-heading)] text-5xl font-black text-primary/15 leading-none transition-colors duration-300 group-hover:text-primary/40"
+                          aria-hidden="true"
+                        >
                           {l.nr}
                         </span>
                         <div>
@@ -1317,12 +1724,12 @@ export default function SeoAgenturClient() {
             </div>
 
             <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
-              <div className="relative rounded-2xl overflow-hidden border border-border shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
+              <div className="group relative rounded-2xl overflow-hidden border border-border shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
                 <Image
                   src="/images/seo-3d-waage.png"
                   alt="3D-Illustration einer Balkenwaage: eine einzelne Figur unter einem übergroßen Werkzeug-Stapel gegenüber drei Figuren mit je einem Werkzeug"
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   sizes="(max-width: 1024px) 100vw, 600px"
                 />
               </div>
@@ -1352,16 +1759,16 @@ export default function SeoAgenturClient() {
             </div>
             <div className="divide-y divide-border">
               {TAFEL.map((r) => (
-                <div key={r.dim} className="grid md:grid-cols-2">
-                  <div className="px-6 py-5">
-                    <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-dark/35 mb-1.5">{r.dim}</span>
+                <div key={r.dim} className="group grid md:grid-cols-2">
+                  <div className="px-6 py-5 transition-colors duration-300 group-hover:bg-[#FBF8F4]">
+                    <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-dark/35 mb-1.5 transition-colors duration-300 group-hover:text-primary">{r.dim}</span>
                     <div className="flex items-start gap-3">
                       <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-dark/[0.06] md:hidden">
                         <svg className="h-3 w-3 text-dark/40" viewBox="0 0 20 20" fill="currentColor">
                           <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
                         </svg>
                       </span>
-                      <p className="text-sm text-dark/55 leading-relaxed">{r.inhouse}</p>
+                      <p className="text-sm text-dark/55 leading-relaxed transition-colors duration-300 group-hover:text-dark/75">{r.inhouse}</p>
                     </div>
                   </div>
                   <div className="px-6 py-5 md:border-l md:border-border" style={{ background: "#fbf4ea" }}>
@@ -1380,7 +1787,7 @@ export default function SeoAgenturClient() {
           </div>
 
           {/* Fairness-Fußnote (Graft) */}
-          <div className="scroll-hidden flex items-start gap-3 mt-5 text-sm text-muted">
+          <div className="scroll-hidden rv-blur flex items-start gap-3 mt-5 text-sm text-muted">
             <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
               <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
@@ -1420,30 +1827,6 @@ export default function SeoAgenturClient() {
             </div>
 
             <KorridorChart />
-
-            <div className="grid gap-px bg-border border-t border-border md:grid-cols-3">
-              {KORRIDOR_ZELLEN.map((z, i) => (
-                <div key={z.ziffer} className="scroll-hidden rv-scale relative bg-white p-7 lg:p-8" style={{ transitionDelay: `${i * 80}ms` }}>
-                  <div className="flex items-baseline gap-2 mb-3">
-                    <span className="font-[family-name:var(--font-heading)] text-6xl font-black text-primary/10 leading-none">{z.ziffer}</span>
-                    <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">Monat</span>
-                  </div>
-                  <div className="font-bold text-dark mb-3">{z.titel}</div>
-                  <ul className="space-y-2 mb-4">
-                    {z.punkte.map((p) => (
-                      <li key={p} className="flex items-start gap-2.5 text-sm text-muted leading-relaxed">
-                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary/50" />
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                  <div className="border-t border-border pt-3 mt-4">
-                    <span className="block text-[11px] uppercase tracking-[0.14em] text-muted mb-1">Woran Sie es messen:</span>
-                    <span className="font-mono text-xs text-dark">{z.messung}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
 
           <p className="mt-3 text-xs italic text-muted">Illustrative Kurve — der reale Verlauf hängt von Ausgangslage und Wettbewerb ab.</p>
@@ -1467,7 +1850,7 @@ export default function SeoAgenturClient() {
       <section id="kosten" className="scroll-mt-20 py-24 lg:py-32" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
-            <div className="scroll-hidden">
+            <div className="scroll-hidden rv-blur">
               <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Kosten &amp; Investition</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12] mb-6">
                 Was kostet eine<br />
@@ -1481,7 +1864,7 @@ export default function SeoAgenturClient() {
                 um dieselben Keywords steht, in dem bereits mehrere gut aufgestellte Wettbewerber aktiv sind. Auch der
                 Umfang — Anzahl der Zielseiten, Sprachen, Standorte, Produktkategorien — beeinflusst, wie viel Aufwand
                 realistisch eingeplant werden muss, bevor sich erste Ergebnisse zeigen. Zur Orientierung: Eine laufende
-                SEO-Betreuung beginnt bei uns in der Regel <strong className="text-dark font-semibold">ab 800 € pro Monat</strong>;
+                SEO-Betreuung beginnt bei uns in der Regel <strong className="text-dark font-semibold">ab <CountUp to={800} /> € pro Monat</strong>;
                 einmalige Leistungen wie ein SEO-Audit kalkulieren wir als{" "}
                 <strong className="text-dark font-semibold">separate Pakete</strong>.
               </p>
@@ -1531,12 +1914,12 @@ export default function SeoAgenturClient() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-[minmax(0,420px)_1fr] gap-10 lg:gap-16 items-center">
             <div className="scroll-hidden rv-left order-last lg:order-first">
-              <div className="relative rounded-2xl overflow-hidden border border-border shadow-[0_24px_60px_-28px_rgba(26,26,26,0.22)] aspect-[4/5] transform-gpu [backface-visibility:hidden]">
+              <div className="group relative rounded-2xl overflow-hidden border border-border shadow-[0_24px_60px_-28px_rgba(26,26,26,0.22)] aspect-[4/5] transform-gpu [backface-visibility:hidden]">
                 <Image
                   src="/images/seo-3d-podeste.png"
                   alt="3D-Illustration mit vier Podesten: Aktenkoffer, Einkaufswagen, Standort-Pin und Rakete als Symbole für vier Kundenprofile"
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   sizes="(max-width: 1024px) 100vw, 420px"
                 />
               </div>
@@ -1571,7 +1954,7 @@ export default function SeoAgenturClient() {
                 ))}
               </div>
 
-              <div className="scroll-hidden flex items-start gap-3 mt-6 text-sm text-muted">
+              <div className="scroll-hidden rv-blur flex items-start gap-3 mt-6 text-sm text-muted">
                 <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
                   <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
@@ -1594,7 +1977,7 @@ export default function SeoAgenturClient() {
       <section className="py-24 lg:py-32" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-[minmax(0,360px)_1fr] gap-10 lg:gap-16 items-start">
-            <div className="scroll-hidden lg:sticky lg:top-28">
+            <div className="scroll-hidden rv-left lg:sticky lg:top-28">
               <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary mb-5">
                 Häufige Fragen
               </span>
@@ -1662,7 +2045,7 @@ export default function SeoAgenturClient() {
           </div>
 
           <div className="relative grid gap-16 lg:grid-cols-2 lg:items-center">
-            <div className="scroll-hidden">
+            <div className="scroll-hidden rv-left">
               <h2 className="font-[family-name:var(--font-heading)] text-4xl text-white lg:text-5xl">
                 Bereit für eine SEO Agentur, die{" "}
                 <span className="bg-gradient-to-r from-primary-light to-secondary bg-clip-text text-transparent">
