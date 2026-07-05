@@ -3,11 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 
 /* ─── GSC-Impressionen-Chart — Search-Console-Look in SeoForge-Farben ────────
-   Illustrative Impressionen um einen Relaunch: 180 Tageswerte mit Wochenend-
-   Dips, Rauschen und Ausreißern (seeded PRNG → deterministisch, SSR-safe),
-   gezackte Liniensegmente wie im Original. Live-Plotter-Animation: ein
-   glühender Scan-Punkt zeichnet die Kurve, der Relaunch-Marker poppt beim
-   Überfahren auf. Hover-Tooltip mit Tageswert. Keine realen Daten.         */
+   180 illustrative Tageswerte (seeded PRNG → deterministisch, SSR-safe) mit
+   Wochenend-Dips, Rauschen und Ausreißern; gezackte Liniensegmente wie im
+   Original. Live-Plotter-Animation läuft KOMPLETT außerhalb von React:
+   rAF setzt quantisierte Schritte (~44 statt ~190 Updates) direkt als
+   DOM-Attribute — kein Re-Render, kein Layout-Thrash. React rendert nur
+   dreimal: Start, Marker-Pop, Ende. Hover-Tooltip mit Tageswert.           */
 
 function mulberry32(a: number) {
   return function () {
@@ -56,49 +57,81 @@ const dayLabel = (i: number) => `${(i % 30) + 1}. ${MONTHS[Math.min(5, Math.floo
 const dayValue = (i: number) => Math.round(VALS[i] * 38);
 const fmt = (n: number) => n.toLocaleString("de-DE");
 
-const DRAW_MS = 3200;
+const DRAW_MS = 2800;
+const STEPS = 44; // quantisierte Zeichen-Schritte (~15/s) — steppig wie einlaufende Daten
 
 export default function GscImpressionsChart() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
-  const [on, setOn] = useState(false);
-  const [progress, setProgress] = useState(0); // 0..1 — Plotter-Fortschritt
-  const [counted, setCounted] = useState({ imp: 0, clk: 0 });
+  const clipRef = useRef<SVGRectElement>(null);
+  const scanLineRef = useRef<SVGLineElement>(null);
+  const glowRef = useRef<SVGCircleElement>(null);
+  const dotRef = useRef<SVGCircleElement>(null);
+  const impRef = useRef<HTMLDivElement>(null);
+  const clkRef = useRef<HTMLDivElement>(null);
+
+  const [phase, setPhase] = useState<"idle" | "drawing" | "done">("idle");
+  const [markerOn, setMarkerOn] = useState(false);
   const [hover, setHover] = useState<number | null>(null);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) setOn(true); },
+      ([e]) => { if (e.isIntersecting) setPhase((p) => (p === "idle" ? "drawing" : p)); },
       { threshold: 0.3 }
     );
     if (wrapRef.current) obs.observe(wrapRef.current);
     return () => obs.disconnect();
   }, []);
 
-  /* Live-Plotter: rAF-getriebener Fortschritt; Kacheln zählen synchron hoch */
+  /* Plotter: rAF → quantisierte DOM-Attribut-Updates, kein React-Re-Render */
   useEffect(() => {
-    if (!on) return;
+    if (phase !== "drawing") return;
+
+    const finish = () => {
+      clipRef.current?.setAttribute("width", String(W));
+      if (impRef.current) impRef.current.textContent = fmt(128400);
+      if (clkRef.current) clkRef.current.textContent = fmt(4870);
+      setMarkerOn(true);
+      setPhase("done");
+    };
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setProgress(1);
-      setCounted({ imp: 128400, clk: 4870 });
+      finish();
       return;
     }
+
     const start = performance.now();
     let raf = 0;
+    let lastStep = -1;
+    let marker = false;
+
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / DRAW_MS);
       const eased = 1 - Math.pow(1 - t, 2.2);
-      setProgress(eased);
-      setCounted({ imp: Math.round(128400 * eased), clk: Math.round(4870 * eased) });
+      const step = Math.round(eased * STEPS);
+      if (step !== lastStep) {
+        lastStep = step;
+        const p = step / STEPS;
+        const i = Math.min(DAYS - 1, Math.round(p * (DAYS - 1)));
+        const x = px(i), y = py(VALS[i]);
+        clipRef.current?.setAttribute("width", String(p * W));
+        scanLineRef.current?.setAttribute("x1", String(x));
+        scanLineRef.current?.setAttribute("x2", String(x));
+        glowRef.current?.setAttribute("cx", String(x));
+        glowRef.current?.setAttribute("cy", String(y));
+        dotRef.current?.setAttribute("cx", String(x));
+        dotRef.current?.setAttribute("cy", String(y));
+        if (impRef.current) impRef.current.textContent = fmt(Math.round(128400 * p));
+        if (clkRef.current) clkRef.current.textContent = fmt(Math.round(4870 * p));
+        if (!marker && i >= REL) { marker = true; setMarkerOn(true); }
+      }
       if (t < 1) raf = requestAnimationFrame(tick);
+      else finish();
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [on]);
+  }, [phase]);
 
-  const drawI = Math.min(DAYS - 1, Math.round(progress * (DAYS - 1)));
-  const drawing = on && progress < 1;
-  const markerOn = progress >= REL / (DAYS - 1);
   const relX = px(REL);
 
   const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -123,7 +156,7 @@ export default function GscImpressionsChart() {
           <span className="chip-dot h-1.5 w-1.5 rounded-full bg-primary" />
           Beispiel-Property
         </span>
-        {drawing && (
+        {phase === "drawing" && (
           <span className="ml-auto hidden sm:inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-primary">
             <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
             Daten werden geladen …
@@ -140,14 +173,14 @@ export default function GscImpressionsChart() {
             </span>
             <span className="text-[11px] font-medium text-white/85">Impressionen insgesamt</span>
           </div>
-          <div className="mt-1.5 font-[family-name:var(--font-heading)] text-2xl font-bold leading-none lg:text-[1.7rem]">{fmt(counted.imp)}</div>
+          <div ref={impRef} className="mt-1.5 font-[family-name:var(--font-heading)] text-2xl font-bold leading-none lg:text-[1.7rem]">0</div>
         </div>
         <div className="rounded-xl border border-border bg-white p-4">
           <div className="flex items-center gap-2">
             <span className="flex h-4 w-4 items-center justify-center rounded-[4px] border border-border bg-offwhite" />
             <span className="text-[11px] font-medium text-muted">Klicks insgesamt</span>
           </div>
-          <div className="mt-1.5 font-[family-name:var(--font-heading)] text-2xl font-bold leading-none text-dark/70 lg:text-[1.7rem]">{fmt(counted.clk)}</div>
+          <div ref={clkRef} className="mt-1.5 font-[family-name:var(--font-heading)] text-2xl font-bold leading-none text-dark/70 lg:text-[1.7rem]">0</div>
         </div>
       </div>
 
@@ -164,7 +197,7 @@ export default function GscImpressionsChart() {
         >
           <defs>
             <clipPath id="gscReveal">
-              <rect x="0" y="0" height={H} width={progress * W} />
+              <rect ref={clipRef} x="0" y="0" height={H} width="0" />
             </clipPath>
             <radialGradient id="gscGlow">
               <stop offset="0" stopColor="#D4A853" stopOpacity="0.55" />
@@ -189,21 +222,21 @@ export default function GscImpressionsChart() {
             <text key={m} x={LEFT + (i * (RIGHT - LEFT)) / 5} y={H - 8} textAnchor="middle" fontSize="10" fill="#9b9b9b">{m}</text>
           ))}
 
-          {/* Relaunch-Marker — poppt auf, wenn der Plotter ihn erreicht */}
+          {/* Relaunch-Marker — weiße Pill im Site-Stil, poppt beim Überfahren */}
           <g
             style={{
-              transformOrigin: `${relX}px ${TOP + 11}px`,
+              transformOrigin: `${relX}px ${TOP + 10}px`,
               transform: markerOn ? "scale(1)" : "scale(0)",
               opacity: markerOn ? 1 : 0,
               transition: "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease",
             }}
           >
-            <line x1={relX} y1={TOP} x2={relX} y2={BOTTOM} stroke="#C2722A" strokeWidth="1.2" strokeDasharray="4 4" opacity="0.5" />
-            <rect x={relX - 34} y={TOP + 2} width="68" height="18" rx="9" fill="#1A1A1A" />
-            <circle cx={relX - 22} cy={TOP + 11} r="2.4" fill="#D4A853">
-              <animate attributeName="opacity" values="1;0.3;1" dur="2.2s" repeatCount="indefinite" />
+            <line x1={relX} y1={TOP + 26} x2={relX} y2={BOTTOM} stroke="#C2722A" strokeWidth="1.2" strokeDasharray="4 4" opacity="0.45" />
+            <rect x={relX - 42} y={TOP} width="84" height="20" rx="10" fill="#ffffff" stroke="#ecd3ba" strokeWidth="1" />
+            <circle cx={relX - 29} cy={TOP + 10} r="2.4" fill="#C2722A">
+              <animate attributeName="opacity" values="1;0.35;1" dur="2.2s" repeatCount="indefinite" />
             </circle>
-            <text x={relX + 5} y={TOP + 14.5} textAnchor="middle" fontSize="9.5" fontWeight="600" fill="#fff" letterSpacing="0.06em">RELAUNCH</text>
+            <text x={relX + 5} y={TOP + 13.5} textAnchor="middle" fontSize="9" fontWeight="700" fill="#C2722A" letterSpacing="0.1em" style={{ fontFamily: "var(--font-mono), ui-monospace, monospace" }}>RELAUNCH</text>
           </g>
 
           {/* Gezackte Tages-Linie, vom Plotter aufgedeckt */}
@@ -211,17 +244,17 @@ export default function GscImpressionsChart() {
             <path d={LINE} fill="none" stroke="#C2722A" strokeWidth="1.8" strokeLinejoin="round" />
           </g>
 
-          {/* Live-Plotter: Scan-Linie + glühender Zeichen-Punkt */}
-          {drawing && (
+          {/* Live-Plotter: Scan-Linie + glühender Zeichen-Punkt (nur während drawing) */}
+          {phase === "drawing" && (
             <g pointerEvents="none">
-              <line x1={px(drawI)} y1={TOP} x2={px(drawI)} y2={BOTTOM} stroke="#C2722A" strokeWidth="1" opacity="0.22" />
-              <circle cx={px(drawI)} cy={py(VALS[drawI])} r="16" fill="url(#gscGlow)" />
-              <circle cx={px(drawI)} cy={py(VALS[drawI])} r="4.5" fill="#fff" stroke="#C2722A" strokeWidth="2.5" />
+              <line ref={scanLineRef} x1={LEFT} y1={TOP} x2={LEFT} y2={BOTTOM} stroke="#C2722A" strokeWidth="1" opacity="0.22" />
+              <circle ref={glowRef} cx={LEFT} cy={py(VALS[0])} r="16" fill="url(#gscGlow)" />
+              <circle ref={dotRef} cx={LEFT} cy={py(VALS[0])} r="4.5" fill="#fff" stroke="#C2722A" strokeWidth="2.5" />
             </g>
           )}
 
           {/* Endpunkt-Puls nach Abschluss */}
-          {on && progress >= 1 && (
+          {phase === "done" && (
             <g pointerEvents="none">
               <circle cx={px(DAYS - 1)} cy={py(VALS[DAYS - 1])} r="9" fill="#C2722A" opacity="0.15">
                 <animate attributeName="r" values="6;11;6" dur="2.4s" repeatCount="indefinite" />
