@@ -3,33 +3,58 @@
 import { useEffect, useRef, useState } from "react";
 
 /* ─── GSC-Impressionen-Chart — Search-Console-Look in SeoForge-Farben ────────
-   Illustrative Entwicklung der Google-Impressionen um einen Relaunch herum:
-   flach davor, Relaunch-Marker, danach steiler Anstieg. Linie zeichnet sich
-   per IntersectionObserver, Kachel-Zahlen zählen hoch. Keine realen Daten —
-   als illustrativ gekennzeichnet (Caption liefert die Section).            */
+   Illustrative Impressionen um einen Relaunch: 180 Tageswerte mit Wochenend-
+   Dips, Rauschen und Ausreißern (seeded PRNG → deterministisch, SSR-safe),
+   gezackte Liniensegmente wie im Original statt geglätteter Kurven.
+   Links-nach-rechts-Reveal per IntersectionObserver, Hover-Tooltip mit
+   Tageswert. Keine realen Daten — Caption liefert die Section.             */
 
-/* Wochenwerte in % der Chart-Höhe: 10 Wochen flach, kurzes Plateau nach
-   dem Relaunch (Monitoring-Phase), dann kräftiger Compounding-Anstieg.    */
-const VALS = [16, 17, 16.5, 18, 17, 18.5, 17.5, 19, 18, 18.5, 17.5, 18, 20, 23, 27.5, 33, 39.5, 47, 54.5, 62, 69.5, 77, 83.5, 89, 93.5, 96.5];
-const RELAUNCH_I = 10;
+function mulberry32(a: number) {
+  return function () {
+    a |= 0; a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const DAYS = 180;
+const REL = 60; // Relaunch-Tag
+
+const VALS: number[] = (() => {
+  const rnd = mulberry32(7);
+  const out: number[] = [];
+  for (let i = 0; i < DAYS; i++) {
+    let base: number;
+    if (i < REL) {
+      base = 13.5 + 1.5 * Math.sin(i / 9);
+    } else if (i < REL + 14) {
+      base = 12.6 + (i - REL) * 0.06; // Monitoring-Phase: leicht gedrückt
+    } else {
+      const t = (i - REL - 14) / (DAYS - REL - 14);
+      base = 13 + 72 * Math.pow(t, 1.35); // treppiger Anstieg
+    }
+    const dow = i % 7;
+    const weekend = dow === 5 ? 0.78 : dow === 6 ? 0.7 : 1;
+    const amp = i > REL ? 0.34 : 0.26;
+    let noise = 1 + (rnd() - 0.5) * amp;
+    if (rnd() < 0.045) noise *= 1.28 + rnd() * 0.3; // Ausreißer nach oben
+    if (rnd() < 0.03) noise *= 0.68; // Einbrüche
+    out.push(Math.min(97, Math.max(3.5, base * weekend * noise)));
+  }
+  return out;
+})();
 
 const W = 640, H = 260, TOP = 14, BOTTOM = 228, LEFT = 58, RIGHT = 626;
-const px = (i: number) => LEFT + (i * (RIGHT - LEFT)) / (VALS.length - 1);
+const px = (i: number) => LEFT + (i * (RIGHT - LEFT)) / (DAYS - 1);
 const py = (v: number) => BOTTOM - (v / 100) * (BOTTOM - TOP);
 
-/* Sanft geglätteter Pfad (kubische Segmente mit horizontalen Kontrollpunkten) */
-function smoothPath() {
-  let d = `M ${px(0)} ${py(VALS[0])}`;
-  for (let i = 1; i < VALS.length; i++) {
-    const x0 = px(i - 1), y0 = py(VALS[i - 1]);
-    const x1 = px(i), y1 = py(VALS[i]);
-    const cx = (x0 + x1) / 2;
-    d += ` C ${cx} ${y0}, ${cx} ${y1}, ${x1} ${y1}`;
-  }
-  return d;
-}
-const LINE = smoothPath();
-const AREA = `${LINE} L ${RIGHT} ${BOTTOM} L ${LEFT} ${BOTTOM} Z`;
+const LINE = VALS.map((v, i) => `${i === 0 ? "M" : "L"} ${px(i).toFixed(1)} ${py(v).toFixed(1)}`).join(" ");
+
+const MONTHS = ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun"];
+const dayLabel = (i: number) => `${(i % 30) + 1}. ${MONTHS[Math.min(5, Math.floor(i / 30))]}`;
+const dayValue = (i: number) => Math.round(VALS[i] * 38);
+const fmt = (n: number) => n.toLocaleString("de-DE");
 
 function useCountTo(target: number, on: boolean, delay = 0) {
   const [val, setVal] = useState(0);
@@ -53,27 +78,35 @@ function useCountTo(target: number, on: boolean, delay = 0) {
   return val;
 }
 
-const fmt = (n: number) => n.toLocaleString("de-DE");
-
 export default function GscImpressionsChart() {
-  const ref = useRef<HTMLDivElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const svgRef = useRef<SVGSVGElement>(null);
   const [on, setOn] = useState(false);
+  const [hover, setHover] = useState<number | null>(null);
 
   useEffect(() => {
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) setOn(true); },
       { threshold: 0.3 }
     );
-    if (ref.current) obs.observe(ref.current);
+    if (wrapRef.current) obs.observe(wrapRef.current);
     return () => obs.disconnect();
   }, []);
 
   const impressions = useCountTo(128400, on, 300);
   const clicks = useCountTo(4870, on, 500);
-  const relX = px(RELAUNCH_I);
+  const relX = px(REL);
+
+  const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
+    const rect = svgRef.current?.getBoundingClientRect();
+    if (!rect) return;
+    const rx = ((e.clientX - rect.left) / rect.width) * W;
+    const i = Math.round(((rx - LEFT) / (RIGHT - LEFT)) * (DAYS - 1));
+    setHover(Math.min(DAYS - 1, Math.max(0, i)));
+  };
 
   return (
-    <div ref={ref} className="bg-white">
+    <div ref={wrapRef} className="bg-white">
       {/* Filter-Chips wie in der Search Console */}
       <div className="flex flex-wrap items-center gap-2 px-5 pt-5 lg:px-6">
         {["Suchtyp: Web", "Zeitraum: 6 Monate"].map((f) => (
@@ -109,38 +142,42 @@ export default function GscImpressionsChart() {
       </div>
 
       {/* Chart */}
-      <div className="px-2 pb-4 pt-2 lg:px-3">
-        <svg viewBox={`0 0 ${W} ${H}`} className="w-full" role="img" aria-label="Illustrativer Verlauf der Google-Impressionen: flach vor dem Relaunch, danach stark ansteigend">
+      <div className="relative px-2 pb-4 pt-2 lg:px-3">
+        <svg
+          ref={svgRef}
+          viewBox={`0 0 ${W} ${H}`}
+          className="w-full cursor-crosshair"
+          role="img"
+          aria-label="Illustrativer Verlauf der täglichen Google-Impressionen: volatil und flach vor dem Relaunch, danach stark ansteigend"
+          onMouseMove={onMove}
+          onMouseLeave={() => setHover(null)}
+        >
           <defs>
-            <linearGradient id="gscLine" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0" stopColor="#C2722A" />
-              <stop offset="1" stopColor="#D4A853" />
-            </linearGradient>
-            <linearGradient id="gscArea" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stopColor="#C2722A" stopOpacity="0.18" />
-              <stop offset="1" stopColor="#C2722A" stopOpacity="0" />
-            </linearGradient>
+            <clipPath id="gscReveal">
+              <rect x="0" y="0" height={H} width={on ? W : 0} style={{ transition: "width 2.4s cubic-bezier(0.33, 1, 0.68, 1) 0.2s" }} />
+            </clipPath>
           </defs>
 
-          {/* Gridlines + Y-Labels */}
+          {/* Gridlines + Y-Labels (Tageswerte) */}
           {[0, 1, 2, 3].map((g) => {
-            const y = BOTTOM - (g * (BOTTOM - TOP)) / 3;
+            const val = g * 1000;
+            const y = py((val / 38 / 100) * 100);
             return (
               <g key={g}>
                 <line x1={LEFT} y1={y} x2={RIGHT} y2={y} stroke="#E5E3DF" strokeWidth="1" strokeDasharray={g === 0 ? "0" : "3 4"} />
-                <text x={LEFT - 8} y={y + 3.5} textAnchor="end" fontSize="10" fill="#9b9b9b">{g === 0 ? "0" : `${g * 40} Tsd.`}</text>
+                <text x={LEFT - 8} y={y + 3.5} textAnchor="end" fontSize="10" fill="#9b9b9b">{g === 0 ? "0" : `${g} Tsd.`}</text>
               </g>
             );
           })}
 
           {/* Monats-Labels */}
-          {["Jan", "Feb", "Mär", "Apr", "Mai", "Jun"].map((m, i) => (
+          {MONTHS.map((m, i) => (
             <text key={m} x={LEFT + (i * (RIGHT - LEFT)) / 5} y={H - 8} textAnchor="middle" fontSize="10" fill="#9b9b9b">{m}</text>
           ))}
 
           {/* Relaunch-Marker */}
-          <line x1={relX} y1={TOP} x2={relX} y2={BOTTOM} stroke="#C2722A" strokeWidth="1.2" strokeDasharray="4 4" opacity={on ? 0.55 : 0} style={{ transition: "opacity 0.6s ease 0.9s" }} />
-          <g opacity={on ? 1 : 0} style={{ transition: "opacity 0.6s ease 1.1s" }}>
+          <line x1={relX} y1={TOP} x2={relX} y2={BOTTOM} stroke="#C2722A" strokeWidth="1.2" strokeDasharray="4 4" opacity={on ? 0.5 : 0} style={{ transition: "opacity 0.6s ease 1s" }} />
+          <g opacity={on ? 1 : 0} style={{ transition: "opacity 0.6s ease 1.2s" }}>
             <rect x={relX - 34} y={TOP + 2} width="68" height="18" rx="9" fill="#1A1A1A" />
             <circle cx={relX - 22} cy={TOP + 11} r="2.4" fill="#D4A853">
               <animate attributeName="opacity" values="1;0.3;1" dur="2.2s" repeatCount="indefinite" />
@@ -148,32 +185,44 @@ export default function GscImpressionsChart() {
             <text x={relX + 5} y={TOP + 14.5} textAnchor="middle" fontSize="9.5" fontWeight="600" fill="#fff" letterSpacing="0.06em">RELAUNCH</text>
           </g>
 
-          {/* Fläche + Linie */}
-          <path d={AREA} fill="url(#gscArea)" opacity={on ? 1 : 0} style={{ transition: "opacity 1s ease 0.8s" }} />
-          <path
-            d={LINE}
-            fill="none"
-            stroke="url(#gscLine)"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeDasharray={1400}
-            strokeDashoffset={on ? 0 : 1400}
-            style={{ transition: "stroke-dashoffset 2.4s cubic-bezier(0.33, 1, 0.68, 1) 0.2s" }}
-          />
-
-          {/* Endpunkt */}
-          <g opacity={on ? 1 : 0} style={{ transition: "opacity 0.5s ease 2.3s" }}>
-            <circle cx={px(VALS.length - 1)} cy={py(VALS[VALS.length - 1])} r="9" fill="#C2722A" opacity="0.15">
-              <animate attributeName="r" values="7;11;7" dur="2.4s" repeatCount="indefinite" />
-            </circle>
-            <circle cx={px(VALS.length - 1)} cy={py(VALS[VALS.length - 1])} r="4" fill="#C2722A" stroke="#fff" strokeWidth="2" />
+          {/* Gezackte Tages-Linie, Reveal von links */}
+          <g clipPath="url(#gscReveal)">
+            <path d={LINE} fill="none" stroke="#C2722A" strokeWidth="1.8" strokeLinejoin="round" />
           </g>
+
+          {/* Hover: vertikale Linie + Punkt */}
+          {hover !== null && (
+            <g pointerEvents="none">
+              <line x1={px(hover)} y1={TOP} x2={px(hover)} y2={BOTTOM} stroke="#1A1A1A" strokeWidth="1" opacity="0.18" />
+              <circle cx={px(hover)} cy={py(VALS[hover])} r="4" fill="#fff" stroke="#C2722A" strokeWidth="2" />
+            </g>
+          )}
         </svg>
+
+        {/* Tooltip (GSC-Stil) */}
+        {hover !== null && (
+          <div
+            className="pointer-events-none absolute z-10 -translate-x-1/2 rounded-lg px-3 py-2 shadow-lg"
+            style={{
+              left: `${(px(hover) / W) * 100}%`,
+              top: `${(py(VALS[hover]) / H) * 100}%`,
+              transform: "translate(-50%, -130%)",
+              background: "#1A1A1A",
+            }}
+          >
+            <div className="whitespace-nowrap text-[10px] font-medium text-white/60">{dayLabel(hover)}{hover >= REL ? " · nach Relaunch" : ""}</div>
+            <div className="flex items-center gap-1.5 whitespace-nowrap">
+              <span className="h-2 w-2 rounded-[2px]" style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)" }} />
+              <span className="text-[11px] font-semibold text-white">{fmt(dayValue(hover))} Impressionen</span>
+            </div>
+          </div>
+        )}
       </div>
 
       <style>{`
         @media (prefers-reduced-motion: reduce), (scripting: none) {
-          svg path, svg line, svg g { transition: none !important; opacity: 1 !important; stroke-dashoffset: 0 !important; }
+          svg rect, svg line, svg g { transition: none !important; opacity: 1 !important; }
+          #gscReveal rect { width: ${W}px !important; }
         }
       `}</style>
     </div>
