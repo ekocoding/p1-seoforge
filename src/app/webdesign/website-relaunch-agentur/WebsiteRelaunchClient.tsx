@@ -92,13 +92,6 @@ const EBENEN_POS = [
   { top: 19.5, left: 74 },
 ];
 
-const KAUF_FAKTEN = [
-  { val: "2–3 Wochen", t: "Von Kickoff bis Go-live", d: "Ein typischer Relaunch mit 5–15 Seiten ist in zwei bis drei Wochen live. Danach läuft das Ranking-Monitoring 4–8 Wochen weiter — inklusive.", chip: null },
-  { val: "< 1 Woche", t: "Projektstart nach Beauftragung", d: "Kein monatelanges Warten auf einen Agentur-Slot: Nach deiner Zusage starten wir innerhalb einer Woche mit dem Kickoff.", chip: null },
-  { val: "50 / 50", t: "Zahlung in zwei Hälften", d: "Die Hälfte des Festpreises bei Projektstart, die andere nach dem Go-live — keine versteckten Kosten, keine Nachträge.", chip: "Verbindlicher Festpreis" },
-  { val: "Tag 1", t: "Voller Einblick ab dem ersten Tag", d: "Deine Staging-URL zeigt jeden Stand in Echtzeit. Feedback gibst du, wann es dir passt — ohne starre Review-Runden.", chip: null },
-] as { val: string; t: string; d: string; chip: string | null }[];
-
 const GUT_ZU_WISSEN = [
   "Deine alte Website bleibt bis zum Go-live unverändert online.",
   "Der Go-live läuft ohne nennenswerte Ausfallzeit — und ist jederzeit rückrollbar.",
@@ -187,11 +180,21 @@ export default function WebsiteRelaunchClient() {
         .m3d.scroll-visible { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); }
         @keyframes chipPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
         .chip-dot { animation: chipPulse 2.4s ease-in-out infinite; }
+        .scroll-hidden.rv-left { transform: translateX(-56px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
+        .scroll-hidden.rv-right { transform: translateX(56px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
+        .scroll-hidden.rv-scale { transform: translateY(28px) scale(0.93); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+        .scroll-hidden.rv-blur { filter: blur(12px); transform: translateY(26px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.8s cubic-bezier(0.16,1,0.3,1); }
+        .scroll-hidden.rv-left.scroll-visible, .scroll-hidden.rv-right.scroll-visible, .scroll-hidden.rv-scale.scroll-visible, .scroll-hidden.rv-blur.scroll-visible { transform: none; filter: none; }
+        .stamp-in { opacity: 0; }
+        .scroll-visible .stamp-in { animation: stampIn 0.55s cubic-bezier(0.2, 1.4, 0.4, 1) 0.55s both; }
+        @keyframes stampIn { 0% { opacity: 0; transform: rotate(-10deg) scale(2); } 65% { opacity: 1; transform: rotate(-10deg) scale(0.92); } 100% { opacity: 1; transform: rotate(-10deg) scale(1); } }
         @keyframes aeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
         .ae-in { animation: aeIn 0.4s ease both; }
         @media (prefers-reduced-motion: reduce), (scripting: none) {
           .m3d { opacity: 1; transform: none; transition: none; }
           .chip-dot { animation: none; }
+          .scroll-hidden.rv-left, .scroll-hidden.rv-right, .scroll-hidden.rv-scale, .scroll-hidden.rv-blur { transform: none; filter: none; transition: none; }
+          .stamp-in { opacity: 1; animation: none; }
           .ae-in { animation: none; opacity: 1; transform: none; }
         }
       `}</style>
@@ -281,7 +284,7 @@ export default function WebsiteRelaunchClient() {
       <section className="py-20 lg:py-28 overflow-hidden" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <div className="scroll-hidden order-last lg:order-first" style={{ transitionDelay: "120ms" }}>
+            <div className="scroll-hidden rv-left order-last lg:order-first" style={{ transitionDelay: "120ms" }}>
               <div className="relative rounded-2xl overflow-hidden shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
                 <Image
                   src="/images/relaunch-3d-transformation.png"
@@ -355,7 +358,7 @@ export default function WebsiteRelaunchClient() {
             {CHECKS.map((c, i) => {
               const on = checked.has(i);
               return (
-                <div key={c.t} className="scroll-hidden h-full" style={{ transitionDelay: `${i * 70}ms` }}>
+                <div key={c.t} className="scroll-hidden rv-scale h-full" style={{ transitionDelay: `${i * 70}ms` }}>
                   <button
                     type="button"
                     onClick={() => toggleCheck(i)}
@@ -417,7 +420,7 @@ export default function WebsiteRelaunchClient() {
             copy="Die größte Angst vor jedem Relaunch ist berechtigt — und mit System vollständig vermeidbar."
           />
 
-          <div className="scroll-hidden grid md:grid-cols-2 gap-8 lg:gap-12 mb-10">
+          <div className="scroll-hidden rv-blur grid md:grid-cols-2 gap-8 lg:gap-12 mb-10">
             <p className="text-muted text-[15px] leading-relaxed">
               Der Hauptgrund für Rankingverluste bei einem Relaunch ist fast immer derselbe:
               fehlende oder falsch gesetzte Weiterleitungen. Ändert sich eine URL-Struktur, ohne
@@ -524,7 +527,7 @@ export default function WebsiteRelaunchClient() {
             </div>
 
             {/* Synchrones Schritt-Panel */}
-            <div className="scroll-hidden" style={{ transitionDelay: "120ms" }}>
+            <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
               <div className="mb-6 flex flex-wrap gap-2">
                 {STEPS.map((st, i) => {
                   const on = prozessStep === i;
@@ -591,7 +594,7 @@ export default function WebsiteRelaunchClient() {
       <section className="py-24 lg:py-32" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-14 items-center">
-            <div className="scroll-hidden" style={{ transitionDelay: "120ms" }}>
+            <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
               <div className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
                 <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
                   <span className="w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
@@ -619,7 +622,7 @@ export default function WebsiteRelaunchClient() {
               </p>
               <div className="divide-y divide-border border-t border-b border-border">
                 {BENEFITS.map((b, i) => (
-                  <div key={b.t} className="scroll-hidden" style={{ transitionDelay: `${i * 80}ms` }}>
+                  <div key={b.t} className="scroll-hidden rv-right" style={{ transitionDelay: `${i * 80}ms` }}>
                     <div className="group flex items-start gap-4 py-4">
                       <span className="mt-0.5 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
                         {icon(b.s)}
@@ -679,7 +682,7 @@ export default function WebsiteRelaunchClient() {
 
             <div className="grid sm:grid-cols-2 gap-4">
               {FACTORS.map((f, i) => (
-                <div key={f.t} className="scroll-hidden" style={{ transitionDelay: `${i * 70}ms` }}>
+                <div key={f.t} className="scroll-hidden rv-scale" style={{ transitionDelay: `${i * 70}ms` }}>
                   <div className="group h-full rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-md hover:-translate-y-1">
                     <div className="font-mono text-[11px] tracking-[0.16em] text-dark/45 mb-4">FAKTOR 0{i + 1}</div>
                     <div className="mb-4 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
@@ -695,84 +698,105 @@ export default function WebsiteRelaunchClient() {
         </div>
       </section>
 
-      {/* ══ BEAUFTRAGUNG — Konditionen-Tafel mit echten Fakten ══ */}
-      <section id="beauftragung" className="py-24 lg:py-32 scroll-mt-20" style={{ background: "#F8F5F1" }}>
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <SectionHead
-            eyebrow="Beauftragung & Ablauf"
-            title={<>Vom Erstgespräch bis live —<br />in zwei bis drei Wochen.</>}
-            copy="Die vier Fakten, die vor einer Beauftragung wirklich zählen — schwarz auf weiß."
-          />
+      {/* ══ BEAUFTRAGUNG — Dein Angebot als Dokument ══ */}
+      <section id="beauftragung" className="py-24 lg:py-32 scroll-mt-20 overflow-hidden" style={{ background: "#F8F5F1" }}>
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
 
-          <div className="scroll-hidden">
-            <div className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
-              <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
-                <span className="w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
-                <span className="font-mono text-[11px] font-bold tracking-[0.18em] uppercase text-dark/45">Deine Konditionen — ohne Sternchen</span>
-              </div>
-              <div className="divide-y divide-border">
-                {KAUF_FAKTEN.map((f, i) => (
-                  <div key={f.t} className="scroll-hidden" style={{ transitionDelay: `${i * 70}ms` }}>
-                    <div className="grid sm:grid-cols-[minmax(0,270px)_1fr] gap-2 sm:gap-8 items-center px-6 lg:px-9 py-6 lg:py-7 transition-colors duration-300 hover:bg-[#FBF8F4]">
-                      <div
-                        className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-black leading-none whitespace-nowrap"
-                        style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
-                      >
-                        {f.val}
-                      </div>
-                      <div className="min-w-0">
-                        <div className="mb-1 flex flex-wrap items-center gap-2.5">
-                          <span className="font-bold text-dark">{f.t}</span>
-                          {f.chip && (
-                            <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] font-semibold" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba", color: "#C2722A" }}>
-                              <svg className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
-                              {f.chip}
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-sm text-muted leading-relaxed">{f.d}</p>
-                      </div>
+            {/* Angebots-Karte */}
+            <div className="scroll-hidden rv-blur relative order-last lg:order-first">
+              <div className="pointer-events-none absolute -inset-10 rounded-[3rem]" style={{ background: "radial-gradient(ellipse at 40% 40%, rgba(212,168,83,0.16), transparent 70%)" }} aria-hidden="true" />
+              <div className="relative mx-auto w-full max-w-[520px] rounded-2xl border border-border bg-white p-7 lg:p-9 shadow-[0_36px_80px_-32px_rgba(26,26,26,0.35)] rotate-[-1.2deg] transition-transform duration-500 hover:rotate-0">
+                <div className="mb-6 flex items-center justify-between border-b border-border pb-5">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl text-white font-bold text-sm" style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)" }}>S</span>
+                    <div>
+                      <div className="text-sm font-bold text-dark leading-tight">SeoForge</div>
+                      <div className="text-[11px] text-muted">Festpreis-Angebot · Website-Relaunch</div>
                     </div>
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="scroll-hidden mt-10 lg:mt-14" style={{ transitionDelay: "120ms" }}>
-            <div className="relative overflow-hidden rounded-3xl bg-dark px-7 py-9 lg:px-12 lg:py-11">
-              <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-                <div className="absolute -top-16 right-0 h-[240px] w-[240px] rounded-full bg-primary/[0.08] blur-3xl" />
-                <div className="absolute -bottom-16 left-8 h-[200px] w-[200px] rounded-full bg-secondary/[0.05] blur-3xl" />
-              </div>
-              <div className="relative grid gap-8 lg:grid-cols-[minmax(0,320px)_1px_1fr] lg:gap-10 items-center">
-                <div>
-                  <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-secondary">Gut zu wissen</span>
-                  <h3 className="mt-3 font-[family-name:var(--font-heading)] text-2xl lg:text-[1.9rem] font-bold text-white leading-tight">
-                    Kein Risiko,<br />kein Kleingedrucktes.
-                  </h3>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-dark/35">Beispiel-Ansicht</span>
                 </div>
-                <div className="hidden lg:block h-full w-px bg-white/10" aria-hidden="true" />
-                <div className="grid gap-x-10 gap-y-4 sm:grid-cols-2">
-                  {GUT_ZU_WISSEN.map((g) => (
-                    <div key={g} className="flex items-start gap-3">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/20">
-                        <svg className="h-3 w-3 text-primary-light" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                        </svg>
+
+                <div>
+                  {[
+                    { l: "Projektstart", v: "binnen 1 Woche", sub: "nach deiner Zusage" },
+                    { l: "Go-live", v: "Woche 2–3", sub: "typischer Relaunch, 5–15 Seiten" },
+                    { l: "Ranking-Monitoring", v: "4–8 Wochen", sub: "nach dem Launch — inklusive" },
+                    { l: "Einblick", v: "Staging ab Tag 1", sub: "Feedback jederzeit, keine starren Runden" },
+                  ].map((r) => (
+                    <div key={r.l} className="flex items-baseline justify-between gap-4 border-b border-dashed border-border py-3.5">
+                      <span className="text-sm text-muted">{r.l}</span>
+                      <span className="text-right">
+                        <span className="block font-bold text-dark">{r.v}</span>
+                        <span className="block text-[11px] text-muted">{r.sub}</span>
                       </span>
-                      <span className="text-sm text-white/75 leading-relaxed">{g}</span>
                     </div>
                   ))}
                 </div>
+
+                <div className="mt-6 rounded-xl p-4 lg:p-5" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba" }}>
+                  <div className="mb-3 font-mono text-[10px] uppercase tracking-[0.16em] text-primary">Zahlungsplan</div>
+                  <div className="mb-3 flex h-2.5 overflow-hidden rounded-full">
+                    <span className="w-1/2" style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }} />
+                    <span className="w-1/2 bg-white" style={{ border: "1px solid #ecd3ba" }} />
+                  </div>
+                  <div className="flex justify-between text-[13px]">
+                    <span className="text-dark"><strong className="font-bold">50 %</strong> bei Projektstart</span>
+                    <span className="text-dark"><strong className="font-bold">50 %</strong> nach Go-live</span>
+                  </div>
+                </div>
+
+                <p className="mt-5 text-[12px] italic text-muted">Keine Nachträge, keine versteckten Stunden — was im Angebot steht, gilt.</p>
+
+                <div className="stamp-in pointer-events-none absolute -right-2 bottom-20 select-none lg:-right-4">
+                  <div className="rounded-lg border-[3px] border-primary px-4 py-1.5 font-mono text-sm font-black uppercase tracking-[0.22em] text-primary" style={{ boxShadow: "inset 0 0 0 2px rgba(194,114,42,0.3)", background: "rgba(255,255,255,0.75)" }}>
+                    Verbindlich
+                  </div>
+                </div>
               </div>
             </div>
-            <p className="mt-7 text-sm text-muted">
-              Klingt machbar?{" "}
-              <a href="#kontakt" className="font-semibold text-primary border-b border-primary/30 pb-px hover:border-primary transition-colors">
-                Starte mit dem kostenlosen Erstgespräch
-              </a>
-            </p>
+
+            {/* Text + Zusagen */}
+            <div className="scroll-hidden rv-right">
+              <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Beauftragung & Ablauf</span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12] mb-5">
+                Dein Angebot —<br />
+                <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                  bevor du überhaupt fragst.
+                </span>
+              </h2>
+              <p className="text-muted leading-relaxed max-w-lg mb-7">
+                Die Eckdaten stehen hier öffentlich, nicht erst im Kleingedruckten: fixer Start,
+                zwei bis drei Wochen bis zum Go-live, Zahlung in zwei Hälften. Im kostenlosen
+                Erstgespräch wird daraus dein konkreter Festpreis — mehr Überraschung gibt es nicht.
+              </p>
+              <p className="font-bold text-dark mb-4">Kein Risiko, kein Kleingedrucktes:</p>
+              <div className="space-y-3 mb-8">
+                {GUT_ZU_WISSEN.map((g, i) => (
+                  <div key={g} className="scroll-hidden rv-right flex items-start gap-3" style={{ transitionDelay: `${120 + i * 80}ms` }}>
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                      <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
+                      </svg>
+                    </span>
+                    <span className="text-sm text-dark leading-relaxed">{g}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="flex flex-wrap items-center gap-4">
+                <a
+                  href="#kontakt"
+                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark hover:-translate-y-0.5"
+                >
+                  Festpreis-Angebot anfordern
+                  <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </a>
+                <span className="font-mono text-xs text-muted">Erstgespräch kostenlos & unverbindlich</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -862,7 +886,7 @@ export default function WebsiteRelaunchClient() {
               </div>
             </div>
 
-            <div className="scroll-hidden" style={{ transitionDelay: "120ms" }}>
+            <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm">
                 <h3 className="font-[family-name:var(--font-heading)] text-2xl text-white">
                   Jetzt Kontakt aufnehmen
