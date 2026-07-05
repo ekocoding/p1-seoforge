@@ -14,7 +14,7 @@ function useScrollReveal() {
         entries.forEach((e) => {
           if (e.isIntersecting) e.target.classList.add("scroll-visible");
         }),
-      { threshold: 0.12, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.22, rootMargin: "0px 0px -16% 0px" }
     );
     document.querySelectorAll(".scroll-hidden, .m3d").forEach((el) => io.observe(el));
     return () => io.disconnect();
@@ -709,7 +709,10 @@ export default function WebsiteRelaunchClient() {
               <div className="relative mx-auto w-full max-w-[520px] rounded-2xl border border-border bg-white p-7 lg:p-9 shadow-[0_36px_80px_-32px_rgba(26,26,26,0.35)] rotate-[-1.2deg] transition-transform duration-500 hover:rotate-0">
                 <div className="mb-6 flex items-center justify-between border-b border-border pb-5">
                   <div className="flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-xl text-white font-bold text-sm" style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)" }}>S</span>
+                    <svg viewBox="0 0 32 32" className="h-9 w-9" aria-label="SeoForge Logo" role="img">
+                      <polygon points="16,2 28,8 28,24 16,30 4,24 4,8" fill="#C2722A" />
+                      <polygon points="16,7 23,11 23,21 16,25 9,21 9,11" fill="#D4A853" />
+                    </svg>
                     <div>
                       <div className="text-sm font-bold text-dark leading-tight">SeoForge</div>
                       <div className="text-[11px] text-muted">Festpreis-Angebot · Website-Relaunch</div>
@@ -751,7 +754,7 @@ export default function WebsiteRelaunchClient() {
 
                 <div className="stamp-in pointer-events-none absolute -right-2 bottom-20 select-none lg:-right-4">
                   <div className="rounded-lg border-[3px] border-primary px-4 py-1.5 font-mono text-sm font-black uppercase tracking-[0.22em] text-primary" style={{ boxShadow: "inset 0 0 0 2px rgba(194,114,42,0.3)", background: "rgba(255,255,255,0.75)" }}>
-                    Verbindlich
+                    Festpreis
                   </div>
                 </div>
               </div>

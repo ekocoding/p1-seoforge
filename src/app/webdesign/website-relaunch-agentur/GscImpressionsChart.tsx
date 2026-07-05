@@ -74,12 +74,14 @@ export default function GscImpressionsChart() {
   const [markerOn, setMarkerOn] = useState(false);
   const [hover, setHover] = useState<number | null>(null);
 
+  const chartRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) setPhase((p) => (p === "idle" ? "drawing" : p)); },
-      { threshold: 0.3 }
+      { threshold: 0.45 }
     );
-    if (wrapRef.current) obs.observe(wrapRef.current);
+    if (chartRef.current) obs.observe(chartRef.current);
     return () => obs.disconnect();
   }, []);
 
@@ -185,7 +187,7 @@ export default function GscImpressionsChart() {
       </div>
 
       {/* Chart */}
-      <div className="relative px-2 pb-4 pt-2 lg:px-3">
+      <div ref={chartRef} className="relative px-2 pb-4 pt-2 lg:px-3">
         <svg
           ref={svgRef}
           viewBox={`0 0 ${W} ${H}`}
