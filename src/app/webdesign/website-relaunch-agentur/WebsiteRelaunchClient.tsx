@@ -502,7 +502,7 @@ export default function WebsiteRelaunchClient() {
       {/* ══ VORTEILE — Speed-Beweis + Nutzen ══ */}
       <section className="py-24 lg:py-32" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-14 items-center">
             <div className="scroll-hidden" style={{ transitionDelay: "120ms" }}>
               <div className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
                 <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">

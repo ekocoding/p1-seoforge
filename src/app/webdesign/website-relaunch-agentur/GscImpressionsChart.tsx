@@ -5,9 +5,9 @@ import { useEffect, useRef, useState } from "react";
 /* ─── GSC-Impressionen-Chart — Search-Console-Look in SeoForge-Farben ────────
    Illustrative Impressionen um einen Relaunch: 180 Tageswerte mit Wochenend-
    Dips, Rauschen und Ausreißern (seeded PRNG → deterministisch, SSR-safe),
-   gezackte Liniensegmente wie im Original statt geglätteter Kurven.
-   Links-nach-rechts-Reveal per IntersectionObserver, Hover-Tooltip mit
-   Tageswert. Keine realen Daten — Caption liefert die Section.             */
+   gezackte Liniensegmente wie im Original. Live-Plotter-Animation: ein
+   glühender Scan-Punkt zeichnet die Kurve, der Relaunch-Marker poppt beim
+   Überfahren auf. Hover-Tooltip mit Tageswert. Keine realen Daten.         */
 
 function mulberry32(a: number) {
   return function () {
@@ -45,7 +45,7 @@ const VALS: number[] = (() => {
   return out;
 })();
 
-const W = 640, H = 260, TOP = 14, BOTTOM = 228, LEFT = 58, RIGHT = 626;
+const W = 640, H = 300, TOP = 16, BOTTOM = 264, LEFT = 58, RIGHT = 626;
 const px = (i: number) => LEFT + (i * (RIGHT - LEFT)) / (DAYS - 1);
 const py = (v: number) => BOTTOM - (v / 100) * (BOTTOM - TOP);
 
@@ -56,32 +56,14 @@ const dayLabel = (i: number) => `${(i % 30) + 1}. ${MONTHS[Math.min(5, Math.floo
 const dayValue = (i: number) => Math.round(VALS[i] * 38);
 const fmt = (n: number) => n.toLocaleString("de-DE");
 
-function useCountTo(target: number, on: boolean, delay = 0) {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    if (!on) return;
-    const t = setTimeout(() => {
-      const start = performance.now();
-      const dur = 1600;
-      let raf = 0;
-      const tick = (now: number) => {
-        const p = Math.min(1, (now - start) / dur);
-        const eased = 1 - Math.pow(1 - p, 3);
-        setVal(Math.round(target * eased));
-        if (p < 1) raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-      return () => cancelAnimationFrame(raf);
-    }, delay);
-    return () => clearTimeout(t);
-  }, [on, target, delay]);
-  return val;
-}
+const DRAW_MS = 3200;
 
 export default function GscImpressionsChart() {
   const wrapRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const [on, setOn] = useState(false);
+  const [progress, setProgress] = useState(0); // 0..1 — Plotter-Fortschritt
+  const [counted, setCounted] = useState({ imp: 0, clk: 0 });
   const [hover, setHover] = useState<number | null>(null);
 
   useEffect(() => {
@@ -93,8 +75,30 @@ export default function GscImpressionsChart() {
     return () => obs.disconnect();
   }, []);
 
-  const impressions = useCountTo(128400, on, 300);
-  const clicks = useCountTo(4870, on, 500);
+  /* Live-Plotter: rAF-getriebener Fortschritt; Kacheln zählen synchron hoch */
+  useEffect(() => {
+    if (!on) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setProgress(1);
+      setCounted({ imp: 128400, clk: 4870 });
+      return;
+    }
+    const start = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / DRAW_MS);
+      const eased = 1 - Math.pow(1 - t, 2.2);
+      setProgress(eased);
+      setCounted({ imp: Math.round(128400 * eased), clk: Math.round(4870 * eased) });
+      if (t < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [on]);
+
+  const drawI = Math.min(DAYS - 1, Math.round(progress * (DAYS - 1)));
+  const drawing = on && progress < 1;
+  const markerOn = progress >= REL / (DAYS - 1);
   const relX = px(REL);
 
   const onMove = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -119,6 +123,12 @@ export default function GscImpressionsChart() {
           <span className="chip-dot h-1.5 w-1.5 rounded-full bg-primary" />
           Beispiel-Property
         </span>
+        {drawing && (
+          <span className="ml-auto hidden sm:inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-primary">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+            Daten werden geladen …
+          </span>
+        )}
       </div>
 
       {/* Metrik-Kacheln im GSC-Stil */}
@@ -130,14 +140,14 @@ export default function GscImpressionsChart() {
             </span>
             <span className="text-[11px] font-medium text-white/85">Impressionen insgesamt</span>
           </div>
-          <div className="mt-1.5 font-[family-name:var(--font-heading)] text-2xl font-bold leading-none">{fmt(impressions)}</div>
+          <div className="mt-1.5 font-[family-name:var(--font-heading)] text-2xl font-bold leading-none lg:text-[1.7rem]">{fmt(counted.imp)}</div>
         </div>
         <div className="rounded-xl border border-border bg-white p-4">
           <div className="flex items-center gap-2">
             <span className="flex h-4 w-4 items-center justify-center rounded-[4px] border border-border bg-offwhite" />
             <span className="text-[11px] font-medium text-muted">Klicks insgesamt</span>
           </div>
-          <div className="mt-1.5 font-[family-name:var(--font-heading)] text-2xl font-bold leading-none text-dark/70">{fmt(clicks)}</div>
+          <div className="mt-1.5 font-[family-name:var(--font-heading)] text-2xl font-bold leading-none text-dark/70 lg:text-[1.7rem]">{fmt(counted.clk)}</div>
         </div>
       </div>
 
@@ -154,8 +164,12 @@ export default function GscImpressionsChart() {
         >
           <defs>
             <clipPath id="gscReveal">
-              <rect x="0" y="0" height={H} width={on ? W : 0} style={{ transition: "width 2.4s cubic-bezier(0.33, 1, 0.68, 1) 0.2s" }} />
+              <rect x="0" y="0" height={H} width={progress * W} />
             </clipPath>
+            <radialGradient id="gscGlow">
+              <stop offset="0" stopColor="#D4A853" stopOpacity="0.55" />
+              <stop offset="1" stopColor="#D4A853" stopOpacity="0" />
+            </radialGradient>
           </defs>
 
           {/* Gridlines + Y-Labels (Tageswerte) */}
@@ -175,9 +189,16 @@ export default function GscImpressionsChart() {
             <text key={m} x={LEFT + (i * (RIGHT - LEFT)) / 5} y={H - 8} textAnchor="middle" fontSize="10" fill="#9b9b9b">{m}</text>
           ))}
 
-          {/* Relaunch-Marker */}
-          <line x1={relX} y1={TOP} x2={relX} y2={BOTTOM} stroke="#C2722A" strokeWidth="1.2" strokeDasharray="4 4" opacity={on ? 0.5 : 0} style={{ transition: "opacity 0.6s ease 1s" }} />
-          <g opacity={on ? 1 : 0} style={{ transition: "opacity 0.6s ease 1.2s" }}>
+          {/* Relaunch-Marker — poppt auf, wenn der Plotter ihn erreicht */}
+          <g
+            style={{
+              transformOrigin: `${relX}px ${TOP + 11}px`,
+              transform: markerOn ? "scale(1)" : "scale(0)",
+              opacity: markerOn ? 1 : 0,
+              transition: "transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease",
+            }}
+          >
+            <line x1={relX} y1={TOP} x2={relX} y2={BOTTOM} stroke="#C2722A" strokeWidth="1.2" strokeDasharray="4 4" opacity="0.5" />
             <rect x={relX - 34} y={TOP + 2} width="68" height="18" rx="9" fill="#1A1A1A" />
             <circle cx={relX - 22} cy={TOP + 11} r="2.4" fill="#D4A853">
               <animate attributeName="opacity" values="1;0.3;1" dur="2.2s" repeatCount="indefinite" />
@@ -185,10 +206,29 @@ export default function GscImpressionsChart() {
             <text x={relX + 5} y={TOP + 14.5} textAnchor="middle" fontSize="9.5" fontWeight="600" fill="#fff" letterSpacing="0.06em">RELAUNCH</text>
           </g>
 
-          {/* Gezackte Tages-Linie, Reveal von links */}
+          {/* Gezackte Tages-Linie, vom Plotter aufgedeckt */}
           <g clipPath="url(#gscReveal)">
             <path d={LINE} fill="none" stroke="#C2722A" strokeWidth="1.8" strokeLinejoin="round" />
           </g>
+
+          {/* Live-Plotter: Scan-Linie + glühender Zeichen-Punkt */}
+          {drawing && (
+            <g pointerEvents="none">
+              <line x1={px(drawI)} y1={TOP} x2={px(drawI)} y2={BOTTOM} stroke="#C2722A" strokeWidth="1" opacity="0.22" />
+              <circle cx={px(drawI)} cy={py(VALS[drawI])} r="16" fill="url(#gscGlow)" />
+              <circle cx={px(drawI)} cy={py(VALS[drawI])} r="4.5" fill="#fff" stroke="#C2722A" strokeWidth="2.5" />
+            </g>
+          )}
+
+          {/* Endpunkt-Puls nach Abschluss */}
+          {on && progress >= 1 && (
+            <g pointerEvents="none">
+              <circle cx={px(DAYS - 1)} cy={py(VALS[DAYS - 1])} r="9" fill="#C2722A" opacity="0.15">
+                <animate attributeName="r" values="6;11;6" dur="2.4s" repeatCount="indefinite" />
+              </circle>
+              <circle cx={px(DAYS - 1)} cy={py(VALS[DAYS - 1])} r="4" fill="#C2722A" stroke="#fff" strokeWidth="2" />
+            </g>
+          )}
 
           {/* Hover: vertikale Linie + Punkt */}
           {hover !== null && (
@@ -221,7 +261,6 @@ export default function GscImpressionsChart() {
 
       <style>{`
         @media (prefers-reduced-motion: reduce), (scripting: none) {
-          svg rect, svg line, svg g { transition: none !important; opacity: 1 !important; }
           #gscReveal rect { width: ${W}px !important; }
         }
       `}</style>
