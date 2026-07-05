@@ -74,12 +74,22 @@ const CHECKS = [
 ];
 
 const STEPS = [
-  { nr: "01", t: "SEO-Analyse der Bestandsseite", d: "Wir erfassen alle rankenden URLs, den bestehenden Traffic und die aktuelle Seitenstruktur. Diese Bestandsaufnahme ist die Grundlage für alles, was danach kommt." },
-  { nr: "02", t: "Konzept & Informationsarchitektur", d: "Aus der Analyse entsteht eine neue Sitemap und Seitenstruktur, abgestimmt auf Nutzerführung und Suchintention. Hier legen wir fest, welche Inhalte bleiben, zusammengeführt oder neu geschrieben werden." },
-  { nr: "03", t: "Design & UX", d: "Auf Basis der neuen Struktur entwickeln wir das Design — individuell, nicht aus einem Baukasten, und konsequent auf Conversion statt nur auf Optik ausgelegt." },
-  { nr: "04", t: "Entwicklung & Migration", d: "Die Website entsteht in Next.js oder WordPress, je nach Anforderung. Parallel migrieren wir die Inhalte und bauen die vollständige Redirect-Map auf." },
-  { nr: "05", t: "Pre-Launch-SEO-Check", d: "Vor dem Go-live prüfen wir jede Weiterleitung, jede Canonical-URL, alle Meta-Angaben und das Schema-Markup einzeln. Nichts geht live, das wir nicht vorher getestet haben." },
-  { nr: "06", t: "Launch & Monitoring", d: "Der Launch läuft kontrolliert über unsere CI/CD-Pipeline. Anschließend beobachten wir Rankings und Search Console 4–8 Wochen aktiv und reagieren sofort, wenn etwas auffällt." },
+  { nr: "01", t: "SEO-Analyse der Bestandsseite", d: "Wir erfassen alle rankenden URLs, den bestehenden Traffic und die aktuelle Seitenstruktur. Diese Bestandsaufnahme ist die Grundlage für alles, was danach kommt.", erg: "Voll-Crawl + Ranking-Inventar als Sicherheitsnetz" },
+  { nr: "02", t: "Konzept & Informationsarchitektur", d: "Aus der Analyse entsteht eine neue Sitemap und Seitenstruktur, abgestimmt auf Nutzerführung und Suchintention. Hier legen wir fest, welche Inhalte bleiben, zusammengeführt oder neu geschrieben werden.", erg: "Neue Sitemap + Redirect-Plan" },
+  { nr: "03", t: "Design & UX", d: "Auf Basis der neuen Struktur entwickeln wir das Design — individuell, nicht aus einem Baukasten, und konsequent auf Conversion statt nur auf Optik ausgelegt.", erg: "Freigegebenes Design für jede Kernseite" },
+  { nr: "04", t: "Entwicklung & Migration", d: "Die Website entsteht in Next.js oder WordPress, je nach Anforderung. Parallel migrieren wir die Inhalte und bauen die vollständige Redirect-Map auf.", erg: "Fertige Website + lückenlose 301-Map" },
+  { nr: "05", t: "Pre-Launch-SEO-Check", d: "Vor dem Go-live prüfen wir jede Weiterleitung, jede Canonical-URL, alle Meta-Angaben und das Schema-Markup einzeln. Nichts geht live, das wir nicht vorher getestet haben.", erg: "Geprüfte Redirects, Canonicals, Meta & Schema" },
+  { nr: "06", t: "Launch & Monitoring", d: "Der Launch läuft kontrolliert über unsere CI/CD-Pipeline. Anschließend beobachten wir Rankings und Search Console 4–8 Wochen aktiv und reagieren sofort, wenn etwas auffällt.", erg: "Live — mit 4–8 Wochen Monitoring inklusive" },
+];
+
+/* Hotspot-Positionen der sechs Turm-Ebenen im Stufen-Bild (in %) */
+const EBENEN_POS = [
+  { top: 87, left: 76 },
+  { top: 73.5, left: 79 },
+  { top: 60, left: 80 },
+  { top: 46.5, left: 80 },
+  { top: 33.5, left: 79 },
+  { top: 19.5, left: 74 },
 ];
 
 const KAUF_FAKTEN = [
@@ -148,6 +158,7 @@ export default function WebsiteRelaunchClient() {
   useScrollReveal();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [checked, setChecked] = useState<Set<number>>(new Set());
+  const [prozessStep, setProzessStep] = useState(0);
 
   const toggleCheck = (i: number) =>
     setChecked((prev) => {
@@ -176,9 +187,12 @@ export default function WebsiteRelaunchClient() {
         .m3d.scroll-visible { opacity: 1; transform: translateY(0) rotateX(0deg) scale(1); }
         @keyframes chipPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
         .chip-dot { animation: chipPulse 2.4s ease-in-out infinite; }
+        @keyframes aeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        .ae-in { animation: aeIn 0.4s ease both; }
         @media (prefers-reduced-motion: reduce), (scripting: none) {
           .m3d { opacity: 1; transform: none; transition: none; }
           .chip-dot { animation: none; }
+          .ae-in { animation: none; opacity: 1; transform: none; }
         }
       `}</style>
 
@@ -461,65 +475,113 @@ export default function WebsiteRelaunchClient() {
         </div>
       </section>
 
-      {/* ══ PROZESS — Editorial-Liste + Stufen-Bild ══ */}
+      {/* ══ PROZESS — Ebenen-Explorer: der Turm ist der Prozess ══ */}
       <section id="prozess" className="bg-white py-24 lg:py-32 scroll-mt-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHead
             eyebrow="Unser Relaunch-Prozess"
             title={<>Sechs Schritte,<br />null Ranking-Risiko.</>}
-            copy="Strukturiert, transparent und mit einem Monitoring, das nach dem Launch nicht aufhört."
+            copy="Jede Ebene des Turms ist ein Schritt: Klick dich vom Fundament bis zum glühenden Go-live-Button."
           />
 
-          <div className="grid lg:grid-cols-[1fr_minmax(0,400px)] gap-12 lg:gap-20 items-start">
-            <div className="border-t border-border">
-              {STEPS.map((st, i) => {
-                const last = i === STEPS.length - 1;
-                return (
-                  <div key={st.nr} className="scroll-hidden" style={{ transitionDelay: `${i * 60}ms` }}>
-                    <div className="group grid grid-cols-[64px_1fr] sm:grid-cols-[96px_1fr] gap-5 sm:gap-7 items-start border-b border-border px-2 py-6 lg:py-7 transition-colors duration-300 hover:bg-[#FBF8F4]">
-                      {last ? (
-                        <span
-                          className="font-[family-name:var(--font-heading)] text-5xl lg:text-6xl font-black leading-none select-none"
-                          style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
-                        >
-                          {st.nr}
-                        </span>
-                      ) : (
-                        <span className="font-[family-name:var(--font-heading)] text-5xl lg:text-6xl font-black leading-none select-none text-primary/15 transition-colors duration-300 group-hover:text-primary/35">
-                          {st.nr}
-                        </span>
-                      )}
-                      <div className="pt-1 min-w-0">
-                        <div className="mb-1.5 flex flex-wrap items-center gap-2.5">
-                          <h3 className="font-bold text-dark text-lg leading-snug">{st.t}</h3>
-                          {last && (
-                            <span className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-[11px] font-semibold" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba", color: "#C2722A" }}>
-                              4–8 Wochen inklusive
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-sm lg:text-[15px] text-muted leading-relaxed max-w-xl">{st.d}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="scroll-hidden lg:sticky lg:top-24" style={{ transitionDelay: "120ms" }}>
-              <div className="relative rounded-2xl overflow-hidden border border-border shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[4/5] w-full transform-gpu [backface-visibility:hidden]">
+          <div className="grid lg:grid-cols-[minmax(0,460px)_1fr] gap-10 lg:gap-16 items-center">
+            {/* Turm mit Ebenen-Hotspots */}
+            <div className="m3d relative mx-auto w-full max-w-[460px]">
+              <div className="relative rounded-2xl overflow-hidden border border-border shadow-[0_24px_60px_-28px_rgba(26,26,26,0.22)] aspect-[4/5] transform-gpu [backface-visibility:hidden]">
                 <Image
                   src="/images/relaunch-3d-stufen.png"
                   alt="3D-Illustration: Website entsteht in sechs Ebenen auf einem Gerüst — vom grauen Fundament bis zum glühenden Go-live-Button"
                   fill
                   className="object-cover"
-                  sizes="(max-width: 1024px) 100vw, 400px"
+                  sizes="(max-width: 1024px) 100vw, 460px"
                 />
+                {STEPS.map((st, i) => {
+                  const on = prozessStep === i;
+                  return (
+                    <button
+                      key={st.nr}
+                      type="button"
+                      onClick={() => setProzessStep(i)}
+                      onMouseEnter={() => setProzessStep(i)}
+                      aria-label={`Schritt ${st.nr}: ${st.t}`}
+                      className="absolute z-10 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full font-mono text-[11px] font-bold transition-all duration-300 cursor-pointer"
+                      style={{
+                        top: `${EBENEN_POS[i].top}%`,
+                        left: `${EBENEN_POS[i].left}%`,
+                        background: on ? "linear-gradient(135deg, #C2722A, #D4A853)" : "rgba(255,255,255,0.94)",
+                        color: on ? "#fff" : "#C2722A",
+                        border: on ? "1px solid transparent" : "1px solid #ecd3ba",
+                        boxShadow: on ? "0 10px 24px -8px rgba(194,114,42,0.6)" : "0 4px 12px -4px rgba(26,26,26,0.25)",
+                        transform: `translate(-50%, -50%) scale(${on ? 1.15 : 1})`,
+                      }}
+                    >
+                      {st.nr}
+                    </button>
+                  );
+                })}
               </div>
-              <p className="mt-3 text-xs text-muted">
-                Ebene für Ebene nach oben: Jede Stufe wird abgehakt, bevor die nächste beginnt —
-                bis der Go-live-Button glüht.
-              </p>
+              <p className="mt-3 text-center text-xs text-muted">Tippe die Ebenen an — von der Analyse (01) bis zum Go-live (06).</p>
+            </div>
+
+            {/* Synchrones Schritt-Panel */}
+            <div className="scroll-hidden" style={{ transitionDelay: "120ms" }}>
+              <div className="mb-6 flex flex-wrap gap-2">
+                {STEPS.map((st, i) => {
+                  const on = prozessStep === i;
+                  return (
+                    <button
+                      key={st.nr}
+                      type="button"
+                      onClick={() => setProzessStep(i)}
+                      aria-label={`Schritt ${st.nr} anzeigen`}
+                      className="flex h-10 w-10 items-center justify-center rounded-xl font-mono text-xs font-bold transition-all duration-300 cursor-pointer"
+                      style={{
+                        background: on ? "linear-gradient(135deg, #C2722A, #D4A853)" : "#fff",
+                        color: on ? "#fff" : "rgba(26,26,26,0.45)",
+                        border: on ? "1px solid transparent" : "1px solid var(--color-border)",
+                      }}
+                    >
+                      {st.nr}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div key={prozessStep}>
+                <div className="ae-in flex items-baseline gap-4 mb-3" style={{ animationDelay: "60ms" }}>
+                  <span
+                    className="font-[family-name:var(--font-heading)] text-6xl lg:text-7xl font-black leading-none"
+                    style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                  >
+                    {STEPS[prozessStep].nr}
+                  </span>
+                  <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-dark/40">/ 06</span>
+                </div>
+                <h3 className="ae-in font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark mb-3" style={{ animationDelay: "140ms" }}>
+                  {STEPS[prozessStep].t}
+                </h3>
+                <p className="ae-in text-muted leading-relaxed max-w-xl mb-5" style={{ animationDelay: "220ms" }}>
+                  {STEPS[prozessStep].d}
+                </p>
+                <div className="ae-in inline-flex items-start gap-2.5 rounded-2xl px-4 py-3" style={{ animationDelay: "300ms", background: "#fbf4ea", border: "1px solid #ecd3ba" }}>
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15">
+                    <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
+                    </svg>
+                  </span>
+                  <span className="text-sm text-dark">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-primary block mb-0.5">Ergebnis dieser Stufe</span>
+                    <span className="font-medium">{STEPS[prozessStep].erg}</span>
+                  </span>
+                </div>
+              </div>
+
+              {/* Alle Schritte für Suchmaschinen im DOM */}
+              <div className="sr-only">
+                {STEPS.map((st) => (
+                  <p key={st.nr}>{st.nr}. {st.t}: {st.d} Ergebnis: {st.erg}</p>
+                ))}
+              </div>
             </div>
           </div>
         </div>
