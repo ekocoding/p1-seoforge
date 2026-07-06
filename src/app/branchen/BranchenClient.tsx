@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SubpageLayout from "@/app/components/SubpageLayout";
@@ -31,12 +31,51 @@ const grad: React.CSSProperties = {
    BRANCHEN-HUB — kompakter heller Hero, 6 Karten im Hairline-Grid,
    kurze Abschluss-Section (beige), kompaktes dunkles CTA-Band.
 ═══════════════════════════════════════════════════════════════════════════ */
+const SPIELFELD = [
+  { label: "Ärzte", slug: "seo-fuer-aerzte", query: "kieferorthopäde kosten kinder köln",
+    gegner: "Jameda, Doctolib und Gesundheitsportale belegen die ersten Plätze — die Praxis-Website taucht oft gar nicht auf.",
+    seitentyp: "Eigene Behandlungs- und Symptomseiten je Leistung — nicht eine allgemeine Leistungsübersicht.",
+    hebel: "Vertrauenssignale für Googles strenge Gesundheits-Standards (YMYL) plus lokale Präsenz über das Google Business Profil.",
+    cta: "Zur Analyse für Praxen" },
+  { label: "Anwälte", slug: "seo-fuer-anwaelte", query: "fristlose kündigung wohnung was tun",
+    gegner: "Ratgeberportale und Kanzleien mit Content-Redaktion — dazu die teuersten Klickpreise im deutschen Ads-Markt.",
+    seitentyp: "Ratgeber-Inhalte zu Mandantenfragen in Alltagssprache — nicht Paragrafen-Listen nach Rechtsgebiet.",
+    hebel: "Eine Content-Strategie entlang des Rechtsfalls: sichtbar werden, bevor der Mandant eine Kanzlei googelt.",
+    cta: "Zur Analyse für Kanzleien" },
+  { label: "Online-Shops", slug: "seo-fuer-online-shops", query: "laufschuhe damen neutral größe 39",
+    gegner: "Amazon, Idealo und Marktplätze dominieren die Produktsuche — und Filter-URLs verbrennen intern das Crawling-Budget.",
+    seitentyp: "Kategorieseiten mit eigenem Inhalt und sauberer Struktur — sie tragen mehr als einzelne Produktseiten.",
+    hebel: "Technische Sauberkeit: Duplicate Content aus Filtern beheben und das Sortiment für Google lesbar machen.",
+    cta: "Zur Analyse für Shops" },
+  { label: "Handwerker", slug: "seo-fuer-handwerker", query: "heizung notdienst wochenende",
+    gegner: "MyHammer, Check24 und Vermittlungsportale fangen Anfragen ab — und kassieren pro Kontakt Provision.",
+    seitentyp: "Leistungsseiten je Gewerk und Einsatzort — kombiniert mit einem gepflegten Google Business Profil.",
+    hebel: "Lokale Signale: Maps-Sichtbarkeit, Bewertungen und Ortsbezug, damit Anfragen direkt statt über Portale kommen.",
+    cta: "Zur Analyse für Betriebe" },
+  { label: "Makler", slug: "seo-fuer-immobilienmakler", query: "was ist meine wohnung wert",
+    gegner: "ImmoScout24 und Immowelt besetzen die Objektsuche fast vollständig — dort ist organisch kaum vorbeizukommen.",
+    seitentyp: "Eigentümer-Ratgeber zu Bewertung, Verkauf und Erbe — die Suchen VOR dem Portal-Kontakt.",
+    hebel: "Eigentümer-Leads abholen, bevor das Objekt auf einem Portal landet — dort ist der Wettbewerb am kleinsten.",
+    cta: "Zur Analyse für Maklerbüros" },
+  { label: "SaaS", slug: "saas-seo", query: "projektmanagement tool alternative",
+    gegner: "G2, OMR Reviews und VC-finanzierte Wettbewerber mit großen Content-Teams besetzen die Vergleichs-Suchen.",
+    seitentyp: "Problem-, Vergleichs- und Alternative-Seiten — die Suchphase kurz vor der Kaufentscheidung.",
+    hebel: "GEO: sichtbar werden, wenn ChatGPT und Perplexity Software empfehlen — der Kanal, den fast alle ignorieren.",
+    cta: "Zur Analyse für SaaS" },
+];
+
 export default function BranchenClient() {
+  const [feld, setFeld] = useState(0);
   useScrollReveal();
 
   return (
     <SubpageLayout>
       <style>{`
+        @keyframes aeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .ae-in { opacity: 0; animation: aeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        @keyframes chipPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+        .chip-dot { animation: chipPulse 2.2s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) { .ae-in { animation: none; opacity: 1; } .chip-dot { animation: none; } }
         .scroll-hidden.rv-scale { transform: translateY(28px) scale(0.93); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
         .scroll-hidden.rv-blur { filter: blur(12px); transform: translateY(26px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.8s cubic-bezier(0.16,1,0.3,1); }
         .scroll-hidden.rv-scale.scroll-visible, .scroll-hidden.rv-blur.scroll-visible { transform: none; filter: none; }
@@ -141,70 +180,89 @@ export default function BranchenClient() {
         </div>
       </section>
 
-      {/* ══ 03 WARUM SEOFORGE — 2×2 Panels (Sureoak-Muster) ══ */}
+      {/* ══ 03 SPIELFELD-VERGLEICH — interaktiver Beweis der These ══ */}
       <section className="py-20 lg:py-28" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center mb-12 lg:mb-16">
-            <span className="scroll-hidden rv-blur block font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45 mb-4">
-              Warum Branchenfokus
-            </span>
-            <h2 className="scroll-hidden rv-blur font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight">
-              Gleiches Handwerk, <span style={grad}>anderes Spielfeld.</span>
-            </h2>
-            <p className="scroll-hidden rv-blur mt-5 text-muted leading-relaxed" style={{ transitionDelay: "100ms" }}>
-              Suchverhalten, Portale und Wettbewerbsdichte unterscheiden sich von Branche zu Branche erheblich.
-              Deshalb beginnt jede Zusammenarbeit bei uns mit der Frage, wie Ihre Kunden tatsächlich suchen —
-              nicht mit einem vorgefertigten Maßnahmenkatalog.
-            </p>
-          </div>
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-start">
 
-          <div className="grid gap-5 lg:gap-6 md:grid-cols-2">
-            {[
-              {
-                t: "Kein Schema F",
-                d: "Ein Maßnahmenkatalog, der für einen Online-Shop trägt, verpufft bei einer Kanzlei wirkungslos. Wir arbeiten entlang der Suchlogik Ihrer Branche — mit den Seitentypen, Inhalten und Signalen, die in Ihrem Markt tatsächlich über Sichtbarkeit entscheiden.",
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />,
-              },
-              {
-                t: "Mehr als SEO",
-                d: "SEO, GEO und Webdesign kommen bei uns aus einer Hand. Wenn Ihre Branche eine schnellere Website, bessere Landingpages oder Inhalte braucht, müssen Sie keine zweite Agentur koordinieren — wir setzen es direkt um, per CI/CD in Minuten statt Wochen.",
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />,
-              },
-              {
-                t: "Partner statt Ticketnummer",
-                d: "Sie haben einen festen Ansprechpartner, der Ihre Branche und Ihre Website kennt und innerhalb von 24 Stunden antwortet. Und Sie sehen dieselben Daten wie wir — Google Search Console, Semrush, Ahrefs — statt geschönter Zusammenfassungen.",
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a6.026 6.026 0 01-.941 3.197m0 0A11.943 11.943 0 0112 21c2.17 0 4.207-.576 5.963-1.584m-11.926 0A11.945 11.945 0 010 18.719m6.062-3.197A5.971 5.971 0 006 18.719m0 0v.031c0 .225.012.447.037.666" />,
-              },
-              {
-                t: "Sichtbar auch in der KI-Suche",
-                d: "Immer mehr Kunden fragen ChatGPT oder Perplexity statt Google — in den meisten Branchen ignoriert der Wettbewerb diesen Kanal noch komplett. Wir bauen Ihre Sichtbarkeit für beide Suchwelten auf, bevor es Ihre Konkurrenz tut.",
-                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />,
-              },
-            ].map((card, i) => (
-              <div
-                key={card.t}
-                className="scroll-hidden rv-scale rounded-3xl border border-border bg-white p-8 lg:p-10"
-                style={{ transitionDelay: `${i * 80}ms` }}
-              >
-                <span className="flex h-16 w-16 items-center justify-center rounded-full" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba" }}>
-                  <svg className="h-7 w-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">{card.icon}</svg>
+            <div className="lg:sticky lg:top-28">
+              <span className="scroll-hidden rv-left block font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45 mb-4">
+                Warum Branchenfokus
+              </span>
+              <h2 className="scroll-hidden rv-left font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight">
+                Gleiches Handwerk, <span style={grad}>anderes Spielfeld.</span>
+              </h2>
+              <p className="scroll-hidden rv-left mt-5 text-muted leading-relaxed" style={{ transitionDelay: "90ms" }}>
+                Wie Ihre Kunden suchen, wer in den Suchergebnissen dazwischensteht und welche Seiten
+                überhaupt ranken können — das unterscheidet sich von Branche zu Branche fundamental.
+                Klicken Sie sich durch: Dieselben vier Fragen, sechs völlig verschiedene Antworten.
+              </p>
+              <p className="scroll-hidden rv-left mt-4 text-sm text-muted leading-relaxed" style={{ transitionDelay: "150ms" }}>
+                Genau deshalb beginnt jede Zusammenarbeit bei uns mit dem Suchverhalten Ihres Marktes —
+                nicht mit einem vorgefertigten Maßnahmenkatalog.
+              </p>
+            </div>
+
+            <div className="scroll-hidden rv-right rounded-3xl border border-border bg-white shadow-[0_24px_60px_-30px_rgba(26,26,26,0.18)] overflow-hidden">
+              <div className="flex items-center justify-between border-b border-border px-6 py-3.5">
+                <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-dark/55">
+                  <span className="chip-dot inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+                  Spielfeld-Vergleich
                 </span>
-                <h3 className="mt-6 font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark">{card.t}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-muted">{card.d}</p>
+                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-dark/35">6 Branchen</span>
               </div>
-            ))}
-          </div>
 
-          <div className="scroll-hidden rv-blur mt-12 text-center" style={{ transitionDelay: "120ms" }}>
-            <Link
-              href="/leistungen"
-              className="group inline-flex items-center gap-2 text-sm font-semibold text-dark border-b border-dark/20 pb-0.5 hover:border-primary hover:text-primary transition-colors"
-            >
-              Alle Leistungen im Überblick
-              <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </Link>
+              <div className="flex flex-wrap gap-1.5 border-b border-border px-5 py-4" style={{ background: "#FBF8F4" }}>
+                {SPIELFELD.map((sp, i) => (
+                  <button
+                    key={sp.label}
+                    onClick={() => setFeld(i)}
+                    aria-pressed={feld === i}
+                    className={`rounded-full px-3.5 py-1.5 text-[13px] font-semibold transition-all duration-200 ${
+                      feld === i
+                        ? "bg-primary text-white shadow-sm"
+                        : "bg-white text-dark/65 border border-border hover:border-[#ecd3ba] hover:text-dark"
+                    }`}
+                  >
+                    {sp.label}
+                  </button>
+                ))}
+              </div>
+
+              <div key={feld} className="px-6 py-2 lg:px-7">
+                <div className="ae-in flex items-center gap-3 rounded-full border border-border bg-white px-4 py-3 my-5 shadow-sm" style={{ animationDelay: "40ms" }}>
+                  <svg className="h-4 w-4 shrink-0 text-dark/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                  </svg>
+                  <span className="truncate text-[15px] text-dark">{SPIELFELD[feld].query}</span>
+                  <span className="ml-auto hidden sm:block font-mono text-[10px] uppercase tracking-[0.14em] text-dark/35">So sucht Ihr Kunde</span>
+                </div>
+
+                {[
+                  { k: "Wer dazwischensteht", v: SPIELFELD[feld].gegner, d: "120ms" },
+                  { k: "Was ranken muss", v: SPIELFELD[feld].seitentyp, d: "200ms" },
+                  { k: "Der größte Hebel", v: SPIELFELD[feld].hebel, d: "280ms" },
+                ].map((row) => (
+                  <div key={row.k} className="ae-in grid grid-cols-[130px_1fr] sm:grid-cols-[170px_1fr] gap-4 border-t border-border py-4" style={{ animationDelay: row.d }}>
+                    <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.14em] text-dark/40 pt-0.5">{row.k}</span>
+                    <span className="text-[15px] leading-relaxed text-dark">{row.v}</span>
+                  </div>
+                ))}
+
+                <div className="ae-in border-t border-border py-4 mb-1" style={{ animationDelay: "360ms" }}>
+                  <Link
+                    href={`/branchen/${SPIELFELD[feld].slug}`}
+                    className="group inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
+                  >
+                    {SPIELFELD[feld].cta}
+                    <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
