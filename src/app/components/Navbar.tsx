@@ -48,6 +48,69 @@ const wissenFormate = [
   },
 ];
 
+const branchen = [
+  {
+    label: "Ärzte & Praxen",
+    href: "/branchen/seo-fuer-aerzte",
+    description: "Patienten suchen Symptome, nicht Namen",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.5 4.5v5a5.5 5.5 0 0011 0v-5M4.5 4.5H3m1.5 0H6m9.5 0H14m1.5 0H17m-7 10.5v2a4.5 4.5 0 009 0v-1m0 0a2 2 0 10.001-3.999A2 2 0 0019 16z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Anwälte & Kanzleien",
+    href: "/branchen/seo-fuer-anwaelte",
+    description: "Mandanten googeln Probleme, nicht Paragrafen",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v18m-7-3h14M5 18l2-11m-2 11h4m-2-11L5 9.5M7 7l2 2.5M17 7l2 11m-4 0h4m-2-11l-2 2.5M19 9.5L17 7M12 3c-1 1-3 1.5-5 1.5M12 3c1 1 3 1.5 5 1.5" />
+      </svg>
+    ),
+  },
+  {
+    label: "Online-Shops",
+    href: "/branchen/seo-fuer-online-shops",
+    description: "Kategorieseiten statt steigender Ads-Kosten",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+      </svg>
+    ),
+  },
+  {
+    label: "Handwerker",
+    href: "/branchen/seo-fuer-handwerker",
+    description: "Gefunden werden ohne Portal-Provision",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085" />
+      </svg>
+    ),
+  },
+  {
+    label: "Immobilienmakler",
+    href: "/branchen/seo-fuer-immobilienmakler",
+    description: "Eigentümer erreichen, bevor Portale es tun",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75" />
+      </svg>
+    ),
+  },
+  {
+    label: "SaaS & Software",
+    href: "/branchen/saas-seo",
+    description: "Sichtbar in Google und in ChatGPT-Antworten",
+    icon: (
+      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
+      </svg>
+    ),
+  },
+];
+
 const wissenThemen = [
   {
     label: "SEO Grundlagen",
@@ -223,6 +286,70 @@ export default function Navbar() {
             </div>
           </div>
 
+          {/* Branchen — grid dropdown */}
+          <div
+            className="relative"
+            onMouseEnter={() => setActiveDropdown("branchen")}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            <button
+              className="inline-flex items-center gap-1 rounded-lg px-4 py-2 text-sm font-medium text-dark transition-colors hover:bg-offwhite hover:text-primary"
+              aria-expanded={activeDropdown === "branchen"}
+            >
+              Branchen
+              <svg
+                className={`h-4 w-4 transition-transform ${activeDropdown === "branchen" ? "rotate-180" : ""}`}
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+              </svg>
+            </button>
+
+            <div className={`dropdown-menu absolute left-1/2 -translate-x-1/2 top-full pt-2 w-[560px] ${activeDropdown === "branchen" ? "open" : ""}`}>
+              <div className="rounded-2xl border border-border bg-white shadow-xl overflow-hidden">
+                <div className="p-4">
+                  <p className="mb-2 px-3 text-[11px] font-semibold uppercase tracking-wider text-muted">
+                    SEO nach Branche
+                  </p>
+                  <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
+                    {branchen.map((item) => (
+                      <Link
+                        key={item.href}
+                        href={item.href}
+                        onClick={handleNavClick}
+                        className="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all hover:bg-primary/[0.05]"
+                      >
+                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/[0.07] text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                          {item.icon}
+                        </div>
+                        <div className="min-w-0">
+                          <div className="text-sm font-semibold text-dark group-hover:text-primary transition-colors">
+                            {item.label}
+                          </div>
+                          <div className="text-xs text-muted truncate">{item.description}</div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="border-t border-border bg-offwhite/60 px-6 py-3">
+                  <Link
+                    href="/branchen"
+                    onClick={handleNavClick}
+                    className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary-dark"
+                  >
+                    Alle Branchen im Überblick
+                    <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+                    </svg>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Standorte */}
           <Link href="/standorte" onClick={handleNavClick} className="rounded-lg px-4 py-2 text-sm font-medium text-dark transition-colors hover:bg-offwhite hover:text-primary">
             Standorte
@@ -362,6 +489,7 @@ export default function Navbar() {
           {[
             { label: "Home", href: "/" },
             { label: "Leistungen", href: "/leistungen" },
+            { label: "Branchen", href: "/branchen" },
             { label: "Standorte", href: "/standorte" },
             { label: "Referenzen", href: "/referenzen" },
             { label: "Wissen", href: "/wissen" },
@@ -376,6 +504,23 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+
+          {/* Mobile Branchen sub-links */}
+          <div className="pt-1 pb-2 px-4">
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-2">SEO nach Branche</p>
+            <div className="grid grid-cols-2 gap-2">
+              {branchen.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={handleNavClick}
+                  className="rounded-lg border border-border px-3 py-2 text-sm font-medium text-dark hover:bg-offwhite hover:text-primary transition-colors"
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          </div>
 
           {/* Mobile Wissen sub-links */}
           <div className="pt-1 pb-2 px-4">
