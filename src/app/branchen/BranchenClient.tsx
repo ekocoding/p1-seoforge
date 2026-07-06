@@ -141,22 +141,61 @@ export default function BranchenClient() {
         </div>
       </section>
 
-      {/* ══ 03 WARUM BRANCHENFOKUS — beige, kompakt ══ */}
-      <section className="py-16 lg:py-24" style={{ background: "#F8F5F1" }}>
-        <div className="mx-auto max-w-3xl px-6 lg:px-8 text-center">
-          <span className="scroll-hidden rv-blur block font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45 mb-4">
-            Warum Branchenfokus
-          </span>
-          <h2 className="scroll-hidden rv-blur font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight mb-5">
-            Gleiches Handwerk, <span style={grad}>anderes Spielfeld.</span>
-          </h2>
-          <p className="scroll-hidden rv-blur text-muted leading-relaxed" style={{ transitionDelay: "100ms" }}>
-            Suchverhalten, Portale und Wettbewerbsdichte unterscheiden sich von Branche zu Branche erheblich —
-            was in einem Markt trägt, verpufft im nächsten wirkungslos. Deshalb beginnt jede Zusammenarbeit bei
-            uns mit der Frage, wie Ihre Kunden tatsächlich suchen, und nicht mit einem vorgefertigten
-            Maßnahmenkatalog.
-          </p>
-          <div className="scroll-hidden rv-blur mt-7" style={{ transitionDelay: "180ms" }}>
+      {/* ══ 03 WARUM SEOFORGE — 2×2 Panels (Sureoak-Muster) ══ */}
+      <section className="py-20 lg:py-28" style={{ background: "#F8F5F1" }}>
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-3xl text-center mb-12 lg:mb-16">
+            <span className="scroll-hidden rv-blur block font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45 mb-4">
+              Warum Branchenfokus
+            </span>
+            <h2 className="scroll-hidden rv-blur font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight">
+              Gleiches Handwerk, <span style={grad}>anderes Spielfeld.</span>
+            </h2>
+            <p className="scroll-hidden rv-blur mt-5 text-muted leading-relaxed" style={{ transitionDelay: "100ms" }}>
+              Suchverhalten, Portale und Wettbewerbsdichte unterscheiden sich von Branche zu Branche erheblich.
+              Deshalb beginnt jede Zusammenarbeit bei uns mit der Frage, wie Ihre Kunden tatsächlich suchen —
+              nicht mit einem vorgefertigten Maßnahmenkatalog.
+            </p>
+          </div>
+
+          <div className="grid gap-5 lg:gap-6 md:grid-cols-2">
+            {[
+              {
+                t: "Kein Schema F",
+                d: "Ein Maßnahmenkatalog, der für einen Online-Shop trägt, verpufft bei einer Kanzlei wirkungslos. Wir arbeiten entlang der Suchlogik Ihrer Branche — mit den Seitentypen, Inhalten und Signalen, die in Ihrem Markt tatsächlich über Sichtbarkeit entscheiden.",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />,
+              },
+              {
+                t: "Mehr als SEO",
+                d: "SEO, GEO und Webdesign kommen bei uns aus einer Hand. Wenn Ihre Branche eine schnellere Website, bessere Landingpages oder Inhalte braucht, müssen Sie keine zweite Agentur koordinieren — wir setzen es direkt um, per CI/CD in Minuten statt Wochen.",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />,
+              },
+              {
+                t: "Partner statt Ticketnummer",
+                d: "Sie haben einen festen Ansprechpartner, der Ihre Branche und Ihre Website kennt und innerhalb von 24 Stunden antwortet. Und Sie sehen dieselben Daten wie wir — Google Search Console, Semrush, Ahrefs — statt geschönter Zusammenfassungen.",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a6.026 6.026 0 01-.941 3.197m0 0A11.943 11.943 0 0112 21c2.17 0 4.207-.576 5.963-1.584m-11.926 0A11.945 11.945 0 010 18.719m6.062-3.197A5.971 5.971 0 006 18.719m0 0v.031c0 .225.012.447.037.666" />,
+              },
+              {
+                t: "Sichtbar auch in der KI-Suche",
+                d: "Immer mehr Kunden fragen ChatGPT oder Perplexity statt Google — in den meisten Branchen ignoriert der Wettbewerb diesen Kanal noch komplett. Wir bauen Ihre Sichtbarkeit für beide Suchwelten auf, bevor es Ihre Konkurrenz tut.",
+                icon: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z" />,
+              },
+            ].map((card, i) => (
+              <div
+                key={card.t}
+                className="scroll-hidden rv-scale rounded-3xl border border-border bg-white p-8 lg:p-10"
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
+                <span className="flex h-16 w-16 items-center justify-center rounded-full" style={{ background: "#fbf4ea", border: "1px solid #ecd3ba" }}>
+                  <svg className="h-7 w-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">{card.icon}</svg>
+                </span>
+                <h3 className="mt-6 font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark">{card.t}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-muted">{card.d}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="scroll-hidden rv-blur mt-12 text-center" style={{ transitionDelay: "120ms" }}>
             <Link
               href="/leistungen"
               className="group inline-flex items-center gap-2 text-sm font-semibold text-dark border-b border-dark/20 pb-0.5 hover:border-primary hover:text-primary transition-colors"
@@ -170,37 +209,43 @@ export default function BranchenClient() {
         </div>
       </section>
 
-      {/* ══ 04 CTA-BAND — dunkel, kompakt ══ */}
-      <section className="bg-dark py-20 lg:py-24">
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-            <div className="absolute -top-20 right-0 h-[300px] w-[300px] rounded-full bg-primary/[0.06] blur-3xl" />
-            <div className="absolute -bottom-10 left-0 h-[200px] w-[200px] rounded-full bg-secondary/[0.04] blur-3xl" />
-          </div>
+      {/* ══ 04 CTA — voll-flächiges Marken-Band (Sureoak-Muster) ══ */}
+      <section className="relative overflow-hidden py-24 lg:py-32" style={{ background: "linear-gradient(130deg, #C2722A 0%, #CE8B3E 55%, #D4A853 100%)" }}>
+        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+          <div className="absolute -top-24 -right-16 h-[380px] w-[380px] rounded-full bg-white/[0.07] blur-3xl" />
+          <div className="absolute -bottom-28 -left-16 h-[320px] w-[320px] rounded-full bg-white/[0.06] blur-3xl" />
+          <div
+            className="absolute inset-0 opacity-[0.12]"
+            style={{
+              backgroundImage: "radial-gradient(rgba(255,255,255,0.55) 1px, transparent 1px)",
+              backgroundSize: "26px 26px",
+              maskImage: "radial-gradient(ellipse 70% 60% at 50% 45%, black, transparent)",
+              WebkitMaskImage: "radial-gradient(ellipse 70% 60% at 50% 45%, black, transparent)",
+            }}
+          />
+        </div>
 
-          <div className="relative mx-auto max-w-3xl text-center">
-            <h2 className="scroll-hidden rv-blur font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] text-white leading-[1.15]">
-              Lassen Sie uns über{" "}
-              <span className="bg-gradient-to-r from-primary-light to-secondary bg-clip-text text-transparent">
-                Ihre Branche
-              </span>{" "}
-              sprechen.
-            </h2>
-            <p className="scroll-hidden rv-blur mt-5 text-white/60 leading-relaxed" style={{ transitionDelay: "100ms" }}>
-              Im kostenlosen Erstgespräch erhalten Sie eine ehrliche Einschätzung, wo in Ihrem Markt die
-              größten organischen Chancen liegen.
+        <div className="relative mx-auto max-w-3xl px-6 lg:px-8 text-center">
+          <h2 className="scroll-hidden rv-blur font-[family-name:var(--font-heading)] text-3xl sm:text-4xl lg:text-[46px] font-bold text-white leading-[1.12]">
+            Ihre kostenlose Erstanalyse — für Ihre Branche.
+          </h2>
+          <p className="scroll-hidden rv-blur mx-auto mt-5 max-w-2xl text-white/85 leading-relaxed lg:text-lg" style={{ transitionDelay: "100ms" }}>
+            Wir prüfen Ihre Website, Ihre Rankings und Ihre Sichtbarkeit in der KI-Suche — und sagen Ihnen
+            ehrlich, wo in Ihrem Markt die größten Chancen liegen. Unverbindlich und ohne Verkaufsdruck.
+          </p>
+          <div className="scroll-hidden rv-blur mt-9" style={{ transitionDelay: "180ms" }}>
+            <Link
+              href="/kontakt"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-white px-9 py-4 text-sm font-bold text-primary shadow-[0_18px_40px_-14px_rgba(26,26,26,0.35)] transition-all hover:-translate-y-0.5 hover:shadow-[0_24px_50px_-16px_rgba(26,26,26,0.4)]"
+            >
+              Kostenlose Erstanalyse anfordern
+              <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+            <p className="mt-5 font-mono text-[11px] uppercase tracking-[0.18em] text-white/70">
+              Antwort &lt; 24 h · unverbindlich · keine Vorlage nötig
             </p>
-            <div className="scroll-hidden rv-blur mt-8" style={{ transitionDelay: "180ms" }}>
-              <Link
-                href="/kontakt"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-light"
-              >
-                Kostenloses Erstgespräch anfragen
-                <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </Link>
-            </div>
           </div>
         </div>
       </section>
