@@ -110,51 +110,30 @@ export default function BranchenClient() {
             </p>
           </div>
 
-          <div className="grid gap-5 lg:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-x-8 gap-y-14 lg:gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
             {branchen.map((b, i) => {
               const iconImg = b.slug === "saas-seo" ? "saas" : b.slug.replace("seo-fuer-", "");
               return (
               <Link
                 key={b.slug}
                 href={`/branchen/${b.slug}`}
-                className="scroll-hidden rv-scale group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-white p-6 lg:p-7 shadow-[0_10px_30px_-20px_rgba(26,26,26,0.14)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-26px_rgba(194,114,42,0.30)]"
-                style={{ transitionDelay: `${i * 70}ms`, borderColor: undefined }}
+                className="scroll-hidden rv-scale group flex flex-col items-center text-center px-2"
+                style={{ transitionDelay: `${i * 70}ms` }}
               >
-                <span
-                  className="absolute top-0 left-0 right-0 h-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
-                  aria-hidden="true"
-                />
+                <span className="relative block h-28 w-28 lg:h-32 lg:w-32 overflow-hidden rounded-full ring-1 ring-border shadow-[0_14px_34px_-20px_rgba(194,114,42,0.35)] transition-all duration-500 group-hover:-translate-y-1.5 group-hover:shadow-[0_24px_50px_-22px_rgba(194,114,42,0.45)] group-hover:ring-[#ecd3ba]">
+                  <Image
+                    src={`/images/branchen-icons/${iconImg}.png`}
+                    alt={`${b.name} — Illustration`}
+                    fill
+                    sizes="128px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.07]"
+                  />
+                </span>
 
-                <div className="flex items-start justify-between gap-4 mb-6">
-                  <span className="relative block h-24 w-24 lg:h-28 lg:w-28 shrink-0 overflow-hidden rounded-2xl border border-border transition-transform duration-500 group-hover:scale-[1.05] group-hover:rotate-[1.5deg]">
-                    <Image
-                      src={`/images/branchen-icons/${iconImg}.png`}
-                      alt={`${b.name} — Illustration`}
-                      fill
-                      sizes="112px"
-                      className="object-cover"
-                    />
-                  </span>
-                  <span
-                    className="font-[family-name:var(--font-heading)] text-5xl font-black text-primary/10 leading-none transition-colors duration-300 group-hover:text-primary/25"
-                    aria-hidden="true"
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                </div>
-
-                <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark mb-2 group-hover:text-primary transition-colors">
+                <h3 className="mt-6 font-[family-name:var(--font-heading)] text-xl lg:text-[22px] font-bold text-dark transition-colors duration-300 group-hover:text-primary">
                   {b.name}
                 </h3>
-                <p className="text-sm text-muted leading-relaxed">{b.accent}</p>
-
-                <span className="mt-auto pt-5 inline-flex items-center gap-2 text-sm font-semibold text-dark group-hover:text-primary transition-colors">
-                  Mehr erfahren
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                  </svg>
-                </span>
+                <p className="mt-3 max-w-[300px] text-sm leading-relaxed text-muted">{b.accent}</p>
               </Link>
               );
             })}
