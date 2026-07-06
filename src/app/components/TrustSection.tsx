@@ -98,13 +98,11 @@ const SERVICE_ITEMS = [
 
 function AhrefsLogo() {
   return (
-    <div className="shrink-0 flex items-center">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="https://ahrefs.com/assets/esbuild/ahrefs-logo-blue-I5LZ4NMJ.svg"
-        alt="Ahrefs"
-        className="h-6 w-auto"
-      />
+    <div className="flex items-center gap-2 shrink-0">
+      <svg viewBox="0 0 128 128" className="h-7 w-7 shrink-0" aria-hidden="true">
+        <path fill="#FF8800" d="m24 8v24h64v16l-26.104 0.456c-35.096 3.256-45.896 11.624-45.896 36.504v6.512c0 19.064 14.328 28.528 32 28.528 7.984 0 16.32-1.56 25.04-5.976l14.96-6.024v12h24v-112zm64 76-18.112 7.472c-6.296 3.488-12.832 5.344-17.92 5.344-6.288 0-11.968-1.136-11.968-8.816v-5.12c0.48-8.136 7.376-11.176 26.256-13.032l21.744-1.848z" />
+      </svg>
+      <span className="text-lg font-bold text-[#053CFF] whitespace-nowrap tracking-tight">ahrefs</span>
     </div>
   );
 }
@@ -170,7 +168,7 @@ function ScreamingFrogLogo() {
     <div className="shrink-0 flex items-center">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="https://www.screamingfrog.co.uk/wp-content/themes/screamingfrog/public/images/logos/logo.png"
+        src="/images/logos/screamingfrog.png"
         alt="Screaming Frog"
         className="h-7 w-auto"
       />
