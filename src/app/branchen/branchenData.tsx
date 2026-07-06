@@ -7,16 +7,76 @@ import type { ReactNode } from "react";
    EIN interner Pflicht-Link im zweiten WARUM-Absatz.
 ═══════════════════════════════════════════════════════════════════════════ */
 
+/* Layout-Varianten: gleiches Design-System, je Branche eigener Section-Mix */
+export type HeroVariant = "split" | "zentriert" | "suchfeld";
+export type HebelVariant = "grid" | "editorial" | "stack";
+
+/* Daten für das branchenspezifische Signature-Mockup (statisches Beispiel-Panel) */
+export type Signature =
+  | {
+      variant: "serp";
+      panelTitle: string;
+      query: string;
+      mapsRows: { name: string; eigene?: boolean }[];
+    }
+  | {
+      variant: "klickpreise";
+      panelTitle: string;
+      hinweis: string;
+      rows: { gebiet: string; breite: number; wert: string }[];
+      fazit: string;
+      fazitWert: string;
+    }
+  | {
+      variant: "strukturbaum";
+      panelTitle: string;
+      rows: { pfad: string; tiefe: 0 | 1 | 2; status: "INDEX" | "NOINDEX" | "CANONICAL" }[];
+      fussnote: string;
+    }
+  | {
+      variant: "businessprofil";
+      panelTitle: string;
+      betrieb: string;
+      bewertung: string;
+      anzahl: string;
+      kategorie: string;
+      ort: string;
+      status: string;
+      chips: string[];
+    }
+  | {
+      variant: "funnel";
+      panelTitle: string;
+      stufen: { query: string; satz: string; highlight?: boolean }[];
+    }
+  | {
+      variant: "kichat";
+      panelTitle: string;
+      frage: string;
+      marke: string;
+      quellen: string;
+    };
+
 export type Branche = {
   slug: string;
   name: string;
   kurzName: string;
   keyword: string;
+  heroVariant: HeroVariant;
+  hebelVariant: HebelVariant;
+  /** Beispiel-Query für die Suchfeld-Zeile im „suchfeld“-Hero */
+  heroQuery?: string;
   h1: { pre: string; grad: string; post?: string };
   subline: string;
   ctaLabel: string;
   warumTitle: { pre: string; grad: string };
   warumAbsaetze: ReactNode[];
+  /** Signature-Modul: bei heroVariant "split" im Hero, sonst eigene Section nach WARUM */
+  signature: Signature;
+  /** H2 der eigenständigen Signature-Section (entfällt bei heroVariant "split") */
+  signatureTitle?: { pre: string; grad: string };
+  /** Zwei kurze Begleitsätze der Signature-Section (entfällt bei heroVariant "split") */
+  signatureCopy?: string[];
   hebel: { titel: string; text: string }[];
   faq: { q: string; a: string }[];
   ctaSatz: { pre: string; grad: string };
@@ -50,6 +110,23 @@ export const branchen: Branche[] = [
     name: "SEO für Ärzte",
     kurzName: "Ärzte",
     keyword: "SEO für Ärzte",
+    heroVariant: "zentriert",
+    hebelVariant: "editorial",
+    signature: {
+      variant: "serp",
+      panelTitle: "Lokale Suche",
+      query: "zahnarzt köln ehrenfeld",
+      mapsRows: [
+        { name: "Zahnarztpraxis Dr. Mustermann", eigene: true },
+        { name: "Zahnzentrum am Beispielring" },
+        { name: "Praxis Dr. Beispielmann" },
+      ],
+    },
+    signatureTitle: { pre: "Das Ziel: Ihre Praxis ", grad: "im lokalen Suchergebnis." },
+    signatureCopy: [
+      "Bei lokalen Behandlungssuchen entscheidet der Kartenausschnitt mit den ersten drei Einträgen, welche Praxen ein Patient überhaupt wahrnimmt.",
+      "Wir richten Unternehmensprofil, Bewertungssignale und Behandlungsseiten so aus, dass Ihre Praxis dort mit der eigenen Website vertreten ist — nicht nur über Portalprofile.",
+    ],
     h1: {
       pre: "SEO für Ärzte: Sichtbar sein, wenn Patienten ",
       grad: "nach Symptomen und Behandlungen suchen",
@@ -135,6 +212,21 @@ export const branchen: Branche[] = [
     name: "SEO für Anwälte",
     kurzName: "Anwälte",
     keyword: "SEO für Anwälte",
+    heroVariant: "split",
+    hebelVariant: "grid",
+    signature: {
+      variant: "klickpreise",
+      panelTitle: "Klickkosten je Rechtsgebiet",
+      hinweis: "Google Ads — Klickpreis-Niveau, illustrativ",
+      rows: [
+        { gebiet: "Verkehrsrecht", breite: 92, wert: "€€€€" },
+        { gebiet: "Familienrecht", breite: 76, wert: "€€€" },
+        { gebiet: "Arbeitsrecht", breite: 62, wert: "€€€" },
+        { gebiet: "Mietrecht", breite: 48, wert: "€€" },
+      ],
+      fazit: "Organisches Ranking",
+      fazitWert: "0 € pro Klick",
+    },
     h1: {
       pre: "SEO für Anwälte: Mandanten finden Sie über ihr Problem, ",
       grad: "nicht über den Paragrafen",
@@ -219,6 +311,27 @@ export const branchen: Branche[] = [
     name: "SEO für Online-Shops",
     kurzName: "Online-Shops",
     keyword: "SEO für Online-Shops",
+    heroVariant: "suchfeld",
+    hebelVariant: "stack",
+    heroQuery: "laufschuhe damen neutral größe 39",
+    signature: {
+      variant: "strukturbaum",
+      panelTitle: "Indexierung im Shop",
+      rows: [
+        { pfad: "/laufschuhe", tiefe: 0, status: "INDEX" },
+        { pfad: "/laufschuhe/damen", tiefe: 1, status: "INDEX" },
+        { pfad: "?farbe=blau&groesse=39", tiefe: 2, status: "CANONICAL" },
+        { pfad: "?sort=preis-aufsteigend", tiefe: 2, status: "NOINDEX" },
+        { pfad: "/laufschuhe/herren", tiefe: 1, status: "INDEX" },
+        { pfad: "?farbe=schwarz", tiefe: 2, status: "CANONICAL" },
+      ],
+      fussnote: "Crawling-Budget fließt in Kategorien — nicht in Filter-Varianten",
+    },
+    signatureTitle: { pre: "Eine Shop-Struktur, ", grad: "die Google versteht." },
+    signatureCopy: [
+      "Jede Filter- und Sortierkombination kann eine eigene URL erzeugen — für Google sind das konkurrierende Kopien derselben Kategorie.",
+      "Die Tafel zeigt das Prinzip der Bereinigung: Kategorieseiten bleiben im Index, Parameter-Varianten werden per Canonical gebündelt oder gezielt ausgeschlossen.",
+    ],
     h1: {
       pre: "SEO für Online-Shops: Kategorieseiten, die verkaufen, ",
       grad: "statt nur Ads, die kosten",
@@ -296,6 +409,25 @@ export const branchen: Branche[] = [
     name: "SEO für Handwerker",
     kurzName: "Handwerker",
     keyword: "SEO für Handwerker",
+    heroVariant: "suchfeld",
+    hebelVariant: "grid",
+    heroQuery: "heizung notdienst wochenende",
+    signature: {
+      variant: "businessprofil",
+      panelTitle: "Google Business Profil",
+      betrieb: "Mustermann Haustechnik",
+      bewertung: "4,9",
+      anzahl: "127",
+      kategorie: "SHK-Betrieb",
+      ort: "Musterstadt",
+      status: "Jetzt geöffnet",
+      chips: ["Anrufen", "Route", "Website"],
+    },
+    signatureTitle: { pre: "Das Profil, das Kunden ", grad: "zuerst sehen." },
+    signatureCopy: [
+      "Bei „in meiner Nähe“-Suchen erscheint Ihr Unternehmensprofil mit Bewertungen, Öffnungszeiten und Route, noch bevor Ihre Website eine Rolle spielt.",
+      "Wir pflegen dieses Profil als festen Bestandteil der SEO-Arbeit, damit Anrufe und Routenanfragen direkt bei Ihrem Betrieb ankommen.",
+    ],
     h1: {
       pre: "SEO für Handwerker: ",
       grad: "Volle Auftragsbücher von morgen",
@@ -373,6 +505,32 @@ export const branchen: Branche[] = [
     name: "SEO für Immobilienmakler",
     kurzName: "Immobilienmakler",
     keyword: "SEO für Immobilienmakler",
+    heroVariant: "zentriert",
+    hebelVariant: "stack",
+    signature: {
+      variant: "funnel",
+      panelTitle: "Eigentümer-Suchen",
+      stufen: [
+        {
+          query: "was ist meine wohnung wert",
+          satz: "Der erste Impuls — lange bevor ein Makler oder ein Portal eine Rolle spielt.",
+        },
+        {
+          query: "immobilie verkaufen ablauf",
+          satz: "Die konkrete Planung: Eigentümer vergleichen jetzt Wege mit und ohne Makler.",
+        },
+        {
+          query: "makler [stadt]",
+          satz: "Hier gewinnt Ihre Website — nicht das Portal.",
+          highlight: true,
+        },
+      ],
+    },
+    signatureTitle: { pre: "Drei Suchen — ", grad: "alle vor dem Portal." },
+    signatureCopy: [
+      "Vom ersten Wertgefühl bis zur Maklerwahl arbeiten sich Eigentümer über mehrere Suchanfragen an die Verkaufsentscheidung heran.",
+      "Wer jede dieser Suchen mit eigenen Inhalten besetzt, führt das Erstgespräch, bevor das Objekt auf einem Portal erscheint — genau dort setzen wir an.",
+    ],
     h1: {
       pre: "SEO für Immobilienmakler: Eigentümer finden, ",
       grad: "bevor sie beim Portal landen",
@@ -450,6 +608,15 @@ export const branchen: Branche[] = [
     name: "SaaS SEO",
     kurzName: "SaaS",
     keyword: "SaaS SEO",
+    heroVariant: "split",
+    hebelVariant: "editorial",
+    signature: {
+      variant: "kichat",
+      panelTitle: "KI-Suche",
+      frage: "Welches Tool für automatische Rechnungsbuchung, DSGVO-konform?",
+      marke: "ihre-software.de",
+      quellen: "Quellen: 3 Vergleichsseiten",
+    },
     h1: {
       pre: "SaaS SEO: Sichtbar sein, ",
       grad: "wenn ChatGPT und Google Ihre Software empfehlen",
