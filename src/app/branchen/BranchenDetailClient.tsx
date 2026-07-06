@@ -31,9 +31,12 @@ const grad: React.CSSProperties = {
 const BEIGE = "#F8F5F1";
 const TINT = "#fbf4ea";
 const TINT_BORDER = "#ecd3ba";
+/* Neutraler ✗-Warn-Tint auf Markenbasis (#C2722A mit 10 % Deckung) */
+const WARN_BG = "rgba(194,114,42,0.10)";
+const WARN_BORDER = "rgba(194,114,42,0.28)";
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Kleine Bausteine für die statischen Mockup-Panels (Spielfeld-Panel-Stil)
+   Kleine Bausteine für die Mockup-Panels (Spielfeld-Panel-Stil)
 ═══════════════════════════════════════════════════════════════════════════ */
 
 function Lupe({ className }: { className?: string }) {
@@ -76,17 +79,81 @@ function PanelShell({ titel, label = "Beispiel", children }: { titel: string; la
   );
 }
 
-/* ─── 01 Ärzte · Lokale-SERP-Mockup ───────────────────────────────────────── */
+/* Toggle-Pills für die Mini-Apps (Spielfeld-Chip-Stil, aria-pressed) */
+function TogglePills({
+  optionen,
+  aktiv,
+  onChange,
+  className = "",
+}: {
+  optionen: string[];
+  aktiv: number;
+  onChange: (i: number) => void;
+  className?: string;
+}) {
+  return (
+    <div className={`flex flex-wrap gap-1.5 ${className}`} role="group">
+      {optionen.map((o, i) => (
+        <button
+          key={o}
+          type="button"
+          onClick={() => onChange(i)}
+          aria-pressed={aktiv === i}
+          className={`cursor-pointer rounded-full px-3.5 py-1.5 text-[12px] font-semibold transition-all duration-200 ${
+            aktiv === i
+              ? "bg-primary text-white shadow-sm"
+              : "border border-border bg-white text-dark/60 hover:border-[#ecd3ba] hover:text-dark"
+          }`}
+        >
+          {o}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+/* ✗-Chip im Mono-Stil (fehlende/fehlerhafte Zustände in den Mockups) */
+function XChip({ text }: { text: string }) {
+  return (
+    <span
+      className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-primary"
+      style={{ background: WARN_BG, borderColor: WARN_BORDER }}
+    >
+      <span aria-hidden="true">✗</span>
+      {text}
+    </span>
+  );
+}
+
+/* ✗-Medaillon für die FEHLER-Section */
+function FehlerX() {
+  return (
+    <span
+      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-[13px] font-bold text-primary"
+      style={{ background: WARN_BG, borderColor: WARN_BORDER }}
+      aria-hidden="true"
+    >
+      ✗
+    </span>
+  );
+}
+
+/* ─── 01 Ärzte · Lokale-SERP-App: „Ohne SEO / Mit SEO“ ────────────────────── */
 function SigSerp({ sig }: { sig: Extract<Signature, { variant: "serp" }> }) {
+  const [ansicht, setAnsicht] = useState(1); // 0 = Ohne SEO · 1 = Mit SEO
+  const mit = ansicht === 1;
+
   return (
     <PanelShell titel={sig.panelTitle}>
       <div className="px-5 py-5 lg:px-6">
-        <div className="flex items-center gap-3 rounded-full border border-border bg-white px-4 py-2.5 shadow-sm">
+        <TogglePills optionen={["Ohne SEO", "Mit SEO"]} aktiv={ansicht} onChange={setAnsicht} />
+
+        <div className="mt-4 flex items-center gap-3 rounded-full border border-border bg-white px-4 py-2.5 shadow-sm">
           <Lupe className="h-4 w-4 shrink-0 text-dark/40" />
           <span className="truncate text-sm text-dark">{sig.query}</span>
         </div>
 
-        <div className="mt-4 overflow-hidden rounded-2xl border border-border">
+        <div key={ansicht} className="mt-4 overflow-hidden rounded-2xl border border-border">
           <div className="flex items-center gap-2 border-b border-border px-4 py-2.5" style={{ background: "#FBF8F4" }}>
             <svg className="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -95,25 +162,50 @@ function SigSerp({ sig }: { sig: Extract<Signature, { variant: "serp" }> }) {
             <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-dark/45">Maps-Ergebnisse</span>
           </div>
           <div className="divide-y divide-border">
-            {sig.mapsRows.map((r) => (
-              <div key={r.name} className="flex items-center gap-3 px-4 py-3" style={r.eigene ? { background: TINT } : undefined}>
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="truncate text-[13px] font-semibold text-dark">{r.name}</span>
-                    {r.eigene && (
-                      <span className="rounded-full border bg-white px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-primary" style={{ borderColor: TINT_BORDER }}>
-                        Ihre Praxis
-                      </span>
-                    )}
+            {mit
+              ? sig.mapsRows.map((r, i) => (
+                  <div
+                    key={r.name}
+                    className="ae-in flex items-center gap-3 px-4 py-3"
+                    style={{ animationDelay: `${i * 90}ms`, ...(r.eigene ? { background: TINT } : {}) }}
+                  >
+                    <div className="min-w-0 flex-1">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="truncate text-[13px] font-semibold text-dark">{r.name}</span>
+                        {r.eigene && (
+                          <span className="rounded-full border bg-white px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-primary" style={{ borderColor: TINT_BORDER }}>
+                            Ihre Praxis
+                          </span>
+                        )}
+                      </div>
+                      <div className="mt-1">
+                        <Sterne />
+                      </div>
+                    </div>
+                    <span className="shrink-0 rounded-full border border-border bg-white px-2.5 py-1 text-[11px] font-semibold text-dark/55">Website</span>
                   </div>
-                  <div className="mt-1">
-                    <Sterne />
+                ))
+              : sig.fremdRows.map((name, i) => (
+                  <div key={name} className="ae-in flex items-center gap-3 px-4 py-3" style={{ animationDelay: `${i * 90}ms` }}>
+                    <div className="min-w-0 flex-1">
+                      <span className="block truncate text-[13px] font-semibold text-dark">{name}</span>
+                      <div className="mt-1">
+                        <Sterne />
+                      </div>
+                    </div>
+                    <span className="shrink-0 rounded-full border border-border bg-white px-2.5 py-1 text-[11px] font-semibold text-dark/55">Website</span>
                   </div>
-                </div>
-                <span className="shrink-0 rounded-full border border-border bg-white px-2.5 py-1 text-[11px] font-semibold text-dark/55">Website</span>
-              </div>
-            ))}
+                ))}
           </div>
+          {!mit && (
+            <div className="ae-in flex items-center gap-2.5 border-t border-border px-4 py-3" style={{ background: "#FBF8F4", animationDelay: "290ms" }}>
+              <span className="shrink-0 font-mono text-[11px] text-dark/35" aria-hidden="true">
+                ✗
+              </span>
+              <span className="truncate text-[13px] font-semibold text-dark/40">Ihre Praxis</span>
+              <span className="shrink-0 text-[12px] text-dark/35">— nicht im Kartenausschnitt</span>
+            </div>
+          )}
         </div>
 
         <div className="mt-4 space-y-3">
@@ -129,37 +221,74 @@ function SigSerp({ sig }: { sig: Extract<Signature, { variant: "serp" }> }) {
   );
 }
 
-/* ─── 02 Anwälte · Klickpreis-Tafel ───────────────────────────────────────── */
+/* ─── 02 Anwälte · Klickpreis-App: Rechtsgebiets-Chips ────────────────────── */
+function BarFill({ breite, gedimmt }: { breite: number; gedimmt: boolean }) {
+  const [grow, setGrow] = useState(false);
+  useEffect(() => {
+    let r2 = 0;
+    const r1 = requestAnimationFrame(() => {
+      r2 = requestAnimationFrame(() => setGrow(true));
+    });
+    return () => {
+      cancelAnimationFrame(r1);
+      if (r2) cancelAnimationFrame(r2);
+    };
+  }, []);
+  return (
+    <span className="block h-2 overflow-hidden rounded-full" style={{ background: "#f1ece4" }} aria-hidden="true">
+      <span
+        className="bar-fill block h-full rounded-full"
+        style={{
+          width: grow ? `${breite}%` : "0%",
+          opacity: gedimmt ? 0.3 : 1,
+          background: "linear-gradient(90deg, #C2722A, #D4A853)",
+        }}
+      />
+    </span>
+  );
+}
+
 function SigKlickpreise({ sig }: { sig: Extract<Signature, { variant: "klickpreise" }> }) {
+  const [aktiv, setAktiv] = useState(0);
   return (
     <PanelShell titel={sig.panelTitle}>
-      <div className="px-5 pb-1 pt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40 lg:px-6">{sig.hinweis}</div>
-      <div className="divide-y divide-border">
-        {sig.rows.map((r) => (
-          <div key={r.gebiet} className="grid grid-cols-[104px_1fr_auto] items-center gap-3 px-5 py-3.5 lg:grid-cols-[124px_1fr_auto] lg:px-6">
-            <span className="truncate text-[13px] font-semibold text-dark">{r.gebiet}</span>
-            <span className="block h-2 overflow-hidden rounded-full" style={{ background: "#f1ece4" }} aria-hidden="true">
-              <span
-                className="block h-full rounded-full"
-                style={{ width: `${r.breite}%`, background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
-              />
-            </span>
-            <span className="font-mono text-[11px] tracking-[0.08em] text-dark/55">{r.wert}</span>
-          </div>
-        ))}
-        <div className="flex items-center gap-2.5 px-5 py-4 lg:px-6" style={{ background: TINT }}>
-          <svg className="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <path d="m4.5 12.75 6 6 9-13.5" />
-          </svg>
-          <span className="text-[13px] font-semibold text-dark">{sig.fazit}</span>
-          <span className="ml-auto font-mono text-[11px] font-semibold text-primary">{sig.fazitWert}</span>
-        </div>
+      <div className="px-5 pt-4 lg:px-6">
+        <TogglePills optionen={sig.rows.map((r) => r.gebiet)} aktiv={aktiv} onChange={setAktiv} />
+      </div>
+      <div className="px-5 pb-1 pt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40 lg:px-6">{sig.hinweis}</div>
+      <div key={aktiv} className="divide-y divide-border border-b border-border">
+        {sig.rows.map((r, i) => {
+          const istAktiv = i === aktiv;
+          return (
+            <div key={r.gebiet} className="ae-in" style={{ animationDelay: `${i * 70}ms` }}>
+              <div
+                className="grid grid-cols-[104px_1fr_auto] items-center gap-3 px-5 py-3.5 transition-colors duration-300 lg:grid-cols-[124px_1fr_auto] lg:px-6"
+                style={istAktiv ? { background: TINT } : undefined}
+              >
+                <span className={`truncate text-[13px] font-semibold transition-colors duration-300 ${istAktiv ? "text-dark" : "text-dark/40"}`}>
+                  {r.gebiet}
+                </span>
+                <BarFill breite={r.breite} gedimmt={!istAktiv} />
+                <span className={`font-mono text-[11px] tracking-[0.08em] transition-colors duration-300 ${istAktiv ? "font-semibold text-primary" : "text-dark/35"}`}>
+                  {r.wert}
+                </span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <div className="flex items-center gap-2.5 px-5 py-4 lg:px-6" style={{ background: TINT }}>
+        <svg className="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+          <path d="m4.5 12.75 6 6 9-13.5" />
+        </svg>
+        <span className="text-[13px] font-semibold text-dark">{sig.fazit}</span>
+        <span className="ml-auto font-mono text-[11px] font-semibold text-primary">{sig.fazitWert}</span>
       </div>
     </PanelShell>
   );
 }
 
-/* ─── 03 Online-Shops · Struktur-Baum ─────────────────────────────────────── */
+/* ─── 03 Online-Shops · Struktur-App: „Vorher / Nach der Bereinigung“ ─────── */
 const STATUS_CHIP: Record<string, string> = {
   INDEX: "border-emerald-200 bg-emerald-50 text-emerald-700",
   NOINDEX: "border-border bg-[#F8F5F1] text-dark/45",
@@ -168,11 +297,16 @@ const STATUS_CHIP: Record<string, string> = {
 const STATUS_TEXT: Record<string, string> = { INDEX: "Index", NOINDEX: "Noindex", CANONICAL: "Canonical →" };
 
 function SigStrukturbaum({ sig }: { sig: Extract<Signature, { variant: "strukturbaum" }> }) {
+  const [phase, setPhase] = useState(1); // 0 = Vorher · 1 = Nach der Bereinigung
+  const nachher = phase === 1;
   return (
     <PanelShell titel={sig.panelTitle}>
-      <div className="divide-y divide-border">
-        {sig.rows.map((r, i) => (
-          <div key={i} className="flex items-center gap-3 px-5 py-3 lg:px-6">
+      <div className="border-b border-border px-5 py-4 lg:px-6">
+        <TogglePills optionen={["Vorher", "Nach der Bereinigung"]} aktiv={phase} onChange={setPhase} />
+      </div>
+      <div key={phase} className="divide-y divide-border">
+        {(nachher ? sig.rows : sig.rowsVorher).map((r, i) => (
+          <div key={`${r.pfad}-${i}`} className="ae-in flex items-center gap-3 px-5 py-3 lg:px-6" style={{ animationDelay: `${i * 55}ms` }}>
             <span className="flex min-w-0 items-center font-mono text-xs text-dark" style={{ paddingLeft: r.tiefe * 18 }}>
               {r.tiefe > 0 && (
                 <span className="mr-1.5 shrink-0 text-dark/30" aria-hidden="true">
@@ -181,149 +315,262 @@ function SigStrukturbaum({ sig }: { sig: Extract<Signature, { variant: "struktur
               )}
               <span className="truncate">{r.pfad}</span>
             </span>
-            <span className={`ml-auto shrink-0 rounded-full border px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.12em] ${STATUS_CHIP[r.status]}`}>
-              {STATUS_TEXT[r.status]}
-            </span>
+            {"status" in r ? (
+              <span className={`ml-auto shrink-0 rounded-full border px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.12em] ${STATUS_CHIP[r.status]}`}>
+                {STATUS_TEXT[r.status]}
+              </span>
+            ) : r.ok ? (
+              <span className={`ml-auto shrink-0 rounded-full border px-2 py-0.5 font-mono text-[9px] uppercase tracking-[0.12em] ${STATUS_CHIP.INDEX}`}>
+                Index
+              </span>
+            ) : (
+              <span className="ml-auto shrink-0">
+                <XChip text="Index" />
+              </span>
+            )}
           </div>
         ))}
-      </div>
-      <div className="border-t border-border px-5 py-3 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/40 lg:px-6">
-        {sig.fussnote}
+        <div key={`fussnote-${phase}`} className="ae-in px-5 py-3 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/40 lg:px-6" style={{ animationDelay: "330ms" }}>
+          {nachher ? sig.fussnote : sig.fussnoteVorher}
+        </div>
       </div>
     </PanelShell>
   );
 }
 
-/* ─── 04 Handwerker · Google-Business-Mockup ──────────────────────────────── */
+/* ─── 04 Handwerker · Profil-App: „Unvollständig / Gepflegt“ ──────────────── */
 function SigBusinessprofil({ sig }: { sig: Extract<Signature, { variant: "businessprofil" }> }) {
+  const [tab, setTab] = useState(1); // 0 = Unvollständiges Profil · 1 = Gepflegtes Profil
+  const gepflegt = tab === 1;
   return (
     <PanelShell titel={sig.panelTitle}>
-      <div className="grid gap-4 px-5 py-5 sm:grid-cols-[1.35fr_1fr] lg:px-6">
-        <div className="rounded-2xl border border-border bg-white p-4">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <p className="truncate text-sm font-bold text-dark">{sig.betrieb}</p>
-              <div className="mt-1 flex items-center gap-1.5">
-                <span className="text-xs font-semibold text-dark">{sig.bewertung}</span>
-                <Sterne />
-                <span className="text-[11px] text-dark/45">({sig.anzahl})</span>
+      <div className="px-5 pt-4 lg:px-6">
+        <TogglePills optionen={["Unvollständiges Profil", "Gepflegtes Profil"]} aktiv={tab} onChange={setTab} />
+      </div>
+      <div key={tab} className="grid gap-4 px-5 py-5 sm:grid-cols-[1.35fr_1fr] lg:px-6">
+        {gepflegt ? (
+          <>
+            <div className="ae-in rounded-2xl border border-border bg-white p-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-bold text-dark">{sig.betrieb}</p>
+                  <div className="mt-1 flex items-center gap-1.5">
+                    <span className="text-xs font-semibold text-dark">{sig.bewertung}</span>
+                    <Sterne />
+                    <span className="text-[11px] text-dark/45">({sig.anzahl})</span>
+                  </div>
+                  <p className="mt-1 text-[11px] text-dark/50">
+                    {sig.kategorie} · {sig.ort}
+                  </p>
+                </div>
+                <span className="shrink-0 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
+                  {sig.status}
+                </span>
               </div>
-              <p className="mt-1 text-[11px] text-dark/50">
-                {sig.kategorie} · {sig.ort}
-              </p>
+              <div className="mt-3.5 flex flex-wrap gap-1.5">
+                {sig.chips.map((c) => (
+                  <span key={c} className="rounded-full border px-3 py-1 text-[11px] font-semibold text-primary" style={{ background: TINT, borderColor: TINT_BORDER }}>
+                    {c}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-4 space-y-2.5 border-t border-border pt-3.5">
+                {["78%", "56%", "66%"].map((w, i) => (
+                  <div key={i} className="flex items-center gap-2.5">
+                    <Sterne className="h-2.5 w-2.5" />
+                    <SkeletonZeile w={w} />
+                  </div>
+                ))}
+              </div>
             </div>
-            <span className="shrink-0 rounded-full border border-emerald-200 bg-emerald-50 px-2 py-0.5 text-[10px] font-semibold text-emerald-700">
-              {sig.status}
-            </span>
-          </div>
-          <div className="mt-3.5 flex flex-wrap gap-1.5">
-            {sig.chips.map((c) => (
-              <span key={c} className="rounded-full border px-3 py-1 text-[11px] font-semibold text-primary" style={{ background: TINT, borderColor: TINT_BORDER }}>
-                {c}
-              </span>
-            ))}
-          </div>
-          <div className="mt-4 space-y-2.5 border-t border-border pt-3.5">
-            {["78%", "56%", "66%"].map((w, i) => (
-              <div key={i} className="flex items-center gap-2.5">
-                <Sterne className="h-2.5 w-2.5" />
-                <SkeletonZeile w={w} />
-              </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="relative min-h-[190px] overflow-hidden rounded-2xl border border-border" style={{ background: "#FBF8F4" }}>
-          <div
-            className="absolute inset-0"
-            aria-hidden="true"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(26,26,26,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(26,26,26,0.05) 1px, transparent 1px)",
-              backgroundSize: "24px 24px",
-            }}
-          />
-          <div
-            className="absolute inset-0"
-            aria-hidden="true"
-            style={{ background: "radial-gradient(circle at 50% 44%, rgba(194,114,42,0.14), transparent 42%)" }}
-          />
-          <div className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2" aria-hidden="true">
-            <svg className="h-8 w-8 text-primary drop-shadow-[0_6px_10px_rgba(194,114,42,0.35)]" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                fillRule="evenodd"
-                d="M11.54 22.35a.75.75 0 0 0 .92 0C17.57 18.35 20.25 14.44 20.25 10.5a8.25 8.25 0 1 0-16.5 0c0 3.94 2.68 7.85 7.79 11.85ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                clipRule="evenodd"
+            <div className="ae-in relative min-h-[190px] overflow-hidden rounded-2xl border border-border" style={{ background: "#FBF8F4", animationDelay: "110ms" }}>
+              <div
+                className="absolute inset-0"
+                aria-hidden="true"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(rgba(26,26,26,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(26,26,26,0.05) 1px, transparent 1px)",
+                  backgroundSize: "24px 24px",
+                }}
               />
-            </svg>
-          </div>
-          <span className="absolute bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-white px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-dark/45">
-            Einsatzgebiet
-          </span>
-        </div>
+              <div
+                className="absolute inset-0"
+                aria-hidden="true"
+                style={{ background: "radial-gradient(circle at 50% 44%, rgba(194,114,42,0.14), transparent 42%)" }}
+              />
+              <div className="absolute left-1/2 top-[42%] -translate-x-1/2 -translate-y-1/2" aria-hidden="true">
+                <svg className="h-8 w-8 text-primary drop-shadow-[0_6px_10px_rgba(194,114,42,0.35)]" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    fillRule="evenodd"
+                    d="M11.54 22.35a.75.75 0 0 0 .92 0C17.57 18.35 20.25 14.44 20.25 10.5a8.25 8.25 0 1 0-16.5 0c0 3.94 2.68 7.85 7.79 11.85ZM12 13.5a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <span className="absolute bottom-2.5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full border border-border bg-white px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.14em] text-dark/45">
+                Einsatzgebiet
+              </span>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="ae-in rounded-2xl border border-border bg-white p-4">
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-bold text-dark/45">{sig.betrieb}</p>
+                  <div className="mt-2.5">
+                    <SkeletonZeile w="42%" />
+                  </div>
+                  <div className="mt-2">
+                    <SkeletonZeile w="28%" />
+                  </div>
+                </div>
+                <span className="shrink-0 rounded-full border border-border bg-[#F8F5F1] px-2 py-0.5 text-[10px] font-semibold text-dark/40">
+                  Unvollständig
+                </span>
+              </div>
+              <div className="mt-3.5 flex flex-wrap gap-1.5">
+                <XChip text="Kategorie fehlt" />
+                <XChip text="Öffnungszeiten fehlen" />
+              </div>
+              <div className="mt-4 space-y-2.5 border-t border-border pt-3.5">
+                <SkeletonZeile w="68%" />
+                <SkeletonZeile w="46%" />
+                <SkeletonZeile w="58%" />
+              </div>
+            </div>
+
+            <div className="ae-in flex min-h-[190px] flex-col rounded-2xl border border-border p-4" style={{ background: "#FBF8F4", animationDelay: "110ms" }}>
+              <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-dark/40">Fotos</span>
+              <div className="mt-3 grid grid-cols-2 gap-2">
+                <div className="flex aspect-[4/3] items-center justify-center rounded-lg bg-dark/10">
+                  <svg className="h-5 w-5 text-dark/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5A1.5 1.5 0 0 0 21.75 19.5V4.5A1.5 1.5 0 0 0 20.25 3H3.75A1.5 1.5 0 0 0 2.25 4.5v15A1.5 1.5 0 0 0 3.75 21Z" />
+                  </svg>
+                </div>
+                <div className="aspect-[4/3] rounded-lg border border-border bg-white/60" />
+                <div className="aspect-[4/3] rounded-lg border border-border bg-white/60" />
+                <div className="aspect-[4/3] rounded-lg border border-border bg-white/60" />
+              </div>
+              <div className="mt-3 self-center">
+                <XChip text="Nur 1 Foto" />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </PanelShell>
   );
 }
 
-/* ─── 05 Immobilienmakler · Eigentümer-Funnel-Tafel (Editorial-Zeilen) ────── */
+/* ─── 05 Immobilienmakler · Funnel-App: klickbare Zeilen mit Detail ───────── */
 function SigFunnel({ sig }: { sig: Extract<Signature, { variant: "funnel" }> }) {
+  const initial = Math.max(
+    sig.stufen.findIndex((s) => s.highlight),
+    0
+  );
+  const [aktiv, setAktiv] = useState<number>(initial);
+
   return (
     <PanelShell titel={sig.panelTitle}>
       <div className="divide-y divide-border">
-        {sig.stufen.map((s, i) => (
-          <div
-            key={s.query}
-            className="grid grid-cols-[52px_1fr] items-start gap-3 px-5 py-5 lg:px-6"
-            style={s.highlight ? { background: TINT } : undefined}
-          >
-            <span
-              className="select-none font-[family-name:var(--font-heading)] text-[40px] font-black leading-none text-primary/15"
-              aria-hidden="true"
+        {sig.stufen.map((s, i) => {
+          const open = aktiv === i;
+          return (
+            <button
+              key={s.query}
+              type="button"
+              onClick={() => setAktiv(open ? -1 : i)}
+              aria-expanded={open}
+              className={`grid w-full cursor-pointer grid-cols-[52px_1fr_auto] items-start gap-3 px-5 py-5 text-left transition-colors duration-300 lg:px-6 ${
+                open ? "" : "hover:bg-[#FBF8F4]"
+              }`}
+              style={open ? { background: TINT } : undefined}
             >
-              {String(i + 1).padStart(2, "0")}
-            </span>
-            <div className="min-w-0">
-              <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 font-mono text-[11px] text-dark/70">
-                <Lupe className="h-3 w-3 shrink-0 text-dark/35" />
-                <span className="truncate">{s.query}</span>
+              <span
+                className="select-none font-[family-name:var(--font-heading)] text-[40px] font-black leading-none text-primary/15"
+                aria-hidden="true"
+              >
+                {String(i + 1).padStart(2, "0")}
               </span>
-              <p className={`mt-2 text-[13px] leading-relaxed ${s.highlight ? "font-semibold text-dark" : "text-muted"}`}>{s.satz}</p>
-            </div>
-          </div>
-        ))}
+              <div className="min-w-0">
+                <span className="inline-flex max-w-full items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 font-mono text-[11px] text-dark/70">
+                  <Lupe className="h-3 w-3 shrink-0 text-dark/35" />
+                  <span className="truncate">{s.query}</span>
+                </span>
+                <p className={`mt-2 text-[13px] leading-relaxed ${open ? "font-semibold text-dark" : "text-muted"}`}>{s.satz}</p>
+                <div className="exp-rows grid" style={{ gridTemplateRows: open ? "1fr" : "0fr" }} aria-hidden={!open}>
+                  <div className="overflow-hidden">
+                    <p
+                      key={String(open)}
+                      className="ae-in mt-2.5 border-t pt-2.5 text-[13px] leading-relaxed text-muted"
+                      style={{ borderColor: open ? TINT_BORDER : "transparent" }}
+                    >
+                      {s.detail}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <svg
+                className={`mt-1.5 h-4 w-4 shrink-0 text-primary transition-transform duration-300 ${open ? "rotate-45" : ""}`}
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2}
+                aria-hidden="true"
+              >
+                <path d="M12 5v14M5 12h14" strokeLinecap="round" />
+              </svg>
+            </button>
+          );
+        })}
       </div>
     </PanelShell>
   );
 }
 
-/* ─── 06 SaaS · KI-Chat-Mockup ────────────────────────────────────────────── */
+/* ─── 06 SaaS · KI-Chat-App: Frage-Chips ──────────────────────────────────── */
+const KI_ZEILEN: [string, string, string][] = [
+  ["92%", "74%", "60%"],
+  ["86%", "70%", "64%"],
+  ["94%", "66%", "58%"],
+];
+
 function SigKiChat({ sig }: { sig: Extract<Signature, { variant: "kichat" }> }) {
+  const [frageIdx, setFrageIdx] = useState(0);
+  const frage = sig.fragen[frageIdx] ?? sig.fragen[0];
+  const zeilen = KI_ZEILEN[frageIdx % KI_ZEILEN.length];
+
   return (
     <PanelShell titel={sig.panelTitle}>
       <div className="space-y-4 px-5 py-5 lg:px-6">
-        <div className="flex justify-end">
-          <div className="max-w-[88%] rounded-2xl rounded-br-md bg-dark px-4 py-3 text-[13px] leading-relaxed text-white">{sig.frage}</div>
-        </div>
+        <TogglePills optionen={sig.fragen.map((f) => f.chip)} aktiv={frageIdx} onChange={setFrageIdx} />
 
-        <div className="rounded-2xl rounded-bl-md border border-border px-4 py-3.5" style={{ background: "#FBF8F4" }}>
-          <div className="mb-2.5 flex items-center gap-2">
-            <svg className="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M9.813 15.904 9.374 17.5l-.44-1.596a3.375 3.375 0 0 0-2.328-2.328L5.01 13.137l1.596-.44a3.375 3.375 0 0 0 2.328-2.328l.44-1.595.438 1.595a3.375 3.375 0 0 0 2.329 2.329l1.595.438-1.595.44a3.375 3.375 0 0 0-2.329 2.328Z" />
-              <path d="M18.259 8.715 18 9.75l-.259-1.035a2.625 2.625 0 0 0-1.91-1.91L14.796 6.55l1.035-.259a2.625 2.625 0 0 0 1.91-1.91L18 3.346l.259 1.035a2.625 2.625 0 0 0 1.91 1.91l1.034.259-1.034.259a2.625 2.625 0 0 0-1.91 1.91Z" />
-            </svg>
-            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-dark/45">KI-Antwort</span>
+        <div key={frageIdx} className="space-y-4">
+          <div className="ae-in flex justify-end">
+            <div className="max-w-[88%] rounded-2xl rounded-br-md bg-dark px-4 py-3 text-[13px] leading-relaxed text-white">{frage.frage}</div>
           </div>
-          <SkeletonZeile w="92%" />
-          <SkeletonZeile w="74%" className="mt-2" />
-          <div className="mt-3 inline-flex items-center gap-2 rounded-full border px-3 py-1.5" style={{ background: TINT, borderColor: TINT_BORDER }}>
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
-            <span className="font-mono text-xs font-semibold text-primary">{sig.marke}</span>
-          </div>
-          <SkeletonZeile w="60%" className="mt-3" />
-          <div className="mt-3.5 flex flex-wrap items-center justify-between gap-2 border-t border-border pt-2.5">
-            <span className="font-mono text-[10px] text-dark/45">{sig.quellen}</span>
-            <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-dark/30">Schematische Darstellung</span>
+
+          <div className="ae-in rounded-2xl rounded-bl-md border border-border px-4 py-3.5" style={{ background: "#FBF8F4", animationDelay: "140ms" }}>
+            <div className="mb-2.5 flex items-center gap-2">
+              <svg className="h-3.5 w-3.5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M9.813 15.904 9.374 17.5l-.44-1.596a3.375 3.375 0 0 0-2.328-2.328L5.01 13.137l1.596-.44a3.375 3.375 0 0 0 2.328-2.328l.44-1.595.438 1.595a3.375 3.375 0 0 0 2.329 2.329l1.595.438-1.595.44a3.375 3.375 0 0 0-2.329 2.328Z" />
+                <path d="M18.259 8.715 18 9.75l-.259-1.035a2.625 2.625 0 0 0-1.91-1.91L14.796 6.55l1.035-.259a2.625 2.625 0 0 0 1.91-1.91L18 3.346l.259 1.035a2.625 2.625 0 0 0 1.91 1.91l1.034.259-1.034.259a2.625 2.625 0 0 0-1.91 1.91Z" />
+              </svg>
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-dark/45">KI-Antwort</span>
+            </div>
+            <SkeletonZeile w={zeilen[0]} />
+            <SkeletonZeile w={zeilen[1]} className="mt-2" />
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full border px-3 py-1.5" style={{ background: TINT, borderColor: TINT_BORDER }}>
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+              <span className="font-mono text-xs font-semibold text-primary">{sig.marke}</span>
+            </div>
+            <SkeletonZeile w={zeilen[2]} className="mt-3" />
+            <div className="mt-3.5 flex flex-wrap items-center justify-between gap-2 border-t border-border pt-2.5">
+              <span className="font-mono text-[10px] text-dark/45">{sig.quellen}</span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-dark/30">Schematische Darstellung</span>
+            </div>
           </div>
         </div>
 
@@ -408,8 +655,9 @@ const STACK_ICONS: Record<string, ReactNode[]> = {
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   EIN Design-System, drei Hero- und drei Hebel-Varianten + Signature-Modul
-   je Branche. Rhythmus: split → W/W/B/W/dark · sonst → W/W/B/W/B/dark.
+   EIN Design-System je Branche: Hero (3 Varianten) → WARUM → SIGNATURE-App →
+   SPLIT (Bild) → VORGEHEN → HEBEL → FEHLER → FAQ → CTA.
+   Hintergrund-Rhythmus weiß/beige sauber alternierend, dunkel nur das CTA-Band.
 ═══════════════════════════════════════════════════════════════════════════ */
 export default function BranchenDetailClient({ branche }: { branche: Branche }) {
   useScrollReveal();
@@ -419,6 +667,11 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
   const iconImg = branche.slug === "saas-seo" ? "saas" : branche.slug.replace("seo-fuer-", "");
   const modulLinks = branche.slug === "seo-fuer-online-shops" || branche.slug === "seo-fuer-immobilienmakler";
   const stackIcons = STACK_ICONS[branche.slug] ?? STACK_ICONS["seo-fuer-online-shops"];
+  /* Mono-Nummerierung der Editorial-Eyebrows: ohne eigene Signature-Section rückt alles auf */
+  const nrSplit = isSplit ? "02" : "03";
+  const nrVorgehen = isSplit ? "03" : "04";
+  /* VORGEHEN: Seiten mit hebelVariant "editorial" bekommen die 2-Spalten-Form */
+  const vorgehenZweispaltig = branche.hebelVariant === "editorial";
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -428,6 +681,16 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
     })),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Startseite", item: "https://seoforge.de" },
+      { "@type": "ListItem", position: 2, name: "Branchen", item: "https://seoforge.de/branchen" },
+      { "@type": "ListItem", position: 3, name: branche.name, item: `https://seoforge.de/branchen/${branche.slug}` },
+    ],
   };
 
   const ctaButtons = (zentriert: boolean) => (
@@ -453,17 +716,30 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
     </div>
   );
 
+  /* Sichtbarer Breadcrumb im Eyebrow-Bereich: Branchen → Branche */
   const heroBadge = (
-    <div className="hero-badge mb-5 inline-flex items-center gap-2.5">
-      <span className="h-px w-8 bg-primary" />
-      <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">Branchen · {branche.kurzName}</span>
-      {branche.heroVariant === "zentriert" && <span className="h-px w-8 bg-primary" />}
-    </div>
+    <nav aria-label="Breadcrumb" className="hero-badge mb-5 inline-flex items-center gap-2.5">
+      <span className="h-px w-8 bg-primary" aria-hidden="true" />
+      <Link
+        href="/branchen"
+        className="text-xs font-semibold uppercase tracking-[0.24em] text-dark/45 transition-colors hover:text-primary"
+      >
+        Branchen
+      </Link>
+      <svg className="h-3 w-3 shrink-0 text-dark/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="m9 18 6-6-6-6" />
+      </svg>
+      <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary" aria-current="page">
+        {branche.kurzName}
+      </span>
+      {branche.heroVariant === "zentriert" && <span className="h-px w-8 bg-primary" aria-hidden="true" />}
+    </nav>
   );
 
   return (
     <SubpageLayout>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <style>{`
         .scroll-hidden.rv-left { transform: translateX(-56px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
         .scroll-hidden.rv-right { transform: translateX(56px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
@@ -474,10 +750,14 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         .ae-in { opacity: 0; animation: aeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         @keyframes chipPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
         .chip-dot { animation: chipPulse 2.2s ease-in-out infinite; }
+        .bar-fill { transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease; }
+        .exp-rows { transition: grid-template-rows 0.4s ease-out; }
         @media (prefers-reduced-motion: reduce), (scripting: none) {
           .scroll-hidden.rv-left, .scroll-hidden.rv-right, .scroll-hidden.rv-scale, .scroll-hidden.rv-blur { transform: none; filter: none; transition: none; }
           .ae-in { animation: none; opacity: 1; }
           .chip-dot { animation: none; }
+          .bar-fill { transition: none; }
+          .exp-rows { transition: none; }
         }
       `}</style>
 
@@ -508,7 +788,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
 
         <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8 pt-16 lg:pt-24 pb-14 lg:pb-20">
-          {/* Variante A: split — Text links, Signature-Modul rechts */}
+          {/* Variante A: split — Text links, Signature-App rechts */}
           {branche.heroVariant === "split" && (
             <div className="grid items-center gap-12 lg:grid-cols-[1.06fr_0.94fr] lg:gap-16">
               <div>
@@ -606,7 +886,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ 02b SIGNATURE — beige, nur wenn das Modul nicht im Hero sitzt ══ */}
+      {/* ══ 02b SIGNATURE-APP — beige, nur wenn das Modul nicht im Hero sitzt ══ */}
       {!isSplit && branche.signatureTitle && branche.signatureCopy && (
         <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
           <div className="mx-auto max-w-6xl px-6 lg:px-8">
@@ -633,7 +913,110 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </section>
       )}
 
-      {/* ══ 03 HEBEL — drei Varianten, Hintergrund je Rhythmus ══ */}
+      {/* ══ 03 SPLIT — Bild + Vertiefung, Bildseite je Branche abwechselnd ══ */}
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? BEIGE : "#ffffff" }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <figure className={`scroll-hidden ${branche.split.bildLinks ? "rv-left" : "rv-right lg:order-2"}`}>
+              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border shadow-[0_28px_60px_-30px_rgba(26,26,26,0.3)]">
+                <Image
+                  src={branche.split.bild}
+                  alt={branche.split.bildAlt}
+                  fill
+                  sizes="(min-width: 1024px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
+                {branche.split.caption}
+              </figcaption>
+            </figure>
+
+            <div
+              className={`scroll-hidden ${branche.split.bildLinks ? "rv-right" : "rv-left lg:order-1"}`}
+              style={{ transitionDelay: "110ms" }}
+            >
+              <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">{nrSplit} — Im Detail</span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[36px] font-bold text-dark leading-[1.14]">
+                {branche.split.titel.pre}
+                <span style={grad}>{branche.split.titel.grad}</span>
+              </h2>
+              <div className="mt-5 space-y-4">
+                {branche.split.absaetze.map((absatz, i) => (
+                  <p key={i} className="text-[15px] lg:text-base text-muted leading-relaxed">
+                    {absatz}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 04 VORGEHEN — Editorial-Liste mit Ghost-Serif-Ziffern ══ */}
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? "#ffffff" : BEIGE }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
+            <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
+              {nrVorgehen} — Unser Vorgehen
+            </span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
+              {branche.vorgehenTitle.pre}
+              <span style={grad}>{branche.vorgehenTitle.grad}</span>
+            </h2>
+          </div>
+
+          {vorgehenZweispaltig ? (
+            /* 2-Spalten-Editorial: Ziffer + Titel links, Text rechts */
+            <div className="divide-y divide-border border-y border-border">
+              {branche.vorgehen.map((v, i) => (
+                <div
+                  key={v.titel}
+                  className="scroll-hidden rv-blur grid gap-3 py-7 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-14 lg:py-9"
+                  style={{ transitionDelay: `${i * 80}ms` }}
+                >
+                  <div className="flex items-start gap-4 lg:gap-5">
+                    <span
+                      className="select-none font-[family-name:var(--font-heading)] text-5xl font-black leading-[0.9] text-primary/10"
+                      aria-hidden="true"
+                    >
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="pt-1.5 font-[family-name:var(--font-heading)] text-lg lg:text-xl font-bold text-dark leading-snug">
+                      {v.titel}
+                    </h3>
+                  </div>
+                  <p className="text-sm lg:text-[15px] text-muted leading-relaxed">{v.text}</p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            /* Editorial-Liste: große Ghost-Ziffer links, Titel + Text rechts */
+            <div className="divide-y divide-border border-y border-border">
+              {branche.vorgehen.map((v, i) => (
+                <div
+                  key={v.titel}
+                  className="scroll-hidden rv-blur grid items-start gap-3 py-8 sm:grid-cols-[110px_1fr] sm:gap-6 lg:grid-cols-[150px_1fr] lg:gap-10 lg:py-10"
+                  style={{ transitionDelay: `${i * 80}ms` }}
+                >
+                  <span
+                    className="select-none font-[family-name:var(--font-heading)] text-6xl font-black leading-[0.85] text-primary/10 lg:text-[84px]"
+                    aria-hidden="true"
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className="font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark mb-2.5">{v.titel}</h3>
+                    <p className="max-w-3xl text-sm lg:text-[15px] text-muted leading-relaxed">{v.text}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ══ 05 HEBEL — Fact-Sheet-Tafel / Editorial / Stack ══ */}
       <section className="py-20 lg:py-28" style={{ background: isSplit ? BEIGE : "#ffffff" }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-16 items-end mb-12 lg:mb-16">
@@ -649,30 +1032,34 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
             </p>
           </div>
 
-          {/* Variante A: grid — Hairline-Grid 2×2 mit Ghost-Ziffern */}
-          {branche.hebelVariant === "grid" && (
-            <div className="grid gap-px bg-border border border-border rounded-2xl overflow-hidden sm:grid-cols-2">
-              {branche.hebel.map((h, i) => (
-                <div key={h.titel} className="scroll-hidden rv-scale bg-white" style={{ transitionDelay: `${i * 70}ms` }}>
-                  <div className="group relative h-full p-6 lg:p-8 transition-colors duration-300 hover:bg-[#FBF8F4]">
-                    <span
-                      className="absolute top-0 left-0 right-0 h-[2.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                      style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
-                      aria-hidden="true"
-                    />
-                    <span
-                      className="block font-[family-name:var(--font-heading)] text-5xl font-black text-primary/10 leading-none mb-4 transition-colors duration-300 group-hover:text-primary/25"
-                      aria-hidden="true"
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark mb-2.5 group-hover:text-primary transition-colors">
-                      {h.titel}
-                    </h3>
+          {/* Variante A: tafel — Fact-Sheet-Panel mit divide-y-Zeilen */}
+          {branche.hebelVariant === "tafel" && (
+            <div className="scroll-hidden rv-scale overflow-hidden rounded-3xl border border-border bg-white shadow-[0_24px_60px_-30px_rgba(26,26,26,0.18)]">
+              <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-3.5 lg:px-6">
+                <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-dark/55">
+                  <span className="chip-dot inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+                  Fact-Sheet — Vier Hebel
+                </span>
+                <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/35">{branche.kurzName}</span>
+              </div>
+              <div className="divide-y divide-border">
+                {branche.hebel.map((h, i) => (
+                  <div
+                    key={h.titel}
+                    className="grid gap-2 px-5 py-5 transition-colors duration-300 hover:bg-[#FBF8F4] sm:grid-cols-[250px_1fr] sm:gap-8 lg:px-6 lg:py-6"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="pt-0.5 font-mono text-[11px] font-semibold text-primary/60" aria-hidden="true">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <h3 className="font-[family-name:var(--font-heading)] text-base lg:text-lg font-bold text-dark leading-snug">
+                        {h.titel}
+                      </h3>
+                    </div>
                     <p className="text-sm text-muted leading-relaxed">{h.text}</p>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           )}
 
@@ -727,14 +1114,64 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ 04 FAQ — 3 Accordions, Hintergrund je Rhythmus ══ */}
+      {/* ══ 06 FEHLER — „Typische Fehler“-Tafel bzw. 2-spaltige Editorial-Liste ══ */}
       <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? "#ffffff" : BEIGE }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
+            <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Typische Fehler</span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
+              Vier Fehler, <span style={grad}>die Sichtbarkeit kosten.</span>
+            </h2>
+          </div>
+
+          {branche.fehlerVariant === "tafel" ? (
+            <div className="scroll-hidden rv-scale overflow-hidden rounded-3xl border border-border bg-white shadow-[0_24px_60px_-30px_rgba(26,26,26,0.18)]">
+              <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-3.5 lg:px-6">
+                <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-dark/55">
+                  <span className="chip-dot inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+                  Aus der Praxis — 4 Fehler
+                </span>
+                <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/35">Vermeidbar</span>
+              </div>
+              <div className="divide-y divide-border">
+                {branche.fehler.map((f) => (
+                  <div
+                    key={f.titel}
+                    className="grid grid-cols-[40px_1fr] items-start gap-4 px-5 py-5 transition-colors duration-300 hover:bg-[#FBF8F4] lg:px-6 lg:py-6"
+                  >
+                    <FehlerX />
+                    <div className="min-w-0">
+                      <h3 className="font-[family-name:var(--font-heading)] text-base lg:text-lg font-bold text-dark">{f.titel}</h3>
+                      <p className="mt-1.5 text-sm text-muted leading-relaxed">{f.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="grid border-t border-border sm:grid-cols-2 sm:gap-x-12 lg:gap-x-16">
+              {branche.fehler.map((f, i) => (
+                <div key={f.titel} className="scroll-hidden rv-blur border-b border-border py-7 lg:py-8" style={{ transitionDelay: `${i * 70}ms` }}>
+                  <div className="flex items-center gap-3">
+                    <FehlerX />
+                    <h3 className="font-[family-name:var(--font-heading)] text-base lg:text-lg font-bold text-dark">{f.titel}</h3>
+                  </div>
+                  <p className="mt-2.5 text-sm text-muted leading-relaxed">{f.text}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ══ 07 FAQ — 6 Accordions, Hintergrund je Rhythmus ══ */}
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? BEIGE : "#ffffff" }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-16 items-start">
-            <div className="scroll-hidden rv-left">
+            <div className="scroll-hidden rv-left lg:sticky lg:top-28">
               <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Häufige Fragen</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight mb-4">
-                Drei Fragen — <span style={grad}>ehrlich beantwortet.</span>
+                Sechs Fragen — <span style={grad}>ehrlich beantwortet.</span>
               </h2>
               <p className="text-muted leading-relaxed">
                 Die Fragen, die {branche.kurzName === "SaaS" ? "SaaS-Teams" : branche.kurzName} uns im
@@ -778,7 +1215,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ 05 CTA-BAND — dunkel, kompakt ══ */}
+      {/* ══ 08 CTA-BAND — dunkel, kompakt ══ */}
       <section id="kontakt" className="scroll-mt-20 bg-dark py-20 lg:py-28">
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">

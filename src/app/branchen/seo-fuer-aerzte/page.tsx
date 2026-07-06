@@ -7,9 +7,9 @@ export const dynamic = "force-static";
 const branche = branchen.find((b) => b.slug === "seo-fuer-aerzte")!;
 
 export const metadata: Metadata = {
-  title: "SEO für Ärzte — Praxis sichtbar bei Google | SeoForge",
+  title: "SEO für Ärzte: Mehr Patienten über Google | SeoForge",
   description:
-    "Patienten googeln Symptome und Behandlungen — nicht Ihren Praxisnamen. Wir sorgen dafür, dass Ihre Praxis in Google und KI-Suchen wie ChatGPT erscheint.",
+    "Behandlungsseiten, lokale Sichtbarkeit & Vertrauenssignale statt Portal-Abhängigkeit. SEO für Praxen — kostenlose Erstanalyse, Antwort < 24 h.",
   robots: { index: true, follow: true },
   alternates: { canonical: "https://seoforge.de/branchen/seo-fuer-aerzte" },
 };

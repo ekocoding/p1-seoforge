@@ -9,7 +9,7 @@ import type { ReactNode } from "react";
 
 /* Layout-Varianten: gleiches Design-System, je Branche eigener Section-Mix */
 export type HeroVariant = "split" | "zentriert" | "suchfeld";
-export type HebelVariant = "grid" | "editorial" | "stack";
+export type HebelVariant = "tafel" | "editorial" | "stack";
 
 /* Daten für das branchenspezifische Signature-Mockup (statisches Beispiel-Panel) */
 export type Signature =
@@ -18,6 +18,8 @@ export type Signature =
       panelTitle: string;
       query: string;
       mapsRows: { name: string; eigene?: boolean }[];
+      /** Maps-Pack im Zustand „Ohne SEO“: drei fremde Praxen, die eigene fehlt */
+      fremdRows: string[];
     }
   | {
       variant: "klickpreise";
@@ -32,6 +34,9 @@ export type Signature =
       panelTitle: string;
       rows: { pfad: string; tiefe: 0 | 1 | 2; status: "INDEX" | "NOINDEX" | "CANONICAL" }[];
       fussnote: string;
+      /** Zustand „Vorher“: chaotische Filter-URLs, alle im Index (ok = Kategorieseite) */
+      rowsVorher: { pfad: string; tiefe: 0 | 1 | 2; ok?: boolean }[];
+      fussnoteVorher: string;
     }
   | {
       variant: "businessprofil";
@@ -47,12 +52,12 @@ export type Signature =
   | {
       variant: "funnel";
       panelTitle: string;
-      stufen: { query: string; satz: string; highlight?: boolean }[];
+      stufen: { query: string; satz: string; detail: string; highlight?: boolean }[];
     }
   | {
       variant: "kichat";
       panelTitle: string;
-      frage: string;
+      fragen: { chip: string; frage: string }[];
       marke: string;
       quellen: string;
     };
@@ -78,6 +83,22 @@ export type Branche = {
   /** Zwei kurze Begleitsätze der Signature-Section (entfällt bei heroVariant "split") */
   signatureCopy?: string[];
   hebel: { titel: string; text: string }[];
+  /** SPLIT-Section: 16:10-Bild + Vertiefungs-Content mit genau einem internen Link */
+  split: {
+    bild: string;
+    bildAlt: string;
+    caption: string;
+    /** Bildseite links (true) oder rechts (false) — je Seite abwechselnd */
+    bildLinks: boolean;
+    titel: { pre: string; grad: string };
+    absaetze: ReactNode[];
+  };
+  /** VORGEHEN-Section: Editorial-Liste mit Ghost-Serif-Ziffern */
+  vorgehenTitle: { pre: string; grad: string };
+  vorgehen: { titel: string; text: string }[];
+  /** FEHLER-Section: Tafel-Panel oder 2-spaltige Editorial-Liste */
+  fehlerVariant: "tafel" | "editorial";
+  fehler: { titel: string; text: string }[];
   faq: { q: string; a: string }[];
   ctaSatz: { pre: string; grad: string };
   ctaButtonLabel: string;
@@ -121,6 +142,7 @@ export const branchen: Branche[] = [
         { name: "Zahnzentrum am Beispielring" },
         { name: "Praxis Dr. Beispielmann" },
       ],
+      fremdRows: ["Zahnzentrum am Beispielring", "Praxis Dr. Beispielmann", "Dentalklinik an der Musterallee"],
     },
     signatureTitle: { pre: "Das Ziel: Ihre Praxis ", grad: "im lokalen Suchergebnis." },
     signatureCopy: [
@@ -157,6 +179,69 @@ export const branchen: Branche[] = [
         Suchtrends, Google-Updates und KI-Suchmaschinen mitwächst.
       </>,
     ],
+    split: {
+      bild: "/images/branchen-split/aerzte.png",
+      bildAlt: "Patientin sucht auf dem Smartphone nach einer Behandlung in ihrer Nähe",
+      caption: "Symptom-Suche auf dem Smartphone — der häufigste Erstkontakt mit einer Praxis",
+      bildLinks: true,
+      titel: { pre: "Gefunden werden, ", grad: "bevor der Patient anruft." },
+      absaetze: [
+        <>
+          Patienten googeln Symptome, bevor sie einen Termin buchen — meistens auf dem Handy, oft mit einer
+          gewissen Dringlichkeit. Wer bei „Zahnschmerzen Wochenende“ oder „Hautarzt Termin heute“ nicht auf der
+          ersten Seite auftaucht, verliert den Patienten häufig an die Praxis nebenan. Google und zunehmend
+          auch KI-Assistenten wie ChatGPT beantworten medizinische Fragen heute direkt und nennen dabei
+          Quellen — wer dort nicht als vertrauenswürdige Praxis erscheint, bleibt für einen wachsenden Teil
+          der Suchenden unsichtbar.
+        </>,
+        <>
+          Vertrauen entscheidet in der Medizin stärker über die Praxiswahl als in den meisten anderen
+          Branchen — Bewertungen, erkennbare Spezialisierung und verständlich erklärte Behandlungen wiegen
+          mehr als ein gutes Praxisfoto. Eine bloße Aufzählung von Leistungen reicht weder Patienten noch
+          Google. Wir erstellen{" "}
+          <Link href="/seo/texte" className={linkCls}>medizinische SEO-Texte</Link>, die Behandlungsabläufe
+          präzise erklären und gleichzeitig die Fachkompetenz Ihrer Praxis sichtbar machen.
+        </>,
+      ],
+    },
+    vorgehenTitle: { pre: "So gehen wir ", grad: "bei Ärzten vor." },
+    vorgehen: [
+      {
+        titel: "Leistungen und Standorte analysieren",
+        text: "Wir prüfen, welche Behandlungen und Standorte welches Suchvolumen haben und wo Wettbewerber bereits stark ranken. Daraus leiten wir ab, welche Leistungsseiten zuerst ausgebaut werden sollten, statt jede Seite gleich zu behandeln.",
+      },
+      {
+        titel: "Medizinische Fachtexte",
+        text: "Wir schreiben Texte zu Behandlungen und Krankheitsbildern, die medizinisch korrekt, verständlich und werberechtlich vorsichtig formuliert sind. Dabei achten wir darauf, dass Aussagen zu Wirksamkeit und Erfolgsraten nicht gegen das Heilmittelwerbegesetz verstoßen.",
+      },
+      {
+        titel: "Google-Unternehmensprofil optimieren",
+        text: "Für Arztpraxen ist das Google-Unternehmensprofil oft die erste Kontaktfläche — wir pflegen Kategorien, Sprechzeiten, Fotos und Praxis-Attribute vollständig. Bei mehreren Standorten legen wir für jede Praxis ein eigenes, sauber getrenntes Profil an, statt alle Standorte zu vermischen.",
+      },
+      {
+        titel: "Bewertungen aufbauen",
+        text: "Wir richten einen Prozess ein, mit dem zufriedene Patienten unaufdringlich um eine Bewertung gebeten werden, ohne gegen Wettbewerbs- oder Standesrecht zu verstoßen. Technische Umsetzung, Texte und Sichtbarkeit laufen dabei parallel, sodass erste Effekte meist nach drei bis sechs Monaten sichtbar werden.",
+      },
+    ],
+    fehlerVariant: "tafel",
+    fehler: [
+      {
+        titel: "Werberechtliche Übertreibungen",
+        text: "Viele Praxis-Websites werben mit Formulierungen wie „schmerzfreie Behandlung garantiert“ oder Erfolgsversprechen, die gegen das Heilmittelwerbegesetz verstoßen und im schlimmsten Fall abgemahnt werden. Stattdessen sollten Leistungen sachlich beschrieben werden — Kompetenz zeigt sich über verständliche Erklärungen, nicht über Versprechen.",
+      },
+      {
+        titel: "Standorte werden vermischt",
+        text: "Bei mehreren Praxen oder einem MVZ werden Standorte häufig auf einer einzigen Kontaktseite zusammengefasst, wodurch keiner der Standorte in der lokalen Suche gut rankt. Jeder Standort braucht stattdessen eine eigene Seite mit eigener Adresse, eigenem Google-Profil und individuellen Inhalten.",
+      },
+      {
+        titel: "Leistungsseiten ohne Substanz",
+        text: "Viele Praxisseiten listen Leistungen nur stichpunktartig auf, ohne Behandlung, Ablauf oder häufige Patientenfragen zu erklären. Google und Patienten honorieren ausführliche, verständliche Inhalte deutlich stärker als reine Aufzählungen.",
+      },
+      {
+        titel: "Bewertungen werden ignoriert",
+        text: "Negative Bewertungen bleiben oft unkommentiert stehen, oder Praxen bitten aus Sorge vor rechtlichen Konsequenzen gar nicht erst aktiv um Feedback. Mit einer rechtssicheren, sachlichen Reaktion auf jede Bewertung und einem klaren Prozess für positives Feedback lässt sich die Sternebewertung über Zeit gezielt verbessern.",
+      },
+    ],
     hebel: [
       {
         titel: "Behandlungsseiten statt Sammelseite",
@@ -188,6 +273,18 @@ export const branchen: Branche[] = [
         q: "Bieten Sie auch Google Ads für Praxen an?",
         a: "Unser Kerngeschäft ist organische Sichtbarkeit in Google und in KI-Suchen. Ads bringen sofortige, aber kostenpflichtige Reichweite ohne bleibenden Wert nach Kampagnenende. Wir beraten Sie ehrlich dazu, wann Ads sinnvoll ergänzen und wann SEO allein die bessere Investition ist.",
       },
+      {
+        q: "Wie weit dürfen wir bei medizinischen SEO-Texten inhaltlich gehen, ohne rechtliche Risiken einzugehen?",
+        a: "Das Heilmittelwerbegesetz setzt klare Grenzen — keine Erfolgsversprechen, keine Vorher-Nachher-Vergleiche bei bestimmten Eingriffen und keine Angstmache. Wir formulieren Texte sachlich und beschreiben Behandlungen, Abläufe und Indikationen, statt Wirkung zu versprechen. Eine Rechtsberatung ersetzt das nicht — bei heiklen Fachgebieten wie Ästhetik oder Zahnmedizin empfehlen wir, Texte vor Veröffentlichung zusätzlich von Ihrer Kanzlei gegenprüfen zu lassen.",
+      },
+      {
+        q: "Wir betreiben mehrere Standorte oder ein MVZ — wie gehen Sie damit um?",
+        a: "Jeder Standort erhält eine eigene Seite mit eigener Adresse, eigenen Ansprechpartnern und einem eigenen Google-Unternehmensprofil, statt alle Standorte auf einer zentralen Seite zu bündeln. So kann jede Praxis in ihrer eigenen Stadt oder ihrem Stadtteil eigenständig ranken. Zusätzlich verlinken wir die Standorte sinnvoll untereinander, damit Patienten bei Bedarf auch andere Fachbereiche im MVZ finden.",
+      },
+      {
+        q: "Können Sie uns beim Aufbau von mehr Google-Bewertungen unterstützen?",
+        a: "Ja, wir entwickeln einen Prozess, mit dem Patienten nach dem Termin unaufdringlich und im Einklang mit dem Standesrecht um eine Bewertung gebeten werden, etwa per QR-Code oder Follow-up-Nachricht. Wichtig ist die Abgrenzung zu unzulässigen Anreizen für Bewertungen. Auf negative Bewertungen reagieren wir gemeinsam mit Ihnen sachlich, um Vertrauen zu erhalten statt Konflikte öffentlich auszutragen.",
+      },
     ],
     ctaSatz: {
       pre: "Sprechen Sie mit uns darüber, wie Patienten Sie finden, ",
@@ -213,7 +310,7 @@ export const branchen: Branche[] = [
     kurzName: "Anwälte",
     keyword: "SEO für Anwälte",
     heroVariant: "split",
-    hebelVariant: "grid",
+    hebelVariant: "tafel",
     signature: {
       variant: "klickpreise",
       panelTitle: "Klickkosten je Rechtsgebiet",
@@ -256,6 +353,68 @@ export const branchen: Branche[] = [
         weiter steigen.
       </>,
     ],
+    split: {
+      bild: "/images/branchen-split/anwaelte.png",
+      bildAlt: "Mandant recherchiert eine Rechtsfrage am Laptop, bevor er eine Kanzlei kontaktiert",
+      caption: "Die Recherche beginnt beim Rechtsproblem — nicht beim Kanzleinamen",
+      bildLinks: false,
+      titel: { pre: "Mandanten informieren sich, ", grad: "bevor sie anrufen." },
+      absaetze: [
+        <>
+          Mandanten googeln ihr Problem oft lange, bevor sie eine Kanzlei kontaktieren — „Kündigung erhalten
+          was tun“ oder „Abmahnung Unterlassungserklärung“ sind typische Sucheinstiege, nicht der Name eines
+          Anwalts. Wer in diesem Moment mit einem verständlichen Ratgebertext erscheint, wird als Experte
+          wahrgenommen und erhält häufig die Anfrage. Auch KI-Suchassistenten greifen inzwischen auf gut
+          strukturierte Rechtsratgeber zurück, wenn sie Nutzerfragen beantworten.
+        </>,
+        <>
+          Vertrauen ist in der Rechtsberatung entscheidend, und dieses Vertrauen entsteht online über
+          nachvollziehbare Fachkompetenz statt über Werbeversprechen. Wir setzen deshalb auf ein{" "}
+          <Link href="/seo/audit" className={linkCls}>SEO-Audit</Link>, das zunächst zeigt, welche
+          Rechtsgebiete Ihrer Kanzlei bereits Sichtbarkeit haben und wo Wettbewerbskanzleien oder
+          Rechtsportale Ihnen den Rang ablaufen. Darauf aufbauend priorisieren wir Themen, bei denen sich
+          Sichtbarkeit tatsächlich in Mandate übersetzt, statt reinen Traffic zu erzeugen.
+        </>,
+      ],
+    },
+    vorgehenTitle: { pre: "So gehen wir ", grad: "bei Anwälten vor." },
+    vorgehen: [
+      {
+        titel: "Analyse der Fachgebiete",
+        text: "Wir analysieren, in welchen Rechtsgebieten Ihrer Kanzlei bereits Suchanfragen mit Mandatspotenzial vorhanden sind und wie stark spezialisierte Wettbewerber oder große Rechtsportale dort vertreten sind. Daraus entsteht eine Priorität — Fachgebiete mit erreichbarem Ranking und echtem Mandatswert zuerst, Nischenthemen später.",
+      },
+      {
+        titel: "Ratgeber-Content erstellen",
+        text: "Wir schreiben Ratgebertexte zu konkreten Rechtsfragen, die Laien verständlich erklären, ohne in eine individuelle Rechtsberatung abzurutschen, die im Text unzulässig wäre. Jeder Text endet mit einer klaren, aber nicht aufdringlichen Überleitung zur Kontaktaufnahme, sobald der individuelle Fall komplexer wird.",
+      },
+      {
+        titel: "Lokale und überregionale Struktur",
+        text: "Je nach Rechtsgebiet unterscheiden wir, ob eine Seite lokal (etwa Familienrecht, Verkehrsrecht) oder überregional (etwa IT-Recht, Gesellschaftsrecht) ausgerichtet werden sollte. Diese Struktur entscheidet, ob wir auf lokale Signale wie das Google-Unternehmensprofil setzen oder auf bundesweite Fachautorität durch Fachbeiträge und Verlinkungen.",
+      },
+      {
+        titel: "Sichtbarkeit und Autorität",
+        text: "Parallel bauen wir die fachliche Autorität der Kanzlei auf, etwa durch Autorenprofile der Anwälte mit Qualifikationen, Fachanwaltstiteln und Veröffentlichungen. Diese Signale wirken sich sowohl auf klassische Rankings als auch auf die Nennung in KI-generierten Antworten aus und zeigen erste Effekte meist nach drei bis sechs Monaten.",
+      },
+    ],
+    fehlerVariant: "editorial",
+    fehler: [
+      {
+        titel: "Rechtsberatung im Blogtext",
+        text: "Ratgebertexte formulieren Rechtsfragen häufig so konkret, dass sie faktisch eine individuelle Rechtsberatung darstellen — inklusive Haftungsrisiko für die Kanzlei. Besser sind allgemein gehaltene Erklärungen zur Rechtslage mit einem klaren Hinweis, dass der Einzelfall geprüft werden muss.",
+      },
+      {
+        titel: "Generalist ohne erkennbares Profil",
+        text: "Kanzleien listen oft zehn oder mehr Rechtsgebiete gleichrangig auf, wodurch weder Google noch Mandanten erkennen, worauf die Kanzlei tatsächlich spezialisiert ist. Zwei bis drei klar priorisierte Schwerpunkte mit ausführlichem Content ranken deutlich besser als eine lange, flache Liste.",
+      },
+      {
+        titel: "Fachanwaltstitel bleiben ungenutzt",
+        text: "Fachanwaltstitel und Spezialisierungen werden auf der Website oft nur in einem Nebensatz erwähnt, obwohl sie ein starkes Vertrauens- und Rankingsignal sind. Wir platzieren diese Qualifikationen sichtbar auf den passenden Fachgebietsseiten und im Autorenprofil.",
+      },
+      {
+        titel: "Konkurrenz durch Rechtsportale unterschätzt",
+        text: "Viele Kanzleien betrachten nur andere Kanzleien als Wettbewerber und übersehen, dass Rechtsportale wie anwalt.de oder ähnliche Vergleichsportale oft die eigentliche Konkurrenz um vordere Plätze sind. Dagegen hilft vor allem spezifischerer, tieferer Content zu einzelnen Fallkonstellationen, den ein Portal in dieser Tiefe nicht bietet.",
+      },
+    ],
     hebel: [
       {
         titel: "Ratgeber-Content nach Mandantenfrage",
@@ -286,6 +445,18 @@ export const branchen: Branche[] = [
       {
         q: "Warum reicht ein Eintrag auf Anwalt.de oder anwaltauskunft.de nicht aus?",
         a: "Auf Portalen stehen Sie direkt neben Wettbewerbern derselben Fachrichtung auf einer Seite, die Sie nicht gestalten. Eine eigene, gut auffindbare Kanzlei-Website zeigt Ihre Positionierung ungestört und baut echte Reichweite auf, die dem Portal nicht gehört, sondern Ihnen.",
+      },
+      {
+        q: "Sollten wir uns auf ein Fachgebiet spezialisieren oder als Generalist auftreten?",
+        a: "Für die Sichtbarkeit in der Suche ist eine erkennbare Spezialisierung fast immer im Vorteil, weil Google und Mandanten Fachautorität in einem klar umrissenen Rechtsgebiet stärker gewichten als eine breite Liste von Leistungen. Das schließt weitere Rechtsgebiete nicht aus — wir empfehlen, zwei bis drei Schwerpunkte prominent auszubauen und übrige Bereiche schlanker zu halten, statt alle gleich zu behandeln.",
+      },
+      {
+        q: "Wie schreiben Sie Ratgebertexte, ohne dass daraus eine unzulässige Rechtsberatung wird?",
+        a: "Wir erklären die allgemeine Rechtslage, typische Fallkonstellationen und mögliche Handlungsoptionen, ohne eine Empfehlung für den konkreten Einzelfall des Lesers auszusprechen. Jeder Text macht deutlich, dass die individuelle Prüfung eine anwaltliche Beratung erfordert. Diese Abgrenzung schützt die Kanzlei rechtlich und lenkt gleichzeitig genau die Mandanten zur Kontaktaufnahme, deren Fall tatsächlich komplex genug für ein Mandat ist.",
+      },
+      {
+        q: "Lohnt sich SEO für lokale Mandate genauso wie für überregionale?",
+        a: "Das hängt stark vom Rechtsgebiet ab — Familienrecht oder Verkehrsrecht laufen meist über lokale Suche und ein starkes Google-Unternehmensprofil, während IT-Recht oder Gesellschaftsrecht überregional über Fachautorität und Content funktionieren. Wir legen die Strategie deshalb pro Fachgebiet fest, statt Ihre gesamte Kanzlei-Website nach einem einzigen Schema auszurichten.",
       },
     ],
     ctaSatz: {
@@ -326,6 +497,16 @@ export const branchen: Branche[] = [
         { pfad: "?farbe=schwarz", tiefe: 2, status: "CANONICAL" },
       ],
       fussnote: "Crawling-Budget fließt in Kategorien — nicht in Filter-Varianten",
+      rowsVorher: [
+        { pfad: "/laufschuhe", tiefe: 0, ok: true },
+        { pfad: "?farbe=blau&groesse=39", tiefe: 1 },
+        { pfad: "?farbe=blau&sort=preis", tiefe: 1 },
+        { pfad: "?groesse=39&verfuegbar=1", tiefe: 1 },
+        { pfad: "?sort=beliebtheit&seite=2", tiefe: 1 },
+        { pfad: "?farbe=schwarz&farbe=blau", tiefe: 1 },
+        { pfad: "?marke=beispiel&farbe=blau", tiefe: 1 },
+      ],
+      fussnoteVorher: "Jede Filter-Kombination landet als eigene URL im Index — Kopien konkurrieren gegeneinander",
     },
     signatureTitle: { pre: "Eine Shop-Struktur, ", grad: "die Google versteht." },
     signatureCopy: [
@@ -360,6 +541,70 @@ export const branchen: Branche[] = [
         eigene Disziplin mit Fokus auf technische Sauberkeit, Kategoriestruktur und Produktdaten.
       </>,
     ],
+    split: {
+      bild: "/images/branchen-split/online-shops.png",
+      bildAlt: "Kundin vergleicht Produkte in einem Online-Shop am Laptop",
+      caption: "Suchanfragen mit Kaufabsicht treffen zuerst auf Kategorieseiten",
+      bildLinks: true,
+      titel: { pre: "Kaufbereite Kunden erreichen, ", grad: "bevor sie vergleichen." },
+      absaetze: [
+        <>
+          Käufer suchen heute gezielt nach Produkteigenschaften, Vergleichen und Problemlösungen —
+          „wasserdichte Wanderschuhe Damen“ oder „Kaffeemaschine für 2 Personen“ sind typische Sucheinstiege
+          mit klarer Kaufabsicht. Wer in diesem Moment mit einer gut aufgebauten Kategorie- oder Produktseite
+          erscheint, gewinnt den Kauf, ohne dafür pro Klick zu bezahlen. Amazon und große Marktplätze holen
+          sich einen Großteil dieser Suchanfragen von selbst — ein eigener Shop muss mit spezifischeren,
+          besseren Inhalten dagegenhalten.
+        </>,
+        <>
+          Die größte Hürde für Shop-Betreiber ist meist die Seitenstruktur, nicht der fehlende Wille zu gutem
+          Content — Kategorieseiten ohne Text, doppelte Inhalte durch Filter und Varianten oder dünne
+          Produktbeschreibungen aus dem Hersteller-Feed bremsen jede Kategorie aus. Wir entwickeln eine{" "}
+          <Link href="/seo/content-strategie" className={linkCls}>Content-Strategie</Link>, die
+          Kategorieseiten, Ratgeber und Produktbeschreibungen so aufeinander abstimmt, dass sie sich
+          gegenseitig stützen statt zu kannibalisieren. So entsteht aus dem Shop eine Fläche, die sowohl bei
+          Marken- als auch bei Long-Tail-Suchen sichtbar wird.
+        </>,
+      ],
+    },
+    vorgehenTitle: { pre: "So gehen wir ", grad: "bei Online-Shops vor." },
+    vorgehen: [
+      {
+        titel: "Struktur- und Kategorieanalyse",
+        text: "Wir prüfen, wie Kategorien, Filter und Facetten aktuell angelegt sind und wo dadurch doppelter Content oder unnötig viele indexierte URLs entstehen. Darauf aufbauend legen wir eine Struktur fest, die Kategorien klar voneinander abgrenzt und Filterseiten gezielt von der Indexierung ausschließt.",
+      },
+      {
+        titel: "Kategorietexte und Produktdaten",
+        text: "Kategorieseiten erhalten einleitende Texte, die tatsächlich nach den Suchbegriffen der Zielgruppe formuliert sind, statt generische Marketingtexte über das Sortiment zu wiederholen. Bei Produktdaten prüfen wir, ob Herstellertexte eins zu eins von zahlreichen anderen Shops übernommen wurden, und ersetzen sie durch eigenständige Beschreibungen.",
+      },
+      {
+        titel: "Content jenseits der Produktseite",
+        text: "Ratgeber, Vergleiche und Kaufberatungen holen Suchanfragen ab, die noch vor der eigentlichen Kaufentscheidung stattfinden, und leiten von dort gezielt auf passende Kategorien weiter. Diese Inhalte binden wir eng an bestehende Kategorie- und Produktseiten, statt sie isoliert im Blog zu belassen.",
+      },
+      {
+        titel: "Technisches Fundament sichern",
+        text: "Ladezeiten, mobile Darstellung und strukturierte Daten für Produkte — Preis, Verfügbarkeit, Bewertungen — sichern wir technisch ab, da sie bei Shops direkten Einfluss auf Rankings und Klickrate haben. Über die CI/CD-Anbindung setzen wir Änderungen an Kategorien oder Templates in Minuten live, was bei saisonalen Sortimentswechseln ein klarer Vorteil ist.",
+      },
+    ],
+    fehlerVariant: "tafel",
+    fehler: [
+      {
+        titel: "Herstellertexte unverändert übernommen",
+        text: "Produktbeschreibungen werden oft eins zu eins aus dem Hersteller-Feed übernommen, wodurch identischer Content auf Dutzenden anderer Shops entsteht und Google keine der Seiten bevorzugt. Eigenständig formulierte Beschreibungen mit Details zur eigenen Verfügbarkeit oder Beratung schaffen echte Differenzierung.",
+      },
+      {
+        titel: "Kategorieseiten ohne Text",
+        text: "Viele Shops zeigen auf Kategorieseiten nur eine Produktliste ohne einleitenden Text, wodurch die Seite für Google inhaltlich kaum einzuordnen ist. Ein kurzer, an der Suchintention orientierter Text oberhalb oder unterhalb der Produktliste gibt der Seite thematische Tiefe.",
+      },
+      {
+        titel: "Filterseiten fluten den Index",
+        text: "Kombinationen aus Farbe, Größe und weiteren Filtern erzeugen oft tausende automatisch generierte URLs, die alle in den Google-Index gelangen und dort ähnliche Inhalte gegeneinander ausspielen. Indexiert werden sollten gezielt nur Filterkombinationen mit echtem Suchvolumen, der Rest bleibt ausgeschlossen.",
+      },
+      {
+        titel: "Relaunch ohne Weiterleitungsplan",
+        text: "Bei einem Shopsystem-Wechsel gehen URLs häufig ohne sauberen Weiterleitungsplan verloren, was über Nacht spürbare Rankingverluste auslöst. Vor jedem Relaunch erstellen wir eine vollständige URL-Zuordnung, damit jede alte Seite gezielt auf ihr neues Pendant weiterleitet.",
+      },
+    ],
     hebel: [
       {
         titel: "Kategorieseiten als Sichtbarkeits-Anker",
@@ -391,6 +636,18 @@ export const branchen: Branche[] = [
         q: "Lohnt sich SEO, wenn wir sowieso auch auf Amazon verkaufen?",
         a: "Ja, beide Kanäle bedienen unterschiedliche Kundentypen. Der eigene Shop erlaubt Markenaufbau, höhere Margen ohne Marktplatzgebühr und Kundendaten, die Ihnen gehören. SEO macht diesen Kanal zusätzlich zu Amazon planbar, statt komplett von einer Plattform abhängig zu sein.",
       },
+      {
+        q: "Wir planen einen Wechsel des Shopsystems — wie verhindern wir Rankingverluste?",
+        a: "Der kritische Punkt bei jedem Relaunch ist die Weiterleitung — wir erstellen vor dem Umzug eine vollständige Zuordnung aller alten URLs zu ihren neuen Entsprechungen und testen diese auf der Staging-Umgebung, bevor der Shop live geht. Zusätzlich sichern wir Metadaten, strukturierte Daten und Inhalte, die häufig beim Wechsel verloren gehen. So bleiben Rankings nach dem Umzug weitgehend stabil statt einzubrechen.",
+      },
+      {
+        q: "Unsere Produktbeschreibungen kommen aus dem Hersteller-Feed — ist das ein Problem?",
+        a: "Ja, identische Herstellertexte tauchen oft auf vielen Shops gleichzeitig auf, wodurch Google kaum einen Grund hat, ausgerechnet Ihre Seite auszuspielen. Wir priorisieren die Produkte mit dem höchsten Suchvolumen oder der besten Marge für eigenständige Beschreibungen, statt den gesamten Katalog auf einmal umzuschreiben. So verbessert sich die Sichtbarkeit dort zuerst, wo es wirtschaftlich am meisten bringt.",
+      },
+      {
+        q: "Sollten wir eher auf unsere Markennamen oder auf allgemeine Produktbegriffe setzen?",
+        a: "Beides hat eine Funktion — Markensuchen bringen meist die höchste Kaufwahrscheinlichkeit, während allgemeine Produktbegriffe deutlich mehr Volumen, aber auch mehr Wettbewerb bedeuten. Wir bauen zunächst Markenbegriffe und bereits vorhandene Stärken aus und erweitern danach gezielt um Long-Tail-Suchen mit konkreter Kaufabsicht, statt beides gleichzeitig anzugehen.",
+      },
     ],
     ctaSatz: {
       pre: "Zeigen wir Ihnen, welche Kategorieseiten in Ihrem Shop ",
@@ -410,7 +667,7 @@ export const branchen: Branche[] = [
     kurzName: "Handwerker",
     keyword: "SEO für Handwerker",
     heroVariant: "suchfeld",
-    hebelVariant: "grid",
+    hebelVariant: "tafel",
     heroQuery: "heizung notdienst wochenende",
     signature: {
       variant: "businessprofil",
@@ -456,6 +713,68 @@ export const branchen: Branche[] = [
         laufenden Prozess im Hintergrund, während Sie sich auf Ihre Aufträge konzentrieren.
       </>,
     ],
+    split: {
+      bild: "/images/branchen-split/handwerker.png",
+      bildAlt: "Handwerker im Einsatz — gefunden über die lokale Google-Suche",
+      caption: "Lokale Suche: Unternehmensprofil und Maps erscheinen vor der Website",
+      bildLinks: false,
+      titel: { pre: "Aufträge aus der ", grad: "eigenen Region sichern." },
+      absaetze: [
+        <>
+          Wer einen Handwerker sucht, tippt selten einen Firmennamen, sondern „Elektriker Notdienst“ oder
+          „Dachdecker in der Nähe“ — meist mit der Erwartung einer schnellen Antwort. Diese Suchen sind lokal
+          begrenzt und laufen zu einem großen Teil über Google Maps und das Google-Unternehmensprofil, nicht
+          über die klassische Trefferliste. Betriebe, die dort nicht vollständig gepflegt sind, verlieren
+          Aufträge an Wettbewerber mit weniger Erfahrung, aber einem besseren Profil.
+        </>,
+        <>
+          Viele Handwerker-Websites stammen noch aus einer Zeit vor der Smartphone-Suche — langsam, nicht
+          mobil optimiert und ohne erkennbares Einzugsgebiet. Google bewertet solche Seiten bei lokalen
+          Suchen schlechter, unabhängig davon, wie gut der Betrieb tatsächlich arbeitet. Deshalb gehört bei
+          uns oft{" "}
+          <Link href="/webdesign" className={linkCls}>professionelles Webdesign</Link> zur SEO-Arbeit dazu,
+          damit die technische Basis stimmt, bevor Inhalte und lokale Signale überhaupt greifen können.
+        </>,
+      ],
+    },
+    vorgehenTitle: { pre: "So gehen wir ", grad: "bei Handwerkern vor." },
+    vorgehen: [
+      {
+        titel: "Einzugsgebiet festlegen",
+        text: "Wir legen gemeinsam mit Ihnen fest, welche Orte, Stadtteile oder Postleitzahlen tatsächlich wirtschaftlich sinnvoll bedient werden können, statt pauschal auf „in der Nähe“ zu setzen. Für größere Einzugsgebiete bauen wir eigene Seiten pro Ort oder Region auf, statt eine einzige Kontaktseite für das gesamte Gebiet zu nutzen.",
+      },
+      {
+        titel: "Google-Unternehmensprofil pflegen",
+        text: "Kategorien, Leistungen, Fotos vom Team und von abgeschlossenen Projekten sowie Öffnungszeiten pflegen wir vollständig, weil das Profil bei lokalen Suchen oft vor der eigentlichen Website erscheint. Regelmäßige Beiträge und aktuelle Fotos im Profil signalisieren Google zusätzlich, dass der Betrieb aktiv ist.",
+      },
+      {
+        titel: "Leistungsseiten je Gewerk",
+        text: "Statt einer allgemeinen „Leistungen“-Seite bauen wir für jedes Gewerk oder jede Hauptleistung eine eigene Seite mit konkreten Beispielen, Ablauf und typischen Kundenfragen auf. Das erhöht die Trefferquote bei spezifischen Suchen deutlich, etwa „Bad sanieren Kosten“ statt nur „Sanitär“.",
+      },
+      {
+        titel: "Bewertungen aufbauen",
+        text: "Wir richten einen einfachen Prozess ein, mit dem Kunden nach Auftragsabschluss über eine Nachricht oder einen QR-Code auf der Rechnung um eine Bewertung gebeten werden. Wichtig ist dabei, keine Bewertungen zu kaufen oder zu incentivieren, sondern echtes Feedback zu sammeln — das zahlt sich meist über drei bis sechs Monate spürbar auf die Sichtbarkeit ein.",
+      },
+    ],
+    fehlerVariant: "editorial",
+    fehler: [
+      {
+        titel: "Ein Standort, mehrere Orte",
+        text: "Betriebe, die mehrere Orte oder Landkreise bedienen, pflegen häufig nur eine einzige Adresse und Kontaktseite, wodurch sie in den umliegenden Orten in der lokalen Suche kaum auftauchen. Eigene, inhaltlich unterschiedliche Seiten je Ort oder Region verbessern die Sichtbarkeit dort deutlich, wo tatsächlich Aufträge herkommen sollen.",
+      },
+      {
+        titel: "Google-Profil unvollständig gepflegt",
+        text: "Öffnungszeiten, Kategorien oder Fotos im Google-Unternehmensprofil bleiben oft seit der Ersteinrichtung unverändert, obwohl sich Leistungen oder Erreichbarkeit längst geändert haben. Ein aktuell gepflegtes Profil mit echten Projektfotos verbessert sowohl die Sichtbarkeit als auch die Kontaktrate spürbar.",
+      },
+      {
+        titel: "Veraltete, langsame Website",
+        text: "Viele Handwerker-Websites laden auf dem Smartphone langsam oder lassen sich kaum bedienen, was potenzielle Kunden vor der Kontaktaufnahme abschreckt, unabhängig vom Ranking. Eine technisch saubere, mobil optimierte Seite ist die Voraussetzung dafür, dass SEO-Maßnahmen überhaupt wirken können.",
+      },
+      {
+        titel: "Bewertungen dem Zufall überlassen",
+        text: "Ohne aktives Nachfragen kommen Bewertungen meist nur von besonders zufriedenen oder besonders unzufriedenen Kunden, was den Durchschnitt verzerrt. Ein einfacher, immer gleicher Bitte-um-Bewertung-Prozess nach Auftragsabschluss sorgt für ein realistischeres und meist besseres Bild.",
+      },
+    ],
     hebel: [
       {
         titel: "Google Business Profil",
@@ -487,6 +806,18 @@ export const branchen: Branche[] = [
         q: "Brauchen wir SEO überhaupt, wenn wir schon bei MyHammer gelistet sind?",
         a: "Ein Portal-Eintrag allein macht Sie von dessen Konditionen und Sichtbarkeitslogik abhängig. Eine eigene, gut auffindbare Website ergänzt das, indem Anfragen direkt und ohne Vermittlungsgebühr bei Ihnen eingehen und Sie sich von anderen gelisteten Betrieben abheben.",
       },
+      {
+        q: "Wir bedienen mehrere Orte im Umkreis — wie bilden wir das auf der Website ab?",
+        a: "Wir legen für jeden wirtschaftlich relevanten Ort oder jede Region eine eigene Seite mit spezifischen Inhalten an, statt alle Orte auf einer einzigen Kontaktseite aufzulisten. Jede dieser Seiten benötigt eigenständigen Text statt einer bloßen Namensänderung der Vorlage, sonst wertet Google die Seiten als nahezu identisch. Für sehr große Einzugsgebiete ergänzen wir das um ein zusätzliches Google-Unternehmensprofil am jeweiligen Zweitstandort.",
+      },
+      {
+        q: "Wie sammeln wir mehr Bewertungen, ohne gegen Wettbewerbsrecht zu verstoßen?",
+        a: "Erlaubt ist die neutrale Bitte um eine Bewertung nach Auftragsabschluss, etwa per QR-Code auf der Rechnung oder einer kurzen Nachfrage vor Ort. Nicht erlaubt sind Belohnungen für eine Bewertung oder das gezielte Filtern, wer gefragt wird und wer nicht. Wir richten einen Prozess ein, der bei jedem Kunden gleich abläuft, damit das Ergebnis rechtssicher und über Zeit belastbar bleibt.",
+      },
+      {
+        q: "Reicht SEO allein, oder brauchen wir eine neue Website?",
+        a: "Das hängt vom technischen Zustand der aktuellen Seite ab — ist sie langsam, nicht mobil optimiert oder inhaltlich stark veraltet, wirken SEO-Maßnahmen nur eingeschränkt, weil die Grundlage fehlt. In solchen Fällen empfehlen wir vorab ein Redesign, das wir direkt SEO-gerecht aufbauen, statt später nachzubessern. Ist die technische Basis bereits solide, reichen inhaltliche und lokale Optimierungen meist aus.",
+      },
     ],
     ctaSatz: {
       pre: "Sprechen Sie mit uns darüber, wie Ihr Betrieb ",
@@ -514,14 +845,20 @@ export const branchen: Branche[] = [
         {
           query: "was ist meine wohnung wert",
           satz: "Der erste Impuls — lange bevor ein Makler oder ein Portal eine Rolle spielt.",
+          detail:
+            "Die Suchintention ist rein informativ: Eigentümer wollen eine erste Orientierung zum Wert, ohne sich an einen Makler zu binden. Hier gewinnt eine Bewertungsseite, die das Vorgehen verständlich erklärt und den Einstieg über ein einfaches Formular anbietet.",
         },
         {
           query: "immobilie verkaufen ablauf",
           satz: "Die konkrete Planung: Eigentümer vergleichen jetzt Wege mit und ohne Makler.",
+          detail:
+            "Gesucht wird eine Schritt-für-Schritt-Orientierung — inklusive der Frage, ob sich ein Makler überhaupt lohnt. Hier gewinnt ein Ratgeber zum Verkaufsprozess, der Ablauf, Unterlagen und typische Stolperfallen nüchtern erklärt.",
         },
         {
           query: "makler [stadt]",
           satz: "Hier gewinnt Ihre Website — nicht das Portal.",
+          detail:
+            "Jetzt wird aktiv verglichen: Die Suche zielt auf ein konkretes Büro im eigenen Ort. Hier gewinnt eine Standortseite mit lokalen Referenzen und erkennbarer Marktkenntnis — nicht das Portal-Listing.",
           highlight: true,
         },
       ],
@@ -559,6 +896,70 @@ export const branchen: Branche[] = [
         Marktkompetenz und eine saubere Objektseiten-Struktur zusammenbringt.
       </>,
     ],
+    split: {
+      bild: "/images/branchen-split/immobilienmakler.png",
+      bildAlt: "Eigentümer informiert sich über den Wert seiner Immobilie",
+      caption: "Eigentümer recherchieren lange vor dem ersten Maklerkontakt",
+      bildLinks: true,
+      titel: { pre: "Verkäufer finden Sie ", grad: "vor der Konkurrenz." },
+      absaetze: [
+        <>
+          Bevor sich jemand für einen Makler entscheidet, sucht er meist nach einer kostenlosen Bewertung,
+          nach „Haus verkaufen [Ort]“ oder nach dem aktuellen Marktwert in seiner Straße. Wer zu diesem
+          frühen Zeitpunkt mit einer hilfreichen, lokal konkreten Seite erscheint, gewinnt das Vertrauen des
+          Verkäufers, bevor überhaupt weitere Makler kontaktiert werden. Objektportale wie Immoscout24
+          dominieren zwar die Suche nach konkreten Angeboten, bei der Maklersuche selbst haben eigene
+          Inhalte aber echte Chancen.
+        </>,
+        <>
+          Die meisten Makler-Websites bestehen fast ausschließlich aus aktuellen Objekten, die nach dem
+          Verkauf spurlos verschwinden und damit jede aufgebaute Sichtbarkeit mit sich nehmen. Wir entwickeln
+          eine{" "}
+          <Link href="/seo/content-strategie" className={linkCls}>Content-Strategie</Link>, die auf
+          dauerhaften Seiten zu Stadtteilen, Marktentwicklung und dem Verkaufsprozess aufbaut, statt sich nur
+          auf wechselnde Objektseiten zu verlassen. So bleibt Sichtbarkeit auch dann bestehen, wenn ein
+          Objekt längst verkauft ist.
+        </>,
+      ],
+    },
+    vorgehenTitle: { pre: "So gehen wir ", grad: "bei Immobilienmaklern vor." },
+    vorgehen: [
+      {
+        titel: "Farming-Gebiete festlegen",
+        text: "Wir grenzen gemeinsam mit Ihnen die Stadtteile oder Orte ein, in denen Sie tatsächlich aktiv Objekte akquirieren möchten, und bauen die Website entlang dieser Gebiete auf. Für jedes Farming-Gebiet entsteht eine eigene Seite mit lokalen Marktdaten statt einer allgemeinen „Wir sind für Sie da“-Formulierung.",
+      },
+      {
+        titel: "Dauerhafte Inhalte statt Objekte",
+        text: "Neben den aktuellen Objektseiten bauen wir Inhalte auf, die unabhängig vom einzelnen Verkauf bestehen bleiben, etwa Marktberichte, Stadtteilporträts oder Ratgeber zum Verkaufsprozess. Diese Seiten sichern Sichtbarkeit dauerhaft ab, während einzelne Objektseiten kommen und gehen.",
+      },
+      {
+        titel: "Bewertungsanfragen gezielt abholen",
+        text: "Seiten rund um „Immobilie bewerten“ oder „Haus verkaufen“ richten wir gezielt auf Eigentümer aus, die noch am Anfang ihrer Entscheidung stehen, nicht erst auf Käufer eines konkreten Objekts. Ein einfaches Bewertungsformular auf dieser Seite senkt die Hürde für die erste Kontaktaufnahme spürbar.",
+      },
+      {
+        titel: "Objektseiten nach Verkauf",
+        text: "Statt verkaufte Objekte einfach zu löschen, wandeln wir die Seite in eine dauerhafte Referenz um, ergänzt um Verkaufsdauer und erzielten Marktpreis, sofern der Verkäufer zustimmt. So bleibt die aufgebaute Sichtbarkeit erhalten, und die Seite dient gleichzeitig als Referenz für künftige Verkäufer im selben Gebiet.",
+      },
+    ],
+    fehlerVariant: "tafel",
+    fehler: [
+      {
+        titel: "Objektseiten werden gelöscht",
+        text: "Nach einem Verkauf wird die Objektseite meist sofort entfernt, wodurch jede dort aufgebaute Sichtbarkeit und alle eingehenden Links ins Leere laufen. Eine Weiterleitung auf eine passende Stadtteil- oder Kategorieseite oder eine Umwandlung in eine Referenzseite erhält den Wert der Seite.",
+      },
+      {
+        titel: "Farming-Gebiet unklar definiert",
+        text: "Viele Makler-Websites sprechen vage von „Ihrer Region“, ohne konkrete Orte oder Stadtteile zu benennen, wodurch weder Google noch Eigentümer erkennen, wo der Makler tatsächlich aktiv ist. Eigene Seiten mit dem Namen des Stadtteils oder Ortes im Titel schaffen hier klare Zuordnung.",
+      },
+      {
+        titel: "Nur Objekte, keine Marktinformation",
+        text: "Reine Objektlisten ohne begleitende Marktberichte oder Preisentwicklungen liefern Eigentümern keinen Grund, die Seite ein zweites Mal zu besuchen, bevor sie verkaufsbereit sind. Regelmäßige, lokal konkrete Marktinformationen bauen genau die Wiederkehr und Autorität auf, die bei der späteren Maklerwahl den Ausschlag gibt.",
+      },
+      {
+        titel: "Abhängigkeit von Portalen",
+        text: "Manche Makler verlassen sich vollständig auf Immoscout24 und vergleichbare Portale und vernachlässigen die eigene Website, wodurch sie bei jeder Portal-Preiserhöhung ausgeliefert sind. Eine eigene, sichtbare Website macht unabhängiger von Portalkosten und bringt zusätzlich Eigentümeranfragen, die nie über ein Portal gelaufen wären.",
+      },
+    ],
     hebel: [
       {
         titel: "Eigentümer-Content als Lead-Quelle",
@@ -590,6 +991,18 @@ export const branchen: Branche[] = [
         q: "Ersetzt eine eigene Website die Präsenz auf ImmoScout24?",
         a: "Nein, beide ergänzen sich. Das Portal bringt Käufer zu bereits eingestellten Objekten, die eigene Website erreicht Eigentümer, bevor überhaupt ein Objekt existiert. SEO verschafft Ihnen damit einen Kanal, den kein Wettbewerber über dasselbe Portal-Listing erreichen kann.",
       },
+      {
+        q: "Was passiert mit einer Objektseite, nachdem die Immobilie verkauft wurde?",
+        a: "Statt die Seite zu löschen, wandeln wir sie meist in eine Referenzseite um oder leiten sie gezielt auf eine passende Stadtteilseite weiter, damit aufgebaute Sichtbarkeit und Backlinks erhalten bleiben. Mit Zustimmung des Verkäufers ergänzen wir teils Informationen zur Verkaufsdauer als Referenz für künftige Auftraggeber. Eine ersatzlose Löschung ist SEO-technisch fast immer die schlechteste Option.",
+      },
+      {
+        q: "Können lokale Marktberichte wirklich neue Aufträge bringen?",
+        a: "Ja, Eigentümer informieren sich häufig Monate vor einem tatsächlichen Verkauf über die Preisentwicklung in ihrer Straße oder ihrem Stadtteil. Ein Makler, der zu diesem Zeitpunkt mit konkreten, aktuellen Marktzahlen auffindbar ist, baut Vertrauen auf, bevor überhaupt ein Bewertungstermin im Raum steht. Wir bauen solche Marktberichte deshalb als festen Bestandteil der Content-Strategie ein.",
+      },
+      {
+        q: "Wie gehen Sie mit unseren Farming-Gebieten um, wenn wir mehrere Orte bearbeiten?",
+        a: "Jedes Farming-Gebiet erhält eine eigene Seite mit spezifischen Marktdaten, Referenzobjekten und lokalem Bezug, statt eines einzigen allgemeinen Textes für das gesamte Tätigkeitsgebiet. Diese Trennung ist wichtig, damit jede Seite bei Suchanfragen aus dem jeweiligen Ort einzeln ranken kann. Bei stark wechselnden Gebieten passen wir die Struktur regelmäßig an Ihre tatsächliche Akquisetätigkeit an.",
+      },
     ],
     ctaSatz: {
       pre: "Lassen Sie uns gemeinsam prüfen, ",
@@ -613,7 +1026,11 @@ export const branchen: Branche[] = [
     signature: {
       variant: "kichat",
       panelTitle: "KI-Suche",
-      frage: "Welches Tool für automatische Rechnungsbuchung, DSGVO-konform?",
+      fragen: [
+        { chip: "Rechnungstool DSGVO?", frage: "Welches Tool für automatische Rechnungsbuchung, DSGVO-konform?" },
+        { chip: "Projekttool kleines Team?", frage: "Welches Projektmanagement-Tool passt für ein kleines Team?" },
+        { chip: "CRM-Alternative?", frage: "Gibt es eine schlanke Alternative zu den großen CRM-Anbietern?" },
+      ],
       marke: "ihre-software.de",
       quellen: "Quellen: 3 Vergleichsseiten",
     },
@@ -646,6 +1063,70 @@ export const branchen: Branche[] = [
         KI-Systeme Ihre Software überhaupt als Antwort kennen und nennen.
       </>,
     ],
+    split: {
+      bild: "/images/branchen-split/saas.png",
+      bildAlt: "SaaS-Team prüft die Sichtbarkeit seiner Software in Google und KI-Suche",
+      caption: "Gesucht wird das Problem — nicht der Produktname",
+      bildLinks: false,
+      titel: { pre: "Sichtbar vom ersten Suchbegriff ", grad: "bis zum Trial." },
+      absaetze: [
+        <>
+          SaaS-Kunden googeln selten den Produktnamen, sondern das Problem, das die Software lösen soll —
+          „Projektmanagement-Tool für kleine Teams“ oder „CRM-Alternative zu Salesforce“ sind typische
+          Sucheinstiege. Diese Suchanfragen kommen aus jeder Phase der Kaufentscheidung, von der ersten
+          Recherche bis zum konkreten Vergleich vor dem Trial. Wer hier nur mit der eigenen Startseite
+          sichtbar ist, überlässt den größten Teil dieser Anfragen Vergleichsportalen und Wettbewerbern mit
+          eigenem Content.
+        </>,
+        <>
+          SaaS-Produkte verändern sich schneller als die meisten anderen Produkte, und Content muss diesem
+          Tempo folgen können, ohne bei jedem Feature-Release wochenlang auf eine neue Veröffentlichung zu
+          warten. Wir schreiben{" "}
+          <Link href="/seo/texte" className={linkCls}>SEO-Texte</Link>, die Funktionen, Integrationen und
+          Anwendungsfälle so aufbereiten, dass sie sowohl bei klassischen Suchanfragen als auch bei Fragen an
+          KI-Assistenten wie ChatGPT als Antwort auftauchen. Über unsere CI/CD-Anbindung geht eine
+          aktualisierte Seite dabei in Minuten live, nicht erst nach tagelanger Wartezeit.
+        </>,
+      ],
+    },
+    vorgehenTitle: { pre: "So gehen wir ", grad: "bei SaaS-Unternehmen vor." },
+    vorgehen: [
+      {
+        titel: "Suchintention nach Funnel-Phase",
+        text: "Wir ordnen relevante Suchanfragen den Phasen der Kaufentscheidung zu — von allgemeinen Problemfragen über konkrete Tool-Vergleiche bis zu Suchen mit Trial- oder Preis-Absicht. Daraus entsteht eine Content-Priorität, die gezielt an den Stellen ansetzt, an denen aus Besuchern Trial-Nutzer werden, statt wahllos Traffic zu erzeugen.",
+      },
+      {
+        titel: "Vergleichs- und Alternativen-Seiten",
+        text: "Seiten wie „[Ihr Produkt] vs. [Wettbewerber]“ oder „Alternative zu [bekanntes Tool]“ holen Suchanfragen kurz vor der Kaufentscheidung ab, die sonst vollständig an Vergleichsportale gehen. Diese Seiten bauen wir sachlich und mit echten Unterschieden auf, da überzogene Vergleiche bei dieser Zielgruppe schnell an Glaubwürdigkeit verlieren.",
+      },
+      {
+        titel: "Feature- und Use-Case-Seiten",
+        text: "Statt einer einzigen Feature-Übersicht bauen wir eigene Seiten zu einzelnen Funktionen und Anwendungsfällen auf, die jeweils auf die Suchsprache einer bestimmten Zielgruppe im Unternehmen zugeschnitten sind. Das trennt zusätzlich Content für Entscheider von Content für die tatsächlichen Nutzer der Software, die häufig andere Suchbegriffe verwenden.",
+      },
+      {
+        titel: "Internationalisierung planen",
+        text: "Bei Expansion über den deutschsprachigen Raum hinaus legen wir die technische Struktur für mehrere Sprachversionen früh fest, statt Inhalte später mühsam auf ein gewachsenes System aufzusetzen. Deutsche und englische Inhalte behandeln wir dabei als eigenständige Suchintentionen, nicht als reine Übersetzung derselben Seite — erste spürbare Effekte zeigen sich meist nach drei bis sechs Monaten.",
+      },
+    ],
+    fehlerVariant: "editorial",
+    fehler: [
+      {
+        titel: "Nur eigene Terminologie verwendet",
+        text: "SaaS-Anbieter benennen Funktionen häufig nach eigenen Produktbegriffen, während potenzielle Kunden nach dem eigentlichen Problem oder gängigen Marktbegriffen suchen. Ein Abgleich zwischen interner Terminologie und tatsächlicher Suchsprache der Zielgruppe schließt diese Lücke.",
+      },
+      {
+        titel: "Vergleichsseiten den Portalen überlassen",
+        text: "Ohne eigene Vergleichs- oder Alternativen-Seiten überlässt man diese besonders kaufnahen Suchanfragen vollständig Vergleichsportalen und Wettbewerbern. Eigene, ehrliche Vergleichsseiten holen einen Teil dieser Anfragen zurück auf die eigene Domain.",
+      },
+      {
+        titel: "Content-Struktur wächst unkontrolliert",
+        text: "Bei schnellem Wachstum entstehen oft parallel Blog, Hilfe-Center und Landingpages ohne gemeinsame Struktur, wodurch ähnliche Inhalte gegeneinander konkurrieren. Eine klare Aufteilung nach Suchintention — Marketing-Content, Produkt-Content, Support-Content — verhindert, dass sich der eigene Content selbst Konkurrenz macht.",
+      },
+      {
+        titel: "Internationale Inhalte falsch übersetzt",
+        text: "Englische Inhalte entstehen oft als reine Übersetzung der deutschen Seiten, obwohl sich Suchbegriffe und Wettbewerb zwischen den Märkten deutlich unterscheiden. Eigenständige Keyword-Recherche je Sprachversion liefert deutlich bessere Ergebnisse als eine Eins-zu-eins-Übersetzung.",
+      },
+    ],
     hebel: [
       {
         titel: "Problem- statt Feature-Seiten",
@@ -676,6 +1157,18 @@ export const branchen: Branche[] = [
       {
         q: "Wie schnell können wir mit Vergleichsseiten gegen größere Wettbewerber bestehen?",
         a: "Einzelne Seiten können über unsere CI/CD-Umgebung innerhalb von Minuten live gehen, Rankings gegen etablierte, gut verlinkte Wettbewerber brauchen aber kontinuierliche Arbeit über mehrere Monate. Mit Ahrefs und Semrush identifizieren wir Lücken, die auch mit kleinerem Content-Team realistisch zu besetzen sind.",
+      },
+      {
+        q: "Wie gehen Sie mit unserem Freemium- oder Trial-Modell in der SEO-Strategie um?",
+        a: "Wir ordnen Content danach ein, wie nah er am Trial-Start liegt — informative Inhalte zu Beginn der Recherche, konkrete Vergleiche und Preisseiten kurz davor. Ziel ist, dass organischer Traffic gezielt an den Stellen ansetzt, an denen Nutzer typischerweise einen Trial starten, statt nur die Besucherzahl zu erhöhen. Landingpages für einzelne Anwendungsfälle richten wir dabei direkt auf eine Trial-Anmeldung statt auf eine allgemeine Kontaktanfrage aus.",
+      },
+      {
+        q: "Wir expandieren von DACH ins englischsprachige Ausland — was bedeutet das für SEO?",
+        a: "Wir behandeln die englische Version nicht als Übersetzung, sondern führen eine eigenständige Keyword-Recherche für den neuen Markt durch, da sich Suchbegriffe, Wettbewerber und Suchvolumen deutlich unterscheiden können. Technisch legen wir die Struktur früh über saubere Sprachkennzeichnung fest, damit Google beide Versionen korrekt zuordnet. So vermeiden wir, dass die neue Sprachversion der bestehenden deutschen Version Sichtbarkeit wegnimmt, statt eigene aufzubauen.",
+      },
+      {
+        q: "Sollten wir eher für Entwickler oder für Entscheider im Unternehmen schreiben?",
+        a: "Meist braucht es beides, aber getrennt voneinander — Entwickler suchen nach technischen Begriffen wie API-Dokumentation oder Integrationen, während Entscheider nach Kosten, Sicherheit oder Anwendungsfällen für ihr Team suchen. Wir bauen für beide Zielgruppen eigene Content-Bereiche auf, statt beide Sprachebenen auf denselben Seiten zu vermischen. So findet jede Zielgruppe genau die Inhalte, die zu ihrer Suchintention passen.",
       },
     ],
     ctaSatz: {

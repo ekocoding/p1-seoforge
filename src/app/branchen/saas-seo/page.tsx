@@ -7,9 +7,9 @@ export const dynamic = "force-static";
 const branche = branchen.find((b) => b.slug === "saas-seo")!;
 
 export const metadata: Metadata = {
-  title: "SaaS SEO — sichtbar in Google & KI-Suche | SeoForge",
+  title: "SaaS SEO: Sichtbar in Google & ChatGPT | SeoForge",
   description:
-    "B2B-Einkäufer vergleichen Software über Google und fragen ChatGPT nach Empfehlungen. Wir bauen Sichtbarkeit auf, die in beiden Suchwelten funktioniert.",
+    "Problem-Keywords, Vergleichsseiten & GEO für KI-Empfehlungen — SaaS SEO für den DACH-Markt. Kostenlose GEO- und SEO-Analyse anfragen.",
   robots: { index: true, follow: true },
   alternates: { canonical: "https://seoforge.de/branchen/saas-seo" },
 };
