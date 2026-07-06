@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import SubpageLayout from "@/app/components/SubpageLayout";
 import { branchen } from "./branchenData";
 
@@ -109,23 +110,31 @@ export default function BranchenClient() {
             </p>
           </div>
 
-          <div className="grid gap-px bg-border border border-border rounded-2xl overflow-hidden sm:grid-cols-2 lg:grid-cols-3">
-            {branchen.map((b, i) => (
+          <div className="grid gap-5 lg:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {branchen.map((b, i) => {
+              const iconImg = b.slug === "saas-seo" ? "saas" : b.slug.replace("seo-fuer-", "");
+              return (
               <Link
                 key={b.slug}
                 href={`/branchen/${b.slug}`}
-                className="scroll-hidden rv-scale group relative flex h-full flex-col bg-white p-6 lg:p-7 transition-colors duration-300 hover:bg-[#FBF8F4]"
-                style={{ transitionDelay: `${i * 70}ms` }}
+                className="scroll-hidden rv-scale group relative flex h-full flex-col overflow-hidden rounded-3xl border border-border bg-white p-6 lg:p-7 shadow-[0_10px_30px_-20px_rgba(26,26,26,0.14)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-26px_rgba(194,114,42,0.30)]"
+                style={{ transitionDelay: `${i * 70}ms`, borderColor: undefined }}
               >
                 <span
-                  className="absolute top-0 left-0 right-0 h-[2.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  className="absolute top-0 left-0 right-0 h-[3px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
                   aria-hidden="true"
                 />
 
-                <div className="flex items-start justify-between gap-4 mb-5">
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-border bg-white text-primary transition-all duration-300 group-hover:bg-primary group-hover:border-primary group-hover:text-white">
-                    {b.icon}
+                <div className="flex items-start justify-between gap-4 mb-6">
+                  <span className="relative block h-24 w-24 lg:h-28 lg:w-28 shrink-0 overflow-hidden rounded-2xl border border-border transition-transform duration-500 group-hover:scale-[1.05] group-hover:rotate-[1.5deg]">
+                    <Image
+                      src={`/images/branchen-icons/${iconImg}.png`}
+                      alt={`${b.name} — Illustration`}
+                      fill
+                      sizes="112px"
+                      className="object-cover"
+                    />
                   </span>
                   <span
                     className="font-[family-name:var(--font-heading)] text-5xl font-black text-primary/10 leading-none transition-colors duration-300 group-hover:text-primary/25"
@@ -142,12 +151,13 @@ export default function BranchenClient() {
 
                 <span className="mt-auto pt-5 inline-flex items-center gap-2 text-sm font-semibold text-dark group-hover:text-primary transition-colors">
                   Mehr erfahren
-                  <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                   </svg>
                 </span>
               </Link>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
