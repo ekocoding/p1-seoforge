@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import HeroShaderWhite from "../components/HeroShaderWhite";
 
 /* ─── Scroll reveal ───────────────────────────────────────────────────────── */
 function useScrollReveal() {
@@ -184,25 +183,37 @@ export default function StandorteClient() {
       <Navbar />
 
       {/* ══════════════════════════════════════════════════════════════════
-          HERO — weißer Shader, zentriert
+          HERO — Golden Circuit: dunkles Leiterbahn-Bild, zentriert
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-white">
-        <HeroShaderWhite />
+      <section className="relative min-h-screen flex flex-col justify-center overflow-hidden" style={{ background: "#161311" }}>
+        {/* Golden-Circuit-Background */}
+        <Image
+          src="/images/hero-bg-circuit.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
 
+        {/* Sehr dezenter dunkler Lesbarkeits-Verlauf von links */}
         <div
           aria-hidden="true"
-          className="absolute bottom-0 left-0 right-0 h-44 pointer-events-none"
-          style={{ background: "linear-gradient(to bottom, transparent, #ffffff)" }}
+          className="pointer-events-none absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(95deg, rgba(15,12,9,0.55) 0%, rgba(15,12,9,0.25) 45%, rgba(15,12,9,0) 75%)",
+          }}
         />
 
         {/* Ghost-Wasserzeichen */}
         <div
           aria-hidden="true"
           className="pointer-events-none select-none absolute inset-0 flex items-center justify-center"
-          style={{ opacity: 0.05 }}
+          style={{ opacity: 0.03 }}
         >
           <span
-            className="font-[family-name:var(--font-heading)] font-black text-dark leading-none tracking-tight"
+            className="font-[family-name:var(--font-heading)] font-black text-white leading-none tracking-tight"
             style={{ fontSize: "clamp(120px, 22vw, 360px)" }}
           >
             LOKAL
@@ -211,21 +222,21 @@ export default function StandorteClient() {
 
         <div className="relative z-10 mx-auto w-full max-w-5xl px-6 lg:px-8 pt-32 pb-28 text-center">
 
-          <div className="hero-badge mb-8 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-white/55 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-primary">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+          <div className="hero-badge mb-8 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-primary-light">
+            <span className="w-1.5 h-1.5 rounded-full bg-primary-light animate-pulse" />
             Lokales SEO · Südwest &amp; Rhein-Main
           </div>
 
           {/* H1 — zwei Zeilen */}
           <h1
-            className="hero-title font-[family-name:var(--font-heading)] font-bold text-dark leading-[1.08] mb-7"
+            className="hero-title font-[family-name:var(--font-heading)] font-bold text-white leading-[1.08] mb-7"
             style={{ fontSize: "clamp(38px, 5.2vw, 72px)", letterSpacing: "-0.025em" }}
           >
             SEO für Ihren Standort —
             <br />
             <span
               style={{
-                background: "linear-gradient(95deg, #C2722A 12%, #D4A853 88%)",
+                background: "linear-gradient(92deg, #D98A3F, #D4A853)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
               }}
@@ -235,14 +246,14 @@ export default function StandorteClient() {
           </h1>
 
           <div className="hero-description mb-8 flex items-center justify-center gap-4">
-            <div className="h-px w-10 bg-primary/40" />
-            <span className="text-[10px] font-bold tracking-[0.26em] uppercase text-dark/30">
+            <div className="h-px w-10 bg-secondary/40" />
+            <span className="text-[10px] font-bold tracking-[0.26em] uppercase text-white/45">
               11 Regionen · Vor Ort &amp; Remote · Semrush · Ahrefs
             </span>
-            <div className="h-px w-10 bg-primary/40" />
+            <div className="h-px w-10 bg-secondary/40" />
           </div>
 
-          <p className="hero-description text-muted leading-[1.85] mb-11 max-w-3xl mx-auto" style={{ fontSize: "clamp(15px, 1.1vw, 17px)" }}>
+          <p className="hero-description text-white/75 leading-[1.85] mb-11 max-w-3xl mx-auto" style={{ fontSize: "clamp(15px, 1.1vw, 17px)" }}>
             Lokaler Wettbewerb ist real — und regionale Suchintentionen auch.
             Ein Stuttgarter Automobilzulieferer konkurriert anders als eine
             Frankfurter Unternehmensberatung oder ein Pforzheimer Schmuckhändler.
@@ -256,23 +267,23 @@ export default function StandorteClient() {
           <div className="hero-cta flex flex-wrap justify-center gap-4">
             <a
               href="#staedte"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark hover:shadow-xl hover:-translate-y-0.5"
+              className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-[0_14px_30px_-12px_rgba(0,0,0,0.6)] transition-all hover:bg-primary-dark hover:shadow-[0_18px_36px_-12px_rgba(0,0,0,0.65)] hover:-translate-y-0.5"
             >
               Ihre Region wählen
               <span className="text-white/80 text-xs float-chevron">↓</span>
             </a>
             <Link
               href="/seo/audit"
-              className="inline-flex items-center gap-2 rounded-full border border-dark/15 bg-white/55 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-dark/65 transition-all hover:border-dark/30 hover:bg-white/80 hover:text-dark"
+              className="inline-flex items-center gap-2 rounded-full border border-white/35 bg-white/10 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-white/90 transition-all hover:border-white/60 hover:bg-white/[0.16] hover:text-white"
             >
               Kostenlosen SEO-Audit anfragen
             </Link>
           </div>
         </div>
 
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
-          <span className="text-[10px] text-dark/50 font-mono tracking-[0.28em] uppercase">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-dark/30 to-transparent" />
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+          <span className="text-[10px] text-white font-mono tracking-[0.28em] uppercase">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-white/40 to-transparent" />
         </div>
       </section>
 

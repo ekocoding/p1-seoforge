@@ -29,6 +29,13 @@ const grad: React.CSSProperties = {
   WebkitTextFillColor: "transparent",
 };
 
+/* Hero-Variante: hellerer Gold-Gradient für Kontrast auf dunklem Circuit-Bild */
+const gradHero: React.CSSProperties = {
+  background: "linear-gradient(92deg, #D98A3F, #D4A853)",
+  WebkitBackgroundClip: "text",
+  WebkitTextFillColor: "transparent",
+};
+
 const BEIGE = "#F8F5F1";
 const TINT = "#fbf4ea";
 const TINT_BORDER = "#ecd3ba";
@@ -824,8 +831,8 @@ const STACK_ICONS: Record<string, ReactNode[]> = {
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   EIN Design-System je Branche: Magazine-Cover-Hero (Foto full-bleed, weißer
-   Fade links) → WARUM → SIGNATURE-App → SPLIT (Bild) → VORGEHEN →
+   EIN Design-System je Branche: Golden-Circuit-Hero (dunkles Leiterbahn-Bild,
+   dunkler Fade links) → WARUM → SIGNATURE-App → SPLIT (Bild) → VORGEHEN →
    KEYWORD-POTENZIAL → HEBEL → FEHLER → FOTO-BAND → FAQ → CTA.
    Hintergrund-Rhythmus weiß/beige sauber alternierend, dunkel nur das CTA-Band.
 ═══════════════════════════════════════════════════════════════════════════ */
@@ -833,7 +840,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
   useScrollReveal();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  /* Bild-Key je Branche: /images/branchen-hero/<key>.jpg + /images/branchen-photo/<key>.jpg */
+  /* Bild-Key je Branche: /images/branchen-photo/<key>.jpg (FOTO-BAND) */
   const bildKey = branche.slug === "saas-seo" ? "saas" : branche.slug.replace("seo-fuer-", "");
   /* Signature-Modul links, wenn das SPLIT-Bild danach rechts sitzt — Medien-Seiten alternieren */
   const modulLinks =
@@ -872,7 +879,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
     <div className="hero-cta mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
       <a
         href="#kontakt"
-        className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-[15px] font-semibold text-white shadow-[0_12px_28px_-10px_rgba(26,26,26,0.45)] transition-all hover:bg-primary-dark hover:shadow-[0_16px_34px_-10px_rgba(26,26,26,0.5)]"
+        className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-[15px] font-semibold text-white shadow-[0_14px_30px_-12px_rgba(0,0,0,0.6)] transition-all hover:bg-primary-dark hover:shadow-[0_18px_36px_-12px_rgba(0,0,0,0.65)]"
       >
         {branche.ctaLabel}
         <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -881,7 +888,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       </a>
       <Link
         href="/branchen"
-        className="group inline-flex items-center gap-2 text-sm font-semibold text-dark border-b border-dark/20 pb-0.5 hover:border-primary hover:text-primary transition-colors"
+        className="group inline-flex items-center gap-2 text-sm font-semibold text-white/80 border-b border-white/30 pb-0.5 hover:border-white hover:text-white transition-colors"
       >
         <svg className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
@@ -894,17 +901,17 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
   /* Sichtbarer Breadcrumb im Eyebrow-Bereich: Branchen → Branche */
   const heroBadge = (
     <nav aria-label="Breadcrumb" className="hero-badge mb-5 inline-flex items-center gap-2.5">
-      <span className="h-px w-8 bg-primary" aria-hidden="true" />
+      <span className="h-px w-8 bg-secondary" aria-hidden="true" />
       <Link
         href="/branchen"
-        className="text-xs font-semibold uppercase tracking-[0.24em] text-dark/45 transition-colors hover:text-primary"
+        className="text-xs font-semibold uppercase tracking-[0.24em] text-white/60 transition-colors hover:text-white"
       >
         Branchen
       </Link>
-      <svg className="h-3 w-3 shrink-0 text-dark/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg className="h-3 w-3 shrink-0 text-white/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="m9 18 6-6-6-6" />
       </svg>
-      <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary" aria-current="page">
+      <span className="text-xs font-semibold uppercase tracking-[0.24em] text-secondary" aria-current="page">
         {branche.kurzName}
       </span>
     </nav>
@@ -941,53 +948,45 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         }
       `}</style>
 
-      {/* ══ 01 HERO — Magazine-Cover: Foto full-bleed, weißer Fade links ══ */}
+      {/* ══ 01 HERO — Golden Circuit: dunkles Leiterbahn-Bild full-bleed, harte Unterkante ══ */}
       <section
         className="relative flex min-h-[560px] overflow-hidden lg:min-h-[640px]"
-        style={{ background: "#FDFCFA" }}
+        style={{ background: "#161311" }}
       >
         <Image
-          src={`/images/branchen-hero/${bildKey}.jpg`}
-          alt={branche.heroBildAlt}
+          src="/images/hero-bg-circuit.jpg"
+          alt=""
           fill
           priority
           sizes="100vw"
-          className="object-cover object-right"
+          className="object-cover"
         />
 
-        {/* Overlay 1 — weiß-dominanter Lesbarkeits-Fade von links */}
+        {/* Overlay — sehr dezenter dunkler Lesbarkeits-Verlauf von links */}
         <div
           className="pointer-events-none absolute inset-0"
           aria-hidden="true"
           style={{
             background:
-              "linear-gradient(95deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.94) 34%, rgba(255,255,255,0.55) 55%, rgba(255,255,255,0.08) 78%, rgba(255,255,255,0) 100%)",
+              "linear-gradient(95deg, rgba(15,12,9,0.55) 0%, rgba(15,12,9,0.25) 45%, rgba(15,12,9,0) 75%)",
           }}
-        />
-        {/* Mobil: zusätzliche weiße Schicht über volle Breite für Textlesbarkeit */}
-        <div className="pointer-events-none absolute inset-0 bg-white/85 sm:hidden" aria-hidden="true" />
-        {/* Overlay 2 — dezenter Boden-Fade nach Weiß für den Übergang zur nächsten Section */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          aria-hidden="true"
-          style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0) 70%, #ffffff 100%)" }}
         />
 
         {/* Content — linke Spalte, vertikal zentriert */}
         <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center px-6 lg:px-8">
           <div className="max-w-[620px] py-16 lg:py-20">
             {heroBadge}
-            <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.3rem] sm:text-[2.8rem] lg:text-[3.1rem] font-medium leading-[1.05] tracking-tight text-dark">
+            <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.3rem] sm:text-[2.8rem] lg:text-[3.1rem] font-medium leading-[1.05] tracking-tight text-white">
               {branche.h1.pre}
-              <span style={grad}>{branche.h1.grad}</span>
+              <span style={gradHero}>{branche.h1.grad}</span>
               {branche.h1.post}
             </h1>
-            <p className="hero-description mt-5 text-lg leading-relaxed text-muted">{branche.subline}</p>
+            <p className="hero-description mt-5 text-lg leading-relaxed text-white/75">{branche.subline}</p>
             {branche.heroQuery && (
-              <div className="hero-cta mt-6 flex w-full max-w-md items-center gap-3 rounded-full border border-border bg-white/90 px-4 py-2.5 shadow-sm backdrop-blur">
-                <Lupe className="h-4 w-4 shrink-0 text-dark/40" />
-                <span className="truncate text-sm text-dark">{branche.heroQuery}</span>
-                <span className="ml-auto hidden shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/40 sm:block">
+              <div className="hero-cta mt-6 flex w-full max-w-md items-center gap-3 rounded-full border border-white/15 bg-white/10 px-4 py-2.5 backdrop-blur">
+                <Lupe className="h-4 w-4 shrink-0 text-white/50" />
+                <span className="truncate text-sm text-white/85">{branche.heroQuery}</span>
+                <span className="ml-auto hidden shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-white/45 sm:block">
                   So sucht Ihr Kunde
                 </span>
               </div>
@@ -1001,9 +1000,9 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
           className="pointer-events-none absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 lg:flex"
           aria-hidden="true"
         >
-          <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-dark/35">Mehr erfahren</span>
+          <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-white/50">Mehr erfahren</span>
           <svg
-            className="cue-bob h-4 w-4 text-primary/70"
+            className="cue-bob h-4 w-4 text-white/50"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
