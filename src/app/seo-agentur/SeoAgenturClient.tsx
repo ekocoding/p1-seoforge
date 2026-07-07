@@ -316,8 +316,7 @@ const KOR_PTS: [number, number][] = (() => {
   return pts;
 })();
 const KOR_ZONEN_X = [40, 168, 320]; // Zonen-Starts: Monat 1–3 / 3–6 / 6–12
-const KOR_DRAW_MS = 2400;
-const KOR_STEPS = 40; // quantisierte Zeichen-Schritte — steppig wie einlaufende Daten
+const KOR_DRAW_MS = 3000;
 
 function KorridorChart() {
   const ref = useRef<HTMLDivElement>(null);
@@ -362,27 +361,26 @@ function KorridorChart() {
 
     const start = performance.now();
     let raf = 0;
-    let lastStep = -1;
 
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / KOR_DRAW_MS);
-      const eased = 1 - Math.pow(1 - t, 2.2);
-      const step = Math.round(eased * KOR_STEPS);
-      if (step !== lastStep) {
-        lastStep = step;
-        const p = step / KOR_STEPS;
-        const [x, y] = KOR_PTS[Math.min(KOR_PTS.length - 1, Math.round(p * (KOR_PTS.length - 1)))];
-        clipRef.current?.setAttribute("width", String(p * KOR_W));
-        scanRef.current?.setAttribute("x1", String(x));
-        scanRef.current?.setAttribute("x2", String(x));
-        glowRef.current?.setAttribute("cx", String(x));
-        glowRef.current?.setAttribute("cy", String(y));
-        dotRef.current?.setAttribute("cx", String(x));
-        dotRef.current?.setAttribute("cy", String(y));
-        KOR_ZONEN_X.forEach((zx, z) => {
-          if (x >= zx) activateCell(z);
-        });
-      }
+      const eased = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      const fIdx = eased * (KOR_PTS.length - 1);
+      const i0 = Math.floor(fIdx);
+      const i1 = Math.min(KOR_PTS.length - 1, i0 + 1);
+      const frac = fIdx - i0;
+      const x = KOR_PTS[i0][0] + (KOR_PTS[i1][0] - KOR_PTS[i0][0]) * frac;
+      const y = KOR_PTS[i0][1] + (KOR_PTS[i1][1] - KOR_PTS[i0][1]) * frac;
+      clipRef.current?.setAttribute("width", String(eased * KOR_W));
+      scanRef.current?.setAttribute("x1", String(x));
+      scanRef.current?.setAttribute("x2", String(x));
+      glowRef.current?.setAttribute("cx", String(x));
+      glowRef.current?.setAttribute("cy", String(y));
+      dotRef.current?.setAttribute("cx", String(x));
+      dotRef.current?.setAttribute("cy", String(y));
+      KOR_ZONEN_X.forEach((zx, z) => {
+        if (x >= zx) activateCell(z);
+      });
       if (t < 1) raf = requestAnimationFrame(tick);
       else finish();
     };
@@ -1764,14 +1762,14 @@ export default function SeoAgenturClient() {
             <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
               <div className="group relative rounded-2xl overflow-hidden border border-border shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
                 <Image
-                  src="/images/seo-3d-waage.png"
-                  alt="3D-Illustration einer Balkenwaage: eine einzelne Figur unter einem übergroßen Werkzeug-Stapel gegenüber drei Figuren mit je einem Werkzeug"
+                  src="/images/seo-inhouse-gespraech.jpg"
+                  alt="Marketing-Verantwortliche und externe Beraterin arbeiten gemeinsam am Laptop"
                   fill
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                   sizes="(max-width: 1024px) 100vw, 600px"
                 />
               </div>
-              <p className="mt-3 text-xs italic text-muted">Eine Person gegen vier Disziplinen — oder ein Team mit Rollenteilung.</p>
+              <p className="mt-3 text-xs italic text-muted">Kein Entweder-oder: Die beste Lösung ist oft ein Team auf Augenhöhe.</p>
             </div>
           </div>
 
