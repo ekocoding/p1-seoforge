@@ -627,11 +627,11 @@ function SignatureModul({ sig }: { sig: Signature }) {
 
 /* ═══════════════════════════════════════════════════════════════════════════
    VORGEHEN-PLAYER — interaktives Story-Progress-Panel: 4 Segment-Balken mit
-   Auto-Advance (6 s je Schritt, Loop), Pause bei Hover, 12 s nach Klick und
-   bei verstecktem Tab; IO-gated (startet erst im Viewport); bei
+   Auto-Advance (4,5 s je Schritt, Loop), Pause bei Hover, 12 s nach Klick und
+   bei verstecktem Tab; IO-gated (startet früh beim Reinscrollen); bei
    prefers-reduced-motion kein Auto-Advance — Segmente statisch, nur Klick.
 ═══════════════════════════════════════════════════════════════════════════ */
-const SCHRITT_DAUER_MS = 6000;
+const SCHRITT_DAUER_MS = 4500;
 const KLICK_PAUSE_MS = 12000;
 const TICK_MS = 50;
 
@@ -660,16 +660,17 @@ function VorgehenPlayer({ schritte }: { schritte: { titel: string; text: string 
     if (!el) return;
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => setImViewport(e.isIntersecting)),
-      { threshold: 0.35 }
+      { threshold: 0.15, rootMargin: "0px 0px -5% 0px" }
     );
     io.observe(el);
     return () => io.disconnect();
   }, []);
 
-  /* Ticker: füllt das aktive Segment über 6 s, danach nächster Schritt (Loop) */
+  /* Ticker: füllt das aktive Segment über 4,5 s, danach nächster Schritt (Loop);
+     sofortiger Erst-Tick — Schritt 1 zeigt ohne Anlaufverzögerung Fortschritt */
   useEffect(() => {
     if (reduzierteBewegung || !imViewport || gehovert) return;
-    const id = window.setInterval(() => {
+    const tick = () => {
       if (document.hidden || Date.now() < pauseBisRef.current) return;
       const naechster = fortschrittRef.current + TICK_MS / SCHRITT_DAUER_MS;
       if (naechster >= 1) {
@@ -680,7 +681,9 @@ function VorgehenPlayer({ schritte }: { schritte: { titel: string; text: string 
         fortschrittRef.current = naechster;
         setFortschritt(naechster);
       }
-    }, TICK_MS);
+    };
+    tick();
+    const id = window.setInterval(tick, TICK_MS);
     return () => window.clearInterval(id);
   }, [reduzierteBewegung, imViewport, gehovert, schritte.length]);
 
@@ -1103,6 +1106,34 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
               <figcaption className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
                 {branche.split.caption}
               </figcaption>
+              {/* Effizienz-Karte: gleicht die Bildspalte an die längere Textspalte an */}
+              <div
+                className="scroll-hidden rv-blur mt-5 rounded-2xl border p-6"
+                style={{ background: TINT, borderColor: TINT_BORDER, transitionDelay: "220ms" }}
+              >
+                <span className="block font-mono text-[10px] uppercase tracking-[0.16em] text-primary/70">
+                  Warum wir günstiger sind
+                </span>
+                <h3 className="mt-2.5 font-[family-name:var(--font-heading)] text-lg font-bold text-dark">
+                  Effizienz, die Sie im Preis merken.
+                </h3>
+                <p className="mt-2 text-sm text-muted leading-relaxed">
+                  KI-gestützte Routinen und CI/CD-Deployments senken unseren Aufwand pro Maßnahme deutlich — das
+                  macht uns günstiger als klassische Agenturstrukturen. Und weil Änderungen in Minuten live gehen
+                  statt in Wochen, werden Ergebnisse früher messbar.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {["KI-Workflows", "Live in Minuten"].map((c) => (
+                    <span
+                      key={c}
+                      className="rounded-full border bg-white px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.14em] text-primary"
+                      style={{ borderColor: TINT_BORDER }}
+                    >
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </figure>
 
             <div
@@ -1512,6 +1543,12 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
             </h2>
             <p className="scroll-hidden rv-blur mt-5 text-white/60 leading-relaxed" style={{ transitionDelay: "100ms" }}>
               Kostenlose Erstanalyse, Antwort innerhalb von 24 Stunden — von einem festen Ansprechpartner.
+            </p>
+            <p
+              className="scroll-hidden rv-blur mt-4 font-mono text-[11px] uppercase tracking-[0.16em] text-white/55"
+              style={{ transitionDelay: "140ms" }}
+            >
+              Effiziente Strukturen · faire Preise · Ergebnisse früher messbar
             </p>
             <div className="scroll-hidden rv-blur mt-8" style={{ transitionDelay: "180ms" }}>
               <Link
