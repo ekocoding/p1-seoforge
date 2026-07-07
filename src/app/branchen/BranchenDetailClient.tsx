@@ -5,7 +5,8 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SubpageLayout from "@/app/components/SubpageLayout";
-import type { Branche, Signature } from "./branchenData";
+import { FOTO_BAND, KEYWORDS } from "./branchenData";
+import type { Branche, FotoBand, KeywordPotenzial, KeywordRow, Signature } from "./branchenData";
 
 /* ─── Scroll-Reveal (IntersectionObserver → .scroll-visible) ──────────────── */
 function useScrollReveal() {
@@ -34,6 +35,28 @@ const TINT_BORDER = "#ecd3ba";
 /* Neutraler ✗-Warn-Tint auf Markenbasis (#C2722A mit 10 % Deckung) */
 const WARN_BG = "rgba(194,114,42,0.10)";
 const WARN_BORDER = "rgba(194,114,42,0.28)";
+
+/* ─── Keyword-Potenzial: Formatierung & KD-Einstufung (Semrush-Daten) ─────── */
+const fmtZahl = (n: number) => n.toLocaleString("de-DE");
+
+type KdStufe = { label: string; text: string; bg: string; borderColor: string; bar: string };
+
+/** KD-Farblogik: ≤14 leicht (grün) · 15–29 machbar (gold) · ≥30 umkämpft (primary) */
+function kdStufe(kd: number): KdStufe {
+  if (kd <= 14) return { label: "leicht", text: "#1A7F37", bg: "#E9F6EC", borderColor: "rgba(26,127,55,0.28)", bar: "#1A7F37" };
+  if (kd <= 29) return { label: "machbar", text: "#A67C2E", bg: "#FAF3E3", borderColor: "#EAD9AE", bar: "#D4A853" };
+  return { label: "umkämpft", text: "#C2722A", bg: TINT, borderColor: TINT_BORDER, bar: "#C2722A" };
+}
+
+/* Copy-Baustein: Anteil der Begriffe unter KD 30 als Satzfragment */
+function kdAnteilSatz(rows: KeywordRow[]): string {
+  const unter30 = rows.filter((r) => r.kd < 30).length;
+  if (unter30 === rows.length) return "alle sechs Begriffe liegen mit Werten unter 30 im gut erreichbaren Bereich";
+  if (unter30 === 0) return "keiner der sechs Begriffe liegt unter der 30er-Marke";
+  if (unter30 === 1) return "einer der sechs Begriffe liegt mit einem Wert unter 30 im gut erreichbaren Bereich";
+  const wort = ["", "", "zwei", "drei", "vier", "fünf"][unter30] ?? String(unter30);
+  return `${wort} der sechs Begriffe liegen mit Werten unter 30 im gut erreichbaren Bereich`;
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Kleine Bausteine für die Mockup-Panels (Spielfeld-Panel-Stil)
@@ -672,6 +695,12 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
   const nrVorgehen = isSplit ? "03" : "04";
   /* VORGEHEN: Seiten mit hebelVariant "editorial" bekommen die 2-Spalten-Form */
   const vorgehenZweispaltig = branche.hebelVariant === "editorial";
+  /* KEYWORD-POTENZIAL + FOTO-BAND: Daten je Branche (Semrush bzw. Statement) */
+  const nrKeyword = isSplit ? "04" : "05";
+  const kwSet: KeywordPotenzial | undefined = KEYWORDS[branche.slug];
+  const kwSumme = kwSet ? kwSet.rows.reduce((s, r) => s + r.vol, 0) : 0;
+  const kwGerundet = Math.round(kwSumme / 100) * 100;
+  const fotoBand: FotoBand | undefined = FOTO_BAND[branche.slug];
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -751,12 +780,15 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         @keyframes chipPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
         .chip-dot { animation: chipPulse 2.2s ease-in-out infinite; }
         .bar-fill { transition: width 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease; }
+        .kd-bar { width: 0%; transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.25s; }
+        .scroll-visible .kd-bar { width: var(--kd, 0%); }
         .exp-rows { transition: grid-template-rows 0.4s ease-out; }
         @media (prefers-reduced-motion: reduce), (scripting: none) {
           .scroll-hidden.rv-left, .scroll-hidden.rv-right, .scroll-hidden.rv-scale, .scroll-hidden.rv-blur { transform: none; filter: none; transition: none; }
           .ae-in { animation: none; opacity: 1; }
           .chip-dot { animation: none; }
           .bar-fill { transition: none; }
+          .kd-bar { width: var(--kd, 0%); transition: none; }
           .exp-rows { transition: none; }
         }
       `}</style>
@@ -1016,8 +1048,93 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
+      {/* ══ 04b KEYWORD-POTENZIAL — echte Semrush-Daten als Tabellen-Panel ══ */}
+      {kwSet && (
+        <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? BEIGE : "#ffffff" }}>
+          <div className="mx-auto max-w-6xl px-6 lg:px-8">
+            <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,400px)_1fr] lg:gap-16">
+              <div className="scroll-hidden rv-left lg:sticky lg:top-28">
+                <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
+                  {nrKeyword} — Das Potenzial in Zahlen
+                </span>
+                <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
+                  So viel Nachfrage wartet <span style={grad}>in Ihrer Branche.</span>
+                </h2>
+                <div className="mt-5 space-y-4">
+                  <p className="text-[15px] lg:text-base text-muted leading-relaxed">
+                    Allein die sechs wichtigsten Suchbegriffe rund um {kwSet.thema} bündeln zusammen rund
+                    ~{fmtZahl(kwGerundet)} Suchanfragen pro Monat in Deutschland.
+                  </p>
+                  <p className="text-[15px] lg:text-base text-muted leading-relaxed">
+                    Die Keyword Difficulty zeigt auf einer Skala von 0–100, wie schwer ein Begriff umkämpft
+                    ist — {kdAnteilSatz(kwSet.rows)}.
+                  </p>
+                </div>
+                <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
+                  Quelle: Semrush · Datenbank Deutschland · Stand Juli 2026
+                </p>
+              </div>
+
+              <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
+                <PanelShell titel={`Keyword-Potenzial · ${branche.kurzName}`} label="Semrush · DE">
+                  {/* Kopfzeile */}
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 border-b border-border px-5 py-2.5 sm:grid-cols-[minmax(0,1fr)_104px_156px] sm:gap-x-4 lg:px-6">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-dark/40">Suchbegriff</span>
+                    <span className="text-right font-mono text-[10px] uppercase tracking-[0.14em] text-dark/40">Volumen/Monat</span>
+                    <span className="hidden text-right font-mono text-[10px] uppercase tracking-[0.14em] text-dark/40 sm:block">
+                      Schwierigkeit
+                    </span>
+                  </div>
+                  {/* Keyword-Zeilen */}
+                  <div className="divide-y divide-border">
+                    {kwSet.rows.map((r, i) => {
+                      const s = kdStufe(r.kd);
+                      return (
+                        <div
+                          key={r.kw}
+                          className="scroll-hidden rv-scale grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 gap-y-2 px-5 py-3.5 sm:grid-cols-[minmax(0,1fr)_104px_156px] sm:gap-x-4 lg:px-6"
+                          style={{ transitionDelay: `${i * 70}ms` }}
+                        >
+                          <span className="truncate text-[15px] text-dark">{r.kw}</span>
+                          <span className="text-right font-mono text-[13px] text-dark">{fmtZahl(r.vol)}</span>
+                          <span className="col-span-2 flex items-center gap-2 sm:col-span-1 sm:justify-end">
+                            <span
+                              className="inline-flex shrink-0 items-center rounded-full border px-2 py-0.5 font-mono text-[10px] font-semibold"
+                              style={{ color: s.text, background: s.bg, borderColor: s.borderColor }}
+                            >
+                              {r.kd} · {s.label}
+                            </span>
+                            <span className="h-1.5 w-16 shrink-0 overflow-hidden rounded-full bg-border" aria-hidden="true">
+                              <span
+                                className="kd-bar block h-full rounded-full"
+                                style={{ "--kd": `${r.kd}%`, background: s.bar } as React.CSSProperties}
+                              />
+                            </span>
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {/* Summen-Fußzeile */}
+                  <div
+                    className="scroll-hidden rv-scale flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-border px-5 py-4 lg:px-6"
+                    style={{ background: "#FBF8F4", transitionDelay: "420ms" }}
+                  >
+                    <span className="text-[13px] font-semibold text-dark">Gesamt</span>
+                    <span className="font-mono text-sm font-semibold text-dark">
+                      {fmtZahl(kwSumme)}{" "}
+                      <span className="font-sans text-[12px] font-normal text-muted">Suchanfragen/Monat</span>
+                    </span>
+                  </div>
+                </PanelShell>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ══ 05 HEBEL — Fact-Sheet-Tafel / Editorial / Stack ══ */}
-      <section className="py-20 lg:py-28" style={{ background: isSplit ? BEIGE : "#ffffff" }}>
+      <section className="py-20 lg:py-28" style={{ background: isSplit ? "#ffffff" : BEIGE }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-16 items-end mb-12 lg:mb-16">
             <div>
@@ -1115,7 +1232,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       </section>
 
       {/* ══ 06 FEHLER — „Typische Fehler“-Tafel bzw. 2-spaltige Editorial-Liste ══ */}
-      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? "#ffffff" : BEIGE }}>
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? BEIGE : "#ffffff" }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
             <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Typische Fehler</span>
@@ -1164,8 +1281,45 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
+      {/* ══ 06b FOTO-THEMEN-BAND — fotorealistische Atmosphäre, volle Breite ══ */}
+      {fotoBand && (
+        <section className="relative h-[340px] overflow-hidden lg:h-[420px]">
+          <Image
+            src={`/images/branchen-photo/${iconImg}.jpg`}
+            alt={fotoBand.alt}
+            fill
+            sizes="100vw"
+            className="object-cover"
+          />
+          <div
+            className="absolute inset-0"
+            aria-hidden="true"
+            style={{
+              background:
+                "linear-gradient(100deg, rgba(26,26,26,0.72) 0%, rgba(26,26,26,0.35) 55%, rgba(26,26,26,0.15) 100%)",
+            }}
+          />
+          <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl items-center px-6 lg:px-8">
+            <div className="scroll-hidden rv-blur max-w-xl">
+              <span className="block font-mono text-[11px] uppercase tracking-[0.18em] text-white/60">
+                Branchen · {branche.kurzName}
+              </span>
+              <p className="mt-4 font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] text-white leading-[1.15]">
+                {fotoBand.statement}
+              </p>
+              <a
+                href="#kontakt"
+                className="mt-6 inline-block border-b border-white/40 pb-0.5 text-sm font-semibold text-white/80 transition-colors hover:border-white hover:text-white"
+              >
+                Kostenlose Erstanalyse anfordern
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ══ 07 FAQ — 6 Accordions, Hintergrund je Rhythmus ══ */}
-      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? BEIGE : "#ffffff" }}>
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? "#ffffff" : BEIGE }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-16 items-start">
             <div className="scroll-hidden rv-left lg:sticky lg:top-28">

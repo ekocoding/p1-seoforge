@@ -1182,3 +1182,112 @@ export const branchen: Branche[] = [
     accent: "Sichtbarkeit, die in Google-Rankings und in KI-Empfehlungen zugleich funktioniert.",
   },
 ];
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   KEYWORD-POTENZIAL — echte Semrush-Daten (Datenbank Deutschland, Juli 2026).
+   Werte exakt aus dem Semrush-Export übernommen — nicht runden, nicht ändern.
+═══════════════════════════════════════════════════════════════════════════ */
+export type KeywordRow = { kw: string; vol: number; kd: number };
+export type KeywordPotenzial = { thema: string; rows: KeywordRow[] };
+
+export const KEYWORDS: Record<string, KeywordPotenzial> = {
+  "seo-fuer-aerzte": {
+    thema: "SEO für Ärzte und Praxismarketing",
+    rows: [
+      { kw: "seo für ärzte", vol: 1300, kd: 14 },
+      { kw: "praxismarketing", vol: 720, kd: 50 },
+      { kw: "seo für zahnärzte", vol: 590, kd: 7 },
+      { kw: "seo agentur für ärzte", vol: 260, kd: 15 },
+      { kw: "arzt marketing", vol: 260, kd: 22 },
+      { kw: "zahnarzt seo", vol: 140, kd: 8 },
+    ],
+  },
+  "seo-fuer-anwaelte": {
+    thema: "SEO für Anwälte und Kanzleimarketing",
+    rows: [
+      { kw: "seo für anwälte", vol: 1000, kd: 11 },
+      { kw: "kanzleimarketing", vol: 390, kd: 5 },
+      { kw: "kanzlei marketing", vol: 140, kd: 27 },
+      { kw: "anwalt seo", vol: 70, kd: 22 },
+      { kw: "seo agentur für anwälte", vol: 50, kd: 0 },
+      { kw: "legal marketing", vol: 40, kd: 0 },
+    ],
+  },
+  "seo-fuer-online-shops": {
+    thema: "E-Commerce- und Shop-SEO",
+    rows: [
+      { kw: "ecommerce seo", vol: 1000, kd: 30 },
+      { kw: "shop seo", vol: 590, kd: 22 },
+      { kw: "seo agentur für online shops", vol: 480, kd: 9 },
+      { kw: "e-commerce seo", vol: 320, kd: 25 },
+      { kw: "seo für online shop", vol: 210, kd: 20 },
+      { kw: "online shop marketing", vol: 90, kd: 18 },
+    ],
+  },
+  "seo-fuer-handwerker": {
+    thema: "SEO und Marketing für Handwerker",
+    rows: [
+      { kw: "seo für handwerker", vol: 590, kd: 10 },
+      { kw: "marketing für handwerker", vol: 320, kd: 10 },
+      { kw: "handwerker marketing", vol: 260, kd: 15 },
+      { kw: "seo agentur für handwerker", vol: 70, kd: 7 },
+      { kw: "handwerker werbung", vol: 70, kd: 17 },
+      { kw: "werbung handwerksbetrieb", vol: 40, kd: 0 },
+    ],
+  },
+  "seo-fuer-immobilienmakler": {
+    thema: "SEO und Marketing für Immobilienmakler",
+    rows: [
+      { kw: "seo für immobilienmakler", vol: 590, kd: 9 },
+      { kw: "immobilienmarketing", vol: 320, kd: 40 },
+      { kw: "immobilien marketing", vol: 260, kd: 21 },
+      { kw: "makler werbung", vol: 70, kd: 1 },
+      { kw: "immobilien seo", vol: 50, kd: 0 },
+      { kw: "makler marketing", vol: 50, kd: 0 },
+    ],
+  },
+  "saas-seo": {
+    thema: "B2B- und SaaS-SEO",
+    rows: [
+      { kw: "b2b seo", vol: 720, kd: 23 },
+      { kw: "b2b seo agentur", vol: 720, kd: 9 },
+      { kw: "saas marketing", vol: 140, kd: 19 },
+      { kw: "saas seo", vol: 110, kd: 10 },
+      { kw: "software marketing", vol: 90, kd: 25 },
+      { kw: "seo für saas", vol: 20, kd: 0 },
+    ],
+  },
+};
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   FOTO-THEMEN-BAND — Statement + Bild-Alt je Branche. 21:9-Fotos liegen unter
+   /images/branchen-photo/<key>.jpg (key = Slug ohne „seo-fuer-“-Präfix).
+═══════════════════════════════════════════════════════════════════════════ */
+export type FotoBand = { statement: string; alt: string };
+
+export const FOTO_BAND: Record<string, FotoBand> = {
+  "seo-fuer-aerzte": {
+    statement: "Patienten suchen Symptome — nicht Ihren Praxisnamen.",
+    alt: "Ärztin im Patientengespräch in einer modernen Praxis",
+  },
+  "seo-fuer-anwaelte": {
+    statement: "Mandate entstehen dort, wo Fragen gestellt werden.",
+    alt: "Anwalt bei der Fallbesprechung in einer Kanzlei",
+  },
+  "seo-fuer-online-shops": {
+    statement: "Jede organische Kategorie-Position spart Werbebudget.",
+    alt: "Mitarbeiterin bereitet Pakete für den Versand in einem Online-Shop vor",
+  },
+  "seo-fuer-handwerker": {
+    statement: "Ihr nächster Auftrag sucht gerade in Ihrer Nähe.",
+    alt: "Handwerker bei der Arbeit im Einsatz vor Ort",
+  },
+  "seo-fuer-immobilienmakler": {
+    statement: "Eigentümer entscheiden früher, als Portale es sehen.",
+    alt: "Immobilienmakler bei einer Objektbesichtigung mit Eigentümern",
+  },
+  "saas-seo": {
+    statement: "Software wird heute auch von KI empfohlen.",
+    alt: "SaaS-Team bespricht die Weiterentwicklung der Software im Büro",
+  },
+};
