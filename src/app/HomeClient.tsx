@@ -841,78 +841,65 @@ export default function HomeClient() {
         </Section>
 
         {/* ============================================================ */}
-        {/*  AGENTUR-INDEX — SEO / GEO / KI-SEO Agentur                  */}
+        {/*  AGENTUR-SERP — SEO / GEO / KI-SEO als Suchergebnisse        */}
         {/* ============================================================ */}
-        <section className="py-24 lg:py-32" style={{ background: "#F8F5F1" }}>
+        <section className="py-16 lg:py-24" style={{ background: "#F8F5F1" }}>
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-4">
+            <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
+
               <div>
                 <p className="text-xs font-bold uppercase tracking-[.12em] text-primary mb-3">Spezialisierungen</p>
-                <h2 className="text-4xl lg:text-5xl font-[family-name:var(--font-heading)] text-dark leading-tight">
-                  Eine Agentur,{" "}
+                <h2 className="text-3xl lg:text-4xl font-[family-name:var(--font-heading)] text-dark leading-tight">
+                  Drei Disziplinen —{" "}
                   <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
-                    drei Disziplinen.
+                    so werden Sie gefunden.
                   </span>
                 </h2>
+                <p className="mt-4 text-muted leading-relaxed max-w-md">
+                  Klassische Google-Suche, KI-Antworten und Marken-Autorität — jede Disziplin hat bei uns
+                  eine eigene Seite. So wie Ihre Kunden sie finden würden.
+                </p>
               </div>
-              <p className="text-base text-dark/45 max-w-xs lg:text-right leading-relaxed">
-                Klassische Suche, KI-Antworten und Marken-Autorität — jede Disziplin mit eigener Seite.
-              </p>
-            </div>
 
-            <div className="divide-y divide-border border-y border-border">
-              {[
-                {
-                  nr: "01",
-                  label: "Suchmaschinen",
-                  titel: "SEO Agentur",
-                  href: "/seo-agentur",
-                  desc: "Nachhaltige Rankings in Google — Strategie, Technik, Content und Autorität als ein System.",
-                },
-                {
-                  nr: "02",
-                  label: "Generative Engines",
-                  titel: "GEO Agentur",
-                  href: "/geo-agentur",
-                  desc: "Ihre Marke als Antwort in ChatGPT, Perplexity und Google AI Overviews — bevor es der Wettbewerb ist.",
-                },
-                {
-                  nr: "03",
-                  label: "KI & Marke",
-                  titel: "KI-SEO Agentur",
-                  href: "/ki-seo-agentur",
-                  desc: "Entitäten, Content-Autorität und digitale PR — Ihre Marke wird zur Referenz für KI-Systeme.",
-                },
-              ].map((a) => (
-                <Link
-                  key={a.href}
-                  href={a.href}
-                  className="group relative grid gap-2 py-8 lg:py-10 lg:grid-cols-[110px_1fr_auto] lg:items-center lg:gap-10 transition-colors duration-300 hover:bg-white"
-                >
-                  <span
-                    className="pointer-events-none absolute left-0 top-0 h-full w-[3px] origin-top scale-y-0 transition-transform duration-300 group-hover:scale-y-100"
-                    style={{ background: "linear-gradient(180deg, #C2722A, #D4A853)" }}
-                    aria-hidden="true"
-                  />
-                  <span className="hidden lg:block pl-6 font-[family-name:var(--font-heading)] text-5xl font-black leading-none text-primary/10 transition-colors duration-300 group-hover:text-primary/30">
-                    {a.nr}
+              <div className="rounded-2xl border border-border bg-white shadow-[0_20px_50px_-28px_rgba(26,26,26,0.22)] overflow-hidden">
+                <div className="flex items-center justify-between border-b border-border px-5 py-3">
+                  <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-dark/50">
+                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+                    Google-Suche
                   </span>
-                  <span className="pl-6 lg:pl-0">
-                    <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-dark/40 mb-1.5">
-                      {a.nr} · {a.label}
-                    </span>
-                    <span className="block font-[family-name:var(--font-heading)] text-3xl sm:text-4xl lg:text-[42px] font-bold leading-tight text-dark transition-colors duration-300 group-hover:text-primary">
-                      {a.titel}
-                    </span>
-                    <span className="mt-2 block max-w-xl text-[15px] leading-relaxed text-muted">{a.desc}</span>
-                  </span>
-                  <span className="ml-6 lg:ml-0 mr-6 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-border bg-white text-dark transition-all duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-white">
-                    <svg className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                    </svg>
-                  </span>
-                </Link>
-              ))}
+                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-dark/35">3 Ergebnisse</span>
+                </div>
+
+                <div className="flex items-center gap-2.5 border-b border-border px-5 py-3" style={{ background: "#FBF8F4" }}>
+                  <svg className="h-3.5 w-3.5 shrink-0 text-dark/35" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                  </svg>
+                  <span className="text-sm text-dark/70">agentur für sichtbarkeit</span>
+                </div>
+
+                <div className="divide-y divide-border">
+                  {[
+                    { pfad: "seo-agentur", titel: "SEO Agentur — nachhaltige Rankings in Google", snippet: "Strategie, Technik, Content und Autorität als ein System. Für Sichtbarkeit, die bleibt." },
+                    { pfad: "geo-agentur", titel: "GEO Agentur — sichtbar in ChatGPT & AI Overviews", snippet: "Ihre Marke als Antwort in KI-Suchen — bevor es der Wettbewerb ist." },
+                    { pfad: "ki-seo-agentur", titel: "KI-SEO Agentur — Ihre Marke als Referenz für KI", snippet: "Entitäten, Content-Autorität und digitale PR für die neue Suche." },
+                  ].map((r) => (
+                    <Link key={r.pfad} href={`/${r.pfad}`} className="group block px-5 py-4 transition-colors duration-200 hover:bg-[#FBF8F4]">
+                      <span className="flex items-center gap-2">
+                        <svg viewBox="0 0 32 32" className="h-4 w-4 shrink-0" aria-hidden="true">
+                          <polygon points="16,2 28,8 28,24 16,30 4,24 4,8" fill="#C2722A" />
+                          <polygon points="16,7 23,11 23,21 16,25 9,21 9,11" fill="#D4A853" />
+                        </svg>
+                        <span className="truncate text-xs text-dark/45">seoforge.de <span className="text-dark/30">›</span> {r.pfad}</span>
+                      </span>
+                      <span className="mt-1 block text-[17px] font-semibold leading-snug text-primary group-hover:underline underline-offset-2">
+                        {r.titel}
+                      </span>
+                      <span className="mt-0.5 block text-sm leading-relaxed text-muted">{r.snippet}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
