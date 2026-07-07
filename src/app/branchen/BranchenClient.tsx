@@ -84,36 +84,37 @@ export default function BranchenClient() {
         }
       `}</style>
 
-      {/* ══ 01 HERO — hell, kompakt ══ */}
-      <section className="relative overflow-hidden bg-white">
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div
-            className="absolute left-[10%] top-[-18%] h-[620px] w-[950px] rounded-full"
-            style={{ background: "radial-gradient(ellipse, rgba(212,168,83,0.18), transparent 60%)" }}
-          />
-          <div
-            className="absolute inset-0 opacity-60"
-            style={{
-              backgroundImage: "radial-gradient(circle at 1px 1px, rgba(26,26,26,0.045) 1px, transparent 0)",
-              backgroundSize: "30px 30px",
-              maskImage: "radial-gradient(ellipse 55% 60% at 25% 35%, #000 30%, transparent 75%)",
-              WebkitMaskImage: "radial-gradient(ellipse 55% 60% at 25% 35%, #000 30%, transparent 75%)",
-            }}
-          />
-        </div>
+      {/* ══ 01 HERO — Golden Circuit (dunkel) ══ */}
+      <section className="relative overflow-hidden" style={{ background: "#161311" }}>
+        <Image
+          src="/images/hero-bg-circuit.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div
+          className="pointer-events-none absolute inset-0"
+          aria-hidden="true"
+          style={{ background: "linear-gradient(95deg, rgba(15,12,9,0.55) 0%, rgba(15,12,9,0.25) 45%, rgba(15,12,9,0) 75%)" }}
+        />
 
-        <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8 pt-16 lg:pt-24 pb-14 lg:pb-20">
+        <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8 pt-20 lg:pt-28 pb-16 lg:pb-24">
           <div className="max-w-3xl">
             <div className="hero-badge mb-5 inline-flex items-center gap-2.5">
-              <span className="h-px w-8 bg-primary" />
-              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">SEO nach Branche</span>
+              <span className="h-px w-8 bg-secondary" />
+              <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary-light">SEO nach Branche</span>
             </div>
 
-            <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.7rem] sm:text-[3.4rem] lg:text-[4rem] font-medium leading-[1.02] tracking-tight text-dark">
-              SEO, das <span style={grad}>Ihre Branche versteht.</span>
+            <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.7rem] sm:text-[3.4rem] lg:text-[4rem] font-medium leading-[1.02] tracking-tight text-white">
+              SEO, das{" "}
+              <span style={{ background: "linear-gradient(92deg, #D98A3F, #D4A853)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+                Ihre Branche versteht.
+              </span>
             </h1>
 
-            <p className="hero-description mt-5 max-w-2xl text-lg leading-relaxed text-muted">
+            <p className="hero-description mt-5 max-w-2xl text-lg leading-relaxed text-white/75">
               Patienten suchen anders als Mandanten, Shop-Kunden anders als B2B-Einkäufer. Deshalb starten wir
               nicht mit einem Standardpaket, sondern mit dem Suchverhalten Ihrer Kunden.
             </p>
@@ -121,7 +122,7 @@ export default function BranchenClient() {
             <div className="hero-cta mt-8">
               <a
                 href="#branchen"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-[0_14px_30px_-12px_rgba(0,0,0,0.6)] transition-all hover:bg-primary-dark"
               >
                 Branchen ansehen
                 <svg className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
