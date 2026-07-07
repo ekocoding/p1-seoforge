@@ -1258,36 +1258,37 @@ export default function SeoAgenturClient() {
         }
       `}</style>
 
-      {/* ══ 01 HERO — minimal, zentriert ══ */}
-      <section className="relative overflow-hidden bg-white">
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div
-            className="absolute left-1/2 top-[-30%] h-[560px] w-[900px] -translate-x-1/2 rounded-full"
-            style={{ background: "radial-gradient(ellipse, rgba(212,168,83,0.16), transparent 60%)" }}
-          />
-          <div
-            className="absolute inset-0 opacity-60"
-            style={{
-              backgroundImage: "radial-gradient(circle at 1px 1px, rgba(26,26,26,0.045) 1px, transparent 0)",
-              backgroundSize: "30px 30px",
-              maskImage: "radial-gradient(ellipse 50% 55% at 50% 30%, #000 30%, transparent 75%)",
-              WebkitMaskImage: "radial-gradient(ellipse 50% 55% at 50% 30%, #000 30%, transparent 75%)",
-            }}
-          />
-        </div>
+      {/* ══ 01 HERO — Golden Circuit, minimal zentriert ══ */}
+      <section className="relative overflow-hidden" style={{ background: "#161311" }}>
+        <Image
+          src="/images/hero-bg-circuit.jpg"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+        />
+        <div
+          className="pointer-events-none absolute inset-0"
+          aria-hidden="true"
+          style={{ background: "radial-gradient(ellipse 70% 80% at 50% 45%, rgba(15,12,9,0.55), rgba(15,12,9,0.15) 75%)" }}
+        />
 
-        <div className="relative mx-auto w-full max-w-3xl px-6 lg:px-8 pt-28 lg:pt-36 pb-16 lg:pb-20 text-center">
+        <div className="relative mx-auto w-full max-w-3xl px-6 lg:px-8 pt-24 lg:pt-32 pb-20 lg:pb-28 text-center">
           <div className="hero-badge mb-5 inline-flex items-center gap-2.5">
-            <span className="h-px w-8 bg-primary" />
-            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary">SEO Agentur</span>
-            <span className="h-px w-8 bg-primary" />
+            <span className="h-px w-8 bg-secondary" />
+            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary-light">SEO Agentur</span>
+            <span className="h-px w-8 bg-secondary" />
           </div>
 
-          <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.6rem] sm:text-[3.3rem] lg:text-[4rem] font-medium leading-[1.04] tracking-tight text-dark">
-            SEO Agentur für <span style={grad}>Google &amp; KI&#8209;Suche.</span>
+          <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.6rem] sm:text-[3.3rem] lg:text-[4rem] font-medium leading-[1.04] tracking-tight text-white">
+            SEO Agentur für{" "}
+            <span style={{ background: "linear-gradient(92deg, #D98A3F, #D4A853)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+              Google &amp; KI&#8209;Suche.
+            </span>
           </h1>
 
-          <p className="hero-description mx-auto mt-5 max-w-xl text-lg leading-relaxed text-muted">
+          <p className="hero-description mx-auto mt-5 max-w-xl text-lg leading-relaxed text-white/75">
             Suchmaschinenoptimierung und GEO aus einer Hand — datenbasiert, transparent und ohne leere
             Versprechen.
           </p>
@@ -1295,7 +1296,7 @@ export default function SeoAgenturClient() {
           <div className="hero-cta mt-8 flex flex-col sm:flex-row justify-center gap-3">
             <a
               href="#kontakt"
-              className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-[0_14px_30px_-12px_rgba(0,0,0,0.6)] transition-all hover:bg-primary-dark"
             >
               Kostenlose Erstanalyse anfordern
               <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1304,23 +1305,15 @@ export default function SeoAgenturClient() {
             </a>
             <a
               href="#leistungen"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-border bg-white px-8 py-4 text-sm font-semibold text-dark transition-all hover:border-primary/40"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-white/35 px-8 py-4 text-sm font-semibold text-white transition-all hover:border-secondary"
             >
               Leistungskatalog ansehen
             </a>
           </div>
 
-          <p className="hero-description mt-9 font-mono text-[11px] uppercase tracking-[0.16em] text-dark/50">
+          <p className="hero-description mt-9 font-mono text-[11px] uppercase tracking-[0.16em] text-white/50">
             Technischer Audit · Keyword-Roadmap · Transparentes Reporting · GEO-Monitoring
           </p>
-        </div>
-
-        {/* SerpLiveDemo — zentriert unter dem Hero-Content */}
-        <div className="relative mx-auto w-full max-w-xl px-6 pb-16 lg:pb-24">
-          <div className="m3d">
-            <SerpLiveDemo />
-          </div>
-          <p className="mt-3 text-center text-xs italic text-muted">Demo-Ansicht — keine Live-Daten.</p>
         </div>
       </section>
 
