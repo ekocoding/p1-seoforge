@@ -728,7 +728,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
     <div className="hero-cta mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
       <a
         href="#kontakt"
-        className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark"
+        className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-[15px] font-bold text-white ring-[3px] ring-white shadow-[0_10px_18px_-6px_rgba(26,26,26,0.35),0_22px_48px_-14px_rgba(194,114,42,0.65)] transition-all hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-[0_14px_24px_-6px_rgba(26,26,26,0.4),0_30px_60px_-16px_rgba(194,114,42,0.7)]"
       >
         {branche.ctaLabel}
         <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
