@@ -845,22 +845,21 @@ export default function HomeClient() {
         {/* ============================================================ */}
         <section className="py-16 lg:py-24" style={{ background: "#F8F5F1" }}>
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-center lg:gap-16">
+            <div className="mx-auto max-w-2xl text-center">
+              <p className="text-xs font-bold uppercase tracking-[.12em] text-primary mb-3">Spezialisierungen</p>
+              <h2 className="text-3xl lg:text-4xl font-[family-name:var(--font-heading)] text-dark leading-tight">
+                Drei Disziplinen —{" "}
+                <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+                  so werden Sie gefunden.
+                </span>
+              </h2>
+              <p className="mx-auto mt-4 text-muted leading-relaxed max-w-lg">
+                Klassische Google-Suche, KI-Antworten und Marken-Autorität — jede Disziplin hat bei uns
+                eine eigene Seite. So wie Ihre Kunden sie finden würden.
+              </p>
+            </div>
 
-              <div>
-                <p className="text-xs font-bold uppercase tracking-[.12em] text-primary mb-3">Spezialisierungen</p>
-                <h2 className="text-3xl lg:text-4xl font-[family-name:var(--font-heading)] text-dark leading-tight">
-                  Drei Disziplinen —{" "}
-                  <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
-                    so werden Sie gefunden.
-                  </span>
-                </h2>
-                <p className="mt-4 text-muted leading-relaxed max-w-md">
-                  Klassische Google-Suche, KI-Antworten und Marken-Autorität — jede Disziplin hat bei uns
-                  eine eigene Seite. So wie Ihre Kunden sie finden würden.
-                </p>
-              </div>
-
+            <div className="mx-auto mt-10 max-w-2xl">
               <div className="rounded-2xl border border-border bg-white shadow-[0_20px_50px_-28px_rgba(26,26,26,0.22)] overflow-hidden">
                 <div className="flex items-center justify-between border-b border-border px-5 py-3">
                   <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-dark/50">
@@ -906,7 +905,6 @@ export default function HomeClient() {
                   ))}
                 </div>
               </div>
-
             </div>
           </div>
         </section>
