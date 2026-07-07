@@ -940,7 +940,7 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
           <>
             Online-Shops stellen eigene Anforderungen: Kategorieseiten mit dünnem Content, Duplicate Content durch Filterkombinationen
             und Produktseiten, die inhaltlich austauschbar sind, weil Hersteller-Beschreibungen unverändert übernommen wurden. Bei der{" "}
-            <Link href="/seo/shop" className="text-primary font-semibold hover:underline">Shop-SEO</Link> arbeiten wir an
+            <Link href="/branchen/seo-fuer-online-shops" className="text-primary font-semibold hover:underline">Shop-SEO</Link> arbeiten wir an
             Kategorietexten, Facettennavigation und der technischen Sauberkeit von Filter-URLs, damit Crawling-Budget nicht in
             irrelevanten URL-Varianten verpufft, die ohnehin nie ranken würden. Bei großen Sortimenten entscheidet diese technische
             Struktur häufiger über Sichtbarkeit als einzelne Produkttexte, so wichtig diese im Detail auch bleiben.
@@ -1912,49 +1912,58 @@ export default function SeoAgenturClient() {
               </div>
             </div>
 
-            {/* Rechts — Preis-Logik-Tafel + Kostenfaktoren als Chip-Reihe */}
-            <div>
-              <div className="scroll-hidden rv-scale">
-                <div className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
-                  <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
-                    <span className="chip-dot w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
-                    <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45">Preis-Logik — ohne versteckte Posten</span>
+            {/* Rechts — Investitions-Dokument (Angebots-Optik mit Dot-Leadern + Stempel) */}
+            <div className="scroll-hidden rv-scale">
+              <div className="relative rotate-[-1.2deg] transition-transform duration-500 hover:rotate-0">
+                <div className="overflow-hidden rounded-2xl border bg-white shadow-[0_28px_64px_-30px_rgba(26,26,26,0.28)]" style={{ borderColor: "#ecd3ba" }}>
+
+                  <div className="flex items-center justify-between gap-4 border-b border-dashed px-7 pt-6 pb-5" style={{ borderColor: "#ecd3ba" }}>
+                    <div className="flex items-center gap-3">
+                      <svg viewBox="0 0 32 32" className="h-9 w-9 shrink-0" aria-hidden="true">
+                        <polygon points="16,2 28,8 28,24 16,30 4,24 4,8" fill="#C2722A" />
+                        <polygon points="16,7 23,11 23,21 16,25 9,21 9,11" fill="#D4A853" />
+                      </svg>
+                      <div>
+                        <span className="block font-mono text-[10px] uppercase tracking-[0.2em] text-dark/45">SeoForge · Digital Growth</span>
+                        <span className="mt-0.5 block text-sm font-bold text-dark">Investitions-Übersicht</span>
+                      </div>
+                    </div>
+                    <span className="text-right font-mono text-[9px] uppercase leading-relaxed tracking-[0.16em] text-dark/35">
+                      Ohne versteckte<br />Posten
+                    </span>
                   </div>
-                  <div className="divide-y divide-border">
-                    {PREIS_LOGIK.map((r) => (
-                      <div
-                        key={r.titel}
-                        className="flex flex-col gap-2 p-6 sm:flex-row sm:items-center sm:gap-6 lg:p-7 transition-colors duration-300 hover:bg-[#FBF8F4]"
-                      >
-                        <span
-                          className="whitespace-nowrap font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-black leading-none sm:w-[180px] lg:w-[205px] shrink-0"
-                          style={grad}
-                        >
-                          {r.wert}
-                        </span>
-                        <span className="min-w-0">
-                          <span className="block font-bold text-dark">{r.titel}</span>
-                          <span className="mt-1 block text-sm text-muted leading-relaxed">{r.satz}</span>
-                        </span>
+
+                  <div className="px-7 py-1.5">
+                    {PREIS_LOGIK.map((r, i) => (
+                      <div key={r.titel} className="border-b border-dashed py-5 last:border-0" style={{ borderColor: "#f0e4d3" }}>
+                        <div className="flex items-baseline gap-3">
+                          <span className="font-mono text-[10px] text-dark/35">{String(i + 1).padStart(2, "0")}</span>
+                          <span className="font-bold text-dark">{r.titel}</span>
+                          <span className="mx-1 flex-1 -translate-y-1 border-b border-dotted" style={{ borderColor: "#d8c9b4" }} aria-hidden="true" />
+                          <span className="whitespace-nowrap font-[family-name:var(--font-heading)] text-xl font-black lg:text-[26px]" style={grad}>
+                            {r.wert}
+                          </span>
+                        </div>
+                        <p className="mt-1.5 pl-[26px] text-sm leading-relaxed text-muted">{r.satz}</p>
                       </div>
                     ))}
                   </div>
-                </div>
-              </div>
 
-              <div className="scroll-hidden rv-blur mt-5" style={{ transitionDelay: "140ms" }}>
-                <span className="block font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40 mb-2.5">Kostenfaktoren</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {FAKTOREN.map((f) => (
-                    <span
-                      key={f.t}
-                      title={f.d}
-                      className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/60"
-                    >
-                      <span className="h-1.5 w-1.5 rounded-full bg-primary/50" aria-hidden="true" />
-                      {f.t}
-                    </span>
-                  ))}
+                  <div className="px-7 py-4" style={{ background: "#FBF8F4", borderTop: "1px solid #ecd3ba" }}>
+                    <span className="mb-1.5 block font-mono text-[9px] uppercase tracking-[0.18em] text-dark/40">Kalkulationsgrundlage</span>
+                    <p className="text-[12px] leading-relaxed text-dark/55">
+                      {FAKTOREN.map((f) => f.t).join("  ·  ")}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="stamp-in pointer-events-none absolute -right-3 bottom-20 select-none lg:-right-5">
+                  <div
+                    className="rounded-lg border-[3px] border-primary px-3.5 py-1.5 font-mono text-[11px] font-black uppercase tracking-[0.18em] text-primary"
+                    style={{ boxShadow: "inset 0 0 0 2px rgba(194,114,42,0.3)", background: "rgba(255,255,255,0.82)" }}
+                  >
+                    Monatlich kündbar
+                  </div>
                 </div>
               </div>
             </div>

@@ -31,7 +31,6 @@ export default function Footer() {
                 { label: "SEO Texte", href: "/seo/texte" },
                 { label: "Content-Strategie", href: "/seo/content-strategie" },
                 { label: "On Page SEO", href: "/seo/on-page" },
-                { label: "Shop SEO", href: "/seo/shop" },
                 { label: "SEO Betreuung", href: "/seo/betreuung" },
               ].map((item) => (
                   <li key={item.label}>

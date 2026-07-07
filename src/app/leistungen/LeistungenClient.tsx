@@ -19,8 +19,7 @@ const SEO_SERVICES = [
   { n: "08", title: "On-Page Optimierung", href: "/seo/on-page-optimierung",    desc: "Systematische Verbesserung bestehender Seiten" },
   { n: "09", title: "SEO Optimierung",     href: "/seo/optimierung",            desc: "Ganzheitliche Maßnahmen für mehr Sichtbarkeit" },
   { n: "10", title: "SEO selbst machen",   href: "/seo/selbst-machen",          desc: "Schritt-für-Schritt-Anleitung für Einsteiger" },
-  { n: "11", title: "Shop SEO",            href: "/seo/shop",                   desc: "E-Commerce-Optimierung für mehr Umsatz" },
-  { n: "12", title: "SEO Texte",           href: "/seo/texte",                  desc: "Professionelle Texte für Top-Rankings" },
+  { n: "11", title: "SEO Texte",           href: "/seo/texte",                  desc: "Professionelle Texte für Top-Rankings" },
 ];
 
 const GEO_SERVICES = [

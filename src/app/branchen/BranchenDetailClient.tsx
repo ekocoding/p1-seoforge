@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -772,6 +772,257 @@ function VorgehenPlayer({ schritte }: { schritte: { titel: string; text: string 
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   ARBEITSWEISE — Bausteine: Count-Up, Deploy-Terminal (tippt IO-gated) und
+   Säulen-Expander (gridTemplateRows-Muster wie der Makler-Funnel).
+═══════════════════════════════════════════════════════════════════════════ */
+
+/* Count-Up — Zahl zählt beim Viewport-Eintritt hoch (rAF → textContent,
+   quantisiert, kein Re-Render; SSR/No-JS/Reduced-Motion zeigen den Endwert) */
+function CountUp({ to, dauer = 1400 }: { to: number; dauer?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    el.textContent = (0).toLocaleString("de-DE");
+    let raf = 0;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        io.disconnect();
+        const start = performance.now();
+        let last = -1;
+        const tick = (now: number) => {
+          const t = Math.min(1, (now - start) / dauer);
+          const val = Math.round((1 - Math.pow(1 - t, 3)) * to);
+          if (val !== last) {
+            last = val;
+            el.textContent = val.toLocaleString("de-DE");
+          }
+          if (t < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      },
+      { threshold: 0.6 }
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [to, dauer]);
+  return <span ref={ref}>{to.toLocaleString("de-DE")}</span>;
+}
+
+/* Deploy-Terminal — dunkles Panel im hellen Kontext: fünf Zeilen tippen
+   IO-gated (threshold 0.35, einmalig) nacheinander per rAF (auf Zeichen
+   quantisiert, ~26 ms/Zeichen, 340 ms Stagger); letzte Zeile grün, Cursor
+   blinkt. Werte illustrativ — Label „Schematische Darstellung" unter dem
+   Panel. SSR/No-JS/Reduced-Motion zeigen den kompletten Endzustand. */
+const TERM_GRUEN = "#4ADE80";
+
+type TermZeile = { prefix: "$" | "✓"; text: string; gruen?: boolean };
+
+function DeployTerminal({ beispiel }: { beispiel: string }) {
+  const zeilen = useMemo<TermZeile[]>(
+    () => [
+      { prefix: "$", text: `änderung erfasst — ${beispiel}` },
+      { prefix: "$", text: "build gestartet …" },
+      { prefix: "$", text: "tests bestanden ✓" },
+      { prefix: "$", text: "deploy auf produktion …" },
+      { prefix: "✓", text: "live nach 2:41 min", gruen: true },
+    ],
+    [beispiel]
+  );
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const spanRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  /* -1 = statischer Endzustand · -2 = armiert (leer) · 0–4 = Zeile tippt · 5 = fertig */
+  const [aktiv, setAktiv] = useState(-1);
+
+  /* Armieren + IO-Start (einmalig; Reduced-Motion behält den Endzustand) */
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    spanRefs.current.forEach((s) => {
+      if (s) s.textContent = "";
+    });
+    setAktiv(-2);
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          io.disconnect();
+          setAktiv(0);
+        }
+      },
+      { threshold: 0.35 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  /* Aktive Zeile tippt — rAF, auf Zeichen quantisiert, danach nächste Zeile */
+  useEffect(() => {
+    if (aktiv < 0 || aktiv >= zeilen.length) return;
+    const span = spanRefs.current[aktiv];
+    const text = zeilen[aktiv].text;
+    if (!span) {
+      setAktiv((a) => a + 1);
+      return;
+    }
+    const start = performance.now();
+    let raf = 0;
+    let last = -1;
+    let t: ReturnType<typeof setTimeout> | undefined;
+    const tick = (now: number) => {
+      const n = Math.min(text.length, Math.floor((now - start) / 26));
+      if (n !== last) {
+        last = n;
+        span.textContent = text.slice(0, n);
+      }
+      if (n < text.length) raf = requestAnimationFrame(tick);
+      else t = setTimeout(() => setAktiv((a) => a + 1), 340);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      if (t) clearTimeout(t);
+    };
+  }, [aktiv, zeilen]);
+
+  const statisch = aktiv === -1;
+  const fertig = statisch || aktiv >= zeilen.length;
+
+  return (
+    <div ref={wrapRef}>
+      <div className="overflow-hidden rounded-3xl border border-border bg-[#161311] shadow-[0_28px_70px_-30px_rgba(26,26,26,0.5)]">
+        {/* Mono-Titelzeile mit chip-dot + LIVE-Tag */}
+        <div className="flex items-center justify-between gap-3 border-b border-white/10 px-5 py-3.5 lg:px-6">
+          <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-white/55">
+            <span className="chip-dot inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+            Seoforge · Deploy-Pipeline
+          </span>
+          <span
+            className="flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.16em]"
+            style={{ color: TERM_GRUEN, borderColor: "rgba(74,222,128,0.3)", background: "rgba(74,222,128,0.1)" }}
+          >
+            <span className="chip-dot h-1 w-1 rounded-full" style={{ background: TERM_GRUEN }} aria-hidden="true" />
+            Live
+          </span>
+        </div>
+
+        {/* Terminal-Body */}
+        <div className="min-h-[180px] px-5 py-5 font-mono text-[13px] leading-[1.9] lg:px-6">
+          {zeilen.map((z, i) => {
+            const sichtbar = statisch || aktiv >= i;
+            return (
+              <p
+                key={i}
+                className={sichtbar ? undefined : "opacity-0"}
+                style={z.gruen ? { color: TERM_GRUEN } : undefined}
+                aria-hidden={!sichtbar}
+              >
+                <span className={z.gruen ? undefined : "text-white/35"}>{z.prefix} </span>
+                <span
+                  ref={(el) => {
+                    spanRefs.current[i] = el;
+                  }}
+                  className={z.gruen ? undefined : "text-white/85"}
+                >
+                  {z.text}
+                </span>
+                {!statisch && aktiv === i && (
+                  <span
+                    className="term-caret ml-0.5 inline-block h-[14px] w-[7px] rounded-[1px] bg-white/70 align-middle"
+                    aria-hidden="true"
+                  />
+                )}
+              </p>
+            );
+          })}
+          {/* Ruhender Prompt nach dem Lauf */}
+          <p className={fertig ? undefined : "opacity-0"} aria-hidden="true">
+            <span className="text-white/35">$ </span>
+            <span className="term-caret ml-0.5 inline-block h-[14px] w-[7px] rounded-[1px] bg-white/70 align-middle" />
+          </p>
+        </div>
+
+        {/* Fußzeile — zwei Werte in Weiß */}
+        <div className="grid grid-cols-2 divide-x divide-white/10 border-t border-white/10">
+          <div className="px-5 py-4 lg:px-6">
+            <span className="block font-[family-name:var(--font-heading)] text-2xl font-bold text-white lg:text-[28px]">
+              &lt;&nbsp;
+              <CountUp to={24} />
+              &nbsp;h
+            </span>
+            <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.16em] text-white/45">Antwortzeit</span>
+          </div>
+          <div className="px-5 py-4 lg:px-6">
+            <span className="block font-[family-name:var(--font-heading)] text-2xl font-bold text-white lg:text-[28px]">Minuten</span>
+            <span className="mt-1 block font-mono text-[9px] uppercase tracking-[0.16em] text-white/45">statt Wochen bis live</span>
+          </div>
+        </div>
+      </div>
+      <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.14em] text-dark/35">Schematische Darstellung</p>
+    </div>
+  );
+}
+
+/* Säulen-Expander — divide-y-Zeilen mit Mono-Index (K1–K4), Titel + Chevron;
+   Klick öffnet die zwei Sätze (gridTemplateRows), erste Zeile initial offen. */
+function ArbeitsweiseSaeulen({ saeulen }: { saeulen: { titel: string; text: string }[] }) {
+  const [offen, setOffen] = useState(0);
+  return (
+    <div className="divide-y divide-border border-y border-border">
+      {saeulen.map((s, i) => {
+        const open = offen === i;
+        return (
+          <button
+            key={s.titel}
+            type="button"
+            onClick={() => setOffen(open ? -1 : i)}
+            aria-expanded={open}
+            className={`grid w-full cursor-pointer grid-cols-[44px_1fr_auto] items-start gap-3 px-2 py-5 text-left transition-colors duration-300 ${
+              open ? "" : "hover:bg-[#FBF8F4]"
+            }`}
+          >
+            <span className="pt-1 font-mono text-[11px] font-semibold text-primary/60" aria-hidden="true">
+              K{i + 1}
+            </span>
+            <div className="min-w-0">
+              <span
+                className={`block font-[family-name:var(--font-heading)] text-base font-bold leading-snug transition-colors duration-300 lg:text-lg ${
+                  open ? "text-dark" : "text-dark/75"
+                }`}
+              >
+                {s.titel}
+              </span>
+              <div className="exp-rows grid" style={{ gridTemplateRows: open ? "1fr" : "0fr" }} aria-hidden={!open}>
+                <div className="overflow-hidden">
+                  <p key={String(open)} className="ae-in mt-2.5 pr-1 text-sm leading-relaxed text-muted">
+                    {s.text}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <svg
+              className={`mt-1 h-4 w-4 shrink-0 text-primary transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth={2}
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    Icon-Chips für die „stack“-Hebel-Variante (Stroke-SVGs inline)
 ═══════════════════════════════════════════════════════════════════════════ */
 const stackIconSvg = (paths: ReactNode) => (
@@ -825,9 +1076,12 @@ const STACK_ICONS: Record<string, ReactNode[]> = {
 
 /* ═══════════════════════════════════════════════════════════════════════════
    EIN Design-System je Branche: Magazine-Cover-Hero (Foto full-bleed, weißer
-   Fade links) → WARUM → SIGNATURE-App → SPLIT (Bild) → VORGEHEN →
-   KEYWORD-POTENZIAL → HEBEL → FEHLER → FOTO-BAND → FAQ → CTA.
-   Hintergrund-Rhythmus weiß/beige sauber alternierend, dunkel nur das CTA-Band.
+   Fade links) → 01 WARUM → 02 SIGNATURE-App → 03 SPLIT (Bild) → 04 TIEFE
+   (Magazin-Dossier mit Pull-Quote) → 05 VORGEHEN → 06 KEYWORD-POTENZIAL →
+   07 HEBEL → 08 FEHLER → 09 ARBEITSWEISE (Säulen-Expander + Deploy-Terminal) →
+   FOTO-BAND → 10 FAQ → CTA.
+   Hintergrund-Rhythmus weiß/beige sauber alternierend, dunkel nur das CTA-Band
+   (das Deploy-Terminal ist ein dunkles Panel im weißen Kontext, kein Section-BG).
 ═══════════════════════════════════════════════════════════════════════════ */
 export default function BranchenDetailClient({ branche }: { branche: Branche }) {
   useScrollReveal();
@@ -835,6 +1089,8 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
 
   /* Bild-Key je Branche: /images/branchen-hero/<key>.jpg + /images/branchen-photo/<key>.jpg */
   const bildKey = branche.slug === "saas-seo" ? "saas" : branche.slug.replace("seo-fuer-", "");
+  /* SaaS: bewusste Tech-Ausnahme — Circuit-Hero statt Menschen-Foto (User-Entscheidung 2026-07-07) */
+  const istTech = branche.slug === "saas-seo";
   /* Signature-Modul links, wenn das SPLIT-Bild danach rechts sitzt — Medien-Seiten alternieren */
   const modulLinks =
     branche.slug === "seo-fuer-online-shops" ||
@@ -881,7 +1137,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       </a>
       <Link
         href="/branchen"
-        className="group inline-flex items-center gap-2 text-sm font-semibold text-dark border-b border-dark/20 pb-0.5 hover:border-primary hover:text-primary transition-colors"
+        className={`group inline-flex items-center gap-2 text-sm font-semibold border-b pb-0.5 transition-colors ${istTech ? "text-white/80 border-white/30 hover:border-secondary hover:text-white" : "text-dark border-dark/20 hover:border-primary hover:text-primary"}`}
       >
         <svg className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
@@ -894,17 +1150,17 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
   /* Sichtbarer Breadcrumb im Eyebrow-Bereich: Branchen → Branche */
   const heroBadge = (
     <nav aria-label="Breadcrumb" className="hero-badge mb-5 inline-flex items-center gap-2.5">
-      <span className="h-px w-8 bg-primary" aria-hidden="true" />
+      <span className={`h-px w-8 ${istTech ? "bg-secondary" : "bg-primary"}`} aria-hidden="true" />
       <Link
         href="/branchen"
-        className="text-xs font-semibold uppercase tracking-[0.24em] text-dark/45 transition-colors hover:text-primary"
+        className={`text-xs font-semibold uppercase tracking-[0.24em] transition-colors ${istTech ? "text-white/60 hover:text-secondary" : "text-dark/45 hover:text-primary"}`}
       >
         Branchen
       </Link>
-      <svg className="h-3 w-3 shrink-0 text-dark/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <svg className={`h-3 w-3 shrink-0 ${istTech ? "text-white/30" : "text-dark/30"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
         <path d="m9 18 6-6-6-6" />
       </svg>
-      <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary" aria-current="page">
+      <span className={`text-xs font-semibold uppercase tracking-[0.24em] ${istTech ? "text-secondary" : "text-primary"}`} aria-current="page">
         {branche.kurzName}
       </span>
     </nav>
@@ -915,6 +1171,11 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <style>{`
+        .spark-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: sparkDraw 1.7s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards; }
+        .spark-fill { opacity: 0; animation: sparkFillIn 0.8s ease 1.7s forwards; }
+        @keyframes sparkDraw { to { stroke-dashoffset: 0; } }
+        @keyframes sparkFillIn { to { opacity: 1; } }
+        @media (prefers-reduced-motion: reduce) { .spark-draw { animation: none; stroke-dashoffset: 0; } .spark-fill { animation: none; opacity: 1; } }
         .scroll-hidden.rv-left { transform: translateX(-56px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
         .scroll-hidden.rv-right { transform: translateX(56px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
         .scroll-hidden.rv-scale { transform: translateY(28px) scale(0.93); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
@@ -930,6 +1191,8 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         .exp-rows { transition: grid-template-rows 0.4s ease-out; }
         @keyframes cueBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
         .cue-bob { animation: cueBob 2.4s ease-in-out infinite; }
+        @keyframes termCaret { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+        .term-caret { animation: termCaret 0.9s step-end infinite; }
         @media (prefers-reduced-motion: reduce), (scripting: none) {
           .scroll-hidden.rv-left, .scroll-hidden.rv-right, .scroll-hidden.rv-scale, .scroll-hidden.rv-blur { transform: none; filter: none; transition: none; }
           .ae-in { animation: none; opacity: 1; }
@@ -938,61 +1201,132 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
           .kd-bar { width: var(--kd, 0%); transition: none; }
           .exp-rows { transition: none; }
           .cue-bob { animation: none; }
+          .term-caret { animation: none; }
         }
       `}</style>
 
-      {/* ══ 01 HERO — Magazine-Cover: Foto full-bleed, weißer Fade links ══ */}
+      {/* ══ HERO — Magazine-Cover (Foto) bzw. Tech-Circuit für SaaS ══ */}
       <section
         className="relative flex min-h-[560px] overflow-hidden lg:min-h-[640px]"
-        style={{ background: "#FDFCFA" }}
+        style={{ background: istTech ? "#161311" : "#FDFCFA" }}
       >
         <Image
-          src={`/images/branchen-hero/${bildKey}.jpg`}
-          alt={branche.heroBildAlt}
+          src={istTech ? "/images/hero-bg-circuit.jpg" : `/images/branchen-hero/${bildKey}.jpg`}
+          alt={istTech ? "" : branche.heroBildAlt}
           fill
           priority
           sizes="100vw"
-          className="object-cover object-right"
+          className={istTech ? "object-cover" : "object-cover object-right"}
         />
 
-        {/* Overlay 1 — weiß-dominanter Lesbarkeits-Fade von links */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          aria-hidden="true"
-          style={{
-            background:
-              "linear-gradient(95deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.94) 34%, rgba(255,255,255,0.55) 55%, rgba(255,255,255,0.08) 78%, rgba(255,255,255,0) 100%)",
-          }}
-        />
-        {/* Mobil: zusätzliche weiße Schicht über volle Breite für Textlesbarkeit */}
-        <div className="pointer-events-none absolute inset-0 bg-white/85 sm:hidden" aria-hidden="true" />
-        {/* Overlay 2 — dezenter Boden-Fade nach Weiß für den Übergang zur nächsten Section */}
-        <div
-          className="pointer-events-none absolute inset-0"
-          aria-hidden="true"
-          style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0) 70%, #ffffff 100%)" }}
-        />
+        {istTech ? (
+          <div
+            className="pointer-events-none absolute inset-0"
+            aria-hidden="true"
+            style={{ background: "radial-gradient(ellipse 75% 85% at 42% 45%, rgba(15,12,9,0.6), rgba(15,12,9,0.18) 75%)" }}
+          />
+        ) : (
+          <>
+            {/* Overlay 1 — weiß-dominanter Lesbarkeits-Fade von links */}
+            <div
+              className="pointer-events-none absolute inset-0"
+              aria-hidden="true"
+              style={{
+                background:
+                  "linear-gradient(95deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.94) 34%, rgba(255,255,255,0.55) 55%, rgba(255,255,255,0.08) 78%, rgba(255,255,255,0) 100%)",
+              }}
+            />
+            <div className="pointer-events-none absolute inset-0 bg-white/85 sm:hidden" aria-hidden="true" />
+            <div
+              className="pointer-events-none absolute inset-0"
+              aria-hidden="true"
+              style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0) 70%, #ffffff 100%)" }}
+            />
+          </>
+        )}
 
-        {/* Content — linke Spalte, vertikal zentriert */}
+        {/* Content */}
         <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center px-6 lg:px-8">
-          <div className="max-w-[620px] py-16 lg:py-20">
-            {heroBadge}
-            <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.3rem] sm:text-[2.8rem] lg:text-[3.1rem] font-medium leading-[1.05] tracking-tight text-dark">
-              {branche.h1.pre}
-              <span style={grad}>{branche.h1.grad}</span>
-              {branche.h1.post}
-            </h1>
-            <p className="hero-description mt-5 text-lg leading-relaxed text-muted">{branche.subline}</p>
-            {branche.heroQuery && (
-              <div className="hero-cta mt-6 flex w-full max-w-md items-center gap-3 rounded-full border border-border bg-white/90 px-4 py-2.5 shadow-sm backdrop-blur">
-                <Lupe className="h-4 w-4 shrink-0 text-dark/40" />
-                <span className="truncate text-sm text-dark">{branche.heroQuery}</span>
-                <span className="ml-auto hidden shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/40 sm:block">
-                  So sucht Ihr Kunde
+          <div className={istTech ? "grid w-full items-center gap-12 py-16 lg:grid-cols-[1fr_minmax(0,420px)] lg:gap-16 lg:py-20" : ""}>
+            <div className={istTech ? "max-w-[620px]" : "max-w-[620px] py-16 lg:py-20"}>
+              {heroBadge}
+              <h1 className={`hero-title font-[family-name:var(--font-heading)] text-[2.3rem] sm:text-[2.8rem] lg:text-[3.1rem] font-medium leading-[1.05] tracking-tight ${istTech ? "text-white" : "text-dark"}`}>
+                {branche.h1.pre}
+                <span style={istTech ? { background: "linear-gradient(92deg, #D98A3F, #D4A853)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" } : grad}>
+                  {branche.h1.grad}
                 </span>
+                {branche.h1.post}
+              </h1>
+              <p className={`hero-description mt-5 text-lg leading-relaxed ${istTech ? "text-white/75" : "text-muted"}`}>{branche.subline}</p>
+              {branche.heroQuery && (
+                <div className="hero-cta mt-6 flex w-full max-w-md items-center gap-3 rounded-full border border-border bg-white/90 px-4 py-2.5 shadow-sm backdrop-blur">
+                  <Lupe className="h-4 w-4 shrink-0 text-dark/40" />
+                  <span className="truncate text-sm text-dark">{branche.heroQuery}</span>
+                  <span className="ml-auto hidden shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/40 sm:block">
+                    So sucht Ihr Kunde
+                  </span>
+                </div>
+              )}
+              {ctaButtons}
+            </div>
+
+            {istTech && (
+              <div className="hero-description hidden lg:block">
+                <div className="rounded-3xl border border-white/[0.12] bg-white/[0.06] p-6 backdrop-blur-sm shadow-[0_30px_70px_-30px_rgba(0,0,0,0.6)]">
+                  <div className="mb-5 flex items-center justify-between">
+                    <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-white/60">
+                      <span className="chip-dot inline-block h-1.5 w-1.5 rounded-full bg-secondary" />
+                      Organic Growth
+                    </span>
+                    <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/35">Illustrativ</span>
+                  </div>
+
+                  <svg viewBox="0 0 360 120" className="w-full" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="sparkStroke" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stopColor="#C2722A" />
+                        <stop offset="100%" stopColor="#D4A853" />
+                      </linearGradient>
+                      <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stopColor="rgba(212,168,83,0.22)" />
+                        <stop offset="100%" stopColor="rgba(212,168,83,0)" />
+                      </linearGradient>
+                    </defs>
+                    <path
+                      d="M0,102 C40,96 58,99 88,82 S148,74 178,56 S256,44 298,26 S340,16 360,12 L360,120 L0,120 Z"
+                      fill="url(#sparkFill)"
+                      className="spark-fill"
+                    />
+                    <path
+                      d="M0,102 C40,96 58,99 88,82 S148,74 178,56 S256,44 298,26 S340,16 360,12"
+                      fill="none"
+                      stroke="url(#sparkStroke)"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      pathLength={1}
+                      className="spark-draw"
+                    />
+                    <circle cx="360" cy="12" r="4" fill="#D4A853" className="chip-dot" />
+                  </svg>
+
+                  <div className="mt-5 space-y-2.5 border-t border-white/[0.1] pt-5">
+                    <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-white/75">
+                      <svg className="h-3.5 w-3.5 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H9M17 7v8" /></svg>
+                      Organische Signups
+                    </div>
+                    <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-white/75">
+                      <svg className="h-3.5 w-3.5 text-white/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M17 7L7 17M7 17h8M7 17V9" /></svg>
+                      Anteil Paid-Budget
+                    </div>
+                    <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-white/75">
+                      <svg className="h-3.5 w-3.5 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+                      Von KI-Assistenten empfohlen
+                    </div>
+                  </div>
+                </div>
+                <p className="mt-3 text-center text-xs italic text-white/40">Illustrative Darstellung — keine Kundendaten.</p>
               </div>
             )}
-            {ctaButtons}
           </div>
         </div>
 
@@ -1001,9 +1335,9 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
           className="pointer-events-none absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 lg:flex"
           aria-hidden="true"
         >
-          <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-dark/35">Mehr erfahren</span>
+          <span className={`font-mono text-[9px] uppercase tracking-[0.24em] ${istTech ? "text-white/35" : "text-dark/35"}`}>Mehr erfahren</span>
           <svg
-            className="cue-bob h-4 w-4 text-primary/70"
+            className={`cue-bob h-4 w-4 ${istTech ? "text-secondary/70" : "text-primary/70"}`}
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -1016,7 +1350,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ 02 WARUM — weiß, editorial ══ */}
+      {/* ══ 01 WARUM — weiß, editorial ══ */}
       <section className="border-t border-border bg-white py-20 lg:py-28 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-[minmax(0,360px)_1fr] gap-10 lg:gap-16 items-start">
@@ -1045,7 +1379,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ 02b SIGNATURE-APP — beige, eigene Section direkt nach WARUM ══ */}
+      {/* ══ 02 SIGNATURE-APP — beige, eigene Section direkt nach WARUM ══ */}
       <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-16">
@@ -1186,12 +1520,57 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ 04 VORGEHEN — interaktiver Vorgehen-Player (Story-Progress) ══ */}
-      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
+      {/* ══ 04 TIEFE — Magazin-Dossier: Editorial-Lead, Pull-Quote, zwei Spalten ══ */}
+      <section className="relative py-20 lg:py-28 overflow-hidden" style={{ background: BEIGE }}>
+        {/* Dezente Ghost-Ziffer der Section im Hintergrund */}
+        <span
+          className="pointer-events-none absolute -top-6 right-2 select-none font-[family-name:var(--font-heading)] text-[150px] font-black leading-none text-primary/[0.06] lg:right-10 lg:text-[260px]"
+          aria-hidden="true"
+        >
+          04
+        </span>
+        <div className="relative mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="scroll-hidden max-w-3xl">
+            <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
+              04 — Genauer betrachtet
+            </span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
+              {branche.tiefe.titel.pre}
+              <span style={grad}>{branche.tiefe.titel.grad}</span>
+            </h2>
+          </div>
+
+          {/* Editorial-Lead */}
+          <p
+            className="scroll-hidden rv-blur mt-6 max-w-3xl text-lg lg:text-xl text-muted leading-relaxed"
+            style={{ transitionDelay: "110ms" }}
+          >
+            {branche.tiefe.lead}
+          </p>
+
+          {/* Pull-Quote — ein prägnanter Satz aus dem Dossier, wortgetreu */}
+          <blockquote className="scroll-hidden rv-scale my-10 max-w-4xl border-l-4 border-secondary pl-6 lg:my-14 lg:pl-8">
+            <p className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold leading-snug" style={grad}>
+              „{branche.tiefe.quote}“
+            </p>
+          </blockquote>
+
+          {/* Zwei Spalten-Absätze */}
+          <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
+            <p className="scroll-hidden rv-left text-[15px] text-muted leading-relaxed">{branche.tiefe.spalten[0]}</p>
+            <p className="scroll-hidden rv-right text-[15px] text-muted leading-relaxed" style={{ transitionDelay: "120ms" }}>
+              {branche.tiefe.spalten[1]}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 05 VORGEHEN — interaktiver Vorgehen-Player (Story-Progress) ══ */}
+      <section className="bg-white py-20 lg:py-28 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
             <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
-              04 — Unser Vorgehen
+              05 — Unser Vorgehen
             </span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
               {branche.vorgehenTitle.pre}
@@ -1205,14 +1584,14 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ 04b KEYWORD-POTENZIAL — echte Semrush-Daten als Tabellen-Panel ══ */}
+      {/* ══ 06 KEYWORD-POTENZIAL — echte Semrush-Daten als Tabellen-Panel ══ */}
       {kwSet && (
-        <section className="bg-white py-20 lg:py-28 overflow-x-clip">
+        <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
           <div className="mx-auto max-w-6xl px-6 lg:px-8">
             <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,400px)_1fr] lg:gap-16">
               <div className="scroll-hidden rv-left lg:sticky lg:top-28">
                 <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
-                  05 — Das Potenzial in Zahlen
+                  06 — Das Potenzial in Zahlen
                 </span>
                 <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
                   So viel Nachfrage wartet <span style={grad}>in Ihrer Branche.</span>
@@ -1290,12 +1669,12 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </section>
       )}
 
-      {/* ══ 05 HEBEL — Fact-Sheet-Tafel / Editorial / Stack ══ */}
-      <section className="py-20 lg:py-28" style={{ background: BEIGE }}>
+      {/* ══ 07 HEBEL — Fact-Sheet-Tafel / Editorial / Stack ══ */}
+      <section className="bg-white py-20 lg:py-28">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-16 items-end mb-12 lg:mb-16">
             <div>
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Konkrete Hebel</span>
+              <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">07 — Konkrete Hebel</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12]">
                 Die vier Hebel <span style={grad}>für Ihre Sichtbarkeit.</span>
               </h2>
@@ -1388,11 +1767,11 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ 06 FEHLER — „Typische Fehler“-Tafel bzw. 2-spaltige Editorial-Liste ══ */}
-      <section className="bg-white py-20 lg:py-28 overflow-x-clip">
+      {/* ══ 08 FEHLER — „Typische Fehler“-Tafel bzw. 2-spaltige Editorial-Liste ══ */}
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
-            <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Typische Fehler</span>
+            <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">08 — Typische Fehler</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
               Vier Fehler, <span style={grad}>die Sichtbarkeit kosten.</span>
             </h2>
@@ -1438,7 +1817,39 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ 06b FOTO-THEMEN-BAND — fotorealistische Atmosphäre, volle Breite ══ */}
+      {/* ══ 09 ARBEITSWEISE — Säulen-Expander links, Deploy-Terminal rechts ══ */}
+      <section className="bg-white py-20 lg:py-28 overflow-x-clip">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="grid items-start gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
+            <div>
+              <div className="scroll-hidden rv-left">
+                <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
+                  09 — Unsere Arbeitsweise
+                </span>
+                <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[36px] font-bold text-dark leading-[1.14]">
+                  {branche.arbeitsweise.titel.pre}
+                  <span style={grad}>{branche.arbeitsweise.titel.grad}</span>
+                </h2>
+              </div>
+              <p
+                className="scroll-hidden rv-blur mt-5 text-[15px] lg:text-base text-muted leading-relaxed"
+                style={{ transitionDelay: "100ms" }}
+              >
+                {branche.arbeitsweise.intro}
+              </p>
+              <div className="scroll-hidden rv-blur mt-8" style={{ transitionDelay: "200ms" }}>
+                <ArbeitsweiseSaeulen saeulen={branche.arbeitsweise.saeulen} />
+              </div>
+            </div>
+
+            <div className="scroll-hidden rv-right lg:sticky lg:top-28" style={{ transitionDelay: "140ms" }}>
+              <DeployTerminal beispiel={branche.arbeitsweise.deployBeispiel} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ FOTO-THEMEN-BAND — fotorealistische Atmosphäre, volle Breite ══ */}
       {fotoBand && (
         <section className="relative h-[340px] overflow-hidden lg:h-[420px]">
           <Image
@@ -1475,14 +1886,14 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </section>
       )}
 
-      {/* ══ 07 FAQ — 6 Accordions, beige vor dem dunklen CTA-Band ══ */}
+      {/* ══ 10 FAQ — 8 Accordions, beige vor dem dunklen CTA-Band ══ */}
       <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-16 items-start">
             <div className="scroll-hidden rv-left lg:sticky lg:top-28">
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Häufige Fragen</span>
+              <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">10 — Häufige Fragen</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight mb-4">
-                Sechs Fragen — <span style={grad}>ehrlich beantwortet.</span>
+                Acht Fragen — <span style={grad}>ehrlich beantwortet.</span>
               </h2>
               <p className="text-muted leading-relaxed">
                 Die Fragen, die {branche.kurzName === "SaaS" ? "SaaS-Teams" : branche.kurzName} uns im
@@ -1526,7 +1937,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ 08 CTA-BAND — dunkel, kompakt ══ */}
+      {/* ══ CTA-BAND — dunkel, kompakt ══ */}
       <section id="kontakt" className="scroll-mt-20 bg-dark py-20 lg:py-28">
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
           <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">

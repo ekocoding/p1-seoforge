@@ -378,7 +378,7 @@ function ServicesStackSection() {
       number: "03",
       title: "E-Commerce SEO",
       description: "Spezialisierte Optimierung für Online-Shops mit Fokus auf Conversion.",
-      href: "/seo/shop",
+      href: "/branchen/seo-fuer-online-shops",
       tags: ["Produkte", "Kategorien", "CRO"],
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">

@@ -100,6 +100,22 @@ export type Branche = {
   fehlerVariant: "tafel" | "editorial";
   fehler: { titel: string; text: string }[];
   faq: { q: string; a: string }[];
+  /** ARBEITSWEISE-Section: Säulen-Expander links (K1–K4), Deploy-Terminal rechts */
+  arbeitsweise: {
+    titel: { pre: string; grad: string };
+    intro: string;
+    /** Vier Säulen als Expander-Zeilen — sichtbar nur Index + Titel, Klick öffnet die zwei Sätze */
+    saeulen: { titel: string; text: string }[];
+    /** Branchenspezifisches Beispiel der ersten Terminal-Zeile („$ änderung erfasst — …“) */
+    deployBeispiel: string;
+  };
+  /** TIEFE-Section: Magazin-Dossier — Editorial-Lead, Pull-Quote (wortgetreu), zwei Spalten-Absätze */
+  tiefe: {
+    titel: { pre: string; grad: string };
+    lead: string;
+    quote: string;
+    spalten: [string, string];
+  };
   ctaSatz: { pre: string; grad: string };
   ctaButtonLabel: string;
   icon: ReactNode;
@@ -285,7 +301,48 @@ export const branchen: Branche[] = [
         q: "Können Sie uns beim Aufbau von mehr Google-Bewertungen unterstützen?",
         a: "Ja, wir entwickeln einen Prozess, mit dem Patienten nach dem Termin unaufdringlich und im Einklang mit dem Standesrecht um eine Bewertung gebeten werden, etwa per QR-Code oder Follow-up-Nachricht. Wichtig ist die Abgrenzung zu unzulässigen Anreizen für Bewertungen. Auf negative Bewertungen reagieren wir gemeinsam mit Ihnen sachlich, um Vertrauen zu erhalten statt Konflikte öffentlich auszutragen.",
       },
+      {
+        q: "Wie viel Zeit muss unser Praxisteam für die Zusammenarbeit einplanen?",
+        a: "Wenig. Die meiste Abstimmung läuft über kurze schriftliche Freigaben, die Sie zwischen zwei Terminen erledigen können, statt über feste Meeting-Termine. Medizinisch heikle Inhalte wie Leistungsbeschreibungen oder Aussagen zu Behandlungen legen wir vor Veröffentlichung vor, alles andere setzen wir eigenständig um. Im Schnitt reichen wenige Minuten pro Woche, damit Ihre Praxis-Website aktuell und fachlich korrekt bleibt.",
+      },
+      {
+        q: "Dürfen wir auf unserer Website überhaupt über Symptome schreiben, ohne dass es wie eine Diagnose wirkt?",
+        a: "Ja, wenn die Inhalte sauber formuliert sind. Wir schreiben Symptom-Texte so, dass sie Orientierung geben und erklären, wann ein Arztbesuch sinnvoll ist, ohne selbst zu diagnostizieren oder Behandlungsversprechen zu machen. Diese Abgrenzung prüfen wir bei jedem medizinisch relevanten Text gemeinsam mit Ihnen, bevor er online geht, damit die Seite fachlich auf der sicheren Seite bleibt.",
+      },
     ],
+    arbeitsweise: {
+      titel: { pre: "Arbeiten im Takt ", grad: "Ihrer Sprechstunden." },
+      intro:
+        "Eine Arztpraxis hat keine Zeit für stundenlange Agentur-Termine zwischen zwei Patienten. Rückfragen zu Inhalten oder Freigaben müssen warten können, bis zwischen Sprechstunde und Dokumentation fünf Minuten Luft bleiben. Genau deshalb ist unsere Arbeitsweise auf kurze, asynchrone Abstimmung ausgelegt statt auf feste Meeting-Termine, die den Praxisablauf stören. Wer den ganzen Tag Patienten behandelt, braucht einen Partner, der im Hintergrund arbeitet und sich nur meldet, wenn wirklich eine Entscheidung gefragt ist.",
+      saeulen: [
+        {
+          titel: "KI übernimmt Routinearbeit",
+          text: "Bei der Auswertung von Praxis-Keywords wie Leistungsseiten, Fachbegriffen und Symptom-Suchen setzen wir KI-Systeme für die Vorab-Analyse ein, damit unsere Zeit in die medizinisch korrekte Content-Prüfung fließt. Die frei werdenden Stunden stecken wir in die sorgfältige Abstimmung, bevor ein Text zu Diagnosen oder Behandlungen online geht, statt in administrative Fleißarbeit.",
+        },
+        {
+          titel: "Änderungen ohne Wartezeit",
+          text: "Wenn ein neuer Facharzt in der Praxis anfängt oder sich Sprechzeiten ändern, geht die aktualisierte Seite über unsere CI/CD-Infrastruktur innerhalb von Minuten live, nicht erst nach dem nächsten Agentur-Termin. Gerade bei medizinischen Inhalten, die schnell korrigiert werden müssen, wenn sich Leistungen oder Angaben ändern, zahlt sich das aus.",
+        },
+        {
+          titel: "Ein fester Ansprechpartner",
+          text: "Sie sprechen bei uns immer mit derselben Person und nicht mit einer wechselnden Hotline, die erst Ihren Praxisnamen nachschlagen muss. Fragen zur Sichtbarkeit Ihrer Praxis beantworten wir innerhalb von 24 Stunden, auch wenn die E-Mail erst nach Praxisschluss rausgeht.",
+        },
+        {
+          titel: "Ergebnisse statt Vertragsbindung",
+          text: "Wir binden Praxen nicht über lange Vertragslaufzeiten, sondern über sichtbare monatliche Fortschritte bei Rankings und Anfragen. Wenn Terminanfragen über die Website spürbar steigen, bleiben Sie aus Überzeugung bei uns, nicht weil eine Kündigungsfrist dazu zwingt.",
+        },
+      ],
+      deployBeispiel: "neue behandlungsseite: implantologie",
+    },
+    tiefe: {
+      titel: { pre: "Von der Symptom-Suche ", grad: "bis zur Terminbuchung." },
+      lead: "Ein Patient mit Rückenschmerzen sucht selten direkt nach dem Namen einer Praxis. Er sucht zuerst nach dem Symptom, etwa „Rückenschmerzen was tun“ oder „Stechen im Kreuz beim Bücken“, lange bevor er überhaupt an einen Arztbesuch denkt. Erst in einer zweiten Suchphase, oft Stunden oder Tage später, wird aus dem Symptom eine konkrete Leistungssuche wie „Orthopäde Termin“ oder „Rückenschmerzen Facharzt in der Nähe“. Praxen, die nur ihre Leistungsseite optimieren, tauchen in dieser ersten, viel größeren Suchphase gar nicht auf und verpassen den Moment, in dem sich der Patient noch orientiert statt schon entschieden hat.",
+      quote: "Diese Übergänge entscheiden oft darüber, ob aus einem Website-Besucher ein Anruf oder eine Online-Terminbuchung wird.",
+      spalten: [
+        "Der größte Bruch in dieser Reise passiert häufig auf der eigenen Website: Der Patient landet über eine Symptom-Suche auf einer allgemeinen Startseite ohne Bezug zu seinem Anliegen und muss sich selbst durchklicken, um zu verstehen, ob die Praxis überhaupt zuständig ist. Fehlt an dieser Stelle ein klarer nächster Schritt, etwa ein sichtbarer Termin-Button direkt im ersten Blickfeld, bricht ein spürbarer Teil der Besucher wieder ab. Aus unserer Erfahrung verlieren Praxen genau hier mehr potenzielle Patienten als durch schlechte Rankings, weil die Seite zwar gefunden wird, die Unsicherheit des Patienten aber nicht auffängt. Ein Symptom-Text, der sachlich erklärt, was das Anliegen bedeuten kann und wann ein Arztbesuch sinnvoll ist, überbrückt genau diese Lücke, ohne in Diagnosen abzurutschen, die auf eine Praxis-Website nicht gehören.",
+        "Wir bauen deshalb bewusst eine Content-Ebene zwischen Symptom und Leistung: Seiten, die die Suchintention des unsicheren Patienten aufgreifen und von dort gezielt zur passenden Facharzt-Leistung verlinken. Diese Übergänge entscheiden oft darüber, ob aus einem Website-Besucher ein Anruf oder eine Online-Terminbuchung wird. Genauso wichtig ist die technische Seite: Ist die Terminbuchung von einer Symptom-Seite aus in zwei Klicks erreichbar, oder muss der Patient erst durch mehrere Untermenüs navigieren? Praxen, die diesen Weg verkürzen, gewinnen häufiger Patienten, die eigentlich schon fast wieder abgesprungen wären.",
+      ],
+    },
     ctaSatz: {
       pre: "Sprechen Sie mit uns darüber, wie Patienten Sie finden, ",
       grad: "bevor sie überhaupt nach Ihrem Praxisnamen suchen.",
@@ -463,7 +520,48 @@ export const branchen: Branche[] = [
         q: "Lohnt sich SEO für lokale Mandate genauso wie für überregionale?",
         a: "Das hängt stark vom Rechtsgebiet ab — Familienrecht oder Verkehrsrecht laufen meist über lokale Suche und ein starkes Google-Unternehmensprofil, während IT-Recht oder Gesellschaftsrecht überregional über Fachautorität und Content funktionieren. Wir legen die Strategie deshalb pro Fachgebiet fest, statt Ihre gesamte Kanzlei-Website nach einem einzigen Schema auszurichten.",
       },
+      {
+        q: "Wie stellen Sie sicher, dass vertrauliche Informationen zu unserer Kanzlei nicht nach außen dringen?",
+        a: "Wir arbeiten mit einem festen Ansprechpartner, der alle Absprachen zu Ihrer Kanzlei kennt, statt mit wechselnden Teammitgliedern ohne Kontext. Interne Unterlagen, Mandatszahlen oder strategische Überlegungen bleiben innerhalb dieses engen Kreises und werden nicht in größeren Team-Runden geteilt. Diese Vertraulichkeit gilt genauso für Zugänge zu Ihren Analyse-Tools, die nur die notwendigen Personen einsehen.",
+      },
+      {
+        q: "Können Sie unterscheiden, ob eine Anfrage über die Website tatsächlich zu einem Mandat wird?",
+        a: "Direkt nicht, das liegt in Ihrer Kanzlei-Software. Gemeinsam mit Ihnen lässt sich aber über die Herkunftsseite und das Such-Keyword nachvollziehen, welche Inhalte eher zu informativen Anfragen und welche eher zu konkreten Mandatsanfragen führen. Diese Rückmeldung aus Ihrer Praxis fließt in die weitere Content-Planung ein, damit wir die Themen priorisieren, die tatsächlich Mandate bringen.",
+      },
     ],
+    arbeitsweise: {
+      titel: { pre: "Vertraulichkeit und Tempo ", grad: "als Prinzip." },
+      intro:
+        "Mandanten kontaktieren eine Kanzlei oft in einer Drucksituation, etwa nach einer Kündigung oder einer Abmahnung, bei der jeder Tag zählt. Laufen interne Abstimmungen zu Website-Inhalten wochenlang über eine Agentur-Warteschleife, gehen genau die dringendsten Anfragen verloren. Zugleich verlangt anwaltliche Arbeit einen Umgang mit Informationen, der keine Umwege über wechselnde Ansprechpartner verträgt. Unsere Arbeitsweise ist deshalb auf kurze Wege und feste Zuständigkeiten ausgelegt statt auf ein anonymes Ticketsystem.",
+      saeulen: [
+        {
+          titel: "Recherche statt Fleißarbeit",
+          text: "Für die Auswertung von Rechtsgebieten, Suchvolumen einzelner Fachbegriffe und Wettbewerbs-Kanzleien nutzen wir KI-gestützte Systeme, damit die Vorarbeit nicht Tage kostet. Die gewonnene Zeit fließt in die inhaltliche Prüfung jedes Rechtstextes, damit Formulierungen zu Leistungen und Rechtsgebieten sauber und nicht angreifbar sind.",
+        },
+        {
+          titel: "Änderungen sofort online",
+          text: "Ändert sich eine Rechtsprechung oder kommt ein neues Tätigkeitsfeld in der Kanzlei hinzu, muss die entsprechende Seite nicht erst die nächste Agentur-Runde abwarten. Über unsere CI/CD-Infrastruktur ist eine aktualisierte oder neue Rechtsgebiets-Seite innerhalb von Minuten live, was bei aktuellen rechtlichen Entwicklungen entscheidet, ob Sie die Anfragen dazu bekommen oder ein Wettbewerber.",
+        },
+        {
+          titel: "Ein Ansprechpartner, keine Hotline",
+          text: "Sie erreichen bei uns immer dieselbe Person, die Ihre Kanzlei und Ihre Rechtsgebiete kennt, nicht einen wechselnden Support-Mitarbeiter. Anfragen beantworten wir innerhalb von 24 Stunden, und Sie sehen dieselben Zahlen aus Google Search Console oder Semrush wie wir, ohne dass Kennzahlen erst aufbereitet werden müssen.",
+        },
+        {
+          titel: "Bindung durch Ergebnisse",
+          text: "Wir setzen keine langen Vertragslaufzeiten als Druckmittel ein, sondern zeigen jeden Monat nachvollziehbar, welche Rechtsgebiets-Seiten an Sichtbarkeit gewinnen. Kanzleien bleiben bei uns, weil die Mandatsanfragen spürbar werden, nicht weil ein Vertrag sie zur Fortsetzung zwingt.",
+        },
+      ],
+      deployBeispiel: "neue rechtsgebiets-seite: arbeitsrecht",
+    },
+    tiefe: {
+      titel: { pre: "Was das Such-Keyword ", grad: "über Mandanten verrät." },
+      lead: "Nicht jede Anfrage, die über die Website hereinkommt, hat denselben Wert für eine Kanzlei. Ein Nutzer, der nach „Kündigung Muster Widerspruch“ sucht, will in den meisten Fällen ein kostenloses Dokument und ist noch nicht bereit, ein Mandat zu vergeben. Ein Nutzer, der dagegen nach „Fachanwalt Arbeitsrecht Kündigungsschutzklage Kosten“ sucht, hat sein Problem bereits eingeordnet und sucht konkret anwaltliche Vertretung. Beide Suchanfragen betreffen dasselbe Rechtsgebiet, führen aber zu völlig unterschiedlichen Anfragen, wenn sie auf der Website ankommen.",
+      quote: "Eine Seite mit wenig Traffic, aber hoher Anfragequalität, ist für eine Kanzlei oft wertvoller als eine stark besuchte Seite, die nur Musterdokumente abruft.",
+      spalten: [
+        "Aus unserer Erfahrung lohnt es sich, beide Suchintentionen bewusst mit unterschiedlichen Seiten zu bedienen, statt alles auf eine allgemeine Rechtsgebiets-Seite zu lenken. Informative Inhalte zu Mustern, Fristen und Abläufen holen Mandanten früh ab und bauen Vertrauen auf, auch wenn daraus nicht sofort ein Mandat entsteht. Seiten, die konkret auf Kosten, Ablauf eines Verfahrens und die Rolle eines Fachanwalts eingehen, sprechen dagegen Nutzer an, die kurz vor der Entscheidung stehen, jemanden zu beauftragen. Wer beide Ebenen sauber trennt, kann auch das Kontaktformular und die Ansprache je nach Herkunftsseite unterschiedlich gestalten.",
+        "Deshalb schauen wir nicht nur auf Rankings und Klickzahlen, sondern gemeinsam mit Ihnen darauf, welche Seiten tatsächlich zu Mandatsanfragen führen. Eine Seite mit wenig Traffic, aber hoher Anfragequalität, ist für eine Kanzlei oft wertvoller als eine stark besuchte Seite, die nur Musterdokumente abruft. Über die Zeit lässt sich so erkennen, welche Rechtsgebiete und welche Formulierungen tatsächlich zahlende Mandate bringen, statt nur Sichtbarkeit zu erzeugen. Diese Einordnung nehmen wir monatlich mit Ihnen vor, damit sich der redaktionelle Aufwand auf die Themen konzentriert, die sich für die Kanzlei auszahlen.",
+      ],
+    },
     ctaSatz: {
       pre: "Lassen Sie uns prüfen, für welche Mandantenfragen ",
       grad: "Ihre Kanzlei heute unsichtbar ist.",
@@ -542,7 +640,7 @@ export const branchen: Branche[] = [
         ausschließlich über bezahlten Traffic wächst, bleibt bei jeder Anzeigenpreis-Erhöhung verwundbar.
         Organische Sichtbarkeit bei Kategorieseiten kostet dagegen keinen Cent pro Klick, sobald sie einmal
         aufgebaut ist. Genau deshalb ist{" "}
-        <Link href="/seo/shop" className={linkCls}>Shop-SEO</Link> bei uns kein Zusatzmodul, sondern eine
+        <Link href="/seo/optimierung" className={linkCls}>Shop-SEO</Link> bei uns kein Zusatzmodul, sondern eine
         eigene Disziplin mit Fokus auf technische Sauberkeit, Kategoriestruktur und Produktdaten.
       </>,
     ],
@@ -653,7 +751,48 @@ export const branchen: Branche[] = [
         q: "Sollten wir eher auf unsere Markennamen oder auf allgemeine Produktbegriffe setzen?",
         a: "Beides hat eine Funktion — Markensuchen bringen meist die höchste Kaufwahrscheinlichkeit, während allgemeine Produktbegriffe deutlich mehr Volumen, aber auch mehr Wettbewerb bedeuten. Wir bauen zunächst Markenbegriffe und bereits vorhandene Stärken aus und erweitern danach gezielt um Long-Tail-Suchen mit konkreter Kaufabsicht, statt beides gleichzeitig anzugehen.",
       },
+      {
+        q: "Wie schnell können neue Produktkategorien auf unserer Website live gehen?",
+        a: "Sobald die Struktur der Kategorie und die passenden Keywords feststehen, dauert die technische Umsetzung über unsere CI/CD-Infrastruktur meist nur wenige Tage, nicht Wochen. Bei kurzfristigen Aktionen mit knappem Zeitfenster stimmen wir direkt ab, welche Inhalte zuerst stehen müssen, damit die Seite zum Aktionsstart nutzbar ist. Die inhaltliche Feinarbeit an Texten und internen Verlinkungen folgt dann im laufenden Betrieb.",
+      },
+      {
+        q: "Wie weit im Voraus sollten wir eine Saison wie Weihnachten oder den Sommerschlussverkauf planen?",
+        a: "Aus unserer Erfahrung sollten bestehende Kategorie-Seiten mehrere Wochen vor Saisonbeginn überarbeitet werden, damit Google genug Zeit hat, die Änderungen einzustufen. Wer erst kurz vor dem eigentlichen Verkaufszeitraum beginnt, verschenkt organische Sichtbarkeit, die dann nur noch über bezahlte Anzeigen aufgefangen werden kann. Wir planen diesen Vorlauf gemeinsam mit Ihnen in den allgemeinen Content-Kalender ein.",
+      },
     ],
+    arbeitsweise: {
+      titel: { pre: "SEO im Tempo ", grad: "Ihres Tagesgeschäfts." },
+      intro:
+        "Ein Online-Shop ändert sein Sortiment nicht einmal im Quartal, sondern oft mehrmals pro Woche: neue Produkte, auslaufende Varianten, kurzfristige Aktionen. Eine Agentur, die für jede neue Kategorie-Seite erst ein Ticket braucht und zwei Wochen auf Umsetzung, verpasst genau die Verkaufsfenster, die für Shops zählen. Deshalb ist unsere Arbeitsweise darauf ausgelegt, dass Änderungen am Shop so schnell umgesetzt werden, wie sich Ihr Sortiment tatsächlich bewegt.",
+      saeulen: [
+        {
+          titel: "KI-gestützte Datenauswertung",
+          text: "Bei hunderten oder tausenden Produkten übernehmen KI-Systeme die Voranalyse von Kategorie-Strukturen, Duplicate-Content-Risiken und Suchvolumen einzelner Produktgruppen, statt dass wir das händisch durchgehen. Die frei werdende Zeit investieren wir in die Feinarbeit an den Kategorie-Seiten, die den größten Umsatz bringen, statt in Tabellen-Pflege.",
+        },
+        {
+          titel: "Neue Kategorie in Tagen",
+          text: "Wird am Freitag eine neue Produktkategorie besprochen, kann die dazugehörige SEO-optimierte Seite über unsere CI/CD-Infrastruktur schon am Montag live sein, nicht erst nach der nächsten Sprint-Planung. Bei kurzfristigen Aktionen, etwa einem Restposten-Abverkauf, entscheidet dieser Unterschied direkt im Umsatz mit, ob die Seite zum Start der Aktion steht oder erst danach.",
+        },
+        {
+          titel: "Direkter Draht ins Tagesgeschäft",
+          text: "Bei uns betreut Sie durchgehend dieselbe Person, die Ihren Shop und Ihre Kategorie-Struktur kennt, statt ein Ticketsystem, das jede Anfrage neu einordnen muss. Rückfragen beantworten wir innerhalb von 24 Stunden, und Sie sehen in Search Console, Semrush oder Ahrefs dieselben Zahlen wie wir, ohne auf einen aufbereiteten Report zu warten.",
+        },
+        {
+          titel: "Kein Lock-in, nur Zahlen",
+          text: "Statt Shops über lange Vertragslaufzeiten zu binden, zeigen wir monatlich, welche Kategorie- und Produktseiten an organischem Traffic gewinnen. Shops bleiben bei uns, weil sich die Zahlen im Umsatz zeigen, nicht weil eine Kündigungsfrist im Weg steht.",
+        },
+      ],
+      deployBeispiel: "neue kategorie: trailrunning-schuhe",
+    },
+    tiefe: {
+      titel: { pre: "Saisonale Peaks ", grad: "organisch vorbereiten." },
+      lead: "Die umsatzstärksten Wochen im Jahr, etwa vor Weihnachten oder beim Saisonwechsel, stehen bei den meisten Shops lange im Voraus fest. Trotzdem wird die organische Vorbereitung darauf oft vernachlässigt, weil sich Marketing-Budgets kurzfristig auf bezahlte Kampagnen konzentrieren. Google braucht für eine neue oder überarbeitete Seite aber Zeit, um sie ausreichend zu crawlen und einzustufen, bevor sie in der eigentlichen Saison noch Wirkung zeigt.",
+      quote: "Wer erst Anfang Dezember an die Weihnachts-Kategorie denkt, kommt für die organische Sichtbarkeit in diesem Jahr meist zu spät.",
+      spalten: [
+        "Aus unserer Erfahrung lohnt sich ein fester Vorlauf von mehreren Wochen, oft zwei bis drei Monaten, vor jeder Saison, in dem bestehende Kategorie-Seiten inhaltlich aufgefrischt und um saisonale Suchbegriffe ergänzt werden, statt eine komplett neue Seite aus dem Nichts zu bauen. Eine bereits gut rankende Kategorie-Seite, die um saisonale Absätze erweitert wird, behält ihre bestehende Autorität bei Google und gewinnt zusätzlich die Saison-Suchen dazu. Neue Seiten kurz vor dem Peak aufzusetzen, ist dagegen riskant, weil ihnen die Zeit fehlt, sich zu etablieren. Diesen Rhythmus planen wir gemeinsam mit Ihnen über das Jahr, damit die Vorbereitung nicht mit dem laufenden Tagesgeschäft kollidiert.",
+        "Nach der Saison lassen viele Shops die Aktionsseiten einfach online stehen, ohne sie zu pflegen, wodurch Google mit der Zeit veraltete oder leere Seiten indexiert, die dem Ranking eher schaden als nutzen. Wir legen deshalb vorher fest, welche Seiten nach der Saison archiviert, welche dauerhaft mit reduziertem Inhalt bestehen bleiben und welche im nächsten Jahr wiederverwendet werden. Diese Struktur sauber zu halten, ist genauso wichtig wie der Aufbau vor der Saison, weil sich sonst über mehrere Jahre ein Friedhof toter Aktionsseiten ansammelt. So bleibt die Seitenstruktur auch nach mehreren Saisons noch nachvollziehbar für Google und für Ihr eigenes Team.",
+      ],
+    },
     ctaSatz: {
       pre: "Zeigen wir Ihnen, welche Kategorieseiten in Ihrem Shop ",
       grad: "das größte ungenutzte Sichtbarkeitspotenzial haben.",
@@ -823,7 +962,48 @@ export const branchen: Branche[] = [
         q: "Reicht SEO allein, oder brauchen wir eine neue Website?",
         a: "Das hängt vom technischen Zustand der aktuellen Seite ab — ist sie langsam, nicht mobil optimiert oder inhaltlich stark veraltet, wirken SEO-Maßnahmen nur eingeschränkt, weil die Grundlage fehlt. In solchen Fällen empfehlen wir vorab ein Redesign, das wir direkt SEO-gerecht aufbauen, statt später nachzubessern. Ist die technische Basis bereits solide, reichen inhaltliche und lokale Optimierungen meist aus.",
       },
+      {
+        q: "Lohnt sich eine eigene Karriere-Seite für einen kleinen Handwerksbetrieb überhaupt?",
+        a: "Ja, gerade weil viele kleine Betriebe darauf verzichten und damit eine Lücke lassen, die Sie besetzen können. Schon eine einfache Unterseite mit echten Einblicken in Ihren Betrieb reicht oft aus, um bei lokalen Ausbildungs- oder Stellensuchen aufzutauchen. Der Aufwand ist gering, weil wir dafür dieselbe lokale SEO-Struktur nutzen, die für Ihre Kundenseiten ohnehin aufgebaut wird.",
+      },
+      {
+        q: "Müssen wir für neue Inhalte extra Fotos oder Texte liefern, obwohl wir kaum Zeit dafür haben?",
+        a: "Ein wenig Material von Ihnen brauchen wir immer, etwa ein paar Baustellenfotos oder zwei, drei Sätze zu einem abgeschlossenen Projekt. Den Rest, also Aufbereitung, Formulierung und technische Umsetzung, übernehmen wir eigenständig, damit der Aufwand für Sie minimal bleibt. In der Regel reicht ein kurzer Austausch alle paar Wochen, um genug Substanz für neue Inhalte zu haben.",
+      },
     ],
+    arbeitsweise: {
+      titel: { pre: "SEO, das ", grad: "zur Baustelle passt." },
+      intro:
+        "Ein Handwerksbetrieb sitzt selten im Büro vor dem Rechner, sondern auf der Baustelle, im Kundentermin oder im Lieferwagen zwischen zwei Einsätzen. Lange Abstimmungs-Calls oder mehrseitige Freigabe-Dokumente passen nicht in diesen Alltag, weil dafür schlicht die Zeit fehlt. Unsere Arbeitsweise ist deshalb auf kurze, klare Rückfragen ausgelegt, die auch abends nach Feierabend in wenigen Minuten zu beantworten sind. Ein eigenes Marketing-Team gibt es in den seltensten Fällen, also übernehmen wir die laufende Pflege eigenständig und melden uns nur, wenn wirklich eine Entscheidung gefragt ist.",
+      saeulen: [
+        {
+          titel: "Weniger Papierkram, mehr Substanz",
+          text: "Die Auswertung von lokalen Suchbegriffen nach Gewerk und Einzugsgebiet sowie die Vorbereitung von Referenz-Texten übernehmen bei uns KI-gestützte Systeme, damit nicht jede Fleißarbeit manuell erledigt werden muss. Die gewonnene Zeit fließt in handfeste Inhalte wie echte Projektbeschreibungen und Vorher-Nachher-Vergleiche, die bei Handwerksbetrieben tatsächlich Vertrauen schaffen.",
+        },
+        {
+          titel: "Neue Leistung schnell sichtbar",
+          text: "Nehmen Sie ein neues Gewerk ins Programm auf, etwa Wärmepumpen-Installation neben der klassischen Heizungswartung, geht die entsprechende Seite über unsere CI/CD-Infrastruktur innerhalb von Minuten live. Sie warten damit nicht erst auf den nächsten Agentur-Termin, während die Anfragen für die neue Leistung schon bei der Konkurrenz landen.",
+        },
+        {
+          titel: "Erreichbar, wann es passt",
+          text: "Bei uns haben Sie eine feste Ansprechperson, die Ihren Betrieb und Ihre Region kennt, statt eine wechselnde Hotline-Nummer. Wir antworten innerhalb von 24 Stunden, auch wenn die Nachricht erst abends nach Feierabend rausgeht, und Sie sehen dieselben Zahlen aus Google Search Console wie wir.",
+        },
+        {
+          titel: "Bleiben, weil es funktioniert",
+          text: "Wir setzen bei Handwerksbetrieben nicht auf lange Vertragsbindung, sondern zeigen jeden Monat, wie sich Anfragen und Sichtbarkeit für Ihr Gewerk entwickeln. Betriebe bleiben bei uns, weil das Telefon klingelt, nicht weil eine Kündigungsfrist sie festhält.",
+        },
+      ],
+      deployBeispiel: "neue leistungsseite: wärmepumpen-installation",
+    },
+    tiefe: {
+      titel: { pre: "Warum die Website ", grad: "auch Bewerber überzeugt." },
+      lead: "Der Fachkräftemangel trifft kaum eine Branche so unmittelbar wie das Handwerk: Wer heute einen Gesellen oder Auszubildenden sucht, konkurriert mit jedem anderen Betrieb im Umkreis um dieselbe kleine Zahl an Bewerbern. Bewerber informieren sich dabei genauso über Google wie Kunden, oft mit Suchen wie „Ausbildung Elektriker“ oder „Zimmerer Stellenangebote“ in Kombination mit dem eigenen Ort. Eine Website, die nur auf Kundenanfragen ausgelegt ist und keine erkennbare Karriere-Seite hat, taucht in diesen Suchen gar nicht auf.",
+      quote: "Damit verschenkt ein Betrieb einen Kanal, der ohnehin schon vorhanden ist, nur eben ungenutzt.",
+      spalten: [
+        "Der praktische Vorteil dabei ist, dass Recruiting-Inhalte denselben lokalen Unterbau nutzen können, der ohnehin für die Kundengewinnung aufgebaut wird. Eine Seite, die Ihren Betrieb, Ihr Team und Ihre Region beschreibt, lässt sich mit wenig Zusatzaufwand um eine Karriere-Unterseite erweitern, die dieselben lokalen Signale mitnutzt. Fotos von echten Baustellen, kurze Statements aktueller Mitarbeiter oder ein ehrlicher Einblick in den Arbeitsalltag wirken bei Bewerbern glaubwürdiger als eine austauschbare Stellenanzeige auf einem Jobportal. Wir bauen diese Seiten deshalb bewusst mit denselben redaktionellen Mitteln wie die Kunden-Leistungsseiten, nur mit einer anderen Zielgruppe vor Augen.",
+        "Für Betriebe, die bisher jede offene Stelle über kostenpflichtige Jobportale ausschreiben, ist eine gut auffindbare Karriere-Seite auf Dauer der günstigere Weg, weil Bewerbungen direkt und ohne Portal-Gebühr hereinkommen. Wir behandeln diesen Recruiting-Effekt nicht als separates Projekt, sondern als Nebeneffekt derselben lokalen SEO-Arbeit, die für Kundenanfragen ohnehin läuft. In der monatlichen Auswertung schauen wir deshalb neben Kundenanfragen auch darauf, wie sich Zugriffe auf die Karriere-Seite entwickeln, sofern das für Ihren Betrieb relevant ist. So wird aus einer Investition in Sichtbarkeit ein doppelter Nutzen, ohne zusätzlichen Aufwand auf Ihrer Seite.",
+      ],
+    },
     ctaSatz: {
       pre: "Sprechen Sie mit uns darüber, wie Ihr Betrieb ",
       grad: "auch ohne Portal-Umweg gefunden wird.",
@@ -1008,7 +1188,44 @@ export const branchen: Branche[] = [
         q: "Wie gehen Sie mit unseren Farming-Gebieten um, wenn wir mehrere Orte bearbeiten?",
         a: "Jedes Farming-Gebiet erhält eine eigene Seite mit spezifischen Marktdaten, Referenzobjekten und lokalem Bezug, statt eines einzigen allgemeinen Textes für das gesamte Tätigkeitsgebiet. Diese Trennung ist wichtig, damit jede Seite bei Suchanfragen aus dem jeweiligen Ort einzeln ranken kann. Bei stark wechselnden Gebieten passen wir die Struktur regelmäßig an Ihre tatsächliche Akquisetätigkeit an.",
       },
+      {
+        q: "Bringen Stadtteilseiten wirklich mehr als nur einzelne Objektseiten?",
+        a: "Objektseiten bringen kurzfristig Anfragen zu einem bestimmten Objekt, verschwinden danach aber wieder. Stadtteilseiten bleiben dauerhaft bestehen und bauen über die Zeit eine Position als lokaler Ansprechpartner für eine Region auf, was besonders dem Empfehlungsgeschäft zugutekommt. Aus unserer Erfahrung wirken beide Seitentypen am besten in Kombination, nicht als Ersatz füreinander.",
+      },
     ],
+    arbeitsweise: {
+      titel: { pre: "So schnell wie ", grad: "Ihr Objektbestand." },
+      intro:
+        "Ein Objekt ist manchmal innerhalb weniger Tage verkauft oder vermietet, während ein anderes wochenlang online bleibt und aktiv beworben werden muss. Diese Geschwindigkeit verträgt sich schlecht mit einer Agentur, die für jede Änderung an der Website erst ein Ticket eröffnet und auf den nächsten Sprint wartet. Unsere Arbeitsweise ist deshalb darauf ausgelegt, dass Exposés und Objektseiten genauso schnell online oder wieder offline gehen, wie sich Ihr Bestand tatsächlich verändert.",
+      saeulen: [
+        {
+          titel: "Objektdaten automatisch aufbereitet",
+          text: "Die Vorbereitung von Objektbeschreibungen für die Suchmaschinen-Optimierung, etwa die Einordnung nach Lage, Objekttyp und Preissegment, übernehmen bei uns KI-Systeme in einem ersten Schritt. Die frei werdende Zeit investieren wir in die inhaltliche Feinarbeit an Ihren stärksten Objekten und in lokale Inhalte, die über einzelne Exposés hinaus wirken.",
+        },
+        {
+          titel: "Schnell online, schnell offline",
+          text: "Ist ein Objekt verkauft, muss die Seite dazu nicht tagelang online bleiben und falsche Erwartungen wecken. Über unsere CI/CD-Infrastruktur ist eine Objektseite innerhalb von Minuten offline oder ein neues Exposé live, was bei einem schnelllebigen Bestand über eine aktuelle oder eine veraltete Website entscheidet.",
+        },
+        {
+          titel: "Direkter Draht statt Hotline",
+          text: "Auch hier begleitet Sie durchgehend eine feste Ansprechperson, die Ihr Portfolio und Ihre Zielregionen kennt, statt eine wechselnde Support-Warteschleife. Anfragen beantworten wir innerhalb von 24 Stunden, und Sie sehen in Search Console oder Semrush dieselben Zahlen wie wir, ohne auf einen aufbereiteten Bericht zu warten.",
+        },
+        {
+          titel: "Ergebnisse statt Vertragsdruck",
+          text: "Statt langer Laufzeiten zählen bei uns die monatlichen Ergebnisse: wie sich Sichtbarkeit für einzelne Objekte und für Ihre Region insgesamt entwickelt. Makler bleiben bei uns, weil sich mehr qualifizierte Anfragen zeigen, nicht weil ein Vertrag sie zur Fortsetzung zwingt.",
+        },
+      ],
+      deployBeispiel: "neues exposé: 3-zimmer-wohnung altbau",
+    },
+    tiefe: {
+      titel: { pre: "Lokaler Content ", grad: "und das Empfehlungsgeschäft." },
+      lead: "Ein großer Teil neuer Mandate im Maklergeschäft kommt über Empfehlungen zustande, oft von früheren Kunden oder aus dem persönlichen Umfeld. Was dabei häufig übersehen wird: Bevor jemand eine Empfehlung tatsächlich anruft, sucht er den empfohlenen Makler in aller Regel zuerst bei Google, um sich einen Eindruck zu verschaffen. Findet die empfohlene Person dabei nur eine dünne Kontaktseite ohne echten Bezug zur Region, entsteht Unsicherheit, selbst wenn die persönliche Empfehlung eigentlich schon überzeugt hätte. Lokaler Content wirkt hier also nicht nur für die eigene Auffindbarkeit in Google, sondern auch als Bestätigung für bereits vorhandenes Vertrauen aus dem Empfehlungsgeschäft.",
+      quote: "Wer als Makler in einer Region regelmäßig zu Marktentwicklungen sichtbar ist, wird von Empfehlungen häufiger bestätigt als jemand, der nur über einzelne Exposés auffindbar ist.",
+      spalten: [
+        "Objektseiten allein reichen dafür nicht aus, weil sie naturgemäß verschwinden, sobald das Objekt verkauft ist. Wirksamer sind dauerhafte Seiten zu einzelnen Stadtteilen oder Ortschaften, die zeigen, dass Sie den lokalen Markt tatsächlich kennen, etwa Preisentwicklungen, Besonderheiten einzelner Lagen oder Infrastruktur-Themen, die für Käufer und Verkäufer relevant sind. Diese Seiten bleiben bestehen, unabhängig davon, welches konkrete Objekt gerade im Angebot ist, und bauen über die Zeit eine Position als lokaler Experte auf. Wer als Makler in einer Region regelmäßig zu Marktentwicklungen sichtbar ist, wird von Empfehlungen häufiger bestätigt als jemand, der nur über einzelne Exposés auffindbar ist.",
+        "Aus unserer Erfahrung lohnt sich deshalb eine klare Aufteilung: Objektseiten für das aktuelle Geschäft und stadtteilbezogene Inhalte für die langfristige Positionierung als Ansprechpartner in der Region. Beide Ebenen ergänzen sich, weil Objektseiten kurzfristig Anfragen bringen, während die stadtteilbezogenen Seiten über Monate hinweg Vertrauen aufbauen, das Empfehlungen erst wirksam werden lässt. Wir planen deshalb von Anfang an beide Content-Ebenen ein, statt uns ausschließlich auf den aktuellen Objektbestand zu konzentrieren. Über ein Jahr betrachtet zahlt genau diese Kombination am stärksten auf das Empfehlungsgeschäft ein.",
+      ],
+    },
     ctaSatz: {
       pre: "Lassen Sie uns gemeinsam prüfen, ",
       grad: "wie viele Eigentümer-Anfragen Ihnen aktuell entgehen.",
@@ -1180,7 +1397,48 @@ export const branchen: Branche[] = [
         q: "Sollten wir eher für Entwickler oder für Entscheider im Unternehmen schreiben?",
         a: "Meist braucht es beides, aber getrennt voneinander — Entwickler suchen nach technischen Begriffen wie API-Dokumentation oder Integrationen, während Entscheider nach Kosten, Sicherheit oder Anwendungsfällen für ihr Team suchen. Wir bauen für beide Zielgruppen eigene Content-Bereiche auf, statt beide Sprachebenen auf denselben Seiten zu vermischen. So findet jede Zielgruppe genau die Inhalte, die zu ihrer Suchintention passen.",
       },
+      {
+        q: "Wie stimmen Sie Content-Themen mit unserer Produkt-Roadmap ab, wenn sich Features wöchentlich ändern?",
+        a: "Wir richten uns nach Ihrem Release-Kalender, nicht nach einem starren Redaktionsplan. Vor einem größeren Feature-Release bereiten wir die passende Seite so vor, dass sie zeitgleich mit der Ankündigung live gehen kann, statt erst Wochen später nachzuziehen. Kleinere Anpassungen bestehender Seiten laufen fortlaufend mit, ohne dass jedes Mal ein komplettes Abstimmungs-Meeting notwendig ist.",
+      },
+      {
+        q: "Ab welchem Punkt lohnt sich SEO als Hauptkanal für ein SaaS-Produkt?",
+        a: "Am ehesten dann, wenn Ihr Produkt sein Kernproblem und seine Zielgruppe bereits klar definiert hat, weil Content sonst an den falschen Suchanfragen vorbeigeht. Vor diesem Punkt ergänzt SEO meist bezahlte Kanäle, statt sie zu ersetzen, weil der Aufbau von Rankings Zeit braucht. Wir schauen uns das gemeinsam mit Ihnen an, bevor wir SEO als zentralen Wachstumskanal einplanen.",
+      },
     ],
+    arbeitsweise: {
+      titel: { pre: "Im Rhythmus ", grad: "Ihrer Feature-Releases." },
+      intro:
+        "Ein SaaS-Produkt verändert sich in Wochenzyklen: neue Features, veränderte Preismodelle, manchmal ein komplettes Rebranding einzelner Funktionen. Eine Website-Betreuung, die in Quartalsplänen denkt, hält mit diesem Tempo nicht mit und lässt Content-Seiten veraltet aussehen, noch bevor sie richtig gewirkt haben. Teams, die selbst in Sprints arbeiten, erwarten zu Recht, dass auch die SEO-Arbeit iterativ und schnell reagierend läuft, statt in starren Abstimmungsrunden steckenzubleiben. Unsere Arbeitsweise orientiert sich deshalb an Ihrem Produkt-Rhythmus statt an einem festen Agentur-Kalender.",
+      saeulen: [
+        {
+          titel: "Skalierbare Content-Vorarbeit",
+          text: "Bei der Auswertung von Feature-bezogenen Keywords, Wettbewerbs-Vergleichsseiten und Nutzer-Fragen aus Foren oder Reviews setzen wir KI-Systeme für die erste Sichtung ein, damit die Recherche nicht zum Flaschenhals wird. Die gewonnene Zeit fließt in die strategische Einordnung, welche Inhalte tatsächlich zur Produkt-Roadmap passen und welche nur kurzfristig Traffic ohne echten Nutzen bringen würden.",
+        },
+        {
+          titel: "Feature-Seite sofort live",
+          text: "Bringen Sie ein neues Feature oder eine neue Integration heraus, muss die dazugehörige Landingpage nicht erst durch einen mehrwöchigen Agentur-Prozess. Über unsere CI/CD-Infrastruktur geht eine vorbereitete Seite innerhalb von Minuten live, synchron zum Produkt-Release statt Wochen danach, wenn das Momentum aus Ankündigung und Presse bereits verpufft ist.",
+        },
+        {
+          titel: "Direkte Abstimmung mit Ihnen",
+          text: "Sie haben bei uns eine feste Ansprechperson, die sich in Ihr Produkt einarbeitet, statt ein Support-Ticket-System, das jede Anfrage neu erklären lässt. Wir antworten innerhalb von 24 Stunden, und Sie sehen in Search Console, Semrush oder Ahrefs dieselben Daten wie wir, was die Abstimmung mit Ihrem eigenen Marketing- oder Produktteam direkt vereinfacht.",
+        },
+        {
+          titel: "Ergebnisse statt Laufzeitbindung",
+          text: "Wir binden SaaS-Kunden nicht über lange Vertragslaufzeiten, sondern zeigen monatlich nachvollziehbar, welche Seiten organischen Traffic und qualifizierte Signups bringen. Teams bleiben bei uns, weil sich der Kanal sichtbar entwickelt, nicht weil ein Vertrag sie zum Bleiben zwingt.",
+        },
+      ],
+      deployBeispiel: "neue feature-seite: slack-integration",
+    },
+    tiefe: {
+      titel: { pre: "SEO als günstigster Kanal ", grad: "auf Dauer." },
+      lead: "Bei bezahlten Kanälen wie Google Ads oder Paid Social steigen die Kosten in etwa proportional zur Zahl der gewonnenen Nutzer: Jeder zusätzliche Klick, jeder zusätzliche Trial-Signup kostet erneut Budget, unabhängig davon, wie lange die Kampagne schon läuft. Bei einer einmal gut rankenden Seite sieht dieser Zusammenhang anders aus, weil die laufenden Kosten für einen bestehenden Rang nicht automatisch mit steigendem Traffic mitwachsen. Dieser Unterschied macht sich besonders bemerkbar, sobald ein SaaS-Produkt über die frühe Wachstumsphase hinaus ist und Volumen wichtiger wird als reine Geschwindigkeit.",
+      quote: "Eine Feature-Vergleichsseite, die einmal für ein relevantes Keyword oben steht, bringt in der Regel weiterhin Besucher, ohne dass für jeden einzelnen Besucher erneut bezahlt werden muss.",
+      spalten: [
+        "Dieser Effekt stellt sich nicht sofort ein, sondern erst, nachdem eine Seite genug Zeit hatte, sich in den Suchergebnissen zu etablieren, was bei SaaS-relevanten Keywords oft mehrere Monate dauert. Deshalb eignet sich SEO als Hauptkanal vor allem für Produkte, die ihre Zielgruppe und ihr Kernproblem bereits verstanden haben, weil sonst Aufwand in Inhalte fließt, die am eigentlichen Käufer vorbeigehen. Wichtig ist außerdem, welche Keywords bedient werden: Eine Seite zu einem generischen Begriff mit hohem Suchvolumen bringt oft viele Besucher, aber wenige mit echter Kaufabsicht, während eine Seite zu einem spezifischen Vergleich oder Anwendungsfall weniger, aber deutlich passendere Besucher bringt. Für SaaS-Produkte lohnt sich deshalb meist die spezifischere Variante zuerst, auch wenn das Suchvolumen kleiner aussieht.",
+        "In der Praxis ergänzt SEO deshalb zunächst die bezahlten Kanäle, statt sie zu ersetzen, weil der Aufbau organischer Rankings Zeit braucht, die ein Launch oft nicht hat. Mit der Zeit verschiebt sich der Anteil neuer Signups aber zunehmend in Richtung organischer Kanäle, ohne dass das Marketing-Budget im gleichen Tempo mitwachsen muss. Diese Verschiebung schafft Spielraum, das freiwerdende Budget gezielt in andere Kanäle oder in tiefere Produktentwicklung zu stecken, statt es weiter in denselben bezahlten Kanal zu stecken, der mit dem Wachstum automatisch teurer wird. Wir planen deshalb von Anfang an mit Ihrem Team, wie sich dieser Übergang über die Zeit gestalten lässt, statt SEO isoliert von der übrigen Marketing-Strategie zu betrachten.",
+      ],
+    },
     ctaSatz: {
       pre: "Lassen Sie uns gemeinsam prüfen, ob Ihre Software heute ",
       grad: "in ChatGPT-Antworten und Google-Rankings überhaupt vorkommt.",

@@ -7,6 +7,11 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/seo/shop",
+        destination: "/branchen/seo-fuer-online-shops",
+        permanent: true,
+      },
+      {
         source: "/webdesign/landing-pages",
         destination: "/webdesign/landingpage-erstellen-lassen",
         permanent: true,

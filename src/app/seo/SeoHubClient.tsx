@@ -55,13 +55,7 @@ const subpages = [
     bullets: ["Keyword-Recherche Grundlagen", "Technisches SEO Basis-Check", "Content-Erstellung", "Erste Backlinks aufbauen"],
   },
   {
-    num: "09", title: "Shop SEO", href: "/seo/shop", tag: "E-Commerce",
-    brief: "Produkt-Rankings und Kategorie-Traffic",
-    desc: "E-Commerce SEO hat eigene Regeln. Produkt-Seiten, Kategorien, strukturierte Daten und Shop-Technik — für Shopify, WooCommerce und andere Plattformen.",
-    bullets: ["Produkt- & Kategorieseiten", "Shopify & WooCommerce", "Strukturierte Daten", "E-Commerce Keyword-Strategie"],
-  },
-  {
-    num: "10", title: "SEO Texte", href: "/seo/texte", tag: "Content",
+    num: "09", title: "SEO Texte", href: "/seo/texte", tag: "Content",
     brief: "Content der rankt und konvertiert",
     desc: "Keyword-optimierte Inhalte für Websites, Blogs und Produktseiten — geschrieben für Suchmaschinen und Menschen. Mit Rankingwirkung und ohne generisches Filler-Content.",
     bullets: ["Keyword-Integration", "Suchintention treffen", "E-E-A-T in Texten", "CTA & Conversion-Fokus"],
