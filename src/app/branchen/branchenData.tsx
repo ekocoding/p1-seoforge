@@ -7,8 +7,7 @@ import type { ReactNode } from "react";
    EIN interner Pflicht-Link im zweiten WARUM-Absatz.
 ═══════════════════════════════════════════════════════════════════════════ */
 
-/* Layout-Varianten: gleiches Design-System, je Branche eigener Section-Mix */
-export type HeroVariant = "split" | "zentriert" | "suchfeld";
+/* Layout-Variante der HEBEL-Section: gleiches Design-System, je Branche eigene Form */
 export type HebelVariant = "tafel" | "editorial" | "stack";
 
 /* Daten für das branchenspezifische Signature-Mockup (statisches Beispiel-Panel) */
@@ -67,21 +66,22 @@ export type Branche = {
   name: string;
   kurzName: string;
   keyword: string;
-  heroVariant: HeroVariant;
   hebelVariant: HebelVariant;
-  /** Beispiel-Query für die Suchfeld-Zeile im „suchfeld“-Hero */
+  /** Beispiel-Query für die kompakte Suchfeld-Mockup-Zeile im Hero (Online-Shops, Handwerker) */
   heroQuery?: string;
+  /** Alt-Text des Magazine-Cover-Hero-Fotos (/images/branchen-hero/<key>.jpg) */
+  heroBildAlt: string;
   h1: { pre: string; grad: string; post?: string };
   subline: string;
   ctaLabel: string;
   warumTitle: { pre: string; grad: string };
   warumAbsaetze: ReactNode[];
-  /** Signature-Modul: bei heroVariant "split" im Hero, sonst eigene Section nach WARUM */
+  /** Signature-Modul: eigene Section direkt nach WARUM */
   signature: Signature;
-  /** H2 der eigenständigen Signature-Section (entfällt bei heroVariant "split") */
-  signatureTitle?: { pre: string; grad: string };
-  /** Zwei kurze Begleitsätze der Signature-Section (entfällt bei heroVariant "split") */
-  signatureCopy?: string[];
+  /** H2 der Signature-Section */
+  signatureTitle: { pre: string; grad: string };
+  /** Zwei kurze Begleitsätze der Signature-Section */
+  signatureCopy: string[];
   hebel: { titel: string; text: string }[];
   /** SPLIT-Section: 16:10-Bild + Vertiefungs-Content mit genau einem internen Link */
   split: {
@@ -131,8 +131,8 @@ export const branchen: Branche[] = [
     name: "SEO für Ärzte",
     kurzName: "Ärzte",
     keyword: "SEO für Ärzte",
-    heroVariant: "zentriert",
     hebelVariant: "editorial",
+    heroBildAlt: "Ärztin mit Tablet in ihrer Praxis — lokale Sichtbarkeit für Arztpraxen in Google und KI-Suche",
     signature: {
       variant: "serp",
       panelTitle: "Lokale Suche",
@@ -309,8 +309,8 @@ export const branchen: Branche[] = [
     name: "SEO für Anwälte",
     kurzName: "Anwälte",
     keyword: "SEO für Anwälte",
-    heroVariant: "split",
     hebelVariant: "tafel",
+    heroBildAlt: "Rechtsanwalt in seiner Kanzlei — organische Sichtbarkeit statt steigender Klickpreise",
     signature: {
       variant: "klickpreise",
       panelTitle: "Klickkosten je Rechtsgebiet",
@@ -324,6 +324,11 @@ export const branchen: Branche[] = [
       fazit: "Organisches Ranking",
       fazitWert: "0 € pro Klick",
     },
+    signatureTitle: { pre: "Jeder Klick kostet — ", grad: "außer dem organischen." },
+    signatureCopy: [
+      "In kaum einem Markt sind Google-Ads-Klicks so teuer wie im Kanzleimarkt: Je nach Rechtsgebiet kosten einzelne Klicks zweistellige Euro-Beträge — ohne Garantie, dass daraus ein Mandat wird.",
+      "Organische Rankings holen dieselben Suchanfragen ohne laufende Klickkosten ab. Wir bauen Ihre Sichtbarkeit genau in den Rechtsgebieten auf, in denen sich das für Ihre Kanzlei am schnellsten rechnet.",
+    ],
     h1: {
       pre: "SEO für Anwälte: Mandanten finden Sie über ihr Problem, ",
       grad: "nicht über den Paragrafen",
@@ -482,9 +487,9 @@ export const branchen: Branche[] = [
     name: "SEO für Online-Shops",
     kurzName: "Online-Shops",
     keyword: "SEO für Online-Shops",
-    heroVariant: "suchfeld",
     hebelVariant: "stack",
     heroQuery: "laufschuhe damen neutral größe 39",
+    heroBildAlt: "Shop-Betreiberin bereitet Bestellungen im Lager vor — mehr organische Bestellungen durch Shop-SEO",
     signature: {
       variant: "strukturbaum",
       panelTitle: "Indexierung im Shop",
@@ -666,9 +671,9 @@ export const branchen: Branche[] = [
     name: "SEO für Handwerker",
     kurzName: "Handwerker",
     keyword: "SEO für Handwerker",
-    heroVariant: "suchfeld",
     hebelVariant: "tafel",
     heroQuery: "heizung notdienst wochenende",
+    heroBildAlt: "Handwerker mit Werkzeug im Einsatz — gefunden werden, wenn Kunden lokal nach einem Betrieb suchen",
     signature: {
       variant: "businessprofil",
       panelTitle: "Google Business Profil",
@@ -836,8 +841,8 @@ export const branchen: Branche[] = [
     name: "SEO für Immobilienmakler",
     kurzName: "Immobilienmakler",
     keyword: "SEO für Immobilienmakler",
-    heroVariant: "zentriert",
     hebelVariant: "stack",
+    heroBildAlt: "Immobilienmakler bei der Objektbesichtigung — Eigentümer-Anfragen über die eigene Website statt über Portale",
     signature: {
       variant: "funnel",
       panelTitle: "Eigentümer-Suchen",
@@ -1021,8 +1026,8 @@ export const branchen: Branche[] = [
     name: "SaaS SEO",
     kurzName: "SaaS",
     keyword: "SaaS SEO",
-    heroVariant: "split",
     hebelVariant: "editorial",
+    heroBildAlt: "SaaS-Gründerin am Laptop — Software-Sichtbarkeit in Google und in KI-Suchen wie ChatGPT",
     signature: {
       variant: "kichat",
       panelTitle: "KI-Suche",
@@ -1034,6 +1039,11 @@ export const branchen: Branche[] = [
       marke: "ihre-software.de",
       quellen: "Quellen: 3 Vergleichsseiten",
     },
+    signatureTitle: { pre: "Wenn die KI antwortet, ", grad: "muss Ihre Software vorkommen." },
+    signatureCopy: [
+      "Immer mehr B2B-Einkäufer fragen ChatGPT oder Perplexity direkt nach einer Tool-Empfehlung, statt zehn Google-Tabs zu vergleichen. Die KI nennt dabei nur Anbieter, deren Inhalte sie kennt und einordnen kann.",
+      "Wir bereiten Problem-, Vergleichs- und Use-Case-Seiten so auf, dass Ihre Software in diesen Antworten auftaucht — und in der klassischen Google-Suche gleich mit.",
+    ],
     h1: {
       pre: "SaaS SEO: Sichtbar sein, ",
       grad: "wenn ChatGPT und Google Ihre Software empfehlen",

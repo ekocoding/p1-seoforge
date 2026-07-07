@@ -678,25 +678,27 @@ const STACK_ICONS: Record<string, ReactNode[]> = {
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   EIN Design-System je Branche: Hero (3 Varianten) → WARUM → SIGNATURE-App →
-   SPLIT (Bild) → VORGEHEN → HEBEL → FEHLER → FAQ → CTA.
+   EIN Design-System je Branche: Magazine-Cover-Hero (Foto full-bleed, weißer
+   Fade links) → WARUM → SIGNATURE-App → SPLIT (Bild) → VORGEHEN →
+   KEYWORD-POTENZIAL → HEBEL → FEHLER → FOTO-BAND → FAQ → CTA.
    Hintergrund-Rhythmus weiß/beige sauber alternierend, dunkel nur das CTA-Band.
 ═══════════════════════════════════════════════════════════════════════════ */
 export default function BranchenDetailClient({ branche }: { branche: Branche }) {
   useScrollReveal();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const isSplit = branche.heroVariant === "split";
-  const iconImg = branche.slug === "saas-seo" ? "saas" : branche.slug.replace("seo-fuer-", "");
-  const modulLinks = branche.slug === "seo-fuer-online-shops" || branche.slug === "seo-fuer-immobilienmakler";
+  /* Bild-Key je Branche: /images/branchen-hero/<key>.jpg + /images/branchen-photo/<key>.jpg */
+  const bildKey = branche.slug === "saas-seo" ? "saas" : branche.slug.replace("seo-fuer-", "");
+  /* Signature-Modul links, wenn das SPLIT-Bild danach rechts sitzt — Medien-Seiten alternieren */
+  const modulLinks =
+    branche.slug === "seo-fuer-online-shops" ||
+    branche.slug === "seo-fuer-immobilienmakler" ||
+    branche.slug === "seo-fuer-anwaelte" ||
+    branche.slug === "saas-seo";
   const stackIcons = STACK_ICONS[branche.slug] ?? STACK_ICONS["seo-fuer-online-shops"];
-  /* Mono-Nummerierung der Editorial-Eyebrows: ohne eigene Signature-Section rückt alles auf */
-  const nrSplit = isSplit ? "02" : "03";
-  const nrVorgehen = isSplit ? "03" : "04";
   /* VORGEHEN: Seiten mit hebelVariant "editorial" bekommen die 2-Spalten-Form */
   const vorgehenZweispaltig = branche.hebelVariant === "editorial";
   /* KEYWORD-POTENZIAL + FOTO-BAND: Daten je Branche (Semrush bzw. Statement) */
-  const nrKeyword = isSplit ? "04" : "05";
   const kwSet: KeywordPotenzial | undefined = KEYWORDS[branche.slug];
   const kwSumme = kwSet ? kwSet.rows.reduce((s, r) => s + r.vol, 0) : 0;
   const kwGerundet = Math.round(kwSumme / 100) * 100;
@@ -722,8 +724,8 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
     ],
   };
 
-  const ctaButtons = (zentriert: boolean) => (
-    <div className={`hero-cta mt-8 flex flex-col gap-5 sm:flex-row sm:items-center ${zentriert ? "items-center justify-center" : "items-start"}`}>
+  const ctaButtons = (
+    <div className="hero-cta mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
       <a
         href="#kontakt"
         className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark"
@@ -761,7 +763,6 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary" aria-current="page">
         {branche.kurzName}
       </span>
-      {branche.heroVariant === "zentriert" && <span className="h-px w-8 bg-primary" aria-hidden="true" />}
     </nav>
   );
 
@@ -783,6 +784,8 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         .kd-bar { width: 0%; transition: width 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.25s; }
         .scroll-visible .kd-bar { width: var(--kd, 0%); }
         .exp-rows { transition: grid-template-rows 0.4s ease-out; }
+        @keyframes cueBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+        .cue-bob { animation: cueBob 2.4s ease-in-out infinite; }
         @media (prefers-reduced-motion: reduce), (scripting: none) {
           .scroll-hidden.rv-left, .scroll-hidden.rv-right, .scroll-hidden.rv-scale, .scroll-hidden.rv-blur { transform: none; filter: none; transition: none; }
           .ae-in { animation: none; opacity: 1; }
@@ -790,102 +793,82 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
           .bar-fill { transition: none; }
           .kd-bar { width: var(--kd, 0%); transition: none; }
           .exp-rows { transition: none; }
+          .cue-bob { animation: none; }
         }
       `}</style>
 
-      {/* ══ 01 HERO — hell, drei Varianten ══ */}
-      <section className="relative overflow-hidden bg-white">
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div
-            className={`absolute top-[-18%] h-[620px] w-[950px] rounded-full ${
-              branche.heroVariant === "zentriert" ? "left-1/2 -translate-x-1/2" : "left-[10%]"
-            }`}
-            style={{ background: "radial-gradient(ellipse, rgba(212,168,83,0.18), transparent 60%)" }}
-          />
-          <div
-            className="absolute inset-0 opacity-60"
-            style={{
-              backgroundImage: "radial-gradient(circle at 1px 1px, rgba(26,26,26,0.045) 1px, transparent 0)",
-              backgroundSize: "30px 30px",
-              maskImage:
-                branche.heroVariant === "zentriert"
-                  ? "radial-gradient(ellipse 55% 60% at 50% 35%, #000 30%, transparent 75%)"
-                  : "radial-gradient(ellipse 55% 60% at 25% 35%, #000 30%, transparent 75%)",
-              WebkitMaskImage:
-                branche.heroVariant === "zentriert"
-                  ? "radial-gradient(ellipse 55% 60% at 50% 35%, #000 30%, transparent 75%)"
-                  : "radial-gradient(ellipse 55% 60% at 25% 35%, #000 30%, transparent 75%)",
-            }}
-          />
-        </div>
+      {/* ══ 01 HERO — Magazine-Cover: Foto full-bleed, weißer Fade links ══ */}
+      <section
+        className="relative flex min-h-[560px] overflow-hidden lg:min-h-[640px]"
+        style={{ background: "#FDFCFA" }}
+      >
+        <Image
+          src={`/images/branchen-hero/${bildKey}.jpg`}
+          alt={branche.heroBildAlt}
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-right"
+        />
 
-        <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8 pt-16 lg:pt-24 pb-14 lg:pb-20">
-          {/* Variante A: split — Text links, Signature-App rechts */}
-          {branche.heroVariant === "split" && (
-            <div className="grid items-center gap-12 lg:grid-cols-[1.06fr_0.94fr] lg:gap-16">
-              <div>
-                {heroBadge}
-                <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.3rem] sm:text-[2.8rem] lg:text-[3.1rem] font-medium leading-[1.05] tracking-tight text-dark">
-                  {branche.h1.pre}
-                  <span style={grad}>{branche.h1.grad}</span>
-                  {branche.h1.post}
-                </h1>
-                <p className="hero-description mt-5 max-w-2xl text-lg leading-relaxed text-muted">{branche.subline}</p>
-                {ctaButtons(false)}
-              </div>
-              <div className="hero-dashboard w-full lg:max-w-xl lg:justify-self-end">
-                <SignatureModul sig={branche.signature} />
-              </div>
-            </div>
-          )}
+        {/* Overlay 1 — weiß-dominanter Lesbarkeits-Fade von links */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          aria-hidden="true"
+          style={{
+            background:
+              "linear-gradient(95deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.94) 34%, rgba(255,255,255,0.55) 55%, rgba(255,255,255,0.08) 78%, rgba(255,255,255,0) 100%)",
+          }}
+        />
+        {/* Mobil: zusätzliche weiße Schicht über volle Breite für Textlesbarkeit */}
+        <div className="pointer-events-none absolute inset-0 bg-white/85 sm:hidden" aria-hidden="true" />
+        {/* Overlay 2 — dezenter Boden-Fade nach Weiß für den Übergang zur nächsten Section */}
+        <div
+          className="pointer-events-none absolute inset-0"
+          aria-hidden="true"
+          style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0) 70%, #ffffff 100%)" }}
+        />
 
-          {/* Variante B: zentriert — Icon-Medaillon über der H1 */}
-          {branche.heroVariant === "zentriert" && (
-            <div className="mx-auto max-w-3xl text-center">
-              <span className="hero-badge relative mx-auto mb-7 block h-24 w-24 overflow-hidden rounded-full ring-1 ring-border shadow-[0_14px_34px_-20px_rgba(194,114,42,0.35)]">
-                <Image
-                  src={`/images/branchen-icons/${iconImg}.png`}
-                  alt=""
-                  aria-hidden="true"
-                  fill
-                  sizes="96px"
-                  className="object-cover"
-                />
-              </span>
-              {heroBadge}
-              <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.4rem] sm:text-[3rem] lg:text-[3.4rem] font-medium leading-[1.05] tracking-tight text-dark">
-                {branche.h1.pre}
-                <span style={grad}>{branche.h1.grad}</span>
-                {branche.h1.post}
-              </h1>
-              <p className="hero-description mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-muted">{branche.subline}</p>
-              {ctaButtons(true)}
-            </div>
-          )}
-
-          {/* Variante C: suchfeld — linksbündig mit Suchfeld-Mockup-Zeile */}
-          {branche.heroVariant === "suchfeld" && (
-            <div className="max-w-4xl">
-              {heroBadge}
-              <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.4rem] sm:text-[3rem] lg:text-[3.6rem] font-medium leading-[1.05] tracking-tight text-dark">
-                {branche.h1.pre}
-                <span style={grad}>{branche.h1.grad}</span>
-                {branche.h1.post}
-              </h1>
-              <p className="hero-description mt-5 max-w-2xl text-lg leading-relaxed text-muted">{branche.subline}</p>
-              <div
-                className="ae-in mt-7 flex w-full max-w-xl items-center gap-3 rounded-full border border-border bg-white px-5 py-3.5 shadow-[0_18px_40px_-26px_rgba(194,114,42,0.5)]"
-                style={{ animationDelay: "0.35s" }}
-              >
+        {/* Content — linke Spalte, vertikal zentriert */}
+        <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center px-6 lg:px-8">
+          <div className="max-w-[620px] py-16 lg:py-20">
+            {heroBadge}
+            <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.3rem] sm:text-[2.8rem] lg:text-[3.1rem] font-medium leading-[1.05] tracking-tight text-dark">
+              {branche.h1.pre}
+              <span style={grad}>{branche.h1.grad}</span>
+              {branche.h1.post}
+            </h1>
+            <p className="hero-description mt-5 text-lg leading-relaxed text-muted">{branche.subline}</p>
+            {branche.heroQuery && (
+              <div className="hero-cta mt-6 flex w-full max-w-md items-center gap-3 rounded-full border border-border bg-white/90 px-4 py-2.5 shadow-sm backdrop-blur">
                 <Lupe className="h-4 w-4 shrink-0 text-dark/40" />
-                <span className="truncate text-[15px] text-dark">{branche.heroQuery}</span>
-                <span className="ml-auto hidden shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/35 sm:block">
+                <span className="truncate text-sm text-dark">{branche.heroQuery}</span>
+                <span className="ml-auto hidden shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/40 sm:block">
                   So sucht Ihr Kunde
                 </span>
               </div>
-              {ctaButtons(false)}
-            </div>
-          )}
+            )}
+            {ctaButtons}
+          </div>
+        </div>
+
+        {/* Scroll-Cue — unten mittig, nur Desktop */}
+        <div
+          className="pointer-events-none absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 lg:flex"
+          aria-hidden="true"
+        >
+          <span className="font-mono text-[9px] uppercase tracking-[0.24em] text-dark/35">Mehr erfahren</span>
+          <svg
+            className="cue-bob h-4 w-4 text-primary/70"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
         </div>
       </section>
 
@@ -918,35 +901,33 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ 02b SIGNATURE-APP — beige, nur wenn das Modul nicht im Hero sitzt ══ */}
-      {!isSplit && branche.signatureTitle && branche.signatureCopy && (
-        <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
-          <div className="mx-auto max-w-6xl px-6 lg:px-8">
-            <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-16">
-              <div className={`scroll-hidden ${modulLinks ? "rv-right lg:order-2" : "rv-left"}`}>
-                <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">02 — Am Beispiel</span>
-                <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[36px] font-bold text-dark leading-[1.14]">
-                  {branche.signatureTitle.pre}
-                  <span style={grad}>{branche.signatureTitle.grad}</span>
-                </h2>
-                <div className="mt-5 space-y-4">
-                  {branche.signatureCopy.map((satz, i) => (
-                    <p key={i} className="text-[15px] lg:text-base text-muted leading-relaxed">
-                      {satz}
-                    </p>
-                  ))}
-                </div>
-              </div>
-              <div className={`scroll-hidden ${modulLinks ? "rv-left lg:order-1" : "rv-right"}`} style={{ transitionDelay: "120ms" }}>
-                <SignatureModul sig={branche.signature} />
+      {/* ══ 02b SIGNATURE-APP — beige, eigene Section direkt nach WARUM ══ */}
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-16">
+            <div className={`scroll-hidden ${modulLinks ? "rv-right lg:order-2" : "rv-left"}`}>
+              <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">02 — Am Beispiel</span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[36px] font-bold text-dark leading-[1.14]">
+                {branche.signatureTitle.pre}
+                <span style={grad}>{branche.signatureTitle.grad}</span>
+              </h2>
+              <div className="mt-5 space-y-4">
+                {branche.signatureCopy.map((satz, i) => (
+                  <p key={i} className="text-[15px] lg:text-base text-muted leading-relaxed">
+                    {satz}
+                  </p>
+                ))}
               </div>
             </div>
+            <div className={`scroll-hidden ${modulLinks ? "rv-left lg:order-1" : "rv-right"}`} style={{ transitionDelay: "120ms" }}>
+              <SignatureModul sig={branche.signature} />
+            </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* ══ 03 SPLIT — Bild + Vertiefung, Bildseite je Branche abwechselnd ══ */}
-      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? BEIGE : "#ffffff" }}>
+      <section className="bg-white py-20 lg:py-28 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <figure className={`scroll-hidden ${branche.split.bildLinks ? "rv-left" : "rv-right lg:order-2"}`}>
@@ -968,7 +949,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
               className={`scroll-hidden ${branche.split.bildLinks ? "rv-right" : "rv-left lg:order-1"}`}
               style={{ transitionDelay: "110ms" }}
             >
-              <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">{nrSplit} — Im Detail</span>
+              <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">03 — Im Detail</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[36px] font-bold text-dark leading-[1.14]">
                 {branche.split.titel.pre}
                 <span style={grad}>{branche.split.titel.grad}</span>
@@ -986,11 +967,11 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       </section>
 
       {/* ══ 04 VORGEHEN — Editorial-Liste mit Ghost-Serif-Ziffern ══ */}
-      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? "#ffffff" : BEIGE }}>
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
             <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
-              {nrVorgehen} — Unser Vorgehen
+              04 — Unser Vorgehen
             </span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
               {branche.vorgehenTitle.pre}
@@ -1050,12 +1031,12 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
 
       {/* ══ 04b KEYWORD-POTENZIAL — echte Semrush-Daten als Tabellen-Panel ══ */}
       {kwSet && (
-        <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? BEIGE : "#ffffff" }}>
+        <section className="bg-white py-20 lg:py-28 overflow-x-clip">
           <div className="mx-auto max-w-6xl px-6 lg:px-8">
             <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,400px)_1fr] lg:gap-16">
               <div className="scroll-hidden rv-left lg:sticky lg:top-28">
                 <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
-                  {nrKeyword} — Das Potenzial in Zahlen
+                  05 — Das Potenzial in Zahlen
                 </span>
                 <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
                   So viel Nachfrage wartet <span style={grad}>in Ihrer Branche.</span>
@@ -1134,7 +1115,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       )}
 
       {/* ══ 05 HEBEL — Fact-Sheet-Tafel / Editorial / Stack ══ */}
-      <section className="py-20 lg:py-28" style={{ background: isSplit ? "#ffffff" : BEIGE }}>
+      <section className="py-20 lg:py-28" style={{ background: BEIGE }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-16 items-end mb-12 lg:mb-16">
             <div>
@@ -1232,7 +1213,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       </section>
 
       {/* ══ 06 FEHLER — „Typische Fehler“-Tafel bzw. 2-spaltige Editorial-Liste ══ */}
-      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? BEIGE : "#ffffff" }}>
+      <section className="bg-white py-20 lg:py-28 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
             <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Typische Fehler</span>
@@ -1285,7 +1266,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       {fotoBand && (
         <section className="relative h-[340px] overflow-hidden lg:h-[420px]">
           <Image
-            src={`/images/branchen-photo/${iconImg}.jpg`}
+            src={`/images/branchen-photo/${bildKey}.jpg`}
             alt={fotoBand.alt}
             fill
             sizes="100vw"
@@ -1318,8 +1299,8 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </section>
       )}
 
-      {/* ══ 07 FAQ — 6 Accordions, Hintergrund je Rhythmus ══ */}
-      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: isSplit ? "#ffffff" : BEIGE }}>
+      {/* ══ 07 FAQ — 6 Accordions, beige vor dem dunklen CTA-Band ══ */}
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-16 items-start">
             <div className="scroll-hidden rv-left lg:sticky lg:top-28">
