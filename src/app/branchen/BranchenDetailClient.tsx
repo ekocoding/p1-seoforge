@@ -822,6 +822,84 @@ const TERM_GRUEN = "#4ADE80";
 
 type TermZeile = { prefix: "$" | "✓"; text: string; gruen?: boolean };
 
+/* ── ChatVerlauf — menschliche Alternative zum Deploy-Terminal (Nicht-Tech-Branchen):
+   kurzer Kunde/SeoForge-Nachrichtenwechsel + Live-Bestätigung, IO-gestaffelt via rv-System ── */
+const CHAT_VERLAUF: Record<string, { frage: string; zeitFrage: string; zeitAntwort: string; live: string }> = {
+  "seo-fuer-aerzte": {
+    frage: "Wir bieten ab sofort auch Implantologie an — können Sie das auf der Website ergänzen?",
+    zeitFrage: "Do., 18:40", zeitAntwort: "Do., 19:02", live: "Behandlungsseite live — 34 Minuten später",
+  },
+  "seo-fuer-anwaelte": {
+    frage: "Wir übernehmen jetzt auch IT-Recht. Lässt sich dafür eine eigene Seite aufsetzen?",
+    zeitFrage: "Mo., 08:15", zeitAntwort: "Mo., 08:41", live: "Rechtsgebiets-Seite live — 41 Minuten später",
+  },
+  "seo-fuer-online-shops": {
+    frage: "Freitag startet der Abverkauf — schaffen wir vorher noch eine Aktionsseite?",
+    zeitFrage: "Mi., 16:20", zeitAntwort: "Mi., 16:44", live: "Aktionsseite live — 28 Minuten später",
+  },
+  "seo-fuer-handwerker": {
+    frage: "Wir bauen jetzt auch Wärmepumpen ein — kann das mit auf die Website?",
+    zeitFrage: "Fr., 17:05", zeitAntwort: "Fr., 17:31", live: "Leistungsseite live — 26 Minuten später",
+  },
+  "seo-fuer-immobilienmakler": {
+    frage: "Das Objekt in der Gartenstraße ist verkauft — bitte von der Website nehmen.",
+    zeitFrage: "Di., 11:12", zeitAntwort: "Di., 11:19", live: "Objektseite offline — 12 Minuten später",
+  },
+};
+
+function ChatVerlauf({ slug }: { slug: string }) {
+  const c = CHAT_VERLAUF[slug];
+  if (!c) return null;
+  return (
+    <div>
+      <div className="overflow-hidden rounded-3xl border border-border bg-white shadow-[0_24px_60px_-28px_rgba(26,26,26,0.18)]">
+        <div className="flex items-center justify-between border-b border-border px-6 py-3.5" style={{ background: "#FBF8F4" }}>
+          <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-dark/50">
+            <span className="chip-dot inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+            Direkter Draht
+          </span>
+          <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-dark/35">Antwort &lt; 24 h</span>
+        </div>
+
+        <div className="space-y-4 px-5 py-6 lg:px-6">
+          <div className="scroll-hidden rv-left max-w-[85%]">
+            <div className="rounded-2xl rounded-tl-md border border-border bg-[#F6F3EE] px-4 py-3">
+              <p className="text-[14px] leading-relaxed text-dark/85">{c.frage}</p>
+            </div>
+            <span className="mt-1 block pl-1 font-mono text-[9px] uppercase tracking-[0.14em] text-dark/35">Kunde · {c.zeitFrage}</span>
+          </div>
+
+          <div className="scroll-hidden rv-right ml-auto max-w-[85%]" style={{ transitionDelay: "180ms" }}>
+            <div className="rounded-2xl rounded-tr-md border px-4 py-3" style={{ background: "#fbf4ea", borderColor: "#ecd3ba" }}>
+              <p className="text-[14px] leading-relaxed text-dark">Gute Idee — wir bereiten das direkt vor und stellen es heute noch live.</p>
+            </div>
+            <span className="mt-1 block pr-1 text-right font-mono text-[9px] uppercase tracking-[0.14em] text-primary/70">SeoForge · {c.zeitAntwort}</span>
+          </div>
+
+          <div className="scroll-hidden rv-scale flex justify-center pt-1" style={{ transitionDelay: "360ms" }}>
+            <span className="inline-flex items-center gap-2 rounded-full border px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.14em]" style={{ background: "#E9F6EC", borderColor: "#cfe9d6", color: "#1A7F37" }}>
+              <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+              {c.live}
+            </span>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 divide-x divide-border border-t border-border">
+          <div className="px-5 py-4">
+            <span className="block font-[family-name:var(--font-heading)] text-2xl font-black text-dark">&lt; 24 h</span>
+            <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-[0.16em] text-dark/40">Antwortzeit</span>
+          </div>
+          <div className="px-5 py-4">
+            <span className="block font-[family-name:var(--font-heading)] text-2xl font-black text-dark">Minuten</span>
+            <span className="mt-0.5 block font-mono text-[9px] uppercase tracking-[0.16em] text-dark/40">Statt Wochen bis live</span>
+          </div>
+        </div>
+      </div>
+      <p className="mt-3 text-center text-xs italic text-muted">Beispielhafter Verlauf — illustrativ.</p>
+    </div>
+  );
+}
+
 function DeployTerminal({ beispiel }: { beispiel: string }) {
   const zeilen = useMemo<TermZeile[]>(
     () => [
@@ -1915,7 +1993,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
             </div>
 
             <div className="scroll-hidden rv-right lg:sticky lg:top-28" style={{ transitionDelay: "140ms" }}>
-              <DeployTerminal beispiel={branche.arbeitsweise.deployBeispiel} />
+              {istTech ? <DeployTerminal beispiel={branche.arbeitsweise.deployBeispiel} /> : <ChatVerlauf slug={branche.slug} />}
             </div>
           </div>
         </div>
