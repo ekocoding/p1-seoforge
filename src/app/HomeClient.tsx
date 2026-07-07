@@ -883,18 +883,25 @@ export default function HomeClient() {
                     { pfad: "geo-agentur", titel: "GEO Agentur — sichtbar in ChatGPT & AI Overviews", snippet: "Ihre Marke als Antwort in KI-Suchen — bevor es der Wettbewerb ist." },
                     { pfad: "ki-seo-agentur", titel: "KI-SEO Agentur — Ihre Marke als Referenz für KI", snippet: "Entitäten, Content-Autorität und digitale PR für die neue Suche." },
                   ].map((r) => (
-                    <Link key={r.pfad} href={`/${r.pfad}`} className="group block px-5 py-4 transition-colors duration-200 hover:bg-[#FBF8F4]">
-                      <span className="flex items-center gap-2">
-                        <svg viewBox="0 0 32 32" className="h-4 w-4 shrink-0" aria-hidden="true">
-                          <polygon points="16,2 28,8 28,24 16,30 4,24 4,8" fill="#C2722A" />
-                          <polygon points="16,7 23,11 23,21 16,25 9,21 9,11" fill="#D4A853" />
+                    <Link key={r.pfad} href={`/${r.pfad}`} className="group flex items-center gap-4 px-5 py-4 transition-colors duration-200 hover:bg-[#FBF8F4]">
+                      <span className="min-w-0 flex-1">
+                        <span className="flex items-center gap-2">
+                          <svg viewBox="0 0 32 32" className="h-4 w-4 shrink-0" aria-hidden="true">
+                            <polygon points="16,2 28,8 28,24 16,30 4,24 4,8" fill="#C2722A" />
+                            <polygon points="16,7 23,11 23,21 16,25 9,21 9,11" fill="#D4A853" />
+                          </svg>
+                          <span className="truncate text-xs text-dark/45">seoforge.de <span className="text-dark/30">›</span> {r.pfad}</span>
+                        </span>
+                        <span className="mt-1 block text-[17px] font-semibold leading-snug text-primary underline decoration-primary/30 underline-offset-4 transition-colors group-hover:decoration-primary">
+                          {r.titel}
+                        </span>
+                        <span className="mt-0.5 block text-sm leading-relaxed text-muted">{r.snippet}</span>
+                      </span>
+                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-white text-dark/60 transition-all duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-white">
+                        <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
                         </svg>
-                        <span className="truncate text-xs text-dark/45">seoforge.de <span className="text-dark/30">›</span> {r.pfad}</span>
                       </span>
-                      <span className="mt-1 block text-[17px] font-semibold leading-snug text-primary group-hover:underline underline-offset-2">
-                        {r.titel}
-                      </span>
-                      <span className="mt-0.5 block text-sm leading-relaxed text-muted">{r.snippet}</span>
                     </Link>
                   ))}
                 </div>
