@@ -841,6 +841,83 @@ export default function HomeClient() {
         </Section>
 
         {/* ============================================================ */}
+        {/*  AGENTUR-INDEX — SEO / GEO / KI-SEO Agentur                  */}
+        {/* ============================================================ */}
+        <section className="py-24 lg:py-32" style={{ background: "#F8F5F1" }}>
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-4">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[.12em] text-primary mb-3">Spezialisierungen</p>
+                <h2 className="text-4xl lg:text-5xl font-[family-name:var(--font-heading)] text-dark leading-tight">
+                  Eine Agentur,{" "}
+                  <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
+                    drei Disziplinen.
+                  </span>
+                </h2>
+              </div>
+              <p className="text-base text-dark/45 max-w-xs lg:text-right leading-relaxed">
+                Klassische Suche, KI-Antworten und Marken-Autorität — jede Disziplin mit eigener Seite.
+              </p>
+            </div>
+
+            <div className="divide-y divide-border border-y border-border">
+              {[
+                {
+                  nr: "01",
+                  label: "Suchmaschinen",
+                  titel: "SEO Agentur",
+                  href: "/seo-agentur",
+                  desc: "Nachhaltige Rankings in Google — Strategie, Technik, Content und Autorität als ein System.",
+                },
+                {
+                  nr: "02",
+                  label: "Generative Engines",
+                  titel: "GEO Agentur",
+                  href: "/geo-agentur",
+                  desc: "Ihre Marke als Antwort in ChatGPT, Perplexity und Google AI Overviews — bevor es der Wettbewerb ist.",
+                },
+                {
+                  nr: "03",
+                  label: "KI & Marke",
+                  titel: "KI-SEO Agentur",
+                  href: "/ki-seo-agentur",
+                  desc: "Entitäten, Content-Autorität und digitale PR — Ihre Marke wird zur Referenz für KI-Systeme.",
+                },
+              ].map((a) => (
+                <Link
+                  key={a.href}
+                  href={a.href}
+                  className="group relative grid gap-2 py-8 lg:py-10 lg:grid-cols-[110px_1fr_auto] lg:items-center lg:gap-10 transition-colors duration-300 hover:bg-white"
+                >
+                  <span
+                    className="pointer-events-none absolute left-0 top-0 h-full w-[3px] origin-top scale-y-0 transition-transform duration-300 group-hover:scale-y-100"
+                    style={{ background: "linear-gradient(180deg, #C2722A, #D4A853)" }}
+                    aria-hidden="true"
+                  />
+                  <span className="hidden lg:block pl-6 font-[family-name:var(--font-heading)] text-5xl font-black leading-none text-primary/10 transition-colors duration-300 group-hover:text-primary/30">
+                    {a.nr}
+                  </span>
+                  <span className="pl-6 lg:pl-0">
+                    <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-dark/40 mb-1.5">
+                      {a.nr} · {a.label}
+                    </span>
+                    <span className="block font-[family-name:var(--font-heading)] text-3xl sm:text-4xl lg:text-[42px] font-bold leading-tight text-dark transition-colors duration-300 group-hover:text-primary">
+                      {a.titel}
+                    </span>
+                    <span className="mt-2 block max-w-xl text-[15px] leading-relaxed text-muted">{a.desc}</span>
+                  </span>
+                  <span className="ml-6 lg:ml-0 mr-6 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-border bg-white text-dark transition-all duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-white">
+                    <svg className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================================ */}
         {/*  SERVICES TEASER → /leistungen                               */}
         {/* ============================================================ */}
         <section className="py-24 lg:py-32 bg-white overflow-hidden">
