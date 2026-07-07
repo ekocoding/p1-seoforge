@@ -841,70 +841,68 @@ export default function HomeClient() {
         </Section>
 
         {/* ============================================================ */}
-        {/*  AGENTUR-SERP — SEO / GEO / KI-SEO als Suchergebnisse        */}
+        {/*  AGENTUR-BAND — 3 Disziplinen, volle Breite auf Marken-Gradient */}
         {/* ============================================================ */}
-        <section className="py-16 lg:py-24" style={{ background: "#F8F5F1" }}>
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl text-center">
-              <p className="text-xs font-bold uppercase tracking-[.12em] text-primary mb-3">Spezialisierungen</p>
-              <h2 className="text-3xl lg:text-4xl font-[family-name:var(--font-heading)] text-dark leading-tight">
-                Drei Disziplinen —{" "}
-                <span style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" }}>
-                  so werden Sie gefunden.
-                </span>
-              </h2>
-              <p className="mx-auto mt-4 text-muted leading-relaxed max-w-lg">
-                Klassische Google-Suche, KI-Antworten und Marken-Autorität — jede Disziplin hat bei uns
-                eine eigene Seite. So wie Ihre Kunden sie finden würden.
+        <section className="relative overflow-hidden" style={{ background: "linear-gradient(130deg, #C2722A 0%, #CE8B3E 55%, #D4A853 100%)" }}>
+          <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+            <div className="absolute -top-24 right-[10%] h-[340px] w-[340px] rounded-full bg-white/[0.07] blur-3xl" />
+            <div className="absolute -bottom-28 left-[5%] h-[300px] w-[300px] rounded-full bg-white/[0.06] blur-3xl" />
+            <div
+              className="absolute inset-0 opacity-[0.10]"
+              style={{
+                backgroundImage: "radial-gradient(rgba(255,255,255,0.6) 1px, transparent 1px)",
+                backgroundSize: "26px 26px",
+                maskImage: "radial-gradient(ellipse 75% 70% at 50% 40%, black, transparent)",
+                WebkitMaskImage: "radial-gradient(ellipse 75% 70% at 50% 40%, black, transparent)",
+              }}
+            />
+          </div>
+
+          <div className="relative mx-auto max-w-7xl px-6 lg:px-8 pt-16 lg:pt-20 pb-6 lg:pb-8">
+            <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+              <div>
+                <p className="font-mono text-[11px] font-bold uppercase tracking-[0.2em] text-white/70 mb-2">Spezialisierungen</p>
+                <h2 className="text-3xl lg:text-4xl font-[family-name:var(--font-heading)] text-white leading-tight">
+                  Drei Disziplinen — so werden Sie gefunden.
+                </h2>
+              </div>
+              <p className="text-sm text-white/70 max-w-xs sm:text-right leading-relaxed">
+                Google, KI-Antworten und Marken-Autorität — jede mit eigener Seite.
               </p>
             </div>
+          </div>
 
-            <div className="mx-auto mt-10 max-w-2xl">
-              <div className="rounded-2xl border border-border bg-white shadow-[0_20px_50px_-28px_rgba(26,26,26,0.22)] overflow-hidden">
-                <div className="flex items-center justify-between border-b border-border px-5 py-3">
-                  <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-dark/50">
-                    <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" />
-                    Google-Suche
+          <div className="relative mx-auto max-w-7xl px-6 lg:px-8 pb-10 lg:pb-14">
+            <div className="grid md:grid-cols-3 md:divide-x divide-y md:divide-y-0 divide-white/20 border-y border-white/20">
+              {[
+                { nr: "01", label: "Suchmaschinen", titel: "SEO Agentur", href: "/seo-agentur", desc: "Nachhaltige Rankings in Google — Strategie, Technik, Content und Autorität." },
+                { nr: "02", label: "Generative Engines", titel: "GEO Agentur", href: "/geo-agentur", desc: "Ihre Marke als Antwort in ChatGPT, Perplexity und AI Overviews." },
+                { nr: "03", label: "KI & Marke", titel: "KI-SEO Agentur", href: "/ki-seo-agentur", desc: "Entitäten, Content-Autorität und digitale PR für die neue Suche." },
+              ].map((a) => (
+                <Link
+                  key={a.href}
+                  href={a.href}
+                  className="group relative flex flex-col px-7 lg:px-9 py-8 lg:py-10 transition-colors duration-300 hover:bg-white/[0.09]"
+                >
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/60">
+                    {a.nr} · {a.label}
                   </span>
-                  <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-dark/35">3 Ergebnisse</span>
-                </div>
-
-                <div className="flex items-center gap-2.5 border-b border-border px-5 py-3" style={{ background: "#FBF8F4" }}>
-                  <svg className="h-3.5 w-3.5 shrink-0 text-dark/35" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-                  </svg>
-                  <span className="text-sm text-dark/70">agentur für sichtbarkeit</span>
-                </div>
-
-                <div className="divide-y divide-border">
-                  {[
-                    { pfad: "seo-agentur", titel: "SEO Agentur — nachhaltige Rankings in Google", snippet: "Strategie, Technik, Content und Autorität als ein System. Für Sichtbarkeit, die bleibt." },
-                    { pfad: "geo-agentur", titel: "GEO Agentur — sichtbar in ChatGPT & AI Overviews", snippet: "Ihre Marke als Antwort in KI-Suchen — bevor es der Wettbewerb ist." },
-                    { pfad: "ki-seo-agentur", titel: "KI-SEO Agentur — Ihre Marke als Referenz für KI", snippet: "Entitäten, Content-Autorität und digitale PR für die neue Suche." },
-                  ].map((r) => (
-                    <Link key={r.pfad} href={`/${r.pfad}`} className="group flex items-center gap-4 px-5 py-4 transition-colors duration-200 hover:bg-[#FBF8F4]">
-                      <span className="min-w-0 flex-1">
-                        <span className="flex items-center gap-2">
-                          <svg viewBox="0 0 32 32" className="h-4 w-4 shrink-0" aria-hidden="true">
-                            <polygon points="16,2 28,8 28,24 16,30 4,24 4,8" fill="#C2722A" />
-                            <polygon points="16,7 23,11 23,21 16,25 9,21 9,11" fill="#D4A853" />
-                          </svg>
-                          <span className="truncate text-xs text-dark/45">seoforge.de <span className="text-dark/30">›</span> {r.pfad}</span>
-                        </span>
-                        <span className="mt-1 block text-[17px] font-semibold leading-snug text-primary underline decoration-primary/30 underline-offset-4 transition-colors group-hover:decoration-primary">
-                          {r.titel}
-                        </span>
-                        <span className="mt-0.5 block text-sm leading-relaxed text-muted">{r.snippet}</span>
-                      </span>
-                      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border bg-white text-dark/60 transition-all duration-300 group-hover:border-primary group-hover:bg-primary group-hover:text-white">
-                        <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg>
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
+                  <span className="mt-2.5 font-[family-name:var(--font-heading)] text-[26px] lg:text-3xl font-bold text-white leading-tight">
+                    {a.titel}
+                  </span>
+                  <span className="mt-2 text-[14px] leading-relaxed text-white/75">{a.desc}</span>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-white">
+                    Zur Seite
+                    <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </span>
+                  <span
+                    className="pointer-events-none absolute bottom-0 left-0 h-[3px] w-full origin-left scale-x-0 bg-white/80 transition-transform duration-300 group-hover:scale-x-100"
+                    aria-hidden="true"
+                  />
+                </Link>
+              ))}
             </div>
           </div>
         </section>
