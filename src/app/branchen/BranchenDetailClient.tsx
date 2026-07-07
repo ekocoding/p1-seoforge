@@ -1542,78 +1542,67 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
 
           {istTech ? (
             <>
-              {/* SaaS-Sonderform: strukturierter Vergleich statt Prosa */}
-              <p
-                className="scroll-hidden rv-blur mt-6 max-w-3xl text-lg lg:text-xl text-muted leading-relaxed"
-                style={{ transitionDelay: "110ms" }}
-              >
-                Bei bezahlten Kanälen kostet jeder zusätzliche Klick erneut Budget — eine gut rankende Seite
-                bringt weiter Besucher, ohne dass der Preis mitwächst.
-              </p>
-
-              <div className="scroll-hidden rv-scale mt-10 overflow-hidden rounded-3xl border border-border bg-white shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
-                <div className="flex items-center justify-between border-b border-border px-6 py-3.5">
-                  <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-dark/50">
-                    <span className="chip-dot inline-block h-1.5 w-1.5 rounded-full bg-primary" />
-                    Paid vs. Organisch
-                  </span>
-                  <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-dark/35">Qualitativer Vergleich</span>
+              {/* SaaS-Sonderform: erzählter Kurztext + eine Skizze statt Modul-Stapel */}
+              <div className="mt-10 grid items-center gap-12 lg:grid-cols-[1fr_minmax(0,460px)] lg:gap-20">
+                <div className="space-y-6 max-w-xl">
+                  <p className="scroll-hidden rv-blur text-lg leading-relaxed text-dark/80">
+                    Jeder Klick aus bezahlter Werbung kostet — heute, morgen, jeden Monat aufs Neue. Eine Seite,
+                    die organisch rankt, bringt Besucher, <strong className="font-semibold text-dark">ohne dass die
+                    Rechnung mitwächst</strong>.
+                  </p>
+                  <p className="scroll-hidden rv-blur text-lg leading-relaxed text-dark/80" style={{ transitionDelay: "120ms" }}>
+                    Der Aufbau braucht ein paar Monate, und am Anfang läuft SEO neben Ihren Anzeigen her. Doch mit
+                    jedem Monat übernimmt der organische Kanal <strong className="font-semibold text-dark">ein Stück
+                    mehr</strong> — und das frei werdende Budget können Sie ins Produkt stecken.
+                  </p>
+                  <p className="scroll-hidden rv-blur text-lg leading-relaxed text-dark/80" style={{ transitionDelay: "240ms" }}>
+                    Deshalb starten wir nicht beim größten Suchvolumen, sondern bei den Suchen kurz vor der
+                    Entscheidung — dort, wo aus Besuchern <strong className="font-semibold text-dark">Trials
+                    werden</strong>.
+                  </p>
                 </div>
-                <div className="grid md:grid-cols-2 md:divide-x divide-y md:divide-y-0 divide-border">
-                  <div className="p-6 lg:p-8">
-                    <span className="mb-4 block font-mono text-[10px] uppercase tracking-[0.18em] text-dark/45">Bezahlte Anzeigen</span>
-                    <ul className="space-y-3.5">
-                      {["Jeder Besucher kostet erneut Budget", "Kosten wachsen mit dem Traffic mit", "Wirkung stoppt, sobald das Budget stoppt"].map((z) => (
-                        <li key={z} className="flex items-start gap-3 text-[15px] leading-relaxed text-muted">
-                          <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-dark/[0.06]">
-                            <svg className="h-3 w-3 text-dark/45" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round"><path d="M18 6 6 18M6 6l12 12" /></svg>
-                          </span>
-                          {z}
-                        </li>
-                      ))}
-                    </ul>
+
+                <div className="scroll-hidden rv-right">
+                  <p className="mb-3 font-[family-name:var(--font-heading)] text-lg italic text-dark/60">
+                    Die einfache Rechnung dahinter:
+                  </p>
+                  <div className="rounded-2xl border bg-white p-6 shadow-[0_20px_50px_-28px_rgba(26,26,26,0.2)]" style={{ borderColor: "#ecd3ba" }}>
+                    <svg viewBox="0 0 420 250" className="w-full" role="img" aria-label="Schematische Skizze: Kosten pro Kunde — bezahlte Anzeigen bleiben teuer, organisch wird mit der Zeit günstiger">
+                      <text x="16" y="24" className="font-mono" fontSize="10" letterSpacing="1.5" fill="rgba(26,26,26,0.4)">KOSTEN PRO NEUEM KUNDEN</text>
+                      {/* Basislinie + Zeitpfeil */}
+                      <line x1="16" y1="218" x2="404" y2="218" stroke="rgba(26,26,26,0.15)" strokeWidth="1" />
+                      <text x="360" y="238" fontSize="11" fontStyle="italic" fill="rgba(26,26,26,0.4)">Zeit →</text>
+                      {/* Paid: bleibt oben, wird eher teurer (leicht wellig, handgezeichnet) */}
+                      <path
+                        d="M20,120 C80,116 120,124 170,117 S280,108 330,104 S390,98 404,96"
+                        fill="none" stroke="#B9A896" strokeWidth="2.5" strokeLinecap="round"
+                        pathLength={1} className="spark-draw"
+                      />
+                      <text x="292" y="86" fontSize="13" fontStyle="italic" fill="#8f7f6d">bezahlte Anzeigen</text>
+                      {/* Organisch: startet teuer, wird deutlich günstiger */}
+                      <path
+                        d="M20,52 C70,58 110,74 150,100 S230,164 290,186 S370,202 404,205"
+                        fill="none" stroke="url(#sparkStroke2)" strokeWidth="3" strokeLinecap="round"
+                        pathLength={1} className="spark-draw" style={{ animationDelay: "1.1s" }}
+                      />
+                      <defs>
+                        <linearGradient id="sparkStroke2" x1="0" y1="0" x2="1" y2="0">
+                          <stop offset="0%" stopColor="#C2722A" />
+                          <stop offset="100%" stopColor="#D4A853" />
+                        </linearGradient>
+                      </defs>
+                      <text x="252" y="222" fontSize="13" fontStyle="italic" fill="#C2722A" fontWeight="600">organisch</text>
+                      <circle cx="404" cy="205" r="4.5" fill="#D4A853" className="chip-dot" />
+                      {/* Kreuzungs-Anmerkung */}
+                      <text x="120" y="146" fontSize="11" fontStyle="italic" fill="rgba(26,26,26,0.45)">ab hier wird&#8217;s</text>
+                      <text x="120" y="160" fontSize="11" fontStyle="italic" fill="rgba(26,26,26,0.45)">jeden Monat besser</text>
+                    </svg>
                   </div>
-                  <div className="p-6 lg:p-8" style={{ background: "#fbf4ea" }}>
-                    <span className="mb-4 block font-mono text-[10px] uppercase tracking-[0.18em] text-primary">Organische Rankings</span>
-                    <ul className="space-y-3.5">
-                      {["Einmal aufgebaut, bringen sie weiter Besucher", "Kosten wachsen nicht pro Klick mit", "Werden über die Zeit zum günstigsten Kanal"].map((z) => (
-                        <li key={z} className="flex items-start gap-3 text-[15px] leading-relaxed text-dark">
-                          <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full" style={{ background: "#E9F6EC" }}>
-                            <svg className="h-3 w-3" style={{ color: "#1A7F37" }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
-                          </span>
-                          {z}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <p className="mt-3 text-xs italic text-muted">Schematische Skizze — keine Messwerte.</p>
                 </div>
               </div>
 
-              <div className="mt-8 grid gap-4 md:grid-cols-2">
-                <div className="scroll-hidden rv-left rounded-2xl border border-border bg-white p-6">
-                  <span className="mb-2 block font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">Generischer Begriff</span>
-                  <p className="text-[15px] leading-relaxed text-muted">Viel Suchvolumen, aber wenig Kaufabsicht — Traffic ohne Signups.</p>
-                </div>
-                <div className="scroll-hidden rv-right rounded-2xl border p-6" style={{ background: "#fbf4ea", borderColor: "#ecd3ba", transitionDelay: "100ms" }}>
-                  <span className="mb-2 block font-mono text-[10px] uppercase tracking-[0.16em] text-primary">Spezifischer Vergleich</span>
-                  <p className="text-[15px] leading-relaxed text-dark">Weniger Suchen, aber kurz vor der Kaufentscheidung — hier starten wir zuerst.</p>
-                </div>
-              </div>
-
-              <div className="scroll-hidden rv-blur mt-10 divide-y divide-border border-y border-border" style={{ transitionDelay: "120ms" }}>
-                {[
-                  ["01", "Am Anfang ergänzt SEO die bezahlten Kanäle — Rankings brauchen mehrere Monate Aufbauzeit."],
-                  ["02", "Mit der Zeit übernimmt der organische Kanal einen wachsenden Anteil der Signups."],
-                  ["03", "Das frei werdende Budget fließt in Produkt oder neue Kanäle — den Übergang planen wir mit Ihrem Team."],
-                ].map(([nr, text]) => (
-                  <div key={nr} className="flex items-baseline gap-5 py-4">
-                    <span className="font-[family-name:var(--font-heading)] text-2xl font-black leading-none text-primary/15">{nr}</span>
-                    <p className="text-[15px] leading-relaxed text-muted">{text}</p>
-                  </div>
-                ))}
-              </div>
-
-              <blockquote className="scroll-hidden rv-scale mt-10 max-w-4xl border-l-4 border-secondary pl-6 lg:mt-14 lg:pl-8">
+              <blockquote className="scroll-hidden rv-scale mt-12 max-w-4xl border-l-4 border-secondary pl-6 lg:mt-16 lg:pl-8">
                 <p className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold leading-snug" style={grad}>
                   „{branche.tiefe.quote}“
                 </p>
