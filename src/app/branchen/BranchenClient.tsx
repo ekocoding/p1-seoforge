@@ -97,14 +97,15 @@ export default function BranchenClient() {
         <div
           className="pointer-events-none absolute inset-0"
           aria-hidden="true"
-          style={{ background: "linear-gradient(95deg, rgba(15,12,9,0.55) 0%, rgba(15,12,9,0.25) 45%, rgba(15,12,9,0) 75%)" }}
+          style={{ background: "radial-gradient(ellipse 70% 80% at 50% 45%, rgba(15,12,9,0.55), rgba(15,12,9,0.15) 75%)" }}
         />
 
-        <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8 pt-20 lg:pt-28 pb-16 lg:pb-24">
-          <div className="max-w-3xl">
+        <div className="relative mx-auto w-full max-w-3xl px-6 lg:px-8 pt-20 lg:pt-28 pb-16 lg:pb-24 text-center">
+          <div>
             <div className="hero-badge mb-5 inline-flex items-center gap-2.5">
               <span className="h-px w-8 bg-secondary" />
               <span className="text-xs font-semibold uppercase tracking-[0.24em] text-primary-light">SEO nach Branche</span>
+              <span className="h-px w-8 bg-secondary" />
             </div>
 
             <h1 className="hero-title font-[family-name:var(--font-heading)] text-[2.7rem] sm:text-[3.4rem] lg:text-[4rem] font-medium leading-[1.02] tracking-tight text-white">
@@ -114,7 +115,7 @@ export default function BranchenClient() {
               </span>
             </h1>
 
-            <p className="hero-description mt-5 max-w-2xl text-lg leading-relaxed text-white/75">
+            <p className="hero-description mx-auto mt-5 max-w-2xl text-lg leading-relaxed text-white/75">
               Patienten suchen anders als Mandanten, Shop-Kunden anders als B2B-Einkäufer. Deshalb starten wir
               nicht mit einem Standardpaket, sondern mit dem Suchverhalten Ihrer Kunden.
             </p>
