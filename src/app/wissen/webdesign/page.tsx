@@ -3,7 +3,7 @@ import WissenPillarPage from "../WissenPillarPage";
 import type { PillarCluster } from "../WissenPillarPage";
 
 export const metadata: Metadata = {
-  title: "Webdesign-Wissen: Aufbau, Conversion & Design-Grundlagen | SeoForge",
+  title: "Webdesign-Wissen: Aufbau & Conversion",
   description:
     "Praxisnahe Webdesign-Ratgeber: One-Pager, Landingpages, Call-to-Action, Website-Aufbau und Conversion. Verständlich erklärt von der SeoForge-Agentur.",
   alternates: { canonical: "https://seoforge.de/wissen/webdesign" },

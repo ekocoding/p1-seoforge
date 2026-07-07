@@ -11,6 +11,7 @@ export interface Article {
   type: ArticleType
   thema: ArticleThema
   title: string
+  metaTitle?: string                   // Kurzer SEO-Title (<title>); Fallback: title
   excerpt: string
   readTime: string
   publishDate: string   // 'YYYY-MM-DD'

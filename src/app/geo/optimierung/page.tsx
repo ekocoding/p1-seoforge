@@ -4,7 +4,7 @@ import OptimierungPageClient from "./OptimierungPageClient"
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "GEO Optimierung | Für KI optimieren | SeoForge",
+  title: "GEO Optimierung — Für KI optimieren",
   description:
     "GEO Optimierung von SeoForge: Schema.org, Entity-Coverage, E-E-A-T und Citation Bait – damit ChatGPT, Gemini & Perplexity Ihre Marke zitieren. Erste Effekte in 4–8 Wochen.",
   alternates: { canonical: "https://seoforge.de/geo/optimierung" },

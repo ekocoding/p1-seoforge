@@ -4,7 +4,7 @@ import WasIstGeoClient from "./WasIstGeoClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "Was ist GEO? Generative Engine Optimization erklärt | Seoforge",
+  title: "Was ist GEO? Generative Engine Optimization",
   description:
     "GEO (Generative Engine Optimization) ist die Disziplin, Marken in KI-Antworten sichtbar zu machen. Erfahren Sie, wie GEO funktioniert und warum es jetzt wichtig ist.",
   keywords: [

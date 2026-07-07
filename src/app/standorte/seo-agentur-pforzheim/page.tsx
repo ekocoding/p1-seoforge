@@ -7,7 +7,7 @@ import PforzheimClient from "./PforzheimClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur Pforzheim | SeoForge – Schmuck, E-Commerce & Mittelstand",
+  title: "SEO Agentur Pforzheim — Schmuck & E-Commerce",
   description:
     "SeoForge ist Ihre SEO Agentur in Pforzheim. Die Goldstadt mit 700+ Schmuck- und Uhrenbetrieben braucht E-Commerce-SEO und Mittelstand-Strategien — wir liefern sie.",
   robots: {

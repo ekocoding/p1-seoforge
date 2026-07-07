@@ -4,7 +4,7 @@ import BranchenClient from "./BranchenClient";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "SEO nach Branche — Ärzte, Anwälte, Shops & mehr | SeoForge",
+  title: "SEO nach Branche — Ärzte, Anwälte, Shops & mehr",
   description:
     "SEO-Strategien nach Branche: Ärzte, Anwälte, Online-Shops, Handwerker, Immobilienmakler & SaaS — zugeschnitten auf Suchverhalten und Wettbewerb.",
   robots: { index: true, follow: true },

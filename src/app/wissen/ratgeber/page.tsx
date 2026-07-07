@@ -6,7 +6,7 @@ import { getArticlesByType } from '../data/articles'
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://seoforge.de/wissen/ratgeber" },
-  title: 'SEO Ratgeber & Guides | SeoForge Wissen',
+  title: 'SEO Ratgeber & Guides',
   description: 'Praxisnahe SEO-Ratgeber und Schritt-für-Schritt-Guides von Experten.',
 }
 

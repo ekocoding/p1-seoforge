@@ -4,7 +4,7 @@ import SeoOptimierungClient from "./SeoOptimierungClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Optimierung — Technik, Content & Struktur | SeoForge",
+  title: "SEO Optimierung — Technik, Content & Struktur",
   description:
     
     "SeoForge optimiert ganzheitlich: Core Web Vitals, On-Page und Content — systematisch priorisiert für messbare Rankings und mehr organischen Traffic.",

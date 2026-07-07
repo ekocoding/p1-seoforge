@@ -7,7 +7,7 @@ import HeidelbergClient from "./HeidelbergClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur Heidelberg | SeoForge – Biotech, Wissenschaft & lokale Sichtbarkeit",
+  title: "SEO Agentur Heidelberg — Biotech & Wissenschaft",
   description:
     "SeoForge ist Ihre SEO Agentur in Heidelberg. Spezialisiert auf Biotech, Wissenschaft, Tourismus und IT. 155.000 Einwohner, 66% Wissensberufe — wir kennen Ihren Markt.",
   robots: {

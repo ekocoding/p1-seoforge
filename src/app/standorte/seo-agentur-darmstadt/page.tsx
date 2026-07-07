@@ -7,7 +7,7 @@ import DarmstadtClient from "./DarmstadtClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur Darmstadt | SeoForge – IT, Life Sciences & Wissenschaftsstadt",
+  title: "SEO Agentur Darmstadt — IT & Wissenschaft",
   description:
     "SeoForge ist Ihre SEO Agentur in Darmstadt. TU Darmstadt, ESOC, Merck KGaA — wir kennen die Wissenschaftsstadt und entwickeln SEO für Tech-Startups, Pharma und Forschung.",
   robots: {

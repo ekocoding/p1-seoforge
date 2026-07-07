@@ -4,7 +4,7 @@ import SeoAuditClient from "./SeoAuditClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Audit von SeoForge — Vollbild Ihrer Website",
+  title: "SEO Audit — Vollbild Ihrer Website",
   description:
     
     "Wissen, wo Sie stehen: Der SeoForge-Audit analysiert Technik, Content, Backlinks und Struktur — mit priorisiertem Maßnahmenplan statt Daten-Friedhof.",

@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const article = getArticleBySlug(slug)
   if (!article) return {}
   return {
-    title: `${article.title} | SeoForge Wissen`,
+    title: article.metaTitle ?? article.title,
     description: article.excerpt,
     alternates: { canonical: `https://seoforge.de/wissen/ratgeber/${slug}` },
   }

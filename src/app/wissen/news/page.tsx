@@ -6,7 +6,7 @@ import { getArticlesByType } from '../data/articles'
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://seoforge.de/wissen/news" },
-  title: 'SEO News & Updates | SeoForge Wissen',
+  title: 'SEO News & Updates',
   description: 'Aktuelle SEO-News, Google-Updates und Branchenmeldungen von SeoForge — was jetzt wirklich wichtig ist.',
 }
 

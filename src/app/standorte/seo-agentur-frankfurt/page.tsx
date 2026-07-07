@@ -7,7 +7,7 @@ import FrankfurtClient from "./FrankfurtClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur Frankfurt | SeoForge – Finanz, FinTech & B2B SEO",
+  title: "SEO Agentur Frankfurt — Finanz, FinTech & B2B",
   description:
     "SeoForge ist Ihre SEO Agentur in Frankfurt. Spezialisiert auf Finanz, FinTech und B2B. EZB, DAX, 200+ Banken — wir kennen den härtesten digitalen Markt Deutschlands.",
   robots: {

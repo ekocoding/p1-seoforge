@@ -6,7 +6,7 @@ import { getArticlesByType } from '../data/articles'
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://seoforge.de/wissen/glossar" },
-  title: 'SEO Glossar | SeoForge Wissen',
+  title: 'SEO Glossar',
   description: 'SEO-Begriffe einfach erklärt — das Glossar von SeoForge für Fachbegriffe aus Suchmaschinenoptimierung und Online-Marketing.',
 }
 

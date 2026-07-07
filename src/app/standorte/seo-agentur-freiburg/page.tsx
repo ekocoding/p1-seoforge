@@ -7,7 +7,7 @@ import FreiburgClient from "./FreiburgClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur Freiburg | SeoForge – Cleantech, Tourismus & Universität",
+  title: "SEO Agentur Freiburg — Cleantech & Tourismus",
   description:
     "SeoForge ist Ihre SEO Agentur in Freiburg. Europas Solarhauptstadt, Schwarzwald-Tor und Uni-Stadt seit 1457 — wir entwickeln SEO für Cleantech, Tourismus und Wissenschaft.",
   robots: {

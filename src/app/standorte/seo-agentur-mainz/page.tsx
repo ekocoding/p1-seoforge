@@ -7,7 +7,7 @@ import MainzClient from "./MainzClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur Mainz | SeoForge – BioNTech, Medien & Wein",
+  title: "SEO Agentur Mainz — BioNTech, Medien & Wein",
   description:
     "SeoForge ist Ihre SEO Agentur in Mainz. BioNTech-Standort, ZDF, Gutenberg-Universität und Rheinhessens Weinwirtschaft — wir entwickeln SEO für Mainzs einzigartige Branchenmischung.",
   robots: {

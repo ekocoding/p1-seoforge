@@ -7,7 +7,7 @@ import KoblenzClient from "./KoblenzClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur Koblenz | SeoForge – Behörden, Tourismus & Mittelrhein",
+  title: "SEO Agentur Koblenz — Behörden & Tourismus",
   description:
     "SeoForge ist Ihre SEO Agentur in Koblenz. BAAINBw, Deutsches Eck, UNESCO-Welterbe und Mittelrhein-Tourismus — wir entwickeln SEO für Koblenz und die gesamte Region.",
   robots: {

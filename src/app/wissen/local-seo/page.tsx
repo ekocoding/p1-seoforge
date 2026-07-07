@@ -3,7 +3,7 @@ import WissenPillarPage from "../WissenPillarPage";
 import type { PillarCluster } from "../WissenPillarPage";
 
 export const metadata: Metadata = {
-  title: "Local SEO: Google Business Profile & lokale Rankings | Wissen — SeoForge",
+  title: "Local SEO: Google Business Profile & Rankings",
   description:
     "Alles über Local SEO: Google Business Profile optimieren, lokale Rankingfaktoren, NAP-Konsistenz, Bewertungsmanagement und lokale Keywords.",
   alternates: { canonical: "https://seoforge.de/wissen/local-seo" },

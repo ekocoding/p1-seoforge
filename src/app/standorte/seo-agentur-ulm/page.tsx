@@ -7,7 +7,7 @@ import UlmClient from "./UlmClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur Ulm | SeoForge – MedTech, Automotive & Science City",
+  title: "SEO Agentur Ulm — MedTech & Science City",
   description:
     "SeoForge ist Ihre SEO Agentur in Ulm. Einsteins Geburtsstadt, Ulmer Münster, Daimler Truck und wachsendes MedTech-Cluster — wir entwickeln SEO für Ulms Industrie- und Wissenschaftsmarkt.",
   robots: {

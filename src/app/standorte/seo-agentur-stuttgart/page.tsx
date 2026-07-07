@@ -7,7 +7,7 @@ import StuttgartClient from "./StuttgartClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur Stuttgart | SeoForge – Automotive, B2B & Tech SEO",
+  title: "SEO Agentur Stuttgart — Automotive, B2B & Tech",
   description:
     "SeoForge ist Ihre SEO Agentur in Stuttgart. Spezialisiert auf Automotive, B2B und IT. 635.000 Einwohner, 118.000 Automotive-Jobs, Bosch & Porsche — wir kennen Ihren Markt.",
   robots: {

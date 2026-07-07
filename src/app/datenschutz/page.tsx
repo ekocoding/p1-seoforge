@@ -3,7 +3,7 @@ import SubpageLayout from "../components/SubpageLayout";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://seoforge.de/datenschutz" },
-  title: "Datenschutzerklärung | SeoForge",
+  title: "Datenschutzerklärung",
   description: "Datenschutzerklärung von SeoForge gemäß DSGVO",
   robots: { index: false, follow: false },
 };

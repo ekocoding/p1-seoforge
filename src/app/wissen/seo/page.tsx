@@ -3,7 +3,7 @@ import WissenPillarPage from "../WissenPillarPage";
 import type { PillarCluster } from "../WissenPillarPage";
 
 export const metadata: Metadata = {
-  title: "SEO Grundlagen & Strategie | Wissen — SeoForge",
+  title: "SEO Grundlagen & Strategie",
   description:
     "Alles über SEO-Grundlagen, Kosten, Agenturwahl und Strategie. Kostenlose Guides von SEO-Experten für Unternehmen.",
   alternates: { canonical: "https://seoforge.de/wissen/seo" },

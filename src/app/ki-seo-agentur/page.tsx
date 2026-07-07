@@ -6,7 +6,7 @@ import { FAQ_ITEMS } from "./data";
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "KI-SEO-Agentur — Sichtbarkeit in ChatGPT & Perplexity | SeoForge",
+  title: "KI-SEO-Agentur — Sichtbar in ChatGPT & Perplexity",
   description:
     "Ihre Marke in ChatGPT, Perplexity und Google AI Overviews etablieren. KI-SEO-Beratung von SeoForge — technisch fundiert, messbar, ohne leere Versprechen.",
   alternates: { canonical: "https://seoforge.de/ki-seo-agentur" },

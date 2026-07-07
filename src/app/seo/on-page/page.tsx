@@ -4,7 +4,7 @@ import OnPageSeoClient from "./OnPageSeoClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "On-Page SEO — Technik, Content & UX vereint | SeoForge",
+  title: "On-Page SEO — Technik, Content & UX vereint",
   description:
     
     "Alle Faktoren in einem Zug: SeoForge optimiert Technik, Content und UX — damit Google und Nutzer Ihre Seite gleichermaßen als relevant erkennen.",

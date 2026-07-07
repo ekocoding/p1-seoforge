@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 const branche = branchen.find((b) => b.slug === "seo-fuer-aerzte")!;
 
 export const metadata: Metadata = {
-  title: "SEO für Ärzte: Mehr Patienten über Google | SeoForge",
+  title: "SEO für Ärzte: Mehr Patienten über Google",
   description:
     "Behandlungsseiten, lokale Sichtbarkeit & Vertrauenssignale statt Portal-Abhängigkeit. SEO für Praxen — kostenlose Erstanalyse, Antwort < 24 h.",
   robots: { index: true, follow: true },

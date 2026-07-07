@@ -4,7 +4,7 @@ import SeoBeratungClient from "./SeoBeratungClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Beratung: Strategie, Roadmap & Klarheit — SeoForge",
+  title: "SEO Beratung: Strategie, Roadmap & Klarheit",
   description:
     
     "Klarheit statt Phrasen: SeoForge entwickelt Ihre SEO-Strategie, analysiert Wettbewerber und liefert eine priorisierte Roadmap — direkt, ohne Jargon.",

@@ -3,7 +3,7 @@ import WissenPillarPage from "../WissenPillarPage";
 import type { PillarCluster } from "../WissenPillarPage";
 
 export const metadata: Metadata = {
-  title: "GEO & KI-Suche: ChatGPT, Perplexity & AI Overviews | Wissen — SeoForge",
+  title: "GEO & KI-Suche: ChatGPT, Perplexity, AI Overviews",
   description:
     "Generative Engine Optimization verständlich erklärt. Wie Sie in ChatGPT, Perplexity und Google AI Overviews sichtbar werden.",
   alternates: { canonical: "https://seoforge.de/wissen/geo" },

@@ -7,7 +7,7 @@ import KarlsruheClient from "./KarlsruheClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur Karlsruhe | SeoForge – IT, KI & TechnologieRegion",
+  title: "SEO Agentur Karlsruhe — IT, KI & Technologie",
   description:
     "SeoForge ist Ihre SEO Agentur in Karlsruhe. Spezialisiert auf IT, Cyber Security, KI und die TechnologieRegion. KIT, Cyber Valley, 7 Weltmarktführer — wir kennen Ihren Markt.",
   robots: {

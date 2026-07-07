@@ -4,7 +4,7 @@ import SeoTexteClient from "./SeoTexteClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Texte — Keyword-optimiert & lesenswert | SeoForge",
+  title: "SEO Texte — Keyword-optimiert & lesenswert",
   description:
     
     "SeoForge schreibt SEO-Texte mit E-E-A-T-Fokus, Suchintention und Keyword-Strategie — für Websites, Blogs und Online-Shops die dauerhaft top performen.",

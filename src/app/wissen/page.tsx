@@ -4,7 +4,7 @@ import SubpageLayout from "../components/SubpageLayout";
 import { getArticleBySlug, articles } from "./data/articles";
 
 export const metadata: Metadata = {
-  title: "SEO Wissen | SeoForge — Kostenlose Guides & Ratgeber",
+  title: "SEO Wissen — Kostenlose Guides & Ratgeber",
   description:
     "Kostenlose SEO-Guides, Fachartikel und Praxis-Ratgeber von Experten. Alles über SEO, On-Page, Technisches SEO, GEO und Local SEO.",
   alternates: { canonical: "https://seoforge.de/wissen" },

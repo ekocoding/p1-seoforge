@@ -7,7 +7,7 @@ import WiesbadenClient from "./WiesbadenClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur Wiesbaden | SeoForge – Versicherung, IT & Rheingau",
+  title: "SEO Agentur Wiesbaden — Versicherung & IT",
   description:
     "SeoForge ist Ihre SEO Agentur in Wiesbaden. R+V Versicherung, Destatis, Kurstadt-Image und Rheingau-Weinregion — wir entwickeln Premium-SEO für Hessens Landeshauptstadt.",
   robots: {

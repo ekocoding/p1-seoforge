@@ -3,7 +3,7 @@ import WissenPillarPage from "../WissenPillarPage";
 import type { PillarCluster } from "../WissenPillarPage";
 
 export const metadata: Metadata = {
-  title: "Technisches SEO: Core Web Vitals, Crawling & Schema | Wissen — SeoForge",
+  title: "Technisches SEO: Core Web Vitals & Crawling",
   description:
     "Core Web Vitals, Crawling, Indexierung, Schema Markup und JavaScript SEO. Technisches SEO verständlich erklärt von Experten.",
   alternates: { canonical: "https://seoforge.de/wissen/technical-seo" },

@@ -4,7 +4,7 @@ import SubpageLayout from "../components/SubpageLayout";
 
 export const metadata: Metadata = {
   alternates: { canonical: "https://seoforge.de/impressum" },
-  title: "Impressum | SeoForge",
+  title: "Impressum",
   description: "Impressum und rechtliche Informationen von SeoForge",
   robots: {
     index: false,
