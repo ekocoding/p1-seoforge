@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -626,6 +626,149 @@ function SignatureModul({ sig }: { sig: Signature }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   VORGEHEN-PLAYER — interaktives Story-Progress-Panel: 4 Segment-Balken mit
+   Auto-Advance (6 s je Schritt, Loop), Pause bei Hover, 12 s nach Klick und
+   bei verstecktem Tab; IO-gated (startet erst im Viewport); bei
+   prefers-reduced-motion kein Auto-Advance — Segmente statisch, nur Klick.
+═══════════════════════════════════════════════════════════════════════════ */
+const SCHRITT_DAUER_MS = 6000;
+const KLICK_PAUSE_MS = 12000;
+const TICK_MS = 50;
+
+function VorgehenPlayer({ schritte }: { schritte: { titel: string; text: string }[] }) {
+  const [aktiv, setAktiv] = useState(0);
+  const [fortschritt, setFortschritt] = useState(0); // 0–1 des aktiven Segments
+  const [imViewport, setImViewport] = useState(false);
+  const [gehovert, setGehovert] = useState(false);
+  const [reduzierteBewegung, setReduzierteBewegung] = useState(false);
+  const fortschrittRef = useRef(0);
+  const pauseBisRef = useRef(0);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+
+  /* prefers-reduced-motion beobachten */
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReduzierteBewegung(mq.matches);
+    const onChange = (e: MediaQueryListEvent) => setReduzierteBewegung(e.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+
+  /* IO-Gate: Auto-Advance läuft erst, wenn das Panel im Viewport steht */
+  useEffect(() => {
+    const el = panelRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => setImViewport(e.isIntersecting)),
+      { threshold: 0.35 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  /* Ticker: füllt das aktive Segment über 6 s, danach nächster Schritt (Loop) */
+  useEffect(() => {
+    if (reduzierteBewegung || !imViewport || gehovert) return;
+    const id = window.setInterval(() => {
+      if (document.hidden || Date.now() < pauseBisRef.current) return;
+      const naechster = fortschrittRef.current + TICK_MS / SCHRITT_DAUER_MS;
+      if (naechster >= 1) {
+        fortschrittRef.current = 0;
+        setFortschritt(0);
+        setAktiv((a) => (a + 1) % schritte.length);
+      } else {
+        fortschrittRef.current = naechster;
+        setFortschritt(naechster);
+      }
+    }, TICK_MS);
+    return () => window.clearInterval(id);
+  }, [reduzierteBewegung, imViewport, gehovert, schritte.length]);
+
+  /* Manuelle Wahl: Schritt setzen + Auto-Advance für 12 s pausieren */
+  const waehleSchritt = (i: number) => {
+    pauseBisRef.current = Date.now() + KLICK_PAUSE_MS;
+    fortschrittRef.current = 0;
+    setFortschritt(0);
+    setAktiv(i);
+  };
+
+  const schritt = schritte[aktiv] ?? schritte[0];
+
+  return (
+    <div
+      ref={panelRef}
+      onPointerEnter={(e) => {
+        if (e.pointerType === "mouse") setGehovert(true);
+      }}
+      onPointerLeave={(e) => {
+        if (e.pointerType === "mouse") setGehovert(false);
+      }}
+      className="overflow-hidden rounded-3xl border border-border bg-white shadow-[0_24px_60px_-30px_rgba(26,26,26,0.18)]"
+    >
+      {/* Mono-Header mit Live-Schrittanzeige */}
+      <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-3.5 lg:px-6">
+        <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-dark/55">
+          <span className="chip-dot inline-block h-1.5 w-1.5 rounded-full bg-primary" />
+          So arbeiten wir
+        </span>
+        <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/35">
+          Schritt {String(aktiv + 1).padStart(2, "0")} / {String(schritte.length).padStart(2, "0")}
+        </span>
+      </div>
+
+      <div className="px-5 pb-6 pt-1.5 lg:px-6 lg:pb-7">
+        {/* Segment-Balken: erledigt = voll · aktiv = füllt sich · kommend = leer */}
+        <div className="flex gap-1.5">
+          {schritte.map((s, i) => {
+            const istAktiv = i === aktiv;
+            const breite = i < aktiv || (istAktiv && reduzierteBewegung) ? 100 : istAktiv ? fortschritt * 100 : 0;
+            return (
+              <button
+                key={s.titel}
+                type="button"
+                onClick={() => waehleSchritt(i)}
+                aria-pressed={istAktiv}
+                aria-label={`Schritt ${i + 1}: ${s.titel}`}
+                className="flex-1 cursor-pointer py-3"
+              >
+                <span className="block h-1.5 overflow-hidden rounded-full bg-border">
+                  <span
+                    className="block h-full rounded-full bg-primary"
+                    style={{ width: `${breite}%`, transition: reduzierteBewegung ? "none" : "width 80ms linear" }}
+                    aria-hidden="true"
+                  />
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Detail-Bereich: Ghost-Serif-Ziffer + Titel/Text, Remount je Schritt */}
+        <div key={aktiv} className="mt-4 grid min-h-[200px] gap-2 lg:mt-5 lg:min-h-[130px] lg:grid-cols-[auto_1fr] lg:gap-8">
+          <span
+            className="ae-in select-none font-[family-name:var(--font-heading)] text-6xl font-black leading-[0.85] text-primary/10 lg:text-[96px]"
+            aria-hidden="true"
+          >
+            {String(aktiv + 1).padStart(2, "0")}
+          </span>
+          <div>
+            <h3
+              className="ae-in font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark"
+              style={{ animationDelay: "70ms" }}
+            >
+              {schritt.titel}
+            </h3>
+            <p className="ae-in mt-2.5 max-w-3xl text-sm lg:text-[15px] text-muted leading-relaxed" style={{ animationDelay: "150ms" }}>
+              {schritt.text}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    Icon-Chips für die „stack“-Hebel-Variante (Stroke-SVGs inline)
 ═══════════════════════════════════════════════════════════════════════════ */
 const stackIconSvg = (paths: ReactNode) => (
@@ -696,8 +839,6 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
     branche.slug === "seo-fuer-anwaelte" ||
     branche.slug === "saas-seo";
   const stackIcons = STACK_ICONS[branche.slug] ?? STACK_ICONS["seo-fuer-online-shops"];
-  /* VORGEHEN: Seiten mit hebelVariant "editorial" bekommen die 2-Spalten-Form */
-  const vorgehenZweispaltig = branche.hebelVariant === "editorial";
   /* KEYWORD-POTENZIAL + FOTO-BAND: Daten je Branche (Semrush bzw. Statement) */
   const kwSet: KeywordPotenzial | undefined = KEYWORDS[branche.slug];
   const kwSumme = kwSet ? kwSet.rows.reduce((s, r) => s + r.vol, 0) : 0;
@@ -931,14 +1072,33 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
             <figure className={`scroll-hidden ${branche.split.bildLinks ? "rv-left" : "rv-right lg:order-2"}`}>
-              <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border shadow-[0_28px_60px_-30px_rgba(26,26,26,0.3)]">
-                <Image
-                  src={branche.split.bild}
-                  alt={branche.split.bildAlt}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover"
-                />
+              {/* Äußerer Wrapper ohne overflow-hidden, damit das Stat-Badge überlappen kann */}
+              <div className="relative">
+                <div className="relative aspect-[16/10] overflow-hidden rounded-2xl border border-border shadow-[0_28px_60px_-30px_rgba(26,26,26,0.3)]">
+                  <Image
+                    src={branche.split.bild}
+                    alt={branche.split.bildAlt}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                {/* Floating Stat-Badge: echte Semrush-Summe der Branche, zur Textseite hin überlappend */}
+                {kwSet && (
+                  <div
+                    className={`scroll-hidden rv-scale absolute bottom-5 rotate-[-1deg] rounded-2xl border bg-white px-5 py-3.5 shadow-lg ${
+                      branche.split.bildLinks ? "-right-3 sm:-right-5" : "-left-3 sm:-left-5"
+                    }`}
+                    style={{ borderColor: TINT_BORDER, transitionDelay: "260ms" }}
+                  >
+                    <span className="block font-[family-name:var(--font-heading)] text-2xl font-black leading-none" style={grad}>
+                      {fmtZahl(kwSumme)}
+                    </span>
+                    <span className="mt-1.5 block font-mono text-[9px] uppercase tracking-[0.14em] text-dark/45">
+                      Suchanfragen/Monat · Semrush
+                    </span>
+                  </div>
+                )}
               </div>
               <figcaption className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
                 {branche.split.caption}
@@ -961,12 +1121,41 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                   </p>
                 ))}
               </div>
+              {/* Kompakte Check-Zeilen: die ersten drei Hebel der Branche */}
+              <ul className="mt-6 space-y-3">
+                {branche.hebel.slice(0, 3).map((h, i) => (
+                  <li
+                    key={h.titel}
+                    className="scroll-hidden rv-blur flex items-center gap-3"
+                    style={{ transitionDelay: `${180 + i * 90}ms` }}
+                  >
+                    <span
+                      className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full"
+                      style={{ background: "#E9F6EC", color: "#1A7F37" }}
+                      aria-hidden="true"
+                    >
+                      <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.6} strokeLinecap="round" strokeLinejoin="round">
+                        <path d="m4.5 12.75 6 6 9-13.5" />
+                      </svg>
+                    </span>
+                    <span className="text-[15px] font-semibold text-dark">{h.titel}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#kontakt"
+                className="scroll-hidden rv-blur mt-7 inline-flex items-center gap-2 border-b border-primary/40 pb-1 font-mono text-[12px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors hover:border-primary"
+                style={{ transitionDelay: "450ms" }}
+              >
+                Kostenlose Erstanalyse anfordern
+                <span aria-hidden="true">→</span>
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ══ 04 VORGEHEN — Editorial-Liste mit Ghost-Serif-Ziffern ══ */}
+      {/* ══ 04 VORGEHEN — interaktiver Vorgehen-Player (Story-Progress) ══ */}
       <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
@@ -979,53 +1168,9 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
             </h2>
           </div>
 
-          {vorgehenZweispaltig ? (
-            /* 2-Spalten-Editorial: Ziffer + Titel links, Text rechts */
-            <div className="divide-y divide-border border-y border-border">
-              {branche.vorgehen.map((v, i) => (
-                <div
-                  key={v.titel}
-                  className="scroll-hidden rv-blur grid gap-3 py-7 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-14 lg:py-9"
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                >
-                  <div className="flex items-start gap-4 lg:gap-5">
-                    <span
-                      className="select-none font-[family-name:var(--font-heading)] text-5xl font-black leading-[0.9] text-primary/10"
-                      aria-hidden="true"
-                    >
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="pt-1.5 font-[family-name:var(--font-heading)] text-lg lg:text-xl font-bold text-dark leading-snug">
-                      {v.titel}
-                    </h3>
-                  </div>
-                  <p className="text-sm lg:text-[15px] text-muted leading-relaxed">{v.text}</p>
-                </div>
-              ))}
-            </div>
-          ) : (
-            /* Editorial-Liste: große Ghost-Ziffer links, Titel + Text rechts */
-            <div className="divide-y divide-border border-y border-border">
-              {branche.vorgehen.map((v, i) => (
-                <div
-                  key={v.titel}
-                  className="scroll-hidden rv-blur grid items-start gap-3 py-8 sm:grid-cols-[110px_1fr] sm:gap-6 lg:grid-cols-[150px_1fr] lg:gap-10 lg:py-10"
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                >
-                  <span
-                    className="select-none font-[family-name:var(--font-heading)] text-6xl font-black leading-[0.85] text-primary/10 lg:text-[84px]"
-                    aria-hidden="true"
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className="font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark mb-2.5">{v.titel}</h3>
-                    <p className="max-w-3xl text-sm lg:text-[15px] text-muted leading-relaxed">{v.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="scroll-hidden rv-scale">
+            <VorgehenPlayer schritte={branche.vorgehen} />
+          </div>
         </div>
       </section>
 
