@@ -1762,7 +1762,7 @@ export default function SeoAgenturClient() {
             <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
               <div className="group relative rounded-2xl overflow-hidden border border-border shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
                 <Image
-                  src="/images/seo-inhouse-gespraech.jpg"
+                  src="/images/seo-inhouse-gespraech-v2.jpg"
                   alt="Marketing-Verantwortliche und externe Beraterin arbeiten gemeinsam am Laptop"
                   fill
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
