@@ -666,7 +666,7 @@ export default function SeoBetreuungClient() {
                     className="group flex items-center gap-2 rounded-lg px-2 py-2 -mx-2 transition-colors hover:bg-[#FBF8F4]"
                   >
                     <span className="text-dark/25 pl-1">├─</span>
-                    <span className="font-semibold text-primary group-hover:underline underline-offset-2">/ohne-vertrag</span>
+                    <span className="whitespace-nowrap font-semibold text-primary group-hover:underline underline-offset-2">/ohne-vertrag</span>
                     <span className="hidden sm:block truncate font-sans text-xs text-dark/50">Monatlich kündbar — Betreuung ohne Mindestlaufzeit</span>
                     <svg className="ml-auto h-3.5 w-3.5 shrink-0 text-dark/35 transition-transform group-hover:translate-x-0.5 group-hover:text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
                   </Link>
@@ -675,7 +675,7 @@ export default function SeoBetreuungClient() {
                     className="group flex items-center gap-2 rounded-lg px-2 py-2 -mx-2 transition-colors hover:bg-[#FBF8F4]"
                   >
                     <span className="text-dark/25 pl-1">└─</span>
-                    <span className="font-semibold text-primary group-hover:underline underline-offset-2">/roi</span>
+                    <span className="whitespace-nowrap font-semibold text-primary group-hover:underline underline-offset-2">/roi</span>
                     <span className="hidden sm:block truncate font-sans text-xs text-dark/50">Was die Betreuung wirtschaftlich einbringt</span>
                     <svg className="ml-auto h-3.5 w-3.5 shrink-0 text-dark/35 transition-transform group-hover:translate-x-0.5 group-hover:text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
                   </Link>
