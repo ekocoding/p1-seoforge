@@ -631,11 +631,57 @@ export default function SeoBetreuungClient() {
       {/* ── DEEP DIVE LINKS ── */}
       <section className="bg-white py-24 lg:py-32 border-t border-border overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mb-12">
-            <span className="text-xs font-bold tracking-[.2em] uppercase text-primary">Tiefer eintauchen</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark mt-3">
-              Alles zur SEO Betreuung im Detail
-            </h2>
+          <div className="mb-10 grid gap-8 lg:mb-14 lg:grid-cols-[1fr_minmax(0,460px)] lg:items-end lg:gap-16">
+            <div>
+              <span className="text-xs font-bold tracking-[.2em] uppercase text-primary">Tiefer eintauchen</span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark mt-3">
+                Alles zur SEO Betreuung im Detail
+              </h2>
+              <p className="mt-4 max-w-xl text-dark/50 leading-relaxed">
+                Zwei Fragen entscheiden über eine Betreuung: Was bringt sie ein — und wie fest binde ich mich?
+                Beide haben eine eigene Seite mit ehrlichen Antworten.
+              </p>
+            </div>
+
+            {/* Hierarchie-Verzeichnis: die Betreuungs-Familie als klickbarer Pfad-Baum */}
+            <nav aria-label="Unterseiten der SEO-Betreuung" className="reveal transition-all duration-700">
+              <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-[0_16px_40px_-24px_rgba(26,26,26,0.18)]">
+                <div className="flex items-center justify-between border-b border-border px-5 py-3" style={{ background: "#FBF8F4" }}>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-dark/50">Seitenstruktur</span>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-dark/35">2 Unterseiten</span>
+                </div>
+                <div className="px-5 py-4 font-mono text-[13px]">
+                  <div className="flex items-center gap-2 py-1.5 text-dark/45">
+                    <svg viewBox="0 0 32 32" className="h-3.5 w-3.5 shrink-0" aria-hidden="true">
+                      <polygon points="16,2 28,8 28,24 16,30 4,24 4,8" fill="#C2722A" />
+                      <polygon points="16,7 23,11 23,21 16,25 9,21 9,11" fill="#D4A853" />
+                    </svg>
+                    /seo/betreuung
+                    <span className="ml-auto rounded-full px-2.5 py-0.5 text-[9px] uppercase tracking-[0.14em]" style={{ background: "#fbf4ea", color: "#C2722A" }}>
+                      Sie sind hier
+                    </span>
+                  </div>
+                  <Link
+                    href="/seo/betreuung/ohne-vertrag"
+                    className="group flex items-center gap-2 rounded-lg px-2 py-2 -mx-2 transition-colors hover:bg-[#FBF8F4]"
+                  >
+                    <span className="text-dark/25 pl-1">├─</span>
+                    <span className="font-semibold text-primary group-hover:underline underline-offset-2">/ohne-vertrag</span>
+                    <span className="hidden sm:block truncate font-sans text-xs text-dark/50">Monatlich kündbar — Betreuung ohne Mindestlaufzeit</span>
+                    <svg className="ml-auto h-3.5 w-3.5 shrink-0 text-dark/35 transition-transform group-hover:translate-x-0.5 group-hover:text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                  </Link>
+                  <Link
+                    href="/seo/betreuung/roi"
+                    className="group flex items-center gap-2 rounded-lg px-2 py-2 -mx-2 transition-colors hover:bg-[#FBF8F4]"
+                  >
+                    <span className="text-dark/25 pl-1">└─</span>
+                    <span className="font-semibold text-primary group-hover:underline underline-offset-2">/roi</span>
+                    <span className="hidden sm:block truncate font-sans text-xs text-dark/50">Was die Betreuung wirtschaftlich einbringt</span>
+                    <svg className="ml-auto h-3.5 w-3.5 shrink-0 text-dark/35 transition-transform group-hover:translate-x-0.5 group-hover:text-primary" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                  </Link>
+                </div>
+              </div>
+            </nav>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-5">
