@@ -364,18 +364,6 @@ function ServicesStackSection() {
     },
     {
       number: "02",
-      title: "On-Page SEO",
-      description: "Optimierung aller Seitenfaktoren für maximale Sichtbarkeit.",
-      href: "/seo/on-page-optimierung",
-      tags: ["Meta", "Content"],
-      icon: (
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-6 h-6">
-          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-        </svg>
-      ),
-    },
-    {
-      number: "03",
       title: "E-Commerce SEO",
       description: "Spezialisierte Optimierung für Online-Shops mit Fokus auf Conversion.",
       href: "/branchen/seo-fuer-online-shops",
@@ -389,7 +377,7 @@ function ServicesStackSection() {
       featured: true,
     },
     {
-      number: "04",
+      number: "03",
       title: "Content & Texte",
       description: "SEO-optimierte Inhalte die ranken und konvertieren.",
       href: "/seo/texte",
@@ -402,7 +390,7 @@ function ServicesStackSection() {
       ),
     },
     {
-      number: "05",
+      number: "04",
       title: "Link Building",
       description: "Aufbau hochwertiger Backlinks für mehr Autorität.",
       href: "/seo/beratung",
@@ -414,7 +402,7 @@ function ServicesStackSection() {
       ),
     },
     {
-      number: "06",
+      number: "05",
       title: "SEO Optimierung",
       description: "Technische und inhaltliche Optimierung für Top-Platzierungen.",
       href: "/seo/optimierung",
@@ -427,7 +415,7 @@ function ServicesStackSection() {
       ),
     },
     {
-      number: "07",
+      number: "06",
       title: "Content Strategie",
       description: "Datengetriebene Content-Planung für nachhaltigen Traffic.",
       href: "/seo/content-strategie",
@@ -441,7 +429,7 @@ function ServicesStackSection() {
       ),
     },
     {
-      number: "08",
+      number: "07",
       title: "Local SEO",
       description: "Regionale Sichtbarkeit für lokale Kunden und Geschäfte.",
       href: "/seo/beratung",

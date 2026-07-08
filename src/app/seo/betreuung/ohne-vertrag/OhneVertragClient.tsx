@@ -477,12 +477,11 @@ export default function OhneVertragClient() {
             <p className="text-sm font-bold text-primary uppercase tracking-widest mb-1">Verwandte Leistungen</p>
             <h2 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-dark">Alles rund um SEO-Betreuung</h2>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid md:grid-cols-3 gap-4">
             {[
               { title: "SEO Betreuung", href: "/seo/betreuung", desc: "Monatliche SEO mit Vertrag — günstiger und strategischer." },
               { title: "SEO Audit", href: "/seo/audit", desc: "Einmalige vollständige Website-Analyse als Einstieg." },
               { title: "SEO Optimierung", href: "/seo/optimierung", desc: "Technisches und inhaltliches SEO." },
-              { title: "On-Page SEO", href: "/seo/on-page", desc: "Seite für Seite optimieren — strukturiert und messbar." },
             ].map((link) => (
               <Link key={link.href} href={link.href} className="rounded-2xl border border-border p-6 hover:border-primary/30 hover:shadow-md transition-all duration-300 group">
                 <h3 className="font-bold text-dark text-base mb-2 group-hover:text-primary transition-colors">{link.title} →</h3>

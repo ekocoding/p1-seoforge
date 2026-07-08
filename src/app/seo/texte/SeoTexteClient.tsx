@@ -650,7 +650,7 @@ export default function SeoTexteClient() {
               Professionelle SEO-Texte amortisieren sich. Ein gut platzierter Artikel bringt über Monate und Jahre organischen Traffic – ohne laufende Werbekosten. Wer mehr über die Grundlagen erfahren will, findet auf unserer{" "}
               <Link href="/seo" className="text-primary underline underline-offset-2 hover:no-underline">SEO-Übersichtsseite</Link>{" "}
               einen guten Einstieg. Für die technische Seite erklärt unser Beitrag zu{" "}
-              <Link href="/seo/on-page" className="text-primary underline underline-offset-2 hover:no-underline">On-Page-SEO</Link>,{" "}
+              <Link href="/wissen/on-page" className="text-primary underline underline-offset-2 hover:no-underline">On-Page-SEO</Link>,{" "}
               wie Technik, Content und UX zusammenwirken.
             </p>
 

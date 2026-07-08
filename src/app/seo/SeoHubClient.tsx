@@ -31,31 +31,19 @@ const subpages = [
     bullets: ["Topic Cluster Aufbau", "Keyword Mapping & Priorisierung", "Redaktionskalender", "E-E-A-T Signale stärken"],
   },
   {
-    num: "05", title: "On Page SEO", href: "/seo/on-page", tag: "On-Page",
-    brief: "Technik, Content und UX als System",
-    desc: "On Page SEO funktioniert nur wenn Technik, Content und User Experience zusammenspielen. Alle drei Säulen müssen greifen damit Google Ihre Seite versteht und Nutzer konvertieren.",
-    bullets: ["Technisches Fundament", "Semantische Content-Optimierung", "UX & Konversionsrate", "Interne Verlinkungsstruktur"],
-  },
-  {
-    num: "06", title: "On Page Optimierung", href: "/seo/on-page-optimierung", tag: "Optimierung",
-    brief: "Jede Seite systematisch stärken",
-    desc: "Meta-Tags, Headings, interne Links, Bilder, Speed — über 200 Prüfpunkte pro Seite. Systematisch und messbar, mit direkter Umsetzung im CMS.",
-    bullets: ["Meta-Tags & Headings optimieren", "Core Web Vitals (LCP < 2.5s)", "URL-Struktur & interne Links", "Bilder (WebP & Alt-Texte)"],
-  },
-  {
-    num: "07", title: "SEO Optimierung", href: "/seo/optimierung", tag: "Technik",
+    num: "05", title: "SEO Optimierung", href: "/seo/optimierung", tag: "Technik",
     brief: "Alle Ranking-Faktoren verbessern",
     desc: "SEO Optimierung umfasst alle technischen und inhaltlichen Maßnahmen die Ihre Sichtbarkeit verbessern. Von der Seitenstruktur bis zum Backlink-Profil — systematisch und datenbasiert.",
     bullets: ["Technische Optimierung", "Content-Optimierung", "Off-Page & Backlinks", "Lokale SEO-Faktoren"],
   },
   {
-    num: "08", title: "SEO selbst machen", href: "/seo/selbst-machen", tag: "Guide",
+    num: "06", title: "SEO selbst machen", href: "/seo/selbst-machen", tag: "Guide",
     brief: "Schritt für Schritt zum Ranking",
     desc: "Für alle die SEO selbst in die Hand nehmen wollen: Ein strukturierter Guide von der Keyword-Recherche bis zur technischen Optimierung — für Einsteiger und Fortgeschrittene.",
     bullets: ["Keyword-Recherche Grundlagen", "Technisches SEO Basis-Check", "Content-Erstellung", "Erste Backlinks aufbauen"],
   },
   {
-    num: "09", title: "SEO Texte", href: "/seo/texte", tag: "Content",
+    num: "07", title: "SEO Texte", href: "/seo/texte", tag: "Content",
     brief: "Content der rankt und konvertiert",
     desc: "Keyword-optimierte Inhalte für Websites, Blogs und Produktseiten — geschrieben für Suchmaschinen und Menschen. Mit Rankingwirkung und ohne generisches Filler-Content.",
     bullets: ["Keyword-Integration", "Suchintention treffen", "E-E-A-T in Texten", "CTA & Conversion-Fokus"],
@@ -347,7 +335,7 @@ export default function SeoHubClient() {
               Erfolgreiches SEO beginnt immer mit einer soliden Analyse. Ein <Link href="/seo/audit" style={{ color: "#C2722A", textDecoration: "none", borderBottom: "1px solid rgba(194,114,42,0.3)" }}>SEO Audit</Link> legt offen wo die Website aktuell steht — technisch, inhaltlich und in Bezug auf Autorität. Daraus entsteht eine priorisierte Roadmap: Was bringt den größten Impact in der kürzesten Zeit?
             </p>
             <p style={{ fontSize: "16px", fontWeight: 300, lineHeight: 1.9, color: "rgba(15,15,15,0.6)", marginBottom: "20px" }}>
-              Die <Link href="/seo/on-page-optimierung" style={{ color: "#C2722A", textDecoration: "none", borderBottom: "1px solid rgba(194,114,42,0.3)" }}>On Page Optimierung</Link> sorgt dafür, dass jede einzelne Seite optimal auf ihre Ziel-Keywords ausgerichtet ist: Meta-Tags, Heading-Hierarchie, interne Verlinkung, Ladezeiten. Parallel dazu arbeitet eine <Link href="/seo/content-strategie" style={{ color: "#C2722A", textDecoration: "none", borderBottom: "1px solid rgba(194,114,42,0.3)" }}>SEO Content Strategie</Link> daran, thematische Autorität aufzubauen — durch Topic Clusters die zeigen dass Ihre Website das Thema wirklich durchdringt.
+              Eine gründliche <Link href="/seo/optimierung" style={{ color: "#C2722A", textDecoration: "none", borderBottom: "1px solid rgba(194,114,42,0.3)" }}>SEO Optimierung</Link> sorgt dafür, dass jede einzelne Seite optimal auf ihre Ziel-Keywords ausgerichtet ist: Meta-Tags, Heading-Hierarchie, interne Verlinkung, Ladezeiten. Parallel dazu arbeitet eine <Link href="/seo/content-strategie" style={{ color: "#C2722A", textDecoration: "none", borderBottom: "1px solid rgba(194,114,42,0.3)" }}>SEO Content Strategie</Link> daran, thematische Autorität aufzubauen — durch Topic Clusters die zeigen dass Ihre Website das Thema wirklich durchdringt.
             </p>
             <p style={{ fontSize: "16px", fontWeight: 300, lineHeight: 1.9, color: "rgba(15,15,15,0.6)", marginBottom: "48px" }}>
               Das Ergebnis ist kein einmaliger Sprint, sondern kontinuierliches Wachstum. Deshalb ist <Link href="/seo/betreuung" style={{ color: "#C2722A", textDecoration: "none", borderBottom: "1px solid rgba(194,114,42,0.3)" }}>laufende SEO Betreuung</Link> für die meisten Unternehmen das wirkungsvollste Modell: Monat für Monat werden die stärksten Hebel identifiziert und umgesetzt — adaptiv, ohne fixen Kalender.

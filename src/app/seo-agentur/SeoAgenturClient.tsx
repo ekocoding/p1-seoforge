@@ -864,7 +864,7 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
         chips: ["Core Web Vitals", "CI/CD-Deployments"],
         text: (
           <>
-            Die <Link href="/seo/on-page" className="text-primary font-semibold hover:underline">OnPage-Optimierung</Link> umfasst
+            Die <Link href="/seo/optimierung" className="text-primary font-semibold hover:underline">SEO-Optimierung</Link> umfasst
             Meta-Daten, interne Verlinkung, strukturierte Daten, Core Web Vitals und die Behebung technischer Crawling-Fehler, die eine
             Website für Suchmaschinen unnötig schwer lesbar machen. Wir setzen technische Änderungen über eine CI/CD-Pipeline um,
             wodurch Anpassungen an Templates oder Seitenstruktur innerhalb weniger Minuten live sind statt nach wochenlanger Abstimmung

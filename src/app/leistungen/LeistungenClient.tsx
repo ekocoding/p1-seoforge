@@ -15,9 +15,7 @@ const SEO_SERVICES = [
   { n: "04", title: "Ohne Vertrag",        href: "/seo/betreuung/ohne-vertrag", desc: "Flexible SEO-Betreuung ohne Mindestlaufzeit" },
   { n: "05", title: "ROI-Analyse",         href: "/seo/betreuung/roi",          desc: "Was SEO-Investment wirklich einbringt" },
   { n: "06", title: "Content-Strategie",   href: "/seo/content-strategie",      desc: "Inhalte, die ranken und konvertieren" },
-  { n: "07", title: "On-Page SEO",         href: "/seo/on-page",                desc: "Technische & inhaltliche Seitenoptimierung" },
-  { n: "08", title: "On-Page Optimierung", href: "/seo/on-page-optimierung",    desc: "Systematische Verbesserung bestehender Seiten" },
-  { n: "09", title: "SEO Optimierung",     href: "/seo/optimierung",            desc: "Ganzheitliche Maßnahmen für mehr Sichtbarkeit" },
+  { n: "07", title: "SEO Optimierung",     href: "/seo/optimierung",            desc: "Ganzheitliche Maßnahmen für mehr Sichtbarkeit" },
   { n: "10", title: "SEO selbst machen",   href: "/seo/selbst-machen",          desc: "Schritt-für-Schritt-Anleitung für Einsteiger" },
   { n: "11", title: "SEO Texte",           href: "/seo/texte",                  desc: "Professionelle Texte für Top-Rankings" },
 ];

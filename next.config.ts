@@ -7,6 +7,16 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       {
+        source: "/seo/on-page",
+        destination: "/seo/optimierung",
+        permanent: true,
+      },
+      {
+        source: "/seo/on-page-optimierung",
+        destination: "/seo/optimierung",
+        permanent: true,
+      },
+      {
         source: "/seo/shop",
         destination: "/branchen/seo-fuer-online-shops",
         permanent: true,
