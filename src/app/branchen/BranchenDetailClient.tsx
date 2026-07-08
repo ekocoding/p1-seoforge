@@ -639,6 +639,7 @@ function VorgehenPlayer({ schritte }: { schritte: { titel: string; text: string 
   const [aktiv, setAktiv] = useState(0);
   const [fortschritt, setFortschritt] = useState(0); // 0–1 des aktiven Segments
   const [imViewport, setImViewport] = useState(false);
+  const [bereitsSichtbar, setBereitsSichtbar] = useState(false); // sticky — gate für die Erst-Einblendung von Schritt 1
   const [gehovert, setGehovert] = useState(false);
   const [reduzierteBewegung, setReduzierteBewegung] = useState(false);
   const fortschrittRef = useRef(0);
@@ -649,6 +650,7 @@ function VorgehenPlayer({ schritte }: { schritte: { titel: string; text: string 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReduzierteBewegung(mq.matches);
+    if (mq.matches) setBereitsSichtbar(true);
     const onChange = (e: MediaQueryListEvent) => setReduzierteBewegung(e.matches);
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
@@ -659,7 +661,7 @@ function VorgehenPlayer({ schritte }: { schritte: { titel: string; text: string 
     const el = panelRef.current;
     if (!el) return;
     const io = new IntersectionObserver(
-      (entries) => entries.forEach((e) => setImViewport(e.isIntersecting)),
+      (entries) => entries.forEach((e) => { setImViewport(e.isIntersecting); if (e.isIntersecting) setBereitsSichtbar(true); }),
       { threshold: 0.15, rootMargin: "0px 0px -5% 0px" }
     );
     io.observe(el);
@@ -749,19 +751,19 @@ function VorgehenPlayer({ schritte }: { schritte: { titel: string; text: string 
         {/* Detail-Bereich: Ghost-Serif-Ziffer + Titel/Text, Remount je Schritt */}
         <div key={aktiv} className="mt-4 grid min-h-[200px] gap-2 lg:mt-5 lg:min-h-[130px] lg:grid-cols-[auto_1fr] lg:gap-8">
           <span
-            className="ae-in select-none font-[family-name:var(--font-heading)] text-6xl font-black leading-[0.85] text-primary/10 lg:text-[96px]"
+            className={`${bereitsSichtbar ? "ae-in " : ""}select-none font-[family-name:var(--font-heading)] text-6xl font-black leading-[0.85] text-primary/10 lg:text-[96px]`}
             aria-hidden="true"
           >
             {String(aktiv + 1).padStart(2, "0")}
           </span>
           <div>
             <h3
-              className="ae-in font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark"
+              className={`${bereitsSichtbar ? "ae-in " : ""}font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark`}
               style={{ animationDelay: "70ms" }}
             >
               {schritt.titel}
             </h3>
-            <p className="ae-in mt-2.5 max-w-3xl text-sm lg:text-[15px] text-muted leading-relaxed" style={{ animationDelay: "150ms" }}>
+            <p className={`${bereitsSichtbar ? "ae-in " : ""}mt-2.5 max-w-3xl text-sm lg:text-[15px] text-muted leading-relaxed`} style={{ animationDelay: "150ms" }}>
               {schritt.text}
             </p>
           </div>
@@ -1162,6 +1164,21 @@ const STACK_ICONS: Record<string, ReactNode[]> = {
    (das Deploy-Terminal ist ein dunkles Panel im weißen Kontext, kein Section-BG).
 ═══════════════════════════════════════════════════════════════════════════ */
 export default function BranchenDetailClient({ branche }: { branche: Branche }) {
+  /* SaaS-Kosten-Skizze: IO-Gate, damit die Kurven erst zeichnen wenn die Section erreicht wird (nicht schon beim Laden der Seite) */
+  const skizzeRef = useRef<HTMLDivElement | null>(null);
+  const [skizzeSichtbar, setSkizzeSichtbar] = useState(false);
+  useEffect(() => {
+    const el = skizzeRef.current;
+    if (!el) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setSkizzeSichtbar(true); return; }
+    const io = new IntersectionObserver(
+      (entries) => { if (entries.some((e) => e.isIntersecting)) { io.disconnect(); setSkizzeSichtbar(true); } },
+      { threshold: 0.4 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   useScrollReveal();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
@@ -1249,11 +1266,12 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <style>{`
-        .spark-draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: sparkDraw 1.7s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards; }
+        .spark-draw { stroke-dasharray: 1; stroke-dashoffset: 1; }
+        .spark-draw.spark-play { animation: sparkDraw 1.7s cubic-bezier(0.4, 0, 0.2, 1) 0.5s forwards; }
         .spark-fill { opacity: 0; animation: sparkFillIn 0.8s ease 1.7s forwards; }
         @keyframes sparkDraw { to { stroke-dashoffset: 0; } }
         @keyframes sparkFillIn { to { opacity: 1; } }
-        @media (prefers-reduced-motion: reduce) { .spark-draw { animation: none; stroke-dashoffset: 0; } .spark-fill { animation: none; opacity: 1; } }
+        @media (prefers-reduced-motion: reduce) { .spark-draw, .spark-draw.spark-play { animation: none; stroke-dashoffset: 0; } .spark-fill { animation: none; opacity: 1; } }
         .scroll-hidden.rv-left { transform: translateX(-56px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
         .scroll-hidden.rv-right { transform: translateX(56px); transition: opacity 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.75s cubic-bezier(0.16,1,0.3,1); }
         .scroll-hidden.rv-scale { transform: translateY(28px) scale(0.93); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
@@ -1382,7 +1400,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                       strokeWidth="2.5"
                       strokeLinecap="round"
                       pathLength={1}
-                      className="spark-draw"
+                      className="spark-draw spark-play"
                     />
                     <circle cx="360" cy="12" r="4" fill="#D4A853" className="chip-dot" />
                   </svg>
@@ -1644,7 +1662,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                   <p className="mb-3 font-[family-name:var(--font-heading)] text-lg italic text-dark/60">
                     Die einfache Rechnung dahinter:
                   </p>
-                  <div className="rounded-2xl border bg-white p-6 shadow-[0_20px_50px_-28px_rgba(26,26,26,0.2)]" style={{ borderColor: "#ecd3ba" }}>
+                  <div ref={skizzeRef} className="rounded-2xl border bg-white p-6 shadow-[0_20px_50px_-28px_rgba(26,26,26,0.2)]" style={{ borderColor: "#ecd3ba" }}>
                     <svg viewBox="0 0 420 250" className="w-full" role="img" aria-label="Schematische Skizze: Kosten pro Kunde — bezahlte Anzeigen bleiben teuer, organisch wird mit der Zeit günstiger">
                       <text x="16" y="24" className="font-mono" fontSize="10" letterSpacing="1.5" fill="rgba(26,26,26,0.4)">KOSTEN PRO NEUEM KUNDEN</text>
                       {/* Basislinie + Zeitpfeil */}
@@ -1654,14 +1672,14 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                       <path
                         d="M20,120 C80,116 120,124 170,117 S280,108 330,104 S390,98 404,96"
                         fill="none" stroke="#B9A896" strokeWidth="2.5" strokeLinecap="round"
-                        pathLength={1} className="spark-draw"
+                        pathLength={1} className={`spark-draw${skizzeSichtbar ? " spark-play" : ""}`}
                       />
                       <text x="292" y="86" fontSize="13" fontStyle="italic" fill="#8f7f6d">bezahlte Anzeigen</text>
                       {/* Organisch: startet teuer, wird deutlich günstiger */}
                       <path
                         d="M20,52 C70,58 110,74 150,100 S230,164 290,186 S370,202 404,205"
                         fill="none" stroke="url(#sparkStroke2)" strokeWidth="3" strokeLinecap="round"
-                        pathLength={1} className="spark-draw" style={{ animationDelay: "1.1s" }}
+                        pathLength={1} className={`spark-draw${skizzeSichtbar ? " spark-play" : ""}`} style={{ animationDelay: "1.1s" }}
                       />
                       <defs>
                         <linearGradient id="sparkStroke2" x1="0" y1="0" x2="1" y2="0">
