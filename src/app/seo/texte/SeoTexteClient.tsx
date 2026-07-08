@@ -29,6 +29,41 @@ const faqs = [
 /*  PAGE                                                               */
 /* ================================================================== */
 export default function SeoTexteClient() {
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleTexteSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("submitting");
+    setErrorMsg("");
+    const form = e.currentTarget;
+    const data = {
+      name: (form.elements.namedItem("name") as HTMLInputElement).value,
+      email: (form.elements.namedItem("email") as HTMLInputElement).value,
+      phone: (form.elements.namedItem("phone") as HTMLInputElement).value,
+      textart: (form.elements.namedItem("textart") as HTMLSelectElement).value,
+      message: (form.elements.namedItem("message") as HTMLTextAreaElement).value,
+    };
+    try {
+      const res = await fetch("/api/texte-contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (res.ok) {
+        setStatus("success");
+        form.reset();
+      } else {
+        const json = await res.json().catch(() => ({}));
+        setErrorMsg(json.error || "Unbekannter Fehler");
+        setStatus("error");
+      }
+    } catch {
+      setErrorMsg("Netzwerkfehler – bitte versuchen Sie es erneut.");
+      setStatus("error");
+    }
+  };
+
   const [activeFormat, setActiveFormat] = useState(0);
 
   const faqSchema = {
@@ -743,19 +778,48 @@ export default function SeoTexteClient() {
                 <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-white">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>
                 </div>
-                <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-dark mb-2">Gespräch vereinbaren</h3>
-                <p className="text-sm text-muted">Kostenlos und unverbindlich</p>
+                <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-dark mb-2">Text-Anfrage senden</h3>
+                <p className="text-sm text-muted">Unverbindliches Angebot für Ihre SEO-Texte</p>
               </div>
-              <div className="space-y-4 mb-8">
-                <Link href="/kontakt" className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-semibold text-white shadow-lg shadow-primary/20 hover:bg-primary-dark hover:shadow-xl transition-all">
-                  Texte anfragen
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                </Link>
-                <a href="tel:015129547343" className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-border px-8 py-4 text-base font-semibold text-dark hover:border-primary/30 hover:text-primary transition-all">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                  0151 29547343
-                </a>
-              </div>
+              {status === "success" ? (
+                <div className="mb-8 rounded-2xl border border-green-200 bg-green-50 px-6 py-8 text-center">
+                  <svg className="mx-auto mb-3 h-10 w-10 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  <p className="font-semibold text-dark mb-1">Anfrage gesendet</p>
+                  <p className="text-sm text-muted">Wir melden uns innerhalb von 24 Stunden mit einem Angebot für Ihre Texte.</p>
+                </div>
+              ) : (
+                <form onSubmit={handleTexteSubmit} className="space-y-3 mb-8">
+                  <div className="grid grid-cols-2 gap-3">
+                    <input name="name" type="text" required placeholder="Ihr Name" className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-dark placeholder:text-dark/30 focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/15 transition-all" />
+                    <input name="email" type="email" required placeholder="Ihre E-Mail" className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-dark placeholder:text-dark/30 focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/15 transition-all" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <input name="phone" type="tel" placeholder="Telefon (optional)" className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-dark placeholder:text-dark/30 focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/15 transition-all" />
+                    <select name="textart" defaultValue="" className="w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-dark focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/15 transition-all">
+                      <option value="" disabled>Textart</option>
+                      <option value="Blogartikel / Ratgeber">Blogartikel / Ratgeber</option>
+                      <option value="Kategorie- & Produkttexte">Kategorie- &amp; Produkttexte</option>
+                      <option value="Landingpage-Text">Landingpage-Text</option>
+                      <option value="Größeres Content-Paket">Größeres Content-Paket</option>
+                      <option value="Noch unklar">Noch unklar</option>
+                    </select>
+                  </div>
+                  <textarea name="message" rows={3} placeholder="Kurz zu Ihrem Projekt: Themen, Umfang, Zeitrahmen …" className="w-full resize-none rounded-xl border border-border bg-white px-4 py-3 text-sm text-dark placeholder:text-dark/30 focus:border-primary/60 focus:outline-none focus:ring-2 focus:ring-primary/15 transition-all" />
+                  {status === "error" && (
+                    <p className="text-sm text-red-600">{errorMsg}</p>
+                  )}
+                  <button
+                    type="submit"
+                    disabled={status === "submitting"}
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-semibold text-white shadow-lg shadow-primary/20 hover:bg-primary-dark hover:shadow-xl transition-all disabled:opacity-60"
+                  >
+                    {status === "submitting" ? "Wird gesendet …" : "Text-Anfrage senden"}
+                    {status !== "submitting" && (
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    )}
+                  </button>
+                </form>
+              )}
               <div className="flex items-center justify-center gap-6 pt-6 border-t border-border">
                 <div className="flex items-center gap-1.5 text-xs text-muted">
                   <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
