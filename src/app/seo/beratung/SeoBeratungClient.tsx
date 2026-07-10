@@ -1,51 +1,195 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import SubpageLayout from "@/app/components/SubpageLayout";
-import FaqAccordion from "@/app/components/FaqAccordion";
-import DashboardMockup from "./DashboardMockup";
 
-/* ------------------------------------------------------------------ */
-/*  FAQ DATA                                                           */
-/* ------------------------------------------------------------------ */
-const faqs = [
+/* ═══════════════════════════════════════════════════════════════════════════
+   SEO BERATUNG — Kompletter Neubau (Swiss-Editorial im SeoForge-System)
+   Hero: hell, Foto-Komposition mit Notiz-Karte, ZWEI Zeilen H1, keine App.
+   App 1: Hebel-Matrix (Wirkung × Aufwand) — Priorisierung zum Anfassen.
+   App 2: Beratungs-Kompass — zwei Fragen, ehrliche Empfehlung.
+   Kontrast-Anker: 1× Ink-Klartext, 1× Terracotta-Band. Kein Fake-Trust.
+═══════════════════════════════════════════════════════════════════════════ */
+
+function useScrollReveal() {
+  useEffect(() => {
+    const io = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("scroll-visible");
+        }),
+      { threshold: 0.22, rootMargin: "0px 0px -16% 0px" }
+    );
+    document.querySelectorAll(".scroll-hidden").forEach((el) => io.observe(el));
+    return () => io.disconnect();
+  }, []);
+}
+
+const grad = {
+  background: "linear-gradient(92deg, #C2722A, #D4A853)",
+  WebkitBackgroundClip: "text" as const,
+  WebkitTextFillColor: "transparent" as const,
+};
+
+const TINT = "#fbf4ea";
+const TINT_BORDER = "#ecd3ba";
+const BEIGE = "#F8F5F1";
+
+/* ── FAQ — sichtbarer Text und JSON-LD bleiben identisch ──────────────────── */
+const FAQ: { q: string; a: string }[] = [
   {
-    q: "Was genau beinhaltet eine SEO Beratung bei SeoForge?",
-    a: "Unsere Beratung umfasst ein vollständiges Website-Audit (200+ Prüfpunkte), eine strategische Keyword-Analyse, eine detaillierte Wettbewerbsanalyse und die Entwicklung einer individuellen SEO-Roadmap. Sie erhalten konkrete, priorisierte Handlungsempfehlungen — kein generisches PDF.",
+    q: "Was genau umfasst eine SEO Beratung bei SeoForge?",
+    a: "Wir analysieren Ihre Website, Ihren Markt und Ihre Wettbewerber, priorisieren die Stellhebel nach Wirkung und Aufwand und sprechen klare Empfehlungen aus — inklusive der unbequemen. Sie erhalten keine Folien mit Allgemeinplätzen, sondern konkrete Entscheidungsgrundlagen: was zuerst, was später, was gar nicht.",
   },
   {
-    q: "Wie unterscheidet sich SEO Beratung von SEO Betreuung?",
-    a: "Beratung liefert Strategie, Analyse und Wissenstransfer — Ihr Team setzt um. Betreuung bedeutet, dass wir die laufende Optimierung komplett übernehmen. Viele Kunden starten mit Beratung und wechseln später zur Betreuung, wenn sie merken, dass ihnen intern die Kapazität fehlt.",
+    q: "Worin unterscheidet sich Beratung von laufender SEO-Betreuung?",
+    a: "Beratung liefert Klarheit und Richtung — Sie oder Ihr Team setzen um. Betreuung heißt: Wir übernehmen die Umsetzung dauerhaft selbst. Viele Kunden starten mit einer Beratung und entscheiden danach, welchen Teil sie intern stemmen und welchen sie an uns geben. Beides ist monatlich kündbar.",
   },
   {
-    q: "Für welche Unternehmen eignet sich eine SEO Beratung?",
-    a: "Für Unternehmen mit eigenem Marketing-Team, die SEO-Kompetenz aufbauen wollen. Für Startups, die von Anfang an die richtigen Grundlagen legen möchten. Und für etablierte Firmen, deren Rankings stagnieren und die eine externe, ehrliche Expertenmeinung brauchen.",
+    q: "Für wen lohnt sich SEO Beratung — und für wen nicht?",
+    a: "Sie lohnt sich, wenn intern jemand umsetzen kann und Orientierung fehlt: Marketing-Teams, Gründer mit technischem Zugriff, Redaktionen. Sie lohnt sich nicht, wenn niemand Zeit für die Umsetzung hat — dann verpufft der beste Plan. In dem Fall ist laufende Betreuung ehrlicherweise die bessere Wahl.",
   },
   {
-    q: "Was kostet eine professionelle SEO Beratung?",
-    a: "Ein initiales Audit mit Strategieentwicklung liegt typischerweise bei 2.500–6.000 Euro. Laufende strategische Beratung ist ab 1.500 Euro monatlich möglich. Im kostenlosen Erstgespräch klären wir Ihren Bedarf und erstellen ein individuelles Angebot.",
+    q: "Mit welchen Tools arbeiten Sie in der Beratung?",
+    a: "Semrush und Ahrefs für Keyword-, Wettbewerbs- und Backlink-Daten, Google Search Console und Google Analytics für Ihre echten Suchanfragen und Nutzersignale, dazu eigene Crawls für den Technik-Blick. Sie sehen in der Beratung die Daten, nicht nur unsere Schlussfolgerungen.",
   },
   {
-    q: "Wie schnell sehe ich Ergebnisse?",
-    a: "Technische Quick Wins können bereits nach wenigen Wochen wirken. Nachhaltige Ranking-Verbesserungen zeigen sich erfahrungsgemäß nach 3–6 Monaten konsequenter Umsetzung unserer Empfehlungen. SEO ist ein Marathon — aber einer, der sich messbar auszahlt.",
+    q: "Was kostet eine SEO Beratung?",
+    a: "Das hängt vom Umfang ab: Ein einmaliger Audit mit Strategiegespräch ist anders kalkuliert als eine laufende monatliche Begleitung. Nach dem kostenlosen Erstgespräch erhalten Sie ein konkretes Angebot mit klarem Leistungsumfang — Festpreis für Einmaliges, monatlich kündbar für Laufendes. Versteckte Posten gibt es nicht.",
   },
   {
-    q: "Arbeitet SeoForge auch mit internen Marketing-Teams zusammen?",
-    a: "Absolut — das ist sogar einer unserer Schwerpunkte. Wir verstehen uns als Sparringspartner, der Ihr Team befähigt, nicht ersetzt. Workshops, Briefing-Templates und regelmäßige Review-Sessions sind fester Bestandteil unserer Beratung.",
+    q: "Wie schnell bekommen wir erste Ergebnisse aus der Beratung?",
+    a: "Die Beratung selbst liefert sofort Ergebnisse: Nach dem ersten Termin wissen Sie, wo Ihre größten Hebel liegen und was Sie diese Woche anpacken können. Wie schnell Rankings darauf reagieren, hängt von Umsetzung und Wettbewerb ab — seriös sind erste messbare Bewegungen nach einigen Wochen, nicht Tagen.",
+  },
+  {
+    q: "Geben Sie Ranking-Garantien?",
+    a: "Nein — und wir raten Ihnen, jedem zu misstrauen, der das tut. Rankings entscheidet Google, nicht die Agentur. Was wir garantieren können: saubere Analyse auf echten Daten, ehrliche Priorisierung und Empfehlungen, hinter denen wir stehen, weil wir sie in eigenen Projekten selbst so umsetzen.",
+  },
+  {
+    q: "Können Sie unser internes Team langfristig begleiten?",
+    a: "Ja. Viele Beratungen laufen als monatliches Sparring: Ihr Team setzt um, wir prüfen, priorisieren nach und beantworten Fragen innerhalb von 24 Stunden. So bauen Sie internes SEO-Wissen auf, ohne teure Umwege über Trial-and-Error.",
   },
 ];
 
-/* ================================================================== */
-/*  PAGE                                                               */
-/* ================================================================== */
+/* ── App 1: Hebel-Matrix — beispielhafte Einordnung typischer Maßnahmen ───── */
+type Hebel = {
+  key: string;
+  label: string;
+  /** Position in der Matrix: x = Aufwand (0–100), y = Wirkung (0–100) */
+  x: number;
+  y: number;
+  text: string;
+};
+
+const HEBEL: Hebel[] = [
+  {
+    key: "technik",
+    label: "Technik-Fixes",
+    x: 30,
+    y: 78,
+    text: "Indexierung, Ladezeit, saubere Struktur: oft mit überschaubarem Aufwand zu beheben — und die Grundlage, damit alles andere überhaupt wirken kann. In fast jeder Beratung der erste Blick.",
+  },
+  {
+    key: "content",
+    label: "Content-Ausbau",
+    x: 72,
+    y: 88,
+    text: "Der stärkste Hebel für nachhaltige Sichtbarkeit — aber auch der aufwendigste. Die Beratung klärt, welche Themen sich für Ihr Geschäft wirklich rechnen, bevor Budget in Texte fließt.",
+  },
+  {
+    key: "intern",
+    label: "Interne Verlinkung",
+    x: 22,
+    y: 62,
+    text: "Bestehende Stärke besser verteilen statt Neues bauen: häufig einer der am meisten unterschätzten Hebel, weil er ohne neue Inhalte auskommt und schnell umsetzbar ist.",
+  },
+  {
+    key: "snippets",
+    label: "Titles & Snippets",
+    x: 14,
+    y: 42,
+    text: "Bessere Klickraten auf vorhandene Rankings — kleiner Eingriff, sichtbarer Effekt. Selten kriegsentscheidend, aber fast immer ein sinnvoller früher Schritt.",
+  },
+  {
+    key: "local",
+    label: "Lokale Signale",
+    x: 34,
+    y: 55,
+    text: "Unternehmensprofil, Bewertungen, konsistente Daten: für lokal suchende Kunden ein großer Hebel — für rein überregionale Anbieter dagegen kaum relevant. Genau solche Unterschiede klärt die Beratung.",
+  },
+  {
+    key: "links",
+    label: "Autorität & Verweise",
+    x: 82,
+    y: 70,
+    text: "Wirkt stark, braucht aber Zeit und Substanz — gekaufte Abkürzungen rächen sich. In der Beratung prüfen wir zuerst, ob Autorität wirklich Ihr Engpass ist oder ob näherliegende Hebel brachliegen.",
+  },
+];
+
+/* ── App 2: Beratungs-Kompass — zwei Fragen, ehrliche Empfehlung ──────────── */
+type KompassErgebnis = {
+  titel: string;
+  text: string;
+  href: string;
+  linkLabel: string;
+};
+
+const KOMPASS: Record<string, KompassErgebnis> = {
+  "einmalig|ja": {
+    titel: "Audit + Strategie-Workshop",
+    text: "Ihr Team kann umsetzen — es fehlt die Richtung. Ein tiefer Audit mit gemeinsamem Workshop liefert die priorisierte Grundlage, mit der Ihr Team eigenständig weiterarbeitet.",
+    href: "/seo/audit",
+    linkLabel: "Zum SEO-Audit",
+  },
+  "einmalig|nein": {
+    titel: "Audit + Umsetzung durch uns",
+    text: "Einmalige Klarheit, aber niemand für die Umsetzung? Dann kombinieren wir den Audit mit einem klar umrissenen Umsetzungspaket — die wichtigsten Maßnahmen setzen wir direkt selbst um.",
+    href: "/seo/optimierung",
+    linkLabel: "Zur SEO-Optimierung",
+  },
+  "laufend|ja": {
+    titel: "Laufende Beratung als Sparring",
+    text: "Ihr Team setzt um, wir begleiten: monatliches Sparring, Priorisierung, Antworten in unter 24 Stunden. So wächst internes Know-how, ohne dass Sie Umwege bezahlen.",
+    href: "/kontakt",
+    linkLabel: "Sparring anfragen",
+  },
+  "laufend|nein": {
+    titel: "Komplette SEO-Betreuung",
+    text: "Laufende Begleitung ohne interne Kapazität heißt ehrlicherweise: Die Umsetzung sollte gleich mit in unsere Hände. Genau dafür ist die monatliche Betreuung gebaut — kündbar jeden Monat.",
+    href: "/seo/betreuung",
+    linkLabel: "Zur SEO-Betreuung",
+  },
+};
+
+/* ── Werkzeuge — echte Arbeitsmittel, ehrlich beschrieben ─────────────────── */
+const WERKZEUGE: { name: string; logo?: string; wofuer: string }[] = [
+  { name: "Semrush", logo: "/logos/semrush.svg", wofuer: "Keyword-Daten, Wettbewerber, Sichtbarkeitsverläufe" },
+  { name: "Ahrefs", wofuer: "Backlink-Profile und Content-Lücken im Vergleich" },
+  { name: "Search Console", logo: "/logos/googlesearchconsole.svg", wofuer: "Ihre echten Suchanfragen, Indexierung, Klickraten" },
+  { name: "Google Analytics", logo: "/logos/googleanalytics.svg", wofuer: "Was Besucher nach dem Klick wirklich tun" },
+  { name: "Google", logo: "/logos/google.svg", wofuer: "SERP-Features und Wettbewerbs-Realität, täglich geprüft" },
+  { name: "ChatGPT", logo: "/logos/openai.svg", wofuer: "KI-Sichtbarkeit: Wird Ihre Marke zitiert?" },
+  { name: "Perplexity", logo: "/logos/perplexity.svg", wofuer: "Quellen-Checks in der KI-Suche" },
+  { name: "Gemini", logo: "/logos/gemini.svg", wofuer: "Googles KI-Antworten im Monitoring" },
+];
+
 export default function SeoBeratungClient() {
-  const [openDisc, setOpenDisc] = useState<number>(0);
+  useScrollReveal();
+
+  const [hebel, setHebel] = useState<string>("technik");
+  const [frage1, setFrage1] = useState<"einmalig" | "laufend" | null>(null);
+  const [frage2, setFrage2] = useState<"ja" | "nein" | null>(null);
+  const [openFaq, setOpenFaq] = useState<number>(0);
+
+  const aktiverHebel = HEBEL.find((h) => h.key === hebel)!;
+  const kompassErgebnis = frage1 && frage2 ? KOMPASS[`${frage1}|${frage2}`] : null;
 
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({
+    mainEntity: FAQ.map((f) => ({
       "@type": "Question",
       name: f.q,
       acceptedAnswer: { "@type": "Answer", text: f.a },
@@ -56,751 +200,320 @@ export default function SeoBeratungClient() {
     <SubpageLayout>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      {/* ============================================================ */}
-      {/*  HERO — Split Layout: Text Left, Dashboard Right              */}
-      {/* ============================================================ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-white pt-20">
-        {/* Background orbs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute -top-40 -right-40 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-primary/[0.06] via-secondary/[0.04] to-transparent blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 h-[400px] w-[400px] rounded-full bg-gradient-to-tr from-secondary/[0.05] to-transparent blur-3xl" />
-        </div>
+      {/* ══ HERO — hell, editorial: Zwei-Zeilen-H1, Foto-Komposition mit Notiz-Karte ══ */}
+      <section className="relative overflow-hidden bg-offwhite">
+        {/* Hintergrund-Verschönerung: feines Punktraster + ein Gold-Faden */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.35]"
+          style={{ backgroundImage: "radial-gradient(rgba(26,26,26,0.10) 1px, transparent 1px)", backgroundSize: "26px 26px" }}
+          aria-hidden="true"
+        />
+        <div
+          className="pointer-events-none absolute -right-24 top-0 h-[140%] w-[2px] rotate-[16deg] opacity-60"
+          style={{ background: "linear-gradient(180deg, transparent, #D4A853 30%, #C2722A 70%, transparent)" }}
+          aria-hidden="true"
+        />
 
-        <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-8 lg:px-8 lg:pb-32 lg:pt-12">
-          <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
-            {/* Left — Text */}
+        <div className="relative mx-auto w-full max-w-7xl px-6 lg:px-8 pt-12 lg:pt-16 pb-16 lg:pb-24">
+          {/* Folio-Kopf */}
+          <div className="hero-badge flex items-center justify-between border-b-2 border-dark pb-4">
+            <span className="flex items-center gap-2.5 font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-dark/60">
+              <span className="inline-block h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+              SEO Beratung
+            </span>
+            <span className="hidden sm:block font-mono text-[10px] uppercase tracking-[0.18em] text-dark/35">
+              Leistungen / Beratung — SeoForge
+            </span>
+          </div>
+
+          <div className="mt-12 lg:mt-16 grid grid-cols-1 lg:grid-cols-[1.18fr_0.82fr] gap-14 lg:gap-16 items-center">
+            {/* Links — Typo */}
             <div>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary hero-badge">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                Strategische SEO Beratung
-              </div>
-
-              <h1 className="hero-title text-5xl lg:text-6xl leading-[1.12] text-dark font-[family-name:var(--font-heading)]">
-                <span className="block">Die Strategie hinter</span>
-                <span className="text-primary">jedem guten Ranking</span>
+              <h1 className="hero-title font-[family-name:var(--font-heading)] text-[38px] sm:text-5xl lg:text-[46px] xl:text-[52px] font-bold text-dark leading-[1.06] tracking-tight">
+                SEO Beratung heißt:
+                <br />
+                <span style={grad}>entscheiden, was wirkt.</span>
               </h1>
 
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted hero-description">
-                Rankings entstehen nicht zufällig. Sie entstehen aus der richtigen Analyse, den richtigen Prioritäten und einer Strategie, die zu Ihrem Geschäft passt. Genau das liefert unsere SEO Beratung.
+              <p className="hero-description mt-7 max-w-xl text-lg lg:text-xl text-muted leading-relaxed">
+                Die meisten Websites scheitern nicht an zu wenig Maßnahmen — sondern an den falschen zuerst.
+                Wir analysieren auf echten Daten, priorisieren ehrlich und sagen auch, was Sie sich sparen können.
               </p>
 
-              {/* Selling points */}
-              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 animate-fade-up" style={{ animationDelay: "0.4s" }}>
-                {["Individuelle Strategie", "Klare Prioritäten", "Wissenstransfer"].map((point) => (
-                  <div key={point} className="flex items-center gap-2">
-                    <svg className="h-4 w-4 text-primary shrink-0" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                    </svg>
-                    <span className="text-sm text-muted">{point}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTAs */}
-              <div className="mt-10 flex flex-wrap gap-4 hero-cta">
+              <div className="hero-cta mt-9 flex flex-wrap items-center gap-4">
                 <Link
-                  href="#jetzt-starten"
-                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark hover:shadow-xl hover:shadow-primary/30"
+                  href="/kontakt"
+                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/25"
                 >
                   Kostenloses Erstgespräch
-                  <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor">
+                  <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
                   </svg>
                 </Link>
-                <Link
-                  href="#ablauf"
-                  className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold text-dark transition-all hover:border-primary/30 hover:bg-primary/[0.04] hover:text-primary"
-                >
-                  So läuft es ab
-                </Link>
-              </div>
-
-            </div>
-
-            {/* Right — Dashboard */}
-            <DashboardMockup />
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  EDITORIAL — Was professionelle SEO Beratung bedeutet         */}
-      {/* ============================================================ */}
-      <section className="bg-white py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="transition-all duration-700 reveal">
-
-            {/* Header */}
-            <div className="mb-14">
-              <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Im Detail</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark leading-tight max-w-3xl">
-                Was professionelle SEO Beratung wirklich bedeutet
-              </h2>
-            </div>
-
-            {/* Lede — featured first paragraph */}
-            <div className="mb-12 max-w-4xl">
-              <p className="text-xl lg:text-2xl leading-relaxed text-dark/80 font-[family-name:var(--font-heading)]">
-                <strong className="text-dark">SEO Beratung</strong> wird oft missverstanden. Viele Unternehmen erwarten eine Liste von Quick Fixes. Doch professionelle Beratung beginnt mit einer anderen Frage:{" "}
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent font-bold">Was wollen Sie als Unternehmen erreichen?</span>
-              </p>
-            </div>
-
-            {/* Two-column content with callout */}
-            <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 mb-16">
-              <div className="lg:col-span-7 space-y-6">
-                <p className="text-muted text-base lg:text-lg leading-relaxed">
-                  Erst wenn wir Ihr Geschäftsmodell, Ihre Zielgruppe und Ihre Wettbewerbssituation wirklich verstehen, können wir eine Strategie entwickeln, die funktioniert. Keine generischen Checklisten. Keine Standardlösungen, die für jeden Kunden gleich aussehen. Sondern ein maßgeschneiderter Fahrplan, der zu Ihren Ressourcen, Ihrem Markt und Ihren Zielen passt.
-                </p>
-                <p className="text-muted text-base lg:text-lg leading-relaxed">
-                  Bei SeoForge analysieren wir nicht nur Ihre Website — wir analysieren die gesamte Customer Journey. Denn SEO ist kein isolierter Kanal. Es ist der Moment, in dem ein potenzieller Kunde aktiv nach einer Lösung sucht. Wer hier nicht sichtbar ist, verliert Geschäft. Nicht irgendwann, sondern jetzt — bei jeder Suchanfrage, jeden Tag.
-                </p>
-              </div>
-
-              {/* Callout card — "Die unbequemen Fragen" */}
-              <div className="lg:col-span-5">
-                <div className="rounded-2xl bg-gradient-to-br from-primary/[0.04] to-secondary/[0.03] border border-primary/10 p-8">
-                  <div className="flex items-center gap-3 mb-5">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-white">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
-                    </div>
-                    <h3 className="font-[family-name:var(--font-heading)] text-lg font-bold text-dark">Die Fragen, die den Unterschied machen</h3>
-                  </div>
-                  <ul className="space-y-3">
-                    {[
-                      "Warum ranken Ihre Wettbewerber besser?",
-                      "Welche Inhalte sucht Ihre Zielgruppe wirklich?",
-                      "Wo verlieren Sie Nutzer vor der Conversion?",
-                      "Welche Maßnahmen bringen den größten Return?",
-                      "Was können Sie intern umsetzen — und was nicht?",
-                    ].map((q, i) => (
-                      <li key={i} className="flex items-start gap-3 text-sm text-dark/80 leading-relaxed">
-                        <span className="mt-0.5 text-primary font-bold font-[family-name:var(--font-heading)]">→</span>
-                        {q}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Expertise Signal: SEO + GEO + KI */}
-            <div className="mt-14 grid sm:grid-cols-3 gap-5">
-              {[
-                {
-                  label: "GEO ist SEO",
-                  body: "Generative Engine Optimization ist kein Trend — es ist die neue Realität. ChatGPT, Perplexity, Google AI Overviews: Wer hier nicht erscheint, verliert Reichweite. Unsere Beratung deckt SEO und GEO als Einheit ab.",
-                  accent: "text-primary",
-                  bg: "bg-primary/[0.04]",
-                  border: "border-primary/10",
-                },
-                {
-                  label: "KI-gestützte Analyse",
-                  body: "Wir nutzen KI-Tools nicht als Spielerei, sondern als Werkzeug für tiefere Analyse: schnellere Keyword-Cluster, präzisere Suchintentions-Auswertung, automatisierte Audit-Reports mit echten Erkenntnissen.",
-                  accent: "text-secondary",
-                  bg: "bg-secondary/[0.04]",
-                  border: "border-secondary/10",
-                },
-                {
-                  label: "Immer am Puls",
-                  body: "Google Core Updates, SGE, AI Overviews — wir beobachten die Entwicklungen täglich. Unsere Empfehlungen sind auf dem Stand von heute, nicht von vor zwei Jahren.",
-                  accent: "text-dark",
-                  bg: "bg-dark/[0.02]",
-                  border: "border-dark/08",
-                },
-              ].map((card) => (
-                <div key={card.label} className={`rounded-2xl border ${card.border} ${card.bg} p-6`}>
-                  <p className={`text-xs font-bold tracking-[0.18em] uppercase ${card.accent} mb-3`}>{card.label}</p>
-                  <p className="text-sm text-muted leading-relaxed">{card.body}</p>
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  OHNE vs. MIT — Comparison                                    */}
-      {/* ============================================================ */}
-      <section className="bg-offwhite py-24 lg:py-32 border-y border-border overflow-hidden">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <div className="text-center mb-16 transition-all duration-700 reveal">
-            <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-3">Der Unterschied</p>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">
-              Warum Strategie alles verändert
-            </h2>
-          </div>
-
-          <div className="transition-all duration-700 delay-200 reveal">
-            {/* Comparison table — styled */}
-            <div className="rounded-3xl border border-border overflow-hidden bg-white shadow-xl shadow-dark/[0.04]">
-              {/* Header row */}
-              <div className="grid grid-cols-[1fr_1px_1fr] bg-offwhite/80">
-                <div className="flex items-center gap-3 px-8 py-5">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-dark/5">
-                    <svg className="w-4 h-4 text-dark/35" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
-                  </div>
-                  <div>
-                    <p className="font-[family-name:var(--font-heading)] font-bold text-dark text-sm">Ohne klare SEO-Strategie</p>
-                    <p className="text-[11px] text-muted">So arbeiten die meisten</p>
-                  </div>
-                </div>
-                <div className="w-px bg-border" />
-                <div className="flex items-center gap-3 px-8 py-5">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-                    <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                  </div>
-                  <div>
-                    <p className="font-[family-name:var(--font-heading)] font-bold text-primary text-sm">Mit SeoForge Beratung</p>
-                    <p className="text-[11px] text-muted">So arbeiten unsere Kunden</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Comparison rows */}
-              {[
-                ["Budget für Keywords ohne Geschäftswert", "Jede Maßnahme datenbasiert begründet"],
-                ["Technische Fehler bremsen unsichtbar", "Technische Quick Wins sofort identifiziert"],
-                ["Content ohne Suchintention erstellt", "Content nach Suchintention geplant"],
-                ["Kein Überblick über Wettbewerber", "Wettbewerber-Lücken gezielt genutzt"],
-                ["Maßnahmen ohne Priorisierung", "Klare Roadmap nach Impact priorisiert"],
-                ["Ergebnisse nicht messbar", "Fortschritt monatlich messbar"],
-              ].map(([bad, good], i) => (
-                <div key={i} className={`grid grid-cols-[1fr_1px_1fr] ${i % 2 === 0 ? "bg-white" : "bg-offwhite/30"}`}>
-                  <div className="flex items-center gap-3 px-8 py-4">
-                    <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded bg-dark/[0.05]">
-                      <svg className="w-2.5 h-2.5 text-dark/25" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M20 12H4" /></svg>
-                    </span>
-                    <span className="text-sm text-muted">{bad}</span>
-                  </div>
-                  <div className="w-px bg-border" />
-                  <div className="flex items-center gap-3 px-8 py-4">
-                    <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded bg-primary/10">
-                      <svg className="w-2.5 h-2.5 text-primary" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-                    </span>
-                    <span className="text-sm font-medium text-dark">{good}</span>
-                  </div>
-                </div>
-              ))}
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  DELIVERABLES — What you receive                              */}
-      {/* ============================================================ */}
-      <section className="bg-offwhite py-24 lg:py-32 border-y border-border">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mb-16 transition-all duration-700 reveal">
-            <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-3">Konkrete Ergebnisse</p>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">
-              Das erhalten Sie von uns
-            </h2>
-            <p className="text-lg text-muted max-w-2xl">
-              Keine vagen Empfehlungen. Sondern Dokumente und Pläne, mit denen Ihr Team sofort arbeiten kann.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-5 transition-all duration-700 delay-200 reveal">
-            {[
-              {
-                num: "01",
-                title: "SEO-Audit Report",
-                desc: "Alle technischen und inhaltlichen Findings dokumentiert, priorisiert und mit konkreten Handlungsempfehlungen versehen. Ihr Team kann sofort loslegen.",
-                tags: ["PDF-Report", "Priorisiert", "Actionable"],
-                icon: (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z" /></svg>
-                ),
-              },
-              {
-                num: "02",
-                title: "Keyword-Strategie",
-                desc: "Recherchierte Keywords mit Suchvolumen, Wettbewerb und Suchintention — priorisiert nach Ihrem Geschäftswert, nicht nach Vanity-Metriken.",
-                tags: ["Suchintention", "Long-Tail", "Priorisiert"],
-                icon: (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" /></svg>
-                ),
-              },
-              {
-                num: "03",
-                title: "Wettbewerbsanalyse",
-                desc: "Ihre Top-Konkurrenten im Detail analysiert: Wo sind sie stark? Wo sind Lücken? Welche Keywords ranken Sie bisher nicht, obwohl Ihre Wettbewerber es tun?",
-                tags: ["Competitor Gap", "Backlinks", "Content-Analyse"],
-                icon: (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z" /></svg>
-                ),
-              },
-              {
-                num: "04",
-                title: "SEO-Roadmap",
-                desc: "Maßnahmenplan mit Timelines, Verantwortlichkeiten und erwartetem Impact für die nächsten 6–12 Monate. Klar strukturiert, sofort einsetzbar.",
-                tags: ["6–12 Monate", "Priorisiert", "Für Ihr Team"],
-                icon: (
-                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c-.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" /></svg>
-                ),
-              },
-            ].map((card, i) => (
-              <div
-                key={card.num}
-                className="group relative rounded-2xl border border-border bg-white p-8 overflow-hidden transition-all duration-300 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/[0.04] hover:-translate-y-1"
-                style={{ transitionDelay: `${i * 60}ms` }}
-              >
-                {/* Background number */}
-                <span className="absolute -right-2 -bottom-4 font-[family-name:var(--font-heading)] text-[90px] font-bold leading-none select-none pointer-events-none" style={{ color: "rgba(26,26,26,0.03)" }}>
-                  {card.num}
-                </span>
-                <div className="relative">
-                  <div className="mb-5 flex items-center justify-center rounded-2xl bg-primary/[0.08] text-primary transition-colors group-hover:bg-primary group-hover:text-white" style={{ height: "52px", width: "52px" }}>
-                    {card.icon}
-                  </div>
-                  <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark mb-3">{card.title}</h3>
-                  <p className="text-sm text-muted leading-relaxed mb-5">{card.desc}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {card.tags.map((tag) => (
-                      <span key={tag} className="text-[10px] font-semibold text-primary/70 border border-primary/15 bg-primary/[0.04] rounded-full px-2.5 py-1">{tag}</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  BERATUNGSDISZIPLINEN — Deep dive accordion                   */}
-      {/* ============================================================ */}
-      <section className="bg-white py-24 lg:py-32">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
-          <div className="mb-14 transition-all duration-700 reveal">
-            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Im Fokus</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">
-              Unsere Beratungsdisziplinen im Detail
-            </h2>
-            <p className="text-lg text-muted max-w-3xl">
-              Jedes Unternehmen hat andere SEO-Herausforderungen. Deshalb beraten wir nicht nach Schema — sondern in den Disziplinen, die für Sie den größten Unterschied machen.
-            </p>
-          </div>
-
-          <div className="space-y-4 transition-all duration-700 delay-200 reveal">
-            {[
-              {
-                title: "Strategische Keyword-Beratung",
-                desc: "Keyword-Recherche ist weit mehr als Suchvolumen prüfen. Wir analysieren die Suchintention hinter jedem Begriff, bewerten die realistische Ranking-Chance und ordnen Keywords nach ihrem tatsächlichen Geschäftswert ein — nicht nach Vanity-Metriken.",
-                desc2: "Das Ergebnis ist eine Keyword-Strategie, die Ihren Sales-Funnel abbildet: von informationalen Suchbegriffen, die Awareness schaffen, über Vergleichs-Keywords bis hin zu transaktionalen Begriffen, die direkt zu Conversions führen.",
-                items: ["Suchintentions-Mapping", "Keyword-Clustering nach Themen", "Commercial vs. Informational Priorisierung", "Long-Tail-Strategie", "Kannibalisierungs-Analyse", "Saisonale Keyword-Planung"],
-              },
-              {
-                title: "Technische SEO-Beratung",
-                desc: "Technische Probleme sind oft die unsichtbaren Bremsen Ihrer Rankings. Seiten, die Google nicht crawlen kann, werden nicht indexiert. Seiten, die zu langsam laden, verlieren Nutzer und Rankings. Fehlerhafte Weiterleitungen verwirren Suchmaschinen und Besucher gleichermaßen.",
-                desc2: "Unser technisches Audit geht über Standard-Tools hinaus. Wir analysieren Crawl-Logs, prüfen JavaScript-Rendering, bewerten Ihre Website-Architektur und liefern Ihrem Entwicklungsteam einen priorisierten Aktionsplan mit exakten Anweisungen.",
-                items: ["Core Web Vitals & Page Speed", "Crawl-Budget-Optimierung", "JavaScript-Rendering-Analyse", "Schema Markup Strategie", "Migration & Relaunch Planung", "Server-Log-Analyse"],
-              },
-              {
-                title: "Content-Strategie & Redaktion",
-                desc: "Content ohne Strategie ist wie eine Bibliothek ohne Ordnungssystem — viel Material, aber niemand findet, was er sucht. Wir entwickeln Content-Strategien, die auf Topic-Cluster-Architektur basieren und Ihre thematische Autorität systematisch aufbauen.",
-                desc2: "Dabei geht es nicht nur um neue Inhalte. Oft liegt das größte Potenzial in der Optimierung bestehender Seiten: Content-Pruning, Zusammenlegung kannibalisierender Seiten und die Aktualisierung veralteter Artikel können schneller wirken als jeder neue Blogpost.",
-                items: ["Topic-Cluster-Architektur", "Content-Audit & Pruning-Plan", "E-E-A-T-Optimierung", "Briefing-Templates für Texter", "Redaktionskalender-Entwicklung", "Content-Gap-Analyse vs. Wettbewerb"],
-              },
-              {
-                title: "Wettbewerbs- & Marktanalyse",
-                desc: "Ihre Rankings existieren nicht im Vakuum. Wer Ihre Konkurrenten sind, was sie gut machen und wo sie Schwächen haben, bestimmt Ihre eigene Strategie. Wir analysieren nicht nur deren Keywords und Backlinks, sondern auch deren Content-Strategie und SERP-Positionierung.",
-                desc2: "Daraus leiten wir konkrete Chancen ab: Keywords, für die Ihre Wettbewerber ranken und Sie nicht. Content-Formate, die in Ihrer Branche funktionieren. Backlink-Quellen, die auch für Sie erreichbar sind. Und SERP-Features, die Sie gezielt besetzen können.",
-                items: ["Competitor Keyword-Gap-Analyse", "Backlink-Profil-Vergleich", "Content-Strategie der Wettbewerber", "SERP-Feature-Opportunities", "Share of Voice Tracking", "Markteintritts- & Nischenanalyse"],
-              },
-              {
-                title: "SEO & GEO — integrierte KI-Strategie",
-                desc: "SEO und GEO sind heute zwei Seiten derselben Medaille. Während klassische Suchmaschinen Ihre Website nach Relevanz bewerten, entscheiden KI-Systeme wie ChatGPT, Perplexity oder Google AI Overviews auf Basis von Autorität, Klarheit und zitierfähigen Inhalten.",
-                desc2: "Unsere Beratung berücksichtigt beide Dimensionen: Wie werden Sie in traditionellen SERPs gefunden — und wie erscheinen Sie in KI-generierten Antworten? Wir analysieren Ihren Content auf GEO-Tauglichkeit und entwickeln eine Strategie, die beides optimiert.",
-                items: ["Google AI Overviews Optimierung", "ChatGPT & Perplexity Sichtbarkeit", "E-E-A-T für KI-Suchsysteme", "Strukturierte Daten für AI Crawlers", "GEO Content Architecture", "Search Generative Experience (SGE)"],
-              },
-            ].map((disc, i) => (
-              <div key={i} className="rounded-2xl border border-border bg-offwhite/30 overflow-hidden transition-all duration-300 hover:border-primary/20">
-                <button
-                  onClick={() => setOpenDisc(openDisc === i ? -1 : i)}
-                  className="w-full flex items-center gap-5 p-6 lg:p-8 text-left"
-                >
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/[0.08] text-primary text-lg font-bold font-[family-name:var(--font-heading)]">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <span className="flex-1 font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark">{disc.title}</span>
-                  <svg className={`h-5 w-5 text-primary shrink-0 transition-transform duration-300 ${openDisc === i ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                <div className={`overflow-hidden transition-all duration-500 ${openDisc === i ? "max-h-[600px]" : "max-h-0"}`}>
-                  <div className="px-6 lg:px-8 pb-8 pt-0">
-                    <div className="border-t border-border/60 pt-6">
-                      <p className="text-muted text-base lg:text-lg leading-relaxed mb-4">{disc.desc}</p>
-                      <p className="text-muted text-base lg:text-lg leading-relaxed mb-6">{disc.desc2}</p>
-                      <p className="text-xs font-bold tracking-[0.15em] uppercase text-muted mb-3">Leistungen:</p>
-                      <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2.5">
-                        {disc.items.map((item, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-sm text-dark/80">
-                            <svg className="w-4 h-4 mt-0.5 text-primary shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                            </svg>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  ABLAUF — Alternating Cards                                   */}
-      {/* ============================================================ */}
-      <section id="ablauf" className="bg-white py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-16 transition-all duration-700 reveal">
-            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Unser Vorgehen</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-6">
-              So läuft eine SEO Beratung ab
-            </h2>
-            <p className="text-muted text-lg max-w-2xl mx-auto">
-              Transparent und strukturiert — von der ersten Frage bis zum fertigen Plan.
-            </p>
-          </div>
-
-          <div className="space-y-12 lg:space-y-16 transition-all duration-700 delay-200 reveal">
-            {/* Step 01 */}
-            <div className="bg-offwhite border border-border/60 rounded-xl p-6 lg:p-8">
-              <div className="grid lg:grid-cols-2 gap-8 items-center">
-                <div className="flex justify-center lg:justify-start order-2 lg:order-1">
-                  <svg className="process-svg" width="240" height="240" viewBox="0 0 240 240">
-                    {/* Conversation bubbles */}
-                    <rect x="30" y="40" width="120" height="50" rx="12" fill="#C2722A" fillOpacity="0.1" stroke="#C2722A" strokeWidth="1.5" />
-                    <rect x="45" y="55" width="60" height="5" rx="2.5" fill="#C2722A" fillOpacity="0.4" />
-                    <rect x="45" y="66" width="80" height="5" rx="2.5" fill="#C2722A" fillOpacity="0.25" />
-                    <polygon points="60,90 70,90 55,105" fill="#C2722A" fillOpacity="0.1" stroke="#C2722A" strokeWidth="1.5" strokeLinejoin="round" />
-                    <rect x="90" y="115" width="120" height="50" rx="12" fill="#D4A853" fillOpacity="0.1" stroke="#D4A853" strokeWidth="1.5" />
-                    <rect x="105" y="130" width="70" height="5" rx="2.5" fill="#D4A853" fillOpacity="0.4" />
-                    <rect x="105" y="141" width="90" height="5" rx="2.5" fill="#D4A853" fillOpacity="0.25" />
-                    <polygon points="190,165 180,165 195,180" fill="#D4A853" fillOpacity="0.1" stroke="#D4A853" strokeWidth="1.5" strokeLinejoin="round" />
-                    <circle cx="42" cy="120" r="16" fill="#C2722A" fillOpacity="0.15" stroke="#C2722A" strokeWidth="1.5" />
-                    <text x="42" y="125" textAnchor="middle" fill="#C2722A" fontSize="12" fontWeight="600">Sie</text>
-                    <circle cx="198" cy="100" r="16" fill="#D4A853" fillOpacity="0.15" stroke="#D4A853" strokeWidth="1.5" />
-                    <text x="198" y="105" textAnchor="middle" fill="#D4A853" fontSize="11" fontWeight="600">SF</text>
-                  </svg>
-                </div>
-                <div className="order-1 lg:order-2">
-                  <div className="text-5xl lg:text-6xl font-bold text-primary/20 mb-2 font-[family-name:var(--font-heading)]">01</div>
-                  <h3 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark mb-4">
-                    Erstgespräch & Bedarfsanalyse
-                  </h3>
-                  <p className="text-base lg:text-lg text-muted leading-relaxed">
-                    Alles beginnt mit Zuhören. In einem kostenlosen Gespräch lernen wir Ihr Unternehmen, Ihre Ziele und Ihre Herausforderungen kennen. Wir stellen die richtigen Fragen, um den Beratungsbedarf präzise zu definieren — kein Verkaufsdruck, nur ehrliche Einschätzung.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-center float-chevron"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="#C2722A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
-
-            {/* Step 02 */}
-            <div className="bg-offwhite border border-border/60 rounded-xl p-6 lg:p-8">
-              <div className="grid lg:grid-cols-2 gap-8 items-center">
-                <div className="order-1">
-                  <div className="text-5xl lg:text-6xl font-bold text-secondary/20 mb-2 font-[family-name:var(--font-heading)]">02</div>
-                  <h3 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark mb-4">
-                    Umfassendes SEO-Audit
-                  </h3>
-                  <p className="text-base lg:text-lg text-muted leading-relaxed">
-                    Wir analysieren Ihre Website auf über 200 technische, inhaltliche und strategische Faktoren. Gleichzeitig untersuchen wir Ihre Keyword-Landschaft und bewerten Ihren Wettbewerb. Das Ergebnis: eine datenbasierte Diagnose Ihrer SEO-Situation mit klarer Priorisierung.
-                  </p>
-                </div>
-                <div className="flex justify-center lg:justify-end order-2">
-                  <svg className="process-svg" width="240" height="240" viewBox="0 0 240 240">
-                    {/* Document being scanned with results */}
-                    <rect x="55" y="15" width="130" height="180" rx="10" fill="white" stroke="#E5E3DF" strokeWidth="2" />
-                    {/* Document header */}
-                    <rect x="55" y="15" width="130" height="35" rx="10" fill="#C2722A" fillOpacity="0.08" />
-                    <rect x="72" y="27" width="55" height="5" rx="2.5" fill="#C2722A" fillOpacity="0.4" />
-                    <rect x="72" y="37" width="35" height="3" rx="1.5" fill="#C2722A" fillOpacity="0.2" />
-                    {/* Scan line */}
-                    <line x1="60" y1="95" x2="180" y2="95" stroke="#C2722A" strokeWidth="2" strokeDasharray="4 3" opacity="0.6">
-                      <animate attributeName="y1" values="55;190;55" dur="3s" repeatCount="indefinite" />
-                      <animate attributeName="y2" values="55;190;55" dur="3s" repeatCount="indefinite" />
-                    </line>
-                    {/* Check items */}
-                    <circle cx="78" cy="70" r="6" fill="#22c55e" fillOpacity="0.15" stroke="#22c55e" strokeWidth="1.5" />
-                    <path d="M75 70L77 72.5L82 68" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                    <rect x="92" y="67" width="70" height="5" rx="2.5" fill="#E5E3DF" />
-                    <circle cx="78" cy="95" r="6" fill="#22c55e" fillOpacity="0.15" stroke="#22c55e" strokeWidth="1.5" />
-                    <path d="M75 95L77 97.5L82 93" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                    <rect x="92" y="92" width="60" height="5" rx="2.5" fill="#E5E3DF" />
-                    <circle cx="78" cy="120" r="6" fill="#f59e0b" fillOpacity="0.15" stroke="#f59e0b" strokeWidth="1.5" />
-                    <path d="M78 117V121M78 124V124.5" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" fill="none" />
-                    <rect x="92" y="117" width="75" height="5" rx="2.5" fill="#E5E3DF" />
-                    <circle cx="78" cy="145" r="6" fill="#ef4444" fillOpacity="0.15" stroke="#ef4444" strokeWidth="1.5" />
-                    <path d="M76 143L80 147M80 143L76 147" stroke="#ef4444" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-                    <rect x="92" y="142" width="55" height="5" rx="2.5" fill="#E5E3DF" />
-                    <circle cx="78" cy="170" r="6" fill="#22c55e" fillOpacity="0.15" stroke="#22c55e" strokeWidth="1.5" />
-                    <path d="M75 170L77 172.5L82 168" stroke="#22c55e" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                    <rect x="92" y="167" width="65" height="5" rx="2.5" fill="#E5E3DF" />
-                    {/* Score badge */}
-                    <rect x="145" y="22" width="32" height="22" rx="6" fill="#C2722A" />
-                    <text x="161" y="37" textAnchor="middle" fill="white" fontSize="11" fontWeight="700">87</text>
-                    {/* Glow behind document */}
-                    <ellipse cx="120" cy="210" rx="60" ry="8" fill="#C2722A" fillOpacity="0.06" />
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-center float-chevron"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="#D4A853" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
-
-            {/* Step 03 */}
-            <div className="bg-offwhite border border-border/60 rounded-xl p-6 lg:p-8">
-              <div className="grid lg:grid-cols-2 gap-8 items-center">
-                <div className="flex justify-center lg:justify-start order-2 lg:order-1">
-                  <svg className="process-svg" width="240" height="240" viewBox="0 0 240 240">
-                    {/* Strategy roadmap path */}
-                    <path d="M40 200 Q80 180 90 150 Q100 120 120 120 Q140 120 150 90 Q160 60 200 40" fill="none" stroke="#C2722A" strokeWidth="3" strokeLinecap="round" />
-                    <circle cx="40" cy="200" r="10" fill="white" stroke="#C2722A" strokeWidth="2.5" /><circle cx="40" cy="200" r="4" fill="#C2722A" />
-                    <circle cx="90" cy="150" r="10" fill="white" stroke="#D4A853" strokeWidth="2.5" /><circle cx="90" cy="150" r="4" fill="#D4A853" />
-                    <circle cx="120" cy="120" r="12" fill="white" stroke="#C2722A" strokeWidth="2.5" /><circle cx="120" cy="120" r="5" fill="#C2722A" className="pulse-dot" />
-                    <circle cx="150" cy="90" r="10" fill="white" stroke="#D4A853" strokeWidth="2.5" /><circle cx="150" cy="90" r="4" fill="#D4A853" />
-                    <circle cx="200" cy="40" r="14" fill="#C2722A" fillOpacity="0.15" stroke="#C2722A" strokeWidth="2.5" /><circle cx="200" cy="40" r="6" fill="#C2722A" className="pulse-dot" style={{animationDelay:"0.5s"}} />
-                    <text x="28" y="225" fill="#6B6B6B" fontSize="10" fontWeight="500">Start</text>
-                    <text x="187" y="28" fill="#C2722A" fontSize="10" fontWeight="600">Ziel</text>
-                  </svg>
-                </div>
-                <div className="order-1 lg:order-2">
-                  <div className="text-5xl lg:text-6xl font-bold text-primary/20 mb-2 font-[family-name:var(--font-heading)]">03</div>
-                  <h3 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark mb-4">
-                    Strategieworkshop & Roadmap
-                  </h3>
-                  <p className="text-base lg:text-lg text-muted leading-relaxed">
-                    In einem persönlichen Workshop präsentieren wir die Audit-Ergebnisse und entwickeln gemeinsam Ihre SEO-Strategie. Sie erhalten eine klare Roadmap mit Meilensteinen, Priorisierung nach Impact und konkreten Handlungsempfehlungen, die Ihr Team direkt umsetzen kann.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="flex justify-center float-chevron"><svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M6 9L12 15L18 9" stroke="#C2722A" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg></div>
-
-            {/* Step 04 */}
-            <div className="bg-offwhite border border-border/60 rounded-xl p-6 lg:p-8">
-              <div className="grid lg:grid-cols-2 gap-8 items-center">
-                <div className="order-1">
-                  <div className="text-5xl lg:text-6xl font-bold text-secondary/20 mb-2 font-[family-name:var(--font-heading)]">04</div>
-                  <h3 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark mb-4">
-                    Begleitung & Erfolgskontrolle
-                  </h3>
-                  <p className="text-base lg:text-lg text-muted leading-relaxed">
-                    Auf Wunsch begleiten wir die Umsetzung: regelmäßige Review-Calls, Fortschritts-Monitoring und Strategie-Anpassungen bei Google-Updates oder Marktveränderungen. So stellen wir sicher, dass Ihre SEO-Maßnahmen nachhaltig wirken.
-                  </p>
-                </div>
-                <div className="flex justify-center lg:justify-end order-2">
-                  <svg className="process-svg" width="240" height="240" viewBox="0 0 240 240">
-                    {/* Monitoring dashboard with circular gauge */}
-                    <rect x="20" y="20" width="200" height="200" rx="16" fill="white" stroke="#E5E3DF" strokeWidth="1.5" />
-                    {/* Gauge circle */}
-                    <circle cx="120" cy="105" r="55" fill="none" stroke="#E5E3DF" strokeWidth="6" />
-                    <circle cx="120" cy="105" r="55" fill="none" stroke="#C2722A" strokeWidth="6" strokeLinecap="round" strokeDasharray="280 346" transform="rotate(-90 120 105)">
-                      <animate attributeName="stroke-dasharray" values="0 346;280 346" dur="2s" fill="freeze" />
-                    </circle>
-                    {/* Gauge center text */}
-                    <text x="120" y="100" textAnchor="middle" fill="#1A1A1A" fontSize="26" fontWeight="700" fontFamily="var(--font-heading)">92</text>
-                    <text x="120" y="118" textAnchor="middle" fill="#6B6B6B" fontSize="9" fontWeight="500">Health Score</text>
-                    {/* Mini metrics below gauge */}
-                    <rect x="35" y="175" width="50" height="35" rx="6" fill="#C2722A" fillOpacity="0.06" />
-                    <text x="60" y="191" textAnchor="middle" fill="#C2722A" fontSize="13" fontWeight="700">47</text>
-                    <text x="60" y="203" textAnchor="middle" fill="#6B6B6B" fontSize="7">Rankings</text>
-                    <rect x="95" y="175" width="50" height="35" rx="6" fill="#D4A853" fillOpacity="0.06" />
-                    <text x="120" y="191" textAnchor="middle" fill="#D4A853" fontSize="13" fontWeight="700">+23%</text>
-                    <text x="120" y="203" textAnchor="middle" fill="#6B6B6B" fontSize="7">Traffic</text>
-                    <rect x="155" y="175" width="50" height="35" rx="6" fill="#22c55e" fillOpacity="0.06" />
-                    <text x="180" y="191" textAnchor="middle" fill="#22c55e" fontSize="13" fontWeight="700">4.2%</text>
-                    <text x="180" y="203" textAnchor="middle" fill="#6B6B6B" fontSize="7">CTR</text>
-                    {/* Status dot top right */}
-                    <circle cx="195" cy="38" r="5" fill="#22c55e" className="pulse-dot" />
-                    <text x="185" y="42" textAnchor="end" fill="#6B6B6B" fontSize="8">Live</text>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  WARUM SEOFORGE — Trust & Differentiators                     */}
-      {/* ============================================================ */}
-      <section className="bg-offwhite py-24 lg:py-32 border-y border-border">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 transition-all duration-700 reveal">
-            <div className="lg:col-span-5">
-              <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Warum SeoForge</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark mb-6 leading-tight">
-                Beratung, die Ihr Team stärker macht
-              </h2>
-              <p className="text-muted text-base lg:text-lg leading-relaxed mb-8">
-                Wir machen Sie nicht abhängig — wir machen Sie kompetent. Unsere Beratung zielt darauf ab, dass Ihr Team SEO versteht und eigenständig umsetzen kann. Natürlich sind wir da, wenn Sie Unterstützung brauchen.
-              </p>
-
-              {/* Quote */}
-              <div className="border-l-[3px] border-primary pl-6">
-                <p className="font-[family-name:var(--font-heading)] text-xl italic text-dark leading-relaxed mb-4">
-                  „Die beste SEO-Strategie ist die, die Ihr Team versteht und selbst umsetzen kann."
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white text-sm font-bold">JH</div>
-                  <div>
-                    <p className="text-sm font-semibold text-dark">Joel Heuchert</p>
-                    <p className="text-xs text-muted">CEO & Gründer</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-5">
-              {[
-                { title: "Direkter Draht zum Experten", desc: "Kein Account-Manager dazwischen. Sie sprechen direkt mit dem SEO-Strategen, der Ihr Projekt kennt.", icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg> },
-                { title: "Daten, keine Meinungen", desc: "Jede Empfehlung ist durch Daten begründet. Kein Bauchgefühl, keine Trends — nur messbare Fakten.", icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" /></svg> },
-                { title: "Branchenwissen", desc: "200+ Projekte in diversen Branchen. Wir bringen Best Practices mit, ohne alles bei Null zu beginnen.", icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" /></svg> },
-                { title: "Ehrlich & transparent", desc: "Wir sagen Ihnen, was machbar ist — und was nicht. Keine übertriebenen Versprechen, keine versteckten Kosten.", icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" /></svg> },
-              ].map((card, i) => (
-                <div key={card.title} className="rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:border-primary/20 hover:shadow-lg hover:shadow-primary/[0.03]">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/[0.08] text-primary">
-                    {card.icon}
-                  </div>
-                  <h3 className="font-[family-name:var(--font-heading)] text-lg font-bold text-dark mb-2">{card.title}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{card.desc}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  RELATED SERVICES                                             */}
-      {/* ============================================================ */}
-      <section className="py-12 bg-offwhite border-y border-border">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <p className="text-xs font-bold tracking-[0.2em] uppercase text-muted mb-5">Passend dazu</p>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Link href="/seo/betreuung" className="group flex items-start gap-4 rounded-2xl border border-border bg-white p-5 transition-all hover:border-primary/30 hover:shadow-md hover:-translate-y-0.5">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/[0.08] text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-dark text-sm mb-1">Laufende SEO Betreuung</h3>
-                <p className="text-xs text-muted leading-relaxed">Beratung ist der erste Schritt. Monatliche SEO Betreuung setzt die Strategie dauerhaft in Rankings um.</p>
-              </div>
-              <svg className="w-4 h-4 text-muted shrink-0 mt-0.5 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-            </Link>
-            <Link href="/seo/betreuung/roi" className="group flex items-start gap-4 rounded-2xl border border-border bg-white p-5 transition-all hover:border-primary/30 hover:shadow-md hover:-translate-y-0.5">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-secondary/[0.1] text-secondary group-hover:bg-secondary group-hover:text-white transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" /></svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-dark text-sm mb-1">SEO ROI berechnen</h3>
-                <p className="text-xs text-muted leading-relaxed">Was bringt SEO Betreuung konkret? Interaktiver ROI-Rechner mit Branchenvergleich und echten Zahlen.</p>
-              </div>
-              <svg className="w-4 h-4 text-muted shrink-0 mt-0.5 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  FAQ                                                          */}
-      {/* ============================================================ */}
-      <section className="bg-white py-24 lg:py-32">
-        <div className="mx-auto max-w-3xl px-6 lg:px-8">
-          <div className="text-center mb-14 transition-all duration-700 reveal">
-            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">FAQ</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">
-              Häufig gestellte Fragen
-            </h2>
-          </div>
-
-          <div className="transition-all duration-700 delay-100 reveal">
-            <FaqAccordion items={faqs} />
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  BEREIT — Pre-CTA conversion section                          */}
-      {/* ============================================================ */}
-      <section id="jetzt-starten" className="bg-offwhite py-20 lg:py-28 border-y border-border">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Left — Headline + Copy */}
-            <div>
-              <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Jetzt starten</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-6 leading-tight">
-                Bereit für mehr<br />Sichtbarkeit?
-              </h2>
-              <p className="text-lg text-muted leading-relaxed mb-8">
-                Lassen Sie uns in einem kostenlosen Erstgespräch herausfinden, wie wir Ihr Unternehmen in den Suchergebnissen nach vorne bringen können. Keine Verpflichtungen — nur ehrliche Einschätzungen.
-              </p>
-
-              {/* Three promises */}
-              <div className="space-y-4">
-                {[
-                  { title: "Kostenlose Erstanalyse Ihrer Website", desc: "Wir prüfen Ihre aktuelle SEO-Situation und zeigen erste Potenziale auf." },
-                  { title: "Individueller SEO-Maßnahmenplan", desc: "Kein Standardpaket — sondern Empfehlungen, die zu Ihrem Unternehmen passen." },
-                  { title: "Transparente Preise ohne versteckte Kosten", desc: "Sie wissen vorher, was es kostet. Keine Überraschungen." },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-white">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-dark mb-1">{item.title}</h3>
-                      <p className="text-sm text-muted leading-relaxed">{item.desc}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right — Contact card */}
-            <div className="rounded-3xl bg-white border border-border p-8 lg:p-10 shadow-xl shadow-dark/[0.03]">
-              <div className="text-center mb-8">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-white">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>
-                </div>
-                <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-dark mb-2">Gespräch vereinbaren</h3>
-                <p className="text-sm text-muted">Kostenlos und unverbindlich</p>
-              </div>
-
-              <div className="space-y-4 mb-8">
-                <Link
-                  href="/kontakt"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-semibold text-white shadow-lg shadow-primary/20 hover:bg-primary-dark hover:shadow-xl transition-all"
-                >
-                  Erstgespräch anfragen
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                </Link>
                 <a
-                  href="tel:015129547343"
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-border px-8 py-4 text-base font-semibold text-dark hover:border-primary/30 hover:text-primary transition-all"
+                  href="#kompass"
+                  className="inline-flex items-center gap-2 rounded-full border-2 border-dark px-8 py-[14px] font-semibold text-dark transition-colors hover:bg-dark hover:text-white"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                  0151 29547343
+                  Was passt zu uns?
                 </a>
               </div>
 
-              <div className="flex items-center justify-center gap-6 pt-6 border-t border-border">
-                <div className="flex items-center gap-1.5 text-xs text-muted">
-                  <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-                  Antwort in 24h
+              {/* Echte Fakten + Werkzeug-Zeile statt Zahlen-Deko */}
+              <div className="hero-cta mt-10 border-t border-border pt-6">
+                <div className="flex flex-wrap gap-x-8 gap-y-3">
+                  {["Kostenloses Erstgespräch", "Antwort in unter 24 h", "Monatlich kündbar"].map((f) => (
+                    <span key={f} className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-dark/55">
+                      <span className="h-[2px] w-4 bg-primary/70" aria-hidden="true" />
+                      {f}
+                    </span>
+                  ))}
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-muted">
-                  <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-                  Keine Bindung
+                <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2.5">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-dark/40">Beratung auf echten Daten:</span>
+                  {WERKZEUGE.slice(0, 4).map((t) => (
+                    <span key={t.name} className="flex items-center gap-1.5" title={t.wofuer}>
+                      {t.logo ? (
+                        <Image src={t.logo} alt={`${t.name} — Datenquelle unserer SEO Beratung`} width={13} height={13} className="h-[13px] w-[13px] object-contain opacity-60" />
+                      ) : (
+                        <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-dark/40" />
+                      )}
+                      <span className="text-[11px] font-semibold text-dark/55">{t.name}</span>
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Rechts — Foto-Komposition: Portrait + überlappende Gesprächsnotiz */}
+            <div className="hero-dashboard relative mx-auto w-full max-w-[440px] lg:max-w-none">
+              <figure className="relative">
+                <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border-2 border-dark shadow-[0_36px_80px_-32px_rgba(26,26,26,0.5)]">
+                  <Image
+                    src="/images/beratung-hero.webp"
+                    alt="SEO-Beraterin erklärt einem Kunden am Tisch die Auswertung — ausgedruckte Analysen und Laptop zwischen ihnen"
+                    fill
+                    priority
+                    sizes="(min-width: 1024px) 42vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Überlappende Notiz-Karte — Papier auf Foto */}
+                <div
+                  className="absolute -bottom-8 -left-3 w-[240px] rotate-[-2deg] rounded-xl border bg-white p-4 shadow-[0_24px_50px_-20px_rgba(26,26,26,0.45)] sm:-left-8 sm:w-[260px]"
+                  style={{ borderColor: TINT_BORDER }}
+                >
+                  <span className="flex items-center justify-between border-b border-dashed pb-2" style={{ borderColor: TINT_BORDER }}>
+                    <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-dark/45">Notiz · Erstgespräch</span>
+                    <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+                  </span>
+                  <span className="mt-3 block space-y-2">
+                    {[
+                      ["1.", "Indexierung reparieren"],
+                      ["2.", "3 Geldseiten zuerst"],
+                      ["3.", "Blog erst ab Monat 2"],
+                    ].map(([n, t]) => (
+                      <span key={t} className="flex items-baseline gap-2">
+                        <span className="font-mono text-[10px] font-bold text-primary">{n}</span>
+                        <span className="font-[family-name:var(--font-heading)] text-[15px] font-bold leading-snug text-dark">{t}</span>
+                      </span>
+                    ))}
+                  </span>
+                  <span
+                    className="mt-3 block border-t border-dashed pt-2 font-mono text-[8.5px] uppercase tracking-[0.14em] text-dark/35"
+                    style={{ borderColor: TINT_BORDER }}
+                  >
+                    Priorisiert nach Wirkung ÷ Aufwand
+                  </span>
+                </div>
+
+                <figcaption className="mt-12 flex items-baseline gap-2 pl-1 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
+                  <span className="h-[2px] w-5 shrink-0 self-center bg-primary/60" aria-hidden="true" />
+                  Beratung heißt bei uns: gemeinsam vor den echten Zahlen sitzen.
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 01 WAS BERATUNG LEISTET — Editorial mit Drop-Cap + eingebettetem Foto ══ */}
+      <section className="border-t border-border bg-white py-20 lg:py-28 overflow-x-clip">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="scroll-hidden max-w-3xl">
+            <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+              <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+              01 — Worum es geht
+            </span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
+              Nicht mehr Maßnahmen. <span style={grad}>Die richtigen.</span>
+            </h2>
+          </div>
+
+          {/* Golden-Ratio-Split: Text 62 / Bild+Zitat 38 */}
+          <div className="mt-10 grid gap-10 lg:mt-14 lg:grid-cols-[1.618fr_1fr] lg:gap-16 items-start">
+            <div className="space-y-6">
+              <p className="scroll-hidden rv-blur text-[15px] lg:text-base text-muted leading-relaxed first-letter:float-left first-letter:mr-3 first-letter:font-[family-name:var(--font-heading)] first-letter:text-[54px] first-letter:font-bold first-letter:leading-[0.85] first-letter:text-primary">
+                Wer SEO Beratung sucht, hat selten zu wenig Ideen — sondern zu viele. Technik prüfen, Texte schreiben,
+                Backlinks aufbauen, Ladezeit drücken: Alles klingt sinnvoll, alles kostet Zeit oder Geld. Die eigentliche
+                Beratungsleistung ist deshalb keine Liste mit hundert Empfehlungen. Sie ist die Entscheidung, welche fünf
+                davon Ihr Geschäft messbar voranbringen — und in welcher Reihenfolge.
+              </p>
+              <p className="scroll-hidden rv-blur text-[15px] lg:text-base text-muted leading-relaxed" style={{ transitionDelay: "110ms" }}>
+                Dafür schauen wir nicht auf Bauchgefühl, sondern auf Daten: Ihre Search Console zeigt, wofür Google Sie
+                heute schon ernst nimmt. Semrush und Ahrefs zeigen, wo Wettbewerber verwundbar sind. Ein eigener Crawl
+                zeigt, was Ihre Website technisch bremst. Aus diesen drei Blickwinkeln entsteht eine Priorisierung, die
+                Sie verstehen und intern vertreten können — auch gegenüber Geschäftsführung oder Team.
+              </p>
+              <p className="scroll-hidden rv-blur text-[15px] lg:text-base text-muted leading-relaxed" style={{ transitionDelay: "180ms" }}>
+                Und weil wir als{" "}
+                <Link href="/seo-agentur" className="text-primary font-semibold hover:underline">
+                  SEO Agentur
+                </Link>{" "}
+                täglich selbst umsetzen, bleibt die Beratung praxisnah: Jede Empfehlung haben wir in eigenen Projekten
+                schon gebaut, getestet und gemessen. Was in der Praxis nicht funktioniert, empfehlen wir nicht — egal wie
+                gut es in einer Präsentation aussähe.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <figure className="scroll-hidden rv-right">
+                <div className="relative aspect-[1.618/1] overflow-hidden rounded-2xl border border-border shadow-[0_28px_55px_-30px_rgba(26,26,26,0.35)]">
+                  <Image
+                    src="/images/beratung-detail.webp"
+                    alt="Hände zeigen auf ausgedruckte Auswertungen auf einem Holztisch — daneben Notizbuch und Kaffee"
+                    fill
+                    sizes="(min-width: 1024px) 35vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <figcaption className="mt-3 flex items-baseline gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
+                  <span className="h-[2px] w-5 shrink-0 self-center bg-primary/60" aria-hidden="true" />
+                  Zahlen auf dem Tisch — nicht im Anhang.
+                </figcaption>
+              </figure>
+              <blockquote
+                className="scroll-hidden rv-scale rounded-2xl border p-6"
+                style={{ background: TINT, borderColor: TINT_BORDER, transitionDelay: "140ms" }}
+              >
+                <p className="font-[family-name:var(--font-heading)] text-xl font-bold leading-snug text-dark">
+                  „Die teuerste SEO-Maßnahme ist die richtige Maßnahme zur falschen Zeit.“
+                </p>
+                <footer className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/45">
+                  Grundsatz jeder SeoForge-Beratung
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 02 APP 1: HEBEL-MATRIX — Priorisierung zum Anfassen ══ */}
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-16 items-start">
+            <div className="scroll-hidden rv-left lg:sticky lg:top-28">
+              <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+                <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+                02 — Das Kernwerkzeug
+              </span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
+                Priorisierung ist die halbe <span style={grad}>SEO Beratung.</span>
+              </h2>
+              <p className="mt-5 text-muted leading-relaxed">
+                Jede Maßnahme hat einen Platz im Verhältnis von Wirkung zu Aufwand — und der ist für jede Website
+                anders. Klicken Sie sich durch typische Hebel: So denken wir, wenn wir Ihre Prioritäten festlegen.
+              </p>
+              <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
+                Beispielhafte Einordnung — Ihre echte Matrix entsteht im Gespräch.
+              </p>
+            </div>
+
+            <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
+              {/* Hebel-Auswahl */}
+              <div className="flex flex-wrap gap-2" role="tablist" aria-label="Typische SEO-Hebel">
+                {HEBEL.map((h) => (
+                  <button
+                    key={h.key}
+                    role="tab"
+                    aria-selected={hebel === h.key}
+                    onClick={() => setHebel(h.key)}
+                    className={`cursor-pointer rounded-full border px-4 py-2 text-[13px] font-semibold transition-all duration-300 ${
+                      hebel === h.key
+                        ? "border-dark bg-dark text-white shadow-[0_10px_24px_-10px_rgba(26,26,26,0.5)]"
+                        : "border-border bg-white text-dark/60 hover:border-dark/40 hover:text-dark"
+                    }`}
+                  >
+                    {h.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Matrix */}
+              <div className="mt-6 overflow-hidden rounded-2xl border-2 border-dark bg-white shadow-[0_32px_70px_-30px_rgba(26,26,26,0.4)]">
+                <div className="flex items-center justify-between border-b-2 border-dark bg-offwhite px-5 py-3">
+                  <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-dark/60">Wirkung × Aufwand</span>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-dark/35">Illustrativ</span>
+                </div>
+                <div className="grid md:grid-cols-[1.2fr_1fr]">
+                  {/* Koordinatenfeld */}
+                  <div className="relative aspect-square p-6 pl-10 md:aspect-[1.1/1]">
+                    <div className="absolute inset-6 left-10 rounded-xl border border-border" aria-hidden="true">
+                      <span className="absolute left-0 top-1/2 h-px w-full bg-border" />
+                      <span className="absolute left-1/2 top-0 h-full w-px bg-border" />
+                      <span className="absolute left-0 top-0 h-1/2 w-1/2 rounded-tl-xl" style={{ background: "rgba(212,168,83,0.10)" }} />
+                      <span className="absolute left-2 top-2 font-mono text-[8.5px] uppercase tracking-[0.14em] text-primary/70">Zuerst</span>
+                      <span className="absolute bottom-2 right-2 font-mono text-[8.5px] uppercase tracking-[0.14em] text-dark/30">Später / prüfen</span>
+                    </div>
+                    <span
+                      className="absolute left-0 top-1/2 origin-center -rotate-90 whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.18em] text-dark/40"
+                      style={{ transform: "translate(-30%, -50%) rotate(-90deg)" }}
+                    >
+                      Wirkung ↑
+                    </span>
+                    <span className="absolute bottom-1 left-1/2 -translate-x-1/2 font-mono text-[9px] uppercase tracking-[0.18em] text-dark/40">
+                      Aufwand →
+                    </span>
+                    <div className="absolute inset-6 left-10">
+                      {HEBEL.map((h) => {
+                        const aktiv = h.key === hebel;
+                        return (
+                          <button
+                            key={h.key}
+                            onClick={() => setHebel(h.key)}
+                            aria-label={`${h.label} in der Matrix auswählen`}
+                            className="absolute -translate-x-1/2 translate-y-1/2 cursor-pointer transition-all duration-500"
+                            style={{ left: `${h.x}%`, bottom: `${h.y}%` }}
+                          >
+                            <span
+                              className={`block rounded-full transition-all duration-500 ${
+                                aktiv ? "h-5 w-5 ring-4 ring-primary/25" : "h-2.5 w-2.5 opacity-40 hover:opacity-80"
+                              }`}
+                              style={{ background: aktiv ? "linear-gradient(135deg, #C2722A, #D4A853)" : "#1A1A1A" }}
+                            />
+                            {aktiv && (
+                              <span
+                                className="absolute left-1/2 top-full mt-1.5 -translate-x-1/2 whitespace-nowrap rounded-full border bg-white px-2.5 py-1 font-mono text-[9px] font-semibold uppercase tracking-[0.12em] text-dark shadow-sm"
+                                style={{ borderColor: TINT_BORDER }}
+                              >
+                                {h.label}
+                              </span>
+                            )}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  {/* Erklärung */}
+                  <div className="flex flex-col justify-between border-t-2 border-dark bg-offwhite p-6 md:border-l-2 md:border-t-0">
+                    <div>
+                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-primary">{aktiverHebel.label}</span>
+                      <p className="mt-3 text-[14.5px] leading-relaxed text-dark/75">{aktiverHebel.text}</p>
+                    </div>
+                    <p className="mt-6 border-t border-border pt-4 font-mono text-[9.5px] uppercase tracking-[0.14em] leading-relaxed text-dark/40">
+                      Im Erstgespräch ordnen wir Ihre Website ein — kostenlos.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
@@ -808,6 +521,590 @@ export default function SeoBeratungClient() {
         </div>
       </section>
 
+      {/* ══ 03 LEISTUNGS-DOSSIER — Dot-Leader-Blatt statt Karten-Grid ══ */}
+      <section className="bg-white py-20 lg:py-28 overflow-x-clip">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
+            <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+              <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+              03 — Die Beratungsfelder
+            </span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
+              Was auf den Tisch kommt — <span style={grad}>Position für Position.</span>
+            </h2>
+          </div>
+
+          <div
+            className="scroll-hidden rv-scale overflow-hidden rounded-2xl border-2 border-dark shadow-[0_36px_80px_-32px_rgba(26,26,26,0.4)]"
+            style={{ background: BEIGE }}
+          >
+            <div className="flex items-center justify-between border-b-2 border-dark bg-dark px-6 py-4 lg:px-8">
+              <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white/70">Beratungs-Dossier · SeoForge</span>
+              <span className="font-mono text-[10px] tracking-[0.16em] text-secondary">7 Positionen</span>
+            </div>
+            <div className="divide-y divide-[#e5ddd2] px-6 lg:px-8">
+              {[
+                { pos: "01", t: "Technik-Audit", d: "Crawling, Indexierung, Ladezeit, Struktur — was Google am Zugriff hindert", hinweis: "Eigener Crawl + Search Console" },
+                { pos: "02", t: "Keyword- & Marktanalyse", d: "Wo echte Nachfrage liegt und welche Begriffe sich für Sie rechnen", hinweis: "Semrush · Ahrefs" },
+                { pos: "03", t: "Wettbewerbs-Blick", d: "Was rankende Mitbewerber richtig machen — und wo sie verwundbar sind", hinweis: "Gap-Analyse" },
+                { pos: "04", t: "Content-Strategie", d: "Welche Inhalte fehlen, welche kannibalisieren, welche Sie löschen dürfen", hinweis: "Priorisierter Themenplan" },
+                { pos: "05", t: "Interne Struktur", d: "Verlinkung und Seitenarchitektur, die vorhandene Stärke richtig verteilt", hinweis: "Oft der schnellste Hebel" },
+                { pos: "06", t: "KI-Sichtbarkeit", d: "Ob ChatGPT & Co. Ihre Marke kennen — und was dafür fehlt", hinweis: "GEO-Check inklusive" },
+                { pos: "07", t: "Priorisierte Empfehlung", d: "Alles zusammengeführt: was zuerst, was später, was gar nicht", hinweis: "Ihr Fahrplan, Ihr Tempo" },
+              ].map((row, i) => (
+                <div
+                  key={row.pos}
+                  className="scroll-hidden rv-blur flex flex-wrap items-baseline gap-x-4 gap-y-1 py-5 lg:flex-nowrap lg:py-6"
+                  style={{ transitionDelay: `${i * 60}ms` }}
+                >
+                  <span className="font-mono text-[11px] font-bold tracking-[0.16em] text-primary">POS {row.pos}</span>
+                  <span className="font-[family-name:var(--font-heading)] text-lg font-bold text-dark lg:text-xl">{row.t}</span>
+                  <span className="mx-2 hidden flex-1 border-b border-dotted border-dark/25 lg:block" aria-hidden="true" />
+                  <span className="w-full text-sm text-muted lg:w-auto lg:max-w-[38%] lg:text-right">{row.d}</span>
+                  <span
+                    className="hidden shrink-0 rounded-full border bg-white px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-dark/45 xl:inline-block"
+                    style={{ borderColor: TINT_BORDER }}
+                  >
+                    {row.hinweis}
+                  </span>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t-2 border-dark bg-white px-6 py-4 lg:px-8">
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-dark/45">
+                Umfang je nach Ausgangslage — festgelegt im Erstgespräch
+              </span>
+              <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-primary">
+                <span className="h-[2px] w-5 bg-primary/60" aria-hidden="true" />
+                Keine Position ohne Begründung
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 04 INK-KLARTEXT — Kontrast-Anker 1 ══ */}
+      <section className="bg-dark py-24 lg:py-32 overflow-x-clip">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <span className="scroll-hidden mb-8 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-secondary">
+            <span className="h-[2px] w-7 bg-secondary" aria-hidden="true" />
+            04 — Klartext
+          </span>
+          <blockquote className="scroll-hidden rv-blur max-w-[920px] font-[family-name:var(--font-heading)] text-4xl font-bold leading-[1.06] tracking-tight text-white sm:text-5xl lg:text-[60px]">
+            Gute SEO Beratung verkauft Ihnen keine Maßnahmen.{" "}
+            <span style={{ background: "linear-gradient(92deg, #D4A853, #e0bc72)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              Sie verhindert die falschen.
+            </span>
+          </blockquote>
+          <div className="mt-12 grid gap-8 lg:grid-cols-2 lg:gap-12">
+            <p className="scroll-hidden rv-left text-[15px] leading-relaxed text-white/60">
+              Der häufigste Schaden im SEO entsteht nicht durch Nichtstun, sondern durch teure Aktivität ohne
+              Fundament: Texte für Begriffe ohne Nachfrage. Backlink-Pakete für eine Website mit Technikproblemen.
+              Ein Relaunch, der funktionierende Rankings zerstört. Unsere Beratung beginnt deshalb mit der Frage,
+              was bei Ihnen schiefgehen könnte — bevor wir besprechen, was gut werden soll.
+            </p>
+            <p className="scroll-hidden rv-right text-[15px] leading-relaxed text-white/60" style={{ transitionDelay: "120ms" }}>
+              Deshalb bekommen Sie von uns auch Empfehlungen, die uns nichts verkaufen: Wenn Ihr Engpass ein
+              interner Prozess ist, sagen wir das. Wenn eine Maßnahme warten sollte, bis die Grundlage steht, sagen
+              wir das auch. Beratung, die jedes Problem mit einem eigenen Angebot beantwortet, ist Vertrieb — keine
+              Beratung.
+            </p>
+          </div>
+          <div className="scroll-hidden mt-10 flex items-center gap-4 font-mono text-xs uppercase tracking-[0.16em] text-white/50" style={{ transitionDelay: "180ms" }}>
+            <span className="h-[2px] w-8 bg-secondary" aria-hidden="true" />
+            SeoForge — Beratung von Praktikern, nicht von Folien
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 05 ABLAUF — Ghost-Ziffern-Editorial (bewusst keine Timeline-Optik) ══ */}
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
+            <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+              <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+              05 — So läuft es ab
+            </span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
+              Vier Gespräche, <span style={grad}>null Folien-Theater.</span>
+            </h2>
+          </div>
+
+          <div className="grid gap-x-12 gap-y-12 lg:grid-cols-2">
+            {[
+              {
+                z: "1",
+                t: "Erstgespräch — kostenlos",
+                d: "30 Minuten, Ihre Website im Blick: Wo stehen Sie, was ist das Ziel, lohnt sich Beratung überhaupt? Wenn nicht, sagen wir es in diesem Gespräch — und Sie haben nichts bezahlt.",
+                meta: "Video-Call oder Telefon · Antwort auf Ihre Anfrage in unter 24 h",
+              },
+              {
+                z: "2",
+                t: "Analyse auf echten Daten",
+                d: "Wir verbinden die Search Console, ziehen Semrush- und Ahrefs-Daten und crawlen Ihre Website. Sie müssen nichts vorbereiten außer einem Zugriff — den Rest übernehmen wir.",
+                meta: "Ihre Daten bleiben Ihre Daten — Zugriffe werden nach Projektende entfernt",
+              },
+              {
+                z: "3",
+                t: "Strategiegespräch",
+                d: "Wir gehen die Befunde gemeinsam durch — am Bildschirm, an den echten Zahlen. Am Ende steht Ihre priorisierte Maßnahmenliste: was zuerst, was später, was gar nicht.",
+                meta: "Verständlich für Geschäftsführung, konkret genug fürs Team",
+              },
+              {
+                z: "4",
+                t: "Umsetzung — Sie entscheiden wie",
+                d: "Ihr Team setzt um, wir begleiten als Sparring. Oder wir übernehmen die Umsetzung selbst. Beides monatlich kündbar — Sie bleiben, weil es wirkt, nicht weil ein Vertrag läuft.",
+                meta: "Sparring · Teilumsetzung · Komplett-Betreuung",
+              },
+            ].map((s, i) => (
+              <div key={s.z} className="scroll-hidden rv-blur relative pl-16 lg:pl-20" style={{ transitionDelay: `${i * 90}ms` }}>
+                <span
+                  className="pointer-events-none absolute -top-3 left-0 select-none font-[family-name:var(--font-heading)] text-[80px] font-black leading-none lg:text-[96px]"
+                  style={{ color: "rgba(194,114,42,0.14)" }}
+                  aria-hidden="true"
+                >
+                  {s.z}
+                </span>
+                <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark lg:text-2xl">{s.t}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-muted">{s.d}</p>
+                <p className="mt-3 flex items-baseline gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/45">
+                  <span className="h-[2px] w-4 shrink-0 self-center bg-primary/60" aria-hidden="true" />
+                  {s.meta}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 06 APP 2: BERATUNGS-KOMPASS — zwei Fragen, ehrliche Empfehlung ══ */}
+      <section id="kompass" className="scroll-mt-24 bg-white py-20 lg:py-28 overflow-x-clip">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,380px)_1fr] lg:gap-16 items-start">
+            <div className="scroll-hidden rv-left lg:sticky lg:top-28">
+              <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+                <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+                06 — Der Kompass
+              </span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
+                Brauchen Sie überhaupt <span style={grad}>Beratung?</span>
+              </h2>
+              <p className="mt-5 text-muted leading-relaxed">
+                Ehrliche Antwort: nicht jeder. Zwei Fragen zeigen, welches Modell zu Ihrer Situation passt —
+                manchmal ist es ein einmaliger Audit, manchmal die volle Betreuung, manchmal nur ein Sparring.
+              </p>
+              <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
+                Zwei Klicks — keine E-Mail nötig, kein Formular.
+              </p>
+            </div>
+
+            <div
+              className="scroll-hidden rv-right overflow-hidden rounded-2xl border-2 border-dark bg-white shadow-[0_32px_70px_-30px_rgba(26,26,26,0.4)]"
+              style={{ transitionDelay: "120ms" }}
+            >
+              <div className="flex items-center justify-between border-b-2 border-dark bg-offwhite px-5 py-3">
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-dark/60">Beratungs-Kompass</span>
+                {(frage1 || frage2) && (
+                  <button
+                    onClick={() => {
+                      setFrage1(null);
+                      setFrage2(null);
+                    }}
+                    className="cursor-pointer font-mono text-[9px] uppercase tracking-[0.16em] text-primary underline decoration-primary/40 underline-offset-2 hover:decoration-primary"
+                  >
+                    Zurücksetzen
+                  </button>
+                )}
+              </div>
+
+              <div className="p-6 lg:p-8">
+                {/* Frage 1 */}
+                <div>
+                  <p className="flex items-baseline gap-3">
+                    <span className="font-mono text-[11px] font-bold tracking-[0.14em] text-primary">F1</span>
+                    <span className="font-[family-name:var(--font-heading)] text-lg font-bold text-dark">
+                      Suchen Sie einmalige Klarheit oder laufende Begleitung?
+                    </span>
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2.5">
+                    {(
+                      [
+                        ["einmalig", "Einmalige Klarheit"],
+                        ["laufend", "Laufende Begleitung"],
+                      ] as const
+                    ).map(([val, label]) => (
+                      <button
+                        key={val}
+                        onClick={() => setFrage1(val)}
+                        aria-pressed={frage1 === val}
+                        className={`cursor-pointer rounded-full border-2 px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                          frage1 === val
+                            ? "border-primary bg-primary text-white shadow-[0_12px_28px_-12px_rgba(194,114,42,0.6)]"
+                            : "border-border bg-white text-dark/65 hover:border-dark/40 hover:text-dark"
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Frage 2 */}
+                <div className={`mt-8 transition-opacity duration-500 ${frage1 ? "opacity-100" : "pointer-events-none opacity-30"}`}>
+                  <p className="flex items-baseline gap-3">
+                    <span className="font-mono text-[11px] font-bold tracking-[0.14em] text-primary">F2</span>
+                    <span className="font-[family-name:var(--font-heading)] text-lg font-bold text-dark">
+                      Kann intern jemand die Umsetzung übernehmen?
+                    </span>
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-2.5">
+                    {(
+                      [
+                        ["ja", "Ja, Kapazität ist da"],
+                        ["nein", "Nein, eher nicht"],
+                      ] as const
+                    ).map(([val, label]) => (
+                      <button
+                        key={val}
+                        onClick={() => setFrage2(val)}
+                        aria-pressed={frage2 === val}
+                        disabled={!frage1}
+                        className={`cursor-pointer rounded-full border-2 px-5 py-2.5 text-sm font-semibold transition-all duration-300 ${
+                          frage2 === val
+                            ? "border-primary bg-primary text-white shadow-[0_12px_28px_-12px_rgba(194,114,42,0.6)]"
+                            : "border-border bg-white text-dark/65 hover:border-dark/40 hover:text-dark"
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Ergebnis */}
+                <div
+                  className={`mt-8 transition-all duration-500 ${kompassErgebnis ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"}`}
+                  aria-live="polite"
+                >
+                  {kompassErgebnis && (
+                    <div className="rounded-2xl border p-6" style={{ background: TINT, borderColor: TINT_BORDER }}>
+                      <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-primary">
+                        <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+                        Unsere ehrliche Empfehlung
+                      </span>
+                      <h3 className="mt-3 font-[family-name:var(--font-heading)] text-2xl font-bold text-dark">{kompassErgebnis.titel}</h3>
+                      <p className="mt-2.5 text-[15px] leading-relaxed text-muted">{kompassErgebnis.text}</p>
+                      <Link
+                        href={kompassErgebnis.href}
+                        className="mt-5 inline-flex items-center gap-2 border-b-2 border-primary/40 pb-0.5 font-mono text-[12px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors hover:border-primary"
+                      >
+                        {kompassErgebnis.linkLabel}
+                        <span aria-hidden="true">→</span>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 07 WERKZEUGE — echte Tools, echte Verwendungszwecke ══ */}
+      <section className="border-t border-border bg-white py-20 lg:py-28 overflow-x-clip">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="scroll-hidden mb-10 flex flex-wrap items-end justify-between gap-6 lg:mb-14">
+            <div className="max-w-2xl">
+              <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+                <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+                07 — Werkzeuge & Datenquellen
+              </span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
+                Sie sehen die Daten — <span style={grad}>nicht nur Schlussfolgerungen.</span>
+              </h2>
+            </div>
+            <p className="max-w-sm text-sm leading-relaxed text-muted">
+              Jede Empfehlung in der Beratung hat eine Quelle. Das sind die Werkzeuge, mit denen wir täglich
+              arbeiten — und wofür wir sie wirklich nutzen.
+            </p>
+          </div>
+
+          <div className="grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-4">
+            {WERKZEUGE.map((t, i) => (
+              <div
+                key={t.name}
+                className="scroll-hidden rv-blur group bg-white p-6 transition-colors duration-300 hover:bg-offwhite"
+                style={{ transitionDelay: `${i * 50}ms` }}
+              >
+                <div className="flex h-9 items-center">
+                  {t.logo ? (
+                    <Image
+                      src={t.logo}
+                      alt={`${t.name} Logo — Datenquelle unserer SEO Beratung`}
+                      width={26}
+                      height={26}
+                      className="h-[26px] w-[26px] object-contain opacity-70 grayscale transition-all duration-300 group-hover:opacity-100 group-hover:grayscale-0"
+                    />
+                  ) : (
+                    <span className="font-[family-name:var(--font-heading)] text-xl font-black tracking-tight text-dark/70 transition-colors duration-300 group-hover:text-dark">
+                      {t.name}
+                    </span>
+                  )}
+                </div>
+                <p className="mt-4 font-semibold text-dark">{t.name}</p>
+                <p className="mt-1.5 text-[13.5px] leading-relaxed text-muted">{t.wofuer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 08 KOSTEN-LOGIK — drei Modelle, ohne erfundene Zahlen ══ */}
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
+            <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+              <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+              08 — Kosten, ehrlich erklärt
+            </span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
+              Drei Modelle — <span style={grad}>und was Ihren Preis bestimmt.</span>
+            </h2>
+            <p className="mt-5 max-w-2xl text-muted leading-relaxed">
+              Pauschale Preislisten wären hier unseriös: Eine Fünf-Seiten-Website braucht anderes als ein Shop mit
+              zehntausend URLs. Was wir Ihnen stattdessen geben: die Modelle, die Preistreiber — und nach dem
+              Erstgespräch ein konkretes Angebot ohne versteckte Posten.
+            </p>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-3">
+            {[
+              {
+                t: "Einmaliger Audit + Strategie",
+                fuer: "Für Teams, die selbst umsetzen",
+                d: "Tiefenanalyse, Strategiegespräch, priorisierte Maßnahmenliste. Danach gehört der Fahrplan Ihnen — inklusive aller Rohdaten.",
+                preislogik: "Festpreis nach Umfang der Website",
+              },
+              {
+                t: "Laufendes Sparring",
+                fuer: "Für Teams mit eigenem Tempo",
+                d: "Monatliche Priorisierung, Review Ihrer Umsetzung, Antworten in unter 24 Stunden. Ihr Team wird jeden Monat selbstständiger.",
+                preislogik: "Monatspauschale · monatlich kündbar",
+              },
+              {
+                t: "Beratung + Umsetzung",
+                fuer: "Wenn Kapazität fehlt",
+                d: "Wir beraten nicht nur, wir bauen: Die wichtigsten Maßnahmen setzen wir direkt selbst um — Staging ab Tag 1, Änderungen in Minuten live.",
+                preislogik: "Kombi-Angebot nach Erstgespräch",
+              },
+            ].map((m, i) => (
+              <div
+                key={m.t}
+                className="scroll-hidden rv-blur flex flex-col rounded-2xl border-2 border-dark bg-white p-7 shadow-[0_24px_55px_-28px_rgba(26,26,26,0.35)]"
+                style={{ transitionDelay: `${i * 90}ms` }}
+              >
+                <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-primary">{m.fuer}</span>
+                <h3 className="mt-2.5 font-[family-name:var(--font-heading)] text-xl font-bold text-dark">{m.t}</h3>
+                <p className="mt-3 flex-1 text-[14.5px] leading-relaxed text-muted">{m.d}</p>
+                <p className="mt-5 border-t border-border pt-4 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/50">{m.preislogik}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="scroll-hidden mt-8 max-w-2xl text-sm leading-relaxed text-muted">
+            Was den Aufwand treibt: Größe und technischer Zustand der Website, Wettbewerbsdichte Ihres Marktes und
+            wie viel Historie aufzuarbeiten ist. Was ihn senkt: unsere KI-gestützten Analysen und
+            CI/CD-Infrastruktur — Routinearbeit kostet bei uns keine Beratungszeit. Einen Überblick, was SEO
+            insgesamt kostet, gibt unser Ratgeber{" "}
+            <Link href="/wissen/ratgeber/was-kostet-seo" className="text-primary font-semibold hover:underline">
+              „Was kostet SEO?“
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
+
+      {/* ══ TERRACOTTA-BAND — Kontrast-Anker 2 ══ */}
+      <section className="py-16 lg:py-20 overflow-x-clip" style={{ background: "#C2722A" }}>
+        <div className="mx-auto grid max-w-6xl items-center gap-8 px-6 lg:grid-cols-[1fr_auto] lg:px-8">
+          <div className="scroll-hidden rv-left">
+            <span className="mb-3 block font-mono text-[11px] uppercase tracking-[0.22em] text-white/70">Nächster Schritt</span>
+            <p className="font-[family-name:var(--font-heading)] text-2xl font-bold leading-[1.12] text-white lg:text-4xl">
+              Erstgespräch kostenlos. Antwort in unter 24 Stunden. Danach entscheiden Sie.
+            </p>
+          </div>
+          <Link
+            href="/kontakt"
+            className="scroll-hidden rv-right inline-flex items-center gap-3 rounded-full bg-dark px-8 py-4 font-semibold text-white shadow-[0_18px_40px_-14px_rgba(26,26,26,0.55)] transition-colors hover:bg-[#2a2a2a]"
+          >
+            Erstgespräch anfragen <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      </section>
+
+      {/* ══ 09 WORAN SIE SERIÖSE BERATUNG ERKENNEN — Trust ohne Behauptungen ══ */}
+      <section className="bg-white py-20 lg:py-28 overflow-x-clip">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-16 items-start">
+            <div className="scroll-hidden rv-left lg:sticky lg:top-28">
+              <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+                <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+                09 — Woran Sie uns messen können
+              </span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
+                Vertrauen entsteht durch <span style={grad}>Überprüfbares.</span>
+              </h2>
+              <p className="mt-5 text-muted leading-relaxed">
+                Wir schmücken uns nicht mit Siegeln oder erfundenen Kundenzahlen. Stattdessen: fünf Kriterien, an
+                denen Sie jede SEO Beratung prüfen können — unsere eingeschlossen. Fragen Sie im Erstgespräch
+                danach; an den Antworten erkennen Sie den Unterschied.
+              </p>
+            </div>
+
+            <div className="scroll-hidden rv-right divide-y divide-border border-y border-border" style={{ transitionDelay: "120ms" }}>
+              {[
+                {
+                  t: "Zeigt Ihnen die Rohdaten",
+                  d: "Seriöse Beratung legt Search-Console- und Tool-Daten offen, statt nur Interpretationen zu liefern. Sie sollten jede Empfehlung bis zur Quelle zurückverfolgen können.",
+                },
+                {
+                  t: "Verspricht keine Platzierungen",
+                  d: "Niemand kontrolliert Google. Wer Position 1 garantiert, verkauft ein Versprechen, das er nicht halten kann — oder Methoden, die Sie später teuer bezahlen.",
+                },
+                {
+                  t: "Sagt auch, was Sie nicht tun sollten",
+                  d: "Eine Beratung, die jedes Problem mit einem Zusatzangebot beantwortet, ist Vertrieb. Echte Priorisierung heißt: Manche Maßnahmen fallen raus.",
+                },
+                {
+                  t: "Setzt selbst um, was sie empfiehlt",
+                  d: "Empfehlungen von Praktikern unterscheiden sich von Folien-Wissen. Fragen Sie konkret: Haben Sie das selbst schon gebaut — und was kam dabei heraus?",
+                },
+                {
+                  t: "Bindet Sie nicht über Verträge",
+                  d: "Wer von seiner Arbeit überzeugt ist, braucht keine Mindestlaufzeit. Bei uns ist alles monatlich kündbar — die Zusammenarbeit trägt sich über Ergebnisse.",
+                },
+              ].map((k, i) => (
+                <div key={k.t} className="scroll-hidden rv-blur group flex gap-5 py-6" style={{ transitionDelay: `${i * 70}ms` }}>
+                  <span
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full font-mono text-[11px] font-bold text-primary ring-1 ring-border transition-all duration-300 group-hover:ring-primary/50"
+                    style={{ background: TINT }}
+                  >
+                    {i + 1}
+                  </span>
+                  <div>
+                    <h3 className="font-[family-name:var(--font-heading)] text-lg font-bold text-dark">{k.t}</h3>
+                    <p className="mt-1.5 text-[14.5px] leading-relaxed text-muted">{k.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ 10 FAQ — Accordion + FAQPage-Schema ══ */}
+      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,340px)_1fr] lg:gap-16 items-start">
+            <div className="scroll-hidden rv-left lg:sticky lg:top-28">
+              <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+                <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+                10 — Häufige Fragen
+              </span>
+              <h2 className="mb-4 font-[family-name:var(--font-heading)] text-3xl font-bold leading-tight text-dark lg:text-4xl">
+                Acht Fragen zur <span style={grad}>SEO Beratung.</span>
+              </h2>
+              <p className="text-muted leading-relaxed">
+                Die Fragen aus echten Erstgesprächen — beantwortet, wie wir es auch am Telefon tun würden.
+              </p>
+              <aside
+                className="scroll-hidden rv-blur mt-8 hidden rounded-2xl border bg-white p-6 shadow-[0_24px_50px_-28px_rgba(26,26,26,0.25)] lg:block"
+                style={{ borderColor: TINT_BORDER, transitionDelay: "220ms" }}
+              >
+                <span className="block font-mono text-[10px] uppercase tracking-[0.16em] text-primary/70">Ihre Frage ist nicht dabei?</span>
+                <p className="mt-2.5 text-sm leading-relaxed text-muted">
+                  Stellen Sie sie direkt — ein fester Ansprechpartner antwortet innerhalb von 24 Stunden.
+                </p>
+                <Link
+                  href="/kontakt"
+                  className="mt-4 inline-flex items-center gap-2 border-b-2 border-primary/40 pb-0.5 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors hover:border-primary"
+                >
+                  Frage stellen <span aria-hidden="true">→</span>
+                </Link>
+              </aside>
+            </div>
+
+            <div className="scroll-hidden rv-right overflow-hidden rounded-2xl border border-border bg-white" style={{ transitionDelay: "120ms" }}>
+              <div className="divide-y divide-border">
+                {FAQ.map((f, i) => {
+                  const open = openFaq === i;
+                  return (
+                    <div key={f.q}>
+                      <button
+                        onClick={() => setOpenFaq(open ? -1 : i)}
+                        aria-expanded={open}
+                        className="flex w-full cursor-pointer items-center justify-between gap-4 px-6 py-5 text-left transition-colors hover:bg-offwhite"
+                      >
+                        <span className="font-semibold text-dark">{f.q}</span>
+                        <span
+                          className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
+                            open ? "rotate-45 border-primary bg-primary text-white" : "border-border text-dark/50"
+                          }`}
+                          aria-hidden="true"
+                        >
+                          <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round">
+                            <path d="M12 5v14M5 12h14" />
+                          </svg>
+                        </span>
+                      </button>
+                      <div className={`grid transition-all duration-300 ease-out ${open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"}`}>
+                        <div className="overflow-hidden">
+                          <p className="px-6 pb-6 text-[15px] leading-relaxed text-muted">{f.a}</p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ FINALE — dunkler Abschluss ══ */}
+      <section id="kontakt" className="scroll-mt-20 bg-dark py-20 lg:py-28 overflow-x-clip">
+        <div className="relative mx-auto max-w-3xl px-6 text-center lg:px-8">
+          <h2 className="scroll-hidden rv-blur font-[family-name:var(--font-heading)] text-3xl font-bold leading-[1.12] text-white sm:text-4xl lg:text-[46px]">
+            Sprechen wir darüber, was bei Ihnen{" "}
+            <span style={{ background: "linear-gradient(92deg, #D4A853, #e0bc72)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              zuerst Wirkung zeigt.
+            </span>
+          </h2>
+          <p className="scroll-hidden mx-auto mt-5 max-w-xl leading-relaxed text-white/60" style={{ transitionDelay: "100ms" }}>
+            Kostenloses Erstgespräch, ehrliche Einschätzung — auch wenn sie lautet, dass Sie uns noch nicht brauchen.
+          </p>
+          <div className="scroll-hidden mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row" style={{ transitionDelay: "180ms" }}>
+            <Link
+              href="/kontakt"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 font-semibold text-white shadow-[0_18px_40px_-14px_rgba(0,0,0,0.6)] transition-all hover:bg-primary-dark"
+            >
+              Erstgespräch anfragen
+              <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
+              </svg>
+            </Link>
+            <Link
+              href="/seo/audit"
+              className="inline-flex items-center gap-2 rounded-full border border-white/25 px-8 py-4 font-semibold text-white/85 transition-colors hover:border-white/50 hover:text-white"
+            >
+              Oder direkt zum SEO-Audit
+            </Link>
+          </div>
+          <p className="scroll-hidden mt-8 font-mono text-[10px] uppercase tracking-[0.18em] text-white/40" style={{ transitionDelay: "240ms" }}>
+            Antwort &lt; 24 h · Monatlich kündbar · Keine versteckten Posten
+          </p>
+        </div>
+      </section>
     </SubpageLayout>
   );
 }

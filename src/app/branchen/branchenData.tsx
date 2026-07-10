@@ -77,7 +77,7 @@ export type Branche = {
   warumTitle: { pre: string; grad: string };
   warumAbsaetze: ReactNode[];
   /** Optionales Begleitfoto am Ende der WARUM-Absätze (nicht jede Branche braucht das) */
-  warumBild?: { src: string; alt: string };
+  warumBild?: { src: string; alt: string; caption?: string };
   /** Signature-Modul: eigene Section direkt nach WARUM */
   signature: Signature;
   /** H2 der Signature-Section */
@@ -204,8 +204,9 @@ export const branchen: Branche[] = [
       </>,
     ],
     warumBild: {
-      src: "/images/branchen-editorial/aerzte-warum.webp",
-      alt: "Ärztin erklärt einem Kollegen im Praxisflur etwas auf dem Tablet",
+      src: "/images/branchen-editorial/aerzte-warum-v2.webp",
+      alt: "Ärztin prüft Patientenunterlagen am Tablet im Tageslicht ihrer Praxis",
+      caption: "Zwischen zwei Terminen — hier entsteht Sichtbarkeit nebenbei",
     },
     split: {
       bild: "/images/branchen-split/aerzte.png",
@@ -437,6 +438,11 @@ export const branchen: Branche[] = [
         weiter steigen.
       </>,
     ],
+    warumBild: {
+      src: "/images/branchen-editorial/anwaelte-warum.webp",
+      alt: "Anwältin studiert eine Akte an ihrem Schreibtisch in der Kanzlei",
+      caption: "Fallarbeit statt Marketing — genau deshalb übernehmen wir den Rest",
+    },
     split: {
       bild: "/images/branchen-split/anwaelte.png",
       bildAlt: "Mandant recherchiert eine Rechtsfrage am Laptop, bevor er eine Kanzlei kontaktiert",
@@ -579,6 +585,10 @@ export const branchen: Branche[] = [
       titel: { pre: "Was das Such-Keyword ", grad: "über Mandanten verrät." },
       lead: "Nicht jede Anfrage, die über die Website hereinkommt, hat denselben Wert für eine Kanzlei. Ein Nutzer, der nach „Kündigung Muster Widerspruch“ sucht, will in den meisten Fällen ein kostenloses Dokument und ist noch nicht bereit, ein Mandat zu vergeben. Ein Nutzer, der dagegen nach „Fachanwalt Arbeitsrecht Kündigungsschutzklage Kosten“ sucht, hat sein Problem bereits eingeordnet und sucht konkret anwaltliche Vertretung. Beide Suchanfragen betreffen dasselbe Rechtsgebiet, führen aber zu völlig unterschiedlichen Anfragen, wenn sie auf der Website ankommen.",
       quote: "Eine Seite mit wenig Traffic, aber hoher Anfragequalität, ist für eine Kanzlei oft wertvoller als eine stark besuchte Seite, die nur Musterdokumente abruft.",
+      bild: {
+        src: "/images/branchen-editorial/anwaelte-tiefe.webp",
+        alt: "Zwei Anwälte besprechen Unterlagen am Besprechungstisch der Kanzlei",
+      },
       spalten: [
         "Aus unserer Erfahrung lohnt es sich, beide Suchintentionen bewusst mit unterschiedlichen Seiten zu bedienen, statt alles auf eine allgemeine Rechtsgebiets-Seite zu lenken. Informative Inhalte zu Mustern, Fristen und Abläufen holen Mandanten früh ab und bauen Vertrauen auf, auch wenn daraus nicht sofort ein Mandat entsteht. Seiten, die konkret auf Kosten, Ablauf eines Verfahrens und die Rolle eines Fachanwalts eingehen, sprechen dagegen Nutzer an, die kurz vor der Entscheidung stehen, jemanden zu beauftragen. Wer beide Ebenen sauber trennt, kann auch das Kontaktformular und die Ansprache je nach Herkunftsseite unterschiedlich gestalten.",
         "Deshalb schauen wir nicht nur auf Rankings und Klickzahlen, sondern gemeinsam mit Ihnen darauf, welche Seiten tatsächlich zu Mandatsanfragen führen. Eine Seite mit wenig Traffic, aber hoher Anfragequalität, ist für eine Kanzlei oft wertvoller als eine stark besuchte Seite, die nur Musterdokumente abruft. Über die Zeit lässt sich so erkennen, welche Rechtsgebiete und welche Formulierungen tatsächlich zahlende Mandate bringen, statt nur Sichtbarkeit zu erzeugen. Diese Einordnung nehmen wir monatlich mit Ihnen vor, damit sich der redaktionelle Aufwand auf die Themen konzentriert, die sich für die Kanzlei auszahlen.",
@@ -666,6 +676,11 @@ export const branchen: Branche[] = [
         eigene Disziplin mit Fokus auf technische Sauberkeit, Kategoriestruktur und Produktdaten.
       </>,
     ],
+    warumBild: {
+      src: "/images/branchen-editorial/online-shops-warum.webp",
+      alt: "Shop-Betreiberin packt eine Bestellung am Packtisch",
+      caption: "Jede organische Bestellung spart Werbebudget",
+    },
     split: {
       bild: "/images/branchen-split/online-shops.png",
       bildAlt: "Kundin vergleicht Produkte in einem Online-Shop am Laptop",
@@ -810,6 +825,10 @@ export const branchen: Branche[] = [
       titel: { pre: "Saisonale Peaks ", grad: "organisch vorbereiten." },
       lead: "Die umsatzstärksten Wochen im Jahr, etwa vor Weihnachten oder beim Saisonwechsel, stehen bei den meisten Shops lange im Voraus fest. Trotzdem wird die organische Vorbereitung darauf oft vernachlässigt, weil sich Marketing-Budgets kurzfristig auf bezahlte Kampagnen konzentrieren. Google braucht für eine neue oder überarbeitete Seite aber Zeit, um sie ausreichend zu crawlen und einzustufen, bevor sie in der eigentlichen Saison noch Wirkung zeigt.",
       quote: "Wer erst Anfang Dezember an die Weihnachts-Kategorie denkt, kommt für die organische Sichtbarkeit in diesem Jahr meist zu spät.",
+      bild: {
+        src: "/images/branchen-editorial/online-shops-tiefe.webp",
+        alt: "E-Commerce-Team prüft Bestände am Laptop im Lager",
+      },
       spalten: [
         "Aus unserer Erfahrung lohnt sich ein fester Vorlauf von mehreren Wochen, oft zwei bis drei Monaten, vor jeder Saison, in dem bestehende Kategorie-Seiten inhaltlich aufgefrischt und um saisonale Suchbegriffe ergänzt werden, statt eine komplett neue Seite aus dem Nichts zu bauen. Eine bereits gut rankende Kategorie-Seite, die um saisonale Absätze erweitert wird, behält ihre bestehende Autorität bei Google und gewinnt zusätzlich die Saison-Suchen dazu. Neue Seiten kurz vor dem Peak aufzusetzen, ist dagegen riskant, weil ihnen die Zeit fehlt, sich zu etablieren. Diesen Rhythmus planen wir gemeinsam mit Ihnen über das Jahr, damit die Vorbereitung nicht mit dem laufenden Tagesgeschäft kollidiert.",
         "Nach der Saison lassen viele Shops die Aktionsseiten einfach online stehen, ohne sie zu pflegen, wodurch Google mit der Zeit veraltete oder leere Seiten indexiert, die dem Ranking eher schaden als nutzen. Wir legen deshalb vorher fest, welche Seiten nach der Saison archiviert, welche dauerhaft mit reduziertem Inhalt bestehen bleiben und welche im nächsten Jahr wiederverwendet werden. Diese Struktur sauber zu halten, ist genauso wichtig wie der Aufbau vor der Saison, weil sich sonst über mehrere Jahre ein Friedhof toter Aktionsseiten ansammelt. So bleibt die Seitenstruktur auch nach mehreren Saisons noch nachvollziehbar für Google und für Ihr eigenes Team.",
@@ -879,6 +898,11 @@ export const branchen: Branche[] = [
         laufenden Prozess im Hintergrund, während Sie sich auf Ihre Aufträge konzentrieren.
       </>,
     ],
+    warumBild: {
+      src: "/images/branchen-editorial/handwerker-warum.webp",
+      alt: "Handwerker justiert sein Werkzeug an der Werkbank",
+      caption: "Volle Auftragsbücher beginnen heute bei Google",
+    },
     split: {
       bild: "/images/branchen-split/handwerker.png",
       bildAlt: "Handwerker im Einsatz — gefunden über die lokale Google-Suche",
@@ -1021,6 +1045,10 @@ export const branchen: Branche[] = [
       titel: { pre: "Warum die Website ", grad: "auch Bewerber überzeugt." },
       lead: "Der Fachkräftemangel trifft kaum eine Branche so unmittelbar wie das Handwerk: Wer heute einen Gesellen oder Auszubildenden sucht, konkurriert mit jedem anderen Betrieb im Umkreis um dieselbe kleine Zahl an Bewerbern. Bewerber informieren sich dabei genauso über Google wie Kunden, oft mit Suchen wie „Ausbildung Elektriker“ oder „Zimmerer Stellenangebote“ in Kombination mit dem eigenen Ort. Eine Website, die nur auf Kundenanfragen ausgelegt ist und keine erkennbare Karriere-Seite hat, taucht in diesen Suchen gar nicht auf.",
       quote: "Damit verschenkt ein Betrieb einen Kanal, der ohnehin schon vorhanden ist, nur eben ungenutzt.",
+      bild: {
+        src: "/images/branchen-editorial/handwerker-tiefe.webp",
+        alt: "Handwerker berät einen Kunden auf der Baustelle",
+      },
       spalten: [
         "Der praktische Vorteil dabei ist, dass Recruiting-Inhalte denselben lokalen Unterbau nutzen können, der ohnehin für die Kundengewinnung aufgebaut wird. Eine Seite, die Ihren Betrieb, Ihr Team und Ihre Region beschreibt, lässt sich mit wenig Zusatzaufwand um eine Karriere-Unterseite erweitern, die dieselben lokalen Signale mitnutzt. Fotos von echten Baustellen, kurze Statements aktueller Mitarbeiter oder ein ehrlicher Einblick in den Arbeitsalltag wirken bei Bewerbern glaubwürdiger als eine austauschbare Stellenanzeige auf einem Jobportal. Wir bauen diese Seiten deshalb bewusst mit denselben redaktionellen Mitteln wie die Kunden-Leistungsseiten, nur mit einer anderen Zielgruppe vor Augen.",
         "Für Betriebe, die bisher jede offene Stelle über kostenpflichtige Jobportale ausschreiben, ist eine gut auffindbare Karriere-Seite auf Dauer der günstigere Weg, weil Bewerbungen direkt und ohne Portal-Gebühr hereinkommen. Wir behandeln diesen Recruiting-Effekt nicht als separates Projekt, sondern als Nebeneffekt derselben lokalen SEO-Arbeit, die für Kundenanfragen ohnehin läuft. In der monatlichen Auswertung schauen wir deshalb neben Kundenanfragen auch darauf, wie sich Zugriffe auf die Karriere-Seite entwickeln, sofern das für Ihren Betrieb relevant ist. So wird aus einer Investition in Sichtbarkeit ein doppelter Nutzen, ohne zusätzlichen Aufwand auf Ihrer Seite.",
@@ -1103,6 +1131,11 @@ export const branchen: Branche[] = [
         Marktkompetenz und eine saubere Objektseiten-Struktur zusammenbringt.
       </>,
     ],
+    warumBild: {
+      src: "/images/branchen-editorial/immobilienmakler-warum.webp",
+      alt: "Maklerin mit Schlüsseln und Unterlagen in einer hellen Wohnung",
+      caption: "Eigentümer entscheiden früher, als Portale es sehen",
+    },
     split: {
       bild: "/images/branchen-split/immobilienmakler.png",
       bildAlt: "Eigentümer informiert sich über den Wert seiner Immobilie",
@@ -1243,6 +1276,10 @@ export const branchen: Branche[] = [
       titel: { pre: "Lokaler Content ", grad: "und das Empfehlungsgeschäft." },
       lead: "Ein großer Teil neuer Mandate im Maklergeschäft kommt über Empfehlungen zustande, oft von früheren Kunden oder aus dem persönlichen Umfeld. Was dabei häufig übersehen wird: Bevor jemand eine Empfehlung tatsächlich anruft, sucht er den empfohlenen Makler in aller Regel zuerst bei Google, um sich einen Eindruck zu verschaffen. Findet die empfohlene Person dabei nur eine dünne Kontaktseite ohne echten Bezug zur Region, entsteht Unsicherheit, selbst wenn die persönliche Empfehlung eigentlich schon überzeugt hätte. Lokaler Content wirkt hier also nicht nur für die eigene Auffindbarkeit in Google, sondern auch als Bestätigung für bereits vorhandenes Vertrauen aus dem Empfehlungsgeschäft.",
       quote: "Wer als Makler in einer Region regelmäßig zu Marktentwicklungen sichtbar ist, wird von Empfehlungen häufiger bestätigt als jemand, der nur über einzelne Exposés auffindbar ist.",
+      bild: {
+        src: "/images/branchen-editorial/immobilienmakler-tiefe.webp",
+        alt: "Maklerin zeigt einem Paar eine helle leere Wohnung",
+      },
       spalten: [
         "Objektseiten allein reichen dafür nicht aus, weil sie naturgemäß verschwinden, sobald das Objekt verkauft ist. Wirksamer sind dauerhafte Seiten zu einzelnen Stadtteilen oder Ortschaften, die zeigen, dass Sie den lokalen Markt tatsächlich kennen, etwa Preisentwicklungen, Besonderheiten einzelner Lagen oder Infrastruktur-Themen, die für Käufer und Verkäufer relevant sind. Diese Seiten bleiben bestehen, unabhängig davon, welches konkrete Objekt gerade im Angebot ist, und bauen über die Zeit eine Position als lokaler Experte auf. Wer als Makler in einer Region regelmäßig zu Marktentwicklungen sichtbar ist, wird von Empfehlungen häufiger bestätigt als jemand, der nur über einzelne Exposés auffindbar ist.",
         "Aus unserer Erfahrung lohnt sich deshalb eine klare Aufteilung: Objektseiten für das aktuelle Geschäft und stadtteilbezogene Inhalte für die langfristige Positionierung als Ansprechpartner in der Region. Beide Ebenen ergänzen sich, weil Objektseiten kurzfristig Anfragen bringen, während die stadtteilbezogenen Seiten über Monate hinweg Vertrauen aufbauen, das Empfehlungen erst wirksam werden lässt. Wir planen deshalb von Anfang an beide Content-Ebenen ein, statt uns ausschließlich auf den aktuellen Objektbestand zu konzentrieren. Über ein Jahr betrachtet zahlt genau diese Kombination am stärksten auf das Empfehlungsgeschäft ein.",
@@ -1312,6 +1349,11 @@ export const branchen: Branche[] = [
         KI-Systeme Ihre Software überhaupt als Antwort kennen und nennen.
       </>,
     ],
+    warumBild: {
+      src: "/images/branchen-editorial/saas-warum.webp",
+      alt: "Entwickler arbeitet konzentriert an zwei Monitoren",
+      caption: "Organische Signups statt wachsender Paid-Rechnung",
+    },
     split: {
       bild: "/images/branchen-split/saas.png",
       bildAlt: "SaaS-Team prüft die Sichtbarkeit seiner Software in Google und KI-Suche",
@@ -1476,6 +1518,11 @@ export const branchen: Branche[] = [
   {
     slug: "seo-fuer-zahnaerzte",
     praxisTyp: true,
+    warumBild: {
+      src: "/images/branchen-editorial/zahnaerzte-warum.webp",
+      alt: "Zahnärztin bereitet Instrumente im Behandlungszimmer vor",
+      caption: "Implantat-Patienten vergleichen wochenlang — online",
+    },
     name: "SEO für Zahnärzte",
     kurzName: "Zahnärzte",
     keyword: "SEO für Zahnärzte",
@@ -1703,6 +1750,11 @@ export const branchen: Branche[] = [
   {
     slug: "seo-fuer-kieferorthopaeden",
     praxisTyp: true,
+    warumBild: {
+      src: "/images/branchen-editorial/kieferorthopaeden-warum.webp",
+      alt: "Kieferorthopädin prüft eine transparente Aligner-Schiene",
+      caption: "Die Eltern-Recherche beginnt Monate vor dem Termin",
+    },
     name: "SEO für Kieferorthopäden",
     kurzName: "Kieferorthopäden",
     keyword: "SEO für Kieferorthopäden",
@@ -1943,6 +1995,11 @@ export const branchen: Branche[] = [
   {
     slug: "seo-fuer-physiotherapeuten",
     praxisTyp: true,
+    warumBild: {
+      src: "/images/branchen-editorial/physiotherapeuten-warum.webp",
+      alt: "Hände eines Physiotherapeuten bei der Schulterbehandlung",
+      caption: "Sichtbarkeit entscheidet, womit der Kalender voll ist",
+    },
     name: "SEO für Physiotherapeuten",
     kurzName: "Physiotherapeuten",
     keyword: "SEO für Physiotherapeuten",
@@ -2166,6 +2223,11 @@ export const branchen: Branche[] = [
   {
     slug: "seo-fuer-heilpraktiker",
     praxisTyp: true,
+    warumBild: {
+      src: "/images/branchen-editorial/heilpraktiker-warum.webp",
+      alt: "Heilpraktikerin stellt eine Kräutermischung zusammen",
+      caption: "Vertrauen entsteht vor dem ersten Termin",
+    },
     name: "SEO für Heilpraktiker",
     kurzName: "Heilpraktiker",
     keyword: "SEO für Heilpraktiker",

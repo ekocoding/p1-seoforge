@@ -59,11 +59,11 @@ const TECH = [
 ];
 
 const faqs = [
-  { q: "Was kostet eine professionelle Website?", a: "Der Preis hängt von Umfang, Design-Komplexität und Funktionen ab. Custom-coded Websites starten bei uns ab 1.500 € — dank KI-Workflows deutlich günstiger als klassische Agenturen. Im kostenlosen Erstgespräch bekommst du ein transparentes Festpreisangebot ohne versteckte Kosten." },
+  { q: "Was kostet eine professionelle Website?", a: "Der Preis hängt von Umfang, Design-Komplexität und Funktionen ab. Custom-coded Websites starten bei uns ab 1.500 € — dank KI-Workflows deutlich günstiger als bei einer klassischen Webdesign-Agentur. Im kostenlosen Erstgespräch bekommst du ein transparentes Festpreisangebot ohne versteckte Kosten." },
   { q: "Wie lange dauert die Entwicklung?", a: "Das hängt vom Umfang ab: Nach dem Konzept folgen Design-Runden, Entwicklung und Testing. Durch KI-gestützte Workflows und automatisierte Deployments sind wir spürbar schneller als klassische Agenturen — den konkreten Zeitplan bekommst du mit dem Festpreisangebot." },
   { q: "Was passiert, wenn mir das Design nicht gefällt?", a: "Design-Feedback gehört zum Prozess — deshalb bauen wir es strukturiert ein. Es gibt zwei feste Design-Review-Runden mit deiner Beteiligung, bevor die Entwicklung startet. Was darin abgenommen wird, ist verbindlich — so vermeiden wir Endlosschleifen auf beiden Seiten." },
   { q: "Kann ich den Fortschritt verfolgen?", a: "Ja — ab dem ersten Entwicklungstag gibt es eine Staging-URL, auf die du jederzeit zugreifen kannst. Durch die CI/CD-Pipeline siehst du neue Änderungen oft innerhalb von Minuten am echten Produkt statt in einem Status-Meeting." },
-  { q: "Next.js oder WordPress — was ist besser?", a: "Beides hat seinen Platz. Next.js liefert sehr schnelle Ladezeiten, starke Core Web Vitals und keinen Plugin-Overhead; WordPress ist stark, wenn du Inhalte selbst pflegen willst. Wir empfehlen immer die Technologie, die zu deinen Zielen passt — nicht die teuerste." },
+  { q: "Next.js oder WordPress — was ist besser?", a: "Beides hat seinen Platz. Next.js liefert sehr schnelle Ladezeiten, starke Core Web Vitals und keinen Plugin-Overhead. WordPress ist stark, wenn du Inhalte selbst pflegen willst. Wir empfehlen immer die Technologie, die zu deinen Zielen passt — nicht die teuerste." },
   { q: "Was bedeutet „KI-gestützte Entwicklung“ — wird meine Website dann generisch?", a: "Nein. KI beschleunigt bei uns nur die Routine: Boilerplate-Code, Tests, Dokumentation, Copy-Varianten. Design und Entwicklung sind vollständig custom — auf Basis deiner Marke und Zielgruppe. Das Ergebnis ist maßgeschneidert, die Entwicklungszeit kürzer." },
   { q: "Was passiert nach dem Launch?", a: "Nach dem Go-Live begleiten wir aktiv: Search-Console-Monitoring, Ranking-Verfolgung, Performance-Checks. Danach optional laufende Betreuung, Content-Updates oder ein SEO-Retainer. Wir übergeben nicht einfach und sind weg." },
   { q: "Bietet ihr auch Website-Relaunches an?", a: "Ja. Wir analysieren zuerst deine bestehende Website und migrieren sauber mit 301-Weiterleitungen und Search-Console-Monitoring — kein Ranking-Verlust durch einen unsauber durchgeführten Relaunch. Mehr dazu auf der Seite Website Relaunch." },
@@ -257,13 +257,17 @@ export default function WebdesignClient() {
               </h2>
               <div className="space-y-5 text-muted text-lg leading-relaxed">
                 <p>
-                  Die meisten Agenturen trennen Design und Sichtbarkeit: Die einen bauen etwas Schönes,
-                  die anderen sollen es hinterher „ranken lassen“. Heraus kommen Websites, die gut
-                  aussehen, aber langsam laden, schlecht gefunden werden und kaum Anfragen bringen.
+                  Die typische Webdesign-Agentur trennt Design und Sichtbarkeit. Die einen bauen etwas
+                  Schönes, die anderen sollen es hinterher „ranken lassen“. Heraus kommen Websites, die
+                  gut aussehen — aber langsam laden, schlecht gefunden werden und kaum Anfragen bringen.
                 </p>
                 <p>
-                  Bei SeoForge kommt alles aus einem Team: Strategie, Design, Code und SEO greifen von
-                  der ersten Zeile ineinander — für Websites, die in Google{" "}
+                  Bei SeoForge kommt alles aus einem Team. Strategie, Design, Code und SEO greifen ab
+                  der ersten Zeile ineinander — die Keyword-Strategie dahinter liefert unsere{" "}
+                  <Link href="/seo-agentur" className="border-b-2 border-primary font-semibold text-dark transition-colors hover:bg-[#fbf4ea] hover:text-primary">
+                    SEO Agentur
+                  </Link>
+                  . So entstehen Websites, die in Google{" "}
                   <strong className="text-dark font-semibold">und</strong> in der KI-Suche gefunden
                   werden. Schnell, sauber entwickelt, messbar wirksam.
                 </p>
@@ -296,7 +300,7 @@ export default function WebdesignClient() {
       </section>
 
       {/* ══ CONTENT — Was gutes Webdesign ausmacht (Bento) ══ */}
-      <section className="bg-white py-24 lg:py-32 border-t border-border">
+      <section className="bg-white py-24 lg:py-32 border-t-2 border-dark">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <SectionHead
             eyebrow="Webdesign-Ratgeber"
@@ -347,6 +351,24 @@ export default function WebdesignClient() {
         </div>
       </section>
 
+      {/* ══ TERRACOTTA-BAND — Mid-Page-CTA ══ */}
+      <section className="py-16 lg:py-20 overflow-x-clip" style={{ background: "#C2722A" }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 grid lg:grid-cols-[1fr_auto] gap-8 items-center">
+          <div className="scroll-hidden rv-left">
+            <span className="block font-mono text-[11px] tracking-[0.22em] uppercase text-white/70 mb-3">Webdesign-Agentur — nächster Schritt</span>
+            <p className="font-[family-name:var(--font-heading)] text-2xl lg:text-4xl font-bold leading-[1.1] text-white">
+              Staging ab Tag 1. Start in unter einer Woche.
+            </p>
+          </div>
+          <Link
+            href="/kontakt"
+            className="scroll-hidden rv-right inline-flex items-center gap-3 rounded-full bg-dark px-8 py-4 font-semibold text-white transition-colors hover:bg-[#2a2a2a] shadow-[0_18px_40px_-14px_rgba(26,26,26,0.55)]"
+          >
+            Kostenloses Erstgespräch <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      </section>
+
       {/* ══ LEISTUNGEN — Splitscreens zu allen Unterseiten ══ */}
       {DETAIL_SPLITS.map((s, i) => {
         const imgRight = i % 2 === 0;
@@ -392,34 +414,51 @@ export default function WebdesignClient() {
         );
       })}
 
-      {/* ══ VERGLEICH — Typische Agentur vs. SeoForge ══ */}
-      <section className="py-24 lg:py-32 border-t border-border" style={{ background: "#F8F5F1" }}>
+      {/* ══ VERGLEICH — Typische Agentur vs. SeoForge (Ink-Anker) ══ */}
+      <section className="bg-dark py-24 lg:py-32 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <SectionHead
-            eyebrow="Der Unterschied"
-            title={<>Typische Webdesign-Agentur<br />vs. SeoForge.</>}
-            copy="Keine Hochglanz-Versprechen — der konkrete Unterschied in sechs Punkten. So arbeiten wir, und so rechnet es sich für dich."
-          />
+          <div className="scroll-hidden grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-16 items-end mb-12 lg:mb-16">
+            <div>
+              <span className="flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.22em] text-secondary mb-5">
+                <span className="h-[2px] w-7 bg-secondary" aria-hidden="true" />
+                Der Unterschied
+              </span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[48px] font-bold text-white leading-[1.1]">
+                Typische Webdesign-Agentur{" "}
+                <span style={{ background: "linear-gradient(92deg, #D4A853, #e0bc72)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>vs. SeoForge.</span>
+              </h2>
+            </div>
+            <p className="text-white/60 leading-relaxed lg:pb-1.5 lg:text-right">
+              Keine Hochglanz-Versprechen — der konkrete Unterschied in sechs Punkten. So arbeiten wir, und so rechnet es sich für dich.
+            </p>
+          </div>
           <div className="grid md:grid-cols-2 gap-4 lg:gap-6 items-stretch">
-            <div className="scroll-hidden">
-              <div className="h-full rounded-3xl border border-border bg-white/60 p-7 lg:p-9">
-                <span className="inline-flex items-center gap-2 rounded-full border border-border bg-white px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-dark/45 mb-7">
+            <div className="scroll-hidden rv-left">
+              <div className="h-full rounded-3xl border border-white/10 bg-white/[0.04] p-7 lg:p-9">
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.14em] text-white/45 mb-7">
                   Typische Agentur
                 </span>
                 <ul className="space-y-5">
                   {VS_ROWS.map((r) => (
                     <li key={r.alt} className="flex gap-3.5 items-start">
-                      <span className="mt-0.5 shrink-0 w-5 h-5 rounded-full bg-dark/[0.06] flex items-center justify-center">
-                        <svg className="w-3 h-3 text-dark/35" viewBox="0 0 20 20" fill="currentColor"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" /></svg>
+                      <span className="mt-0.5 shrink-0 w-5 h-5 rounded-full bg-white/[0.08] flex items-center justify-center">
+                        <svg className="w-3 h-3 text-white/35" viewBox="0 0 20 20" fill="currentColor"><path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" /></svg>
                       </span>
-                      <span className="text-sm lg:text-[15px] text-dark/55 leading-relaxed">{r.alt}</span>
+                      <span className="text-sm lg:text-[15px] text-white/55 leading-relaxed">{r.alt}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </div>
-            <div className="scroll-hidden" style={{ transitionDelay: "120ms" }}>
-              <div className="relative h-full rounded-3xl border p-7 lg:p-9 shadow-[0_28px_60px_-30px_rgba(194,114,42,0.35)]" style={{ background: "#fbf4ea", borderColor: "#ecd3ba" }}>
+            <div className="scroll-hidden rv-scale" style={{ transitionDelay: "120ms" }}>
+              <div className="relative h-full rounded-3xl p-7 lg:p-9" style={{ background: "#F8F5F1", boxShadow: "0 40px 90px -30px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,168,83,0.25)" }}>
+                <span
+                  className="pointer-events-none absolute -right-3 -top-4 z-10 inline-block border-2 border-primary px-3.5 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-primary"
+                  style={{ transform: "rotate(-4deg)", background: "rgba(251,244,234,0.92)" }}
+                  aria-hidden="true"
+                >
+                  Staging · Tag 1
+                </span>
                 <span className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-white mb-7" style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}>
                   SeoForge
                 </span>
@@ -448,11 +487,33 @@ export default function WebdesignClient() {
             copy="Drei Schichten, ein Ergebnis. Wähle eine Schicht — rechts siehst du, was drinsteckt."
           />
           <TechSwitcher />
+
+          {/* Womit wir bauen — Logo-Chips */}
+          <div className="mt-14 border-t-2 border-dark pt-9">
+            <span className="mb-6 block font-mono text-[11px] uppercase tracking-[0.2em] text-dark/40">Womit wir bauen</span>
+            <div className="flex flex-wrap gap-4">
+              {[
+                { src: "/logos/nextdotjs.svg", name: "Next.js", sub: "Framework" },
+                { src: "/logos/tailwindcss.svg", name: "Tailwind CSS", sub: "Styling" },
+                { src: "/logos/vercel.svg", name: "Vercel", sub: "Hosting & Edge" },
+                { src: "/logos/wordpress.svg", name: "WordPress", sub: "CMS" },
+                { src: "/logos/shopify.svg", name: "Shopify", sub: "E-Commerce" },
+              ].map((t, i) => (
+                <div key={t.name} className="scroll-hidden group flex min-w-[190px] items-center gap-4 rounded-xl border border-border bg-white px-5 py-4 transition-all hover:border-[#ecd3ba] hover:bg-[#fbf4ea] hover:shadow-[0_14px_30px_-16px_rgba(194,114,42,0.35)]" style={{ transitionDelay: `${i * 70}ms` }}>
+                  <Image src={t.src} alt={`${t.name} Logo`} width={28} height={28} className="h-7 w-auto grayscale opacity-60 transition-all duration-200 group-hover:grayscale-0 group-hover:opacity-100" />
+                  <span className="leading-tight">
+                    <b className="block font-[family-name:var(--font-heading)] text-sm font-bold text-dark">{t.name}</b>
+                    <small className="font-mono text-[10px] uppercase tracking-[0.08em] text-dark/40">{t.sub}</small>
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* ══ CONTENT — Was kostet eine Website ══ */}
-      <section className="bg-white py-24 lg:py-32 border-t border-border">
+      <section className="bg-white py-24 lg:py-32 border-t-2 border-dark">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <SectionHead
             eyebrow="Kosten & Investition"
@@ -462,15 +523,15 @@ export default function WebdesignClient() {
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             <div className="scroll-hidden">
               <p className="text-muted leading-relaxed mb-5">
-                Seriöse Pauschalpreise gibt es im Webdesign nicht — ein einfacher One-Pager
+                Seriöse Pauschalpreise gibt es im Webdesign nicht. Ein einfacher One-Pager
                 kostet weniger als eine mehrsprachige Unternehmens-Website mit Shop. Entscheidend
-                ist nicht der niedrigste Preis, sondern was du dafür bekommst: Custom Code,
-                Performance und ein SEO-Fundament, das Anfragen bringt.
+                ist nicht der niedrigste Preis, sondern was du dafür bekommst: individuelles
+                Webdesign, sauberer Code und ein SEO-Fundament, das Anfragen bringt.
               </p>
               <p className="text-muted leading-relaxed mb-7">
-                Bei uns starten custom-coded Websites <strong className="text-dark font-semibold">ab 1.500 €</strong> —
-                dank KI-Workflows und DevOps-Automatisierung deutlich unter klassischen
-                Agenturpreisen. Gerade für den{" "}
+                Bei uns starten custom-coded Websites <strong className="text-dark font-semibold">ab 1.500 €</strong>.
+                KI-Workflows und DevOps-Automatisierung halten den Preis deutlich unter dem
+                klassischer Agenturen. Gerade für den{" "}
                 <Link href="/webdesign/firmenwebsite-erstellen-lassen" className="text-primary font-semibold hover:underline">Mittelstand</Link>{" "}
                 rechnet sich das. Den Festpreis bekommst du nach einem kostenlosen Erstgespräch —
                 ohne versteckte Kosten.
@@ -506,7 +567,7 @@ export default function WebdesignClient() {
             <div className="scroll-hidden lg:sticky lg:top-28">
               <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary mb-4">Häufige Fragen</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight mb-4">
-                Alles zum<br />Webdesign.
+                Alles zur<br />Webdesign-Agentur.
               </h2>
               <p className="text-muted leading-relaxed mb-6">
                 Deine Frage ist nicht dabei? Schreib uns — wir antworten garantiert in unter 24 Stunden.
@@ -561,7 +622,8 @@ export default function WebdesignClient() {
               </h2>
               <p className="mt-4 text-base leading-relaxed text-white/60">
                 Lass uns in einem kostenlosen Erstgespräch klären, was dein Projekt braucht und
-                was es kostet. Keine Verpflichtungen — nur eine ehrliche Einschätzung.
+                was es bei unserer Webdesign-Agentur kostet. Keine Verpflichtungen — nur eine
+                ehrliche Einschätzung.
               </p>
               <div className="mt-8 space-y-4">
                 {[

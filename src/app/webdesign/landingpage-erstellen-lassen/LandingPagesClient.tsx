@@ -73,9 +73,9 @@ const FUNNEL = [
 ];
 
 const EINSATZ = [
-  { s: "M3 11l18-5v12L3 13v-2zM11.6 16.8a3 3 0 1 1-5.8-1.6", t: "Google- und Meta-Ads-Kampagnen", d: "Wer Budget in Google Ads oder Meta-Kampagnen steckt, verliert einen Teil davon, wenn die Zielseite nicht zur Anzeige passt. Eine eigene Landing Page pro Kampagne hält Botschaft und Angebot exakt aufeinander abgestimmt und wirkt sich meist auch positiv auf den Qualitätsfaktor aus." },
+  { s: "M3 11l18-5v12L3 13v-2zM11.6 16.8a3 3 0 1 1-5.8-1.6", t: "Google- und Meta-Ads-Kampagnen", d: "Wer Budget in Google Ads oder Meta-Kampagnen steckt, verliert einen Teil davon, wenn die Zielseite nicht zur Anzeige passt. Eine eigene Landing Page pro Kampagne hält Botschaft und Angebot exakt beieinander. Das wirkt sich meist auch positiv auf den Qualitätsfaktor aus." },
   { s: "M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2zM9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5", t: "Produkt- und Angebots-Launches", d: "Bei einem neuen Produkt, einem Sonderrabatt oder einer zeitlich begrenzten Aktion lohnt sich keine dauerhafte Position in der Hauptnavigation. Eine Landing Page geht schnell online, lässt sich beliebig oft anpassen und verschwindet nach der Aktion wieder." },
-  { s: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75", t: "B2B-Lead-Generierung", d: "Im B2B-Vertrieb übernimmt die Landing Page oft die Rolle des ersten Verkaufsgesprächs. Ein klar formuliertes Angebot, ein kurzes Formular und ein greifbarer nächster Schritt bringen in der Regel mehr qualifizierte Anfragen als eine allgemeine Kontaktseite." },
+  { s: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75", t: "B2B-Lead-Generierung", d: "Im B2B-Vertrieb übernimmt die Landing Page oft die Rolle des ersten Verkaufsgesprächs. Ein klares Angebot, ein kurzes Formular und ein greifbarer nächster Schritt bringen meist mehr qualifizierte Anfragen als eine allgemeine Kontaktseite." },
   { s: "M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z", t: "Events und Aktionen", d: "Messen, Webinare oder saisonale Aktionen brauchen eine Seite, die Termin, Nutzen und Anmeldung auf den ersten Blick zeigt. Sobald das Event vorbei ist, nehmen wir die Seite offline oder passen sie für die nächste Runde an." },
 ];
 
@@ -102,23 +102,23 @@ const BENEFITS = [
 ];
 
 const faqs = [
-  { q: "Was unterscheidet eine Landing Page von einer normalen Website?", a: "Eine Website bildet dein gesamtes Angebot ab und lädt zum Stöbern über mehrere Seiten ein. Eine Landing Page verfolgt dagegen genau ein Ziel — meist eine Anfrage, einen Kauf oder eine Anmeldung — und verzichtet bewusst auf Navigation und Ablenkung. Sie ist für eine einzelne Kampagne oder ein einzelnes Angebot gebaut und dadurch deutlich fokussierter aufgebaut." },
+  { q: "Was unterscheidet eine Landing Page von einer normalen Website?", a: "Eine Website bildet dein gesamtes Angebot ab und lädt zum Stöbern über mehrere Seiten ein. Eine Landing Page verfolgt dagegen genau ein Ziel — meist eine Anfrage, einen Kauf oder eine Anmeldung — und verzichtet bewusst auf Navigation und Ablenkung. Sie ist für eine einzelne Kampagne oder ein einzelnes Angebot gebaut — und dadurch deutlich fokussierter." },
   { q: "Was kostet eine Landingpage bei SeoForge?", a: "Custom-coded Landing Pages starten bei uns ab 1.500 €. Den finalen Preis legen wir als verbindlichen Festpreis fest, nachdem wir Umfang, Ziel und Tracking-Anforderungen in einem kostenlosen Erstgespräch besprochen haben. So gibt es während des Projekts keine bösen Überraschungen bei der Rechnung." },
-  { q: "Wie lange dauert es, bis meine Landing Page live ist?", a: "Eine Landing Page ist deutlich schneller live als eine komplette Website, meist innerhalb weniger Wochen. Wie schnell es konkret geht, hängt vom Umfang, der Zahl der Varianten und davon ab, wie viel Content und Tracking-Anbindung eingeplant sind — das besprechen wir im Erstgespräch." },
+  { q: "Wie lange dauert es, bis meine Landing Page live ist?", a: "Eine Landing Page ist deutlich schneller live als eine komplette Website, meist innerhalb weniger Wochen. Wie schnell es konkret geht, hängt von Umfang, Varianten, Content und Tracking-Anbindung ab. Das besprechen wir im Erstgespräch." },
   { q: "Bindet ihr die Landing Page an meine Google- und Meta-Ads-Kampagnen an?", a: "Ja. Wir richten GA4, Google-Ads-Conversion-Tracking und Meta Pixel direkt beim Launch ein, sodass jeder Klick von Anfang an messbar ist. So siehst du sofort, welche Anzeige oder Zielgruppe tatsächlich Anfragen oder Käufe bringt, statt erst Wochen später zu raten." },
-  { q: "Was ist der Unterschied zwischen einem One Pager und einer Landingpage?", a: "Ein One Pager ist technisch eine Landing Page, meist aber für organischen oder allgemeinen Traffic statt eine einzelne Ads-Kampagne gedacht — etwa als kompakte Firmenpräsenz. Beide folgen dem gleichen Prinzip aus einem Ziel und einem CTA, ein One Pager bildet aber oft mehrere Themen auf einer Seite ab statt nur ein Angebot." },
+  { q: "Was ist der Unterschied zwischen einem One Pager und einer Landingpage?", a: "Ein One Pager ist technisch eine Landing Page. Er ist aber meist für organischen oder allgemeinen Traffic gedacht statt für eine einzelne Ads-Kampagne — etwa als kompakte Firmenpräsenz. Beide folgen dem gleichen Prinzip: ein Ziel, ein CTA. Ein One Pager bildet aber oft mehrere Themen auf einer Seite ab statt nur ein Angebot." },
   { q: "Kann ich die Landing Page nach dem Launch noch anpassen?", a: "Ja, und das sollte auch passieren. Dank unserer CI/CD-Pipeline gehen Textänderungen, neue Varianten oder Anpassungen an der Kampagne innerhalb weniger Minuten live. Gerade in den ersten Wochen nach Launch lohnt es sich, Headline, CTA oder Formular anhand der Tracking-Daten laufend nachzuschärfen." },
 ];
 
 /* ─── Editorial-Header ────────────────────────────────────────────────────── */
-function SectionHead({ eyebrow, title, copy }: { eyebrow: string; title: React.ReactNode; copy: string }) {
+function SectionHead({ eyebrow, title, copy, dark }: { eyebrow: string; title: React.ReactNode; copy: string; dark?: boolean }) {
   return (
     <div className="scroll-hidden grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-16 items-end mb-12 lg:mb-16">
       <div>
-        <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">{eyebrow}</span>
-        <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12]">{title}</h2>
+        <span className={`text-xs font-bold tracking-[0.22em] uppercase block mb-4 ${dark ? "font-mono text-[11px] text-secondary" : "text-primary"}`}>{eyebrow}</span>
+        <h2 className={`font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold leading-[1.12] ${dark ? "text-white" : "text-dark"}`}>{title}</h2>
       </div>
-      <p className="text-muted leading-relaxed lg:pb-1.5 lg:text-right">{copy}</p>
+      <p className={`leading-relaxed lg:pb-1.5 lg:text-right ${dark ? "text-white/60" : "text-muted"}`}>{copy}</p>
     </div>
   );
 }
@@ -190,9 +190,10 @@ export default function LandingPagesClient() {
           </h1>
 
           <p className="hero-description mx-auto mt-7 max-w-2xl text-lg leading-relaxed text-muted">
-            Wir entwickeln custom-coded Landing Pages und One Pager für deine Ads-Kampagnen und
-            Produkt-Launches. Keine Kompromisse bei Ladezeit oder Tracking — nur eine Seite mit
-            einem einzigen Ziel: mehr Anfragen und Käufe aus deiner Kampagne.
+            Du willst eine Landingpage erstellen lassen, die dein Werbebudget verdient? Wir
+            entwickeln custom-coded Landing Pages und One Pager für Ads-Kampagnen und
+            Produkt-Launches. Keine Kompromisse bei Ladezeit oder Tracking — nur eine Seite
+            mit einem Ziel: mehr Anfragen und Käufe aus deiner Kampagne.
           </p>
 
           <div className="hero-cta mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -261,26 +262,26 @@ export default function LandingPagesClient() {
               </h2>
               <div className="space-y-4 text-muted leading-relaxed max-w-lg">
                 <p>
-                  Eine Landing Page ist keine verkleinerte Website. Während eine normale Unterseite
-                  zum Stöbern einlädt und mehrere Themen gleichzeitig abdeckt, verfolgt eine Landing
-                  Page genau ein Ziel: den Klick, die Anfrage, den Kauf. Jedes Element — Headline,
-                  Bild, Text, Button — arbeitet auf dieses eine Ziel hin, ohne Hauptnavigation, ohne
+                  Eine Landing Page ist keine verkleinerte Website. Eine normale Unterseite lädt
+                  zum Stöbern ein und deckt mehrere Themen gleichzeitig ab. Eine Landing Page
+                  verfolgt genau ein Ziel: den Klick, die Anfrage, den Kauf. Jedes Element arbeitet
+                  auf dieses Ziel hin — Headline, Bild, Text, Button. Ohne Hauptnavigation, ohne
                   Ablenkung, ohne Umweg.
                 </p>
                 <p>
                   Der Unterschied zeigt sich vor allem im Traffic. Wer über eine Google-Ads-Anzeige
-                  oder einen Meta-Post kommt, hat bereits eine Erwartung im Kopf — und die Landing
-                  Page muss dieses Versprechen sofort einlösen. Genau hier scheitern viele normale
+                  oder einen Meta-Post kommt, hat bereits eine Erwartung im Kopf. Die Landing Page
+                  muss dieses Versprechen sofort einlösen. Genau hier scheitern viele normale
                   Unterseiten. Deshalb bauen wir Landing Pages als eigenständiges Werkzeug innerhalb
                   unseres{" "}
-                  <Link href="/webdesign" className="text-primary font-semibold hover:underline">Webdesign</Link>-Angebots,
-                  nicht als Nebenprodukt der Hauptseite.
+                  <Link href="/webdesign" className="text-primary font-semibold hover:underline">Webdesign</Link>-Angebots
+                  — nicht als Nebenprodukt der Hauptseite.
                 </p>
                 <p>
                   Du brauchst eine Landing Page, sobald du bezahlten Traffic auf ein einzelnes
-                  Angebot lenkst, ein Produkt launchst oder Leads für eine bestimmte Zielgruppe
-                  sammeln willst. Läuft eine Kampagne stattdessen auf die Startseite, verlierst du
-                  in der Regel einen Großteil der Besucher, bevor sie verstanden haben, worum es geht.
+                  Angebot lenkst. Auch für einen Produkt-Launch oder gezielte Lead-Generierung
+                  lohnt sie sich. Läuft die Kampagne stattdessen auf die Startseite, verlierst du
+                  viele Besucher, bevor sie verstanden haben, worum es geht.
                 </p>
               </div>
               <a
@@ -335,24 +336,28 @@ export default function LandingPagesClient() {
         </div>
       </section>
 
-      {/* ══ ANATOMIE — Explorer (App 1) ══ */}
-      <section id="anatomie" className="py-24 lg:py-32 scroll-mt-20" style={{ background: "#F8F5F1" }}>
+      {/* ══ ANATOMIE — Explorer (App 1), Ink-Anker: Papier-Karte auf dunkler Fläche ══ */}
+      <section id="anatomie" className="bg-dark py-24 lg:py-32 scroll-mt-20 overflow-x-clip">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHead
+            dark
             eyebrow="Der Beweis"
             title={<>Die Anatomie einer Landingpage,<br />die konvertiert.</>}
-            copy="Sechs Prinzipien entscheiden über die Conversion — klick dich durch, jede Zone der Skizze gehört zu einem."
+            copy="Landingpage erstellen lassen heißt vor allem: sechs Conversion-Prinzipien sauber umsetzen. Klick dich durch — jede Zone der Skizze gehört zu einem."
           />
 
-          <div className="m3d">
+          <div
+            className="m3d rounded-3xl"
+            style={{ boxShadow: "0 40px 90px -30px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,168,83,0.25)" }}
+          >
             <AnatomieExplorer />
           </div>
 
           <div className="scroll-hidden mt-5 flex flex-wrap items-center justify-between gap-3">
-            <p className="text-xs italic text-muted">Schematische Darstellung.</p>
-            <p className="text-sm text-muted">
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-white/40">Schematische Darstellung</p>
+            <p className="text-sm text-white/60">
               So setzen wir das für dich um:{" "}
-              <a href="#prozess" className="font-semibold text-primary border-b border-primary/30 pb-px hover:border-primary transition-colors">
+              <a href="#prozess" className="font-semibold text-secondary border-b border-secondary/40 pb-px hover:border-secondary transition-colors">
                 Zum Ablauf
               </a>
             </p>
@@ -365,12 +370,13 @@ export default function LandingPagesClient() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHead
             eyebrow="Unser Prozess"
-            title={<>In fünf Schritten<br />zur fertigen Seite.</>}
+            title={<>Landingpage erstellen lassen —<br />in fünf Schritten.</>}
             copy="Design und Text entstehen im Zusammenspiel — und nach dem Launch fängt die Optimierung erst an."
           />
 
           <div className="grid lg:grid-cols-[1fr_minmax(0,420px)] gap-10 lg:gap-16 items-start">
-            <div className="rounded-2xl border border-border bg-white overflow-hidden divide-y divide-border">
+            <div>
+            <div className="rounded-2xl border border-border bg-white overflow-hidden divide-y divide-border shadow-[0_28px_60px_-30px_rgba(26,26,26,0.35)]">
               {STEPS.map((s, i) => {
                 const last = i === STEPS.length - 1;
                 return (
@@ -391,6 +397,38 @@ export default function LandingPagesClient() {
                   </div>
                 );
               })}
+            </div>
+
+            {/* Tech-Beleg: echte Tools aus den Schritten 04 + 05 */}
+            <div className="scroll-hidden mt-9 border-t-2 border-dark pt-7">
+              <span className="mb-5 block font-mono text-[11px] uppercase tracking-[0.2em] text-dark/40">Womit wir bauen &amp; messen</span>
+              <div className="flex flex-wrap gap-3">
+                {[
+                  { src: "/logos/nextdotjs.svg", name: "Next.js", sub: "Framework" },
+                  { src: "/logos/wordpress.svg", name: "WordPress", sub: "CMS-Option" },
+                  { src: "/logos/googleanalytics.svg", name: "GA4", sub: "Tracking" },
+                  { src: "/logos/google.svg", name: "Google Ads", sub: "Kampagnen" },
+                ].map((t, i) => (
+                  <div
+                    key={t.name}
+                    className="scroll-hidden group flex min-w-[160px] items-center gap-3.5 rounded-xl border border-border bg-white px-4 py-3 transition-all hover:border-[#ecd3ba] hover:bg-[#fbf4ea] hover:shadow-[0_14px_30px_-16px_rgba(194,114,42,0.35)]"
+                    style={{ transitionDelay: `${i * 70}ms` }}
+                  >
+                    <Image
+                      src={t.src}
+                      alt={`${t.name} Logo`}
+                      width={24}
+                      height={24}
+                      className="h-6 w-auto grayscale opacity-60 transition-all duration-200 group-hover:grayscale-0 group-hover:opacity-100"
+                    />
+                    <span className="leading-tight">
+                      <b className="block font-[family-name:var(--font-heading)] text-sm font-bold text-dark">{t.name}</b>
+                      <small className="font-mono text-[10px] uppercase tracking-[0.08em] text-dark/40">{t.sub}</small>
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
             </div>
 
             <div className="scroll-hidden lg:sticky lg:top-28" style={{ transitionDelay: "120ms" }}>
@@ -418,21 +456,25 @@ export default function LandingPagesClient() {
             <div className="scroll-hidden">
               <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Kosten &amp; Investition</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12] mb-6">
-                Was kostet eine<br />Landing Page?
+                Landingpage erstellen lassen:<br />die Kosten.
               </h2>
               <p className="text-muted leading-relaxed mb-5">
                 Eine custom-coded Landing Page startet bei SeoForge{" "}
-                <strong className="text-dark font-semibold">ab 1.500 €</strong>. Der finale Preis
-                steht als verbindlicher Festpreis fest, nachdem wir in einem kostenlosen
-                Erstgespräch Umfang, Ziel und technische Anforderungen deiner Seite besprochen
-                haben — keine Nachverhandlung während des Projekts, keine versteckten Stunden.
+                <strong className="text-dark font-semibold">ab 1.500 €</strong>. Den finalen Preis
+                legen wir als verbindlichen Festpreis fest — nach einem kostenlosen Erstgespräch
+                zu Umfang, Ziel und technischen Anforderungen. Keine Nachverhandlung während des
+                Projekts, keine versteckten Stunden.
               </p>
               <p className="text-muted leading-relaxed mb-7">
-                Wie hoch der Preis am Ende ausfällt, hängt von mehreren Faktoren ab: Umfang der
-                Seite, Zahl der Varianten für A/B-Tests, Aufwand für Copywriting und individuelle
-                Grafiken sowie Tiefe der Tracking-Anbindung. Eine einfache One-Pager-Landing-Page
-                für eine einzelne Kampagne ist entsprechend günstiger als eine mehrsprachige
-                Landing Page mit mehreren Varianten und komplexer CRM-Anbindung im Hintergrund.
+                Wie hoch der Preis ausfällt, hängt von vier Faktoren ab: Umfang der Seite,
+                Varianten für A/B-Tests, Copywriting-Aufwand und Tiefe der Tracking-Anbindung.
+                Willst du nur einen Onepager erstellen lassen, bleibt das Budget entsprechend
+                schlank — was einen One Pager ausmacht, erklärt unser{" "}
+                <Link href="/wissen/ratgeber/one-pager-website" className="border-b-2 border-primary font-semibold text-dark transition-colors hover:bg-[#fbf4ea] hover:text-primary">
+                  Ratgeber zur One-Pager-Website
+                </Link>
+                . Eine mehrsprachige Landing Page mit mehreren Varianten und CRM-Anbindung kostet
+                entsprechend mehr.
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <a
@@ -448,7 +490,14 @@ export default function LandingPagesClient() {
               </div>
             </div>
 
-            <div className="grid sm:grid-cols-2 gap-4">
+            <div className="relative grid sm:grid-cols-2 gap-4">
+              <span
+                className="pointer-events-none absolute -right-2 -top-4 z-10 inline-block border-2 border-primary px-3.5 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-primary"
+                style={{ transform: "rotate(-4deg)", background: "rgba(251,244,234,0.92)" }}
+                aria-hidden="true"
+              >
+                Festpreis · ab 1.500 €
+              </span>
               {FACTORS.map((f, i) => (
                 <div key={f.t} className="scroll-hidden" style={{ transitionDelay: `${i * 70}ms` }}>
                   <div className="group h-full rounded-2xl border border-border bg-white p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-md hover:-translate-y-1">
@@ -463,6 +512,24 @@ export default function LandingPagesClient() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ══ CTA-BAND — Terracotta-Solid (Mid-Page) ══ */}
+      <section className="py-16 lg:py-20 overflow-x-clip" style={{ background: "#C2722A" }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 grid lg:grid-cols-[1fr_auto] gap-8 items-center">
+          <div className="scroll-hidden rv-left">
+            <span className="block font-mono text-[11px] tracking-[0.22em] uppercase text-white/70 mb-3">Nächster Schritt</span>
+            <p className="font-[family-name:var(--font-heading)] text-2xl lg:text-4xl font-bold leading-[1.1] text-white">
+              Landingpage erstellen lassen — zum verbindlichen Festpreis.
+            </p>
+          </div>
+          <a
+            href="#kontakt"
+            className="scroll-hidden rv-right inline-flex items-center gap-3 rounded-full bg-dark px-8 py-4 font-semibold text-white transition-colors hover:bg-[#2a2a2a] shadow-[0_18px_40px_-14px_rgba(26,26,26,0.55)]"
+          >
+            Kostenloses Erstgespräch <span aria-hidden="true">→</span>
+          </a>
         </div>
       </section>
 
@@ -490,12 +557,16 @@ export default function LandingPagesClient() {
                 </span>
               </h2>
               <p className="text-muted leading-relaxed max-w-md mb-6">
-                Baukasten-Tools versprechen eine Landing Page in einer Stunde, liefern aber selten,
-                was eine Kampagne wirklich braucht: saubere Ladezeiten, exaktes Tracking und die
-                Möglichkeit, schnell nachzujustieren. Wir bei{" "}
+                Baukasten-Tools versprechen eine Landing Page in einer Stunde. Was sie selten
+                liefern: saubere Ladezeiten, exaktes Tracking und die Möglichkeit, schnell
+                nachzujustieren. Wir bei{" "}
                 <Link href="/" className="text-primary font-semibold hover:underline">SeoForge</Link>{" "}
                 bauen Landing Pages custom-coded, mit demselben technischen Fundament wie unsere
-                kompletten Websites — nur eben fokussiert auf ein einziges Ziel.
+                kompletten Websites. Dasselbe Fundament nutzt auch unsere{" "}
+                <Link href="/seo-agentur" className="border-b-2 border-primary font-semibold text-dark transition-colors hover:bg-[#fbf4ea] hover:text-primary">
+                  SEO-Agentur
+                </Link>{" "}
+                für organische Rankings — hier ist es fokussiert auf ein einziges Ziel.
               </p>
               <div className="divide-y divide-border border-t border-b border-border">
                 {BENEFITS.map((b, i) => (
@@ -588,8 +659,9 @@ export default function LandingPagesClient() {
                 ?
               </h2>
               <p className="mt-4 text-base leading-relaxed text-white/60">
-                Lass uns in einem kostenlosen Erstgespräch über dein Ziel, deine Kampagne und einen
-                verbindlichen Festpreis sprechen. Wir melden uns innerhalb von 24 Stunden zurück.
+                Du willst deine Landingpage erstellen lassen? Lass uns im kostenlosen Erstgespräch
+                über dein Ziel, deine Kampagne und den verbindlichen Festpreis sprechen. Wir melden
+                uns innerhalb von 24 Stunden zurück.
               </p>
               <p className="mt-8 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/40">
                 Das klären wir im Erstgespräch

@@ -2605,29 +2605,29 @@ export const articles: Article[] = [
       { label: "Webdesign-Leistungen", href: "/webdesign" },
     ],
     relatedSlugs: ["landingpage-beispiele", "call-to-action-website"],
-    faq: [{"q": "Was kostet ein One-Pager?", "a": "Das kommt stark auf den Anspruch an. Ein einfacher One-Pager über einen Baukasten liegt bei null bis wenigen hundert Euro — aber du bekommst Templates, keine individuelle Lösung. Ein custom entwickelter One-Pager mit durchdachtem Design, Conversion-Struktur und sauberer technischer Basis kostet je nach Agentur und Umfang zwischen 800 und 3.500 Euro aufwärts. Der Unterschied liegt nicht im Layout, sondern in der Qualität der Nutzerführung und technischen Umsetzung."}, {"q": "Kann ich mit einem One-Pager bei Google ranken?", "a": "Ja, aber begrenzt. Du kannst mit einer URL auf ein Haupt-Keyword oder einen eng verwandten Cluster optimieren. Für mehrere unabhängige Keywords brauchst du mehrere URLs — also eine Multipage-Website. Ein One-Pager ist als SEO-Strategie nur dann sinnvoll, wenn dein Haupt-Keyword einen klaren, eng definierten Suchintent hat und du keine Konkurrenz über organischen Traffic betreibst."}, {"q": "Was ist der Unterschied zwischen One-Pager und Landingpage?", "a": "Technisch gesehen minimal — beide sind oft eine einzige URL mit einer klaren Handlungsaufforderung. Der Unterschied ist eher konzeptionell: Der Begriff \"One-Pager\" betont die Gestaltungsentscheidung (alles auf einer Seite), während \"Landingpage\" den Konversionszweck betont. Ein gut gebauter One-Pager für eine Kampagne ist in der Praxis eine Landingpage."}, {"q": "Für wen ist ein One-Pager ungeeignet?", "a": "Für alle, die über organische Suche wachsen wollen, mehrere Zielgruppen ansprechen, ein komplexes Angebot haben oder langfristig Content-Marketing betreiben wollen. Auch für Unternehmen, die mehrere Dienstleistungen oder Produkte anbieten, ist ein One-Pager zu eng. Hier braucht es eine strukturierte Multipage-Website mit klarer Seitenarchitektur."}, {"q": "Welches CMS eignet sich für einen One-Pager?", "a": "Das ist die falsche Frage. Die richtige ist: Brauche ich überhaupt ein CMS? Viele One-Pager kommen ohne aus — als statische HTML/CSS-Seite, mit einem einfachen Static-Site-Generator oder als custom React/Next.js-Seite. Ein CMS lohnt sich nur, wenn du den Inhalt regelmäßig selbst pflegen willst. Die Technologiewahl sollte sich nach dem Anwendungsfall richten, nicht nach dem, was der Baukasten gerade anbietet."}],
-    content: `<h2 id="was-ist-eine-one-pager-website">Was ist eine One-Pager Website?</h2>
+    faq: [{"q": "Was kostet ein Onepager?", "a": "Das hängt vom Anspruch ab. Ein einfacher One-Pager aus dem Baukasten kostet null bis wenige hundert Euro — dafür bekommst du ein Template, keine individuelle Lösung. Ein custom entwickelter One-Pager mit durchdachtem Design, Conversion-Struktur und sauberer technischer Basis liegt je nach Agentur und Umfang zwischen 800 und 3.500 Euro aufwärts. Der Unterschied steckt nicht im Layout, sondern in der Qualität von Nutzerführung und Umsetzung."}, {"q": "Kann ich mit einem Onepager bei Google ranken?", "a": "Ja, aber begrenzt. Es gilt: eine URL = ein Keyword-Set. Du kannst deinen One-Pager auf ein Haupt-Keyword und wenige eng verwandte Varianten optimieren. Für mehrere unabhängige Keywords brauchst du mehrere URLs — also eine Multipage-Website. Als SEO-Strategie taugt ein One-Pager nur, wenn dein Haupt-Keyword einen klaren, eng definierten Suchintent hat und organischer Traffic nicht dein Hauptkanal ist."}, {"q": "Was ist der Unterschied zwischen Onepager und Landingpage?", "a": "Onepager ist ein Architekturbegriff: Die gesamte Website besteht aus einer Seite. Landingpage ist ein Funktionsbegriff: eine Zielseite für eine Kampagne mit genau einem Konversionsziel — oft als Unterseite einer größeren Website. Ein konversionsorientierter Onepager ist in der Praxis eine Landingpage. Aber nicht jede Landingpage ist ein One-Pager, und nicht jeder One-Pager verfolgt ein Kampagnenziel."}, {"q": "Für wen ist ein Onepager ungeeignet?", "a": "Für alle, die über organische Suche wachsen wollen, mehrere Zielgruppen ansprechen, ein erklärungsbedürftiges Angebot haben oder langfristig Content-Marketing betreiben. Auch wer mehrere Dienstleistungen oder Produkte anbietet, sprengt das Format. Dann braucht es eine strukturierte Multipage-Website mit klarer Seitenarchitektur."}, {"q": "Welches CMS eignet sich für einen Onepager?", "a": "Die bessere Frage ist: Brauchst du überhaupt ein CMS? Viele One-Pager kommen ohne aus — als statische HTML/CSS-Seite, über einen Static-Site-Generator oder als custom React/Next.js-Seite. Ein CMS wie WordPress lohnt sich nur, wenn du Inhalte regelmäßig selbst pflegen willst. Wähl die Technik nach dem Anwendungsfall, nicht nach dem, was der Baukasten gerade anbietet."}],
+    content: `<h2 id="was-ist-eine-one-pager-website">Was ist ein Onepager?</h2>
 
-<p>Eine One-Pager Website ist eine einzige, durchscrollbare HTML-Seite, die alle Inhalte auf einmal enthält — ohne interne Seitennavigation, ohne Unterseiten, ohne Kategorie-Archiv. Klickst du in der Navigation auf einen Punkt, springt die Seite per Anker-Link an die entsprechende Stelle. Das war's.</p>
+<p>Ein Onepager — auch One-Pager oder One-Page-Website genannt — ist eine einzige, durchscrollbare HTML-Seite. Alle Inhalte liegen auf dieser einen Seite: ohne Unterseiten, ohne interne Seitennavigation, ohne Kategorie-Archiv. Klickst du in der Navigation auf einen Punkt, springt die Seite per Anker-Link an die passende Stelle. Das war's.</p>
 
-<p>Wichtig: Wenn du nach "One-Pager" suchst, wirst du in den Suchergebnissen beides finden — die Website-Variante, die hier gemeint ist, und das klassische One-Pager-Dokument (Businessplan-Zusammenfassung, Schulreferat, Pitch-Deck). Diese zwei Dinge haben nichts miteinander zu tun. Ein One-Pager als Webseite ist eine Design- und Architekturentscheidung. Ein One-Pager als Dokument ist ein Kommunikationsformat.</p>
+<p>Wichtig: Wer nach "Onepager" sucht, findet zwei verschiedene Dinge. Erstens die Website-Variante, um die es hier geht. Zweitens das klassische One-Pager-Dokument — etwa eine Businessplan-Zusammenfassung oder ein Pitch-Papier. Beides hat nichts miteinander zu tun. Die Webseite ist eine Design- und Architekturentscheidung. Das Dokument ist ein Kommunikationsformat.</p>
 
-<p>In diesem Artikel geht es ausschließlich um die <strong>Web-Variante</strong>: eine einzige scrollbare Seite als vollständiger Webauftritt oder als eigenständige Kampagnenseite.</p>
+<p>In diesem Artikel geht es ausschließlich um die <strong>Web-Variante</strong>: eine einzige scrollbare Seite als kompletter Webauftritt oder als eigenständige Kampagnenseite.</p>
 
-<p>Als Spezialform ist ein One-Pager oft eine <a href="/webdesign/landingpage-erstellen-lassen">Landingpage mit klarer Konversionsstruktur</a> — der Unterschied liegt im Einsatzzweck und im Umfang, aber die Grundprinzipien überschneiden sich stark.</p>
+<p>Als Spezialform ist ein Onepager oft eine <a href="/webdesign/landingpage-erstellen-lassen">Landingpage mit klarer Konversionsstruktur</a>. Die Grundprinzipien überschneiden sich stark — der Unterschied liegt im Einsatzzweck. Dazu später mehr.</p>
 
-<h2 id="one-pager-vs-multipage-website">One-Pager vs. Multipage-Website: Der echte Unterschied</h2>
+<h2 id="one-pager-vs-multipage-website">Onepager vs. Multipage-Website: der echte Unterschied</h2>
 
-<p>Eine Multipage-Website besteht aus mehreren URLs. Jede Unterseite hat eine eigene Adresse, einen eigenen Titel-Tag, eigene Meta-Daten, eigene interne Verlinkung. Google indexiert jede Seite einzeln. Nutzer navigieren zwischen diesen Seiten.</p>
+<p>Eine Multipage-Website besteht aus mehreren URLs. Jede Unterseite hat eine eigene Adresse, einen eigenen Title-Tag, eigene Meta-Daten und eigene interne Verlinkung. Google indexiert jede Seite einzeln. Nutzer wechseln zwischen den Seiten.</p>
 
-<p>Ein One-Pager hat genau eine URL. Alles befindet sich auf dieser einen Seite — in Abschnitten, die vertikal untereinander angeordnet sind. Die "Navigation" besteht aus Ankerlinks, die auf IDs innerhalb der Seite zeigen.</p>
+<p>Ein One-Pager hat genau eine URL. Alles sitzt auf dieser einen Seite — in Abschnitten, die vertikal untereinander liegen. Die "Navigation" besteht aus Ankerlinks, die auf IDs innerhalb der Seite zeigen.</p>
 
 <div class="opw-compare-wrapper">
   <table class="opw-table">
     <thead>
       <tr>
         <th>Merkmal</th>
-        <th>One-Pager</th>
+        <th>Onepager</th>
         <th>Multipage-Website</th>
       </tr>
     </thead>
@@ -2644,7 +2644,7 @@ export const articles: Article[] = [
       </tr>
       <tr>
         <td>SEO-Potenzial</td>
-        <td>begrenzt (1 URL = 1 Keyword-Cluster)</td>
+        <td>begrenzt (1 URL = 1 Keyword-Set)</td>
         <td>hoch (jede Seite rankbar)</td>
       </tr>
       <tr>
@@ -2671,11 +2671,11 @@ export const articles: Article[] = [
   </table>
 </div>
 
-<p>Kurz gesagt: Ein One-Pager zwingt dich dazu, einen klaren Fokus zu haben. Wer viel zu sagen hat, kommt damit schnell an Grenzen.</p>
+<p>Kurz gesagt: Ein One-Pager zwingt dich zu einem klaren Fokus. Wer viel zu sagen hat, stößt schnell an Grenzen.</p>
 
-<h2 id="vorteile-nachteile">Vorteile und Nachteile eines One-Pagers</h2>
+<h2 id="vorteile-nachteile">Vorteile und Nachteile eines Onepagers</h2>
 
-<p>Ein One-Pager klingt erstmal einfach. Ist er auch — aber "einfach" bedeutet nicht automatisch "richtig" für deinen Fall. Hier ein ehrlicher Überblick:</p>
+<p>Ein One-Pager klingt erstmal einfach. Ist er auch. Aber "einfach" heißt nicht automatisch "richtig" für deinen Fall. Hier der ehrliche Überblick:</p>
 
 <div class="opw-compare-wrapper">
   <table class="opw-table">
@@ -2708,93 +2708,103 @@ export const articles: Article[] = [
       </tr>
       <tr>
         <td>Weniger Entscheidungen für den Nutzer</td>
-        <td>Schwer zu skalieren, wenn Angebot wächst</td>
+        <td>Schwer zu skalieren, wenn das Angebot wächst</td>
       </tr>
     </tbody>
   </table>
 </div>
 
-<h2 id="seo-grenzen-one-pager">SEO-Grenzen: Was ein One-Pager nicht kann</h2>
+<h2 id="seo-grenzen-one-pager">SEO-Grenzen: Was ein Onepager nicht kann</h2>
 
-<p>Das ist der Punkt, der in vielen "One-Pager ist super"-Artikeln zu kurz kommt. Also direkt und ehrlich: Ein One-Pager ist aus SEO-Sicht ein Kompromiss.</p>
+<p>Dieser Punkt kommt in vielen "Onepager ist super"-Artikeln zu kurz. Also direkt und ehrlich: Aus SEO-Sicht ist ein One-Pager ein Kompromiss.</p>
 
-<p>Google indexiert URLs, keine Scroll-Positionen. Das bedeutet: Egal wie viel Inhalt dein One-Pager hat — er kämpft mit genau einer URL um Aufmerksamkeit. Du kannst ihn auf ein Haupt-Keyword optimieren, vielleicht noch auf zwei bis drei Varianten. Aber du kannst nicht gleichzeitig für "Fotograf Berlin Hochzeit", "Bewerbungsfotos Berlin" und "Studio-Shooting Berlin" ranken, wenn alle drei Themen auf derselben URL sitzen.</p>
+<div class="opw-ink">
+  <span class="opw-ink-label">Klartext</span>
+  <p class="opw-ink-quote">Google indexiert URLs, keine Scroll-Positionen. <span class="opw-ink-gold">Eine URL = ein Keyword-Set.</span></p>
+</div>
 
-<p><strong>Drei konkrete SEO-Probleme beim One-Pager:</strong></p>
+<p>Was heißt das konkret? <img src="/logos/google.svg" alt="Google Logo" width="18" height="18" loading="lazy" class="opw-logo" /> Google bewertet Dokumente — und dein One-Pager ist genau ein Dokument. Du kannst ihn auf ein Haupt-Keyword optimieren, dazu auf zwei bis drei eng verwandte Varianten. Mehr nicht. Für "Fotograf Berlin Hochzeit", "Bewerbungsfotos Berlin" und "Studio-Shooting Berlin" gleichzeitig zu ranken, funktioniert nicht. Alle drei Themen sitzen auf derselben URL und verwässern sich gegenseitig das Signal.</p>
+
+<p>Auch Sprungmarken retten das nicht. Google zeigt im Snippet zwar manchmal Anker-Links zu einzelnen Abschnitten an. Ranken kann aber immer nur die eine URL — ein Fragment wie #preise ist kein eigenes Suchergebnis und hat keinen eigenen Title-Tag.</p>
+
+<p><strong>Drei konkrete SEO-Probleme beim Onepager:</strong></p>
 
 <ol>
-  <li><strong>Keyword-Kannibalisierung innerhalb der Seite:</strong> Wenn du auf einer Seite zu viele Themen ansprichst, sendet die Seite kein klares Signal für keines davon.</li>
-  <li><strong>Kein internes Verlinkungsnetz:</strong> Interne Links zwischen thematisch verwandten Seiten stärken die Autorität jeder einzelnen. Bei einem One-Pager gibt es diese Struktur nicht.</li>
-  <li><strong>Kein strukturiertes Content-Wachstum:</strong> Ein One-Pager wächst nicht. Du kannst keinen Blog dranhängen, keine Wissensdatenbank aufbauen, keinen Evergreen-Content pflegen. SEO ist aber ein Spiel, das Zeit und Masse braucht.</li>
+  <li><strong>Keyword-Kannibalisierung innerhalb der Seite:</strong> Sprichst du zu viele Themen auf einer Seite an, sendet sie für keines davon ein klares Signal.</li>
+  <li><strong>Kein internes Verlinkungsnetz:</strong> Interne Links zwischen thematisch verwandten Seiten stärken die Autorität jeder einzelnen. Beim One-Pager existiert diese Struktur nicht.</li>
+  <li><strong>Kein strukturiertes Content-Wachstum:</strong> Die Seite wächst nicht. Kein Blog, keine Wissensdatenbank, kein Evergreen-Content. SEO ist aber ein Spiel, das Zeit und Masse braucht.</li>
 </ol>
 
-<p>Wenn organischer Suchtraffic ein strategisches Ziel ist, ist ein One-Pager meistens nicht die richtige Architekturentscheidung — zumindest nicht als einzige Präsenz.</p>
+<p>Wenn organischer Suchtraffic ein strategisches Ziel ist, ist ein One-Pager selten die richtige Architektur — zumindest nicht als einzige Präsenz. Genau deshalb plant eine <a href="/seo-agentur">SEO-Agentur</a> in solchen Fällen fast immer eine Multipage-Struktur: eine URL pro Keyword-Set, sauber intern verlinkt.</p>
 
-<h2 id="wann-lohnt-sich-ein-one-pager">Wann sich ein One-Pager lohnt — und wann nicht</h2>
+<h2 id="wann-lohnt-sich-ein-one-pager">Wann sich ein Onepager wirklich lohnt — und wann nicht</h2>
 
-<p>Ein One-Pager ist dann sinnvoll, wenn dein primäres Ziel nicht organischer Traffic ist, sondern eine klare Konversion aus Traffic, den du bereits kontrollierst — durch Paid Ads, Social Media, QR-Codes, direkte Verlinkung oder Empfehlung.</p>
+<p>Ein One-Pager ist dann sinnvoll, wenn dein primäres Ziel nicht organischer Traffic ist. Sondern: eine klare Konversion aus Traffic, den du bereits kontrollierst — über Paid Ads, Social Media, QR-Codes, direkte Links oder Empfehlungen.</p>
 
-<p><strong>Ein One-Pager lohnt sich, wenn:</strong></p>
-<ul>
-  <li>du ein einziges klar abgegrenztes Angebot hast (Produkt, Event, Leistung)</li>
-  <li>die Seite zeitlich begrenzt ist (Launch, Event, Kampagne)</li>
-  <li>du Traffic aktiv steuerst und nicht auf Google-Rankings angewiesen bist</li>
-  <li>deine Zielgruppe und dein Angebot so klar sind, dass du keine langen Erklärungen brauchst</li>
-  <li>du schnell live gehen musst, ohne Aufwand für Content-Struktur</li>
-</ul>
+<div class="opw-panel">
+  <div class="opw-panel-col opw-panel-yes">
+    <span class="opw-panel-head">Reicht aus, wenn &hellip;</span>
+    <p class="opw-panel-item">du ein einziges, klar abgegrenztes Angebot hast — Produkt, Event oder Leistung</p>
+    <p class="opw-panel-item">die Seite zeitlich begrenzt ist (Launch, Event, Kampagne)</p>
+    <p class="opw-panel-item">du Traffic aktiv steuerst und nicht auf Google-Rankings angewiesen bist</p>
+    <p class="opw-panel-item">Zielgruppe und Angebot so klar sind, dass lange Erklärungen entfallen</p>
+    <p class="opw-panel-item">du schnell live gehen musst, ohne Aufwand für Content-Struktur</p>
+  </div>
+  <div class="opw-panel-col opw-panel-no">
+    <span class="opw-panel-head">Zu klein, wenn &hellip;</span>
+    <p class="opw-panel-item">du über Google gefunden werden willst — mehrere Keywords, lokales SEO</p>
+    <p class="opw-panel-item">du mehrere Leistungen oder Produkte anbietest</p>
+    <p class="opw-panel-item">du verschiedene Zielgruppen ansprichst</p>
+    <p class="opw-panel-item">dein Angebot erklärungsbedürftig ist und viel Content braucht</p>
+    <p class="opw-panel-item">du langfristig eine Marke mit Content-Marketing aufbauen willst</p>
+  </div>
+</div>
 
-<p><strong>Ein One-Pager lohnt sich nicht, wenn:</strong></p>
-<ul>
-  <li>du über Google gefunden werden willst (mehrere Keywords, lokales SEO)</li>
-  <li>du mehrere Leistungen oder Produkte anbietest</li>
-  <li>du verschiedene Zielgruppen ansprichst</li>
-  <li>dein Angebot erklärungsbedürftig ist und viel Content braucht</li>
-  <li>du langfristig eine Marke mit Content-Marketing aufbauen willst</li>
-</ul>
+<p>Eine ehrliche Faustregel dazu: Zähl deine Angebote und deine Traffic-Quellen. Ein Angebot plus selbst gesteuerter Traffic — der Onepager reicht. Mehrere Angebote oder Google als Hauptkanal — nimm die Multipage-Website. Bist du unsicher, frag dich, was in zwölf Monaten auf der Seite stehen soll. Wächst die Antwort über eine Handvoll Abschnitte hinaus, ist die Entscheidung gefallen.</p>
 
-<h2 id="typische-einsatzfaelle">Typische Einsatzfälle: Wer baut einen One-Pager?</h2>
+<h2 id="typische-einsatzfaelle">Typische Einsatzfälle: Wer baut einen Onepager?</h2>
 
-<p>Ein One-Pager ist kein Standardprodukt für jede Situation. Aber in bestimmten Kontexten ist er die klarste, eleganteste Lösung:</p>
+<p>Ein One-Pager ist kein Standardprodukt für jede Situation. In bestimmten Kontexten ist er aber die klarste und eleganteste Lösung:</p>
 
 <h3 id="event-one-pager">Event- oder Veranstaltungsseite</h3>
-<p>Ein Konzert, eine Konferenz, ein Workshop. Datum, Ort, Sprecher, Programm, Ticket-Link — mehr braucht niemand. Die Seite ist nach dem Event obsolet. Ein One-Pager ist hier perfekt: schnell aufgebaut, klar strukturiert, einfach zu pflegen.</p>
+<p>Ein Konzert, eine Konferenz, ein Workshop. Datum, Ort, Sprecher, Programm, Ticket-Link — mehr braucht niemand. Nach dem Event ist die Seite obsolet. Ein Onepager ist hier perfekt: schnell gebaut, klar strukturiert, einfach zu pflegen.</p>
 
 <h3 id="personal-brand-one-pager">Personal Brand oder Freelancer-Portfolio</h3>
-<p>Ein Fotograf, Designer, Texter oder Berater, der sich vorstellen will. Name, was du machst, Arbeitsproben, Kontakt. Mehr Seiten würden die Sache unnötig aufblähen. Der One-Pager ist hier eine kluge Visitenkarte — solange das Ziel Direktkontakt ist, nicht organischer Traffic.</p>
+<p>Ein Fotograf, Designer, Texter oder Berater stellt sich vor. Name, Leistung, Arbeitsproben, Kontakt. Mehr Seiten würden die Sache nur aufblähen. Der One-Pager ist hier eine kluge Visitenkarte — solange das Ziel Direktkontakt ist und nicht organischer Traffic.</p>
 
 <h3 id="produkt-launch-one-pager">Produkt-Launch oder Pre-Launch</h3>
-<p>Du bringst ein neues Produkt, eine App oder einen Kurs auf den Markt. Du willst Interesse wecken, eine E-Mail-Liste aufbauen, erste Käufer gewinnen. Der One-Pager führt den Nutzer durch Problem, Lösung, Vorteile, Social Proof, CTA — genau das, was eine gute Landingpage auch tut.</p>
+<p>Du bringst ein Produkt, eine App oder einen Kurs auf den Markt. Du willst Interesse wecken, eine E-Mail-Liste aufbauen und erste Käufer gewinnen. Die Seite führt durch Problem, Lösung, Vorteile, Social Proof und CTA — genau wie eine gute Landingpage.</p>
 
 <h3 id="coming-soon-one-pager">Coming-Soon-Seite</h3>
-<p>Die eigentliche Website ist noch nicht fertig. Du willst aber schon eine Onlinepräsenz haben, erste Anfragen sammeln und Vertrauen aufbauen. Ein schlichter One-Pager hält diesen Platz — professionell statt Baustellen-Schild.</p>
+<p>Die eigentliche Website ist noch nicht fertig. Du willst aber schon online präsent sein, erste Anfragen sammeln und Vertrauen aufbauen. Ein schlichter Onepager hält diesen Platz — professionell statt Baustellen-Schild.</p>
 
 <h3 id="lokales-gewerbe-one-pager">Lokales Gewerbe mit einem klaren Angebot</h3>
-<p>Ein Friseur, ein Physiotherapeut, ein Massagestudio. Dienstleistungen, Preise, Erreichbarkeit, Buchungslink. Wenn SEO kein Thema ist und die meisten Kunden ohnehin über Google Maps oder Empfehlung kommen, reicht ein One-Pager.</p>
+<p>Ein Friseur, ein Physiotherapeut, ein Massagestudio. Leistungen, Preise, Erreichbarkeit, Buchungslink. Kommen die meisten Kunden über Google Maps oder Empfehlung, reicht ein One-Pager völlig.</p>
 
 <h3 id="kampagnenseite-one-pager">Kampagnenseite zu einem Ads-Schalter</h3>
-<p>Du schaltest Google Ads oder Meta Ads auf ein konkretes Angebot. Die Zielseite soll eine einzige klare Botschaft kommunizieren und den Nutzer zu einer Aktion bringen. Hier ist ein One-Pager im Grunde eine vollwertige Landingpage — und genauso sollte er auch gebaut werden.</p>
+<p>Du schaltest Google Ads oder Meta Ads auf ein konkretes Angebot. Die Zielseite soll eine einzige Botschaft kommunizieren und zu einer Aktion führen. Hier ist der One-Pager im Grunde eine vollwertige Landingpage — und genauso solltest du ihn bauen.</p>
 
-<h2 id="one-pager-als-landingpage">Der One-Pager als Landingpage: Wo die Grenze verwischt</h2>
+<h2 id="one-pager-als-landingpage">Onepager oder Landingpage: Wo genau die Grenze verläuft</h2>
 
-<p>In der Praxis ist ein konversionsorientierter One-Pager und eine Landingpage dasselbe. Beide haben:</p>
-<ul>
-  <li>Eine URL</li>
-  <li>Einen einzigen primären CTA</li>
-  <li>Keine ablenkende Navigation zu anderen Seiten</li>
-  <li>Eine lineare, psychologisch durchdachte Nutzerführung</li>
-</ul>
+<p>Beide Begriffe werden oft synonym verwendet. Sauber getrennt meinen sie aber nicht dasselbe:</p>
 
-<p>Der Unterschied liegt meistens im Anspruch: Viele "One-Pager" sind gestalterisch getriebene Projekte — sie sehen gut aus, vermitteln das richtige Gefühl. Eine <a href="/webdesign/landingpage-erstellen-lassen">professionell umgesetzte Landingpage</a> denkt zusätzlich in Conversion-Rates, A/B-Tests, Heatmaps, Above-the-Fold-Inhalten und klaren Handlungsaufforderungen.</p>
+<p><strong>Onepager ist ein Architekturbegriff.</strong> Er beschreibt, wie die Website gebaut ist: Der gesamte Auftritt besteht aus einer Seite. Sie kann mehrere Ziele haben — vorstellen, informieren, Kontakt ermöglichen — und trägt meist eine Anker-Navigation.</p>
 
-<p>Wenn du einen One-Pager für eine ernsthafte Kampagne oder einen Produkt-Launch brauchst, dann bau ihn wie eine Landingpage — mit all ihren Regeln. Denn ein One-Pager, der gut aussieht aber nicht konvertiert, bringt dir nichts.</p>
+<p><strong>Landingpage ist ein Funktionsbegriff.</strong> Er beschreibt, wozu die Seite da ist: als Zielseite einer Kampagne mit genau einem Konversionsziel. Eine Landingpage ist oft Teil einer größeren Website und verzichtet bewusst auf Navigation — nichts soll vom CTA ablenken.</p>
+
+<p>Die Schnittmenge: Ein konversionsorientierter Onepager ist in der Praxis eine Landingpage. Beide haben eine URL, einen primären CTA und eine lineare, psychologisch durchdachte Nutzerführung. Die Umkehrung gilt aber nicht. Nicht jede Landingpage ist ein One-Pager — und nicht jede One-Page-Website jagt ein Kampagnenziel.</p>
+
+<p>Der Unterschied zeigt sich im Anspruch: Viele One-Pager sind gestalterisch getriebene Projekte. Sie sehen gut aus und vermitteln das richtige Gefühl. Eine <a href="/webdesign/landingpage-erstellen-lassen">professionell umgesetzte Landingpage</a> denkt zusätzlich in Conversion-Rates, A/B-Tests, Heatmaps und Above-the-Fold-Inhalten.</p>
+
+<p>Brauchst du einen One-Pager für eine ernsthafte Kampagne oder einen Produkt-Launch? Dann bau ihn wie eine Landingpage — mit all ihren Regeln. Eine Seite, die gut aussieht, aber nicht konvertiert, bringt dir nichts.</p>
 
 <blockquote>
-  <p>Ein One-Pager ohne Konversionsstrategie ist eine schöne Visitenkarte. Eine Landingpage mit One-Pager-Charakter ist ein Vertriebswerkzeug.</p>
+  <p>Ein Onepager ohne Konversionsstrategie ist eine schöne Visitenkarte. Eine Landingpage mit One-Pager-Charakter ist ein Vertriebswerkzeug.</p>
 </blockquote>
 
-<h2 id="aufbau-one-pager">Typischer Aufbau eines One-Pagers (Struktur-Muster)</h2>
+<h2 id="aufbau-one-pager">Typischer Aufbau eines Onepagers (Struktur-Muster)</h2>
 
-<p>Es gibt kein verbindliches Schema, aber in der Praxis hat sich eine Reihenfolge bewährt, die psychologisch sinnvoll ist:</p>
+<p>Ein verbindliches Schema gibt es nicht. In der Praxis hat sich aber eine Reihenfolge bewährt, die psychologisch funktioniert:</p>
 
 <ol>
   <li><strong>Hero-Section:</strong> Klare Aussage, was die Seite bietet — in einem Satz. Kein Begrüßungstext.</li>
@@ -2806,65 +2816,70 @@ export const articles: Article[] = [
   <li><strong>Footer:</strong> Impressum, Datenschutz, Kontaktinfos.</li>
 </ol>
 
-<p>Jede Section sollte ein eigenes Anker-ID haben. Das erlaubt saubere Direktlinks und eine funktionierende Navigation — und schafft übrigens auch eine schwache, aber vorhandene interne Struktur, die Google besser versteht.</p>
+<p>Jede Section braucht eine eigene Anker-ID. Das erlaubt saubere Direktlinks und eine funktionierende Navigation. Nebenbei entsteht so eine schwache, aber vorhandene interne Struktur, die Google besser versteht.</p>
 
-<h2 id="technische-umsetzung">Technische Umsetzung: Was einen guten One-Pager ausmacht</h2>
+<h2 id="technische-umsetzung">Technische Umsetzung: Was einen guten Onepager ausmacht</h2>
 
-<p>Ein One-Pager wird oft unterschätzt — "ist ja nur eine Seite". In der Realität sind die technischen Anforderungen trotzdem nicht trivial:</p>
+<p>Ein One-Pager wird oft unterschätzt — "ist ja nur eine Seite". Die technischen Anforderungen sind trotzdem nicht trivial:</p>
 
-<p><strong>Performance:</strong> Weil alles auf einer Seite lädt, muss jedes Asset optimiert sein. Unoptimierte Bilder, zu viele Fonts, ungenutztes JavaScript — das fällt bei einer Multipage-Site auf einzelne Seiten verteilt auf, beim One-Pager trifft es alles auf einmal.</p>
+<p><strong>Performance:</strong> Alles lädt auf einer Seite. Jedes Asset muss deshalb optimiert sein. Unoptimierte Bilder, zu viele Fonts, ungenutztes JavaScript — bei einer Multipage-Site verteilt sich das auf einzelne Seiten, beim One-Pager trifft es alles auf einmal.</p>
 
-<p><strong>Smooth Scroll und Anker-Navigation:</strong> Ankerlinks müssen sauber implementiert sein, mit sinnvollen Übergängen. Sticky-Header, die beim Anker-Sprung Inhalt überdecken, sind ein klassischer Fehler.</p>
+<p><strong>Smooth Scroll und Anker-Navigation:</strong> Ankerlinks müssen sauber implementiert sein, mit sinnvollen Übergängen. Ein klassischer Fehler: Sticky-Header, die beim Anker-Sprung den Inhalt überdecken.</p>
 
-<p><strong>Mobile-First-Design:</strong> One-Pager werden häufig mobil aufgerufen. Die vertikale Struktur ist auf dem Smartphone natürlich — aber nur, wenn das Layout sauber responsiv ist und nicht einfach die Desktop-Version zusammengequetscht wird.</p>
+<p><strong>Mobile-First-Design:</strong> One-Pager werden häufig mobil aufgerufen. Die vertikale Struktur ist auf dem Smartphone natürlich — aber nur mit sauber responsivem Layout, nicht mit einer zusammengequetschten Desktop-Version.</p>
 
-<p><strong>Strukturierte Daten:</strong> Auch bei einer einzelnen URL kann man mit Schema.org-Markup (Organization, LocalBusiness, Event, Product) Google mehr Kontext geben.</p>
+<p><strong>Strukturierte Daten:</strong> Auch bei einer einzelnen URL gibt Schema.org-Markup (Organization, LocalBusiness, Event, Product) Google mehr Kontext.</p>
 
-<p><strong>Ladegeschwindigkeit:</strong> Lazy Loading für Bilder und Videos ist Pflicht. Alles andere verlangsamt den First-Contentful-Paint — und bei Paid-Traffic zahlen sich schlechte Pagespeed-Werte direkt in höheren Klickpreisen aus.</p>
+<p><strong>Ladegeschwindigkeit:</strong> Lazy Loading für Bilder und Videos ist Pflicht. Alles andere verlangsamt den First Contentful Paint. Bei Paid-Traffic zahlst du schlechte Pagespeed-Werte direkt in höheren Klickpreisen.</p>
+
+<p>Bei der Technik gilt: so wenig wie möglich. Custom-Umsetzungen entstehen heute oft als statische Seite mit Next.js und Tailwind CSS — ohne CMS-Ballast, mit voller Kontrolle über jedes Kilobyte. Ein CMS wie WordPress lohnt sich nur bei echtem Pflege-Bedarf.</p>
+
+<div class="opw-chips" aria-label="Typische Technologien für Onepager">
+  <span class="opw-chip"><img src="/logos/nextdotjs.svg" alt="Next.js Logo" width="20" height="20" loading="lazy" /> Next.js</span>
+  <span class="opw-chip"><img src="/logos/tailwindcss.svg" alt="Tailwind CSS Logo" width="20" height="20" loading="lazy" /> Tailwind CSS</span>
+  <span class="opw-chip"><img src="/logos/wordpress.svg" alt="WordPress Logo" width="20" height="20" loading="lazy" /> WordPress — nur bei CMS-Bedarf</span>
+</div>
 
 <h2 id="one-pager-wann-multipage-besser">Wann du besser zu einer richtigen Website oder Landingpage wechselst</h2>
 
-<p>Es gibt einen Punkt, ab dem der One-Pager zum Hindernis wird. Erkennbar an diesen Signalen:</p>
+<p>Es gibt einen Punkt, ab dem der Onepager zum Hindernis wird. Du erkennst ihn an klaren Signalen: Du fügst immer neue Sections hinzu, weil das Angebot wächst — und die Seite wird unübersichtlich. Du willst über Google gefunden werden, aber für mehr als ein bis zwei Keywords. Kunden fragen nach Infos, die du "eigentlich auch noch reinpacken wolltest".</p>
 
-<ul>
-  <li>Du fügst immer mehr Sections hinzu, weil das Angebot wächst — die Seite wird unübersichtlich.</li>
-  <li>Du willst über Google gefunden werden, aber für mehr als ein bis zwei Keywords.</li>
-  <li>Kunden fragen nach Infos, die du "eigentlich auch noch reinpacken wolltest".</li>
-  <li>Du willst Retargeting und Conversion-Tracking sauber aufsetzen — mehrere Seiten helfen dabei.</li>
-  <li>Du willst einen Blog oder regelmäßigen Content veröffentlichen.</li>
-</ul>
+<p>Auch Marketing-Gründe sprechen irgendwann für den Wechsel. Retargeting und Conversion-Tracking lassen sich mit mehreren Seiten sauberer aufsetzen. Und ein Blog oder regelmäßiger Content braucht ohnehin eine Multipage-Struktur.</p>
 
-<p>In diesen Momenten ist der Umstieg auf eine vollwertige Multipage-Website oder auf eine professionell konzipierte Landingpage-Struktur sinnvoller. Das klingt nach mehr Aufwand — aber eine schlecht skalierte One-Pager-Lösung kostet dich auf Dauer mehr Zeit und Geld als ein sauberer Start mit der richtigen Architektur.</p>
+<p>In diesen Momenten lohnt der Umstieg auf eine vollwertige Multipage-Website oder eine professionell konzipierte Landingpage-Struktur. Das klingt nach mehr Aufwand. Aber eine schlecht skalierte One-Pager-Lösung kostet dich auf Dauer mehr Zeit und Geld als ein sauberer Start mit der richtigen Architektur.</p>
 
-<p>Wenn du weißt, dass Conversion der Kern ist, schau dir an, wie eine <a href="/webdesign/landingpage-erstellen-lassen">professionell aufgebaute Landingpage</a> aussieht — das ist oft die bessere Grundlage als ein selbst zusammengeklickter One-Pager-Baukasten.</p>
+<div class="opw-cta">
+  <span class="opw-cta-label">Nächster Schritt</span>
+  <p class="opw-cta-text">Onepager, Landingpage oder Multipage? Wenn Conversion der Kern ist, schau dir an, wie eine <a href="/webdesign/landingpage-erstellen-lassen">professionell aufgebaute Landingpage</a> entsteht — oft die bessere Basis als ein zusammengeklickter Baukasten-One-Pager.</p>
+</div>
 
-<h2 id="faq">Häufige Fragen zum One-Pager</h2>
+<h2 id="faq">Häufige Fragen zum Onepager</h2>
 
 <div class="opw-faq">
 
   <div class="opw-faq-item">
-    <h3 id="faq-kosten" class="opw-faq-question">Was kostet ein One-Pager?</h3>
-    <p>Das kommt stark auf den Anspruch an. Ein einfacher One-Pager über einen Baukasten liegt bei null bis wenigen hundert Euro — aber du bekommst Templates, keine individuelle Lösung. Ein custom entwickelter One-Pager mit durchdachtem Design, Conversion-Struktur und sauberer technischer Basis kostet je nach Agentur und Umfang zwischen 800 und 3.500 Euro aufwärts. Der Unterschied liegt nicht im Layout, sondern in der Qualität der Nutzerführung und technischen Umsetzung.</p>
+    <h3 id="faq-kosten" class="opw-faq-question">Was kostet ein Onepager?</h3>
+    <p>Das hängt vom Anspruch ab. Ein einfacher One-Pager aus dem Baukasten kostet null bis wenige hundert Euro — dafür bekommst du ein Template, keine individuelle Lösung. Ein custom entwickelter One-Pager mit durchdachtem Design, Conversion-Struktur und sauberer technischer Basis liegt je nach Agentur und Umfang zwischen 800 und 3.500 Euro aufwärts. Der Unterschied steckt nicht im Layout, sondern in der Qualität von Nutzerführung und Umsetzung.</p>
   </div>
 
   <div class="opw-faq-item">
-    <h3 id="faq-seo" class="opw-faq-question">Kann ich mit einem One-Pager bei Google ranken?</h3>
-    <p>Ja, aber begrenzt. Du kannst mit einer URL auf ein Haupt-Keyword oder einen eng verwandten Cluster optimieren. Für mehrere unabhängige Keywords brauchst du mehrere URLs — also eine Multipage-Website. Ein One-Pager ist als SEO-Strategie nur dann sinnvoll, wenn dein Haupt-Keyword einen klaren, eng definierten Suchintent hat und du keine Konkurrenz über organischen Traffic betreibst.</p>
+    <h3 id="faq-seo" class="opw-faq-question">Kann ich mit einem Onepager bei Google ranken?</h3>
+    <p>Ja, aber begrenzt. Es gilt: eine URL = ein Keyword-Set. Du kannst deinen One-Pager auf ein Haupt-Keyword und wenige eng verwandte Varianten optimieren. Für mehrere unabhängige Keywords brauchst du mehrere URLs — also eine Multipage-Website. Als SEO-Strategie taugt ein One-Pager nur, wenn dein Haupt-Keyword einen klaren, eng definierten Suchintent hat und organischer Traffic nicht dein Hauptkanal ist.</p>
   </div>
 
   <div class="opw-faq-item">
-    <h3 id="faq-one-pager-oder-landingpage" class="opw-faq-question">Was ist der Unterschied zwischen One-Pager und Landingpage?</h3>
-    <p>Technisch gesehen minimal — beide sind oft eine einzige URL mit einer klaren Handlungsaufforderung. Der Unterschied ist eher konzeptionell: Der Begriff "One-Pager" betont die Gestaltungsentscheidung (alles auf einer Seite), während "Landingpage" den Konversionszweck betont. Ein gut gebauter One-Pager für eine Kampagne ist in der Praxis eine Landingpage.</p>
+    <h3 id="faq-one-pager-oder-landingpage" class="opw-faq-question">Was ist der Unterschied zwischen Onepager und Landingpage?</h3>
+    <p>Onepager ist ein Architekturbegriff: Die gesamte Website besteht aus einer Seite. Landingpage ist ein Funktionsbegriff: eine Zielseite für eine Kampagne mit genau einem Konversionsziel — oft als Unterseite einer größeren Website. Ein konversionsorientierter Onepager ist in der Praxis eine Landingpage. Aber nicht jede Landingpage ist ein One-Pager, und nicht jeder One-Pager verfolgt ein Kampagnenziel.</p>
   </div>
 
   <div class="opw-faq-item">
-    <h3 id="faq-wann-nicht" class="opw-faq-question">Für wen ist ein One-Pager ungeeignet?</h3>
-    <p>Für alle, die über organische Suche wachsen wollen, mehrere Zielgruppen ansprechen, ein komplexes Angebot haben oder langfristig Content-Marketing betreiben wollen. Auch für Unternehmen, die mehrere Dienstleistungen oder Produkte anbieten, ist ein One-Pager zu eng. Hier braucht es eine strukturierte Multipage-Website mit klarer Seitenarchitektur.</p>
+    <h3 id="faq-wann-nicht" class="opw-faq-question">Für wen ist ein Onepager ungeeignet?</h3>
+    <p>Für alle, die über organische Suche wachsen wollen, mehrere Zielgruppen ansprechen, ein erklärungsbedürftiges Angebot haben oder langfristig Content-Marketing betreiben. Auch wer mehrere Dienstleistungen oder Produkte anbietet, sprengt das Format. Dann braucht es eine strukturierte Multipage-Website mit klarer Seitenarchitektur.</p>
   </div>
 
   <div class="opw-faq-item">
-    <h3 id="faq-cms" class="opw-faq-question">Welches CMS eignet sich für einen One-Pager?</h3>
-    <p>Das ist die falsche Frage. Die richtige ist: Brauche ich überhaupt ein CMS? Viele One-Pager kommen ohne aus — als statische HTML/CSS-Seite, mit einem einfachen Static-Site-Generator oder als custom React/Next.js-Seite. Ein CMS lohnt sich nur, wenn du den Inhalt regelmäßig selbst pflegen willst. Die Technologiewahl sollte sich nach dem Anwendungsfall richten, nicht nach dem, was der Baukasten gerade anbietet.</p>
+    <h3 id="faq-cms" class="opw-faq-question">Welches CMS eignet sich für einen Onepager?</h3>
+    <p>Die bessere Frage ist: Brauchst du überhaupt ein CMS? Viele One-Pager kommen ohne aus — als statische HTML/CSS-Seite, über einen Static-Site-Generator oder als custom React/Next.js-Seite. Ein CMS wie WordPress lohnt sich nur, wenn du Inhalte regelmäßig selbst pflegen willst. Wähl die Technik nach dem Anwendungsfall, nicht nach dem, was der Baukasten gerade anbietet.</p>
   </div>
 
 </div>
@@ -2872,7 +2887,9 @@ export const articles: Article[] = [
 <style>
   .opw-compare-wrapper {
     overflow-x: auto;
-    margin: 1.5rem 0;
+    margin: 1.75rem 0;
+    border-radius: 12px;
+    box-shadow: 0 24px 50px -32px rgba(26, 26, 26, 0.45);
   }
   .opw-table {
     width: 100%;
@@ -2881,18 +2898,192 @@ export const articles: Article[] = [
   }
   .opw-table th,
   .opw-table td {
-    padding: 0.65rem 0.9rem;
-    border: 1px solid #e2e8f0;
+    padding: 0.7rem 0.95rem;
+    border: 1px solid #ecd3ba;
     text-align: left;
     vertical-align: top;
   }
   .opw-table thead th {
-    background: #f8fafc;
+    background: #1A1A1A;
+    border-color: #1A1A1A;
+    color: #F8F5F1;
+    font-family: var(--font-mono), monospace;
+    font-size: 0.78rem;
     font-weight: 600;
-    color: #1e293b;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
   .opw-table tbody tr:nth-child(even) {
-    background: #f8fafc;
+    background: #fbf4ea;
+  }
+  .opw-ink {
+    background: #1A1A1A;
+    border-radius: 16px;
+    padding: 2rem 1.75rem;
+    margin: 2rem 0;
+    box-shadow: 0 32px 70px -32px rgba(26, 26, 26, 0.65);
+  }
+  .opw-ink-label {
+    display: block;
+    font-family: var(--font-mono), monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #D4A853;
+    margin-bottom: 0.9rem;
+  }
+  .opw-ink-quote {
+    font-family: var(--font-heading), Georgia, serif;
+    font-size: clamp(1.35rem, 3.2vw, 1.9rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: #ffffff;
+    margin: 0;
+  }
+  .opw-ink-gold {
+    background: linear-gradient(92deg, #D4A853, #e0bc72);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #D4A853;
+  }
+  .opw-panel {
+    display: grid;
+    gap: 1rem;
+    margin: 1.75rem 0;
+  }
+  @media (min-width: 640px) {
+    .opw-panel {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .opw-panel-col {
+    border: 1px solid #ecd3ba;
+    border-radius: 14px;
+    padding: 1.4rem 1.3rem;
+    background: #fbf4ea;
+  }
+  .opw-panel-yes {
+    border-top: 4px solid #C2722A;
+  }
+  .opw-panel-no {
+    background: #ffffff;
+    border-top: 4px solid #1A1A1A;
+  }
+  .opw-panel-head {
+    display: block;
+    font-family: var(--font-mono), monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #1A1A1A;
+    margin-bottom: 1rem;
+  }
+  .opw-panel-yes .opw-panel-head {
+    color: #C2722A;
+  }
+  .opw-panel-item {
+    position: relative;
+    padding-left: 1.6rem;
+    margin: 0 0 0.75rem 0;
+    font-size: 0.95rem;
+    line-height: 1.55;
+  }
+  .opw-panel-item:last-child {
+    margin-bottom: 0;
+  }
+  .opw-panel-item::before {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 700;
+  }
+  .opw-panel-yes .opw-panel-item::before {
+    content: "✓";
+    color: #C2722A;
+  }
+  .opw-panel-no .opw-panel-item::before {
+    content: "✕";
+    color: #1A1A1A;
+    opacity: 0.55;
+  }
+  .opw-logo {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    vertical-align: -3px;
+    margin: 0 0.2rem;
+    filter: grayscale(1);
+    opacity: 0.75;
+  }
+  .opw-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .opw-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    border: 1px solid #ecd3ba;
+    border-radius: 999px;
+    background: #ffffff;
+    padding: 0.45rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #1A1A1A;
+    transition: background-color 0.2s ease;
+  }
+  .opw-chip:hover {
+    background: #fbf4ea;
+  }
+  .opw-chip img {
+    width: 20px;
+    height: 20px;
+    filter: grayscale(1);
+    opacity: 0.65;
+    transition: filter 0.2s ease, opacity 0.2s ease;
+  }
+  .opw-chip:hover img {
+    filter: none;
+    opacity: 1;
+  }
+  .opw-cta {
+    background: #C2722A;
+    border-radius: 16px;
+    padding: 1.9rem 1.75rem;
+    margin: 2.5rem 0;
+    box-shadow: 0 28px 60px -30px rgba(194, 114, 42, 0.65);
+  }
+  .opw-cta-label {
+    display: block;
+    font-family: var(--font-mono), monospace;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+    margin-bottom: 0.8rem;
+  }
+  .opw-cta-text {
+    color: #ffffff;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .opw-cta-text a {
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: #F8F5F1;
+    text-underline-offset: 3px;
+  }
+  .opw-cta-text a:hover {
+    color: #1A1A1A;
+    text-decoration-color: #1A1A1A;
   }
   .opw-faq {
     margin-top: 1.5rem;
@@ -2901,14 +3092,14 @@ export const articles: Article[] = [
     gap: 1.25rem;
   }
   .opw-faq-item {
-    border-left: 3px solid #3b82f6;
+    border-left: 3px solid #C2722A;
     padding-left: 1rem;
   }
   .opw-faq-question {
     font-size: 1rem;
     font-weight: 600;
     margin-bottom: 0.4rem;
-    color: #1e293b;
+    color: #1A1A1A;
   }
 </style>`
   },

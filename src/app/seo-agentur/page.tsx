@@ -4,9 +4,9 @@ import SeoAgenturClient from "./SeoAgenturClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur für Google & KI-Suche — SEO + GEO",
+  title: "SEO Agentur: Rankings, die Anfragen bringen",
   description:
-    "SEO Agentur für Sichtbarkeit in Google und KI-Suche: SEO und GEO aus einer Hand — datenbasierte Methodik statt Versprechen, monatlich kündbar.",
+    "SEO Agentur mit System: Technik, Content und Autorität für messbar mehr Rankings und Anfragen. Kostenlose Erstanalyse, Antwort in unter 24 Stunden.",
   alternates: { canonical: "https://seoforge.de/seo-agentur" },
 };
 

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import ToolLogo from "@/app/components/ToolLogos";
@@ -856,7 +857,7 @@ const VERSPRECHEN = [
     key: "seogeo",
     label: "Sichtbarkeit",
     title: "SEO- & GEO-optimiert ab Werk",
-    desc: "Ihre Website wird für Google gebaut — und für die KI-Suche gleich mit. Saubere Struktur, Schema-Markup und Inhalte, die auch ChatGPT, Perplexity und Google AI Overviews als Quelle zitieren. Zwei Sichtbarkeits-Kanäle, ein Projekt.",
+    desc: "Ihre Firmenwebsite wird für Google gebaut — und für die KI-Suche gleich mit. Saubere Struktur, Schema-Markup und Inhalte, die auch ChatGPT, Perplexity und Google AI Overviews als Quelle zitieren. Zwei Sichtbarkeits-Kanäle, ein Projekt.",
   },
   {
     key: "deploy",
@@ -868,7 +869,7 @@ const VERSPRECHEN = [
     key: "ki",
     label: "Kosten",
     title: "KI-Workflows senken die Kosten massiv",
-    desc: "KI übernimmt bei uns die Routine: Boilerplate-Code, Tests, Dokumentation, Copy-Varianten. Weniger abgerechnete Stunden bei gleicher handwerklicher Qualität — deshalb ist eine professionelle Website jetzt auch für kleine Unternehmen wirtschaftlich.",
+    desc: "KI übernimmt bei uns die Routine: Boilerplate-Code, Tests, Dokumentation, Copy-Varianten. Das heißt weniger abgerechnete Stunden bei gleicher handwerklicher Qualität. Deshalb ist eine professionelle Firmenwebsite jetzt auch für kleine Unternehmen wirtschaftlich.",
   },
 ];
 
@@ -914,9 +915,13 @@ const PROGRAMME: { name: string; group: string; role: string; desc: string; logo
     role: "Framework",
     desc: "Modernes React-Framework: maximale Performance, Core Web Vitals und SEO von Haus aus.",
     logo: (
-      <span className="inline-flex w-9 h-9 items-center justify-center rounded-full bg-dark text-white font-black text-sm select-none" aria-hidden="true">
-        N
-      </span>
+      <Image
+        src="/logos/nextdotjs.svg"
+        alt="Next.js Logo"
+        width={36}
+        height={36}
+        className="w-9 h-9 object-contain opacity-80"
+      />
     ),
   },
 ];
@@ -924,15 +929,15 @@ const PROGRAMME: { name: string; group: string; role: string; desc: string; logo
 const faqs = [
   {
     q: "Was kostet eine Firmenwebsite?",
-    a: "Deutlich weniger, als klassische Agenturen aufrufen — genau das ist unser Hebel. KI-Workflows und DevOps-Automatisierung reduzieren die abgerechneten Stunden massiv; solide Business-Websites starten ab 1.500 €. Im kostenlosen Erstgespräch bekommen Sie ein transparentes Festpreisangebot ohne versteckte Kosten.",
+    a: "Deutlich weniger, als klassische Agenturen aufrufen — genau das ist unser Hebel. KI-Workflows und DevOps-Automatisierung reduzieren die abgerechneten Stunden massiv. Solide Firmenwebsites starten bei uns ab 1.500 €. Im kostenlosen Erstgespräch bekommen Sie ein transparentes Festpreisangebot ohne versteckte Kosten.",
   },
   {
     q: "Warum seid ihr günstiger als klassische Agenturen?",
-    a: "Drei Gründe: KI übernimmt Routinearbeit (Boilerplate, Tests, Dokumentation, Copy-Varianten), CI/CD-Pipelines ersetzen manuelles Deployment, und es gibt keinen Agentur-Overhead — Sie sprechen direkt mit dem Team, das Ihr Projekt umsetzt. Weniger Stunden, weniger Reibung, gleicher Qualitätsanspruch.",
+    a: "Drei Gründe. KI übernimmt Routinearbeit: Boilerplate, Tests, Dokumentation, Copy-Varianten. CI/CD-Pipelines ersetzen manuelles Deployment. Und es gibt keinen Agentur-Overhead — Sie sprechen direkt mit dem Team, das Ihre Firmenwebsite umsetzt. Weniger Stunden, weniger Reibung, gleicher Qualitätsanspruch.",
   },
   {
     q: "Was bedeutet „SEO- und GEO-optimiert\"?",
-    a: "SEO macht Ihre Website in der klassischen Google-Suche sichtbar: Technik, Struktur, Inhalte. GEO (Generative Engine Optimization) sorgt dafür, dass auch KI-Systeme wie ChatGPT, Perplexity und Google AI Overviews Ihre Inhalte verstehen und als Quelle zitieren. Immer mehr Kaufentscheidungen beginnen in KI-Antworten — Ihre Website ist auf beides vorbereitet.",
+    a: "SEO macht Ihre Firmenwebsite in der klassischen Google-Suche sichtbar: Technik, Struktur, Inhalte. GEO (Generative Engine Optimization) richtet die Inhalte zusätzlich auf KI-Systeme aus. So verstehen ChatGPT, Perplexity und Google AI Overviews Ihre Seiten und zitieren sie als Quelle. Immer mehr Kaufentscheidungen beginnen in KI-Antworten — Ihre Website ist auf beides vorbereitet.",
   },
   {
     q: "Wie schnell ist unsere Website online?",
@@ -944,7 +949,7 @@ const faqs = [
   },
   {
     q: "Lohnt sich das auch für kleine Unternehmen?",
-    a: "Gerade für kleine Unternehmen. Der KI-Kostenvorteil macht professionelle, custom-codierte Websites erschwinglich, die früher Agentur-Budgets jenseits der 10.000 € erfordert hätten. Eine Website, die gefunden wird und Anfragen bringt, ist für KMU der wirtschaftlichste Vertriebskanal.",
+    a: "Gerade für kleine Unternehmen. Der KI-Kostenvorteil macht professionelle, custom-codierte Firmenwebsites erschwinglich. Früher hätten solche Projekte Agentur-Budgets jenseits der 10.000 € erfordert. Eine Website, die gefunden wird und Anfragen bringt, ist für KMU der wirtschaftlichste Vertriebskanal.",
   },
 ];
 
@@ -1036,10 +1041,10 @@ export default function WebsiteMittelstandClient() {
           </h1>
 
           <p className="hero-description text-muted leading-[1.8] mb-9 max-w-2xl mx-auto" style={{ fontSize: "clamp(15px, 1.05vw, 17px)" }}>
-            Keine 15.000-€-Agenturprojekte: custom coded, SEO- und GEO-optimiert
-            ab der ersten Zeile, deployt über CI/CD-Pipelines — und dank
-            KI-Workflows zu einem Preis, der sich auch für kleine Unternehmen
-            rechnet. Festpreis, persönlicher Ansprechpartner, Antwort in unter 24 h.
+            Firmenwebsite erstellen lassen ohne 15.000-€-Agenturprojekt: custom
+            coded, SEO- und GEO-optimiert ab der ersten Zeile, deployt über
+            CI/CD-Pipelines. Dank KI-Workflows rechnet sich das auch für kleine
+            Unternehmen. Festpreis, persönlicher Ansprechpartner, Antwort in unter 24 h.
           </p>
 
           <div className="hero-cta flex flex-wrap justify-center gap-4">
@@ -1106,9 +1111,9 @@ export default function WebsiteMittelstandClient() {
 
           <div className="scroll-hidden grid lg:grid-cols-[1fr_360px] gap-6 lg:gap-16 items-end mb-8 lg:mb-12">
             <div>
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Das Versprechen</span>
+              <span className="font-mono text-[11px] font-semibold tracking-[0.22em] uppercase text-primary block mb-4">Das Versprechen</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12]">
-                Drei Gründe, warum sich<br />das jetzt rechnet.
+                Firmenwebsite erstellen lassen —<br />drei Gründe, warum sich das jetzt rechnet.
               </h2>
             </div>
             <p className="text-muted leading-relaxed lg:pb-1.5 lg:text-right">
@@ -1117,7 +1122,7 @@ export default function WebsiteMittelstandClient() {
             </p>
           </div>
 
-          <div className="divide-y divide-border border-y border-border">
+          <div className="divide-y divide-border border-y-2 border-dark">
             {VERSPRECHEN.map((v, i) => (
               <div
                 key={v.key}
@@ -1144,8 +1149,23 @@ export default function WebsiteMittelstandClient() {
                 <div className="hidden lg:block">
                   {v.key === "seogeo" && (
                     <div className="flex flex-wrap gap-2" aria-hidden="true">
-                      {["Google Suche", "AI Overviews", "ChatGPT", "Perplexity", "Schema.org"].map((c) => (
-                        <span key={c} className="text-[11px] font-semibold text-dark/60 border border-dark/10 bg-white rounded-full px-3 py-1.5">
+                      {[
+                        { c: "Google Suche", src: "/logos/google.svg" },
+                        { c: "AI Overviews", src: null },
+                        { c: "ChatGPT", src: "/logos/openai.svg" },
+                        { c: "Perplexity", src: "/logos/perplexity.svg" },
+                        { c: "Schema.org", src: null },
+                      ].map(({ c, src }) => (
+                        <span key={c} className="group inline-flex items-center gap-1.5 text-[11px] font-semibold text-dark/60 border border-dark/10 bg-white rounded-full px-3 py-1.5">
+                          {src && (
+                            <Image
+                              src={src}
+                              alt={`${c} Logo`}
+                              width={13}
+                              height={13}
+                              className="h-[13px] w-[13px] grayscale opacity-70 transition-all duration-200 group-hover:grayscale-0 group-hover:opacity-100"
+                            />
+                          )}
                           {c}
                         </span>
                       ))}
@@ -1168,7 +1188,7 @@ export default function WebsiteMittelstandClient() {
 
           <div className="scroll-hidden grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-16 items-end mb-12 lg:mb-14">
             <div>
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Die Programme</span>
+              <span className="font-mono text-[11px] font-semibold tracking-[0.22em] uppercase text-primary block mb-4">Die Programme</span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12]">
                 Womit wir arbeiten.
               </h2>
@@ -1208,7 +1228,7 @@ export default function WebsiteMittelstandClient() {
       <section id="ki" className="bg-white py-24 lg:py-32 scroll-mt-20 overflow-hidden">
         <div className="mx-auto max-w-6xl px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="scroll-hidden">
-            <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Website erstellen · KI-Entwicklung</span>
+            <span className="font-mono text-[11px] font-semibold tracking-[0.22em] uppercase text-primary block mb-4">Website erstellen · KI-Entwicklung</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12] mb-5">
               KI baut mit.<br />Ihr Budget atmet auf.
             </h2>
@@ -1260,7 +1280,7 @@ export default function WebsiteMittelstandClient() {
           </div>
 
           <div className="scroll-hidden">
-            <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Website erstellen · DevOps &amp; Deploy</span>
+            <span className="font-mono text-[11px] font-semibold tracking-[0.22em] uppercase text-primary block mb-4">Website erstellen · DevOps &amp; Deploy</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12] mb-5">
               Live in Minuten.<br />Nicht in Wochen.
             </h2>
@@ -1296,23 +1316,31 @@ export default function WebsiteMittelstandClient() {
       <section id="seo-geo" className="bg-white py-24 lg:py-32 scroll-mt-20 overflow-hidden">
         <div className="mx-auto max-w-6xl px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="scroll-hidden">
-            <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Website erstellen · SEO &amp; GEO</span>
+            <span className="font-mono text-[11px] font-semibold tracking-[0.22em] uppercase text-primary block mb-4">Website erstellen · SEO &amp; GEO</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12] mb-5">
               Gefunden in Google —<br />und in der KI-Suche.
             </h2>
             <p className="text-muted leading-relaxed mb-7 max-w-lg">
-              Ihre Website wird für zwei Welten gebaut: <strong className="text-dark font-semibold">SEO</strong> bringt
-              Sie in der klassischen Google-Suche nach vorn, <strong className="text-dark font-semibold">GEO</strong> (Generative
-              Engine Optimization) sorgt dafür, dass auch ChatGPT, Perplexity und
-              Google AI Overviews Ihre Inhalte verstehen und als Quelle zitieren.
-              Zwei Sichtbarkeits-Kanäle, ein Projekt.
+              Ihre Firmenwebsite wird für zwei Welten gebaut. <strong className="text-dark font-semibold">SEO</strong> bringt
+              Sie in der klassischen Google-Suche nach vorn. <strong className="text-dark font-semibold">GEO</strong> (Generative
+              Engine Optimization) macht Ihre Inhalte zitierfähig für ChatGPT,
+              Perplexity und Google AI Overviews. Dahinter steht dieselbe Methodik,
+              mit der unsere{" "}
+              <Link href="/seo-agentur" className="border-b-2 border-primary font-semibold text-dark transition-colors hover:bg-[#fbf4ea] hover:text-primary">
+                SEO-Agentur
+              </Link>{" "}
+              Rankings aufbaut — hier von der ersten Zeile an eingebaut.
             </p>
             <div className="grid sm:grid-cols-2 gap-px bg-border border border-border rounded-2xl overflow-hidden max-w-xl">
-              <div className="bg-white p-5">
+              <div className="group bg-white p-5">
                 <div className="flex items-center gap-2 mb-2.5">
-                  <svg viewBox="0 0 24 24" className="w-4 h-4 text-[#4285F4]" fill="none" stroke="currentColor" strokeWidth="2.4">
-                    <circle cx="10.5" cy="10.5" r="6.5" /><path d="M21 21l-5.2-5.2" strokeLinecap="round" />
-                  </svg>
+                  <Image
+                    src="/logos/google.svg"
+                    alt="Google Logo"
+                    width={16}
+                    height={16}
+                    className="w-4 h-4 grayscale opacity-70 transition-all duration-200 group-hover:grayscale-0 group-hover:opacity-100"
+                  />
                   <span className="font-bold text-dark text-sm">SEO · Google</span>
                 </div>
                 <p className="text-muted text-[13px] leading-relaxed">
@@ -1347,13 +1375,14 @@ export default function WebsiteMittelstandClient() {
       <section className="py-24 lg:py-32 overflow-hidden" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
           <div className="scroll-hidden">
-            <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Für wen wir bauen</span>
+            <span className="font-mono text-[11px] font-semibold tracking-[0.22em] uppercase text-primary block mb-4">Für wen wir bauen</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12] mb-5">
-              Websites für den Mittelstand —<br />Ihre Branche ist dabei.
+              Unternehmenswebsites für den Mittelstand —<br />Ihre Branche ist dabei.
             </h2>
             <p className="text-muted leading-relaxed max-w-2xl mx-auto mb-10">
               Vom Handwerksbetrieb bis zum Maschinenbauer: Wir kennen die Anforderungen
-              mittelständischer Branchen und bauen Websites, die genau dort Anfragen bringen.
+              mittelständischer Branchen. Und wir bauen Unternehmenswebsites, die genau
+              dort Anfragen bringen.
             </p>
           </div>
           <div className="scroll-hidden flex flex-wrap justify-center gap-2.5 lg:gap-3">
@@ -1394,17 +1423,17 @@ export default function WebsiteMittelstandClient() {
       <section className="bg-white py-24 lg:py-32 overflow-hidden">
         <div className="mx-auto max-w-6xl px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <div className="scroll-hidden">
-            <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Rechtssicher ab Werk</span>
+            <span className="font-mono text-[11px] font-semibold tracking-[0.22em] uppercase text-primary block mb-4">Rechtssicher ab Werk</span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12] mb-5">
               DSGVO-konform und barrierefrei —<br />Pflicht, kein Extra.
             </h2>
             <p className="text-muted leading-relaxed mb-4 max-w-lg">
               Seit dem 28. Juni 2025 verpflichtet das Barrierefreiheitsstärkungsgesetz (BFSG)
-              viele Unternehmen zu barrierefreien Websites. Nachrüsten ist teuer — deshalb bauen
-              wir Barrierefreiheit und Datenschutz von der ersten Zeile an ein, nicht als Nachgedanke.
+              viele Unternehmen zu barrierefreien Websites. Nachrüsten ist teuer. Deshalb bauen
+              wir Barrierefreiheit und Datenschutz von der ersten Zeile an ein — nicht als Nachgedanke.
             </p>
             <p className="text-muted leading-relaxed max-w-lg">
-              Das senkt dein Abmahnrisiko und erreicht gleichzeitig mehr Menschen: barrierearme,
+              Das senkt Ihr Abmahnrisiko und erreicht mehr Menschen. Barrierearme,
               DSGVO-konforme Seiten ranken besser und konvertieren mehr.
             </p>
           </div>
@@ -1435,23 +1464,35 @@ export default function WebsiteMittelstandClient() {
       {/* ══════════════════════════════════════════════════════════════════
           TCO — Baukasten vs. Custom (Fließtext, keine Tabelle)
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="py-24 lg:py-28 overflow-hidden" style={{ background: "#F8F5F1" }}>
-        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center scroll-hidden">
-          <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Was sich wirklich rechnet</span>
-          <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[44px] font-bold text-dark leading-[1.12] mb-7">
-            Der billigste Weg ist<br />selten der günstigste.
+      <section className="bg-dark py-24 lg:py-32 overflow-x-clip">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <span className="scroll-hidden block font-mono text-[11px] tracking-[0.22em] uppercase text-secondary mb-8">
+            § Klartext — Was sich wirklich rechnet
+          </span>
+          <h2 className="scroll-hidden rv-blur font-[family-name:var(--font-heading)] text-4xl sm:text-5xl lg:text-[58px] font-bold leading-[1.06] tracking-tight text-white max-w-[920px]">
+            Der billigste Weg ist{" "}
+            <span style={{ background: "linear-gradient(92deg, #D4A853, #e0bc72)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              selten der günstigste.
+            </span>
           </h2>
-          <div className="space-y-5 text-lg text-muted leading-relaxed">
-            <p>
-              Baukasten und KI-Generatoren wirken günstig — bis die laufenden Gebühren, das
-              generische Design, Sicherheits-Updates, rechtliche Lücken und vor allem deine eigene
-              Zeit dazukommen. Über die Jahre wird daraus oft der teurere Weg.
+          <div className="mt-10 grid lg:grid-cols-2 gap-8 lg:gap-14">
+            <p className="scroll-hidden text-white/65 text-base lg:text-lg leading-[1.8]">
+              Baukasten und KI-Generatoren wirken günstig. Dann kommen laufende
+              Gebühren, generisches Design, Sicherheits-Updates und rechtliche
+              Lücken dazu — und vor allem Ihre eigene Zeit. Über die Jahre wird
+              daraus oft der teurere Weg.
             </p>
-            <p>
-              Eine custom-coded Website von SeoForge ist ein planbarer Festpreis: schnell, sicher,
-              rechtssicher und ohne Plugin-Wildwuchs. Du zahlst einmal für etwas, das verkauft —
-              statt monatlich für etwas, das aussieht wie tausend andere.
+            <p className="scroll-hidden text-white/65 text-base lg:text-lg leading-[1.8]" style={{ transitionDelay: "110ms" }}>
+              Wer seine Firmenwebsite erstellen lassen will, zahlt bei SeoForge
+              einen planbaren <strong className="text-white">Festpreis</strong>:
+              custom coded, schnell, rechtssicher, ohne Plugin-Wildwuchs. Sie
+              zahlen einmal für etwas, das verkauft — statt monatlich für etwas,
+              das aussieht wie tausend andere.
             </p>
+          </div>
+          <div className="scroll-hidden mt-10 flex items-center gap-4 font-mono text-xs uppercase tracking-[0.16em] text-white/50" style={{ transitionDelay: "160ms" }}>
+            <span className="h-[2px] w-8 bg-secondary" aria-hidden="true" />
+            Custom coded statt Baukasten
           </div>
         </div>
       </section>
@@ -1501,7 +1542,7 @@ export default function WebsiteMittelstandClient() {
               Häufige Fragen
             </span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-dark">
-              Website-Erstellung für den Mittelstand
+              Firmenwebsite erstellen lassen — häufige Fragen
             </h2>
           </div>
           <div className="space-y-3">
@@ -1581,8 +1622,14 @@ export default function WebsiteMittelstandClient() {
         </div>
         <div className="relative mx-auto max-w-3xl px-6 text-center">
           <div className="scroll-hidden">
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-white mb-4">
-              Ihre neue Website — zum Mittelstands-Preis.
+            <span className="inline-flex items-center gap-3 font-mono text-[11px] font-semibold tracking-[0.2em] uppercase text-secondary mb-6">
+              <span className="h-[2px] w-7 bg-secondary" aria-hidden="true" /> Nächster Schritt
+            </span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[44px] font-bold text-white leading-[1.1] mb-4">
+              Firmenwebsite erstellen lassen —{" "}
+              <span style={{ background: "linear-gradient(92deg, #D4A853, #e0bc72)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                zum Mittelstands-Preis.
+              </span>
             </h2>
             <p className="text-white/55 text-lg mb-3 leading-relaxed">
               Zwei Sätze genügen. Wir melden uns mit einer ehrlichen Einschätzung
@@ -1593,7 +1640,8 @@ export default function WebsiteMittelstandClient() {
             </p>
             <a
               href="#kontakt"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-xl transition-all"
+              className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold text-dark shadow-[0_18px_40px_-14px_rgba(0,0,0,0.6)] hover:bg-white hover:-translate-y-0.5 hover:shadow-xl transition-all"
+              style={{ background: "#F8F5F1" }}
             >
               Projekt unverbindlich anfragen →
             </a>

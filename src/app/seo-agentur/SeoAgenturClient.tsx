@@ -728,26 +728,19 @@ function KiAnswerMockup() {
 }
 
 /* ─── Daten ───────────────────────────────────────────────────────────────── */
-const BAND_ROW1 = [
-  { label: "SEO-Audit", d: "m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" },
-  { label: "SEO-Beratung", d: "M21 12c0 4.556-4.03 8.25-9 8.25a9.76 9.76 0 0 1-2.555-.337A5.972 5.972 0 0 1 5.41 20.97a5.969 5.969 0 0 1-.474-.065 4.48 4.48 0 0 0 .978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25Z" },
-  { label: "SEO-Optimierung & Technik", d: "M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" },
-  { label: "OnPage-Optimierung", d: "M17.25 6.75 22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3-4.5 16.5" },
-  { label: "Content-Strategie", d: "m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Z" },
-  { label: "SEO-Texte", d: "M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" },
-  { label: "Shop-SEO", d: "M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007Z" },
-  { label: "SEO-Betreuung", d: "M4 4v6h6M20 20v-6h-6M20 10a8 8 0 0 0-14.3-3.7L4 8M4 14a8 8 0 0 0 14.3 3.7L20 16" },
-  { label: "KI-SEO & GEO", d: "M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456Z" },
-];
-
-const BAND_ROW2 = [
-  { label: "E-Commerce", accent: false },
-  { label: "Kein Mindestvertrag", accent: true },
-  { label: "B2B", accent: false },
-  { label: "White-Hat, Google-konform", accent: true },
-  { label: "Lokale Betriebe", accent: false },
-  { label: "Monatliches Reporting", accent: true },
-  { label: "SaaS", accent: false },
+const TOOL_BAND: { name: string; logo: string; hinweis: string }[] = [
+  { name: "Semrush", logo: "/logos/semrush.svg", hinweis: "Keyword- & Wettbewerbsdaten" },
+  { name: "Search Console", logo: "/logos/googlesearchconsole.svg", hinweis: "Index & Suchanfragen" },
+  { name: "Google Analytics", logo: "/logos/googleanalytics.svg", hinweis: "Verhalten & Conversions" },
+  { name: "Google", logo: "/logos/google.svg", hinweis: "Rankings & SERP-Features" },
+  { name: "ChatGPT", logo: "/logos/openai.svg", hinweis: "KI-Antworten & Zitate" },
+  { name: "Perplexity", logo: "/logos/perplexity.svg", hinweis: "KI-Suche & Quellen" },
+  { name: "Gemini", logo: "/logos/gemini.svg", hinweis: "KI-Antworten" },
+  { name: "Next.js", logo: "/logos/nextdotjs.svg", hinweis: "Custom-Code-Basis" },
+  { name: "Vercel", logo: "/logos/vercel.svg", hinweis: "Deploy in Minuten" },
+  { name: "Tailwind", logo: "/logos/tailwindcss.svg", hinweis: "Design-System" },
+  { name: "WordPress", logo: "/logos/wordpress.svg", hinweis: "CMS-Projekte" },
+  { name: "Shopify", logo: "/logos/shopify.svg", hinweis: "Shop-SEO" },
 ];
 
 /* Intro-Dossier — die 3 Original-Absätze als nummerierte Blöcke im Katalog-Duktus */
@@ -757,20 +750,19 @@ const INTRO_BLOCKS: { kicker: string; chips: string[]; text: React.ReactNode }[]
     chips: ["Audit", "Strategie", "Umsetzung", "Autorität"],
     text: (
       <>
-        Eine SEO Agentur übernimmt die technische, inhaltliche und strukturelle Arbeit, die nötig ist, damit
-        eine Website in Suchmaschinen gefunden und in ihrer Branche als relevant eingestuft wird. Dazu gehört
-        die <strong className="text-dark font-semibold">nüchterne Bestandsaufnahme</strong> —{" "}
+        Eine SEO Agentur übernimmt die technische, inhaltliche und strukturelle Arbeit, damit eine Website in
+        Suchmaschinen gefunden wird — und in ihrer Branche als relevant gilt. Am Anfang steht die{" "}
+        <strong className="text-dark font-semibold">nüchterne Bestandsaufnahme</strong>:{" "}
         <strong className="text-dark font-semibold">Crawling-Barrieren</strong>, Indexierungsprobleme,
-        Ladezeiten, inhaltliche Lücken —, die Entwicklung einer{" "}
-        <strong className="text-dark font-semibold">Keyword- und Themenstrategie</strong> sowie die technische
-        und redaktionelle Umsetzung dieser Strategie über Monate hinweg. Genauso gehört der aktive Aufbau von
-        Relevanz durch <strong className="text-dark font-semibold">Backlinks, Erwähnungen und Digital PR</strong>{" "}
-        dazu, denn Inhalte allein reichen selten aus, wenn der Wettbewerb um dieselben Suchbegriffe ebenfalls
-        investiert und ähnliche Themen bereits gut abdeckt. Wer diese Kette nicht mit einem eigenen Team in
-        ausreichender Tiefe abdecken kann, beauftragt eine Agentur — idealerweise eine, die{" "}
-        <strong className="text-dark font-semibold">alle Disziplinen im Zusammenspiel</strong> plant statt sie
-        isoliert abzuarbeiten, denn ein technisch perfekter Auftritt ohne passenden Content bringt ebenso wenig
-        wie brillanter Content auf einer technisch fehlerhaften Website.
+        Ladezeiten, inhaltliche Lücken. Darauf folgt eine{" "}
+        <strong className="text-dark font-semibold">Keyword- und Themenstrategie</strong>, die wir über Monate
+        technisch und redaktionell umsetzen. Ebenso wichtig ist der aktive Aufbau von Relevanz durch{" "}
+        <strong className="text-dark font-semibold">Backlinks, Erwähnungen und Digital PR</strong>. Denn
+        Inhalte allein reichen selten, wenn der Wettbewerb um dieselben Suchbegriffe ebenfalls investiert. Wer
+        diese Kette nicht mit einem eigenen Team abdecken kann, beauftragt eine SEO Agentur — idealerweise
+        eine, die <strong className="text-dark font-semibold">alle Disziplinen im Zusammenspiel</strong> plant.
+        Ein technisch perfekter Auftritt ohne passenden Content bringt ebenso wenig wie brillanter Content auf
+        einer fehlerhaften Website.
       </>
     ),
   },
@@ -783,17 +775,16 @@ const INTRO_BLOCKS: { kicker: string; chips: string[]; text: React.ReactNode }[]
         <Link href="/" className="text-primary font-semibold hover:underline">SeoForge</Link>{" "}
         verbinden wir klassisches SEO mit{" "}
         <strong className="text-dark font-semibold">Generative Engine Optimization (GEO)</strong>. Google
-        bleibt der Kanal mit dem größten Suchvolumen, gleichzeitig beantworten{" "}
-        <strong className="text-dark font-semibold">ChatGPT, Perplexity und Google AI Overviews</strong> einen
-        wachsenden Teil der Anfragen bereits direkt in der KI-Antwort, ohne dass ein Klick auf eine Website
-        erfolgt. Wir arbeiten mit denselben Datenquellen, die auch intern genutzt werden können —{" "}
-        <strong className="text-dark font-semibold">Google Search Console, Semrush, Ahrefs</strong> — und
-        ergänzen sie um eigene <strong className="text-dark font-semibold">Prompt-Monitoring-Setups</strong>,
-        mit denen sich nachvollziehen lässt, ob und wie eine Marke in KI-generierten Antworten überhaupt
-        vorkommt und welche Konkurrenten stattdessen zitiert werden. Diese Kombination ist der Grund, warum wir
-        uns als <strong className="text-dark font-semibold">SEO Agentur mit GEO-Kompetenz</strong> verstehen,
-        nicht als reine Text- oder Linkagentur, die GEO nur als zusätzliches Schlagwort in ihr Angebot
-        aufnimmt.
+        bleibt der Kanal mit dem größten Suchvolumen. Gleichzeitig beantworten{" "}
+        <strong className="text-dark font-semibold">ChatGPT, Perplexity und Google AI Overviews</strong> immer
+        mehr Anfragen direkt in der KI-Antwort — ohne Klick auf eine Website. Wir arbeiten mit denselben
+        Datenquellen, die auch intern genutzt werden können:{" "}
+        <strong className="text-dark font-semibold">Google Search Console, Semrush, Ahrefs</strong>. Ergänzt
+        um eigene <strong className="text-dark font-semibold">Prompt-Monitoring-Setups</strong>. Damit lässt
+        sich nachvollziehen, ob eine Marke in KI-Antworten vorkommt — und welche Konkurrenten stattdessen
+        zitiert werden. Diese Kombination ist der Grund, warum wir uns als{" "}
+        <strong className="text-dark font-semibold">SEO Agentur mit GEO-Kompetenz</strong> verstehen. Nicht
+        als reine Text- oder Linkagentur, die GEO nur als Schlagwort in ihr Angebot aufnimmt.
       </>
     ),
   },
@@ -802,18 +793,16 @@ const INTRO_BLOCKS: { kicker: string; chips: string[]; text: React.ReactNode }[]
     chips: ["CI/CD", "KI-Workflows", "Antwort < 24 h"],
     text: (
       <>
-        Technisch und inhaltlich setzen wir über eine{" "}
-        <strong className="text-dark font-semibold">CI/CD-Infrastruktur</strong> um, wodurch Änderungen{" "}
-        <strong className="text-dark font-semibold">innerhalb von Minuten live</strong> gehen und nicht erst
-        nach tagelanger Abstimmung mit einer externen Entwicklungsabteilung oder einem separaten
-        Freigabeprozess. Repetitive Aufgaben — Datenaufbereitung, Crawling-Auswertung, Reporting-Vorbereitung —
-        übernehmen bei uns <strong className="text-dark font-semibold">KI-gestützte Workflows</strong>, wodurch
-        mehr Zeit für strategische Entscheidungen bleibt statt für manuelle Fleißarbeit, die sich ebenso gut
-        automatisieren lässt. Daraus ergeben sich{" "}
-        <strong className="text-dark font-semibold">faire Preise</strong> bei einem festen Ansprechpartner, der{" "}
-        <strong className="text-dark font-semibold">innerhalb von 24 Stunden</strong> antwortet, und eine
-        Arbeitsweise, die sich an nachvollziehbaren Daten orientiert statt an pauschalen Versprechen, die sich
-        im Nachhinein nicht überprüfen lassen.
+        Als SEO Agentur mit DevOps im Haus setzen wir über eine{" "}
+        <strong className="text-dark font-semibold">CI/CD-Infrastruktur</strong> um. Änderungen gehen{" "}
+        <strong className="text-dark font-semibold">innerhalb von Minuten live</strong> — nicht erst nach
+        tagelanger Abstimmung mit einer externen Entwicklungsabteilung. Repetitive Aufgaben wie
+        Datenaufbereitung, Crawling-Auswertung und Reporting-Vorbereitung übernehmen bei uns{" "}
+        <strong className="text-dark font-semibold">KI-gestützte Workflows</strong>. So bleibt mehr Zeit für
+        strategische Entscheidungen statt für manuelle Fleißarbeit. Daraus ergeben sich{" "}
+        <strong className="text-dark font-semibold">faire Preise</strong> bei einem festen Ansprechpartner,
+        der <strong className="text-dark font-semibold">innerhalb von 24 Stunden</strong> antwortet. Und eine
+        Arbeitsweise, die sich an nachvollziehbaren Daten orientiert — nicht an pauschalen Versprechen.
       </>
     ),
   },
@@ -833,11 +822,11 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
         text: (
           <>
             Jede Zusammenarbeit beginnt mit einem{" "}
-            <Link href="/seo/audit" className="text-primary font-semibold hover:underline">SEO-Audit</Link>, das technische Basis,
-            Indexierung, Ladezeiten, Content-Qualität und Backlink-Profil systematisch erfasst, meist ergänzt um eine Analyse des
-            Wettbewerbsumfelds. Aus unserer Erfahrung liegen die größten Potenziale selten dort, wo Kunden sie vermuten, sondern in
-            strukturellen Defiziten wie fehlerhafter Kanonisierung, dünnen Kategorieseiten oder unklarer interner Verlinkung, die über
-            Jahre gewachsen sind. Der Audit liefert eine priorisierte Maßnahmenliste mit Aufwand-Nutzen-Einschätzung, keine reine
+            <Link href="/seo/audit" className="text-primary font-semibold hover:underline">SEO-Audit</Link>. Es erfasst technische
+            Basis, Indexierung, Ladezeiten, Content-Qualität und Backlink-Profil systematisch — meist ergänzt um eine Analyse des
+            Wettbewerbsumfelds. Aus unserer Erfahrung liegen die größten Potenziale selten dort, wo Kunden sie vermuten. Sondern in
+            strukturellen Defiziten, die über Jahre gewachsen sind: fehlerhafte Kanonisierung, dünne Kategorieseiten, unklare interne
+            Verlinkung. Der Audit liefert eine priorisierte Maßnahmenliste mit Aufwand-Nutzen-Einschätzung — keine reine
             Fehlersammlung ohne Handlungsempfehlung.
           </>
         ),
@@ -848,13 +837,13 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
         chips: ["Keyword-Architektur", "Themenautorität"],
         text: (
           <>
-            Auf Basis von Suchvolumen, Wettbewerbsdichte und Nutzerintention entwickeln wir eine Keyword-Architektur, die
-            Money-Keywords, Rechercheanfragen und Long-Tail-Begriffe sinnvoll auf einzelne Seiten verteilt, statt mehrere Seiten um
-            denselben Begriff konkurrieren zu lassen. Diese Arbeit ist fester Bestandteil unserer{" "}
-            <Link href="/seo/beratung" className="text-primary font-semibold hover:underline">SEO-Beratung</Link> und entscheidet, ob
-            eine Website später um dieselben zwei, drei Hauptbegriffe konkurriert oder eine breite Themenautorität über ein ganzes
-            Themenfeld aufbaut. Ohne diese Vorarbeit laufen Content- und Linkbuilding-Maßnahmen häufig ins Leere, weil sie auf die
-            falschen Begriffe einzahlen oder mehrere eigene Seiten gegeneinander ausspielen.
+            Auf Basis von Suchvolumen, Wettbewerbsdichte und Nutzerintention entwickeln wir eine Keyword-Architektur. Sie verteilt
+            Money-Keywords, Rechercheanfragen und Long-Tail-Begriffe sinnvoll auf einzelne Seiten — statt mehrere Seiten um denselben
+            Begriff konkurrieren zu lassen. Diese Arbeit ist fester Bestandteil unserer{" "}
+            <Link href="/seo/beratung" className="text-primary font-semibold hover:underline">SEO-Beratung</Link>. Sie entscheidet, ob
+            eine Website später um zwei, drei Hauptbegriffe kämpft oder Themenautorität über ein ganzes Feld aufbaut. Ohne diese
+            Vorarbeit laufen Content- und Linkbuilding-Maßnahmen häufig ins Leere. Sie zahlen dann auf die falschen Begriffe ein oder
+            spielen eigene Seiten gegeneinander aus.
           </>
         ),
       },
@@ -865,12 +854,11 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
         text: (
           <>
             Die <Link href="/seo/optimierung" className="text-primary font-semibold hover:underline">SEO-Optimierung</Link> umfasst
-            Meta-Daten, interne Verlinkung, strukturierte Daten, Core Web Vitals und die Behebung technischer Crawling-Fehler, die eine
-            Website für Suchmaschinen unnötig schwer lesbar machen. Wir setzen technische Änderungen über eine CI/CD-Pipeline um,
-            wodurch Anpassungen an Templates oder Seitenstruktur innerhalb weniger Minuten live sind statt nach wochenlanger Abstimmung
-            mit einer externen IT-Abteilung, die andere Prioritäten verfolgt. Bei Websites mit mehreren tausend URLs entscheidet diese
-            Geschwindigkeit häufig darüber, ob technische Probleme innerhalb von Tagen oder erst nach Monaten behoben werden, während
-            der Wettbewerb weiter aufholt.
+            Meta-Daten, interne Verlinkung, strukturierte Daten und Core Web Vitals. Dazu kommt die Behebung technischer
+            Crawling-Fehler, die eine Website für Suchmaschinen unnötig schwer lesbar machen. Technische Änderungen setzen wir über
+            eine CI/CD-Pipeline um. Anpassungen an Templates oder Seitenstruktur sind so in Minuten live — nicht erst nach
+            wochenlanger Abstimmung mit einer externen IT-Abteilung. Bei Websites mit mehreren tausend URLs entscheidet diese
+            Geschwindigkeit häufig, ob Probleme in Tagen oder erst nach Monaten behoben werden.
           </>
         ),
       },
@@ -885,13 +873,13 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
         chips: ["Themenarchitektur", "Pillar & Cluster"],
         text: (
           <>
-            Inhalte entstehen bei uns eingebettet in eine Themenarchitektur, die Suchintention, Cluster-Struktur und interne
-            Verlinkung zusammen plant, nicht als isolierte Blogartikel ohne erkennbaren roten Faden. Die eigentliche Umsetzung —
-            recherchierte, fachlich korrekte{" "}
-            <Link href="/seo/texte" className="text-primary font-semibold hover:underline">SEO-Texte</Link> — übernehmen Redakteure mit
-            Themenkenntnis, keine austauschbaren Textbausteine aus der Textbörse, die an jeder zweiten Stelle dieselben Floskeln
-            wiederholen. Jede Seite bekommt eine klar definierte Rolle im Gesamtgefüge: als Pillar-Seite, unterstützender
-            Cluster-Artikel oder transaktionale Landingpage, die auf ein konkretes Ziel einzahlt.
+            Inhalte entstehen bei uns eingebettet in eine Themenarchitektur. Sie plant Suchintention, Cluster-Struktur und interne
+            Verlinkung zusammen — keine isolierten Blogartikel ohne roten Faden. Die Umsetzung übernehmen Redakteure mit
+            Themenkenntnis: recherchierte, fachlich korrekte{" "}
+            <Link href="/seo/texte" className="text-primary font-semibold hover:underline">SEO-Texte</Link> statt austauschbarer
+            Textbausteine aus der Textbörse. Jede Seite bekommt eine klar definierte Rolle im Gesamtgefüge: als Pillar-Seite,
+            unterstützender Cluster-Artikel oder transaktionale Landingpage mit konkretem Ziel. Wie diese Logik funktioniert, zeigt unser{" "}
+            <Link href="/wissen/seo" className="text-primary font-semibold hover:underline">SEO-Wissensbereich</Link>.
           </>
         ),
       },
@@ -901,13 +889,13 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
         chips: ["Digital PR", "Zitierfähige Inhalte"],
         text: (
           <>
-            Backlinks entstehen aus unserer Erfahrung am nachhaltigsten aus Inhalten, die tatsächlich zitiert werden wollen — Studien,
-            Datenauswertungen oder fundierte Ratgeber, deren Themen wir gezielt über die{" "}
-            <Link href="/seo/content-strategie" className="text-primary font-semibold hover:underline">Content-Strategie</Link> planen,
-            statt sie dem Zufall zu überlassen. Reine Linkkäufe halten wir für riskant und wenig nachhaltig; stattdessen setzen wir auf
-            Digital PR, also die aktive Ansprache von Redaktionen und Fachportalen mit Inhalten, die einen echten Mehrwert bieten und
-            aus fachlicher Sicht etwas beitragen. Diese Arbeit braucht Geduld, liefert dafür aber Verlinkungen, die auch nach einem
-            Algorithmus-Update Bestand haben, weil sie auf redaktioneller Relevanz statt auf reiner Platzierung beruhen.
+            Backlinks entstehen am nachhaltigsten aus Inhalten, die tatsächlich zitiert werden wollen: Studien, Datenauswertungen,
+            fundierte Ratgeber. Deren Themen planen wir gezielt über die{" "}
+            <Link href="/seo/content-strategie" className="text-primary font-semibold hover:underline">Content-Strategie</Link>, statt
+            sie dem Zufall zu überlassen. Reine Linkkäufe halten wir für riskant und wenig nachhaltig. Stattdessen setzen wir auf
+            Digital PR — die aktive Ansprache von Redaktionen und Fachportalen mit Inhalten, die echten Mehrwert bieten. Diese Arbeit
+            braucht Geduld. Dafür liefert sie Verlinkungen, die auch nach einem Algorithmus-Update Bestand haben, weil sie auf
+            redaktioneller Relevanz beruhen.
           </>
         ),
       },
@@ -917,13 +905,13 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
         chips: ["Google Business", "Standortseiten"],
         text: (
           <>
-            Für Unternehmen mit stationärem Geschäft oder mehreren Standorten optimieren wir Google Business-Profile, lokale
-            Landingpages und Verzeichniseinträge als Teil unserer{" "}
-            <Link href="/seo/optimierung" className="text-primary font-semibold hover:underline">SEO-Optimierung</Link>, abgestimmt auf
-            die jeweilige Region und Zielgruppe. Lokale Rankings hängen stark von Konsistenz ab — gleiche Adressdaten, gleiche
-            Kategorien, gleiche Öffnungszeiten über alle Verzeichnisse hinweg —, ein Detail, das in der Praxis häufiger vernachlässigt
-            wird als vermutet und stille Ranking-Verluste verursacht. Bei mehreren Standorten entwickeln wir zusätzlich eine Struktur,
-            in der sich einzelne Standortseiten nicht gegenseitig kannibalisieren, sondern jede für ihre eigene Region sichtbar wird.
+            Für Unternehmen mit stationärem Geschäft optimieren wir Google-Business-Profile, lokale Landingpages und
+            Verzeichniseinträge — abgestimmt auf Region und Zielgruppe. Lokale Rankings hängen stark von Konsistenz ab: gleiche
+            Adressdaten, gleiche Kategorien, gleiche Öffnungszeiten über alle Verzeichnisse hinweg. Dieses Detail wird häufiger
+            vernachlässigt als vermutet und verursacht stille Ranking-Verluste. Bei mehreren Standorten entwickeln wir eine Struktur,
+            in der sich Standortseiten nicht gegenseitig kannibalisieren. Jede wird für ihre eigene Region sichtbar. Die Grundlagen
+            dazu erklärt unser{" "}
+            <Link href="/wissen/local-seo" className="text-primary font-semibold hover:underline">Local-SEO-Wissensbereich</Link>.
           </>
         ),
       },
@@ -938,12 +926,12 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
         chips: ["Facettennavigation", "Crawling-Budget"],
         text: (
           <>
-            Online-Shops stellen eigene Anforderungen: Kategorieseiten mit dünnem Content, Duplicate Content durch Filterkombinationen
-            und Produktseiten, die inhaltlich austauschbar sind, weil Hersteller-Beschreibungen unverändert übernommen wurden. Bei der{" "}
-            <Link href="/branchen/seo-fuer-online-shops" className="text-primary font-semibold hover:underline">Shop-SEO</Link> arbeiten wir an
-            Kategorietexten, Facettennavigation und der technischen Sauberkeit von Filter-URLs, damit Crawling-Budget nicht in
-            irrelevanten URL-Varianten verpufft, die ohnehin nie ranken würden. Bei großen Sortimenten entscheidet diese technische
-            Struktur häufiger über Sichtbarkeit als einzelne Produkttexte, so wichtig diese im Detail auch bleiben.
+            Online-Shops stellen eigene Anforderungen: Kategorieseiten mit dünnem Content, Duplicate Content durch Filterkombinationen,
+            austauschbare Produktseiten aus unveränderten Hersteller-Beschreibungen. Bei der{" "}
+            <Link href="/branchen/seo-fuer-online-shops" className="text-primary font-semibold hover:underline">Shop-SEO</Link> arbeiten
+            wir an Kategorietexten, Facettennavigation und der technischen Sauberkeit von Filter-URLs. So verpufft kein Crawling-Budget
+            in irrelevanten URL-Varianten, die ohnehin nie ranken würden. Bei großen Sortimenten entscheidet diese Struktur häufiger
+            über Sichtbarkeit als einzelne Produkttexte — so wichtig diese im Detail bleiben.
           </>
         ),
       },
@@ -953,12 +941,12 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
         chips: ["Monitoring", "Monatliches Reporting"],
         text: (
           <>
-            SEO ist kein Projekt mit Abschlussdatum, weshalb die meisten Mandate in eine{" "}
-            <Link href="/seo/betreuung" className="text-primary font-semibold hover:underline">laufende Betreuung</Link> übergehen,
-            sobald die Grundlagen stehen und erste Ergebnisse sichtbar werden. Darin überwachen wir Rankings, Sichtbarkeitsindex,
-            technische Fehler und Wettbewerbsbewegungen und passen die Strategie an, sobald sich Suchintention, SERP-Layout oder das
-            Verhalten einzelner Wettbewerber verändern. In dieser Phase zeigt sich auch der tatsächliche Wert einer Agentur, weil
-            einmalige Maßnahmen ohne Nachpflege innerhalb weniger Monate an Wirkung verlieren und Wettbewerber aufholen.
+            SEO ist kein Projekt mit Abschlussdatum. Die meisten Mandate gehen deshalb in eine{" "}
+            <Link href="/seo/betreuung" className="text-primary font-semibold hover:underline">laufende Betreuung</Link> über, sobald
+            die Grundlagen stehen. Darin überwachen wir Rankings, Sichtbarkeitsindex, technische Fehler und Wettbewerbsbewegungen. Die
+            Strategie passen wir an, sobald sich Suchintention, SERP-Layout oder Wettbewerberverhalten verändern. In dieser Phase zeigt
+            sich der tatsächliche Wert einer SEO Agentur: Einmalige Maßnahmen ohne Nachpflege verlieren innerhalb weniger Monate an
+            Wirkung.
           </>
         ),
       },
@@ -970,11 +958,12 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
           <>
             Mit unserer{" "}
             <Link href="/geo/optimierung" className="text-primary font-semibold hover:underline">GEO-Optimierung</Link> prüfen wir, ob
-            und wie eine Marke in Antworten von ChatGPT, Perplexity und Google AI Overviews auftaucht, und arbeiten an den Faktoren,
-            die KI-Systeme als vertrauenswürdige Quelle werten — klare Struktur, eindeutige Fakten, konsistente Aussagen über
-            verschiedene Quellen hinweg, die sich nicht widersprechen. Diese Disziplin steckt technisch und methodisch noch in einer
-            frühen Phase, in der sich Bewertungskriterien monatlich verschieben können, weshalb wir sie offen als Ergänzung zu
-            klassischem SEO kommunizieren, nicht als Ersatz.
+            und wie eine Marke in Antworten von ChatGPT, Perplexity und Google AI Overviews auftaucht. Wir arbeiten an den Faktoren,
+            die KI-Systeme als vertrauenswürdige Quelle werten: klare Struktur, eindeutige Fakten, konsistente Aussagen über
+            verschiedene Quellen hinweg. Welche Signale dabei zählen, erklärt unser Ratgeber zu den{" "}
+            <Link href="/wissen/ratgeber/geo-ranking-faktoren" className="text-primary font-semibold hover:underline">GEO-Ranking-Faktoren</Link>.
+            Die Disziplin ist noch jung, Bewertungskriterien verschieben sich monatlich. Deshalb kommunizieren wir sie offen als
+            Ergänzung zu klassischem SEO — nicht als Ersatz.
           </>
         ),
       },
@@ -984,13 +973,19 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
 
 const KATALOG_FLAT = KATALOG.flatMap((k) => k.leistungen);
 
+/* Tool-Logos für die Werkzeug-Chips (nur real vorhandene Assets) */
+const TOOL_LOGOS: Record<string, string> = {
+  Semrush: "/logos/semrush.svg",
+  "Google Search Console": "/logos/googlesearchconsole.svg",
+};
+
 /* Prozess — 5 Phasen als Arbeitspakete (keine Roadmap-Optik) */
 const PHASEN = [
   {
     nr: "01",
     titel: "Kickoff & Audit",
     kurz: "Zielsetzung, Wettbewerb und technische Ausgangslage klären.",
-    text: "Jedes Mandat beginnt mit einem persönlichen Kickoff, in dem wir Zielsetzung, Wettbewerbsumfeld, interne Ressourcen und technische Ausgangslage klären, gefolgt vom vollständigen SEO-Audit über alle relevanten Seitenbereiche. Erst nach dieser Bestandsaufnahme legen wir fest, welche Maßnahmen priorisiert werden, nicht vorher und nicht nach einem Schema, das für jede Website identisch abläuft.",
+    text: "Jedes Mandat beginnt mit einem persönlichen Kickoff. Darin klären wir Zielsetzung, Wettbewerbsumfeld, interne Ressourcen und technische Ausgangslage. Danach folgt das vollständige SEO-Audit über alle relevanten Seitenbereiche. Erst nach dieser Bestandsaufnahme legen wir fest, welche Maßnahmen priorisiert werden — nicht vorher und nicht nach einem Schema, das für jede Website identisch abläuft.",
     deliverable: "Vollständiger SEO-Audit mit priorisierter Maßnahmenliste",
     tools: ["Google Search Console", "Screaming Frog", "Semrush"],
     zeit: "Woche 1–2",
@@ -999,7 +994,7 @@ const PHASEN = [
     nr: "02",
     titel: "Strategie & Roadmap",
     kurz: "Meilensteine nach Aufwand und erwartetem Effekt sortiert.",
-    text: "Aus den Audit-Ergebnissen entsteht eine Roadmap mit klaren Meilensteinen, sortiert nach Aufwand und erwartetem Effekt statt nach Bauchgefühl oder danach, was sich am schnellsten präsentieren lässt. Diese Roadmap ist die verbindliche Arbeitsgrundlage der Zusammenarbeit und wird angepasst, sobald sich Prioritäten durch neue Daten, ein Google-Update oder verändertes Wettbewerbsverhalten verschieben.",
+    text: "Aus den Audit-Ergebnissen entsteht eine Roadmap mit klaren Meilensteinen. Sortiert nach Aufwand und erwartetem Effekt — nicht nach Bauchgefühl oder danach, was sich am schnellsten präsentieren lässt. Diese Roadmap ist die verbindliche Arbeitsgrundlage der Zusammenarbeit. Wir passen sie an, sobald neue Daten, ein Google-Update oder verändertes Wettbewerbsverhalten die Prioritäten verschieben.",
     deliverable: "Roadmap mit klaren Meilensteinen als verbindliche Arbeitsgrundlage",
     tools: ["Semrush", "Ahrefs"],
     zeit: "Woche 2–4",
@@ -1008,7 +1003,7 @@ const PHASEN = [
     nr: "03",
     titel: "Umsetzung",
     kurz: "Technik und Redaktion parallel — live über CI/CD.",
-    text: "Technische und inhaltliche Maßnahmen setzen wir über unsere CI/CD-Infrastruktur um, wodurch Änderungen innerhalb von Minuten statt Wochen live gehen und nicht in einer Warteschlange bei der IT-Abteilung hängen bleiben. Redaktionelle Arbeiten und technische Anpassungen laufen dabei parallel, nicht nacheinander, um die Zeit bis zur ersten messbaren Wirkung spürbar zu verkürzen.",
+    text: "Technische und inhaltliche Maßnahmen setzen wir über unsere CI/CD-Infrastruktur um. Änderungen gehen so innerhalb von Minuten statt Wochen live — ohne Warteschlange bei der IT-Abteilung. Redaktionelle Arbeiten und technische Anpassungen laufen parallel, nicht nacheinander. Das verkürzt die Zeit bis zur ersten messbaren Wirkung spürbar.",
     deliverable: "Umgesetzte Maßnahmen — in Minuten live statt in Wochen",
     tools: ["Screaming Frog", "Google Search Console"],
     zeit: "ab Woche 4, fortlaufend",
@@ -1017,7 +1012,7 @@ const PHASEN = [
     nr: "04",
     titel: "Monitoring & Reporting",
     kurz: "Sie sehen dieselben Daten, mit denen wir arbeiten.",
-    text: "Rankings, organischer Traffic, Sichtbarkeitsindex und technische Kennzahlen werden fortlaufend über Search Console, Semrush und Ahrefs erfasst und in einem transparenten, für Sie jederzeit einsehbaren Reporting zusammengeführt. Sie sehen dabei dieselben Daten, mit denen wir intern arbeiten, keine nachträglich geglättete oder ausschließlich positiv formulierte Zusammenfassung.",
+    text: "Rankings, organischer Traffic, Sichtbarkeitsindex und technische Kennzahlen erfassen wir fortlaufend — über Search Console, Semrush und Ahrefs. Alles fließt in ein transparentes Reporting, das Sie jederzeit einsehen können. Sie sehen dieselben Daten, mit denen wir intern arbeiten. Keine nachträglich geglättete oder ausschließlich positiv formulierte Zusammenfassung.",
     deliverable: "Transparentes Reporting — jederzeit einsehbar",
     tools: ["Google Search Console", "Semrush", "Ahrefs"],
     zeit: "monatlich, fortlaufend",
@@ -1026,7 +1021,7 @@ const PHASEN = [
     nr: "05",
     titel: "Iterative Optimierung",
     kurz: "Messen, anpassen, erneut messen — über das gesamte Mandat.",
-    text: "SEO-Maßnahmen wirken selten beim ersten Versuch optimal, weshalb wir Inhalte und technische Einstellungen nach den ersten Ergebnissen nachschärfen und Hypothesen verwerfen, die sich in den Daten nicht bestätigen. Diese Schleife aus Messen, Anpassen und erneutem Messen wiederholt sich über die gesamte Zusammenarbeit hinweg, nicht nur in der Anfangsphase eines Mandats.",
+    text: "SEO-Maßnahmen wirken selten beim ersten Versuch optimal. Deshalb schärfen wir Inhalte und technische Einstellungen nach den ersten Ergebnissen nach. Hypothesen, die sich in den Daten nicht bestätigen, verwerfen wir. Diese Schleife aus Messen, Anpassen und erneutem Messen läuft über die gesamte Zusammenarbeit — nicht nur in der Anfangsphase.",
     deliverable: "Nachgeschärfte Maßnahmen auf Datenbasis — verworfene Hypothesen inklusive",
     tools: ["Google Search Console", "Semrush"],
     zeit: "fortlaufend",
@@ -1136,25 +1131,55 @@ const PREIS_LOGIK: { wert: React.ReactNode; titel: string; satz: string }[] = [
 ];
 
 /* Für wen — 4 Profile mit typischem Hebel */
-const PROFILE = [
+const PROFILE: { t: string; d: React.ReactNode; hebel: string }[] = [
   {
     t: "KMU & Mittelstand",
-    d: "Mittelständische Unternehmen profitieren meist am stärksten von einer Agentur, weil intern selten Kapazität für alle SEO-Disziplinen gleichzeitig vorhanden ist und eine einzelne Marketingstelle Technik, Content und Linkbuilding kaum abdecken kann. Wir übernehmen dabei die komplette operative Arbeit und liefern Reportings, die auch ohne tiefes SEO-Fachwissen auf Geschäftsführungsebene verständlich sind.",
+    d: (
+      <>
+        Mittelständische Unternehmen profitieren meist am stärksten von einer SEO Agentur. Intern fehlt selten der Wille, aber fast
+        immer die Kapazität für alle Disziplinen gleichzeitig — eine einzelne Marketingstelle kann Technik, Content und Linkbuilding
+        kaum abdecken. Wir übernehmen die komplette operative Arbeit. Unsere Reportings sind auch ohne tiefes SEO-Fachwissen auf
+        Geschäftsführungsebene verständlich.
+      </>
+    ),
     hebel: "Komplette Operative + Management-Reporting",
   },
   {
     t: "B2B-Dienstleister",
-    d: "B2B-Unternehmen mit erklärungsbedürftigen Leistungen brauchen häufig eher Themenautorität und Vertrauen als reine Keyword-Rankings, da Kaufentscheidungen selten sofort nach dem ersten Website-Besuch fallen, sondern über Wochen und mehrere Ansprechpartner hinweg reifen. Hier setzen wir auf Content, der Fachfragen fundiert beantwortet und über einen längeren Entscheidungsprozess hinweg relevant und auffindbar bleibt.",
+    d: (
+      <>
+        B2B-Unternehmen mit erklärungsbedürftigen Leistungen brauchen eher Themenautorität und Vertrauen als reine Keyword-Rankings.
+        Kaufentscheidungen fallen hier selten nach dem ersten Website-Besuch — sie reifen über Wochen und mehrere Ansprechpartner
+        hinweg. Wir setzen deshalb auf Content, der Fachfragen fundiert beantwortet und über den gesamten Entscheidungsprozess
+        auffindbar bleibt. Für Software-Anbieter greift zusätzlich unser Ansatz für{" "}
+        <Link href="/branchen/saas-seo" className="text-primary font-semibold hover:underline">SaaS-SEO</Link>.
+      </>
+    ),
     hebel: "Themen-Cluster + Autoritätsaufbau",
   },
   {
     t: "Online-Shops",
-    d: "Für Online-Shops steht die technische Struktur im Vordergrund — Kategorieseiten, Filterlogik, Duplicate Content —, weil sich Fehler hier direkt in entgangenem Umsatz niederschlagen, oft ohne dass die Ursache auf den ersten Blick erkennbar ist. Wir kombinieren technische Shop-Optimierung mit Content für Kategorie- und Ratgeberseiten, die zusätzliches Suchvolumen jenseits der reinen Produktsuche erschließen.",
+    d: (
+      <>
+        Für Online-Shops steht die technische Struktur im Vordergrund: Kategorieseiten, Filterlogik, Duplicate Content. Fehler
+        schlagen sich hier direkt in entgangenem Umsatz nieder — oft ohne auf den ersten Blick erkennbare Ursache. Wir kombinieren
+        technische Shop-Optimierung mit Content für Kategorie- und Ratgeberseiten. So erschließen Sie Suchvolumen jenseits der reinen
+        Produktsuche.
+      </>
+    ),
     hebel: "Kategorie-Struktur + technisches Shop-SEO",
   },
   {
     t: "Lokale Unternehmen",
-    d: "Unternehmen mit stationärem Geschäft oder mehreren Standorten profitieren von der Kombination aus lokaler Optimierung und klassischem SEO, weil beide Kanäle unterschiedliche Suchanfragen bedienen und unterschiedliche Phasen der Kaufentscheidung abdecken. Wir sorgen dafür, dass Standortseiten sich gegenseitig unterstützen, statt im eigenen Ranking gegeneinander zu konkurrieren.",
+    d: (
+      <>
+        Unternehmen mit stationärem Geschäft profitieren von der Kombination aus lokaler Optimierung und klassischem SEO. Beide Kanäle
+        bedienen unterschiedliche Suchanfragen und Phasen der Kaufentscheidung. Wir sorgen dafür, dass Standortseiten sich gegenseitig
+        unterstützen, statt gegeneinander zu ranken. Wie das regional aussieht, zeigen die Seiten unserer{" "}
+        <Link href="/standorte" className="text-primary font-semibold hover:underline">SEO Agentur nach Standorten</Link> — von
+        Frankfurt bis Stuttgart.
+      </>
+    ),
     hebel: "Standortseiten + Google-Business-Profil",
   },
 ];
@@ -1163,35 +1188,35 @@ const PROFILE = [
 const faqs = [
   {
     q: "Was macht eine SEO Agentur?",
-    a: "Eine SEO Agentur analysiert die technische, inhaltliche und strukturelle Ausgangslage einer Website und entwickelt daraus Maßnahmen, die organische Sichtbarkeit in Suchmaschinen verbessern. Dazu gehören SEO-Audit, Keyword-Strategie, technische Optimierung, Content-Erstellung, Linkbuilding und laufendes Monitoring, meist begleitet von regelmäßigem Reporting an den Auftraggeber. Eine gute Agentur bewertet zusätzlich, welche Kanäle – klassische Suche oder KI-Suche – für ein Unternehmen tatsächlich relevant sind, statt pauschal dieselben Maßnahmen unabhängig von Branche und Zielgruppe für jede Website umzusetzen.",
+    a: "Eine SEO Agentur analysiert die technische, inhaltliche und strukturelle Ausgangslage einer Website. Daraus entwickelt sie Maßnahmen, die die organische Sichtbarkeit in Suchmaschinen verbessern. Dazu gehören SEO-Audit, Keyword-Strategie, technische Optimierung, Content-Erstellung, Linkbuilding und laufendes Monitoring — meist mit regelmäßigem Reporting. Eine gute SEO Agentur bewertet zusätzlich, welche Kanäle für ein Unternehmen relevant sind: klassische Suche, KI-Suche oder beides. Sie setzt nicht pauschal dieselben Maßnahmen für jede Website um.",
   },
   {
     q: "Wie lange dauert es, bis SEO-Ergebnisse sichtbar werden?",
-    a: "Erste messbare Effekte zeigen sich in der Regel nach drei bis sechs Monaten, abhängig von Wettbewerbsdichte und technischer Ausgangslage. Ein nachhaltiger Aufbau, der auch wettbewerbsintensive Haupt-Keywords einschließt, benötigt meist sechs bis zwölf Monate. Wer schnellere Versprechen hört, sollte nachfragen, mit welchen Methoden das erreicht werden soll – kurzfristige Rankingsprünge über riskante Taktiken kosten mittelfristig häufig mehr, als sie kurzfristig bringen.",
+    a: "Erste messbare Effekte zeigen sich in der Regel nach drei bis sechs Monaten — abhängig von Wettbewerbsdichte und technischer Ausgangslage. Ein nachhaltiger Aufbau, der auch umkämpfte Haupt-Keywords einschließt, benötigt meist sechs bis zwölf Monate. Wer schnellere Versprechen hört, sollte nach den Methoden fragen. Kurzfristige Rankingsprünge über riskante Taktiken kosten mittelfristig häufig mehr, als sie bringen.",
   },
   {
     q: "Was kostet SEO?",
-    a: "Die Kosten hängen von Wettbewerbsumfeld, technischer Ausgangslage, Umfang der Website und Content-Bedarf ab, weshalb sich ein pauschaler Preis seriös nicht nennen lässt. Nach einer kostenlosen Erstanalyse erstellen wir ein individuelles Angebot, das sich an der tatsächlichen Situation orientiert, nicht an einem Standardpaket. Die Abrechnung ist dabei transparent nachvollziehbar, sodass klar ist, welche Leistung wofür eingeplant ist.",
+    a: "Die Kosten hängen von Wettbewerbsumfeld, technischer Ausgangslage, Umfang der Website und Content-Bedarf ab. Eine seriöse SEO Agentur nennt deshalb keinen Pauschalpreis. Nach einer kostenlosen Erstanalyse erstellen wir ein individuelles Angebot, das sich an der tatsächlichen Situation orientiert — nicht an einem Standardpaket. Die Abrechnung ist transparent nachvollziehbar: Sie wissen, welche Leistung wofür eingeplant ist.",
   },
   {
     q: "Gibt es eine Garantie auf Platz 1 bei Google?",
-    a: "Nein, und jede Agentur, die das zusichert, sollte kritisch hinterfragt werden. Rankingfaktoren, Wettbewerbsverhalten und Algorithmus-Updates liegen außerhalb der Kontrolle einer einzelnen Agentur, weshalb feste Platzierungen nicht seriös garantiert werden können, unabhängig davon, wie gut eine Website optimiert ist. Wir kommunizieren stattdessen, was auf Basis vorhandener Daten realistisch erreichbar ist, und passen die Einschätzung offen an, sobald sich die Ausgangslage verändert, etwa durch ein Google-Update oder neue Wettbewerber im selben Marktsegment.",
+    a: "Nein — und jede Agentur, die das zusichert, sollte kritisch hinterfragt werden. Rankingfaktoren, Wettbewerbsverhalten und Algorithmus-Updates liegen außerhalb der Kontrolle einer einzelnen Agentur. Feste Platzierungen lassen sich deshalb nicht seriös garantieren, egal wie gut eine Website optimiert ist. Wir kommunizieren stattdessen, was auf Basis vorhandener Daten realistisch erreichbar ist. Verändert sich die Ausgangslage — etwa durch ein Google-Update oder neue Wettbewerber —, passen wir die Einschätzung offen an.",
   },
   {
     q: "Inhouse-Team oder SEO Agentur – was ist sinnvoller?",
-    a: "Das hängt von der verfügbaren Kapazität und dem benötigten Fachwissen ab. Ein Inhouse-Team lohnt sich, wenn ausreichend Budget für mehrere spezialisierte Stellen vorhanden ist und SEO eng mit Produktentwicklung oder Redaktion verzahnt werden muss. Eine Agentur ist sinnvoll, wenn mehrere Disziplinen gleichzeitig abgedeckt werden müssen, ohne dafür mehrere Vollzeitstellen aufzubauen, oder wenn eine externe, unvoreingenommene Bewertung der eigenen Website gewünscht ist.",
+    a: "Das hängt von der verfügbaren Kapazität und dem benötigten Fachwissen ab. Ein Inhouse-Team lohnt sich, wenn Budget für mehrere spezialisierte Stellen vorhanden ist und SEO eng mit Produktentwicklung oder Redaktion verzahnt werden muss. Eine SEO Agentur ist sinnvoll, wenn mehrere Disziplinen gleichzeitig abgedeckt werden müssen — ohne dafür mehrere Vollzeitstellen aufzubauen. Oder wenn eine externe, unvoreingenommene Bewertung der eigenen Website gewünscht ist.",
   },
   {
     q: "Woran erkennt man eine gute SEO Agentur?",
-    a: "An nachvollziehbaren Prozessen statt vagen Versprechen: Ein seriöses Angebot beginnt mit einem Audit, benennt konkrete Maßnahmen mit Priorisierung und zeigt Reportings mit denselben Daten, mit denen intern gearbeitet wird, statt nachträglich aufbereiteten Auszügen. Vorsicht ist geboten bei Agenturen, die feste Rankinggarantien geben, keine Einblicke in ihre Methoden gewähren oder ausschließlich über Linkkäufe statt über strukturelle Verbesserungen sprechen. Auch die Reaktionszeit auf Rückfragen vor Vertragsbeginn verrät bereits viel über die spätere Zusammenarbeit.",
+    a: "An nachvollziehbaren Prozessen statt vagen Versprechen. Eine gute SEO Agentur beginnt mit einem Audit und benennt konkrete Maßnahmen mit Priorisierung. Ihre Reportings zeigen dieselben Daten, mit denen intern gearbeitet wird — keine nachträglich aufbereiteten Auszüge. Vorsicht bei Agenturen, die feste Rankinggarantien geben, keine Einblicke in ihre Methoden gewähren oder nur über Linkkäufe sprechen. Auch die Reaktionszeit auf Rückfragen vor Vertragsbeginn verrät viel über die spätere Zusammenarbeit.",
   },
   {
     q: "Was ist der Unterschied zwischen SEO und GEO?",
-    a: "SEO optimiert eine Website für klassische Suchmaschinen-Rankings, GEO (Generative Engine Optimization) optimiert dafür, dass eine Marke oder Website als Quelle in KI-generierten Antworten von ChatGPT, Perplexity oder Google AI Overviews auftaucht. Beide Disziplinen überschneiden sich – klare Struktur, belastbare Fakten und eindeutig beantwortete Fragen helfen in beiden Fällen –, unterscheiden sich aber in der Erfolgsmessung: SEO misst Rankings und Klicks, GEO misst Sichtbarkeit innerhalb von KI-Antworten, was eigene Monitoring-Ansätze und andere Kennzahlen erfordert als klassisches Ranking-Tracking.",
+    a: "SEO optimiert eine Website für klassische Suchmaschinen-Rankings. GEO (Generative Engine Optimization) sorgt dafür, dass eine Marke als Quelle in KI-Antworten von ChatGPT, Perplexity oder Google AI Overviews auftaucht. Beide Disziplinen überschneiden sich: Klare Struktur, belastbare Fakten und eindeutig beantwortete Fragen helfen in beiden Fällen. Sie unterscheiden sich aber in der Erfolgsmessung. SEO misst Rankings und Klicks, GEO misst Sichtbarkeit in KI-Antworten — mit eigenen Monitoring-Ansätzen und anderen Kennzahlen.",
   },
   {
     q: "Wie läuft die Zusammenarbeit mit SeoForge ab?",
-    a: "Nach einem Kickoff-Gespräch folgt ein vollständiges SEO-Audit, aus dem eine priorisierte Roadmap entsteht. Die Umsetzung erfolgt über unsere CI/CD-Infrastruktur, wodurch technische Änderungen innerhalb von Minuten live gehen, während redaktionelle Maßnahmen parallel laufen. Fortlaufendes Monitoring bildet die Grundlage für transparentes Reporting, auf dessen Basis wir die Strategie in regelmäßigen Abständen anpassen.",
+    a: "Nach einem Kickoff-Gespräch folgt ein vollständiges SEO-Audit, aus dem eine priorisierte Roadmap entsteht. Die Umsetzung läuft über unsere CI/CD-Infrastruktur: Technische Änderungen gehen innerhalb von Minuten live, redaktionelle Maßnahmen laufen parallel. Fortlaufendes Monitoring bildet die Grundlage für transparentes Reporting. Auf dieser Basis passen wir die Strategie in regelmäßigen Abständen an.",
   },
 ];
 
@@ -1232,6 +1257,10 @@ export default function SeoAgenturClient() {
         @keyframes aeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
         .ae-in { animation: aeIn 0.4s ease both; }
         @keyframes marquee-rtl { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+        @keyframes wbEq { 0%, 100% { transform: scaleY(0.35); } 50% { transform: scaleY(1); } }
+        .wb-eq { transform-origin: bottom; animation: wbEq 1.6s ease-in-out infinite; }
+        @keyframes wbDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+        .wb-dot { animation: wbDot 2.2s ease-in-out infinite; }
         .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
         @keyframes serpCaret { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
         .serp-caret { animation: serpCaret 0.9s step-end infinite; }
@@ -1250,6 +1279,7 @@ export default function SeoAgenturClient() {
           .serp-stamp { opacity: 1; animation: none; transform: rotate(-10deg); }
           .ae-in { animation: none; opacity: 1; transform: none; }
           .marquee-track { animation: none !important; }
+          .wb-eq, .wb-dot { animation: none !important; }
           .serp-caret { animation: none; opacity: 0; }
           .ki-chip-pop { animation: none; opacity: 1; transform: none; }
           .ki-shimmer { animation: none; }
@@ -1317,54 +1347,38 @@ export default function SeoAgenturClient() {
         </div>
       </section>
 
-      {/* ══ 02 LEISTUNGS-BAND — dunkles Dual-Marquee (einziges dunkles Akzent-Band) ══ */}
-      <section
-        className="py-10 overflow-hidden"
-        style={{ background: "#111111", borderTop: "1px solid rgba(255,255,255,0.05)", borderBottom: "1px solid rgba(255,255,255,0.05)" }}
-      >
-        {/* Row 1 — LTR: die 9 Teilleistungen als Icon-Pills (hover pausiert) */}
-        <div className="marquee-wrap relative mb-4">
-          <div className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #111111, transparent)" }} />
-          <div className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #111111, transparent)" }} />
-          <div className="marquee-track flex" style={{ width: "max-content", animation: "marquee-ltr 28s linear infinite", willChange: "transform" }}>
-            {[0, 1].map((copy) => (
-              <div key={copy} className="flex items-center gap-4 px-3 flex-shrink-0" aria-hidden={copy === 1}>
-                {BAND_ROW1.map((item) => (
-                  <div
-                    key={item.label}
-                    className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/[0.10] bg-white/[0.03] flex-shrink-0 whitespace-nowrap"
-                  >
-                    <svg className="w-4 h-4 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d={item.d} />
-                    </svg>
-                    <span className="text-[13px] font-semibold text-white/65">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-            ))}
+      {/* ══ 02 TOOL-BAND — helles Swiss-Ticker-Band: womit wir täglich arbeiten ══ */}
+      <section className="border-b-2 border-dark bg-white overflow-hidden">
+        <div className="flex items-stretch">
+          {/* Festes Label links — Swiss-Kante */}
+          <div className="relative z-20 hidden md:flex items-center gap-2.5 shrink-0 border-r-2 border-dark bg-offwhite px-6 lg:px-8">
+            <span className="wb-dot inline-block h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+            <span className="whitespace-nowrap font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-dark/60">
+              Womit wir täglich arbeiten
+            </span>
           </div>
-        </div>
-
-        {/* Row 2 — RTL (gegenläufig): Zusicherungen + Zielgruppen (hover pausiert) */}
-        <div className="marquee-wrap relative">
-          <div className="absolute left-0 top-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #111111, transparent)" }} />
-          <div className="absolute right-0 top-0 bottom-0 w-20 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #111111, transparent)" }} />
-          <div className="marquee-track flex" style={{ width: "max-content", animation: "marquee-rtl 38s linear infinite", willChange: "transform" }}>
-            {[0, 1].map((copy) => (
-              <div key={copy} className="flex items-center gap-3 px-3 flex-shrink-0" aria-hidden={copy === 1}>
-                {BAND_ROW2.map((item) => (
-                  <div
-                    key={item.label}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full border flex-shrink-0 whitespace-nowrap ${
-                      item.accent ? "border-primary/40 bg-primary/10 text-primary" : "border-white/[0.12] bg-white/[0.04] text-white/65"
-                    }`}
-                  >
-                    <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${item.accent ? "bg-primary" : "bg-white/30"}`} />
-                    <span className="text-[13px] font-semibold tracking-[0.01em]">{item.label}</span>
-                  </div>
-                ))}
-              </div>
-            ))}
+          {/* Laufender Logo-Ticker */}
+          <div className="marquee-wrap relative flex-1 overflow-hidden py-5">
+            <div className="pointer-events-none absolute left-0 top-0 bottom-0 z-10 w-16" style={{ background: "linear-gradient(to right, #ffffff, transparent)" }} />
+            <div className="pointer-events-none absolute right-0 top-0 bottom-0 z-10 w-16" style={{ background: "linear-gradient(to left, #ffffff, transparent)" }} />
+            <div className="marquee-track flex items-center" style={{ width: "max-content", animation: "marquee-rtl 42s linear infinite", willChange: "transform" }}>
+              {[0, 1].map((copy) => (
+                <div key={copy} className="flex items-center gap-10 px-5 flex-shrink-0" aria-hidden={copy === 1}>
+                  {TOOL_BAND.map((t) => (
+                    <span key={t.name} className="group flex items-center gap-2.5 flex-shrink-0 whitespace-nowrap" title={t.hinweis}>
+                      <Image
+                        src={t.logo}
+                        alt={`${t.name} Logo`}
+                        width={20}
+                        height={20}
+                        className="h-5 w-5 object-contain grayscale opacity-55 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+                      />
+                      <span className="text-[13px] font-semibold text-dark/55 transition-colors duration-300 group-hover:text-dark">{t.name}</span>
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -1402,18 +1416,73 @@ export default function SeoAgenturClient() {
               </div>
             </div>
 
-            {/* Rechts — Werkbank-Bild, wandert beim Lesen mit */}
+            {/* Rechts — Werkstatt-Monitor: die drei Säulen als lebendes System, wandert beim Lesen mit */}
             <div className="scroll-hidden rv-right lg:sticky lg:top-28" style={{ transitionDelay: "120ms" }}>
-              <div className="group relative rounded-2xl overflow-hidden border border-border shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
-                <Image
-                  src="/images/seo-3d-werkbank.png"
-                  alt="3D-Illustration einer Werkbank mit drei Werkstücken: Zahnrad für Technik, gestapelte Textblöcke für Content und Kettenglied für Autorität"
-                  fill
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                  sizes="(max-width: 1024px) 100vw, 600px"
-                />
+              <div className="w-full max-w-[600px] overflow-hidden rounded-2xl border-2 border-dark bg-white shadow-[0_32px_70px_-30px_rgba(26,26,26,0.45)]">
+                {/* Ink-Kopfleiste */}
+                <div className="flex items-center justify-between bg-dark px-6 py-3.5">
+                  <span className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/70">
+                    <span className="wb-dot inline-block h-1.5 w-1.5 rounded-full bg-secondary" aria-hidden="true" />
+                    Werkstatt-Monitor
+                  </span>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-white/35">Drei Werkstücke · ein System</span>
+                </div>
+                {/* Drei Werkstück-Zeilen mit lebendem Equalizer */}
+                <div className="divide-y divide-border">
+                  {[
+                    { t: "Technik", s: "Crawling, Ladezeit, saubere Struktur", d: "M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.325.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 0 1 1.37.49l1.296 2.247a1.125 1.125 0 0 1-.26 1.431l-1.003.827c-.293.241-.438.613-.43.992a7.723 7.723 0 0 1 0 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.955.26 1.43l-1.298 2.247a1.125 1.125 0 0 1-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.47 6.47 0 0 1-.22.128c-.331.183-.581.495-.644.869l-.213 1.281c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.019-.398-1.109-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 0 1-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 0 1-1.369-.49l-1.297-2.247a1.125 1.125 0 0 1 .26-1.431l1.004-.827c.292-.24.437-.613.43-.991a6.932 6.932 0 0 1 0-.255c.007-.38-.138-.751-.43-.992l-1.004-.827a1.125 1.125 0 0 1-.26-1.43l1.297-2.247a1.125 1.125 0 0 1 1.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.086.22-.128.332-.183.582-.495.644-.869l.214-1.28Z M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z", delay: "0s" },
+                    { t: "Content", s: "Seiten, die Suchanfragen beantworten", d: "M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h10.5", delay: "0.35s" },
+                    { t: "Autorität", s: "Verweise, Erwähnungen, Vertrauen", d: "M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244", delay: "0.7s" },
+                  ].map((w, i) => (
+                    <div key={w.t} className="group flex items-center gap-4 px-6 py-5 transition-colors duration-300 hover:bg-offwhite">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-primary ring-1 ring-border transition-all duration-300 group-hover:ring-primary/40" style={{ background: "#fbf4ea" }}>
+                        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                          <path d={w.d} />
+                        </svg>
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="flex items-baseline gap-2.5">
+                          <span className="font-mono text-[10px] tracking-[0.16em] text-dark/35">0{i + 1}</span>
+                          <span className="font-[family-name:var(--font-heading)] text-lg font-bold text-dark">{w.t}</span>
+                        </span>
+                        <span className="mt-0.5 block truncate text-[13px] text-muted">{w.s}</span>
+                      </span>
+                      {/* lebender Equalizer — rein illustrativ, ohne Werte */}
+                      <span className="flex h-7 shrink-0 items-end gap-[3px]" aria-hidden="true">
+                        {[0, 1, 2, 3].map((b) => (
+                          <span
+                            key={b}
+                            className="wb-eq w-[4px] rounded-full"
+                            style={{
+                              background: "linear-gradient(180deg, #D4A853, #C2722A)",
+                              animationDelay: `calc(${w.delay} + ${b * 0.18}s)`,
+                              height: `${8 + ((b * 5 + i * 3) % 12)}px`,
+                            }}
+                          />
+                        ))}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                {/* Fuß: echte Datenbasis mit Logos */}
+                <div className="flex flex-wrap items-center gap-x-5 gap-y-2 border-t border-border bg-offwhite px-6 py-3.5">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-dark/40">Datenbasis im Alltag:</span>
+                  {[
+                    { n: "Semrush", l: "/logos/semrush.svg" },
+                    { n: "Search Console", l: "/logos/googlesearchconsole.svg" },
+                    { n: "Analytics", l: "/logos/googleanalytics.svg" },
+                  ].map((x) => (
+                    <span key={x.n} className="flex items-center gap-1.5">
+                      <Image src={x.l} alt={`${x.n} Logo`} width={13} height={13} className="h-[13px] w-[13px] object-contain opacity-60" />
+                      <span className="text-[11px] font-semibold text-dark/55">{x.n}</span>
+                    </span>
+                  ))}
+                </div>
               </div>
-              <p className="mt-3 text-xs italic text-muted">Technik, Content, Autorität — drei Werkstücke, ein Schmiedetisch.</p>
+              <p className="mt-3 flex items-baseline gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
+                <span className="h-[2px] w-5 shrink-0 self-center bg-primary/60" aria-hidden="true" />
+                Drei Werkstücke, ein Schmiedetisch — nichts davon wirkt allein.
+              </p>
             </div>
           </div>
         </div>
@@ -1445,22 +1514,26 @@ export default function SeoAgenturClient() {
             <div className="scroll-hidden rv-left">
               <div className="space-y-4 text-muted leading-relaxed">
                 <p>
-                  Seit Google AI Overviews in Deutschland breiter ausgerollt wurden und Tools wie ChatGPT und
-                  Perplexity zur Recherche genutzt werden, verändert sich, wie Nutzer überhaupt auf eine Website
-                  gelangen. Ein Teil der Anfragen — vor allem informationelle Fragen — wird direkt in der KI-Antwort
-                  beantwortet, ohne dass ein Klick auf ein Suchergebnis erfolgt. Das bedeutet nicht, dass klassisches
-                  SEO an Bedeutung verliert, sondern dass Sichtbarkeit heute an zwei Stellen entschieden wird: in den
-                  klassischen Suchergebnissen und in den Quellen, aus denen KI-Systeme ihre Antworten zusammensetzen.
+                  Google AI Overviews sind in Deutschland breit ausgerollt, ChatGPT und Perplexity werden zur
+                  Recherche genutzt. Das verändert, wie Nutzer überhaupt auf eine Website gelangen. Ein Teil der
+                  Anfragen — vor allem informationelle Fragen — wird direkt in der KI-Antwort beantwortet. Ohne
+                  Klick auf ein Suchergebnis. Klassisches SEO verliert dadurch nicht an Bedeutung. Sichtbarkeit
+                  wird heute nur an zwei Stellen entschieden: in den Suchergebnissen und in den Quellen der
+                  KI-Systeme.
                 </p>
                 <p>
-                  Trotzdem bleibt Google der Kanal mit dem weitaus größten Suchvolumen und der unmittelbarsten
-                  Kaufabsicht bei transaktionalen Suchanfragen, gerade im B2B-Bereich und im lokalen Geschäft. Wer
-                  heute ausschließlich auf GEO setzt und klassisches SEO vernachlässigt, verliert den Kanal, über den
-                  die meisten Anfragen mit konkreter Kaufabsicht laufen und über den sich Umsatz am direktesten messen
-                  lässt. Wer umgekehrt nur klassisches SEO betreibt, riskiert, in den Antworten von KI-Systemen
-                  schlicht nicht vorzukommen — und damit für eine Zielgruppe unsichtbar zu werden, die zunehmend über
-                  Chat-Interfaces statt über die klassische Suchleiste recherchiert, insbesondere bei komplexeren,
-                  erklärungsbedürftigen Fragestellungen.
+                  Trotzdem bleibt Google der Kanal mit dem größten Suchvolumen und der unmittelbarsten Kaufabsicht —
+                  gerade im B2B-Bereich und im lokalen Geschäft. Wer nur auf GEO setzt, verliert den Kanal, über den
+                  die meisten Anfragen mit Kaufabsicht laufen. Wer umgekehrt nur klassisches SEO betreibt, kommt in
+                  KI-Antworten schlicht nicht vor. Er wird unsichtbar für eine Zielgruppe, die zunehmend über
+                  Chat-Interfaces recherchiert. Wie Marken dort sichtbar werden, zeigt unser Ratgeber zur{" "}
+                  <Link href="/wissen/ratgeber/marken-sichtbarkeit-in-ki" className="text-primary font-semibold hover:underline">
+                    Marken-Sichtbarkeit in KI-Antworten
+                  </Link>
+                  {" "}— und wer diesen Kanal gezielt ausbauen will, findet bei uns die passende Leistung als{" "}
+                  <Link href="/geo-agentur" className="text-primary font-semibold hover:underline">
+                    GEO Agentur
+                  </Link>. Auf dieser Seite bleibt der Fokus auf klassischem SEO.
                 </p>
               </div>
 
@@ -1479,6 +1552,36 @@ export default function SeoAgenturClient() {
                     <span className="text-sm text-dark leading-relaxed">{k}</span>
                   </div>
                 ))}
+              </div>
+
+              {/* Plattform-Logos — grayscale, Farbe auf Hover (P12) */}
+              <div className="mt-8 border-t-2 border-dark pt-6">
+                <span className="mb-4 block font-mono text-[10.5px] uppercase tracking-[0.2em] text-dark/40">
+                  Sichtbar, wo gesucht wird
+                </span>
+                <div className="flex flex-wrap gap-3">
+                  {[
+                    { src: "/logos/google.svg", name: "Google", alt: "Google Logo" },
+                    { src: "/logos/openai.svg", name: "ChatGPT", alt: "ChatGPT (OpenAI) Logo" },
+                    { src: "/logos/perplexity.svg", name: "Perplexity", alt: "Perplexity Logo" },
+                    { src: "/logos/gemini.svg", name: "Gemini", alt: "Google Gemini Logo" },
+                  ].map((t, i) => (
+                    <div
+                      key={t.name}
+                      className="scroll-hidden group flex items-center gap-2.5 rounded-full border border-border bg-white px-4 py-2 transition-all hover:border-[#ecd3ba] hover:bg-[#fbf4ea]"
+                      style={{ transitionDelay: `${i * 70}ms` }}
+                    >
+                      <Image
+                        src={t.src}
+                        alt={t.alt}
+                        width={18}
+                        height={18}
+                        className="h-[18px] w-auto grayscale opacity-60 transition-all duration-200 group-hover:grayscale-0 group-hover:opacity-100"
+                      />
+                      <span className="text-[13px] font-semibold text-dark">{t.name}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
               {/* CTA-Stufe 2: kontextuelle Vertiefung als Anker in den Katalog */}
@@ -1503,7 +1606,7 @@ export default function SeoAgenturClient() {
       </section>
 
       {/* ══ 05 LEISTUNGEN — Katalog in drei Kapiteln, voll indexierbar ══ */}
-      <section id="leistungen" className="scroll-mt-20 py-24 lg:py-32" style={{ background: "#F8F5F1" }}>
+      <section id="leistungen" className="scroll-mt-20 border-t-2 border-dark py-24 lg:py-32" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHead
             eyebrow="Leistungskatalog"
@@ -1681,7 +1784,16 @@ export default function SeoAgenturClient() {
                       <span className="w-28 shrink-0 font-mono text-[10px] uppercase tracking-[0.16em] text-muted pt-1">Werkzeuge</span>
                       <span className="flex flex-wrap gap-1.5">
                         {PHASEN[activePhase].tools.map((t) => (
-                          <span key={t} className="inline-flex items-center rounded-full border border-border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/60">
+                          <span key={t} className="inline-flex items-center gap-1.5 rounded-full border border-border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/60">
+                            {TOOL_LOGOS[t] && (
+                              <Image
+                                src={TOOL_LOGOS[t]}
+                                alt={`${t} Logo`}
+                                width={12}
+                                height={12}
+                                className="h-3 w-auto grayscale opacity-60"
+                              />
+                            )}
                             {t}
                           </span>
                         ))}
@@ -1709,13 +1821,13 @@ export default function SeoAgenturClient() {
       </section>
 
       {/* ══ 07 INHOUSE — Die ehrliche Rechnung ══ */}
-      <section className="py-24 lg:py-32 overflow-hidden" style={{ background: "#F8F5F1" }}>
+      <section className="border-t-2 border-dark py-24 lg:py-32 overflow-hidden" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <SectionHead
             eyebrow="Inhouse oder Agentur?"
             title={
               <>
-                Eigenes Team oder Agentur —<br />
+                Eigenes Team oder SEO Agentur —<br />
                 <span style={grad}>die ehrliche Rechnung.</span>
               </>
             }
@@ -1726,19 +1838,22 @@ export default function SeoAgenturClient() {
             <div className="scroll-hidden rv-left">
               <div className="space-y-4 text-muted leading-relaxed max-w-lg">
                 <p>
-                  Die Entscheidung zwischen einem eigenen SEO-Team und einer externen Agentur hängt weniger von der
-                  Unternehmensgröße ab als von der Frage, wie viel Kapazität und Fachwissen dauerhaft vorgehalten
-                  werden kann und soll. SEO deckt heute mindestens vier Fachbereiche ab — Technik, Content,
-                  Linkbuilding und zunehmend GEO —, die selten in einer einzelnen Person vereint sind, ohne dass in
-                  mindestens einem Bereich Abstriche gemacht werden.
+                  Die Entscheidung zwischen eigenem SEO-Team und externer SEO Agentur hängt weniger von der
+                  Unternehmensgröße ab. Entscheidend ist, wie viel Kapazität und Fachwissen dauerhaft vorgehalten
+                  werden kann und soll. SEO deckt heute mindestens vier Fachbereiche ab: Technik, Content,
+                  Linkbuilding und zunehmend GEO. Diese sind selten in einer einzelnen Person vereint — in
+                  mindestens einem Bereich entstehen Abstriche.
                 </p>
                 <p>
-                  Beide Modelle haben berechtigte Einsatzgebiete, und in der Praxis sehen wir häufig auch Mischformen,
-                  bei denen ein interner Ansprechpartner mit strategischer Verantwortung eng mit einer Agentur
-                  zusammenarbeitet, statt operative Aufgaben vollständig intern oder vollständig extern abzuwickeln.
-                  Eine Agentur ist zusätzlich dann wertvoll, wenn eine externe, unvoreingenommene Bewertung der eigenen
-                  Website gewünscht ist oder Erfahrung aus mehreren Branchen und der Zugriff auf einen eingespielten
-                  Tool-Stack einen Vorteil bringen.
+                  Beide Modelle haben berechtigte Einsatzgebiete. In der Praxis sehen wir häufig Mischformen: Ein
+                  interner Ansprechpartner mit strategischer Verantwortung arbeitet eng mit einer Agentur zusammen.
+                  Eine Agentur ist zusätzlich wertvoll, wenn eine externe, unvoreingenommene Bewertung gewünscht ist.
+                  Oder wenn Erfahrung aus mehreren Branchen und ein eingespielter Tool-Stack einen Vorteil bringen.
+                  Wer zunächst selbst starten will, findet in unserem Leitfaden{" "}
+                  <Link href="/seo/selbst-machen" className="text-primary font-semibold hover:underline">
+                    SEO selbst machen
+                  </Link>{" "}
+                  eine ehrliche Einordnung.
                 </p>
               </div>
             </div>
@@ -1753,12 +1868,15 @@ export default function SeoAgenturClient() {
                   sizes="(max-width: 1024px) 100vw, 600px"
                 />
               </div>
-              <p className="mt-3 text-xs italic text-muted">Kein Entweder-oder: Die beste Lösung ist oft ein Team auf Augenhöhe.</p>
+              <p className="mt-3 flex items-baseline gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
+                <span className="h-[2px] w-5 shrink-0 self-center bg-primary/60" aria-hidden="true" />
+                Kein Entweder-oder — die beste Lösung ist oft ein Team auf Augenhöhe.
+              </p>
             </div>
           </div>
 
           {/* Vergleichs-Tafel */}
-          <div className="m3d mt-12 lg:mt-16 rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
+          <div className="m3d mt-12 lg:mt-16 rounded-3xl border border-border bg-white overflow-hidden shadow-[0_40px_90px_-30px_rgba(26,26,26,0.35)]">
             <div className="hidden md:grid md:grid-cols-2 border-b border-border">
               <div className="flex items-center gap-2.5 px-6 py-4">
                 <span className="flex h-5 w-5 items-center justify-center rounded-full bg-dark/[0.06]">
@@ -1815,11 +1933,10 @@ export default function SeoAgenturClient() {
             </span>
             <p className="leading-relaxed">
               <span className="font-semibold text-dark">Wann Inhouse die bessere Wahl ist:</span> wenn dauerhaft Budget
-              für mindestens zwei bis drei spezialisierte Vollzeitstellen vorhanden ist, SEO eng mit Produktentwicklung
-              oder Redaktion verzahnt werden muss, langfristig unternehmenskritisches Wissen intern aufgebaut werden
-              soll — und bereits eigene Entwicklerkapazität für die technische Umsetzung existiert. Und dazwischen? Wir
-              arbeiten auch als verlängerte Werkbank interner Teams, mit einem internen Ansprechpartner für die
-              Strategie und uns für die Umsetzung.
+              für zwei bis drei spezialisierte Vollzeitstellen vorhanden ist. Wenn SEO eng mit Produktentwicklung oder
+              Redaktion verzahnt werden muss. Und wenn bereits eigene Entwicklerkapazität existiert. Und dazwischen?
+              Wir arbeiten auch als verlängerte Werkbank interner Teams — ein interner Ansprechpartner für die
+              Strategie, wir für die Umsetzung.
             </p>
           </div>
         </div>
@@ -1850,18 +1967,37 @@ export default function SeoAgenturClient() {
           </div>
 
           <p className="mt-3 text-xs italic text-muted">Illustrative Kurve — der reale Verlauf hängt von Ausgangslage und Wettbewerb ab.</p>
+        </div>
+      </section>
 
-          <div className="scroll-hidden rv-blur mt-8 max-w-3xl">
-            <p className="text-muted leading-relaxed">
-              Eine seriöse SEO Agentur verspricht keine festen Platzierungen, weil Rankingfaktoren,
-              Wettbewerbsverhalten und Algorithmus-Updates außerhalb der eigenen Kontrolle liegen — niemand kann
-              zusichern, wie sich ein Wettbewerber in drei Monaten verhält oder wann Google seine Bewertungslogik das
-              nächste Mal anpasst. Wer feste Platzierungen oder Traffic-Zahlen garantiert, verkauft entweder ein
-              Produkt, das sich nicht erfüllen lässt, oder verlässt sich auf Methoden, die kurzfristig wirken und
-              mittelfristig mit einer Abstrafung durch den Suchmaschinen-Betreiber enden. Wir kommunizieren
-              stattdessen, was auf Basis vorhandener Daten realistisch ist, und passen diese Einschätzung offen an,
-              sobald sich neue Erkenntnisse ergeben.
+      {/* ══ 08b KLARTEXT — Ink-Statement, voll-bleed (Kontrast-Anker 1) ══ */}
+      <section className="bg-dark py-24 lg:py-32 overflow-x-clip">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <span className="scroll-hidden block font-mono text-[11px] tracking-[0.22em] uppercase text-secondary mb-8">
+            Klartext — Garantien
+          </span>
+          <blockquote className="scroll-hidden rv-blur font-[family-name:var(--font-heading)] text-4xl sm:text-5xl lg:text-[60px] font-bold leading-[1.06] tracking-tight text-white max-w-[920px]">
+            Eine seriöse SEO Agentur{" "}
+            <span style={{ background: "linear-gradient(92deg, #D4A853, #e0bc72)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+              verspricht keine Platzierung.
+            </span>{" "}
+            Sie macht Ergebnisse messbar.
+          </blockquote>
+          <div className="scroll-hidden mt-10 grid gap-6 lg:grid-cols-2 max-w-5xl" style={{ transitionDelay: "100ms" }}>
+            <p className="text-white/60 leading-relaxed">
+              Rankingfaktoren, Wettbewerbsverhalten und Algorithmus-Updates liegen außerhalb der Kontrolle jeder
+              SEO Agentur. Niemand kann zusichern, wie sich ein Wettbewerber in drei Monaten verhält. Oder wann
+              Google seine Bewertungslogik das nächste Mal anpasst.
             </p>
+            <p className="text-white/60 leading-relaxed">
+              Wer feste Platzierungen oder Traffic-Zahlen garantiert, verkauft ein Produkt, das sich nicht erfüllen
+              lässt. Oder er setzt auf Methoden, die kurzfristig wirken und mittelfristig mit einer Abstrafung enden.
+              Wir kommunizieren, was auf Datenbasis realistisch ist — und passen die Einschätzung offen an.
+            </p>
+          </div>
+          <div className="scroll-hidden mt-10 flex items-center gap-4 font-mono text-xs uppercase tracking-[0.16em] text-white/50" style={{ transitionDelay: "160ms" }}>
+            <span className="h-[2px] w-8 bg-secondary" aria-hidden="true" />
+            SeoForge — SEO für Google &amp; KI-Suche
           </div>
         </div>
       </section>
@@ -1877,26 +2013,25 @@ export default function SeoAgenturClient() {
                 <span style={grad}>SEO Agentur?</span>
               </h2>
               <p className="text-[15px] text-muted leading-relaxed mb-4">
-                Die Kosten für SEO hängen in erster Linie vom Wettbewerbsumfeld und der Ausgangslage der Website ab,
-                nicht von einer Preisliste, die für jede Branche gleichermaßen gilt. Eine Website mit sauberer
-                technischer Basis und etabliertem Content-Bestand benötigt einen anderen Ansatz als eine Website, die
-                technische Altlasten aus mehreren Relaunches mitschleppt oder in einem Markt mit intensivem Wettbewerb
-                um dieselben Keywords steht, in dem bereits mehrere gut aufgestellte Wettbewerber aktiv sind. Auch der
-                Umfang — Anzahl der Zielseiten, Sprachen, Standorte, Produktkategorien — beeinflusst, wie viel Aufwand
-                realistisch eingeplant werden muss, bevor sich erste Ergebnisse zeigen. Zur Orientierung: Eine laufende
-                SEO-Betreuung beginnt bei uns in der Regel <strong className="text-dark font-semibold">ab 800 € pro Monat</strong>;
-                einmalige Leistungen wie ein SEO-Audit kalkulieren wir als{" "}
-                <strong className="text-dark font-semibold">separate Pakete</strong>.
+                Die Kosten einer SEO Agentur hängen in erster Linie vom Wettbewerbsumfeld und der Ausgangslage der
+                Website ab — nicht von einer Preisliste, die für jede Branche gilt. Eine Website mit sauberer Technik
+                und etabliertem Content braucht einen anderen Ansatz als eine mit Altlasten aus mehreren Relaunches.
+                Auch der Umfang beeinflusst den Aufwand: Zielseiten, Sprachen, Standorte, Produktkategorien. Zur
+                Orientierung: Eine laufende SEO-Betreuung beginnt bei uns in der Regel{" "}
+                <strong className="text-dark font-semibold">ab 800 € pro Monat</strong>. Einmalige Leistungen wie ein
+                SEO-Audit kalkulieren wir als <strong className="text-dark font-semibold">separate Pakete</strong>.
               </p>
               <p className="text-[15px] text-muted leading-relaxed mb-7">
-                Wie viel Content-Bedarf entsteht, hängt zusätzlich davon ab, wie viele Themen bereits gut abgedeckt
-                sind und wie viele Seiten neu aufgebaut werden müssen, um bestehende Lücken im Vergleich zum Wettbewerb
-                zu schließen. Aus diesen Gründen kalkulieren wir kein pauschales Angebot, sondern erstellen nach einer{" "}
-                <strong className="text-dark font-semibold">kostenlosen Erstanalyse</strong> ein individuelles Angebot,
-                das sich an der tatsächlichen Ausgangslage orientiert statt an einem Standardpaket von der Stange. Die
-                Abrechnung ist dabei <strong className="text-dark font-semibold">transparent</strong> nachvollziehbar —
-                Sie wissen, wofür budgetierte Leistungen eingesetzt werden und welchen Umfang sie haben, statt eine
-                Pauschale ohne Aufschlüsselung zu erhalten.
+                Der Content-Bedarf hängt davon ab, wie viele Themen bereits abgedeckt sind — und wie viele Seiten neu
+                entstehen müssen, um Lücken zum Wettbewerb zu schließen. Deshalb kalkulieren wir kein Pauschalangebot.
+                Nach einer <strong className="text-dark font-semibold">kostenlosen Erstanalyse</strong> erstellen wir
+                ein individuelles Angebot, das sich an der tatsächlichen Ausgangslage orientiert. Die Abrechnung ist{" "}
+                <strong className="text-dark font-semibold">transparent</strong>: Sie wissen, wofür budgetierte
+                Leistungen eingesetzt werden. Typische Preismodelle und Kostenfaktoren schlüsselt unser Ratgeber{" "}
+                <Link href="/wissen/ratgeber/was-kostet-seo" className="text-primary font-semibold hover:underline">
+                  Was kostet SEO?
+                </Link>{" "}
+                im Detail auf.
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <a
@@ -1971,21 +2106,62 @@ export default function SeoAgenturClient() {
         </div>
       </section>
 
+      {/* ══ 09b TERRACOTTA-BAND — Mid-Page-CTA (Kontrast-Anker 2) ══ */}
+      <section className="py-16 lg:py-20 overflow-x-clip" style={{ background: "#C2722A" }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 grid lg:grid-cols-[1fr_auto] gap-8 items-center">
+          <div className="scroll-hidden rv-left">
+            <span className="block font-mono text-[11px] tracking-[0.22em] uppercase text-white/70 mb-3">Nächster Schritt</span>
+            <p className="font-[family-name:var(--font-heading)] text-2xl lg:text-4xl font-bold leading-[1.1] text-white">
+              Kostenlose Erstanalyse. Antwort in unter 24 Stunden. Monatlich kündbar.
+            </p>
+          </div>
+          <a
+            href="#kontakt"
+            className="scroll-hidden rv-right inline-flex items-center gap-3 rounded-full bg-dark px-8 py-4 font-semibold text-white transition-colors hover:bg-[#2a2a2a] shadow-[0_18px_40px_-14px_rgba(26,26,26,0.55)]"
+          >
+            Erstanalyse anfordern <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      </section>
+
       {/* ══ 10 FÜR WEN — Vier Profile mit typischem Hebel ══ */}
       <section className="bg-white py-24 lg:py-32 overflow-hidden">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-[minmax(0,420px)_1fr] gap-10 lg:gap-16 items-center">
             <div className="scroll-hidden rv-left order-last lg:order-first">
-              <div className="group relative rounded-2xl overflow-hidden border border-border shadow-[0_24px_60px_-28px_rgba(26,26,26,0.22)] aspect-[4/5] transform-gpu [backface-visibility:hidden]">
-                <Image
-                  src="/images/seo-3d-podeste.png"
-                  alt="3D-Illustration mit vier Podesten: Aktenkoffer, Einkaufswagen, Standort-Pin und Rakete als Symbole für vier Kundenprofile"
-                  fill
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
-                  sizes="(max-width: 1024px) 100vw, 420px"
-                />
+              {/* Ink-Profil-Tafel: vier Profile als Icon-Zeilen statt 3D-Illustration */}
+              <div className="flex aspect-[4/5] flex-col overflow-hidden rounded-2xl bg-dark shadow-[0_40px_90px_-30px_rgba(0,0,0,0.55)]" style={{ boxShadow: "0 40px 90px -30px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,168,83,0.25)" }}>
+                <div className="flex items-center justify-between px-7 pt-7">
+                  <span className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-secondary">
+                    <span className="h-[2px] w-6 bg-secondary" aria-hidden="true" />
+                    Für wen
+                  </span>
+                  <span className="font-mono text-[10px] tracking-[0.16em] text-white/30">4 Profile</span>
+                </div>
+                <div className="flex flex-1 flex-col justify-center divide-y divide-white/[0.08] px-7">
+                  {[
+                    { t: "B2B & Dienstleister", d: "M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0" },
+                    { t: "Online-Shops", d: "M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" },
+                    { t: "Lokale Betriebe", d: "M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" },
+                    { t: "Start-ups & SaaS", d: "M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" },
+                  ].map((p, i) => (
+                    <div key={p.t} className="group flex items-center gap-4 py-5">
+                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-secondary ring-1 ring-white/15 transition-all duration-300 group-hover:text-primary group-hover:ring-primary/50" style={{ background: "rgba(255,255,255,0.04)" }}>
+                        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                          <path d={p.d} />
+                        </svg>
+                      </span>
+                      <span className="flex-1 font-[family-name:var(--font-heading)] text-xl font-bold text-white transition-colors duration-300 group-hover:text-secondary">{p.t}</span>
+                      <span className="font-mono text-[11px] tracking-[0.16em] text-white/25">0{i + 1}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="border-t border-white/[0.08] px-7 py-5">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] leading-relaxed text-white/45">
+                    Vier Profile, vier Hebel — <span className="text-secondary">ein System.</span>
+                  </p>
+                </div>
               </div>
-              <p className="mt-3 text-xs italic text-muted">Vier Profile, vier Hebel — nicht jede Website braucht dasselbe.</p>
             </div>
 
             <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
@@ -2116,9 +2292,9 @@ export default function SeoAgenturClient() {
                 arbeitet?
               </h2>
               <p className="mt-4 text-base leading-relaxed text-white/60">
-                Fordern Sie eine kostenlose Erstanalyse an und erhalten Sie eine ehrliche Einschätzung, wo Ihre
-                Website heute steht und welcher Aufwand realistisch nötig ist. Innerhalb von 24 Stunden erhalten Sie
-                eine Antwort von einem festen Ansprechpartner, nicht von einem Callcenter.
+                Fordern Sie eine kostenlose Erstanalyse an. Sie erhalten eine ehrliche Einschätzung, wo Ihre Website
+                heute steht und welcher Aufwand realistisch nötig ist. Die Antwort kommt innerhalb von 24 Stunden —
+                von einem festen Ansprechpartner, nicht von einem Callcenter.
               </p>
               <div className="mt-8 space-y-4">
                 {[

@@ -148,12 +148,12 @@ function XChip({ text }: { text: string }) {
   );
 }
 
-/* ✗-Medaillon für die FEHLER-Section */
-function FehlerX() {
+/* ✗-Medaillon für die FEHLER-Section — aufInk = Gold-Variante für die dunkle Fläche */
+function FehlerX({ aufInk = false }: { aufInk?: boolean }) {
   return (
     <span
-      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-[13px] font-bold text-primary"
-      style={{ background: WARN_BG, borderColor: WARN_BORDER }}
+      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border text-[13px] font-bold ${aufInk ? "text-secondary" : "text-primary"}`}
+      style={aufInk ? { background: "rgba(212,168,83,0.12)", borderColor: "rgba(212,168,83,0.35)" } : { background: WARN_BG, borderColor: WARN_BORDER }}
       aria-hidden="true"
     >
       ✗
@@ -751,7 +751,7 @@ function VorgehenPlayer({ schritte }: { schritte: { titel: string; text: string 
         {/* Detail-Bereich: Ghost-Serif-Ziffer + Titel/Text, Remount je Schritt */}
         <div key={aktiv} className="mt-4 grid min-h-[200px] gap-2 lg:mt-5 lg:min-h-[130px] lg:grid-cols-[auto_1fr] lg:gap-8">
           <span
-            className={`${bereitsSichtbar ? "ae-in " : ""}select-none font-[family-name:var(--font-heading)] text-6xl font-black leading-[0.85] text-primary/10 lg:text-[96px]`}
+            className={`${bereitsSichtbar ? "ae-in " : ""}select-none font-[family-name:var(--font-heading)] text-6xl font-black leading-[0.85] text-primary/[0.16] lg:text-[96px]`}
             aria-hidden="true"
           >
             {String(aktiv + 1).padStart(2, "0")}
@@ -1465,15 +1465,36 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       {/* ══ 01 WARUM — weiß, editorial ══ */}
       <section className="border-t border-border bg-white py-20 lg:py-28 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[minmax(0,360px)_1fr] gap-10 lg:gap-16 items-start">
+          {/* Golden-Ratio-Split: Titel+Portrait-Spalte zu Textspalte ≈ 38:62 */}
+          <div className="grid lg:grid-cols-[minmax(0,380px)_1fr] gap-10 lg:gap-16 items-start">
             <div className="scroll-hidden rv-left lg:sticky lg:top-28">
-              <span className="block font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45 mb-4">
+              <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold tracking-[0.2em] uppercase text-primary">
+                <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
                 01 — Die Ausgangslage
               </span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
                 {branche.warumTitle.pre}
                 <span style={grad}>{branche.warumTitle.grad}</span>
               </h2>
+              {branche.warumBild && (
+                <figure className="scroll-hidden rv-blur mt-8" style={{ transitionDelay: "180ms" }}>
+                  <div className="relative aspect-[4/3] lg:aspect-[4/5] overflow-hidden rounded-2xl border border-border shadow-[0_28px_55px_-30px_rgba(26,26,26,0.4)]">
+                    <Image
+                      src={branche.warumBild.src}
+                      alt={branche.warumBild.alt}
+                      fill
+                      sizes="(min-width: 1024px) 380px, 100vw"
+                      className="object-cover"
+                    />
+                  </div>
+                  {branche.warumBild.caption && (
+                    <figcaption className="mt-3 flex items-baseline gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
+                      <span className="h-[2px] w-5 shrink-0 self-center bg-primary/60" aria-hidden="true" />
+                      {branche.warumBild.caption}
+                    </figcaption>
+                  )}
+                </figure>
+              )}
             </div>
 
             <div className="space-y-6">
@@ -1486,20 +1507,6 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                   {absatz}
                 </p>
               ))}
-              {branche.warumBild && (
-                <div
-                  className="scroll-hidden rv-blur relative aspect-[3/2] overflow-hidden rounded-2xl border border-border"
-                  style={{ transitionDelay: `${branche.warumAbsaetze.length * 110}ms` }}
-                >
-                  <Image
-                    src={branche.warumBild.src}
-                    alt={branche.warumBild.alt}
-                    fill
-                    sizes="(min-width: 1024px) 60vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -1510,10 +1517,10 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         <section className="border-t border-border bg-white py-16 lg:py-20 overflow-x-clip">
           <div className="mx-auto max-w-6xl px-6 lg:px-8">
             <div className="scroll-hidden mb-10 text-center lg:mb-12">
-              <span className="mb-3 inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
-                <span className="h-px w-8 bg-border" aria-hidden="true" />
+              <span className="mb-3 inline-flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+                <span className="h-[2px] w-8 bg-primary/40" aria-hidden="true" />
                 Spezialisiert nach Praxis-Typ
-                <span className="h-px w-8 bg-border" aria-hidden="true" />
+                <span className="h-[2px] w-8 bg-primary/40" aria-hidden="true" />
               </span>
               <h2 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark leading-tight">
                 Jede Praxis sucht anders — <span style={grad}>wir auch.</span>
@@ -1530,7 +1537,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                     className="scroll-hidden rv-blur group flex flex-col items-center text-center"
                     style={{ transitionDelay: `${i * 90}ms` }}
                   >
-                    <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white text-primary ring-1 ring-border transition-all duration-300 group-hover:-translate-y-1 group-hover:ring-primary/40 group-hover:shadow-[0_16px_32px_-16px_rgba(194,114,42,0.35)] lg:h-24 lg:w-24 [&_svg]:h-7 [&_svg]:w-7 lg:[&_svg]:h-8 lg:[&_svg]:w-8">
+                    <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white text-primary shadow-[0_16px_34px_-20px_rgba(26,26,26,0.35)] ring-2 ring-[#ecd3ba] transition-all duration-300 group-hover:-translate-y-1 group-hover:ring-primary/60 group-hover:shadow-[0_20px_40px_-16px_rgba(194,114,42,0.45)] lg:h-24 lg:w-24 [&_svg]:h-7 [&_svg]:w-7 lg:[&_svg]:h-8 lg:[&_svg]:w-8">
                       {ziel.icon}
                     </span>
                     <span className="mt-4 font-[family-name:var(--font-heading)] text-base font-bold text-dark transition-colors group-hover:text-primary lg:text-lg">
@@ -1550,7 +1557,10 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-16">
             <div className={`scroll-hidden ${modulLinks ? "rv-right lg:order-2" : "rv-left"}`}>
-              <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">02 — Am Beispiel</span>
+              <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+                <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+                02 — Am Beispiel
+              </span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[36px] font-bold text-dark leading-[1.14]">
                 {branche.signatureTitle.pre}
                 <span style={grad}>{branche.signatureTitle.grad}</span>
@@ -1619,7 +1629,14 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                 </h3>
                 <p className="mt-2 text-sm text-muted leading-relaxed">
                   KI-gestützte Routinen und CI/CD-Deployments senken unseren Aufwand pro Maßnahme deutlich — das
-                  macht uns günstiger als klassische Agenturstrukturen. Und weil Änderungen in Minuten live gehen
+                  macht uns als{" "}
+                  <Link
+                    href="/seo-agentur"
+                    className="border-b-2 border-primary font-semibold text-dark transition-colors hover:text-primary"
+                  >
+                    SEO-Agentur
+                  </Link>{" "}
+                  günstiger als klassische Agenturstrukturen. Und weil Änderungen in Minuten live gehen
                   statt in Wochen, werden Ergebnisse früher messbar.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -1640,7 +1657,10 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
               className={`scroll-hidden ${branche.split.bildLinks ? "rv-right" : "rv-left lg:order-1"}`}
               style={{ transitionDelay: "110ms" }}
             >
-              <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">03 — Im Detail</span>
+              <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+                <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+                03 — Im Detail
+              </span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[36px] font-bold text-dark leading-[1.14]">
                 {branche.split.titel.pre}
                 <span style={grad}>{branche.split.titel.grad}</span>
@@ -1690,14 +1710,15 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       <section className="relative py-20 lg:py-28 overflow-hidden" style={{ background: BEIGE }}>
         {/* Dezente Ghost-Ziffer der Section im Hintergrund */}
         <span
-          className="pointer-events-none absolute -top-6 right-2 select-none font-[family-name:var(--font-heading)] text-[150px] font-black leading-none text-primary/[0.06] lg:right-10 lg:text-[260px]"
+          className="pointer-events-none absolute -top-6 right-2 select-none font-[family-name:var(--font-heading)] text-[170px] font-black leading-none text-primary/[0.11] lg:right-10 lg:text-[300px]"
           aria-hidden="true"
         >
           04
         </span>
         <div className="relative mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden max-w-3xl">
-            <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
+            <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+              <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
               04 — Genauer betrachtet
             </span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
@@ -1784,21 +1805,6 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                 {branche.tiefe.lead}
               </p>
 
-              {branche.tiefe.bild && (
-                <div
-                  className="scroll-hidden rv-scale relative mt-10 aspect-[21/9] overflow-hidden rounded-2xl border border-border lg:mt-12"
-                  style={{ transitionDelay: "180ms" }}
-                >
-                  <Image
-                    src={branche.tiefe.bild.src}
-                    alt={branche.tiefe.bild.alt}
-                    fill
-                    sizes="(min-width: 1024px) 80vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-              )}
-
               {/* Pull-Quote — ein prägnanter Satz aus dem Dossier, wortgetreu */}
               <blockquote className="scroll-hidden rv-scale my-10 max-w-4xl border-l-4 border-secondary pl-6 lg:my-14 lg:pl-8">
                 <p className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold leading-snug" style={grad}>
@@ -1806,12 +1812,27 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                 </p>
               </blockquote>
 
-              {/* Zwei Spalten-Absätze */}
-              <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
+              {/* Zwei Spalten-Absätze — Bild magazinartig in der zweiten Spalte eingebettet (Crop im Goldenen Schnitt 1,618:1) */}
+              <div className="grid gap-8 lg:grid-cols-2 lg:gap-10 items-start">
                 <p className="scroll-hidden rv-left text-[15px] text-muted leading-relaxed">{branche.tiefe.spalten[0]}</p>
-                <p className="scroll-hidden rv-right text-[15px] text-muted leading-relaxed" style={{ transitionDelay: "120ms" }}>
-                  {branche.tiefe.spalten[1]}
-                </p>
+                <div className="space-y-6">
+                  {branche.tiefe.bild && (
+                    <figure className="scroll-hidden rv-scale" style={{ transitionDelay: "160ms" }}>
+                      <div className="relative aspect-[1.618/1] overflow-hidden rounded-2xl border border-border shadow-[0_28px_55px_-30px_rgba(26,26,26,0.35)]">
+                        <Image
+                          src={branche.tiefe.bild.src}
+                          alt={branche.tiefe.bild.alt}
+                          fill
+                          sizes="(min-width: 1024px) 45vw, 100vw"
+                          className="object-cover"
+                        />
+                      </div>
+                    </figure>
+                  )}
+                  <p className="scroll-hidden rv-right text-[15px] text-muted leading-relaxed" style={{ transitionDelay: "120ms" }}>
+                    {branche.tiefe.spalten[1]}
+                  </p>
+                </div>
               </div>
             </>
           )}
@@ -1822,7 +1843,8 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       <section className="bg-white py-20 lg:py-28 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
-            <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
+            <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+              <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
               05 — Unser Vorgehen
             </span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
@@ -1843,7 +1865,8 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
           <div className="mx-auto max-w-6xl px-6 lg:px-8">
             <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,400px)_1fr] lg:gap-16">
               <div className="scroll-hidden rv-left lg:sticky lg:top-28">
-                <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
+                <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+                  <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
                   06 — Das Potenzial in Zahlen
                 </span>
                 <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
@@ -1859,13 +1882,28 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                     ist — {kdAnteilSatz(kwSet.rows)}.
                   </p>
                 </div>
-                <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
+                <p className="mt-6 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
+                  <Image
+                    src="/logos/semrush.svg"
+                    alt="Semrush Logo"
+                    width={14}
+                    height={14}
+                    className="h-3.5 w-3.5 shrink-0 opacity-70 grayscale"
+                  />
                   Quelle: Semrush · Datenbank Deutschland · Stand Juli 2026
                 </p>
               </div>
 
               <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
-                <PanelShell titel={`Keyword-Potenzial · ${branche.kurzName}`} label="Semrush · DE">
+                <div className="overflow-hidden rounded-3xl border-2 border-dark bg-white shadow-[0_36px_80px_-32px_rgba(26,26,26,0.5)]">
+                  {/* Ink-Kopfleiste — Dokument-Charakter statt Hairline-Header */}
+                  <div className="flex items-center justify-between gap-3 bg-dark px-5 py-3.5 lg:px-6">
+                    <span className="flex items-center gap-2 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-white">
+                      <span className="chip-dot inline-block h-1.5 w-1.5 rounded-full bg-secondary" />
+                      Keyword-Potenzial · {branche.kurzName}
+                    </span>
+                    <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.16em] text-secondary">Semrush · DE</span>
+                  </div>
                   {/* Kopfzeile */}
                   <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-3 border-b border-border px-5 py-2.5 sm:grid-cols-[minmax(0,1fr)_104px_156px] sm:gap-x-4 lg:px-6">
                     <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-dark/40">Suchbegriff</span>
@@ -1904,18 +1942,18 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                       );
                     })}
                   </div>
-                  {/* Summen-Fußzeile */}
+                  {/* Ink-Summenfuß — Gesamtwert in Gold auf dunkler Fläche */}
                   <div
-                    className="scroll-hidden rv-scale flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-t border-border px-5 py-4 lg:px-6"
-                    style={{ background: "#FBF8F4", transitionDelay: "420ms" }}
+                    className="scroll-hidden rv-scale flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 bg-dark px-5 py-4 lg:px-6"
+                    style={{ transitionDelay: "420ms" }}
                   >
-                    <span className="text-[13px] font-semibold text-dark">Gesamt</span>
-                    <span className="font-mono text-sm font-semibold text-dark">
+                    <span className="text-[13px] font-semibold text-white">Gesamt</span>
+                    <span className="font-mono text-sm font-semibold text-secondary">
                       {fmtZahl(kwSumme)}{" "}
-                      <span className="font-sans text-[12px] font-normal text-muted">Suchanfragen/Monat</span>
+                      <span className="font-sans text-[12px] font-normal text-white/60">Suchanfragen/Monat</span>
                     </span>
                   </div>
-                </PanelShell>
+                </div>
               </div>
             </div>
           </div>
@@ -1927,7 +1965,10 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-16 items-end mb-12 lg:mb-16">
             <div>
-              <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">07 — Konkrete Hebel</span>
+              <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+                <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+                07 — Konkrete Hebel
+              </span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12]">
                 Die vier Hebel <span style={grad}>für Ihre Sichtbarkeit.</span>
               </h2>
@@ -1979,7 +2020,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                   style={{ transitionDelay: `${i * 80}ms` }}
                 >
                   <span
-                    className="select-none font-[family-name:var(--font-heading)] text-6xl font-black leading-[0.85] text-primary/10 lg:text-[84px]"
+                    className="select-none font-[family-name:var(--font-heading)] text-6xl font-black leading-[0.85] text-primary/[0.16] lg:text-[96px]"
                     aria-hidden="true"
                   >
                     {String(i + 1).padStart(2, "0")}
@@ -2020,18 +2061,27 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ 08 FEHLER — „Typische Fehler“-Tafel bzw. 2-spaltige Editorial-Liste ══ */}
-      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
+      {/* ══ 08 FEHLER — Ink-Block: voll-bleed dunkel, „Typische Fehler“-Tafel als Papier-Karte bzw. Editorial-Liste in Weiß/Gold ══ */}
+      <section className="bg-dark py-20 lg:py-28 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
-            <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">08 — Typische Fehler</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-dark leading-[1.12]">
-              Vier Fehler, <span style={grad}>die Sichtbarkeit kosten.</span>
+            <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary">
+              <span className="h-[2px] w-7 bg-secondary" aria-hidden="true" />
+              08 — Typische Fehler
+            </span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[40px] font-bold text-white leading-[1.12]">
+              Vier Fehler,{" "}
+              <span style={{ background: "linear-gradient(92deg, #D4A853, #e0bc72)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                die Sichtbarkeit kosten.
+              </span>
             </h2>
           </div>
 
           {branche.fehlerVariant === "tafel" ? (
-            <div className="scroll-hidden rv-scale overflow-hidden rounded-3xl border border-border bg-white shadow-[0_24px_60px_-30px_rgba(26,26,26,0.18)]">
+            <div
+              className="scroll-hidden rv-scale overflow-hidden rounded-3xl"
+              style={{ background: BEIGE, boxShadow: "0 40px 90px -30px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,168,83,0.25)" }}
+            >
               <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-3.5 lg:px-6">
                 <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-dark/55">
                   <span className="chip-dot inline-block h-1.5 w-1.5 rounded-full bg-primary" />
@@ -2043,7 +2093,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                 {branche.fehler.map((f) => (
                   <div
                     key={f.titel}
-                    className="grid grid-cols-[40px_1fr] items-start gap-4 px-5 py-5 transition-colors duration-300 hover:bg-[#FBF8F4] lg:px-6 lg:py-6"
+                    className="grid grid-cols-[40px_1fr] items-start gap-4 px-5 py-5 transition-colors duration-300 hover:bg-[#fbf4ea] lg:px-6 lg:py-6"
                   >
                     <FehlerX />
                     <div className="min-w-0">
@@ -2055,14 +2105,14 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
               </div>
             </div>
           ) : (
-            <div className="grid border-t border-border sm:grid-cols-2 sm:gap-x-12 lg:gap-x-16">
+            <div className="grid border-t-2 border-white/15 sm:grid-cols-2 sm:gap-x-12 lg:gap-x-16">
               {branche.fehler.map((f, i) => (
-                <div key={f.titel} className="scroll-hidden rv-blur border-b border-border py-7 lg:py-8" style={{ transitionDelay: `${i * 70}ms` }}>
+                <div key={f.titel} className="scroll-hidden rv-blur border-b border-white/12 py-7 lg:py-8" style={{ transitionDelay: `${i * 70}ms` }}>
                   <div className="flex items-center gap-3">
-                    <FehlerX />
-                    <h3 className="font-[family-name:var(--font-heading)] text-base lg:text-lg font-bold text-dark">{f.titel}</h3>
+                    <FehlerX aufInk />
+                    <h3 className="font-[family-name:var(--font-heading)] text-base lg:text-lg font-bold text-white">{f.titel}</h3>
                   </div>
-                  <p className="mt-2.5 text-sm text-muted leading-relaxed">{f.text}</p>
+                  <p className="mt-2.5 text-sm text-white/55 leading-relaxed">{f.text}</p>
                 </div>
               ))}
             </div>
@@ -2076,7 +2126,8 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
           <div className="grid items-start gap-12 lg:grid-cols-[1fr_1fr] lg:gap-16">
             <div>
               <div className="scroll-hidden rv-left">
-                <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
+                <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+                  <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
                   09 — Unsere Arbeitsweise
                 </span>
                 <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[36px] font-bold text-dark leading-[1.14]">
@@ -2117,7 +2168,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
             aria-hidden="true"
             style={{
               background:
-                "linear-gradient(100deg, rgba(26,26,26,0.72) 0%, rgba(26,26,26,0.35) 55%, rgba(26,26,26,0.15) 100%)",
+                "linear-gradient(100deg, rgba(26,26,26,0.78) 0%, rgba(26,26,26,0.44) 55%, rgba(26,26,26,0.2) 100%)",
             }}
           />
           <div className="relative z-10 mx-auto flex h-full w-full max-w-7xl items-center px-6 lg:px-8">
@@ -2144,7 +2195,10 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-16 items-start">
             <div className="scroll-hidden rv-left lg:sticky lg:top-28">
-              <span className="mb-4 block font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">10 — Häufige Fragen</span>
+              <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
+                <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+                10 — Häufige Fragen
+              </span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark leading-tight mb-4">
                 Acht Fragen — <span style={grad}>ehrlich beantwortet.</span>
               </h2>
@@ -2152,6 +2206,26 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                 Die Fragen, die {branche.kurzName === "SaaS" ? "SaaS-Teams" : branche.kurzName} uns im
                 Erstgespräch am häufigsten stellen — ohne Kleingedrucktes.
               </p>
+              {/* Füllt die Sticky-Spalte unter dem Titel: Papier-Karte mit direktem Draht */}
+              <aside
+                className="scroll-hidden rv-blur mt-8 hidden rounded-2xl border bg-white p-6 shadow-[0_24px_50px_-28px_rgba(26,26,26,0.25)] lg:block"
+                style={{ borderColor: TINT_BORDER, transitionDelay: "220ms" }}
+              >
+                <span className="block font-mono text-[10px] uppercase tracking-[0.16em] text-primary/70">
+                  Ihre Frage ist nicht dabei?
+                </span>
+                <p className="mt-2.5 text-sm text-muted leading-relaxed">
+                  Stellen Sie sie uns direkt — Sie bekommen innerhalb von 24 Stunden eine ehrliche
+                  Antwort von einem festen Ansprechpartner.
+                </p>
+                <a
+                  href="#kontakt"
+                  className="mt-4 inline-flex items-center gap-2 border-b-2 border-primary/40 pb-0.5 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-primary transition-colors hover:border-primary"
+                >
+                  Frage stellen
+                  <span aria-hidden="true">→</span>
+                </a>
+              </aside>
             </div>
 
             <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
@@ -2199,7 +2273,8 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
           </div>
 
           <div className="relative mx-auto max-w-3xl text-center">
-            <h2 className="scroll-hidden rv-blur font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] text-white leading-[1.15]">
+            <span className="scroll-hidden mx-auto mb-7 block h-[2px] w-12 bg-secondary" aria-hidden="true" />
+            <h2 className="scroll-hidden rv-blur font-[family-name:var(--font-heading)] text-3xl lg:text-[48px] font-bold text-white leading-[1.12] tracking-tight">
               {branche.ctaSatz.pre}
               <span className="bg-gradient-to-r from-primary-light to-secondary bg-clip-text text-transparent">
                 {branche.ctaSatz.grad}
@@ -2217,7 +2292,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
             <div className="scroll-hidden rv-blur mt-8" style={{ transitionDelay: "180ms" }}>
               <Link
                 href="/kontakt"
-                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-light"
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-[0_18px_44px_-14px_rgba(194,114,42,0.55)] transition-all hover:bg-primary-light hover:shadow-[0_22px_50px_-14px_rgba(194,114,42,0.65)]"
               >
                 {branche.ctaButtonLabel}
                 <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">

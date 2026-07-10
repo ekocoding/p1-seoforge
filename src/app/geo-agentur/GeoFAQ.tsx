@@ -55,7 +55,7 @@ const faqs = [
   },
   {
     question: "Wie lange dauert es, bis man GEO-Ergebnisse sieht?",
-    answer: "Erste messbare Verbesserungen sind typischerweise nach 3-6 Wochen sichtbar - das sind Erwähnungen in KI-Antworten, verbesserte Zitationsraten oder höhere Brand Mention Frequency. Vollständige KI-Sichtbarkeit entwickelt sich über 3-6 Monate. GEO ist wie SEO ein kontinuierlicher Prozess, kein einmaliges Projekt. Je nach bestehender Authority und Content-Qualität können sich Zeiten variieren.",
+    answer: "Erste messbare Verbesserungen sind typischerweise nach 4-8 Wochen sichtbar - das sind Erwähnungen in KI-Antworten, verbesserte Zitationsraten oder höhere Brand Mention Frequency. Vollständige KI-Sichtbarkeit entwickelt sich über 3-6 Monate. GEO ist wie SEO ein kontinuierlicher Prozess, kein einmaliges Projekt. Je nach bestehender Authority und Content-Qualität können sich Zeiten variieren.",
     category: "Zeitplan",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">

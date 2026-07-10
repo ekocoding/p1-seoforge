@@ -455,17 +455,16 @@ const INTRO_BLOCKS: { kicker: string; chips: string[]; text: React.ReactNode }[]
     chips: ["Core-Updates", "PHP-Lebenszyklus", "SSL"],
     text: (
       <>
-        Jede Woche, die eine Website ungewartet bleibt, vergrößert ihre{" "}
-        <strong className="text-dark font-semibold">Angriffsfläche</strong> etwas mehr. CMS-Kerne, Plugins und
-        Themes bekommen laufend Sicherheitsupdates — meist deshalb, weil vorher eine konkrete Schwachstelle
-        öffentlich dokumentiert wurde. Wer ein solches Update zwei oder drei Monate liegen lässt, betreibt eine
-        Website mit einer <strong className="text-dark font-semibold">bekannten, nachlesbaren Lücke</strong>,
-        die automatisierte Scanner binnen weniger Tage finden. Dasselbe gilt eine Ebene tiefer: Viele Websites
-        laufen auf <strong className="text-dark font-semibold">PHP-Versionen</strong>, für die der Hersteller
-        längst keine Sicherheitsupdates mehr veröffentlicht, und auch{" "}
-        <strong className="text-dark font-semibold">SSL-Zertifikate</strong> und Verschlüsselungsstandards
-        altern mit jeder Browser-Generation. Ist der Unterbau grundlegend veraltet, ist irgendwann nicht mehr
-        Wartung die Antwort, sondern ein Relaunch — auch das sagen wir offen.
+        Jede Woche ohne Wartung vergrößert die{" "}
+        <strong className="text-dark font-semibold">Angriffsfläche</strong> Ihrer Website. CMS-Kerne, Plugins und
+        Themes bekommen laufend Sicherheitsupdates. Meist reagieren die Hersteller damit auf eine konkrete,
+        öffentlich dokumentierte Schwachstelle. Wer ein solches Update monatelang liegen lässt, betreibt eine
+        Website mit einer <strong className="text-dark font-semibold">bekannten, nachlesbaren Lücke</strong>.
+        Automatisierte Scanner finden sie binnen weniger Tage. Eine Ebene tiefer gilt dasselbe: Viele Websites
+        laufen auf <strong className="text-dark font-semibold">PHP-Versionen</strong> ohne Sicherheitsupdates.
+        Auch <strong className="text-dark font-semibold">SSL-Zertifikate</strong> und Verschlüsselungsstandards
+        altern mit jeder Browser-Generation. Ist der Unterbau grundlegend veraltet, hilft keine Wartung mehr.
+        Dann ist ein Relaunch die ehrliche Antwort — auch das sagen wir offen.
       </>
     ),
   },
@@ -475,15 +474,15 @@ const INTRO_BLOCKS: { kicker: string; chips: string[]; text: React.ReactNode }[]
     text: (
       <>
         Website-Wartung ist bei uns ein <strong className="text-dark font-semibold">Betriebsmodell</strong>,
-        kein Notdienst: Updates gehen erst live, nachdem sie auf einer{" "}
-        <strong className="text-dark font-semibold">Staging-Umgebung</strong> getestet wurden, Backups laufen{" "}
-        <strong className="text-dark font-semibold">täglich, verschlüsselt und offsite</strong>, und ein fester
-        Rhythmus aus Security- und Performance-Checks wird lückenlos dokumentiert. Denn parallel zur
-        Sicherheitslage verliert jede Website mit der Zeit an Tempo, auch wenn sich äußerlich nichts verändert:
-        Die Bild-Bibliothek wächst, Plugins stapeln sich, der Datenbank-Overhead nimmt zu — und oft bleiben
-        Plugins aktiv, die längst nicht mehr gebraucht werden, aber weiterhin Ladezeit kosten. Ein{" "}
-        <strong className="text-dark font-semibold">monatlicher Performance-Check</strong> verhindert genau
-        diesen schleichenden Verfall, weil er einzelne Ursachen findet, bevor sie sich häufen.
+        kein Notdienst. Updates gehen erst live, nachdem sie auf einer{" "}
+        <strong className="text-dark font-semibold">Staging-Umgebung</strong> getestet wurden. Backups laufen{" "}
+        <strong className="text-dark font-semibold">täglich, verschlüsselt und offsite</strong>. Ein fester
+        Rhythmus aus Security- und Performance-Checks wird lückenlos dokumentiert. Parallel dazu verliert jede
+        Website mit der Zeit an Tempo, auch wenn sich äußerlich nichts verändert: Die Bild-Bibliothek wächst,
+        Plugins stapeln sich, der Datenbank-Overhead nimmt zu. Oft bleiben Plugins aktiv, die niemand mehr
+        braucht — sie kosten trotzdem Ladezeit. Ein{" "}
+        <strong className="text-dark font-semibold">monatlicher Performance-Check</strong> stoppt diesen
+        schleichenden Verfall. Er findet einzelne Ursachen, bevor sie sich häufen.
       </>
     ),
   },
@@ -493,16 +492,16 @@ const INTRO_BLOCKS: { kicker: string; chips: string[]; text: React.ReactNode }[]
     text: (
       <>
         Google bewertet Sicherheit, Ladezeit und technische Stabilität direkt oder indirekt in den{" "}
-        <strong className="text-dark font-semibold">Rankings</strong> — und weil dieser Rückgang meist über
-        Monate verläuft statt über Nacht, wird er intern häufig anderen Ursachen zugeschrieben, etwa dem
-        Wettbewerb oder saisonalen Schwankungen. Als Agentur, die SEO, GEO und technische Wartung unter einem
-        Dach anbietet, sieht{" "}
+        <strong className="text-dark font-semibold">Rankings</strong>. Dieser Rückgang verläuft über Monate
+        statt über Nacht. Intern wird er deshalb oft dem Wettbewerb oder der Saison zugeschrieben. Als{" "}
+        <Link href="/seo-agentur" className="text-primary font-semibold hover:underline">SEO-Agentur</Link>, die
+        Suchmaschinenoptimierung, GEO und technische Wartung unter einem Dach anbietet, sieht{" "}
         <Link href="/" className="text-primary font-semibold hover:underline">SeoForge</Link> diesen
         Zusammenhang täglich in eigenen Projekten: Technische Vernachlässigung und sinkende Rankings treten
-        praktisch immer gemeinsam auf, nie unabhängig voneinander. Deshalb bekommen Sie bei uns beides in einer
-        Hand — einen <strong className="text-dark font-semibold">festen Ansprechpartner</strong>, der in unter{" "}
-        <strong className="text-dark font-semibold">24 Stunden</strong> antwortet, ein monatliches Protokoll
-        statt einer Blackbox und einen Vertrag, der{" "}
+        praktisch immer gemeinsam auf. Deshalb bekommen Sie bei uns beides in einer Hand. Ein{" "}
+        <strong className="text-dark font-semibold">fester Ansprechpartner</strong> antwortet in unter{" "}
+        <strong className="text-dark font-semibold">24 Stunden</strong>. Sie erhalten ein monatliches Protokoll
+        statt einer Blackbox — und einen Vertrag, der{" "}
         <strong className="text-dark font-semibold">monatlich kündbar</strong> bleibt.
       </>
     ),
@@ -514,25 +513,25 @@ const RISIKEN = [
   {
     nr: "01",
     titel: "Malware & Hack",
-    text: "Jedes ungepatchte Plugin und jede veraltete CMS-Version ist eine dokumentierte Schwachstelle. Automatisierte Scanner durchsuchen das Web systematisch nach genau solchen Versionsständen — und finden verwundbare Websites oft innerhalb weniger Tage nach Bekanntwerden der Lücke.",
+    text: "Jedes ungepatchte Plugin und jede veraltete CMS-Version ist eine dokumentierte Schwachstelle. Automatisierte Scanner durchsuchen das Web systematisch nach genau solchen Versionsständen. Verwundbare Websites finden sie oft wenige Tage nach Bekanntwerden der Lücke.",
     massnahme: "Patch-Zyklus + Security-Monitoring",
   },
   {
     nr: "02",
     titel: "Datenverlust",
-    text: "Ohne eine aktuelle, geprüfte Sicherung dauert die Behebung eines Hacks oder eines fehlgeschlagenen Updates tage- statt minutenlang, während der Betrieb stillsteht. Viele Backups, die auf dem Papier existieren, wurden nie tatsächlich zurückgespielt — und versagen genau dann, wenn sie gebraucht werden.",
+    text: "Ohne aktuelle, geprüfte Sicherung dauert die Behebung eines Hacks Tage statt Minuten. Der Betrieb steht so lange still. Viele Backups existieren nur auf dem Papier: Sie wurden nie zurückgespielt — und versagen genau dann, wenn sie gebraucht werden.",
     massnahme: "Tägliche Offsite-Backups",
   },
   {
     nr: "03",
     titel: "Google-Blacklisting",
-    text: "Markiert Google eine kompromittierte Website als unsicher, sehen Besucher die Warnung direkt in der Suche und im Browser — noch bevor sie eine einzige Seite gesehen haben. Rankings und Vertrauen brechen gleichzeitig ein und erholen sich nur langsam.",
+    text: "Markiert Google eine kompromittierte Website als unsicher, erscheint die Warnung direkt in der Suche und im Browser. Besucher sehen sie, bevor sie eine einzige Seite geöffnet haben. Rankings und Vertrauen brechen gleichzeitig ein — und erholen sich nur langsam.",
     massnahme: "Malware-Scan + Sofort-Alert",
   },
   {
     nr: "04",
     titel: "Performance-Verfall",
-    text: "Ladezeiten steigen selten von einem Tag auf den anderen — sie kriechen über Monate nach oben, während Core Web Vitals wie LCP und INP langsam ins Rote rutschen. Google-Rankings und Conversion reagieren spürbar, oft lange bevor jemand im Unternehmen den Zusammenhang bemerkt.",
+    text: "Ladezeiten steigen selten über Nacht. Sie kriechen über Monate nach oben, während Core Web Vitals wie LCP und INP ins Rote rutschen. Google-Rankings und Conversion reagieren spürbar — oft lange bevor jemand im Unternehmen den Zusammenhang bemerkt.",
     massnahme: "Monatlicher CWV-Check",
   },
 ];
@@ -544,6 +543,7 @@ type KatalogEintrag = {
   chips: string[];
   text: React.ReactNode;
   href?: string;
+  logo?: { src: string; alt: string };
 };
 
 const KATALOG: { kapitel: string; eintraege: KatalogEintrag[] }[] = [
@@ -556,12 +556,11 @@ const KATALOG: { kapitel: string; eintraege: KatalogEintrag[] }[] = [
         chips: ["Core · Plugins · Themes"],
         text: (
           <>
-            Wir spielen Core-, Plugin- und Theme-Updates regelmäßig ein, sobald sie sich in unserer Testumgebung
-            als stabil erwiesen haben — statt sie ungeprüft direkt auf die Live-Website zu übertragen. So schließt
-            die Website-Wartung bekannte Sicherheitslücken zeitnah, ohne dass ein fehlerhaftes Update Ihre Website
-            unerwartet lahmlegt. Bevor ein Update live geht, läuft es durch unsere eigene Test- und
-            Deployment-Pipeline: Dank etablierter CI/CD-Prozesse ist ein geprüftes Update in Minuten ausgerollt,
-            bei Bedarf inklusive sofortigem Rollback auf die zuvor funktionierende Version.
+            Core-, Plugin- und Theme-Updates spielen wir ein, sobald sie in unserer Testumgebung stabil laufen.
+            Nichts geht ungeprüft auf die Live-Website. So schließt die Website-Wartung bekannte Sicherheitslücken
+            zeitnah — ohne dass ein fehlerhaftes Update Ihre Website unerwartet lahmlegt. Jedes Update läuft
+            vorher durch unsere eigene Test- und Deployment-Pipeline. Dank etablierter CI/CD-Prozesse ist es in
+            Minuten ausgerollt, bei Bedarf mit sofortigem Rollback auf die zuvor funktionierende Version.
           </>
         ),
       },
@@ -572,10 +571,9 @@ const KATALOG: { kapitel: string; eintraege: KatalogEintrag[] }[] = [
         text: (
           <>
             Wir überwachen kontinuierlich auf Schadcode, verdächtige Dateiänderungen und bekannte Angriffsmuster —
-            auch außerhalb der üblichen Geschäftszeiten. Fällt etwas auf, reagieren wir umgehend, bevor Google Ihre
-            Seite als unsicher markiert oder Ihre Kunden eine Warnmeldung im Browser sehen. Im Wartungsvertrag
-            läuft diese Überwachung ab dem Plus-Paket dauerhaft im Hintergrund mit, ohne dass Sie selbst etwas
-            anstoßen müssen.
+            auch außerhalb der Geschäftszeiten. Fällt etwas auf, reagieren wir umgehend. So markiert Google Ihre
+            Seite nicht als unsicher, und Ihre Kunden sehen keine Warnmeldung im Browser. Ab dem Plus-Paket läuft
+            diese Überwachung dauerhaft im Hintergrund mit. Sie müssen selbst nichts anstoßen.
           </>
         ),
       },
@@ -585,10 +583,10 @@ const KATALOG: { kapitel: string; eintraege: KatalogEintrag[] }[] = [
         chips: ["Täglich · Verschlüsselt · Offsite"],
         text: (
           <>
-            Datenbank und Dateien sichern wir täglich automatisiert und verschlüsselt außerhalb des
-            Produktivservers, sodass eine Kopie auch bei einem kompletten Server-Ausfall erhalten bleibt. Im
-            Ernstfall spielen wir eine funktionierende Version Ihrer Website innerhalb von Minuten zurück — nicht
-            erst nach tagelanger Fehlersuche. Je nach Paket bewahren wir Ihre Sicherungen 7, 30 oder 90 Tage auf.
+            Datenbank und Dateien sichern wir täglich — automatisiert, verschlüsselt und außerhalb des
+            Produktivservers. Eine Kopie bleibt so auch bei einem kompletten Server-Ausfall erhalten. Im
+            Ernstfall spielen wir eine funktionierende Version Ihrer Website in Minuten zurück, nicht erst nach
+            tagelanger Fehlersuche. Je nach Paket bewahren wir Ihre Sicherungen 7, 30 oder 90 Tage auf.
           </>
         ),
       },
@@ -603,10 +601,9 @@ const KATALOG: { kapitel: string; eintraege: KatalogEintrag[] }[] = [
         chips: ["24/7 · Sofort-Alert"],
         text: (
           <>
-            Rund um die Uhr prüfen automatisierte Systeme in kurzen Intervallen, ob Ihre Website erreichbar ist
-            und normal reagiert. Bei einer Störung werden wir sofort alarmiert und kümmern uns — oft bevor der
-            erste Kunde oder Besucher den Ausfall überhaupt bemerkt. Das Uptime-Monitoring ist in jedem
-            Wartungspaket enthalten, von Basis bis Premium.
+            Automatisierte Systeme prüfen rund um die Uhr, ob Ihre Website erreichbar ist und normal reagiert.
+            Bei einer Störung werden wir sofort alarmiert und kümmern uns — oft bevor der erste Besucher den
+            Ausfall bemerkt. Das Uptime-Monitoring ist in jedem Wartungspaket enthalten, von Basis bis Premium.
           </>
         ),
       },
@@ -614,13 +611,14 @@ const KATALOG: { kapitel: string; eintraege: KatalogEintrag[] }[] = [
         nr: "05",
         titel: "Performance & Core Web Vitals",
         chips: ["LCP · CLS · INP"],
+        logo: { src: "/logos/google.svg", alt: "Google Logo" },
         text: (
           <>
-            Ladezeit, LCP, CLS und INP prüfen wir regelmäßig gegen die aktuellen Google-Benchmarks und gegen die
-            Vorwerte Ihrer eigenen Website. Wo Werte abrutschen, optimieren wir gezielt an der Ursache — etwa
-            Bildgrößen, Caching oder ineffiziente Datenbankabfragen — statt pauschal an der Website
-            herumzuschrauben. Denn jede Website verliert mit der Zeit an Tempo, auch ohne sichtbare Änderung: Die
-            Bild-Bibliothek wächst, Plugins stapeln sich, der Datenbank-Overhead nimmt zu.
+            Ladezeit, LCP, CLS und INP prüfen wir regelmäßig gegen die aktuellen Google-Benchmarks und die
+            Vorwerte Ihrer eigenen Website. Wo Werte abrutschen, optimieren wir gezielt an der Ursache: Bildgrößen,
+            Caching oder ineffiziente Datenbankabfragen. Wir schrauben nicht pauschal an der Website herum. Denn
+            jede Website verliert mit der Zeit an Tempo, auch ohne sichtbare Änderung — die Bild-Bibliothek
+            wächst, Plugins stapeln sich, der Datenbank-Overhead nimmt zu.
           </>
         ),
       },
@@ -635,13 +633,13 @@ const KATALOG: { kapitel: string; eintraege: KatalogEintrag[] }[] = [
         chips: ["Texte · Bilder · Seiten"],
         text: (
           <>
-            Kleinere Änderungen wie neue Texte, getauschte Bilder oder eine zusätzliche Unterseite erledigen wir
-            im vereinbarten Support-Kontingent, ohne dass Sie dafür jedes Mal ein separates Angebot einholen
-            müssen. Zusätzlich behalten wir Zertifikatslaufzeiten, Cookie-Banner und die Datenschutzerklärung im
-            Blick und weisen frühzeitig hin, wenn eine Anpassung notwendig wird — etwa seit das
+            Kleinere Änderungen erledigen wir im vereinbarten Support-Kontingent — neue Texte, getauschte Bilder
+            oder eine zusätzliche Unterseite. Sie müssen dafür nicht jedes Mal ein separates Angebot einholen.
+            Zusätzlich behalten wir Zertifikatslaufzeiten, Cookie-Banner und die Datenschutzerklärung im Blick.
+            Wird eine Anpassung notwendig, weisen wir frühzeitig darauf hin — etwa seit das
             Barrierefreiheitsstärkungsgesetz zugängliche Websites für weite Teile des B2C-Geschäfts verlangt. Das
-            ersetzt keine Rechtsberatung, verhindert aber zuverlässig, dass technische und rechtliche Altlasten
-            unbemerkt liegen bleiben.
+            ersetzt keine Rechtsberatung. Es verhindert aber zuverlässig, dass technische und rechtliche
+            Altlasten unbemerkt liegen bleiben.
           </>
         ),
       },
@@ -650,13 +648,14 @@ const KATALOG: { kapitel: string; eintraege: KatalogEintrag[] }[] = [
         titel: "WordPress-Wartung",
         chips: ["WordPress · WooCommerce"],
         href: "/website-wartung/wordpress",
+        logo: { src: "/logos/wordpress.svg", alt: "WordPress Logo" },
         text: (
           <>
-            Für Websites auf WordPress bieten wir ein spezialisiertes Wartungspaket mit tieferem
-            Plugin-Management, WooCommerce-Betreuung, Sicherheitshärtung und gezielter Datenbank-Optimierung.
-            Unsere Wartungsverträge sind grundsätzlich CMS-übergreifend angelegt — das Grundprinzip aus Updates,
-            Backups, Monitoring und persönlichem Support bleibt immer gleich, die WordPress-Wartung geht im
-            WordPress-spezifischen Bereich aber noch einmal spürbar weiter ins Detail.
+            Für Websites auf WordPress bieten wir ein spezialisiertes Wartungspaket. Es umfasst tieferes
+            Plugin-Management, WooCommerce-Betreuung, Sicherheitshärtung und gezielte Datenbank-Optimierung.
+            Unsere Wartungsverträge sind grundsätzlich CMS-übergreifend angelegt. Das Grundprinzip aus Updates,
+            Backups, Monitoring und persönlichem Support bleibt immer gleich — die WordPress-Wartung geht im
+            WordPress-spezifischen Bereich aber spürbar weiter ins Detail.
           </>
         ),
       },
@@ -680,7 +679,7 @@ const ARBEITSPAKETE: Arbeitspaket[] = [
     nr: "01",
     titel: "Monitoring",
     kurz: "Uptime, Security und Performance laufen permanent mit.",
-    text: "Updates, Backups sowie Security- und Performance-Checks laufen im vereinbarten Rhythmus Ihres Pakets und werden lückenlos dokumentiert, statt sporadisch nach Bedarf angestoßen zu werden. Ihr fester Ansprechpartner reagiert bei Auffälligkeiten von sich aus und meldet sich aktiv — ohne dass Sie selbst nachfragen oder etwas anstoßen müssen.",
+    text: "Updates, Backups sowie Security- und Performance-Checks laufen im vereinbarten Rhythmus Ihres Pakets. Wir dokumentieren sie lückenlos, statt sie sporadisch nach Bedarf anzustoßen. Bei Auffälligkeiten meldet sich Ihr fester Ansprechpartner aktiv von sich aus. Sie müssen weder nachfragen noch selbst etwas anstoßen.",
     zeilen: [
       { turnus: "rund um die Uhr", text: "Uptime-Monitoring prüft Erreichbarkeit und Antwortzeit in kurzen Intervallen" },
       { turnus: "laufend", text: "Security-Monitoring scannt auf Schadcode und verdächtige Dateiänderungen" },
@@ -694,7 +693,7 @@ const ARBEITSPAKETE: Arbeitspaket[] = [
     nr: "02",
     titel: "Updates & Patches",
     kurz: "Core, Plugins, Themes — erst auf Staging getestet, dann live.",
-    text: "Core-, Plugin- und Theme-Updates spielen wir ein, sobald sie sich in unserer Testumgebung als stabil erwiesen haben — statt sie ungeprüft direkt auf die Live-Website zu übertragen. Dank etablierter CI/CD-Prozesse ist ein geprüftes Update in Minuten ausgerollt, bei Bedarf inklusive sofortigem Rollback auf die zuvor funktionierende Version.",
+    text: "Core-, Plugin- und Theme-Updates spielen wir ein, sobald sie in unserer Testumgebung stabil laufen. Nichts geht ungeprüft auf die Live-Website. Dank etablierter CI/CD-Prozesse ist ein geprüftes Update in Minuten ausgerollt — bei Bedarf mit sofortigem Rollback auf die zuvor funktionierende Version.",
     zeilen: [
       { turnus: "wöchentlich", text: "Verfügbare Core-, Plugin- und Theme-Updates gesichtet und priorisiert" },
       { turnus: "vor jedem Update", text: "Test über die Staging- und Deployment-Pipeline statt direkt am Live-System" },
@@ -708,7 +707,7 @@ const ARBEITSPAKETE: Arbeitspaket[] = [
     nr: "03",
     titel: "Backup & Verifizierung",
     kurz: "Täglich sichern, regelmäßig auf Wiederherstellbarkeit prüfen.",
-    text: "Datenbank und Dateien sichern wir täglich automatisiert und verschlüsselt außerhalb des Produktivservers, sodass eine Kopie auch bei einem kompletten Server-Ausfall erhalten bleibt. Im Ernstfall spielen wir eine funktionierende Version Ihrer Website innerhalb von Minuten zurück — nicht erst nach tagelanger Fehlersuche.",
+    text: "Datenbank und Dateien sichern wir täglich — automatisiert, verschlüsselt und außerhalb des Produktivservers. Eine Kopie bleibt so auch bei einem kompletten Server-Ausfall erhalten. Im Ernstfall spielen wir eine funktionierende Version Ihrer Website in Minuten zurück, nicht erst nach tagelanger Fehlersuche.",
     zeilen: [
       { turnus: "täglich 03:00", text: "Datenbank und Dateien gesichert, verschlüsselt und offsite abgelegt" },
       { turnus: "regelmäßig", text: "Stichprobe: Sicherung wird tatsächlich auf Wiederherstellbarkeit geprüft" },
@@ -722,7 +721,7 @@ const ARBEITSPAKETE: Arbeitspaket[] = [
     nr: "04",
     titel: "Test & QA",
     kurz: "Nach jedem Update: Ladezeit, Core Web Vitals, kritische Funktionen.",
-    text: "Nach jedem Eingriff prüfen wir Ladezeit, Core Web Vitals und kritische Seitenfunktionen gegen die aktuellen Google-Benchmarks und gegen die Vorwerte Ihrer eigenen Website. Wo Werte abrutschen, optimieren wir gezielt an der Ursache — etwa Bildgrößen, Caching oder ineffiziente Datenbankabfragen — statt pauschal an der Website herumzuschrauben.",
+    text: "Nach jedem Eingriff prüfen wir Ladezeit, Core Web Vitals und kritische Seitenfunktionen. Als Maßstab dienen die aktuellen Google-Benchmarks und die Vorwerte Ihrer eigenen Website. Wo Werte abrutschen, optimieren wir gezielt an der Ursache: Bildgrößen, Caching oder ineffiziente Datenbankabfragen. Pauschales Herumschrauben gibt es nicht.",
     zeilen: [
       { turnus: "nach jedem Update", text: "Kritische Funktionen, Formulare und Checkout-Strecken geprüft" },
       { turnus: "nach jedem Update", text: "Ladezeit gegen die Vorwerte Ihrer Website verglichen" },
@@ -736,7 +735,7 @@ const ARBEITSPAKETE: Arbeitspaket[] = [
     nr: "05",
     titel: "Monatsreport",
     kurz: "Was wurde gemacht, was wurde gefunden, was kommt als Nächstes.",
-    text: "Regelmäßig erhalten Sie einen verständlichen Bericht darüber, was gemacht wurde, was dabei auffiel und was als Nächstes ansteht — statt einer reinen technischen Log-Datei ohne Einordnung. Bei Premium-Kunden ergänzen wir das um ein Quartalsgespräch, in dem wir auch strategische Themen jenseits der reinen Wartung besprechen, etwa geplante Relaunches oder neue Funktionen.",
+    text: "Sie erhalten regelmäßig einen verständlichen Bericht: was gemacht wurde, was auffiel, was als Nächstes ansteht. Das ist mehr als eine technische Log-Datei ohne Einordnung. Bei Premium-Kunden kommt ein Quartalsgespräch dazu. Dort besprechen wir auch strategische Themen jenseits der Wartung — etwa geplante Relaunches oder neue Funktionen.",
     zeilen: [
       { turnus: "monatlich", text: "Update-Protokoll: welche Versionen wurden wann eingespielt" },
       { turnus: "monatlich", text: "Monats-Report mit Befunden und konkreten Empfehlungen" },
@@ -814,13 +813,21 @@ const VERTRAG = [
 ];
 
 /* ─── Cluster-Karten ──────────────────────────────────────────────────────── */
-const CLUSTER = [
+const CLUSTER: {
+  label: string;
+  titel: string;
+  text: string;
+  href: string;
+  cta: string;
+  logo?: { src: string; alt: string };
+}[] = [
   {
     label: "Spezialisiert",
     titel: "WordPress-Wartung",
     text: "Tieferes Plugin-Management, WooCommerce-Betreuung, Sicherheitshärtung und gezielte Datenbank-Optimierung — das spezialisierte Angebot für Websites auf WordPress.",
     href: "/website-wartung/wordpress",
     cta: "WordPress-Wartung ansehen",
+    logo: { src: "/logos/wordpress.svg", alt: "WordPress Logo" },
   },
   {
     label: "Ergänzend",
@@ -842,31 +849,31 @@ const CLUSTER = [
 const FAQS: { q: string; text: string; node?: React.ReactNode }[] = [
   {
     q: "Was kostet Website-Wartung bei SeoForge?",
-    text: "Unsere Wartungsverträge starten bei 49 €/Monat für die Basis-Betreuung mit Updates, täglichen Backups und Uptime-Monitoring. Das Plus-Paket mit Security-Monitoring, Performance-Checks und einem Support-Kontingent liegt bei 99 €/Monat, das Premium-Paket mit priorisiertem Support und eigener Staging-Umgebung bei 199 €/Monat. Alle drei Pakete sind Festpreise netto zzgl. MwSt., monatlich kündbar und ohne Mindestlaufzeit vereinbart, sodass sich Ihre Kosten von Beginn an klar kalkulieren lassen.",
+    text: "Unsere Website-Wartung startet bei 49 €/Monat für die Basis-Betreuung mit Updates, täglichen Backups und Uptime-Monitoring. Das Plus-Paket liegt bei 99 €/Monat und ergänzt Security-Monitoring, Performance-Checks und ein Support-Kontingent. Das Premium-Paket kostet 199 €/Monat — mit priorisiertem Support und eigener Staging-Umgebung. Alle drei Pakete sind Festpreise netto zzgl. MwSt., monatlich kündbar und ohne Mindestlaufzeit. Ihre Kosten lassen sich so von Beginn an klar kalkulieren.",
   },
   {
     q: "Ist der Wartungsvertrag monatlich kündbar?",
-    text: "Ja, alle drei Pakete sind monatlich kündbar, unabhängig davon, wie lange der Vertrag bereits läuft. Eine Mindestlaufzeit oder eine Kündigungsfrist über den laufenden Monat hinaus gibt es nicht. Wir gehen bewusst davon aus, dass Kunden bei uns bleiben, weil die Arbeit überzeugt, und nicht, weil ein Vertrag sie dazu zwingt. Ein Wechsel zwischen den Paketen ist ebenfalls jederzeit zum Monatswechsel möglich.",
+    text: "Ja, alle drei Pakete sind monatlich kündbar — egal, wie lange der Vertrag bereits läuft. Eine Mindestlaufzeit oder eine Kündigungsfrist über den laufenden Monat hinaus gibt es nicht. Kunden sollen bleiben, weil die Arbeit überzeugt, nicht weil ein Vertrag sie zwingt. Ein Wechsel zwischen den Paketen ist ebenfalls jederzeit zum Monatswechsel möglich.",
   },
   {
     q: "Was passiert, wenn meine Website gehackt wird oder ausfällt?",
-    text: "Unser Monitoring meldet Ausfälle und verdächtige Veränderungen in der Regel, bevor Kunden sie überhaupt bemerken. Im Ernstfall spielen wir zunächst ein sauberes Backup zurück, identifizieren anschließend die Ursache, etwa ein veraltetes Plugin oder kompromittierte Zugangsdaten, und schließen die Lücke, damit derselbe Angriff nicht sofort wieder funktioniert. Anschließend erhalten Sie eine verständliche Rückmeldung, was passiert ist und welche Schritte wir unternommen haben.",
+    text: "Unser Monitoring meldet Ausfälle und verdächtige Veränderungen in der Regel, bevor Kunden sie bemerken. Im Ernstfall spielen wir zuerst ein sauberes Backup zurück. Danach identifizieren wir die Ursache — etwa ein veraltetes Plugin oder kompromittierte Zugangsdaten — und schließen die Lücke. Derselbe Angriff funktioniert damit nicht sofort wieder. Anschließend erhalten Sie eine verständliche Rückmeldung: was passiert ist und welche Schritte wir unternommen haben.",
   },
   {
     q: "Wie schnell reagiert SeoForge bei Anfragen oder Störungen?",
-    text: "Im Regelfall antworten wir innerhalb von 24 Stunden, meistens deutlich schneller, sobald eine Anfrage oder ein Alarm eingeht. Premium-Kunden erhalten priorisierten Support mit einer Reaktionszeit von 4 Stunden, weil bei geschäftskritischen Websites und Online-Shops jede Stunde Ausfallzeit unmittelbar Umsatz kosten kann. Die konkrete Reaktionszeit richtet sich also nach dem gebuchten Wartungspaket und der Dringlichkeit des jeweiligen Problems.",
+    text: "Im Regelfall antworten wir innerhalb von 24 Stunden, meistens deutlich schneller. Premium-Kunden erhalten priorisierten Support mit einer Reaktionszeit von 4 Stunden. Denn bei geschäftskritischen Websites und Online-Shops kostet jede Stunde Ausfallzeit unmittelbar Umsatz. Die konkrete Reaktionszeit richtet sich nach dem gebuchten Wartungspaket und der Dringlichkeit des Problems.",
   },
   {
     q: "Worin unterscheidet sich Website-Wartung von der Wartung durch meinen Hosting-Anbieter?",
-    text: "Die meisten Hosting-Anbieter kümmern sich ausschließlich um die Server-Ebene: Betriebssystem, Netzwerk und gelegentlich die PHP-Version. Was auf der Website selbst passiert, also CMS-Updates, Plugins, Themes, Inhalte und Sicherheitslücken in der Anwendung selbst, bleibt dabei fast immer außen vor. Unsere Website-Wartung setzt genau dort an, wo die Zuständigkeit des Hosting-Anbieters endet, und deckt damit die Ebene ab, die im Alltag am häufigsten übersehen wird.",
+    text: "Die meisten Hosting-Anbieter kümmern sich nur um die Server-Ebene: Betriebssystem, Netzwerk und gelegentlich die PHP-Version. Was auf der Website selbst passiert, bleibt fast immer außen vor — CMS-Updates, Plugins, Themes, Inhalte und Sicherheitslücken in der Anwendung. Unsere Website-Wartung setzt genau dort an, wo die Zuständigkeit des Hosting-Anbieters endet. Sie deckt damit die Ebene ab, die im Alltag am häufigsten übersehen wird.",
   },
   {
     q: "Funktioniert die Wartung auch bei Websites, die nicht auf WordPress laufen?",
-    text: "Ja, unsere Wartungsverträge sind grundsätzlich CMS-übergreifend angelegt und funktionieren für WordPress ebenso wie für Shopify, TYPO3 oder individuell entwickelte Websites. Den konkreten Leistungsumfang, also welche Updates und welche Checks im Detail anfallen, richten wir jeweils nach dem technischen Unterbau Ihrer Website aus. Das Grundprinzip aus Updates, Backups, Monitoring und persönlichem Support bleibt dabei unabhängig vom eingesetzten System immer gleich.",
+    text: "Ja, unsere Website-Betreuung ist grundsätzlich CMS-übergreifend angelegt. Sie funktioniert für WordPress ebenso wie für Shopify, TYPO3 oder individuell entwickelte Websites. Den konkreten Leistungsumfang — welche Updates und Checks im Detail anfallen — richten wir nach dem technischen Unterbau Ihrer Website aus. Das Grundprinzip aus Updates, Backups, Monitoring und persönlichem Support bleibt unabhängig vom System immer gleich.",
   },
   {
     q: "Worin unterscheidet sich diese Seite von Ihrer WordPress-Wartung?",
-    text: "Diese Seite beschreibt unsere allgemeine, CMS-übergreifende Website-Wartung für Unternehmen mit unterschiedlichem technischen Unterbau. Für Websites, die konkret auf WordPress laufen, bieten wir mit der WordPress-Wartung ein spezialisiertes Angebot mit tieferem Plugin-Management, WooCommerce-Betreuung und gezielter Datenbank-Optimierung. Inhaltlich überschneiden sich beide Angebote deutlich, die WordPress-Wartung geht im WordPress-spezifischen Bereich aber noch einmal spürbar weiter ins Detail.",
+    text: "Diese Seite beschreibt unsere allgemeine, CMS-übergreifende Website-Wartung für Unternehmen mit unterschiedlichem technischen Unterbau. Für Websites, die konkret auf WordPress laufen, bieten wir mit der WordPress-Wartung ein spezialisiertes Angebot. Es umfasst tieferes Plugin-Management, WooCommerce-Betreuung und gezielte Datenbank-Optimierung. Inhaltlich überschneiden sich beide Angebote deutlich. Die WordPress-Wartung geht im WordPress-spezifischen Bereich aber spürbar weiter ins Detail.",
     node: (
       <>
         Diese Seite beschreibt unsere allgemeine, CMS-übergreifende Website-Wartung für Unternehmen mit
@@ -875,9 +882,9 @@ const FAQS: { q: string; text: string; node?: React.ReactNode }[] = [
         <Link href="/website-wartung/wordpress" className="text-primary font-semibold hover:underline">
           WordPress-Wartung
         </Link>{" "}
-        ein spezialisiertes Angebot mit tieferem Plugin-Management, WooCommerce-Betreuung und gezielter
-        Datenbank-Optimierung. Inhaltlich überschneiden sich beide Angebote deutlich, die WordPress-Wartung geht
-        im WordPress-spezifischen Bereich aber noch einmal spürbar weiter ins Detail.
+        ein spezialisiertes Angebot. Es umfasst tieferes Plugin-Management, WooCommerce-Betreuung und gezielte
+        Datenbank-Optimierung. Inhaltlich überschneiden sich beide Angebote deutlich. Die WordPress-Wartung geht
+        im WordPress-spezifischen Bereich aber spürbar weiter ins Detail.
       </>
     ),
   },
@@ -981,10 +988,10 @@ export default function WebsiteWartungClient() {
             </h1>
 
             <p className="hero-description mt-5 max-w-2xl text-lg leading-relaxed text-muted">
-              Wir übernehmen die komplette Website-Wartung — Updates, tägliche Backups, Security-Monitoring und
-              Performance-Checks bleiben nicht bei Ihnen hängen. Ob WordPress, Shopify oder Individualentwicklung:
-              Sie bekommen einen festen Ansprechpartner, einen transparenten Festpreis und eine Reaktionszeit von
-              unter 24 Stunden.
+              Wir übernehmen die komplette Website-Wartung: Updates, tägliche Backups, Security-Monitoring und
+              Performance-Checks bleiben nicht bei Ihnen hängen. Ob WordPress, Shopify oder Individualentwicklung —
+              Sie bekommen einen festen Ansprechpartner und einen transparenten Festpreis. Wir antworten in unter
+              24 Stunden.
             </p>
 
             <div className="hero-cta mt-7 flex flex-col sm:flex-row gap-3">
@@ -1005,9 +1012,35 @@ export default function WebsiteWartungClient() {
               </a>
             </div>
 
-            <p className="hero-description mt-9 font-mono text-[11px] uppercase tracking-[0.16em] text-dark/50">
-              Updates &amp; Patches · Tägliche Backups · Security-Monitoring · Antwort &lt; 24 h
-            </p>
+            <div className="hero-description mt-9 flex flex-wrap items-center gap-x-5 gap-y-3">
+              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-dark/50">
+                Updates &amp; Patches · Tägliche Backups · Security-Monitoring · Antwort &lt; 24 h
+              </p>
+              <span className="hidden sm:block h-4 w-px bg-border" aria-hidden="true" />
+              <span className="flex items-center gap-4">
+                <span className="flex items-center gap-1.5" title="Wartung für WordPress">
+                  <Image
+                    src="/logos/wordpress.svg"
+                    alt="WordPress Logo"
+                    width={16}
+                    height={16}
+                    className="h-4 w-4 grayscale opacity-70 transition-all hover:grayscale-0 hover:opacity-100"
+                  />
+                  <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-dark/50">WordPress</span>
+                </span>
+                <span className="flex items-center gap-1.5" title="Wartung für Shopify">
+                  <Image
+                    src="/logos/shopify.svg"
+                    alt="Shopify Logo"
+                    width={16}
+                    height={16}
+                    className="h-4 w-4 grayscale opacity-70 transition-all hover:grayscale-0 hover:opacity-100"
+                  />
+                  <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-dark/50">Shopify</span>
+                </span>
+                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-dark/40">u. v. m.</span>
+              </span>
+            </div>
           </div>
 
           {/* Wartungs-Cockpit — Interaktions-Höhepunkt 1/2 */}
@@ -1123,12 +1156,12 @@ export default function WebsiteWartungClient() {
         </div>
       </section>
 
-      {/* ══ 04 RISIKEN — Die stille Rechnung ohne Wartung ══ */}
-      <section className="bg-white py-24 lg:py-32">
+      {/* ══ 04 RISIKEN — Ink-Sektion: Die stille Rechnung ohne Wartung ══ */}
+      <section className="bg-dark py-24 lg:py-32 overflow-x-clip">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-[minmax(0,420px)_1fr] gap-10 lg:gap-16 items-start">
             <div className="scroll-hidden rv-left order-last lg:order-first">
-              <div className="group relative rounded-2xl overflow-hidden border border-border shadow-[0_24px_60px_-28px_rgba(26,26,26,0.22)] aspect-[4/5] transform-gpu [backface-visibility:hidden]">
+              <div className="group relative rounded-2xl overflow-hidden border border-white/10 shadow-[0_40px_90px_-30px_rgba(0,0,0,0.55)] aspect-[4/5] transform-gpu [backface-visibility:hidden]">
                 <Image
                   src="/images/wartung-3d-verfall.png"
                   alt="3D-Illustration: bröckelndes Browserfenster mit Rissen, kippendem Warnhütchen und herausgefallenen Bausteinen — Verfall ohne Pflege"
@@ -1137,28 +1170,43 @@ export default function WebsiteWartungClient() {
                   sizes="(max-width: 1024px) 100vw, 420px"
                 />
               </div>
-              <p className="mt-3 text-xs italic text-muted">Ohne Pflege bröckelt es leise — erst die Technik, dann die Rankings.</p>
+              <p className="mt-3 text-xs italic text-white/50">Ohne Pflege bröckelt es leise — erst die Technik, dann die Rankings.</p>
             </div>
 
             <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Ohne Wartung</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12] mb-5">
+              <span className="flex items-center gap-3 font-mono text-[11px] font-semibold tracking-[0.22em] uppercase text-secondary mb-5">
+                <span className="h-[2px] w-7 bg-secondary" aria-hidden="true" />
+                Ohne Wartung
+              </span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[46px] font-bold text-white leading-[1.1] mb-5">
                 Was eine ungewartete Website
                 <br />
-                <span style={grad}>wirklich kostet.</span>
+                <span
+                  style={{
+                    background: "linear-gradient(92deg, #D4A853, #e0bc72)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                  }}
+                >
+                  wirklich kostet.
+                </span>
               </h2>
-              <p className="text-muted leading-relaxed max-w-2xl mb-8">
-                Die häufigste Ursache für gehackte Websites sind nicht ausgefeilte, gezielte Angriffe, sondern
-                seit Wochen öffentlich bekannte Lücken in veralteten Plugins — dokumentiert in Datenbanken wie
-                der WPScan-Vulnerability-Database, inklusive Hinweisen, wie sie sich ausnutzen lassen. Die Folgen
-                reichen von unauffälligem SEO-Spam, der erst in den Google-Suchergebnissen sichtbar wird, bis zur
-                vollständigen Übernahme der Website durch Schadcode.
+              <p className="text-white/60 leading-relaxed max-w-2xl mb-8">
+                Gehackte Websites sind selten das Ergebnis ausgefeilter, gezielter Angriffe. Die häufigste
+                Ursache sind seit Wochen öffentlich bekannte Lücken in veralteten Plugins. Datenbanken wie die
+                WPScan-Vulnerability-Database dokumentieren sie — inklusive Hinweisen, wie sie sich ausnutzen
+                lassen. Die Folgen reichen von unauffälligem SEO-Spam in den Google-Suchergebnissen bis zur
+                vollständigen Übernahme der Website durch Schadcode. Ohne Website-Wartung bleibt dieses Risiko
+                dauerhaft offen.
               </p>
 
-              <div className="grid gap-px bg-border border border-border rounded-2xl overflow-hidden sm:grid-cols-2">
+              <div
+                className="grid gap-px bg-dark/20 rounded-2xl overflow-hidden sm:grid-cols-2"
+                style={{ boxShadow: "0 40px 90px -30px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,168,83,0.25)" }}
+              >
                 {RISIKEN.map((r, i) => (
-                  <div key={r.nr} className="scroll-hidden rv-scale bg-white" style={{ transitionDelay: `${i * 70}ms` }}>
-                    <div className="group relative h-full bg-white p-6 lg:p-7 transition-colors duration-300 hover:bg-[#FBF8F4]">
+                  <div key={r.nr} className="scroll-hidden rv-scale bg-[#F8F5F1]" style={{ transitionDelay: `${i * 70}ms` }}>
+                    <div className="group relative h-full bg-[#F8F5F1] p-6 lg:p-7 transition-colors duration-300 hover:bg-[#fbf4ea]">
                       <span
                         className="absolute top-0 left-0 right-0 h-[2.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
@@ -1176,12 +1224,12 @@ export default function WebsiteWartungClient() {
                 ))}
               </div>
 
-              <div className="scroll-hidden rv-blur flex items-start gap-3 mt-6 text-sm text-muted">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                  <CheckIcon className="h-3 w-3 text-primary" />
+              <div className="scroll-hidden rv-blur flex items-start gap-3 mt-6 text-sm text-white/60">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-secondary/20">
+                  <CheckIcon className="h-3 w-3 text-secondary" />
                 </span>
                 <p className="leading-relaxed">
-                  <span className="font-semibold text-dark">Ehrliche Grenze:</span> Wenn Wartung nicht mehr
+                  <span className="font-semibold text-white">Ehrliche Grenze:</span> Wenn Wartung nicht mehr
                   reicht, weil Technik und Aufbau grundlegend veraltet sind, sagen wir das offen — dann ist ein
                   Website-Relaunch der sauberere Weg als Dauerflickerei.
                 </p>
@@ -1238,9 +1286,20 @@ export default function WebsiteWartungClient() {
                             {l.nr}
                           </span>
                           <div>
-                            <h3 className="font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark group-hover:text-primary transition-colors mb-2">
-                              {l.titel}
-                            </h3>
+                            <div className="flex items-center gap-2.5 mb-2">
+                              {l.logo && (
+                                <Image
+                                  src={l.logo.src}
+                                  alt={l.logo.alt}
+                                  width={20}
+                                  height={20}
+                                  className="h-5 w-5 shrink-0 grayscale opacity-70 transition-all group-hover:grayscale-0 group-hover:opacity-100"
+                                />
+                              )}
+                              <h3 className="font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark group-hover:text-primary transition-colors">
+                                {l.titel}
+                              </h3>
+                            </div>
                             <p className="text-sm text-muted leading-relaxed">{l.text}</p>
                             <div className="flex flex-wrap gap-1.5 mt-3">
                               {l.chips.map((c) => (
@@ -1287,7 +1346,7 @@ export default function WebsiteWartungClient() {
       </section>
 
       {/* ══ 06 ABLAUF — Der Wartungsmonat als Protokoll-Konsole ══ */}
-      <section id="ablauf" className="scroll-mt-20 bg-white py-24 lg:py-32">
+      <section id="ablauf" className="scroll-mt-20 border-t-2 border-dark bg-white py-24 lg:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <SectionHead
             eyebrow="So läuft Ihr Wartungsmonat"
@@ -1439,10 +1498,10 @@ export default function WebsiteWartungClient() {
             <p className="leading-relaxed">
               <span className="font-semibold text-dark">Vor dem ersten Wartungsmonat:</span> Bestandsaufnahme und
               Erstversorgung. Wir prüfen den technischen Status quo Ihrer Website — Updates, Sicherheitslage,
-              Performance und die bestehende Backup-Situation —, unabhängig davon, wer die Seite ursprünglich
-              gebaut oder zuvor betreut hat. Erkannte Altlasten wie veraltete Plugins, fehlende Backups oder
-              abgelaufene Zertifikate sprechen wir offen an und beheben sie. Erst wenn diese technische Basis
-              steht, dokumentiert und getestet ist, beginnt die Routine-Wartung nach Ihrem gebuchten Paket.
+              Performance und die bestehende Backup-Situation. Wer die Seite ursprünglich gebaut oder betreut
+              hat, spielt dabei keine Rolle. Altlasten wie veraltete Plugins, fehlende Backups oder abgelaufene
+              Zertifikate sprechen wir offen an und beheben sie. Erst wenn diese Basis steht, dokumentiert und
+              getestet ist, beginnt die Routine-Wartung nach Ihrem gebuchten Paket.
             </p>
           </div>
         </div>
@@ -1455,12 +1514,12 @@ export default function WebsiteWartungClient() {
             eyebrow="Wartungspakete"
             title={
               <>
-                Drei Pakete,
+                Website-Wartung
                 <br />
-                <span style={grad}>ein fester Monatspreis.</span>
+                <span style={grad}>zum festen Monatspreis.</span>
               </>
             }
-            copy="Monatlich kündbar, kein Mindestvertrag — Sie bleiben, weil die Arbeit stimmt."
+            copy="Drei Pakete für die laufende Website-Betreuung: monatlich kündbar, kein Mindestvertrag — Sie bleiben, weil die Arbeit stimmt."
           />
 
           <div className="grid lg:grid-cols-3 gap-6 items-stretch">
@@ -1519,25 +1578,34 @@ export default function WebsiteWartungClient() {
             ))}
           </div>
 
-          <div className="scroll-hidden rv-blur mt-8 text-center">
-            <p className="mx-auto max-w-3xl text-sm text-muted leading-relaxed">
-              Alle drei Wartungspakete sind Festpreise ohne versteckte Kosten und ohne Mindestlaufzeit — Sie
-              zahlen exakt das, was auf der Rechnung steht. Der Unterschied zwischen den Paketen liegt im Umfang
-              von Monitoring, Support und Reaktionszeit, nicht in überraschenden Zusatzkosten für einzelne
-              Leistungen.
-            </p>
-            <p className="mt-3 text-sm text-muted">
-              Alle Preise netto zzgl. MwSt. · Monatlich kündbar · Kein Risiko ·{" "}
-              <a href="#kontakt" className="text-primary font-semibold hover:underline">
-                Individuelles Angebot anfragen
+          <div className="m3d mt-10 rounded-3xl overflow-hidden" style={{ background: "#C2722A" }}>
+            <div className="grid lg:grid-cols-[1fr_auto] gap-8 items-center px-7 lg:px-10 py-8 lg:py-10">
+              <div className="scroll-hidden rv-left">
+                <span className="block font-mono text-[11px] tracking-[0.22em] uppercase text-white/70 mb-3">
+                  Festpreis-Prinzip
+                </span>
+                <p className="font-[family-name:var(--font-heading)] text-2xl lg:text-[32px] font-bold leading-[1.15] text-white">
+                  Website-Wartung zum Festpreis — ohne versteckte Kosten, ohne Mindestlaufzeit.
+                </p>
+                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/80">
+                  Sie zahlen exakt das, was auf der Rechnung steht. Die Pakete unterscheiden sich im Umfang von
+                  Monitoring, Support und Reaktionszeit — nicht in überraschenden Zusatzkosten. Alle Preise netto
+                  zzgl. MwSt., monatlich kündbar.
+                </p>
+              </div>
+              <a
+                href="#kontakt"
+                className="scroll-hidden rv-right inline-flex items-center justify-center gap-3 rounded-full bg-dark px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#2a2a2a] shadow-[0_18px_40px_-14px_rgba(26,26,26,0.55)]"
+              >
+                Individuelles Angebot anfragen <span aria-hidden="true">→</span>
               </a>
-            </p>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ══ 08 VERGLEICH — Wartungsvertrag vs. Ad-hoc-Reparatur ══ */}
-      <section className="bg-white py-24 lg:py-32 overflow-hidden">
+      <section className="border-t-2 border-dark bg-white py-24 lg:py-32 overflow-hidden">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <SectionHead
             eyebrow="Vertrag oder Notfall?"
@@ -1555,29 +1623,28 @@ export default function WebsiteWartungClient() {
             <div className="scroll-hidden rv-left">
               <div className="space-y-4 text-muted leading-relaxed max-w-lg">
                 <p>
-                  Für eine einfache Website mit wenigen Unterseiten und einem technisch versierten
-                  Ansprechpartner im Haus kann Eigenwartung durchaus funktionieren — solange tatsächlich
-                  regelmäßig und nicht nur bei akutem Anlass Zeit dafür eingeplant wird. In der Praxis scheitert
-                  sie allerdings selten an fehlendem Wissen, sondern{" "}
+                  Für eine einfache Website mit wenigen Unterseiten kann Eigenwartung funktionieren — wenn ein
+                  technisch versierter Ansprechpartner im Haus regelmäßig Zeit dafür einplant. In der Praxis
+                  scheitert sie selten an fehlendem Wissen, sondern{" "}
                   <strong className="text-dark font-semibold">schlicht an fehlender Zeit im Tagesgeschäft</strong>
-                  : Updates werden eingespielt, wenn gerade Luft ist, nicht wenn ein kritischer Sicherheitspatch
-                  erscheint — und ohne eigene Staging-Umgebung geht ein Update oft direkt live, mit dem Risiko,
-                  dass ein Plugin-Konflikt zunächst unbemerkt bleibt.
+                  . Updates werden eingespielt, wenn gerade Luft ist — nicht, wenn ein kritischer
+                  Sicherheitspatch erscheint. Ohne eigene Staging-Umgebung geht ein Update zudem oft direkt live.
+                  Ein Plugin-Konflikt bleibt dann zunächst unbemerkt.
                 </p>
                 <p>
-                  Sobald eine Website geschäftskritisch wird — ein Shop, ein wachsendes Content-Volumen, mehrere
-                  Systeme, die zusammenspielen —, zeigt sich der Unterschied sehr schnell. Ad-hoc-Reparatur wirkt
-                  auf dem Papier günstiger, bündelt im Ernstfall aber{" "}
+                  Sobald eine Website geschäftskritisch wird, zeigt sich der Unterschied schnell — beim Shop,
+                  bei wachsendem Content-Volumen, bei mehreren Systemen im Zusammenspiel. Ad-hoc-Reparatur wirkt
+                  auf dem Papier günstiger. Im Ernstfall bündelt sie aber{" "}
                   <strong className="text-dark font-semibold">
                     Ausfallzeit, Datenverlust-Risiko und Termindruck in einem einzigen schlechten Tag
                   </strong>
-                  . Ein Wartungsvertrag verteilt dieselbe Arbeit planbar übers Jahr und fängt Probleme, solange
-                  sie klein sind: Das Monitoring läuft auch nachts und am Wochenende, Updates folgen einem festen
-                  Rhythmus über die Staging-Pipeline, und{" "}
+                  . Eine laufende Website-Betreuung verteilt dieselbe Arbeit planbar übers Jahr und fängt
+                  Probleme, solange sie klein sind. Das Monitoring läuft auch nachts und am Wochenende. Updates
+                  folgen einem festen Rhythmus über die Staging-Pipeline. Und{" "}
                   <strong className="text-dark font-semibold">
                     ein fester Ansprechpartner kennt Ihre Website über die Zeit hinweg
                   </strong>{" "}
-                  — und antwortet in aller Regel innerhalb von 24 Stunden.
+                  — er antwortet in aller Regel innerhalb von 24 Stunden.
                 </p>
               </div>
             </div>
@@ -1659,9 +1726,20 @@ export default function WebsiteWartungClient() {
                   className="group block h-full rounded-2xl border border-border bg-white p-6 hover:border-primary/30 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
                 >
                   <span className="block font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45 mb-3">{c.label}</span>
-                  <h3 className="font-[family-name:var(--font-heading)] font-bold text-dark text-lg mb-2 group-hover:text-primary transition-colors">
-                    {c.titel}
-                  </h3>
+                  <div className="flex items-center gap-2 mb-2">
+                    {c.logo && (
+                      <Image
+                        src={c.logo.src}
+                        alt={c.logo.alt}
+                        width={18}
+                        height={18}
+                        className="h-[18px] w-[18px] shrink-0 grayscale opacity-70 transition-all group-hover:grayscale-0 group-hover:opacity-100"
+                      />
+                    )}
+                    <h3 className="font-[family-name:var(--font-heading)] font-bold text-dark text-lg group-hover:text-primary transition-colors">
+                      {c.titel}
+                    </h3>
+                  </div>
                   <p className="text-muted text-sm leading-relaxed mb-4">{c.text}</p>
                   <span className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary">
                     {c.cta}
@@ -1752,16 +1830,15 @@ export default function WebsiteWartungClient() {
           <div className="relative grid gap-16 lg:grid-cols-2 lg:items-center">
             <div className="scroll-hidden rv-left">
               <h2 className="font-[family-name:var(--font-heading)] text-4xl text-white lg:text-5xl">
-                Geben Sie die Technik ab —{" "}
+                Geben Sie die Website-Wartung ab —{" "}
                 <span className="bg-gradient-to-r from-primary-light to-secondary bg-clip-text text-transparent">
                   wir halten Ihre Website am Laufen.
                 </span>
               </h2>
               <p className="mt-4 text-base leading-relaxed text-white/60">
-                Wir analysieren Ihre Website in einem ersten Schritt, empfehlen das passende Paket und senden
-                Ihnen anschließend ein transparentes Festpreisangebot — kostenlos und unverbindlich. Passt eine
-                einfachere Lösung besser zu Ihrer Situation, sagen wir Ihnen das genauso offen wie im umgekehrten
-                Fall.
+                Im ersten Schritt analysieren wir Ihre Website und empfehlen das passende Paket für Ihre
+                Website-Wartung. Danach erhalten Sie ein transparentes Festpreisangebot — kostenlos und
+                unverbindlich. Passt eine einfachere Lösung besser zu Ihrer Situation, sagen wir Ihnen das offen.
               </p>
               <div className="mt-8 space-y-4">
                 {[

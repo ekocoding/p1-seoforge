@@ -365,11 +365,11 @@ function ClaudeCodeTerminal() {
 const faqs = [
   {
     q: "Was kostet es, eine Website erstellen zu lassen?",
-    a: "Die Kosten hängen von Umfang, Design-Komplexität und Funktionen ab. Einfache Business-Websites starten ab 2.500 €, komplexere Lösungen mit E-Commerce oder individuellen Features ab 5.000 €. Im kostenlosen Erstgespräch erstellen wir ein transparentes Festpreisangebot — keine versteckten Kosten.",
+    a: "Die Kosten hängen von Umfang, Design-Komplexität und Funktionen ab. Einfache Business-Websites starten ab 2.500 €, komplexere Lösungen mit E-Commerce oder individuellen Features ab 5.000 €. Im kostenlosen Erstgespräch bekommst du ein transparentes Festpreisangebot — keine versteckten Kosten. Bezahlt wird 50/50: die Hälfte zum Start, der Rest beim Go-live.",
   },
   {
     q: "Wie lange dauert die Erstellung einer Website?",
-    a: "Das hängt vom Umfang ab: Nach dem Konzept folgen Design-Runden, Entwicklung und Testing. Durch unsere KI-gestützten Workflows und automatisierten Deployments sind wir deutlich schneller als klassische Agenturen — den konkreten Zeitplan bekommst du mit dem Festpreisangebot.",
+    a: "In der Regel gehen wir in 2–3 Wochen live. Der Projektstart ist meist in unter einer Woche möglich. Du arbeitest ab Tag 1 auf einer Staging-Umgebung mit — ohne starre Korrekturrunden. Den konkreten Zeitplan bekommst du mit dem Festpreisangebot.",
   },
   {
     q: "Welche Technologie nutzt ihr für die Website-Erstellung?",
@@ -385,7 +385,7 @@ const faqs = [
   },
   {
     q: "Was unterscheidet euch von anderen Webdesign-Agenturen?",
-    a: "Wir sind SEO-Agentur und Webdesign-Agentur in einem — und arbeiten wie ein DevOps-Team: CI/CD-Pipelines, KI-gestützte Workflows und datengetriebene Entscheidungen mit Semrush, Ahrefs und Google. Das macht uns schneller und fairer im Preis, ohne dass die Qualität leidet. Und: Wir antworten immer in unter 24 Stunden.",
+    a: "Wir sind SEO-Agentur und Webdesign-Agentur in einem — und arbeiten wie ein DevOps-Team. CI/CD-Pipelines, KI-Workflows und Entscheidungen auf Datenbasis mit Semrush, Ahrefs und Google. Das macht uns schneller und fairer im Preis, ohne dass die Qualität leidet. Und: Wir antworten immer in unter 24 Stunden.",
   },
 ];
 
@@ -563,14 +563,13 @@ export default function WebsiteErstellenLassenClient() {
 
           {/* Beschreibung — substanziell, ohne erfundene Kennzahlen */}
           <p className="hero-description text-muted leading-[1.85] mb-11 max-w-3xl mx-auto" style={{ fontSize: "clamp(15px, 1.1vw, 17px)" }}>
-            Kein Template, kein Baukasten: Wir entwickeln deine Website von Grund auf —
-            mit individuellem Design, sauberem Code und SEO als Fundament statt als
-            Nachgedanke. Als SEO- und Webdesign-Agentur in einem planen wir jede
-            Unterseite auf Basis echter Suchdaten aus Semrush und Ahrefs, entwickeln
-            mit DevOps-Workflows und KI-Unterstützung schneller als klassische
-            Agenturen — und geben diesen Vorteil als faire Festpreise an dich weiter.
-            Das Ergebnis: eine Website, die nicht nur gut aussieht, sondern gefunden
-            wird, überzeugt und verkauft.
+            Du willst deine Website erstellen lassen — ohne Template, ohne Baukasten?
+            Wir entwickeln sie von Grund auf: individuelles Design, sauberer Code,
+            SEO als Fundament. Jede Unterseite planen wir auf Basis echter Suchdaten
+            aus Semrush und Ahrefs. DevOps-Workflows und KI machen uns schneller als
+            klassische Agenturen. Diesen Vorteil geben wir als fairen Festpreis an
+            dich weiter. Das Ergebnis: eine Website, die gefunden wird, überzeugt
+            und verkauft.
           </p>
 
           {/* CTAs */}
@@ -664,25 +663,26 @@ export default function WebsiteErstellenLassenClient() {
                 Kosten & Preise
               </span>
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-dark mb-5 leading-tight">
-                Was kostet es, eine<br />Website erstellen zu lassen?
+                Website erstellen lassen:<br />Was kostet das?
               </h2>
               <p className="text-muted leading-relaxed mb-6">
                 Der Markt ist breit: Einfache One-Pager liegen bei <strong className="text-dark">1.500–2.500 €</strong>,
                 klassische Unternehmens-Websites bei <strong className="text-dark">3.000–7.000 €</strong>,
                 Shops und Portale schnell bei <strong className="text-dark">10.000 €+</strong>.
                 Entscheidend ist nicht der niedrigste Preis — sondern was du dafür bekommst.
+                Das gilt auch, wenn du nur eine schlanke Homepage erstellen lassen willst.
               </p>
               <p className="text-muted leading-relaxed mb-8">
-                Unser Vorteil: KI-gestützte Workflows und DevOps-Automatisierung reduzieren
-                den Aufwand pro Projekt deutlich. Diesen Effizienzgewinn geben wir als
-                faire Festpreise weiter — bei voller handwerklicher Qualität, individuellem
-                Design und SEO-Setup inklusive.
+                Unser Vorteil: KI-Workflows und DevOps-Automatisierung senken den Aufwand
+                pro Projekt deutlich. Diesen Gewinn geben wir als Festpreis weiter.
+                Du kennst den Preis vor Projektstart — und zahlst 50 % zum Start,
+                50 % beim Go-live. SEO-Setup und individuelles Design sind immer drin.
               </p>
               <ul className="space-y-3.5">
                 {[
                   "Festpreis nach Erstgespräch — keine versteckten Kosten",
+                  "Zahlung 50/50: die Hälfte zum Start, der Rest beim Go-live",
                   "SEO-Setup & saubere Technik immer inklusive",
-                  "Günstiger als klassische Agenturen — dank KI & Automatisierung",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <span className="mt-0.5 shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center">
@@ -723,7 +723,11 @@ export default function WebsiteErstellenLassenClient() {
               </h2>
               <p className="text-muted leading-relaxed mb-8 max-w-md">
                 Keine Schnittstellenverluste zwischen zwei Dienstleistern: Design, Technik
-                und Sichtbarkeit kommen aus einem Team. Deine Website sieht nicht nur gut
+                und Sichtbarkeit kommen aus einem Team. Als{" "}
+                <Link href="/seo-agentur" className="border-b-2 border-primary font-semibold text-dark transition-colors hover:bg-[#fbf4ea] hover:text-primary">
+                  SEO-Agentur
+                </Link>{" "}
+                denken wir Rankings von Anfang an mit. Deine Website sieht nicht nur gut
                 aus — sie rankt für deine Keywords und bringt messbar mehr Anfragen rein.
               </p>
               <ul className="space-y-5">
@@ -766,7 +770,7 @@ export default function WebsiteErstellenLassenClient() {
       {/* ══════════════════════════════════════════════════════════════════
           WARUM SEOFORGE B — KI im Webdesign & Coding
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-white border-t border-border py-24 lg:py-32">
+      <section className="bg-white border-t-2 border-dark py-24 lg:py-32">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
@@ -796,21 +800,50 @@ export default function WebsiteErstellenLassenClient() {
                 Effizienzgewinn rechnen wir nicht in Stunden ab — sondern geben ihn als
                 fair kalkulierten Festpreis an dich weiter.
               </p>
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { val: "~42%", label: "weniger Entwicklungszeit" },
-                  { val: "< 24h", label: "Reaktionszeit garantiert" },
-                  { val: "CI/CD", label: "Deploy-Pipeline inklusive" },
-                  { val: "Festpreis", label: "keine Stunden-Abrechnung" },
-                ].map((stat) => (
-                  <div key={stat.label} className="rounded-xl border border-border bg-offwhite p-4">
-                    <div className="font-[family-name:var(--font-heading)] text-xl font-black text-dark">{stat.val}</div>
-                    <div className="text-xs text-muted mt-0.5">{stat.label}</div>
-                  </div>
-                ))}
+              {/* Rahmendaten-Tafel — echte Projekt-Fakten, Ink-Kopfzeile */}
+              <div className="scroll-hidden rv-scale overflow-hidden rounded-2xl border-2 border-dark bg-white">
+                <div className="flex items-center justify-between bg-dark px-6 py-3.5 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
+                  <span>Rahmendaten</span><span className="text-secondary">Verbindlich</span>
+                </div>
+                <div className="grid sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-border">
+                  {[
+                    { z: "01", k: "Projektstart", v: "unter 1 Woche" },
+                    { z: "02", k: "Go-live", v: "2–3 Wochen" },
+                    { z: "03", k: "Zahlung", v: "50 / 50" },
+                  ].map((c, i) => (
+                    <div key={c.z} className="scroll-hidden relative overflow-hidden p-6" style={{ transitionDelay: `${i * 100}ms` }}>
+                      <span className="pointer-events-none absolute -bottom-5 -right-2 font-[family-name:var(--font-heading)] text-[84px] font-bold leading-none text-primary/[0.09]" aria-hidden="true">{c.z}</span>
+                      <span className="block font-mono text-[10.5px] uppercase tracking-[0.16em] text-dark/45">{c.k}</span>
+                      <span className="mt-2 block font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark">{c.v}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
+          </div>
+
+          {/* Tech-Stack-Beleg — echte Tools statt Behauptungen */}
+          <div className="scroll-hidden mt-16 border-t-2 border-dark pt-9">
+            <span className="mb-6 block font-mono text-[11px] uppercase tracking-[0.2em] text-dark/40">Womit wir bauen</span>
+            <div className="flex flex-wrap gap-4">
+              {[
+                { src: "/logos/nextdotjs.svg", name: "Next.js", sub: "Framework" },
+                { src: "/logos/wordpress.svg", name: "WordPress", sub: "CMS" },
+                { src: "/logos/tailwindcss.svg", name: "Tailwind CSS", sub: "Styling" },
+                { src: "/logos/github_clean.svg", name: "GitHub", sub: "CI/CD" },
+                { src: "/logos/vercel.svg", name: "Vercel", sub: "Hosting & Edge" },
+                { src: "/logos/claude.svg", name: "Claude", sub: "KI-Workflows" },
+              ].map((t, i) => (
+                <div key={t.name} className="scroll-hidden group flex min-w-[170px] items-center gap-4 rounded-xl border border-border bg-white px-5 py-4 transition-all hover:border-[#ecd3ba] hover:bg-[#fbf4ea] hover:shadow-[0_14px_30px_-16px_rgba(194,114,42,0.35)]" style={{ transitionDelay: `${i * 70}ms` }}>
+                  <Image src={t.src} alt={`${t.name} Logo`} width={28} height={28} className="h-7 w-auto grayscale opacity-60 transition-all duration-200 group-hover:grayscale-0 group-hover:opacity-100" />
+                  <span className="leading-tight">
+                    <b className="block font-[family-name:var(--font-heading)] text-sm font-bold text-dark">{t.name}</b>
+                    <small className="font-mono text-[10px] uppercase tracking-[0.08em] text-dark/40">{t.sub}</small>
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -992,7 +1025,7 @@ export default function WebsiteErstellenLassenClient() {
       {/* ══════════════════════════════════════════════════════════════════
           SPLIT 1 — Mittelstand
       ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-white border-t border-border overflow-hidden py-20 lg:py-28">
+      <section className="bg-white border-t-2 border-dark overflow-hidden py-20 lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
@@ -1100,9 +1133,9 @@ export default function WebsiteErstellenLassenClient() {
               </h2>
               <p className="text-muted leading-relaxed mb-8 max-w-md">
                 Bestehende Website veraltet, aber die Rankings sollen bleiben? Wir
-                modernisieren mit sauberem 301-Setup, Search-Console-Monitoring und
-                einer Migration, die Google nicht bemerkt — deployt über unsere
-                CI/CD-Pipeline.
+                modernisieren mit sauberem 301-Setup und Search-Console-Monitoring.
+                Die Migration läuft über unsere CI/CD-Pipeline — so sauber, dass
+                Google sie nicht bemerkt.
               </p>
               <Link
                 href="/webdesign/website-relaunch-agentur"
@@ -1132,6 +1165,27 @@ export default function WebsiteErstellenLassenClient() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════════════
+          TERRACOTTA-BAND — Mid-Page-CTA (Kontrast-Anker)
+      ══════════════════════════════════════════════════════════════════ */}
+      <section className="py-16 lg:py-20 overflow-x-clip" style={{ background: "#C2722A" }}>
+        <div className="mx-auto max-w-6xl px-6 lg:px-8 grid lg:grid-cols-[1fr_auto] gap-8 items-center">
+          <div className="scroll-hidden rv-left">
+            <span className="block font-mono text-[11px] tracking-[0.22em] uppercase text-white/70 mb-3">Nächster Schritt</span>
+            <p className="font-[family-name:var(--font-heading)] text-2xl lg:text-4xl font-bold leading-[1.1] text-white">
+              Website erstellen lassen — Staging ab Tag&nbsp;1,
+              <br className="hidden lg:block" /> live in 2–3 Wochen.
+            </p>
+          </div>
+          <Link
+            href="/kontakt"
+            className="scroll-hidden rv-right inline-flex items-center gap-3 rounded-full bg-dark px-8 py-4 font-semibold text-white transition-colors hover:bg-[#2a2a2a] shadow-[0_18px_40px_-14px_rgba(26,26,26,0.55)]"
+          >
+            Kostenloses Erstgespräch <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════════════
           FAQ
       ══════════════════════════════════════════════════════════════════ */}
       <section className="py-24 lg:py-32" style={{ background: "#F8F5F1" }}>
@@ -1141,7 +1195,7 @@ export default function WebsiteErstellenLassenClient() {
               Häufige Fragen
             </span>
             <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold text-dark">
-              Alles zur Website-Erstellung
+              Website erstellen lassen — deine Fragen
             </h2>
           </div>
 
@@ -1227,21 +1281,29 @@ export default function WebsiteErstellenLassenClient() {
         </div>
         <div className="relative mx-auto max-w-3xl px-6 text-center">
           <div className="scroll-hidden">
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-4xl font-bold text-white mb-4">
-              Bereit für deine neue Website?
+            <span className="mb-6 inline-flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-secondary">
+              <span className="h-[2px] w-7 bg-secondary" aria-hidden="true" /> Kontakt
+            </span>
+            <h2 className="font-[family-name:var(--font-heading)] text-4xl lg:text-[56px] font-bold leading-[1.05] tracking-tight text-white mb-5">
+              Bereit für deine{" "}
+              <span style={{ background: "linear-gradient(92deg, #D4A853, #e0bc72)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
+                neue Website
+              </span>
+              ?
             </h2>
             <p className="text-white/55 text-lg mb-3 leading-relaxed">
               Kostenloses Erstgespräch — wir klären in 30 Minuten, was dein Projekt
               braucht und was es kostet.
             </p>
-            <p className="text-white/35 text-sm mb-9">
-              Persönlicher Ansprechpartner · Antwort garantiert in unter 24 Stunden
+            <p className="text-white/35 text-sm mb-9 font-mono uppercase tracking-[0.12em] text-[11px]">
+              Persönlicher Ansprechpartner · Antwort in unter 24 Stunden
             </p>
             <Link
               href="/kontakt"
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-xl transition-all"
+              className="inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold text-dark transition-colors hover:bg-white"
+              style={{ background: "#F8F5F1" }}
             >
-              Kostenloses Erstgespräch buchen →
+              Kostenloses Erstgespräch buchen <span aria-hidden="true">→</span>
             </Link>
           </div>
         </div>

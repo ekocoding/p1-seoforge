@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import SubpageLayout from "@/app/components/SubpageLayout";
 import EditorMockup from "./EditorMockup";
 import FaqAccordion from "@/app/components/FaqAccordion";
@@ -123,7 +124,7 @@ export default function SeoTexteClient() {
                 <span className="text-primary">ranken und verkaufen</span>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted hero-description">
-                SEO Texte, die nicht nach SEO klingen. Wir schreiben Inhalte, die Google versteht und Ihre Zielgruppe überzeugt — recherchiert, strukturiert und auf Conversion optimiert.
+                SEO Texte, die nicht nach SEO klingen. Wir schreiben Inhalte, die Google versteht und die Ihre Zielgruppe überzeugen — recherchiert, strukturiert und auf Conversion optimiert.
               </p>
               <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 animate-fade-up" style={{ animationDelay: "0.4s" }}>
                 {["Keyword-recherchiert", "Unique Content", "Lieferung in 5–7 Tagen"].map((p) => (
@@ -225,7 +226,7 @@ export default function SeoTexteClient() {
             {/* Active format detail */}
             {formats.map((f, i) => (
               <div key={i} className={`${activeFormat === i ? "block" : "hidden"}`}>
-                <div className="bg-white rounded-2xl border border-border p-8 lg:p-12 shadow-sm">
+                <div className="bg-white rounded-2xl border border-border p-8 lg:p-12 shadow-[0_30px_60px_-25px_rgba(26,26,26,0.25)]">
                   <div className="grid lg:grid-cols-2 gap-10">
                     <div>
                       <h3 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark mb-4">{f.title}</h3>
@@ -408,22 +409,28 @@ export default function SeoTexteClient() {
                 </div>
                 <div className="text-sm font-bold text-primary mb-1">{addon.price}</div>
                 <div className="text-xs text-muted">{addon.desc}</div>
+                {addon.title === "CMS-Upload" && (
+                  <div className="mt-2.5 flex items-center gap-2.5">
+                    <Image src="/logos/wordpress.svg" alt="WordPress Logo" width={16} height={16} className="h-4 w-auto grayscale opacity-70 transition-all hover:grayscale-0 hover:opacity-100" />
+                    <Image src="/logos/shopify.svg" alt="Shopify Logo" width={16} height={16} className="h-4 w-auto grayscale opacity-70 transition-all hover:grayscale-0 hover:opacity-100" />
+                  </div>
+                )}
               </div>
             ))}
           </div>
 
-          {/* CTA banner */}
-          <div className="mt-8 bg-white border border-border rounded-2xl p-7 lg:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          {/* CTA banner — Terracotta-Solid-Band */}
+          <div className="mt-8 rounded-2xl p-7 lg:p-8 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 shadow-[0_24px_50px_-20px_rgba(194,114,42,0.55)]" style={{ background: "#C2722A" }}>
             <div>
-              <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark mb-1">
+              <h3 className="font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-white mb-1">
                 Nicht sicher welches Paket passt?
               </h3>
-              <p className="text-sm text-muted">Wir beraten kostenlos und empfehlen was wirklich Sinn macht — ohne Verkaufsdruck.</p>
+              <p className="text-sm text-white/80">Wir beraten kostenlos und empfehlen, was wirklich Sinn macht — ohne Verkaufsdruck.</p>
             </div>
             <div className="flex items-center gap-3 flex-shrink-0">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/25 bg-primary/[0.06]">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-                <span className="text-xs font-semibold text-primary">Antwort in 24h</span>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-dark">
+                <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" />
+                <span className="text-xs font-semibold text-white">Antwort in 24h</span>
               </div>
             </div>
           </div>
@@ -434,94 +441,86 @@ export default function SeoTexteClient() {
       {/* ============================================================ */}
       {/*  PROZESS — Content creation journey                           */}
       {/* ============================================================ */}
-      <section className="bg-white py-24 lg:py-32">
+      <section className="bg-dark py-24 lg:py-32 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="text-center mb-16 transition-all duration-700 reveal">
-            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Der Prozess</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">Vom Briefing zum fertigen Text</h2>
-            <p className="text-lg text-muted max-w-2xl mx-auto">Fünf Stationen, ein Ziel: Content, der rankt und konvertiert.</p>
+            <span className="inline-block font-mono text-[11px] font-bold tracking-[0.22em] uppercase text-secondary mb-4">Der Prozess</span>
+            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-white mb-4">Vom Briefing zum fertigen Text</h2>
+            <p className="text-lg text-white/60 max-w-2xl mx-auto">Fünf Stationen, ein Ziel: Content, der rankt und konvertiert.</p>
           </div>
 
           <div className="transition-all duration-700 delay-200 reveal">
-            {/* Journey visualization — alternating left/right like a winding road */}
-            <div className="relative">
-              {/* Dashed center line (desktop) */}
-              <div className="hidden lg:block absolute left-1/2 -translate-x-px top-0 bottom-0 w-px border-l-[2px] border-dashed border-primary/20 pointer-events-none" />
-
-              <div className="space-y-8 lg:space-y-0">
-                {[
-                  {
-                    num: "01", title: "Briefing", subtitle: "Was soll der Text leisten?",
-                    desc: "Wir klären gemeinsam: Wer ist die Zielgruppe? Welches Ziel verfolgt der Text? Welche Keywords sind relevant? Gibt es Vorgaben zu Tonalität und Länge? Je präziser das Briefing, desto besser das Ergebnis.",
-                    detail: "Dauer: 30 Min. Call oder Briefing-Formular",
-                    side: "left",
-                  },
-                  {
-                    num: "02", title: "Recherche", subtitle: "Daten sammeln, Wettbewerb verstehen",
-                    desc: "Keyword-Recherche mit Suchvolumen und Wettbewerb. Analyse der Top-10-Ergebnisse: Was decken sie ab? Was fehlt? Wo können wir mehr Tiefe liefern? Suchintention klaren — informational, transaktional oder navigational.",
-                    detail: "Tools: Ahrefs, Sistrix, Google Search Console",
-                    side: "right",
-                  },
-                  {
-                    num: "03", title: "Texterstellung", subtitle: "Schreiben mit System",
-                    desc: "Unsere Texter arbeiten nach dem Recherche-Briefing: Klare Heading-Struktur, natürliche Keyword-Integration, überzeugende Argumentation. Jeder Absatz hat einen Zweck. Kein Fülltext, kein generisches Gerede.",
-                    detail: "Lieferzeit: 5–7 Werktage ab Briefing-Freigabe",
-                    side: "left",
-                  },
-                  {
-                    num: "04", title: "SEO-Feinschliff", subtitle: "Jeden Hebel nutzen",
-                    desc: "Meta-Title und Description optimieren. Keyword-Dichte prüfen. Interne Verlinkung setzen. Lesbarkeit testen. Heading-Tags verifizieren. Duplicate-Content ausschliessen. Erst wenn alles stimmt, geht der Text in die finale Runde.",
-                    detail: "Geprüft mit: Surfer SEO, Hemingway, Copyscape",
-                    side: "right",
-                  },
-                  {
-                    num: "05", title: "Qualitätskontrolle & Lieferung", subtitle: "Perfektion vor Übergabe",
-                    desc: "Lektorat, Korrekturlesen, finaler SEO-Audit. Sie erhalten den fertigen Text mit Meta-Daten, Strukturempfehlungen und internen Verlinkungsvorschlägen. Eine Korrekturschleife ist immer inklusive.",
-                    detail: "Format: Google Doc, Word oder direkt in Ihr CMS",
-                    side: "left",
-                  },
-                ].map((step, i) => (
-                  <div key={step.num} className={`relative lg:grid lg:grid-cols-2 lg:gap-16 ${i > 0 ? "lg:pt-8" : ""}`}>
-                    {/* Center node (desktop) */}
-                    <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 top-0 z-10 h-14 w-14 items-center justify-center rounded-full bg-white border-[3px] border-primary shadow-lg">
-                      <span className="text-primary text-lg font-bold font-[family-name:var(--font-heading)]">{step.num}</span>
+            {/* Papier-auf-Ink-Dossier — Prozess als gestempeltes Angebotsdokument */}
+            <div
+              className="rounded-2xl overflow-hidden"
+              style={{ background: "#F8F5F1", boxShadow: "0 40px 90px -30px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,168,83,0.25)" }}
+            >
+              <div className="flex items-center justify-between bg-dark px-6 lg:px-9 py-3.5 font-mono text-[11px] font-semibold uppercase tracking-[0.14em] text-white">
+                <span>Dossier — Texterstellung</span>
+                <span className="text-secondary">SEO/2026</span>
+              </div>
+              {[
+                {
+                  num: "01", title: "Briefing", subtitle: "Was soll der Text leisten?",
+                  desc: "Wir klären gemeinsam: Wer ist die Zielgruppe? Welches Ziel verfolgt der Text? Welche Keywords sind relevant? Gibt es Vorgaben zu Tonalität und Länge? Je präziser das Briefing, desto besser das Ergebnis.",
+                  detail: "Dauer: 30 Min. Call oder Briefing-Formular",
+                },
+                {
+                  num: "02", title: "Recherche", subtitle: "Daten sammeln, Wettbewerb verstehen",
+                  desc: "Keyword-Recherche mit Suchvolumen und Wettbewerb. Analyse der Top-10-Ergebnisse: Was decken sie ab? Was fehlt? Wo können wir mehr Tiefe liefern? Suchintention klären — informational, transaktional oder navigational.",
+                  detail: "Tools: Semrush, Google Search Console",
+                },
+                {
+                  num: "03", title: "Texterstellung", subtitle: "Schreiben mit System",
+                  desc: "Unsere Texter arbeiten nach dem Recherche-Briefing: Klare Heading-Struktur, natürliche Keyword-Integration, überzeugende Argumentation. Jeder Absatz hat einen Zweck. Kein Fülltext, kein generisches Gerede.",
+                  detail: "Lieferzeit: 5–7 Werktage ab Briefing-Freigabe",
+                },
+                {
+                  num: "04", title: "SEO-Feinschliff", subtitle: "Jeden Hebel nutzen",
+                  desc: "Meta-Title und Description optimieren. Keyword-Dichte prüfen. Interne Verlinkung setzen. Lesbarkeit testen. Heading-Tags verifizieren. Duplicate-Content ausschließen. Erst wenn alles stimmt, geht der Text in die finale Runde.",
+                  detail: "Geprüft mit: Surfer SEO, Hemingway, Copyscape",
+                },
+                {
+                  num: "05", title: "Qualitätskontrolle & Lieferung", subtitle: "Perfektion vor Übergabe",
+                  desc: "Lektorat, Korrekturlesen, finaler SEO-Audit. Sie erhalten den fertigen Text mit Meta-Daten, Strukturempfehlungen und internen Verlinkungsvorschlägen. Eine Korrekturschleife ist immer inklusive.",
+                  detail: "Format: Google Doc, Word oder direkt in Ihr CMS",
+                },
+              ].map((step) => (
+                <div key={step.num} className="grid grid-cols-[56px_1fr] sm:grid-cols-[88px_1fr] gap-4 sm:gap-5 px-6 lg:px-9 py-6 border-b border-[#ecd3ba] last:border-b-0 transition-colors hover:bg-[#fbf4ea]">
+                  <span className="pt-1 font-mono text-[11px] uppercase tracking-[0.1em] text-dark/40">POS {step.num}</span>
+                  <div>
+                    <div className="flex flex-wrap items-baseline gap-x-3.5 gap-y-1.5">
+                      <h3 className="font-[family-name:var(--font-heading)] text-lg font-bold text-dark leading-snug">{step.title}</h3>
+                      <span className="hidden sm:block min-w-[48px] flex-1 border-b-2 border-dotted border-dark/35" aria-hidden="true" />
+                      <span className="font-mono text-[10.5px] font-semibold uppercase tracking-[0.1em] text-primary">{step.subtitle}</span>
                     </div>
-
-                    {/* Content — alternates sides */}
-                    <div className={`${step.side === "right" ? "lg:col-start-2" : "lg:col-start-1"} ${step.side === "right" ? "lg:pl-12" : "lg:pr-12 lg:text-right"}`}>
-                      {/* Mobile number */}
-                      <div className="lg:hidden flex items-center gap-3 mb-4">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white text-sm font-bold">{step.num}</div>
-                        <div>
-                          <h3 className="font-[family-name:var(--font-heading)] text-lg font-bold text-dark">{step.title}</h3>
-                          <p className="text-xs text-primary font-medium">{step.subtitle}</p>
-                        </div>
-                      </div>
-
-                      {/* Desktop content */}
-                      <div className="rounded-2xl border border-border bg-offwhite/30 p-6 lg:p-8 transition-all duration-300 hover:bg-white hover:shadow-lg hover:border-primary/20">
-                        <div className="hidden lg:block mb-3">
-                          <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark">{step.title}</h3>
-                          <p className="text-xs text-primary font-medium mt-0.5">{step.subtitle}</p>
-                        </div>
-                        <p className="text-sm text-muted leading-relaxed mb-4">{step.desc}</p>
-                        <div className={`inline-flex items-center gap-2 text-[10px] font-medium text-dark/50 bg-white border border-border rounded-full px-3 py-1.5 ${step.side === "right" ? "" : "lg:ml-auto"}`}>
-                          <svg className="w-3 h-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                          {step.detail}
-                        </div>
-                      </div>
-                    </div>
+                    <p className="mt-2 max-w-[680px] text-sm text-muted leading-relaxed">{step.desc}</p>
+                    <p className="mt-3 font-mono text-[10.5px] uppercase tracking-[0.08em] text-dark/45">{step.detail}</p>
                   </div>
-                ))}
-              </div>
-
-              {/* Finish flag */}
-              <div className="relative lg:flex lg:justify-center mt-10 lg:mt-12">
-                <div className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-primary/[0.08] to-secondary/[0.05] border border-primary/15 px-6 py-3">
-                  <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                  <span className="text-sm font-semibold text-dark">Fertiger Text mit <span className="text-primary">SEO Score 90+</span> ausgeliefert</span>
                 </div>
+              ))}
+              {/* Ink-Summenfuß */}
+              <div className="grid grid-cols-[56px_1fr] sm:grid-cols-[88px_1fr] gap-4 sm:gap-5 bg-dark px-6 lg:px-9 py-6">
+                <span className="font-mono text-base font-semibold text-secondary">Σ</span>
+                <p className="text-sm leading-relaxed text-white/70">
+                  Fertiger Text mit <b className="text-white">SEO Score 90+</b> ausgeliefert — eine Korrekturschleife immer inklusive.
+                </p>
               </div>
+            </div>
+
+            {/* Tool-Belege, dezent */}
+            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+              <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-white/40">Recherche &amp; Prüfung mit</span>
+              {[
+                { src: "/logos/google.svg", name: "Google" },
+                { src: "/logos/googlesearchconsole.svg", name: "Google Search Console" },
+                { src: "/logos/semrush.svg", name: "Semrush" },
+              ].map((tool) => (
+                <span key={tool.name} className="flex items-center gap-2.5 opacity-70 transition-opacity hover:opacity-100">
+                  <Image src={tool.src} alt={`${tool.name} Logo`} width={20} height={20} className="h-5 w-auto brightness-0 invert" />
+                  <span className="text-sm text-white/80">{tool.name}</span>
+                </span>
+              ))}
             </div>
           </div>
         </div>
@@ -538,7 +537,7 @@ export default function SeoTexteClient() {
               SEO Texte kaufen – was das wirklich bedeutet
             </h2>
             <p className="text-base lg:text-lg leading-relaxed text-muted mb-5">
-              Viele Unternehmen suchen nach SEO Texten, weil ihre Seiten nicht ranken. Das Ergebnis: Man kauft irgendwo Texte, lädt sie hoch – und passiert trotzdem nichts. Das Problem liegt meistens nicht am Text selbst, sondern daran, was davor und dahinter passiert. Oder eben nicht passiert.
+              Viele Unternehmen suchen nach SEO Texten, weil ihre Seiten nicht ranken. Das Ergebnis: Man kauft irgendwo Texte, lädt sie hoch – und trotzdem passiert nichts. Das Problem liegt meistens nicht am Text selbst, sondern daran, was davor und dahinter passiert. Oder eben nicht passiert.
             </p>
             <p className="text-base lg:text-lg leading-relaxed text-muted mb-5">
               SEO-optimierte Texte sind kein Produkt, das man einfach bestellt wie eine Schachtel Visitenkarten. Sie sind das Ergebnis eines Prozesses: Keyword-Analyse, Suchintention verstehen, Wettbewerb einschätzen, Struktur planen – und dann schreiben. Wer diesen Prozess überspringt, verschwendet Budget.
@@ -551,10 +550,10 @@ export default function SeoTexteClient() {
               Was gute SEO Texte von schlechten unterscheidet
             </h2>
             <p className="text-base leading-relaxed text-muted mb-5">
-              Es gibt einen einfachen Test: Nimm einen beliebigen SEO-Text und frag dich, ob er eine konkrete Frage eines echten Menschen beantwortet. Wenn die Antwort "nicht wirklich" ist, ist der Text wahrscheinlich wertlos – egal wie oft das Keyword drinsteht.
+              Es gibt einen einfachen Test: Nehmen Sie einen beliebigen SEO-Text und fragen Sie sich, ob er eine konkrete Frage eines echten Menschen beantwortet. Wenn die Antwort "nicht wirklich" ist, ist der Text wahrscheinlich wertlos – egal wie oft das Keyword drinsteht.
             </p>
             <p className="text-base leading-relaxed text-muted mb-6">
-              Google bewertet Inhalte heute nach E-E-A-T: Erfahrung, Expertise, Autorität, Vertrauenswürdigkeit. Das bedeutet in der Praxis: Oberflächliche Texte, die nur Keywords aneinander reihen, funktionieren kaum noch. Was rankt, sind Inhalte die tatsächlich Mehrwert liefern.
+              Google bewertet Inhalte heute nach E-E-A-T: Erfahrung, Expertise, Autorität, Vertrauenswürdigkeit. Das bedeutet in der Praxis: Oberflächliche Texte, die nur Keywords aneinander reihen, funktionieren kaum noch. Was rankt, sind Inhalte, die tatsächlich Mehrwert liefern.
             </p>
 
             <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark mb-4">Die häufigsten Fehler beim Textkauf</h3>
@@ -604,7 +603,7 @@ export default function SeoTexteClient() {
               Wie der Prozess bei SeoForge aussieht
             </h2>
             <p className="text-base leading-relaxed text-muted mb-6">
-              Wir produzieren keine Texte von der Stange. Jedes Projekt beginnt mit einem Briefing-Gespräch, in dem wir verstehen wollen, was Ihr Unternehmen wirklich auszeichnet – und was Ihre Zielgruppe wirklich sucht. Erst dann gehen wir in die Recherche.
+              Wir produzieren keine Texte von der Stange. Jedes Projekt beginnt mit einem Briefing-Gespräch. Darin klären wir, was Ihr Unternehmen wirklich auszeichnet – und was Ihre Zielgruppe wirklich sucht. Erst dann gehen wir in die Recherche.
             </p>
 
             <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark mb-3">1. Keyword-Analyse &amp; Suchintention</h3>
@@ -703,7 +702,9 @@ export default function SeoTexteClient() {
             <p className="text-base leading-relaxed text-muted mb-12">
               Wer dauerhaft in den organischen Suchergebnissen wachsen will, kommt an einer strukturierten{" "}
               <Link href="/seo/content-strategie" className="text-primary underline underline-offset-2 hover:no-underline">Content-Strategie</Link>{" "}
-              nicht vorbei. Einzelne Texte bauen keine Autorität auf – ein durchdachtes System aus Pillar Pages, Cluster-Artikeln und interner Verlinkung schon.
+              nicht vorbei. Einzelne Texte bauen keine Autorität auf – ein durchdachtes System aus Pillar Pages, Cluster-Artikeln und interner Verlinkung schon. Wer Technik, Content und Strategie aus einer Hand will, ist bei unserer{" "}
+              <Link href="/seo-agentur" className="text-primary underline underline-offset-2 hover:no-underline">SEO Agentur</Link>{" "}
+              richtig.
             </p>
 
             <h2 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark leading-tight mb-6">
@@ -754,7 +755,7 @@ export default function SeoTexteClient() {
               <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-6 leading-tight">
                 Texte, die<br />ranken und überzeugen
               </h2>
-              <p className="text-lg text-muted leading-relaxed mb-8">Erzählen Sie uns von Ihrem Projekt — wir erstellen ein unverbindliches Angebot für SEO-Texte, die gefunden werden und Ihre Zielgruppe ansprechen.</p>
+              <p className="text-lg text-muted leading-relaxed mb-8">Erzählen Sie uns von Ihrem Projekt — wir erstellen ein unverbindliches Angebot für SEO Texte, die gefunden werden und Ihre Zielgruppe ansprechen.</p>
               <div className="space-y-4">
                 {[
                   { title: "Individuelle Briefings", desc: "Jeder Text wird auf Ihre Zielgruppe, Ihre Tonalität und Ihre Keywords zugeschnitten." },
