@@ -1381,6 +1381,7 @@ export const articles: Article[] = [
     type: 'ratgeber',
     thema: 'seo',
     title: 'Was kostet eine Website? Preise, Kostenfaktoren & Beispielrechnung',
+    metaTitle: 'Was kostet eine Website? Preise & Kosten',
     excerpt: 'Von 500 bis 20.000 Euro: Alle Preise nach Website-Typ und Umsetzungsweg, einmalige und laufende Kosten im Vergleich, eine ehrliche 5-Jahres-Beispielrechnung.',
     banner: '/wissen/was-kostet-eine-website-banner.webp',
     readTime: '11 min',
@@ -2126,6 +2127,7 @@ export const articles: Article[] = [
     type: 'ratgeber',
     thema: 'geo',
     title: 'GEO vs. SEO: Der Unterschied einfach erklärt',
+    metaTitle: 'GEO vs. SEO: Der Unterschied einfach erklärt',
     excerpt: 'GEO und SEO verfolgen dasselbe Ziel, funktionieren aber grundlegend anders. Ob KMU beides brauchen, wo sie sich überschneiden und welche konkreten GEO-Hebel wirken.',
     readTime: '9 min',
     publishDate: '2026-06-21',
@@ -2591,6 +2593,7 @@ export const articles: Article[] = [
     type: 'ratgeber',
     thema: 'webdesign',
     title: "Onepager: Was ist eine One-Page-Website, wann lohnt sie sich + Beispiele",
+    metaTitle: "Onepager: Was ist eine One-Page-Website?",
     excerpt: "Ein Onepager fasst alles auf einer einzigen scrollbaren Seite zusammen. Was ein Onepager ist, wann er sich lohnt, welche SEO-Grenzen er hat — und wann du besser eine Landingpage erstellen lässt.",
     readTime: "9 min",
     publishDate: "2026-06-11",
@@ -2914,6 +2917,7 @@ export const articles: Article[] = [
     type: 'ratgeber',
     thema: 'webdesign',
     title: "Landingpage-Beispiele: Vorlagen, die wirklich konvertieren (2026)",
+    metaTitle: "Landingpage-Beispiele, die konvertieren",
     excerpt: "10+ Landingpage-Beispiele mit Analyse: Warum sie konvertieren, welche Prinzipien dahinterstecken und wie du diese Muster für deine eigene Seite nutzt.",
     readTime: "11 min",
     publishDate: "2026-06-15",
@@ -3184,6 +3188,7 @@ export const articles: Article[] = [
     type: 'ratgeber',
     thema: 'webdesign',
     title: "Call-to-Action: Beispiele + Best Practices für mehr Conversions",
+    metaTitle: "Call-to-Action: Beispiele & Best Practices",
     excerpt: "Was macht einen CTA unwiderstehlich? Anatomie, Psychologie und 20+ konkrete Beispiele für Call-to-Action-Texte — damit deine Landingpage endlich konvertiert.",
     readTime: "10 min",
     publishDate: "2026-06-19",
@@ -3491,6 +3496,7 @@ export const articles: Article[] = [
     type: 'ratgeber',
     thema: 'webdesign',
     title: "Website-Relaunch: Die Checkliste + die häufigsten Fehler, die ihn auslösen",
+    metaTitle: "Website-Relaunch: Checkliste + häufige Fehler",
     excerpt: "Wann ist ein Relaunch wirklich nötig — und wie machst du ihn, ohne Rankings zu verlieren? Die komplette Checkliste mit SEO-Migration, Redirects und Go-Live.",
     readTime: "9 min",
     publishDate: "2026-06-13",
@@ -3812,6 +3818,7 @@ export const articles: Article[] = [
     type: 'ratgeber',
     thema: 'webdesign',
     title: "Webdesign-Trends 2026: Woran du erkennst, dass deine Website veraltet ist",
+    metaTitle: "Webdesign-Trends 2026: Ist deine Seite veraltet?",
     excerpt: "Welche Webdesign-Trends 2026 wirklich zählen, was reiner Hype ist — und woran du erkennst, dass deine Website Vertrauen und Conversions kostet.",
     readTime: "9 min",
     publishDate: "2026-06-23",
@@ -3873,6 +3880,9 @@ export const articles: Article[] = [
   .wdt-pill--hype { background: #fee2e2; color: #b91c1c; }
   .wdt-pill--impact { background: #dcfce7; color: #15803d; }
   .wdt-pill--medium { background: #fef9c3; color: #854d0e; }
+  .wdt-shot { margin: 1.75rem 0; border-radius: 16px; border: 1px solid #e5e7eb; overflow: hidden; background: #fff; }
+  .wdt-shot img { display: block; width: 100%; height: auto; margin: 0; }
+  .wdt-shot-caption { padding: 0.65rem 1rem; background: #FBF6F1; border-top: 1px solid #e5e7eb; font-size: 0.82rem; color: #6b7280; text-align: center; }
 </style>
 
 <h2 id="warum-design-vertrauen-kostet">Warum veraltetes Design direkt Vertrauen kostet</h2>
@@ -3906,6 +3916,11 @@ export const articles: Article[] = [
   <strong>Veraltungssignal</strong>
   Dein PageSpeed-Score (Google PageSpeed Insights) liegt unter 60 auf Mobile. Deine Seite "ruckelt" beim Scrollen oder Elemente springen beim Laden. Besonders kritisch: CLS über 0,1 — das macht Google rankingmäßig ungnädig.
 </div>
+
+<figure class="wdt-shot">
+  <img src="/wissen/webdesign-trends-2026-pagespeed.webp" alt="Google PageSpeed Insights Mobile-Report mit den Werten Performance 89, Accessibility 93, Best Practices 100 und SEO 100" loading="lazy" width="1200" height="388" />
+  <figcaption class="wdt-shot-caption">So liest sich ein gesundes Werte-Profil in PageSpeed Insights: alle vier Kategorien im grünen beziehungsweise oberen Bereich.</figcaption>
+</figure>
 
 <h2 id="trend-3-mobile-first-nicht-nur-responsive">Trend 3: Mobile-First heißt nicht nur "responsiv" — es heißt mobil gedacht</h2>
 
@@ -4067,6 +4082,7 @@ export const articles: Article[] = [
     type: 'ratgeber',
     thema: "seo",
     title: "Was kostet SEO? Preise, Kostenfaktoren und womit du rechnen musst",
+    metaTitle: "Was kostet SEO? Preise & Kostenfaktoren",
     excerpt: "Was kostet SEO wirklich? Wir zeigen konkrete Preismodelle, typische Kostenfaktoren und warum billige Angebote oft teurer werden als solide Arbeit.",
     readTime: "10 min",
     publishDate: "2026-06-14",
@@ -4402,6 +4418,7 @@ export const articles: Article[] = [
     type: 'ratgeber',
     thema: "geo",
     title: "Marken-Sichtbarkeit in KI aufbauen: Der vollständige Ratgeber",
+    metaTitle: "Marken-Sichtbarkeit in KI aufbauen: Der Ratgeber",
     excerpt: "Nicht zitiert in ChatGPT, Perplexity oder Google AI? Dann bist du für diese Nutzer unsichtbar. Hier zeigen wir, wie Marken-Sichtbarkeit in KI funktioniert.",
     readTime: "12 min",
     publishDate: "2026-06-28",
@@ -4799,6 +4816,7 @@ export const articles: Article[] = [
     type: 'ratgeber',
     thema: "geo",
     title: "GEO-Ranking-Faktoren: Sichtbarkeit in ChatGPT & Perplexity",
+    metaTitle: "GEO-Ranking-Faktoren: Sichtbar in ChatGPT & Co",
     excerpt: "Welche GEO-Ranking-Faktoren entscheiden, ob ChatGPT und Perplexity deine Inhalte zitieren — mit Prioritätstabelle, Fehleranalyse und 90-Tage-Fahrplan.",
     readTime: "13 min",
     publishDate: "2026-06-18",
@@ -4822,6 +4840,9 @@ export const articles: Article[] = [
 .icg-table tr:last-child td{border-bottom:none}
 .icg-table tr:nth-child(even) td{background:#F8F7F5}
 .icg-tag{display:inline-block;background:#D4A853;color:#1A1A1A;border-radius:4px;padding:0.15rem 0.5rem;font-size:0.82rem;font-weight:700;margin-right:0.3rem}
+.icg-shot{margin:1.75rem 0;border-radius:16px;border:1px solid #e5e2de;overflow:hidden;background:#fff}
+.icg-shot img{display:block;width:100%;height:auto;margin:0}
+.icg-shot-caption{padding:0.65rem 1rem;background:#F8F7F5;border-top:1px solid #e5e2de;font-size:0.82rem;color:#6b7280;text-align:center}
 </style>
 
 <h2 id="wie-llms-quellen-auswaehlen">Wie LLMs ihre Quellen auswählen — und warum das für dich relevant ist</h2>
@@ -4988,6 +5009,11 @@ export const articles: Article[] = [
 <h3 id="fehler-schema-unvollstaendig">Schema-Markup vorhanden, aber unvollständig oder falsch</h3>
 <p>Viele Seiten haben FAQPage-Schema, füllen aber nur zwei von zehn Fragen aus — oder nutzen veraltete Eigenschaften. Schema muss korrekt sein und alle relevanten Felder abdecken. Ein Test mit dem Google Rich Results Tool zeigt Fehler sofort. Gleiches gilt für Organization-Schema: fehlende Felder wie <code>sameAs</code> (Verlinkung zu Wikidata, LinkedIn, Branchenverzeichnissen) reduzieren die Entitätserkennbarkeit merklich.</p>
 
+<figure class="icg-shot">
+  <img src="/wissen/geo-ranking-faktoren-richresults.webp" alt="Google Rich Results Test für einen SeoForge-Ratgeber: 4 gültige Elemente erkannt (Articles, Breadcrumbs, Local Businesses, Organization)" loading="lazy" width="1200" height="608" />
+  <figcaption class="icg-shot-caption">Der Rich Results Test in der Praxis: strukturierte Daten werden pro Typ einzeln geprüft und als gültig oder fehlerhaft markiert.</figcaption>
+</figure>
+
 <h3 id="fehler-kein-externer-fussabdruck">Brand-Mentions nur auf der eigenen Website</h3>
 <p>Wer ausschließlich auf der eigenen Domain präsent ist, hat einen minimalen digitalen Fußabdruck. LLMs trainieren auf dem gesamten Web — eine Marke, die nur dort über sich selbst schreibt, wird als wenig relevant eingestuft. Mindestens drei bis fünf externe Erwähnungen in glaubwürdigen Quellen sind der Startpunkt, nicht das Ziel.</p>
 
@@ -5124,6 +5150,7 @@ export const articles: Article[] = [
     type: 'ratgeber',
     thema: "webdesign",
     title: "UX vs. UI Design: Unterschied, Grundlagen und warum beides über Erfolg entscheidet",
+    metaTitle: "UX vs. UI Design: Unterschied & Grundlagen",
     excerpt: "UX und UI Design — zwei Begriffe, ein Team. Wir erklären den Unterschied, wie der Prozess aussieht und warum beides über Conversion und App-Erfolg entscheidet.",
     readTime: "10 min",
     publishDate: "2026-06-22",

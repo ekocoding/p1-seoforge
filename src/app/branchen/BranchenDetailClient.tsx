@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SubpageLayout from "@/app/components/SubpageLayout";
-import { FOTO_BAND, KEYWORDS } from "./branchenData";
+import { FOTO_BAND, KEYWORDS, branchen } from "./branchenData";
 import type { Branche, FotoBand, KeywordPotenzial, KeywordRow, Signature } from "./branchenData";
 
 /* ─── Scroll-Reveal (IntersectionObserver → .scroll-visible) ──────────────── */
@@ -847,6 +847,22 @@ const CHAT_VERLAUF: Record<string, { frage: string; zeitFrage: string; zeitAntwo
     frage: "Das Objekt in der Gartenstraße ist verkauft — bitte von der Website nehmen.",
     zeitFrage: "Di., 11:12", zeitAntwort: "Di., 11:19", live: "Objektseite offline — 12 Minuten später",
   },
+  "seo-fuer-zahnaerzte": {
+    frage: "Wir bieten ab sofort auch Invisalign an — können Sie dafür eine eigene Seite erstellen?",
+    zeitFrage: "Di., 19:10", zeitAntwort: "Di., 19:28", live: "Behandlungsseite live — 31 Minuten später",
+  },
+  "seo-fuer-kieferorthopaeden": {
+    frage: "Zum Schuljahresstart hätten wir gern eine Info-Seite zur losen Zahnspange — machbar?",
+    zeitFrage: "Mo., 13:05", zeitAntwort: "Mo., 13:27", live: "Ratgeber-Seite live — 38 Minuten später",
+  },
+  "seo-fuer-physiotherapeuten": {
+    frage: "Unser Rückbildungskurs im Herbst ist buchbar — können Sie das auf die Website stellen?",
+    zeitFrage: "Do., 12:40", zeitAntwort: "Do., 13:02", live: "Kursseite live — 27 Minuten später",
+  },
+  "seo-fuer-heilpraktiker": {
+    frage: "Ich biete jetzt auch Ohrakupunktur an — lässt sich das noch diese Woche ergänzen?",
+    zeitFrage: "Fr., 18:22", zeitAntwort: "Fr., 18:47", live: "Leistungsseite live — 24 Minuten später",
+  },
 };
 
 function ChatVerlauf({ slug }: { slug: string }) {
@@ -1470,10 +1486,64 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
                   {absatz}
                 </p>
               ))}
+              {branche.warumBild && (
+                <div
+                  className="scroll-hidden rv-blur relative aspect-[3/2] overflow-hidden rounded-2xl border border-border"
+                  style={{ transitionDelay: `${branche.warumAbsaetze.length * 110}ms` }}
+                >
+                  <Image
+                    src={branche.warumBild.src}
+                    alt={branche.warumBild.alt}
+                    fill
+                    sizes="(min-width: 1024px) 60vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
       </section>
+
+      {/* ══ PRAXIS-TYPEN-STRIP — offener Medaillon-Stil wie der /branchen-Hub, nur bei Branchen mit Spokes ══ */}
+      {branche.praxisTypen && branche.praxisTypen.length > 0 && (
+        <section className="border-t border-border bg-white py-16 lg:py-20 overflow-x-clip">
+          <div className="mx-auto max-w-6xl px-6 lg:px-8">
+            <div className="scroll-hidden mb-10 text-center lg:mb-12">
+              <span className="mb-3 inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
+                <span className="h-px w-8 bg-border" aria-hidden="true" />
+                Spezialisiert nach Praxis-Typ
+                <span className="h-px w-8 bg-border" aria-hidden="true" />
+              </span>
+              <h2 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark leading-tight">
+                Jede Praxis sucht anders — <span style={grad}>wir auch.</span>
+              </h2>
+            </div>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
+              {branche.praxisTypen.map((pt, i) => {
+                const ziel = branchen.find((b) => b.slug === pt.slug);
+                if (!ziel) return null;
+                return (
+                  <Link
+                    key={pt.slug}
+                    href={`/branchen/${ziel.slug}`}
+                    className="scroll-hidden rv-blur group flex flex-col items-center text-center"
+                    style={{ transitionDelay: `${i * 90}ms` }}
+                  >
+                    <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white text-primary ring-1 ring-border transition-all duration-300 group-hover:-translate-y-1 group-hover:ring-primary/40 group-hover:shadow-[0_16px_32px_-16px_rgba(194,114,42,0.35)] lg:h-24 lg:w-24 [&_svg]:h-7 [&_svg]:w-7 lg:[&_svg]:h-8 lg:[&_svg]:w-8">
+                      {ziel.icon}
+                    </span>
+                    <span className="mt-4 font-[family-name:var(--font-heading)] text-base font-bold text-dark transition-colors group-hover:text-primary lg:text-lg">
+                      {ziel.kurzName}
+                    </span>
+                    <span className="mt-1 text-xs text-muted leading-relaxed lg:text-[13px]">{pt.teaser}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ══ 02 SIGNATURE-APP — beige, eigene Section direkt nach WARUM ══ */}
       <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
@@ -1713,6 +1783,21 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
               >
                 {branche.tiefe.lead}
               </p>
+
+              {branche.tiefe.bild && (
+                <div
+                  className="scroll-hidden rv-scale relative mt-10 aspect-[21/9] overflow-hidden rounded-2xl border border-border lg:mt-12"
+                  style={{ transitionDelay: "180ms" }}
+                >
+                  <Image
+                    src={branche.tiefe.bild.src}
+                    alt={branche.tiefe.bild.alt}
+                    fill
+                    sizes="(min-width: 1024px) 80vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              )}
 
               {/* Pull-Quote — ein prägnanter Satz aus dem Dossier, wortgetreu */}
               <blockquote className="scroll-hidden rv-scale my-10 max-w-4xl border-l-4 border-secondary pl-6 lg:my-14 lg:pl-8">

@@ -76,6 +76,8 @@ export type Branche = {
   ctaLabel: string;
   warumTitle: { pre: string; grad: string };
   warumAbsaetze: ReactNode[];
+  /** Optionales Begleitfoto am Ende der WARUM-Absätze (nicht jede Branche braucht das) */
+  warumBild?: { src: string; alt: string };
   /** Signature-Modul: eigene Section direkt nach WARUM */
   signature: Signature;
   /** H2 der Signature-Section */
@@ -115,11 +117,17 @@ export type Branche = {
     lead: string;
     quote: string;
     spalten: [string, string];
+    /** Optionales Begleitfoto zwischen Lead und Pull-Quote (nicht jede Branche braucht das) */
+    bild?: { src: string; alt: string };
   };
   ctaSatz: { pre: string; grad: string };
   ctaButtonLabel: string;
   icon: ReactNode;
   accent: string;
+  /** Optionaler Verlinkungs-Strip „Nach Praxis-Typ“: Slugs verwandter Branchen-Seiten (Icon + Name werden aus dem branchen-Array aufgelöst) */
+  praxisTypen?: { slug: string; teaser: string }[];
+  /** true = Praxis-Typ-Spoke (Zahnärzte, KFO, …): erscheint NICHT im 6er-Hub-Grid, nur als Textzeile darunter */
+  praxisTyp?: boolean;
 };
 
 const linkCls = "text-primary font-semibold hover:underline";
@@ -195,6 +203,10 @@ export const branchen: Branche[] = [
         Suchtrends, Google-Updates und KI-Suchmaschinen mitwächst.
       </>,
     ],
+    warumBild: {
+      src: "/images/branchen-editorial/aerzte-warum.webp",
+      alt: "Ärztin erklärt einem Kollegen im Praxisflur etwas auf dem Tablet",
+    },
     split: {
       bild: "/images/branchen-split/aerzte.png",
       bildAlt: "Patientin sucht auf dem Smartphone nach einer Behandlung in ihrer Nähe",
@@ -338,6 +350,10 @@ export const branchen: Branche[] = [
       titel: { pre: "Von der Symptom-Suche ", grad: "bis zur Terminbuchung." },
       lead: "Ein Patient mit Rückenschmerzen sucht selten direkt nach dem Namen einer Praxis. Er sucht zuerst nach dem Symptom, etwa „Rückenschmerzen was tun“ oder „Stechen im Kreuz beim Bücken“, lange bevor er überhaupt an einen Arztbesuch denkt. Erst in einer zweiten Suchphase, oft Stunden oder Tage später, wird aus dem Symptom eine konkrete Leistungssuche wie „Orthopäde Termin“ oder „Rückenschmerzen Facharzt in der Nähe“. Praxen, die nur ihre Leistungsseite optimieren, tauchen in dieser ersten, viel größeren Suchphase gar nicht auf und verpassen den Moment, in dem sich der Patient noch orientiert statt schon entschieden hat.",
       quote: "Diese Übergänge entscheiden oft darüber, ob aus einem Website-Besucher ein Anruf oder eine Online-Terminbuchung wird.",
+      bild: {
+        src: "/images/branchen-editorial/aerzte-tiefe.webp",
+        alt: "Ärztin erklärt einem Patienten im Praxisflur etwas auf dem Tablet",
+      },
       spalten: [
         "Der größte Bruch in dieser Reise passiert häufig auf der eigenen Website: Der Patient landet über eine Symptom-Suche auf einer allgemeinen Startseite ohne Bezug zu seinem Anliegen und muss sich selbst durchklicken, um zu verstehen, ob die Praxis überhaupt zuständig ist. Fehlt an dieser Stelle ein klarer nächster Schritt, etwa ein sichtbarer Termin-Button direkt im ersten Blickfeld, bricht ein spürbarer Teil der Besucher wieder ab. Aus unserer Erfahrung verlieren Praxen genau hier mehr potenzielle Patienten als durch schlechte Rankings, weil die Seite zwar gefunden wird, die Unsicherheit des Patienten aber nicht auffängt. Ein Symptom-Text, der sachlich erklärt, was das Anliegen bedeuten kann und wann ein Arztbesuch sinnvoll ist, überbrückt genau diese Lücke, ohne in Diagnosen abzurutschen, die auf eine Praxis-Website nicht gehören.",
         "Wir bauen deshalb bewusst eine Content-Ebene zwischen Symptom und Leistung: Seiten, die die Suchintention des unsicheren Patienten aufgreifen und von dort gezielt zur passenden Facharzt-Leistung verlinken. Diese Übergänge entscheiden oft darüber, ob aus einem Website-Besucher ein Anruf oder eine Online-Terminbuchung wird. Genauso wichtig ist die technische Seite: Ist die Terminbuchung von einer Symptom-Seite aus in zwei Klicks erreichbar, oder muss der Patient erst durch mehrere Untermenüs navigieren? Praxen, die diesen Weg verkürzen, gewinnen häufiger Patienten, die eigentlich schon fast wieder abgesprungen wären.",
@@ -358,6 +374,12 @@ export const branchen: Branche[] = [
       </>
     ),
     accent: "Patienten suchen Symptome und Behandlungen — Ihre Praxis erscheint bei genau diesen Anfragen.",
+    praxisTypen: [
+      { slug: "seo-fuer-zahnaerzte", teaser: "Implantate, Aligner & Prophylaxe" },
+      { slug: "seo-fuer-kieferorthopaeden", teaser: "Eltern-Recherche & Aligner-Suchen" },
+      { slug: "seo-fuer-physiotherapeuten", teaser: "Selbstzahler, Kurse & lokale Suche" },
+      { slug: "seo-fuer-heilpraktiker", teaser: "Vertrauensaufbau, rechtssicher" },
+    ],
   },
 
   /* ── 02 · Anwälte ──────────────────────────────────────────────────────── */
@@ -1449,6 +1471,921 @@ export const branchen: Branche[] = [
     ),
     accent: "Sichtbarkeit, die in Google-Rankings und in KI-Empfehlungen zugleich funktioniert.",
   },
+
+  /* ── 07 · Zahnärzte (Praxis-Typ-Spoke unter Ärzte) ─────────────────────── */
+  {
+    slug: "seo-fuer-zahnaerzte",
+    praxisTyp: true,
+    name: "SEO für Zahnärzte",
+    kurzName: "Zahnärzte",
+    keyword: "SEO für Zahnärzte",
+    hebelVariant: "tafel",
+    heroQuery: "zahnarzt implantat kosten",
+    heroBildAlt: "Zahnärztin bespricht eine Behandlung mit einer Patientin am Behandlungsstuhl — Sichtbarkeit für Zahnarztpraxen",
+    signature: {
+      variant: "klickpreise",
+      panelTitle: "Klickkosten je Behandlung",
+      hinweis: "Google Ads — Klickpreis-Niveau, illustrativ",
+      rows: [
+        { gebiet: "Implantologie", breite: 94, wert: "€€€€" },
+        { gebiet: "Aligner / Zahnspange", breite: 78, wert: "€€€" },
+        { gebiet: "Zahnersatz", breite: 60, wert: "€€€" },
+        { gebiet: "Prophylaxe / PZR", breite: 42, wert: "€€" },
+      ],
+      fazit: "Organisches Ranking",
+      fazitWert: "0 € pro Klick",
+    },
+    signatureTitle: { pre: "Die teuersten Klicks der Medizin — ", grad: "oder organische Sichtbarkeit." },
+    signatureCopy: [
+      "Kaum ein medizinischer Bereich ist bei Google Ads so teuer umkämpft wie die Zahnmedizin: Bei Implantat- und Aligner-Suchen bieten Praxen, Zahnkliniken und Ketten gleichzeitig auf dieselben Klicks.",
+      "Organische Rankings holen dieselben Patienten ohne laufende Klickkosten ab. Wir bauen Ihre Sichtbarkeit gezielt bei den Behandlungen auf, die für Ihre Praxis wirtschaftlich am meisten zählen.",
+    ],
+    h1: {
+      pre: "SEO für Zahnärzte: Gefunden werden bei ",
+      grad: "Implantat, Aligner und Prophylaxe",
+    },
+    subline:
+      "Patienten vergleichen Zahnärzte so aktiv wie in kaum einem anderen Fach: Sie googeln Kosten, Abläufe und Erfahrungen, lange bevor sie anrufen. Wir sorgen dafür, dass Ihre Praxis genau in dieser Recherche auftaucht — in Google, auf Maps und in KI-Antworten.",
+    ctaLabel: "Kostenlose SEO-Analyse für Ihre Zahnarztpraxis",
+    warumTitle: { pre: "Warum SEO ", grad: "für Zahnärzte" },
+    warumAbsaetze: [
+      <>
+        Die Zahnmedizin ist die am stärksten privatwirtschaftlich geprägte Fachrichtung: Implantate,
+        Aligner-Behandlungen, Bleaching und professionelle Zahnreinigung sind Leistungen, die Patienten selbst
+        bezahlen — und genau deshalb vergleichen sie vorher gründlich. Gesucht wird „Implantat Kosten pro
+        Zahn“, „unsichtbare Zahnspange Erfahrungen“ oder „Zahnarzt Angstpatienten“, fast nie ein Praxisname.
+        In den Suchergebnissen konkurrieren Sie dabei nicht nur mit der Praxis nebenan, sondern mit
+        Zahnkliniken, Praxisketten, Dental-Start-ups und großen Portalen, die alle in dieselben Suchbegriffe
+        investieren. Wer dort nicht sichtbar ist, findet in der Recherchephase der Patienten schlicht nicht
+        statt.
+      </>,
+      <>
+        Dazu kommt: Bei kaum einer Arztwahl wiegen Bewertungen und der erste Eindruck der Website so schwer
+        wie beim Zahnarzt — viele Patienten bringen eine gewisse Anspannung mit und suchen aktiv nach
+        Signalen, dass sie in guten Händen sind. Eine Praxis-Website, die Behandlungen verständlich erklärt,
+        Kostenfragen offen beantwortet und moderne Abläufe zeigt, baut genau dieses Vertrauen auf, bevor der
+        erste Kontakt entsteht. Weil sich Behandlungsspektrum, Google-Anforderungen und Wettbewerb laufend
+        verschieben, verstehen wir Zahnarzt-SEO nicht als einmaliges Projekt, sondern als{" "}
+        <Link href="/seo/betreuung" className={linkCls}>laufende SEO-Betreuung</Link>, die Ihre Sichtbarkeit
+        Monat für Monat ausbaut.
+      </>,
+    ],
+    split: {
+      bild: "/images/branchen-split/zahnaerzte.jpg",
+      bildAlt: "Patientin recherchiert Zahnbehandlungs-Kosten auf dem Smartphone",
+      caption: "Kosten-Recherche am Abend — hier entscheidet sich, welche Praxis angerufen wird",
+      bildLinks: false,
+      titel: { pre: "Sichtbar in der Recherche, ", grad: "nicht erst beim Anruf." },
+      absaetze: [
+        <>
+          Ein Implantat-Patient recherchiert oft über Wochen: Was kostet ein Implantat? Was zahlt die Kasse?
+          Wie läuft die Behandlung ab, welche Risiken gibt es? Wer in dieser Phase mit verständlichen,
+          ehrlichen Antworten präsent ist, steht auf der inneren Liste des Patienten — lange bevor er zum
+          Telefon greift. Praxen, die nur eine knappe Leistungsübersicht online haben, überlassen diese
+          entscheidende Phase den Portalen und Ketten.
+        </>,
+        <>
+          Genau dafür bauen wir Behandlungsseiten, die Kosten, Ablauf und häufige Patientenfragen sauber
+          beantworten — medizinisch korrekt und werberechtlich auf der sicheren Seite. Die Texte schreiben wir
+          als{" "}
+          <Link href="/seo/texte" className={linkCls}>medizinische SEO-Texte</Link>, die Fachkompetenz zeigen,
+          ohne Heilversprechen zu machen.
+        </>,
+      ],
+    },
+    vorgehenTitle: { pre: "So gehen wir ", grad: "bei Zahnärzten vor." },
+    vorgehen: [
+      {
+        titel: "Behandlungs-Portfolio und Wettbewerb analysieren",
+        text: "Wir prüfen, welche Ihrer Behandlungen das größte Suchvolumen und die stärkste wirtschaftliche Bedeutung haben — und wer in Ihrem Einzugsgebiet dafür bereits rankt. Daraus entsteht eine klare Reihenfolge, welche Behandlungsseiten zuerst gebaut werden, statt alles gleichzeitig anzufangen.",
+      },
+      {
+        titel: "Behandlungsseiten mit Kosten-Transparenz",
+        text: "Für Implantate, Aligner, Zahnersatz und Prophylaxe entstehen eigene Seiten, die auch die Kostenfrage offen behandeln — denn genau danach suchen Patienten. Preisspannen und Abrechnungslogik lassen sich seriös erklären, ohne verbindliche Heilkostenzusagen zu machen.",
+      },
+      {
+        titel: "Lokales Profil und Bewertungen ausbauen",
+        text: "Ihr Google-Unternehmensprofil wird vollständig gepflegt und mit den Behandlungsseiten verzahnt, damit Ihre Praxis bei „Zahnarzt in meiner Nähe“-Suchen im Kartenausschnitt erscheint. Parallel richten wir einen unaufdringlichen, standesrechtlich sauberen Bewertungsprozess ein.",
+      },
+      {
+        titel: "Ausbauen, messen, nachschärfen",
+        text: "Rankings, Anfragen und Suchtrends werden monatlich ausgewertet: Welche Behandlungsseite zieht, wo lohnt eine Vertiefung, welche neue Leistung verdient eine eigene Seite? So wächst die Sichtbarkeit Schritt für Schritt mit Ihrer Praxis mit.",
+      },
+    ],
+    fehlerVariant: "editorial",
+    fehler: [
+      {
+        titel: "Eine Sammelseite für zwanzig Behandlungen",
+        text: "Viele Praxis-Websites listen das komplette Spektrum auf einer einzigen „Leistungen“-Seite. Für Google ist das ein einziges schwaches Signal statt zwanzig starker — und für Patienten, die nach einer konkreten Behandlung suchen, ein Grund weiterzuklicken.",
+      },
+      {
+        titel: "Die Kostenfrage wird gemieden",
+        text: "Aus Sorge, sich festzulegen, schweigen viele Praxen online komplett zu Preisen. Patienten suchen aber genau danach — und landen dann bei Portalen, Ketten und Aligner-Anbietern, die Preisspannen offen kommunizieren. Seriöse Kosten-Orientierung ist möglich, ohne verbindliche Zusagen zu machen.",
+      },
+      {
+        titel: "Das Bewertungsprofil bleibt sich selbst überlassen",
+        text: "Wenige, alte oder unbeantwortete Bewertungen wirken bei einer Vertrauensentscheidung wie der Zahnarztwahl schwerer als in fast jeder anderen Branche. Ein stiller, sauberer Prozess, der zufriedene Patienten um Feedback bittet, verändert das Profil über Monate grundlegend.",
+      },
+      {
+        titel: "Die Website begrüßt, statt zu beantworten",
+        text: "„Herzlich willkommen in unserer Praxis“ beantwortet keine einzige Suchanfrage. Wer stattdessen die echten Fragen der Patienten aufgreift — Kosten, Ablauf, Schmerzen, Alternativen — wird gefunden und beweist Kompetenz im selben Schritt.",
+      },
+    ],
+    hebel: [
+      {
+        titel: "Eigene Seite je Privatleistung",
+        text: "Implantologie, Aligner, Bleaching, PZR: Jede wirtschaftlich relevante Behandlung bekommt eine eigene, ausführliche Seite mit Ablauf, Kosten-Orientierung und häufigen Fragen. Das trifft die konkreten Suchanfragen der Patienten deutlich besser als jede Sammelübersicht.",
+      },
+      {
+        titel: "Kosten-Content als Vertrauenshebel",
+        text: "Suchanfragen rund um Behandlungskosten gehören zu den häufigsten im Dentalbereich. Wer sie offen und seriös beantwortet, gewinnt genau die Patienten, die gerade vergleichen — und nimmt den Ketten und Portalen ihren größten Vorteil.",
+      },
+      {
+        titel: "Lokale Dominanz im Kartenausschnitt",
+        text: "Google-Unternehmensprofil, konsistente Praxisdaten und ein lebendiges Bewertungsprofil entscheiden darüber, ob Ihre Praxis bei lokalen Suchen im Maps-Pack erscheint. Wir richten diese Signale systematisch aus, statt sie dem Zufall zu überlassen.",
+      },
+      {
+        titel: "Fachautorität sichtbar machen",
+        text: "Qualifikationen, Tätigkeitsschwerpunkte und Fortbildungen der Behandler werden strukturiert auf der Website und im technischen Markup hinterlegt. Das stärkt die E-E-A-T-Signale, die Google bei medizinischen Inhalten verlangt — und beruhigt unsichere Patienten.",
+      },
+    ],
+    faq: [
+      {
+        q: "Wie schnell wird unsere Zahnarztpraxis bei Google sichtbarer?",
+        a: "Technische Korrekturen und das Google-Unternehmensprofil wirken oft innerhalb weniger Wochen, neue Behandlungsseiten brauchen je nach Wettbewerb einige Monate, bis sie stabil ranken. Seriöse Ranking-Garantien gibt es nicht — wir arbeiten mit messbaren Zwischenzielen und zeigen Ihnen monatlich, was sich bewegt hat.",
+      },
+      {
+        q: "Lohnt sich SEO neben Doctolib und Jameda überhaupt noch?",
+        a: "Gerade deshalb: Buchungsportale sind praktisch für die Terminvergabe, aber die Sichtbarkeit dort gehört dem Portal, nicht Ihnen. Eine eigene Website, die bei Behandlungssuchen rankt, ist ein Vermögenswert Ihrer Praxis — und reduziert Schritt für Schritt die Abhängigkeit von Premiumprofilen und Portal-Logik.",
+      },
+      {
+        q: "Dürfen wir Behandlungskosten auf der Website nennen?",
+        a: "Preisspannen und die Logik der Abrechnung lassen sich seriös darstellen, solange keine pauschalen Festpreise für heilkundliche Leistungen versprochen werden, die individuell kalkuliert werden müssen. Genau diese Orientierung suchen Patienten — wir formulieren das so, dass es informativ bleibt und werberechtlich sauber ist.",
+      },
+      {
+        q: "Was ist mit Werbebeschränkungen — was dürfen wir überhaupt sagen?",
+        a: "Das Heilmittelwerbegesetz und das zahnärztliche Berufsrecht setzen klare Grenzen: keine Erfolgsversprechen, keine Angstwerbung, Zurückhaltung bei Vorher-Nachher-Darstellungen. Wir beschreiben Behandlungen sachlich über Ablauf, Nutzen und Indikation. Bei heiklen Themen empfehlen wir zusätzlich eine kurze Prüfung durch Ihre Rechtsberatung.",
+      },
+      {
+        q: "Wir konkurrieren mit Aligner-Start-ups und Zahnklinik-Ketten. Hat eine einzelne Praxis da eine Chance?",
+        a: "Ja — gerade lokal. Ketten und Start-ups ranken für generische Begriffe, aber bei „Behandlung + Stadt“-Suchen und in der Kartensuche gewinnt die Praxis mit starkem lokalem Profil, echten Bewertungen und spezifischen Behandlungsseiten. Genau dort setzen wir an, statt den Ketten auf ihrem Feld hinterherzulaufen.",
+      },
+      {
+        q: "Können Sie uns beim Aufbau von Google-Bewertungen helfen?",
+        a: "Ja. Wir richten einen Prozess ein, mit dem zufriedene Patienten nach dem Termin unaufdringlich um eine Bewertung gebeten werden — per QR-Karte an der Rezeption oder Follow-up-Nachricht, im Einklang mit dem Standesrecht. Auf kritische Bewertungen reagieren wir gemeinsam sachlich, statt sie stehen zu lassen.",
+      },
+      {
+        q: "Was kostet SEO für eine Zahnarztpraxis?",
+        a: "Das hängt von Ausgangslage, Einzugsgebiet und Behandlungsspektrum ab — eine Praxis in einer Großstadt mit Implantologie-Schwerpunkt braucht mehr als eine Landpraxis. Nach der kostenlosen Erstanalyse erhalten Sie ein konkretes Angebot mit klarem Leistungsumfang. Unsere Betreuung ist monatlich kündbar — wir binden über Ergebnisse, nicht über Laufzeiten.",
+      },
+      {
+        q: "Wie viel Zeit kostet das unser Praxisteam?",
+        a: "Wenig. Die Abstimmung läuft über kurze schriftliche Freigaben, die sich zwischen zwei Behandlungen erledigen lassen. Medizinische Inhalte legen wir Ihnen vor der Veröffentlichung vor, alles andere setzen wir eigenständig um — im Schnitt reichen wenige Minuten pro Woche.",
+      },
+    ],
+    arbeitsweise: {
+      titel: { pre: "Arbeiten im Takt ", grad: "eines vollen Behandlungsplans." },
+      intro:
+        "Eine Zahnarztpraxis taktet in Behandlungsterminen, nicht in Meetings. Zwischen Prophylaxe, Beratung und OP bleibt keine Stunde für Agentur-Calls — und das muss auch nicht sein. Unsere Zusammenarbeit läuft asynchron: kurze schriftliche Abstimmungen, klare Vorlagen zur Freigabe, und wir melden uns nur, wenn wirklich eine Entscheidung von Ihnen gebraucht wird. Alles andere passiert im Hintergrund.",
+      saeulen: [
+        {
+          titel: "KI übernimmt Routinearbeit",
+          text: "Keyword-Analysen über Ihr Behandlungsspektrum, Wettbewerbs-Monitoring und die Vorbereitung neuer Seiten laufen bei uns KI-gestützt — dadurch fließt unsere Zeit in die medizinisch und werberechtlich saubere Prüfung der Inhalte statt in Fleißarbeit. Das macht die Betreuung schneller und günstiger als klassische Agenturprozesse.",
+        },
+        {
+          titel: "Änderungen ohne Wartezeit",
+          text: "Neue Behandlung, geänderte Sprechzeiten, ein neuer Behandler im Team: Über unsere CI/CD-Infrastruktur sind solche Änderungen in Minuten live, nicht erst nach dem nächsten Agentur-Termin. Gerade bei Leistungs- und Kostenangaben zählt diese Aktualität doppelt.",
+        },
+        {
+          titel: "Ein fester Ansprechpartner",
+          text: "Sie schreiben immer derselben Person, die Ihre Praxis und Ihr Behandlungsspektrum kennt — keine Hotline, kein Ticketsystem. Antworten kommen innerhalb von 24 Stunden, auch wenn die Nachricht erst nach dem letzten Patienten rausgeht.",
+        },
+        {
+          titel: "Ergebnisse statt Vertragsbindung",
+          text: "Unsere Betreuung ist monatlich kündbar. Sie sehen in jedem Report, welche Behandlungsseiten ranken und welche Anfragen darüber kommen — und bleiben, weil es sich rechnet, nicht weil ein Vertrag es verlangt.",
+        },
+      ],
+      deployBeispiel: "neue behandlungsseite: invisalign",
+    },
+    tiefe: {
+      titel: { pre: "Von der Kosten-Frage ", grad: "zur Terminanfrage." },
+      lead: "Kaum eine Behandlung wird so gründlich recherchiert wie ein Implantat: Patienten vergleichen über Wochen Kosten, Materialien, Abläufe und Erfahrungsberichte, bevor sie eine Praxis kontaktieren. In dieser Phase entscheidet sich, welche drei Praxen überhaupt in die engere Wahl kommen — und wer nur eine knappe Leistungsliste online hat, kommt darin nicht vor. Die Recherche gewinnt, wer die unbequemen Fragen zuerst beantwortet: Was kostet es wirklich? Was zahlt die Kasse? Was passiert, wenn etwas schiefgeht?",
+      quote: "Die Praxis, die die Kostenfrage zuerst ehrlich beantwortet, führt die Vergleichsliste des Patienten an.",
+      bild: {
+        src: "/images/branchen-editorial/zahnaerzte-tiefe.webp",
+        alt: "Zahnärztin erklärt einer Patientin die Behandlungsplanung am Bildschirm",
+      },
+      spalten: [
+        "Der Umweg über die Kostenfrage ist dabei kein Makel, sondern der wirksamste Vertrauensaufbau: Wer Preisspannen, Kassenanteile und Finanzierungswege nüchtern erklärt, signalisiert Souveränität — und filtert gleichzeitig die Anfragen vor. Patienten, die mit realistischen Erwartungen in die Beratung kommen, entscheiden schneller und verbindlicher. Praxen berichten uns immer wieder, dass gut informierte Patienten die angenehmeren Erstgespräche führen. Genau deshalb bauen wir Kosten- und Ablauf-Inhalte nicht als Pflichtübung, sondern als Kernstück der Behandlungsseiten.",
+        "Die zweite Ebene ist der Vergleich mit den neuen Wettbewerbern: Aligner-Anbieter und Zahnklinik-Ketten investieren massiv in generische Suchbegriffe — aber sie können keine lokale Vertrauensbeziehung abbilden. Eine Praxis, die in ihrer Stadt bei „Implantat + Ort“ rankt, im Kartenausschnitt mit starken Bewertungen erscheint und auf der eigenen Website erkennbar macht, wer dort behandelt, spielt einen Vorteil aus, den kein Start-up kopieren kann. Unsere Aufgabe ist, diesen Vorteil sichtbar zu machen, bevor die Kette es tut.",
+      ],
+    },
+    ctaSatz: {
+      pre: "Sprechen Sie mit uns darüber, wie Patienten Ihre Praxis finden — ",
+      grad: "mitten in ihrer Kosten-Recherche.",
+    },
+    ctaButtonLabel: "Praxis-Sichtbarkeit jetzt analysieren lassen",
+    icon: brancheIcon(
+      <>
+        <path d="M7 3c-2.2 0-4 1.9-4 4.6 0 4.1 1.9 5.9 2.4 8.9C5.9 19.6 6.5 21 7.6 21c1.4 0 1.5-2.4 2-4.4.4-1.6 1.2-2.6 2.4-2.6s2 1 2.4 2.6c.5 2 .6 4.4 2 4.4 1.1 0 1.7-1.4 2.2-4.5.5-3 2.4-4.8 2.4-8.9C21 4.9 19.2 3 17 3c-1.9 0-2.7 1-5 1S8.9 3 7 3Z" />
+      </>
+    ),
+    accent: "Implantat, Aligner, Prophylaxe — gefunden bei der Behandlung, nicht beim Praxisnamen.",
+    praxisTypen: [
+      { slug: "seo-fuer-aerzte", teaser: "Der Überblick für alle Praxen" },
+      { slug: "seo-fuer-kieferorthopaeden", teaser: "Eltern-Recherche & Aligner-Suchen" },
+      { slug: "seo-fuer-physiotherapeuten", teaser: "Selbstzahler, Kurse & lokale Suche" },
+      { slug: "seo-fuer-heilpraktiker", teaser: "Vertrauensaufbau, rechtssicher" },
+    ],
+  },
+
+  /* ── 08 · Kieferorthopäden (Praxis-Typ-Spoke unter Ärzte) ──────────────── */
+  {
+    slug: "seo-fuer-kieferorthopaeden",
+    praxisTyp: true,
+    name: "SEO für Kieferorthopäden",
+    kurzName: "Kieferorthopäden",
+    keyword: "SEO für Kieferorthopäden",
+    hebelVariant: "stack",
+    heroQuery: "unsichtbare zahnspange erwachsene kosten",
+    heroBildAlt: "Kieferorthopädin zeigt einer Jugendlichen und ihrer Mutter eine Aligner-Schiene — Sichtbarkeit für KFO-Praxen",
+    signature: {
+      variant: "funnel",
+      panelTitle: "Eltern-Recherche",
+      stufen: [
+        {
+          query: "zahnspange kind ab wann",
+          satz: "Der erste Impuls — meist Monate vor der Überweisung.",
+          detail:
+            "Eltern recherchieren früh und grundsätzlich: Ab welchem Alter ist eine Behandlung sinnvoll, was ist normal, was nicht? Hier gewinnt ein verständlicher Ratgeber, der Orientierung gibt, ohne zu drängen — und die Praxis als erste Anlaufstelle verankert.",
+        },
+        {
+          query: "was zahlt die krankenkasse zahnspange",
+          satz: "Die Kostenfrage: KIG-Einstufung, Eigenanteil, Zusatzleistungen.",
+          detail:
+            "Kaum ein KFO-Thema wird häufiger gesucht. Wer die KIG-Logik, den Eigenanteil und sinnvolle Zusatzleistungen nüchtern erklärt, beantwortet die Frage, die Eltern wirklich beschäftigt — und wird als ehrliche Quelle wahrgenommen.",
+        },
+        {
+          query: "kieferorthopäde [stadt] erfahrungen",
+          satz: "Hier fällt die Praxiswahl — auf Ihre Website, nicht aufs Portal.",
+          detail:
+            "Jetzt wird konkret verglichen: Bewertungen, Behandlungsspektrum, Atmosphäre. Hier gewinnt eine Praxis-Website mit erkennbarem Team, klaren Abläufen und einem starken lokalen Profil — nicht das anonyme Verzeichnis.",
+          highlight: true,
+        },
+      ],
+    },
+    signatureTitle: { pre: "Eine Behandlung, ", grad: "zwei Entscheider, ein langer Weg." },
+    signatureCopy: [
+      "Kieferorthopädie hat den längsten Entscheidungsweg der Zahnmedizin: Eltern recherchieren für ihre Kinder über Monate, Erwachsene vergleichen Aligner-Optionen oft ebenso lange.",
+      "Wir bauen Sichtbarkeit entlang dieser gesamten Recherche auf — von der ersten Orientierungsfrage bis zur lokalen Praxiswahl.",
+    ],
+    h1: {
+      pre: "SEO für Kieferorthopäden: Präsent von der ersten Frage ",
+      grad: "bis zur Praxiswahl",
+    },
+    subline:
+      "Eltern googeln „Zahnspange Kind ab wann“, Erwachsene „unsichtbare Zahnspange Kosten“ — beide Monate vor dem ersten Termin. Wir machen Ihre Praxis in dieser langen Recherchephase sichtbar, in Google und in KI-Antworten.",
+    ctaLabel: "Kostenlose SEO-Analyse für Ihre KFO-Praxis",
+    warumTitle: { pre: "Warum SEO ", grad: "für Kieferorthopäden" },
+    warumAbsaetze: [
+      <>
+        Kieferorthopädie ist ein Empfehlungs- und Recherchegeschäft mit zwei völlig unterschiedlichen
+        Zielgruppen: Eltern, die für ihr Kind die richtige Praxis suchen und dabei Kostenfragen,
+        KIG-Einstufung und Behandlungsdauer abwägen — und Erwachsene, die diskrete Aligner-Lösungen
+        vergleichen und dabei auf die aggressiv beworbenen Angebote der Schienen-Start-ups stoßen. Beide
+        Gruppen googeln lange, bevor sie eine Praxis kontaktieren, und beide entscheiden sich auf Basis
+        dessen, was sie in dieser Recherche finden. Die Überweisung vom Hauszahnarzt bestimmt längst nicht
+        mehr allein, wo behandelt wird.
+      </>,
+      <>
+        Gleichzeitig ist das Einzugsgebiet einer KFO-Praxis deutlich größer als das einer allgemeinen
+        Zahnarztpraxis — Familien fahren für eine mehrjährige Behandlung auch in die Nachbarstadt, wenn
+        Vertrauen und Verfügbarkeit stimmen. Genau das macht durchdachte Inhalte so wertvoll: Ein Ratgeber,
+        der die Kassenlogik erklärt, oder eine Seite, die Aligner-Optionen ehrlich vergleicht, zieht Anfragen
+        aus dem gesamten Umkreis. Wir planen diese Inhalte als{" "}
+        <Link href="/seo/content-strategie" className={linkCls}>durchdachte Content-Strategie</Link>, die
+        Orientierungssuchen und Praxiswahl-Suchen systematisch abdeckt, statt einzelne Seiten auf gut Glück
+        zu veröffentlichen.
+      </>,
+    ],
+    split: {
+      bild: "/images/branchen-split/kieferorthopaeden.jpg",
+      bildAlt: "Mutter und Tochter recherchieren gemeinsam am Smartphone zur Zahnspange",
+      caption: "Die Recherche beginnt am Küchentisch — Monate vor dem ersten Termin",
+      bildLinks: true,
+      titel: { pre: "Zwei Zielgruppen, ", grad: "zwei Suchlogiken." },
+      absaetze: [
+        <>
+          Eltern suchen Sicherheit: Ist die Behandlung nötig, was kommt auf das Kind zu, was übernimmt die
+          Kasse? Erwachsene suchen Diskretion und Vergleichbarkeit: Aligner oder feste Spange, welche Kosten,
+          wie lange? Eine Website, die beide Wege ernst nimmt — statt beide Gruppen auf dieselbe
+          „Leistungen“-Seite zu schicken — holt doppelt so viele Suchanfragen ab und führt jede Gruppe zu
+          ihrer passenden Antwort.
+        </>,
+        <>
+          Fachlich ist Kieferorthopädie dabei ein Spezialfall der Zahnmedizin — viele Grundprinzipien der
+          Sichtbarkeit teilen sich beide Bereiche. Wie wir allgemeine Zahnarztpraxen positionieren, zeigt
+          unsere Seite zu{" "}
+          <Link href="/branchen/seo-fuer-zahnaerzte" className={linkCls}>SEO für Zahnärzte</Link> — für
+          KFO-Praxen kommt die lange Eltern-Recherche als eigene Disziplin hinzu.
+        </>,
+      ],
+    },
+    vorgehenTitle: { pre: "So gehen wir ", grad: "bei KFO-Praxen vor." },
+    vorgehen: [
+      {
+        titel: "Zielgruppen und Einzugsgebiet klären",
+        text: "Kinder- und Jugendbehandlung, Erwachsenen-Aligner oder beides — und aus welchem Umkreis kommen Ihre Patienten heute? Daraus leiten wir ab, welche Suchbegriffe und Städte-Kombinationen Ihre Sichtbarkeit tragen sollen.",
+      },
+      {
+        titel: "Ratgeber-Inhalte für die Eltern-Recherche",
+        text: "KIG-Einstufung, Kassenanteil, Behandlungsablauf, lose oder feste Spange: Wir bauen die Inhalte, die Eltern in der Orientierungsphase suchen — verständlich, ehrlich und ohne Verkaufsdruck. Diese Seiten verankern Ihre Praxis, bevor die Praxiswahl überhaupt beginnt.",
+      },
+      {
+        titel: "Aligner-Seiten für Erwachsene",
+        text: "Für die wachsende Gruppe erwachsener Patienten entstehen eigene Seiten, die unsichtbare Zahnkorrektur, Kosten und Ablauf erklären — und sachlich einordnen, wo eine fachärztlich begleitete Behandlung sich von reinen Versand-Schienen unterscheidet.",
+      },
+      {
+        titel: "Lokales Profil über das ganze Einzugsgebiet",
+        text: "Google-Unternehmensprofil, Bewertungsaufbau und lokale Seiten decken nicht nur Ihren Standort ab, sondern das reale Einzugsgebiet — damit auch Familien aus den Nachbarorten Ihre Praxis finden, bevor sie beim erstbesten Treffer landen.",
+      },
+    ],
+    fehlerVariant: "tafel",
+    fehler: [
+      {
+        titel: "Eltern und Erwachsene landen auf derselben Seite",
+        text: "Eine generische Behandlungsübersicht zwingt beide Zielgruppen, sich ihre Antworten selbst zusammenzusuchen. Wer die Wege trennt — Kinderbehandlung hier, Erwachsenen-Aligner dort — beantwortet beide Suchintentionen präzise und rankt für beide.",
+      },
+      {
+        titel: "Die Kassenfrage bleibt unbeantwortet",
+        text: "KIG-Einstufung und Eigenanteil gehören zu den meistgesuchten KFO-Themen überhaupt. Praxen, die dazu schweigen, überlassen die Antwort Foren und Portalen — und verschenken die vertrauensbildendste Content-Chance des Fachs.",
+      },
+      {
+        titel: "Das Einzugsgebiet endet an der Stadtgrenze",
+        text: "Wer nur für den eigenen Standort sichtbar ist, ignoriert, dass Familien für eine mehrjährige Behandlung auch 20 Minuten fahren. Lokale Sichtbarkeit in den umliegenden Orten kostet wenig und erweitert den Patientenstamm spürbar.",
+      },
+      {
+        titel: "Versand-Aligner werden totgeschwiegen",
+        text: "Erwachsene Patienten kennen die Werbung der Schienen-Anbieter längst. Eine Praxis, die den Unterschied zur fachärztlich begleiteten Behandlung sachlich erklärt, statt das Thema zu meiden, gewinnt genau die Patienten, die gerade vergleichen.",
+      },
+    ],
+    hebel: [
+      {
+        titel: "Eltern-Ratgeber als Frühkontakt",
+        text: "Inhalte zu „ab wann“, „was zahlt die Kasse“ und „wie läuft das ab“ erreichen Familien Monate vor der Praxiswahl. Wer hier hilfreich ist, steht auf der Liste, wenn es konkret wird — dieser Vorsprung ist mit Anzeigen kaum aufzuholen.",
+      },
+      {
+        titel: "Aligner-Sichtbarkeit für Erwachsene",
+        text: "Suchen rund um unsichtbare Zahnkorrektur wachsen seit Jahren. Eigene Seiten für Erwachsene holen diese Nachfrage ab und positionieren die Praxis als fachärztliche Alternative zu Versand-Schienen.",
+      },
+      {
+        titel: "Einzugsgebiets-SEO statt Standort-SEO",
+        text: "Lokale Sichtbarkeit in allen Orten, aus denen Ihre Patienten real kommen — über lokale Inhalte, sauberes Unternehmensprofil und gezielte Erwähnungen, nicht über Duplikat-Seiten.",
+      },
+      {
+        titel: "Vertrauenssignale für lange Behandlungen",
+        text: "Eine mehrjährige Behandlung ist eine Vertrauensentscheidung: sichtbares Team, klare Abläufe, echte Bewertungen und nachvollziehbare Qualifikationen — strukturiert aufbereitet für Google und Patienten zugleich.",
+      },
+    ],
+    faq: [
+      {
+        q: "Lohnt sich SEO, wenn die meisten Patienten per Überweisung kommen?",
+        a: "Die Überweisung bestimmt immer seltener allein, wo behandelt wird — Eltern vergleichen auch mit Überweisungsschein in der Hand, und erwachsene Aligner-Patienten kommen fast nie über eine Überweisung. SEO erschließt genau die Patientengruppen, die der Überweisungsweg nicht abdeckt.",
+      },
+      {
+        q: "Dürfen wir die KIG-Einstufung und Kassenleistungen öffentlich erklären?",
+        a: "Ja — sachliche Information über die Einstufungslogik und typische Eigenanteile ist zulässig und aus Patientensicht dringend gewünscht. Wichtig ist die Abgrenzung: erklären, wie das System funktioniert, ohne für den Einzelfall verbindliche Zusagen zu machen. Genau so formulieren wir diese Inhalte.",
+      },
+      {
+        q: "Wie gehen wir mit der Konkurrenz durch Aligner-Start-ups um?",
+        a: "Nicht ignorieren, sondern einordnen: Viele Erwachsene recherchieren zuerst die Versand-Anbieter und suchen dann nach einer fachärztlichen Einschätzung. Eine sachliche Vergleichsseite — was leistet die begleitete Behandlung, wo liegen die Grenzen der Fernbehandlung — fängt diese Suchen auf, ohne Wettbewerber schlechtzureden.",
+      },
+      {
+        q: "Unser Einzugsgebiet umfasst mehrere Städte — wie bilden wir das ab?",
+        a: "Über lokal zugeschnittene Inhalte und ein sauber gepflegtes Unternehmensprofil, nicht über kopierte Stadt-Seiten. Google erkennt Duplikate — wir bauen stattdessen wenige, substanzielle lokale Signale auf, die das reale Einzugsgebiet abdecken.",
+      },
+      {
+        q: "Wie lange dauert es, bis wir Ergebnisse sehen?",
+        a: "Ratgeber-Inhalte mit wenig Wettbewerb ranken oft nach wenigen Wochen, umkämpfte lokale Suchen brauchen mehrere Monate. Weil KFO-Entscheidungen lange Vorlaufzeiten haben, zahlt sich früh aufgebaute Sichtbarkeit doppelt aus: Wer heute rankt, füllt die Beratungstermine des nächsten Halbjahrs.",
+      },
+      {
+        q: "Was unterscheidet KFO-SEO von SEO für allgemeine Zahnarztpraxen?",
+        a: "Der Entscheidungsweg: Zahnarzt-Suchen sind oft akut und lokal, KFO-Suchen beginnen Monate früher mit Orientierungsfragen und laufen über zwei Zielgruppen. Entsprechend liegt der Schwerpunkt stärker auf Ratgeber-Inhalten und Einzugsgebiets-Sichtbarkeit als auf Akut-Suchen.",
+      },
+      {
+        q: "Was kostet SEO für eine KFO-Praxis?",
+        a: "Abhängig von Einzugsgebiet, Wettbewerb und Zielgruppen-Fokus. Nach der kostenlosen Erstanalyse bekommen Sie ein konkretes Angebot mit klarem Umfang — monatlich kündbar, ohne Mindestlaufzeit. Wir binden über sichtbare Fortschritte, nicht über Verträge.",
+      },
+      {
+        q: "Wie viel Aufwand entsteht für unser Praxisteam?",
+        a: "Kaum welcher: Fachliche Inhalte legen wir zur kurzen Freigabe vor, alles andere setzen wir eigenständig um. Die Abstimmung läuft schriftlich und asynchron — es gibt keine Pflicht-Termine, die zwischen Ihre Behandlungen geschoben werden müssen.",
+      },
+    ],
+    arbeitsweise: {
+      titel: { pre: "Arbeiten im Rhythmus ", grad: "einer Bestellpraxis." },
+      intro:
+        "KFO-Praxen takten eng: kurze Kontrolltermine, volle Wartezimmer nach Schulschluss, Beratungen dazwischen. Für klassische Agentur-Meetings ist da kein Platz — und wir brauchen sie auch nicht. Unsere Zusammenarbeit läuft asynchron über kurze schriftliche Freigaben, und Änderungen an der Website sind live, bevor der nächste Kontrolltermin beginnt.",
+      saeulen: [
+        {
+          titel: "KI übernimmt Routinearbeit",
+          text: "Die Auswertung von Suchtrends rund um Zahnspangen, Aligner und Kassenfragen läuft bei uns KI-gestützt. Unsere Zeit fließt in die fachlich saubere Aufbereitung der Inhalte — das hält die Betreuung effizient und den Preis fair.",
+        },
+        {
+          titel: "Änderungen ohne Wartezeit",
+          text: "Neue Sprechzeiten zum Schuljahresbeginn, ein zusätzliches Beratungsangebot, aktualisierte Kasseninfos: Über unsere CI/CD-Infrastruktur sind solche Anpassungen in Minuten live — wichtig bei Inhalten, auf die sich Eltern verlassen.",
+        },
+        {
+          titel: "Ein fester Ansprechpartner",
+          text: "Sie schreiben immer derselben Person, die Ihre Praxis kennt. Fragen beantworten wir innerhalb von 24 Stunden — auch die, die erst nach dem letzten Patienten des Tages entstehen.",
+        },
+        {
+          titel: "Ergebnisse statt Vertragsbindung",
+          text: "Monatlich kündbar, monatlich nachvollziehbar: Sie sehen in jedem Report, welche Inhalte ranken und welche Beratungsanfragen darüber entstehen. Die Zusammenarbeit trägt sich über Ergebnisse.",
+        },
+      ],
+      deployBeispiel: "neue ratgeber-seite: lose zahnspange",
+    },
+    tiefe: {
+      titel: { pre: "Die längste Patientenreise ", grad: "der Zahnmedizin." },
+      lead: "Zwischen der ersten Google-Suche einer Mutter und dem unterschriebenen Behandlungsplan liegen oft sechs Monate und Dutzende Suchanfragen: erst Orientierung, dann Kassenfragen, dann Erfahrungsberichte, dann die lokale Praxiswahl. Jede dieser Phasen hat eigene Suchbegriffe, eigene Sorgen und eigene Gewinner. Praxen, die nur am Ende dieser Reise sichtbar sind — bei „Kieferorthopäde + Stadt“ —, konkurrieren dort mit allen. Praxen, die schon bei den Orientierungsfragen präsent sind, haben den Vertrauensvorsprung, wenn die Entscheidung fällt.",
+      quote: "Wer die Fragen der ersten Monate beantwortet, wird am Ende seltener mit anderen verglichen.",
+      bild: {
+        src: "/images/branchen-editorial/kieferorthopaeden-tiefe.webp",
+        alt: "Kieferorthopädin bespricht den Behandlungsplan mit einer Familie",
+      },
+      spalten: [
+        "Der unterschätzte Teil dieser Reise ist die Kassenfrage. „Was zahlt die Krankenkasse bei einer Zahnspange“ gehört zu den häufigsten KFO-Suchen überhaupt — und wird von den meisten Praxis-Websites gar nicht beantwortet, aus Sorge, sich in der Einstufungslogik festzulegen. Dabei lässt sich das System sachlich erklären, ohne Einzelfall-Zusagen zu machen: Wie funktionieren die KIG-Stufen, was bedeutet der Eigenanteil, welche Zusatzleistungen sind sinnvoll und welche verzichtbar. Eine Praxis, die diese Fragen offen beantwortet, wird in Foren und Elterngruppen weiterempfohlen — Sichtbarkeit, die keine Anzeige kaufen kann.",
+        "Bei erwachsenen Patienten verläuft die Reise anders, aber genauso lang: Sie beginnt fast immer bei den Versand-Aligner-Anbietern, deren Werbung allgegenwärtig ist. Irgendwann kommt die Frage nach der fachlichen Begleitung — spätestens, wenn die ersten kritischen Erfahrungsberichte auftauchen. Genau an dieser Stelle gehört Ihre Praxis in die Suchergebnisse: mit einer ehrlichen Einordnung, was eine fachärztlich begleitete Aligner-Behandlung leistet, was sie kostet und für wen die Versandlösung tatsächlich reicht. Diese Ehrlichkeit konvertiert besser als jedes Werbeversprechen.",
+      ],
+    },
+    ctaSatz: {
+      pre: "Sprechen Sie mit uns darüber, wie Familien Ihre Praxis finden — ",
+      grad: "Monate bevor die Praxiswahl fällt.",
+    },
+    ctaButtonLabel: "KFO-Sichtbarkeit jetzt analysieren lassen",
+    icon: brancheIcon(
+      <>
+        <path d="M7 3c-2.2 0-4 1.9-4 4.6 0 4.1 1.9 5.9 2.4 8.9C5.9 19.6 6.5 21 7.6 21c1.4 0 1.5-2.4 2-4.4.4-1.6 1.2-2.6 2.4-2.6s2 1 2.4 2.6c.5 2 .6 4.4 2 4.4 1.1 0 1.7-1.4 2.2-4.5.5-3 2.4-4.8 2.4-8.9C21 4.9 19.2 3 17 3c-1.9 0-2.7 1-5 1S8.9 3 7 3Z" />
+        <path d="M5.5 10.5h13" />
+        <path d="M8.5 9.5v2M12 9.5v2M15.5 9.5v2" />
+      </>
+    ),
+    accent: "Präsent von der ersten Eltern-Frage bis zur Praxiswahl — im ganzen Einzugsgebiet.",
+    praxisTypen: [
+      { slug: "seo-fuer-aerzte", teaser: "Der Überblick für alle Praxen" },
+      { slug: "seo-fuer-zahnaerzte", teaser: "Implantate, Aligner & Prophylaxe" },
+      { slug: "seo-fuer-physiotherapeuten", teaser: "Selbstzahler, Kurse & lokale Suche" },
+      { slug: "seo-fuer-heilpraktiker", teaser: "Vertrauensaufbau, rechtssicher" },
+    ],
+  },
+
+  /* ── 09 · Physiotherapeuten (Praxis-Typ-Spoke unter Ärzte) ─────────────── */
+  {
+    slug: "seo-fuer-physiotherapeuten",
+    praxisTyp: true,
+    name: "SEO für Physiotherapeuten",
+    kurzName: "Physiotherapeuten",
+    keyword: "SEO für Physiotherapeuten",
+    hebelVariant: "editorial",
+    heroQuery: "physiotherapie termin in der nähe",
+    heroBildAlt: "Physiotherapeut leitet eine Patientin bei einer Übung an — Sichtbarkeit für Physiotherapie-Praxen",
+    signature: {
+      variant: "businessprofil",
+      panelTitle: "Google Business Profil",
+      betrieb: "Physiotherapie am Stadtpark",
+      bewertung: "4,9",
+      anzahl: "94",
+      kategorie: "Physiotherapeut",
+      ort: "Musterstadt",
+      status: "Jetzt geöffnet",
+      chips: ["Anrufen", "Route", "Website"],
+    },
+    signatureTitle: { pre: "Das Profil entscheidet, ", grad: "wo angerufen wird." },
+    signatureCopy: [
+      "Bei „Physiotherapie in meiner Nähe“ vergleichen Patienten drei Karteneinträge: Bewertung, Entfernung, Öffnungszeiten. Wer dort nicht auftaucht, bekommt den Anruf nicht — egal wie gut die Praxis ist.",
+      "Wir pflegen Ihr Unternehmensprofil als festen Teil der SEO-Arbeit und verzahnen es mit einer Website, die Ihre Leistungen und freie Kapazitäten sichtbar macht.",
+    ],
+    h1: {
+      pre: "SEO für Physiotherapeuten: Die Patienten erreichen, ",
+      grad: "die zu Ihrer Praxis passen",
+    },
+    subline:
+      "Rezept-Patienten füllen den Kalender, aber Selbstzahler-Angebote, Privatpatienten und neue Kursplätze wachsen über Sichtbarkeit. Wir sorgen dafür, dass Ihre Praxis bei „Physiotherapie + Ort“, bei Beschwerde-Suchen und in KI-Antworten gefunden wird.",
+    ctaLabel: "Kostenlose SEO-Analyse für Ihre Physiotherapie-Praxis",
+    warumTitle: { pre: "Warum SEO ", grad: "für Physiotherapeuten" },
+    warumAbsaetze: [
+      <>
+        Viele Physiotherapie-Praxen sind auf Wochen ausgebucht — und trotzdem lohnt sich Sichtbarkeit, denn
+        volle Terminbücher sind nicht dasselbe wie eine gesunde Praxisstruktur. Rezept-Behandlungen mit
+        knapper Vergütung füllen den Kalender, während die wirtschaftlich interessanten Bereiche —
+        Selbstzahler-Leistungen, Präventionskurse, Privatpatienten — genau dort entschieden werden, wo
+        Menschen suchen: „Physiotherapie in der Nähe“, „Rückenschmerzen was hilft wirklich“,
+        „Manuelle Therapie Termin“. Wer online unsichtbar ist, bekommt den Kalender gefüllt, den andere
+        übrig lassen — nicht den, den er sich aussucht.
+      </>,
+      <>
+        Dazu kommt eine Besonderheit der Branche: Ein erheblicher Teil der Praxen hat gar keine oder eine
+        technisch veraltete Website — Terminvergabe läuft über das Telefon, das im Behandlungsalltag niemand
+        abnehmen kann. Genau das macht den Einstieg so lohnend: Schon eine schlanke, schnelle Website mit
+        klaren Leistungsseiten und Online-Terminanfrage hebt eine Praxis vom lokalen Wettbewerb ab. Wir bauen
+        solche Auftritte als{" "}
+        <Link href="/webdesign/website-erstellen-lassen" className={linkCls}>professionelle Praxis-Websites</Link>{" "}
+        — custom entwickelt, in Rekordzeit live und von Anfang an auf Sichtbarkeit ausgelegt.
+      </>,
+    ],
+    split: {
+      bild: "/images/branchen-split/physiotherapeuten.jpg",
+      bildAlt: "Mann mit Nackenverspannung sucht am Smartphone nach einer Physiotherapie-Praxis",
+      caption: "Akute Beschwerden, sofortige Suche — wer jetzt sichtbar ist, bekommt den Anruf",
+      bildLinks: false,
+      titel: { pre: "Gefunden, wenn es ", grad: "wehtut." },
+      absaetze: [
+        <>
+          Physiotherapie wird selten auf Vorrat gesucht: Der Anlass ist eine Verspannung, ein Hexenschuss,
+          eine OP-Nachsorge — und die Suche passiert in dem Moment, in dem das Problem da ist. Bei diesen
+          Suchen zählt lokale Präsenz: der Kartenausschnitt, die Bewertungen, die Information, ob kurzfristig
+          Termine frei sind. Praxen, die diese Signale sauber pflegen, gewinnen die Patienten mit der
+          höchsten Dringlichkeit.
+        </>,
+        <>
+          Die zweite Ebene sind Beschwerde-Suchen: Wer „Übungen bei Nackenverspannung“ oder „Physiotherapie
+          nach Knie-OP“ sucht, ist noch nicht auf eine Praxis festgelegt — aber offen für die, die ihm
+          weiterhilft. Solche Inhalte bauen Reichweite auf, die bleibt. Damit die Sichtbarkeit dauerhaft
+          wächst statt einmalig zu verpuffen, begleiten wir Praxen in der{" "}
+          <Link href="/seo/betreuung" className={linkCls}>laufenden SEO-Betreuung</Link>.
+        </>,
+      ],
+    },
+    vorgehenTitle: { pre: "So gehen wir bei ", grad: "Physio-Praxen vor." },
+    vorgehen: [
+      {
+        titel: "Praxisstruktur und Wunsch-Auslastung klären",
+        text: "Mehr Privatpatienten, volle Kurse, ein zweiter Standort oder gezielt Selbstzahler-Angebote? Wir klären zuerst, welche Patienten Sie eigentlich gewinnen wollen — daran richtet sich aus, welche Suchbegriffe und Inhalte Priorität haben.",
+      },
+      {
+        titel: "Leistungsseiten statt Leistungsliste",
+        text: "Manuelle Therapie, Lymphdrainage, Krankengymnastik am Gerät, Präventionskurse: Jede relevante Leistung bekommt eine eigene Seite mit Ablauf, Nutzen und Terminmöglichkeit — auffindbar für genau die Patienten, die danach suchen.",
+      },
+      {
+        titel: "Lokales Profil und Bewertungen aufbauen",
+        text: "Ihr Google-Unternehmensprofil wird vollständig gepflegt — Kategorien, Leistungen, Fotos, Öffnungszeiten — und mit einem unaufdringlichen Bewertungsprozess unterlegt. Bei lokalen Suchen entscheidet dieses Profil über den Anruf.",
+      },
+      {
+        titel: "Terminanfragen entlasten das Telefon",
+        text: "Eine klare Online-Terminanfrage auf der Website fängt Anfragen ab, die sonst im Besetztzeichen enden. Das entlastet die Rezeption und sorgt dafür, dass Anfragen auch außerhalb der Öffnungszeiten ankommen.",
+      },
+    ],
+    fehlerVariant: "editorial",
+    fehler: [
+      {
+        titel: "„Wir sind eh voll“ als Strategie",
+        text: "Volle Terminbücher heute sagen nichts über die Struktur der Auslastung: Wer nur über Rezepte und Laufkundschaft wächst, kann sich seine Patienten nicht aussuchen. Sichtbarkeit schafft die Wahlfreiheit, den Kalender mit den wirtschaftlich sinnvollen Behandlungen zu füllen.",
+      },
+      {
+        titel: "Keine oder eine verwaiste Website",
+        text: "Ein Facebook-Profil oder eine seit Jahren unveränderte Ein-Seiten-Website beantwortet weder Patientenfragen noch Suchanfragen. In kaum einer Branche ist der Abstand zwischen „digital unsichtbar“ und „lokal führend“ so schnell aufzuholen wie hier.",
+      },
+      {
+        titel: "Das Unternehmensprofil pflegt sich nicht selbst",
+        text: "Falsche Öffnungszeiten, fehlende Leistungen, unbeantwortete Bewertungen: Das Google-Profil ist für viele Patienten der erste und einzige Kontaktpunkt. Wer es vernachlässigt, verliert Anrufe an die Praxis mit dem gepflegteren Eintrag.",
+      },
+      {
+        titel: "Kurse und Selbstzahler-Angebote bleiben unsichtbar",
+        text: "Rückbildung, Rehasport, Präventionskurse und Personal Training werden aktiv gesucht — aber selten auf Praxis-Websites gefunden. Eigene Kursseiten mit Terminen und Anmeldemöglichkeit füllen Kurse ohne Zettelaushang.",
+      },
+    ],
+    hebel: [
+      {
+        titel: "Lokale Suche dominieren",
+        text: "„Physiotherapie + Stadtteil“ ist die wichtigste Suchanfrage der Branche. Unternehmensprofil, Website-Signale und Bewertungen greifen ineinander, damit Ihre Praxis im Kartenausschnitt erscheint — dort, wo angerufen wird.",
+      },
+      {
+        titel: "Selbstzahler-Leistungen sichtbar machen",
+        text: "Eigene Seiten für Kurse, Massage und Präventionsangebote erschließen die Nachfrage jenseits des Rezepts — die Bereiche, in denen Ihre Praxis Preise und Auslastung selbst bestimmt.",
+      },
+      {
+        titel: "Beschwerde-Content als Frühkontakt",
+        text: "Inhalte zu häufigen Beschwerdebildern erreichen Patienten vor der Praxiswahl und bauen Vertrauen auf, bevor der erste Termin entsteht — sachlich formuliert, ohne Diagnose- oder Heilversprechen.",
+      },
+      {
+        titel: "Digitale Terminanfrage",
+        text: "Ein schlanker Anfrageweg auf der Website macht aus Sichtbarkeit tatsächlich Termine — und entlastet das Praxistelefon, das während der Behandlungen niemand bedienen kann.",
+      },
+    ],
+    faq: [
+      {
+        q: "Unsere Praxis ist auf Wochen ausgebucht — wozu dann SEO?",
+        a: "Ausgebucht heißt selten: mit den richtigen Behandlungen ausgebucht. Sichtbarkeit verschiebt den Mix — mehr Privatpatienten, mehr Selbstzahler-Leistungen, volle Kurse — und sichert die Praxis ab, wenn sich die Lage ändert: Ein Therapeutenwechsel oder eine neue Praxis nebenan kann volle Bücher schneller leeren, als neue Sichtbarkeit aufgebaut ist.",
+      },
+      {
+        q: "Reicht nicht einfach ein gepflegtes Google-Profil?",
+        a: "Das Profil ist der wichtigste einzelne Hebel, aber es verweist auf Ihre Website — und dort entscheidet sich, ob aus dem Klick eine Terminanfrage wird. Profil ohne überzeugende Website verliert Anfragen; Website ohne gepflegtes Profil wird lokal nicht gefunden. Beides zusammen wirkt.",
+      },
+      {
+        q: "Dürfen wir über Beschwerdebilder wie Rückenschmerzen schreiben?",
+        a: "Ja, sachlich informierend: Was hilft bei bestimmten Beschwerden, wann ist ärztliche Abklärung nötig, wie läuft die Behandlung ab. Wichtig ist die Grenze zu Diagnose und Heilversprechen — genau darauf achten wir bei jedem Text, damit die Inhalte hilfreich und rechtlich sauber bleiben.",
+      },
+      {
+        q: "Können wir auch unsere Kurse über die Website füllen?",
+        a: "Ja — Kursseiten mit Terminen, Preisen und Anmeldeformular gehören zu den dankbarsten Inhalten überhaupt, weil die Nachfrage nach Prävention und Rückbildung stetig sucht und das Angebot online dünn ist. Zertifizierte Präventionskurse mit Kassenzuschuss sind ein zusätzliches Suchargument.",
+      },
+      {
+        q: "Wir haben kein großes Budget — lohnt sich das für eine kleine Praxis?",
+        a: "Gerade für kleine Praxen: Der lokale Wettbewerb ist digital oft schwach aufgestellt, sodass schon fokussierte Maßnahmen sichtbar wirken. Wir starten mit den Hebeln mit dem besten Aufwand-Nutzen-Verhältnis, und die Betreuung ist monatlich kündbar — Sie sehen jeden Monat, was Sie dafür bekommen.",
+      },
+      {
+        q: "Wie schnell merken wir etwas?",
+        a: "Ein sauber aufgesetztes Unternehmensprofil wirkt oft innerhalb weniger Wochen auf Anrufe und Routenanfragen. Website-Rankings für Leistungs- und Beschwerde-Suchen bauen sich über einige Monate auf. Wir zeigen Ihnen monatlich die Entwicklung — ehrlich, ohne geschönte Kurven.",
+      },
+      {
+        q: "Funktioniert das auch mit mehreren Standorten oder einem Team aus Selbstständigen?",
+        a: "Ja. Jeder Standort bekommt ein eigenes Profil und eine eigene Seite mit Team und Leistungen, statt alles zentral zu vermischen. Bei Praxisgemeinschaften klären wir vorab, wer wie sichtbar sein will — das verhindert spätere Konflikte um Zuständigkeiten und Bewertungen.",
+      },
+      {
+        q: "Wie viel Zeit müssen wir selbst investieren?",
+        a: "Sehr wenig: kurze schriftliche Freigaben, gelegentlich ein Foto aus der Praxis, fertig. Wir wissen, dass zwischen zwei Behandlungen keine halbe Stunde für Abstimmungen liegt — deshalb ist der gesamte Prozess darauf ausgelegt, ohne Termine auszukommen.",
+      },
+    ],
+    arbeitsweise: {
+      titel: { pre: "Arbeiten im 20-Minuten-Takt ", grad: "Ihrer Behandlungen." },
+      intro:
+        "Eine Physiotherapie-Praxis hat den dichtesten Terminkalender im Gesundheitswesen: Behandlungen im 20- bis 30-Minuten-Takt, dazwischen Dokumentation, und das Telefon klingelt durchgehend. Abstimmungen mit einer Agentur dürfen davon nichts blockieren. Deshalb läuft bei uns alles asynchron: kurze Nachrichten statt Meetings, fertige Vorlagen zur Freigabe, Änderungen live in Minuten.",
+      saeulen: [
+        {
+          titel: "KI übernimmt Routinearbeit",
+          text: "Suchtrend-Analysen zu Beschwerdebildern, Leistungen und lokalen Suchen laufen KI-gestützt im Hintergrund. Unsere Zeit fließt in die fachlich saubere Formulierung — das hält die Betreuung auch für kleinere Praxen bezahlbar.",
+        },
+        {
+          titel: "Änderungen ohne Wartezeit",
+          text: "Neue Kurstermine, geänderte Öffnungszeiten, ein neues Teammitglied: Über unsere CI/CD-Infrastruktur ist das in Minuten online. Kursstarts warten nicht auf den nächsten Agentur-Slot.",
+        },
+        {
+          titel: "Ein fester Ansprechpartner",
+          text: "Immer dieselbe Person, die Ihre Praxis kennt — erreichbar per Nachricht, Antwort innerhalb von 24 Stunden. Auch wenn Ihre Frage erst nach Feierabend um 21 Uhr entsteht.",
+        },
+        {
+          titel: "Ergebnisse statt Vertragsbindung",
+          text: "Monatlich kündbar, jeden Monat ein klarer Blick auf Anrufe, Anfragen und Rankings. Die Zusammenarbeit trägt sich darüber, dass sie sich rechnet — nicht über eine Laufzeitklausel.",
+        },
+      ],
+      deployBeispiel: "neue kursseite: rückbildung herbst",
+    },
+    tiefe: {
+      titel: { pre: "Vom vollen Kalender ", grad: "zur gesunden Auslastung." },
+      lead: "Das Paradox der Physiotherapie: Die Nachfrage übersteigt das Angebot fast überall — und trotzdem kämpfen viele Praxen wirtschaftlich. Der Grund liegt in der Struktur der Auslastung: Rezept-Behandlungen mit festen Sätzen füllen den Tag, während planbare, fair vergütete Bereiche — Selbstzahler-Angebote, Privatpatienten, Kurse — unbesetzt bleiben, weil niemand von ihnen erfährt. Sichtbarkeit ist hier kein Marketing-Luxus, sondern das Steuerungsinstrument, mit dem eine Praxis ihren eigenen Kalender gestaltet.",
+      quote: "Sichtbarkeit entscheidet nicht, ob der Kalender voll ist — sondern womit.",
+      bild: {
+        src: "/images/branchen-editorial/physiotherapeuten-tiefe.webp",
+        alt: "Physiotherapeutin bespricht einen Behandlungsplan mit einem Patienten am Empfang",
+      },
+      spalten: [
+        "Der erste Hebel ist banal und wird trotzdem fast überall ausgelassen: die Leistungen sichtbar machen, die die Praxis eigentlich ausbauen will. Wer Rückbildungskurse anbietet, aber online nur „Krankengymnastik“ kommuniziert, bekommt Rezepte statt Kursanmeldungen. Wer Personal Training oder Präventionskurse mit Kassenzuschuss im Programm hat, aber keine eigene Seite dafür, überlässt diese Nachfrage den Fitnessstudios. Die Suchanfragen existieren — sie laufen nur an der Praxis vorbei, solange die Website sie nicht auffängt.",
+        "Der zweite Hebel ist das Zusammenspiel von Profil und Website: Das Google-Unternehmensprofil gewinnt den ersten Blick, die Website macht daraus eine Anfrage. Praxen unterschätzen regelmäßig, wie viele Anrufe im Besetztzeichen enden, weil während der Behandlung niemand ans Telefon geht — eine schlichte Online-Terminanfrage fängt genau diese Anfragen auf und verschiebt sie in die Randzeiten, in denen das Team tatsächlich Zeit hat. So wird aus Sichtbarkeit nicht nur Reichweite, sondern spürbar weniger Chaos an der Rezeption.",
+      ],
+    },
+    ctaSatz: {
+      pre: "Sprechen Sie mit uns darüber, wie Ihre Praxis die Patienten erreicht, ",
+      grad: "die wirklich zu ihr passen.",
+    },
+    ctaButtonLabel: "Praxis-Sichtbarkeit jetzt analysieren lassen",
+    icon: brancheIcon(
+      <>
+        <path d="M22 12h-3l-2.5 7L10 4l-2.5 8H2" />
+      </>
+    ),
+    accent: "Volle Kurse, mehr Selbstzahler, weniger Besetztzeichen — Sichtbarkeit, die den Kalender steuert.",
+    praxisTypen: [
+      { slug: "seo-fuer-aerzte", teaser: "Der Überblick für alle Praxen" },
+      { slug: "seo-fuer-zahnaerzte", teaser: "Implantate, Aligner & Prophylaxe" },
+      { slug: "seo-fuer-kieferorthopaeden", teaser: "Eltern-Recherche & Aligner-Suchen" },
+      { slug: "seo-fuer-heilpraktiker", teaser: "Vertrauensaufbau, rechtssicher" },
+    ],
+  },
+
+  /* ── 10 · Heilpraktiker (Praxis-Typ-Spoke unter Ärzte) ─────────────────── */
+  {
+    slug: "seo-fuer-heilpraktiker",
+    praxisTyp: true,
+    name: "SEO für Heilpraktiker",
+    kurzName: "Heilpraktiker",
+    keyword: "SEO für Heilpraktiker",
+    hebelVariant: "tafel",
+    heroQuery: "heilpraktiker in der nähe erfahrungen",
+    heroBildAlt: "Heilpraktikerin im Beratungsgespräch mit einer Klientin in ihrer Naturheilpraxis",
+    signature: {
+      variant: "kichat",
+      panelTitle: "KI-Suche",
+      fragen: [
+        { chip: "Naturheilkunde bei Erschöpfung?", frage: "Welche naturheilkundlichen Ansätze gibt es bei anhaltender Erschöpfung?" },
+        { chip: "Heilpraktiker in der Nähe?", frage: "Wie finde ich einen seriösen Heilpraktiker in meiner Stadt?" },
+        { chip: "Was kostet eine Sitzung?", frage: "Was kostet eine Erstanamnese beim Heilpraktiker ungefähr?" },
+      ],
+      marke: "ihre-naturheilpraxis.de",
+      quellen: "Quellen: 2 Praxis-Websites, 1 Ratgeber",
+    },
+    signatureTitle: { pre: "Wenn Suchende die KI fragen, ", grad: "zählt, wen sie zitiert." },
+    signatureCopy: [
+      "Gesundheitsfragen wandern zunehmend in KI-Assistenten: Menschen beschreiben ChatGPT ihre Beschwerden und fragen nach Ansätzen und Anlaufstellen. Zitiert werden Praxen, deren Inhalte sauber strukturiert und fachlich einzuordnen sind.",
+      "Wir bereiten Ihre Leistungen, Ihre Person und Ihre Schwerpunkte so auf, dass Google und KI-Systeme sie verstehen — und Suchende bei Ihnen ankommen statt bei anonymen Portalen.",
+    ],
+    h1: {
+      pre: "SEO für Heilpraktiker: Vertrauen aufbauen, ",
+      grad: "bevor der erste Termin entsteht",
+    },
+    subline:
+      "Wer einen Heilpraktiker sucht, sucht Vertrauen: Erfahrungen, Schwerpunkte, Kosten, die Person dahinter. Wir machen Ihre Praxis bei genau diesen Suchen sichtbar — rechtssicher formuliert, in Google und in KI-Antworten.",
+    ctaLabel: "Kostenlose SEO-Analyse für Ihre Naturheilpraxis",
+    warumTitle: { pre: "Warum SEO ", grad: "für Heilpraktiker" },
+    warumAbsaetze: [
+      <>
+        Kaum eine Berufsgruppe lebt so sehr von Vertrauen und Empfehlung wie Heilpraktiker — und kaum eine
+        wird online so kritisch geprüft. Wer eine Naturheilpraxis sucht, googelt Erfahrungen, vergleicht
+        Schwerpunkte, will wissen, wer die Person hinter der Praxis ist und was eine Behandlung kostet.
+        Gleichzeitig bewertet Google Gesundheitsinhalte als YMYL-Thema besonders streng, und für
+        Alternativmedizin gelten dabei die höchsten Anforderungen an Sachlichkeit und Einordnung. Praxen, die
+        mit vagen Wirkversprechen arbeiten, verlieren doppelt: rechtlich angreifbar und von Google
+        aussortiert. Praxen, die sachlich, transparent und persönlich auftreten, gewinnen doppelt.
+      </>,
+      <>
+        Genau hier liegt die Chance: Die meisten Heilpraktiker-Websites bestehen aus einer Methodenliste
+        ohne Substanz — wer stattdessen erklärt, wie eine Erstanamnese abläuft, was eine Behandlung kostet
+        und für welche Anliegen die eigenen Schwerpunkte geeignet sind, hebt sich sofort ab. Die Grenze
+        zieht das Heilmittelwerbegesetz: keine Heilversprechen, keine Erfolgsgarantien, keine
+        Krankheitswerbung. Wir schreiben deshalb{" "}
+        <Link href="/seo/texte" className={linkCls}>rechtssichere SEO-Texte</Link>, die Kompetenz und
+        Menschlichkeit zeigen, ohne eine einzige unhaltbare Aussage zu treffen.
+      </>,
+    ],
+    split: {
+      bild: "/images/branchen-split/heilpraktiker.jpg",
+      bildAlt: "Frau recherchiert mit einer Tasse Tee am Laptop nach einer Naturheilpraxis",
+      caption: "Die Suche nach der passenden Praxis ist eine Vertrauensrecherche — oft über Tage",
+      bildLinks: true,
+      titel: { pre: "Sichtbar auch dort, ", grad: "wo die KI antwortet." },
+      absaetze: [
+        <>
+          Gesundheitssuchen verschieben sich spürbar in KI-Assistenten: Statt zehn Suchergebnisse zu
+          vergleichen, beschreiben Menschen ChatGPT oder Perplexity ihr Anliegen und lassen sich Ansätze und
+          Anlaufstellen nennen. Für Naturheilpraxen ist das Chance und Risiko zugleich — zitiert wird, wessen
+          Inhalte die KI versteht und als seriös einordnet. Anonyme Methodenlisten schaffen das nicht;
+          strukturierte, sachliche Praxis-Inhalte schon.
+        </>,
+        <>
+          Diese doppelte Sichtbarkeit — klassische Google-Suche und KI-Antworten — bauen wir systematisch
+          auf: verständliche Leistungsseiten, eine erkennbare Person mit nachvollziehbarer Qualifikation und
+          technisch sauber strukturierte Daten. Wie wir Marken gezielt in KI-Antworten bringen, zeigt unsere
+          Arbeit als{" "}
+          <Link href="/geo-agentur" className={linkCls}>GEO-Agentur</Link> — für Heilpraktiker kombinieren
+          wir beides von Anfang an.
+        </>,
+      ],
+    },
+    vorgehenTitle: { pre: "So gehen wir bei ", grad: "Naturheilpraxen vor." },
+    vorgehen: [
+      {
+        titel: "Schwerpunkte und Positionierung schärfen",
+        text: "„Heilpraktiker“ allein ist kein Suchbegriff, der trägt — Ihre Schwerpunkte sind es. Wir klären, welche Anliegen und Methoden Ihre Praxis prägen und für welche davon echte lokale Nachfrage existiert, statt alles für alle anzubieten.",
+      },
+      {
+        titel: "Rechtssichere Leistungs- und Ablaufseiten",
+        text: "Für jeden Schwerpunkt entsteht eine eigene Seite, die Ablauf, Kosten und Grenzen der Methode sachlich erklärt — formuliert im Rahmen des Heilmittelwerbegesetzes, ohne Wirkversprechen. Diese Ehrlichkeit ist zugleich das stärkste Vertrauenssignal.",
+      },
+      {
+        titel: "Person und Qualifikation sichtbar machen",
+        text: "Bei einer so persönlichen Dienstleistung entscheidet die Person: Werdegang, Ausbildung, Praxisphilosophie werden erkennbar aufbereitet und technisch strukturiert hinterlegt — die Basis dafür, dass Google und KI-Systeme Ihre Praxis als vertrauenswürdige Quelle einordnen.",
+      },
+      {
+        titel: "Lokale Sichtbarkeit und Bewertungen pflegen",
+        text: "Google-Unternehmensprofil, konsistente Praxisdaten und ein behutsamer Bewertungsaufbau sorgen dafür, dass Ihre Praxis bei lokalen Suchen erscheint. Behutsam deshalb, weil im Gesundheitsbereich jede Bewertungsbitte wettbewerbsrechtlich sauber ablaufen muss.",
+      },
+    ],
+    fehlerVariant: "editorial",
+    fehler: [
+      {
+        titel: "Wirkversprechen statt Sachlichkeit",
+        text: "„Erfolgreiche Behandlung von …“ oder Heilungsberichte verstoßen schnell gegen das Heilmittelwerbegesetz — und werden von Google bei Gesundheitsthemen zusätzlich abgestraft. Sachliche Beschreibung von Ablauf und Ansatz wirkt seriöser und rankt besser.",
+      },
+      {
+        titel: "Methodenliste ohne Kontext",
+        text: "Zwanzig Verfahren in einer Aufzählung beantworten keine einzige Suchanfrage. Suchende wollen wissen, was ein Verfahren ist, wie es abläuft und was es kostet — jede Methode mit eigener, verständlicher Seite schlägt jede Liste.",
+      },
+      {
+        titel: "Die Person bleibt unsichtbar",
+        text: "Anonyme Praxis-Websites verschenken das wichtigste Argument: Menschen wählen bei Heilpraktikern die Person, nicht das Verfahren. Ohne erkennbaren Werdegang und Philosophie fehlt der Website genau das, was Vertrauen und E-E-A-T-Signale aufbaut.",
+      },
+      {
+        titel: "Die Kostenfrage wird umgangen",
+        text: "Heilpraktiker-Leistungen sind Selbstzahler-Leistungen — die Kostenfrage kommt garantiert. Wer Honorarrahmen und Abrechnungslogik offen erklärt, filtert unpassende Anfragen heraus und gewinnt die Klienten, die bewusst investieren wollen.",
+      },
+    ],
+    hebel: [
+      {
+        titel: "Schwerpunkt-Seiten statt Bauchladen",
+        text: "Eigene Seiten für Ihre tatsächlichen Schwerpunkte treffen die konkreten Suchanfragen der Menschen — und positionieren die Praxis als spezialisierte Anlaufstelle statt als beliebiges Gemischtwarenangebot.",
+      },
+      {
+        titel: "E-E-A-T für Alternativmedizin",
+        text: "Sichtbare Qualifikationen, sauber strukturierte Praxisdaten und sachliche Sprache sind bei YMYL-Themen die Eintrittskarte in gute Rankings — für Naturheilpraxen strenger geprüft als fast überall sonst. Wir bauen genau diese Signale systematisch auf.",
+      },
+      {
+        titel: "KI-Sichtbarkeit von Anfang an",
+        text: "Strukturierte Inhalte, klare Entitäten und zitierfähige Aussagen sorgen dafür, dass Ihre Praxis auch in ChatGPT- und Perplexity-Antworten auftaucht — ein Kanal, den im Naturheilbereich bisher kaum jemand besetzt.",
+      },
+      {
+        titel: "Lokales Vertrauensprofil",
+        text: "Gepflegtes Unternehmensprofil, echte Bewertungen und konsistente Daten entscheiden die lokale Suche. Gerade bei einer Vertrauensentscheidung wie dieser wird das Profil mit den glaubwürdigen Stimmen gewählt.",
+      },
+    ],
+    faq: [
+      {
+        q: "Was dürfen wir auf der Website überhaupt versprechen?",
+        a: "Keine Heilung, keine Erfolgsquoten, keine Linderungsversprechen — das Heilmittelwerbegesetz gilt für Heilpraktiker in vollem Umfang. Zulässig und wirksam ist die sachliche Ebene: welche Methode Sie einsetzen, wie eine Behandlung abläuft, was sie kostet, wofür Klienten zu Ihnen kommen. Wir formulieren jeden Text in diesem Rahmen — das schützt rechtlich und wirkt seriöser.",
+      },
+      {
+        q: "Rankt Google Alternativmedizin nicht grundsätzlich schlechter?",
+        a: "Google bewertet Gesundheitsinhalte streng und stuft unbelegte Heilsversprechen ab — das trifft unsaubere Seiten, nicht die Kategorie an sich. Praxen mit sachlichen, transparenten Inhalten und erkennbarer Qualifikation ranken auch im Naturheilbereich stabil, gerade weil viele Wettbewerber diese Standards nicht erfüllen.",
+      },
+      {
+        q: "Lohnt sich SEO für eine Einzelpraxis mit kleinem Budget?",
+        a: "Ja, weil der Wettbewerb digital dünn ist: Die meisten Naturheilpraxen haben schwache Websites und kein gepflegtes Profil. Schon fokussierte Maßnahmen — Schwerpunkt-Seiten, Unternehmensprofil, saubere Struktur — bewirken hier mehr als in umkämpften Branchen. Die Betreuung ist monatlich kündbar, Sie sehen jeden Monat den Gegenwert.",
+      },
+      {
+        q: "Wie hebt sich meine Praxis von Portalen und Verzeichnissen ab?",
+        a: "Verzeichnisse listen, aber sie erzählen nichts: keine Person, keine Philosophie, kein Ablauf. Ihre eigene Website kann genau das leisten — und rankt mit substanziellen Inhalten bei spezifischen Suchen häufig vor den generischen Verzeichnisprofilen. Zusätzlich gehört Ihr dortiger Eintrag konsistent gepflegt, damit alle Signale zusammenpassen.",
+      },
+      {
+        q: "Können wir mit Bewertungen arbeiten?",
+        a: "Ja, mit Augenmaß: Zufriedene Klienten dürfen um eine ehrliche Google-Bewertung gebeten werden, solange keine Anreize dafür geboten werden und keine Bewertungen gekauft oder gesteuert werden. Wir richten einen zurückhaltenden, sauberen Prozess ein und helfen beim sachlichen Umgang mit kritischen Stimmen.",
+      },
+      {
+        q: "Erscheine ich wirklich in ChatGPT-Antworten?",
+        a: "KI-Assistenten zitieren bei Gesundheits- und Anbietersuchen zunehmend konkrete Quellen — bevorzugt solche mit klarer Struktur, erkennbarer Person und sachlicher Sprache. Eine Garantie für einzelne Antworten gibt es nicht, aber die Voraussetzungen dafür lassen sich gezielt schaffen. Genau das ist Teil unserer Arbeit.",
+      },
+      {
+        q: "Wie lange dauert es bis zu sichtbaren Ergebnissen?",
+        a: "Lokale Signale und das Unternehmensprofil wirken oft nach wenigen Wochen, Schwerpunkt-Seiten bauen ihre Rankings über einige Monate auf. Bei Gesundheitsthemen bewertet Google Vertrauen langsamer, aber dafür stabiler — einmal aufgebaute Autorität trägt lange.",
+      },
+      {
+        q: "Wie viel Zeit kostet mich die Zusammenarbeit?",
+        a: "Wenige Minuten pro Woche: Sie geben Inhalte per kurzer Nachricht frei und liefern gelegentlich fachlichen Input zu Ihren Methoden. Alles Übrige — Recherche, Texte, Technik, Profil-Pflege — übernehmen wir im Hintergrund.",
+      },
+    ],
+    arbeitsweise: {
+      titel: { pre: "Arbeiten im Takt ", grad: "einer Ein-Personen-Praxis." },
+      intro:
+        "Die meisten Naturheilpraxen sind Ein-Personen-Betriebe: Wer gerade behandelt, kann nicht telefonieren, und die Website-Pflege bleibt am Abend hängen — oder ganz liegen. Unsere Zusammenarbeit ist genau dafür gebaut: keine festen Termine, kurze schriftliche Abstimmungen, wenn es Ihnen passt, und eine Agentur, die im Hintergrund weiterarbeitet, während Sie in der Praxis stehen.",
+      saeulen: [
+        {
+          titel: "KI übernimmt Routinearbeit",
+          text: "Recherche zu Suchtrends, Wettbewerb und lokalen Anfragen läuft bei uns KI-gestützt — unsere Zeit fließt in die rechtssichere, menschliche Formulierung Ihrer Inhalte. Das hält die Betreuung auch für Einzelpraxen bezahlbar.",
+        },
+        {
+          titel: "Änderungen ohne Wartezeit",
+          text: "Ein neues Angebot, geänderte Sprechzeiten, ein zusätzlicher Schwerpunkt: Über unsere CI/CD-Infrastruktur ist die Änderung in Minuten live — nicht erst, wenn irgendwann der nächste Website-Termin stattfindet.",
+        },
+        {
+          titel: "Ein fester Ansprechpartner",
+          text: "Sie schreiben immer derselben Person, die Ihre Praxis und Ihre Grenzen kennt — auch die rechtlichen. Antwort innerhalb von 24 Stunden, gern auch auf die Nachricht, die abends nach dem letzten Klienten entsteht.",
+        },
+        {
+          titel: "Ergebnisse statt Vertragsbindung",
+          text: "Monatlich kündbar, jeden Monat nachvollziehbar: Welche Seiten ranken, welche Anfragen kommen, was als Nächstes ansteht. Sie bleiben, weil sich die Praxis füllt — nicht, weil ein Vertrag läuft.",
+        },
+      ],
+      deployBeispiel: "neue schwerpunkt-seite: ohrakupunktur",
+    },
+    tiefe: {
+      titel: { pre: "Vertrauen ist hier ", grad: "die ganze Währung." },
+      lead: "Niemand wählt einen Heilpraktiker über eine Preisliste. Die Entscheidung fällt über eine Kette von Vertrauenssignalen: Wie spricht die Praxis über ihre Methoden — vollmundig oder ehrlich? Ist erkennbar, wer dort arbeitet und mit welcher Ausbildung? Sagen andere Menschen glaubwürdige Dinge über die Praxis? Und hält die Website dem kritischen Blick stand, den Gesundheitsentscheidungen heute begleiten? Jedes dieser Signale ist gestaltbar — und zusammen entscheiden sie, ob aus einer Suche ein Erstgespräch wird.",
+      quote: "Im Naturheilbereich gewinnt nicht, wer am meisten verspricht — sondern wer am wenigsten verspricht und am meisten erklärt.",
+      bild: {
+        src: "/images/branchen-editorial/heilpraktiker-tiefe.webp",
+        alt: "Heilpraktikerin erklärt einer Klientin den Ablauf einer Erstanamnese",
+      },
+      spalten: [
+        "Die rechtliche Strenge des Heilmittelwerbegesetzes ist dabei kein Hindernis, sondern ein verstecktes Geschenk: Sie zwingt zu einer Sprache, die auch Google und KI-Systeme belohnen. Eine Seite, die nüchtern erklärt, wie eine Erstanamnese abläuft, welche Fragen gestellt werden und was eine Sitzung kostet, erfüllt gleichzeitig drei Anforderungen — sie ist rechtssicher, sie beantwortet echte Suchanfragen, und sie signalisiert genau die Seriosität, nach der Menschen im Naturheilbereich aktiv suchen. Die Praxen, die das verstanden haben, ranken vor denen, die mit Versprechen arbeiten.",
+        "Die zweite Dimension ist die Person: Bei kaum einer Dienstleistung ist die Bindung an einen Menschen so stark. Ein erkennbarer Werdegang, eine nachvollziehbare Praxisphilosophie und ein Foto, das Nähe zulässt, wirken stärker als jede Methodenbeschreibung — und sie sind zugleich die E-E-A-T-Signale, die Google bei Gesundheitsthemen explizit sucht. Technisch hinterlegen wir das strukturiert, damit auch KI-Assistenten die Praxis als konkrete, qualifizierte Anlaufstelle erkennen statt als anonyme Website unter vielen.",
+      ],
+    },
+    ctaSatz: {
+      pre: "Sprechen Sie mit uns darüber, wie Ihre Praxis gefunden wird — ",
+      grad: "von den Menschen, die genau Sie suchen.",
+    },
+    ctaButtonLabel: "Praxis-Sichtbarkeit jetzt analysieren lassen",
+    icon: brancheIcon(
+      <>
+        <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+        <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+      </>
+    ),
+    accent: "Sachlich, persönlich, rechtssicher — die Sichtbarkeit, die Vertrauensentscheidungen gewinnt.",
+    praxisTypen: [
+      { slug: "seo-fuer-aerzte", teaser: "Der Überblick für alle Praxen" },
+      { slug: "seo-fuer-zahnaerzte", teaser: "Implantate, Aligner & Prophylaxe" },
+      { slug: "seo-fuer-kieferorthopaeden", teaser: "Eltern-Recherche & Aligner-Suchen" },
+      { slug: "seo-fuer-physiotherapeuten", teaser: "Selbstzahler, Kurse & lokale Suche" },
+    ],
+  },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1525,6 +2462,30 @@ export const KEYWORDS: Record<string, KeywordPotenzial> = {
       { kw: "seo für saas", vol: 20, kd: 0 },
     ],
   },
+  /* KFO + Physiotherapeuten bewusst OHNE Keyword-Tabelle: reale Suchvolumina
+     dort zu klein für eine ehrliche Potenzial-Darstellung (Semrush 2026-07). */
+  "seo-fuer-zahnaerzte": {
+    thema: "SEO und Marketing für Zahnärzte",
+    rows: [
+      { kw: "zahnarzt marketing", vol: 1000, kd: 16 },
+      { kw: "seo für zahnärzte", vol: 590, kd: 7 },
+      { kw: "webdesign für zahnärzte", vol: 590, kd: 10 },
+      { kw: "marketing zahnarztpraxis", vol: 390, kd: 14 },
+      { kw: "zahnarztmarketing", vol: 320, kd: 15 },
+      { kw: "zahnarztpraxis marketing", vol: 260, kd: 11 },
+    ],
+  },
+  "seo-fuer-heilpraktiker": {
+    thema: "SEO und Marketing für Heilpraktiker",
+    rows: [
+      { kw: "heilpraktiker marketing", vol: 210, kd: 5 },
+      { kw: "marketing heilpraktiker", vol: 170, kd: 10 },
+      { kw: "webdesign für heilpraktiker", vol: 90, kd: 0 },
+      { kw: "seo für heilpraktiker", vol: 70, kd: 1 },
+      { kw: "heilpraktiker seo", vol: 30, kd: 0 },
+      { kw: "heilpraktiker website", vol: 20, kd: 0 },
+    ],
+  },
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -1557,5 +2518,21 @@ export const FOTO_BAND: Record<string, FotoBand> = {
   "saas-seo": {
     statement: "Software wird heute auch von KI empfohlen.",
     alt: "SaaS-Team bespricht die Weiterentwicklung der Software im Büro",
+  },
+  "seo-fuer-zahnaerzte": {
+    statement: "Gesucht wird die Behandlung — nicht Ihr Praxisname.",
+    alt: "Modernes Behandlungszimmer einer Zahnarztpraxis mit Zahnärztin und Patientin",
+  },
+  "seo-fuer-kieferorthopaeden": {
+    statement: "Die Praxiswahl fällt Monate vor dem ersten Termin.",
+    alt: "Kieferorthopädische Beratung mit Zahnmodell für eine Familie",
+  },
+  "seo-fuer-physiotherapeuten": {
+    statement: "Sichtbarkeit entscheidet, womit Ihr Kalender voll ist.",
+    alt: "Physiotherapeut behandelt eine Patientin auf der Behandlungsliege",
+  },
+  "seo-fuer-heilpraktiker": {
+    statement: "Vertrauen entsteht, bevor der erste Termin gebucht wird.",
+    alt: "Warmes Beratungsgespräch in einer Naturheilpraxis mit vielen Pflanzen",
   },
 };

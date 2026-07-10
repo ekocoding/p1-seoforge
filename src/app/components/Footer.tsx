@@ -22,7 +22,7 @@ export default function Footer() {
 
           {/* Leistungen */}
           <div>
-            <h4 className="text-sm font-semibold text-dark">Leistungen</h4>
+            <h3 className="text-sm font-semibold text-dark">Leistungen</h3>
             <ul className="mt-4 space-y-3">
               {[
                 { label: "SEO Beratung", href: "/seo/beratung" },
@@ -47,7 +47,7 @@ export default function Footer() {
 
           {/* Agentur */}
           <div>
-            <h4 className="text-sm font-semibold text-dark">Agentur</h4>
+            <h3 className="text-sm font-semibold text-dark">Agentur</h3>
             <ul className="mt-4 space-y-3">
               {[
                 { label: "SEO Agentur", href: "/seo-agentur" },
@@ -69,7 +69,7 @@ export default function Footer() {
 
           {/* Unternehmen */}
           <div>
-            <h4 className="text-sm font-semibold text-dark">Unternehmen</h4>
+            <h3 className="text-sm font-semibold text-dark">Unternehmen</h3>
             <ul className="mt-4 space-y-3">
               {[
                 { label: "Über uns", href: "/" },
@@ -91,7 +91,7 @@ export default function Footer() {
 
           {/* Kontakt & Rechtliches */}
           <div>
-            <h4 className="text-sm font-semibold text-dark">Kontakt</h4>
+            <h3 className="text-sm font-semibold text-dark">Kontakt</h3>
             <ul className="mt-4 space-y-3">
               <li className="flex items-center gap-2 text-sm text-muted">
                 <svg className="h-4 w-4 shrink-0 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -107,7 +107,7 @@ export default function Footer() {
               </li>
             </ul>
 
-            <h4 className="mt-8 text-sm font-semibold text-dark">Rechtliches</h4>
+            <h3 className="mt-8 text-sm font-semibold text-dark">Rechtliches</h3>
             <ul className="mt-4 space-y-3">
               <li>
                 <Link href="/impressum" className="text-sm text-muted transition-colors hover:text-primary">

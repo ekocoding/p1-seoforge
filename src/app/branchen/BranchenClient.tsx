@@ -152,7 +152,7 @@ export default function BranchenClient() {
           </div>
 
           <div className="grid gap-x-8 gap-y-14 lg:gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
-            {branchen.map((b, i) => {
+            {branchen.filter((b) => !b.praxisTyp).map((b, i) => {
               const iconImg = b.slug === "saas-seo" ? "saas" : b.slug.replace("seo-fuer-", "");
               return (
               <Link
@@ -178,6 +178,28 @@ export default function BranchenClient() {
               </Link>
               );
             })}
+          </div>
+
+          {/* Praxis-Typ-Spokes: dezente Zeile, keine eigenen Grid-Kacheln */}
+          <div className="scroll-hidden rv-blur mt-14 border-t border-border pt-8 text-center lg:mt-16">
+            <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-dark/45">
+              Noch spezifischer:{" "}
+            </span>
+            <span className="text-sm text-muted">
+              {branchen
+                .filter((b) => b.praxisTyp)
+                .map((b, i, arr) => (
+                  <span key={b.slug}>
+                    <Link
+                      href={`/branchen/${b.slug}`}
+                      className="font-semibold text-dark underline decoration-border underline-offset-4 transition-colors hover:text-primary hover:decoration-primary/50"
+                    >
+                      SEO für {b.kurzName}
+                    </Link>
+                    {i < arr.length - 1 ? " · " : ""}
+                  </span>
+                ))}
+            </span>
           </div>
         </div>
       </section>
