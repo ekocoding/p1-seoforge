@@ -1,135 +1,158 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 
-/**
- * Process section — "Wie wir arbeiten"
- * 4 numbered steps: Audit → Strategie → Umsetzung → Reporting
- * Geometric aesthetic: large step numbers, thin dividers, precise grid
- */
-
-const STEPS = [
+const PHASES = [
   {
     number: "01",
-    title: "SEO-Audit",
-    description:
-      "Wir beginnen mit einer vollständigen Analyse Ihrer aktuellen Sichtbarkeit: technische Basis, On-Page-Faktoren, Backlink-Profil und Wettbewerb. Das Ergebnis ist eine priorisierte Liste konkreter Maßnahmen — keine generischen Empfehlungen.",
-    tag: "Analyse",
+    short: "Diagnose",
+    title: "Wir finden den Engpass, nicht nur Fehler.",
+    copy: "Technik, Nachfrage, Wettbewerb und Autorität werden gemeinsam betrachtet. So entsteht keine 80-Punkte-Liste, sondern eine belastbare Reihenfolge.",
+    signal: "Ausgangslage",
+    output: ["Crawl & Indexierungsbild", "Keyword- und Wettbewerbs-Lücken", "Prioritäten nach Wirkung und Aufwand"],
     href: "/seo/audit",
+    link: "SEO-Audit ansehen",
   },
   {
     number: "02",
-    title: "Strategie",
-    description:
-      "Auf Basis des Audits entwickeln wir eine Strategie, die zu Ihren Zielen und Ihrer Branche passt. Welche Keywords sind realistisch? Wo sind die schnellsten Gewinne? Wo bauen wir langfristige Autorität auf? Das alles liegt in einem klaren Dokument vor.",
-    tag: "Planung",
+    short: "Entscheidung",
+    title: "Aus Daten wird eine klare Wette.",
+    copy: "Wir entscheiden, welche Seiten zuerst Geld verdienen können, welche Themen warten und welche Maßnahme sich überhaupt nicht rechnet.",
+    signal: "Richtung",
+    output: ["Eine klare Zielseite je Suchintention", "90-Tage-Fokus statt Jahres-Wunschliste", "Messbare Zwischenziele"],
     href: "/seo/beratung",
+    link: "SEO-Beratung ansehen",
   },
   {
     number: "03",
-    title: "Umsetzung",
-    description:
-      "Wir setzen die Maßnahmen direkt um — technische Fixes, Content, interne Verlinkung, Linkaufbau. Sie müssen nichts koordinieren. Wir arbeiten mit Ihrem Team oder vollständig selbstständig, je nach Ihrer Präferenz.",
-    tag: "Ausführung",
+    short: "Umsetzung",
+    title: "Die Empfehlung geht direkt ins System.",
+    copy: "Technische Fixes, Seitenstruktur, Content und interne Links setzen wir in kurzen Arbeitsblöcken um. Ohne Übergabe-Marathon zwischen Agentur und Entwicklung.",
+    signal: "Veränderung",
+    output: ["Änderungen direkt im Projekt", "Review vor jedem Release", "Nachvollziehbare Vorher-/Nachher-Prüfung"],
     href: "/seo/optimierung",
+    link: "SEO-Optimierung ansehen",
   },
   {
     number: "04",
-    title: "Reporting",
-    description:
-      "Jeden Monat erhalten Sie einen verständlichen Bericht: welche Keywords sich verändert haben, wie der Traffic sich entwickelt und was als nächstes geplant ist. Kein Fachjargon — klare Zahlen und klare Erklärungen.",
-    tag: "Transparenz",
-    href: "/seo/beratung",
+    short: "Lernschleife",
+    title: "Jeder Monat beginnt mit dem, was der letzte gezeigt hat.",
+    copy: "Rankings sind ein Signal, nicht das Ziel. Wir verbinden Sichtbarkeit, Klicks, Anfragen und erledigte Maßnahmen zu einer nächsten sinnvollen Entscheidung.",
+    signal: "Nächster Zug",
+    output: ["Klarer Monatsbericht", "Erledigt / gelernt / als Nächstes", "SEO und KI-Sichtbarkeit im selben Blick"],
+    href: "/seo/betreuung",
+    link: "SEO-Betreuung ansehen",
   },
 ];
 
 export default function ProcessSection() {
+  const [active, setActive] = useState(0);
+  const phase = PHASES[active];
+
   return (
-    <section className="bg-white border-t border-border py-24 lg:py-32" id="prozess">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <section className="relative overflow-hidden bg-dark py-20 text-white lg:py-28" id="prozess">
+      <div
+        className="pointer-events-none absolute inset-0 opacity-20"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px)",
+          backgroundSize: "38px 38px",
+        }}
+        aria-hidden="true"
+      />
 
-        {/* Header */}
-        <div className="mb-16 max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-widest text-primary mb-3">
-            Prozess
-          </p>
-          <h2 className="text-4xl lg:text-5xl text-dark font-[family-name:var(--font-heading)] leading-[1.1]">
-            Wie wir arbeiten
-          </h2>
-          <p className="mt-4 text-lg text-muted">
-            Vier Phasen, jede mit einem klaren Ergebnis. Keine Überraschungen.
-          </p>
-        </div>
-
-        {/* Steps */}
-        <div className="relative">
-          {/* Connecting line — desktop only */}
-          <div
-            className="absolute left-[2.75rem] top-12 hidden lg:block w-px bg-border"
-            style={{ height: "calc(100% - 3rem)" }}
-            aria-hidden="true"
-          />
-
-          <div className="space-y-0">
-            {STEPS.map((step, i) => (
-              <div
-                key={step.number}
-                className="relative grid lg:grid-cols-[5.5rem_1fr] gap-6 lg:gap-12 py-10 border-b border-border last:border-0 group"
-              >
-                {/* Step number column */}
-                <div className="flex items-start gap-4 lg:flex-col lg:gap-0 lg:items-center">
-                  <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 border-primary bg-white text-xs font-bold text-primary font-[family-name:var(--font-mono)] shrink-0 lg:shrink-0 transition-colors group-hover:bg-primary group-hover:text-white">
-                    {step.number}
-                  </div>
-                </div>
-
-                {/* Content column */}
-                <div className="lg:pb-2">
-                  <div className="flex flex-wrap items-baseline gap-3 mb-3">
-                    <h3 className="text-2xl lg:text-3xl text-dark font-[family-name:var(--font-heading)]">
-                      {step.title}
-                    </h3>
-                    <span className="text-xs font-semibold uppercase tracking-widest text-primary/70 bg-primary/[0.07] px-2.5 py-1 rounded-full">
-                      {step.tag}
-                    </span>
-                  </div>
-                  <p className="text-muted leading-relaxed max-w-2xl">
-                    {step.description}
-                  </p>
-                  <Link
-                    href={step.href}
-                    className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary-dark transition-colors"
-                  >
-                    Mehr erfahren
-                    <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
-                    </svg>
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Bottom CTA row */}
-        <div className="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-2xl border border-border bg-offwhite p-6 lg:p-8">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="grid items-end gap-8 border-b border-white/20 pb-9 lg:grid-cols-[1fr_420px]">
           <div>
-            <p className="font-semibold text-dark">Bereit für den ersten Schritt?</p>
-            <p className="text-sm text-muted mt-0.5">
-              Der Audit ist kostenlos und unverbindlich — und dauert maximal 30 Minuten.
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.24em] text-secondary">
+              Der SeoForge-Arbeitszyklus
             </p>
+            <h2 className="mt-4 max-w-3xl font-[family-name:var(--font-heading)] text-4xl font-bold leading-[1.03] sm:text-5xl lg:text-[58px]">
+              Keine Roadmap zum Abhaken.
+              <span className="block text-secondary">Eine Lernschleife mit Output.</span>
+            </h2>
           </div>
-          <Link
-            href="/kontakt"
-            className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-md shadow-primary/20 transition-all hover:bg-primary-dark hover:shadow-lg whitespace-nowrap"
-          >
-            Audit anfragen
-            <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
-            </svg>
+          <p className="max-w-md text-[15px] leading-relaxed text-white/58 lg:justify-self-end">
+            Klicken Sie durch die vier Arbeitszustände. Jede Phase endet mit einem sichtbaren Artefakt – nicht mit einem Statusmeeting.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-8 lg:grid-cols-[minmax(0,1.18fr)_minmax(360px,.82fr)] lg:gap-10">
+          <div className="overflow-hidden rounded-[22px] border border-white/20 bg-black">
+            <div className="grid grid-cols-2 border-b border-white/15 sm:grid-cols-4" role="tablist" aria-label="Arbeitsphasen">
+              {PHASES.map((item, index) => (
+                <button
+                  key={item.number}
+                  type="button"
+                  role="tab"
+                  aria-selected={active === index}
+                  onClick={() => setActive(index)}
+                  className={`group flex cursor-pointer items-center gap-3 border-r border-white/15 px-4 py-4 text-left transition-colors last:border-r-0 sm:px-5 ${
+                    active === index ? "bg-primary text-white" : "bg-white/[0.04] text-white/55 hover:bg-white/[0.08] hover:text-white"
+                  }`}
+                >
+                  <span className="font-mono text-[10px] tracking-[0.15em] opacity-65">{item.number}</span>
+                  <span className="text-sm font-semibold">{item.short}</span>
+                </button>
+              ))}
+            </div>
+
+            <figure className="relative aspect-[16/10] overflow-hidden">
+              <Image
+                src="/images/home-process-worktable-v2.webp"
+                alt="SEO-Strategiearbeit mit Seitenarchitektur, Datenanalyse und priorisierten Maßnahmen"
+                fill
+                sizes="(min-width: 1024px) 58vw, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+              <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-6 p-5 sm:p-7">
+                <div>
+                  <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-white/55">Aktiver Zustand</span>
+                  <p className="mt-1 font-[family-name:var(--font-heading)] text-2xl font-bold sm:text-3xl">{phase.short}</p>
+                </div>
+                <span className="hidden rounded-full border border-white/35 bg-black/35 px-4 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-white/70 backdrop-blur sm:block">
+                  {phase.signal}
+                </span>
+              </figcaption>
+            </figure>
+          </div>
+
+          <div key={phase.number} className="flex flex-col rounded-[22px] border border-white/20 bg-white p-6 text-dark shadow-[0_30px_90px_-35px_rgba(0,0,0,.7)] sm:p-8">
+            <div className="flex items-center justify-between border-b-2 border-dark pb-4">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-primary">Phase {phase.number}</span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-dark/35">Output-Protokoll</span>
+            </div>
+
+            <h3 className="mt-7 font-[family-name:var(--font-heading)] text-3xl font-bold leading-[1.08]">{phase.title}</h3>
+            <p className="mt-4 text-[15px] leading-relaxed text-muted">{phase.copy}</p>
+
+            <div className="mt-7 flex-1 border-y border-border py-2">
+              {phase.output.map((item, index) => (
+                <div key={item} className="flex items-center gap-4 border-b border-border py-3.5 last:border-b-0">
+                  <span className="font-mono text-[10px] font-bold text-primary">0{index + 1}</span>
+                  <span className="text-sm font-semibold text-dark/80">{item}</span>
+                </div>
+              ))}
+            </div>
+
+            <Link href={phase.href} className="group mt-7 inline-flex items-center justify-between rounded-full bg-dark px-5 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-primary">
+              {phase.link}
+              <span className="transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
+            </Link>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-col justify-between gap-4 border-t border-white/20 pt-6 sm:flex-row sm:items-center">
+          <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/40">
+            Diagnose → Entscheidung → Umsetzung → Lernschleife
+          </p>
+          <Link href="/kontakt" className="text-sm font-semibold text-secondary transition-colors hover:text-white">
+            Ihre Ausgangslage gemeinsam prüfen →
           </Link>
         </div>
-
       </div>
     </section>
   );

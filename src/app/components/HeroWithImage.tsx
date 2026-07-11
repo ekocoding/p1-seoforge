@@ -58,7 +58,7 @@ export default function HeroWithImage() {
         <div style={{ display: "flex", alignItems: "center", gap: "14px", marginBottom: "40px", flexWrap: "nowrap", minWidth: 0 }}>
           <div style={{ flexShrink: 0, width: "36px", height: "1px", background: "#C2722A", opacity: 0.7 }} />
           <span className="hero-overline-text" style={{ fontSize: "9px", fontWeight: 700, letterSpacing: ".25em", textTransform: "uppercase", color: "#C2722A", whiteSpace: "nowrap" }}>
-            SEO Agentur · Digital Growth
+            SEO · GEO · Webdesign
           </span>
           <div className="hero-overline-right" style={{ flexShrink: 0, width: "20px", height: "1px", background: "#C2722A", opacity: 0.3 }} />
         </div>

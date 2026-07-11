@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SubpageLayout from "@/app/components/SubpageLayout";
@@ -13,7 +13,7 @@ function useScrollReveal() {
         entries.forEach((e) => {
           if (e.isIntersecting) e.target.classList.add("scroll-visible");
         }),
-      { threshold: 0.22, rootMargin: "0px 0px -16% 0px" }
+      { threshold: 0.04, rootMargin: "0px 0px -7% 0px" }
     );
     document.querySelectorAll(".scroll-hidden, .m3d").forEach((el) => io.observe(el));
     return () => io.disconnect();
@@ -895,7 +895,8 @@ const KATALOG: { kapitel: string; leistungen: Leistung[] }[] = [
             sie dem Zufall zu überlassen. Reine Linkkäufe halten wir für riskant und wenig nachhaltig. Stattdessen setzen wir auf
             Digital PR — die aktive Ansprache von Redaktionen und Fachportalen mit Inhalten, die echten Mehrwert bieten. Diese Arbeit
             braucht Geduld. Dafür liefert sie Verlinkungen, die auch nach einem Algorithmus-Update Bestand haben, weil sie auf
-            redaktioneller Relevanz beruhen.
+            redaktioneller Relevanz beruhen. Wie wir Quellen, Risikomuster und Link-Gaps prüfen, zeigt unsere Seite zur{" "}
+            <Link href="/linkbuilding-agentur" className="text-primary font-semibold hover:underline">Linkbuilding Agentur</Link>.
           </>
         ),
       },
@@ -1227,6 +1228,32 @@ export default function SeoAgenturClient() {
   useScrollReveal();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activePhase, setActivePhase] = useState(0);
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+  async function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
+    setFormStatus("sending");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.get("name"),
+          email: form.get("email"),
+          website: form.get("website"),
+          message: form.get("message"),
+          selectedServices: ["SEO Agentur – Erstanalyse"],
+        }),
+      });
+      if (!response.ok) throw new Error("request failed");
+      setFormStatus("success");
+      formElement.reset();
+    } catch {
+      setFormStatus("error");
+    }
+  }
 
   const faqSchema = {
     "@context": "https://schema.org",
@@ -1371,6 +1398,7 @@ export default function SeoAgenturClient() {
                         alt={`${t.name} Logo`}
                         width={20}
                         height={20}
+                        loading="eager"
                         className="h-5 w-5 object-contain grayscale opacity-55 transition-all duration-300 group-hover:grayscale-0 group-hover:opacity-100"
                       />
                       <span className="text-[13px] font-semibold text-dark/55 transition-colors duration-300 group-hover:text-dark">{t.name}</span>
@@ -1386,7 +1414,7 @@ export default function SeoAgenturClient() {
       {/* ══ 03 INTRO — Nummeriertes Dossier im Katalog-Duktus + Sticky-Werkbank ══ */}
       <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             {/* Links — Dossier: 3 Blöcke mit Mono-Kicker, Originaltext und Chip-Zeile */}
             <div>
               <div className="scroll-hidden rv-left">
@@ -1479,6 +1507,23 @@ export default function SeoAgenturClient() {
                   ))}
                 </div>
               </div>
+              <figure className="relative mt-5 aspect-[16/9] overflow-hidden rounded-2xl border-2 border-dark bg-dark shadow-[0_28px_65px_-30px_rgba(26,26,26,0.55)]">
+                <Image
+                  src="/images/seo-agentur-worktable-v2.webp"
+                  alt="SEO-Agentur-Arbeit an Seitenarchitektur, Crawl-Daten und priorisierten Maßnahmen"
+                  fill
+                  sizes="(min-width: 1024px) 48vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" aria-hidden="true" />
+                <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 p-5 text-white">
+                  <span>
+                    <span className="block font-mono text-[9px] uppercase tracking-[0.18em] text-white/55">Arbeitsartefakt statt Kulisse</span>
+                    <span className="mt-1 block font-[family-name:var(--font-heading)] text-xl font-bold">Vom Crawl zur Seitenentscheidung</span>
+                  </span>
+                  <span className="hidden rounded-full border border-white/30 bg-black/30 px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.14em] text-white/70 backdrop-blur sm:block">Analyse · Priorität · Release</span>
+                </figcaption>
+              </figure>
               <p className="mt-3 flex items-baseline gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40">
                 <span className="h-[2px] w-5 shrink-0 self-center bg-primary/60" aria-hidden="true" />
                 Drei Werkstücke, ein Schmiedetisch — nichts davon wirkt allein.
@@ -2318,10 +2363,11 @@ export default function SeoAgenturClient() {
               <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-8 backdrop-blur-sm">
                 <h3 className="font-[family-name:var(--font-heading)] text-2xl text-white">Jetzt Kontakt aufnehmen</h3>
                 <p className="mt-1 text-sm text-white/50">Wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
-                <form className="mt-6 space-y-4" onSubmit={(e) => e.preventDefault()}>
+                <form className="mt-6 space-y-4" onSubmit={handleContactSubmit}>
                   <input
                     type="text"
                     name="name"
+                    required
                     aria-label="Ihr Name"
                     placeholder="Ihr Name"
                     className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
@@ -2329,6 +2375,7 @@ export default function SeoAgenturClient() {
                   <input
                     type="email"
                     name="email"
+                    required
                     aria-label="Ihre E-Mail-Adresse"
                     placeholder="Ihre E-Mail-Adresse"
                     className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
@@ -2349,10 +2396,13 @@ export default function SeoAgenturClient() {
                   />
                   <button
                     type="submit"
-                    className="w-full rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-light hover:shadow-lg hover:shadow-primary/20"
+                    disabled={formStatus === "sending" || formStatus === "success"}
+                    className="w-full rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-light hover:shadow-lg hover:shadow-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    Kostenlose Erstanalyse anfordern
+                    {formStatus === "sending" ? "Anfrage wird gesendet …" : formStatus === "success" ? "Anfrage ist angekommen" : "Kostenlose Erstanalyse anfordern"}
                   </button>
+                  {formStatus === "success" && <p className="text-center text-sm font-semibold text-emerald-300" role="status">Danke – wir melden uns innerhalb von 24 Stunden.</p>}
+                  {formStatus === "error" && <p className="text-center text-sm text-red-300" role="alert">Das Senden hat nicht funktioniert. Bitte nutzen Sie die Kontaktseite.</p>}
                   <p className="text-center text-xs text-white/30">Ihre Daten werden vertraulich behandelt.</p>
                 </form>
               </div>

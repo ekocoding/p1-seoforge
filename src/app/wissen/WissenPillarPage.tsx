@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SubpageLayout from "../components/SubpageLayout";
+import { articles as publishedArticles } from "./data/articles";
 
 export interface PillarArticle {
   title: string;
@@ -21,6 +22,11 @@ export interface PillarCluster {
 }
 
 export default function WissenPillarPage({ cluster }: { cluster: PillarCluster }) {
+  const liveBySlug = new Map(
+    publishedArticles.filter((article) => article.published).map((article) => [article.slug, article])
+  );
+  const liveCount = cluster.articles.filter((article) => liveBySlug.has(article.slug)).length;
+
   return (
     <SubpageLayout>
       <main className="bg-white">
@@ -60,10 +66,10 @@ export default function WissenPillarPage({ cluster }: { cluster: PillarCluster }
               <div className="hidden lg:flex justify-end">
                 <div className="rounded-2xl border border-border bg-white shadow-sm p-8 w-72">
                   <div className="text-4xl font-bold font-[family-name:var(--font-heading)] text-dark mb-1">
-                    {cluster.articles.length}
+                    {liveCount}
                   </div>
                   <div className="text-sm text-muted mb-6">
-                    Guides in diesem Themenbereich
+                    veröffentlichte Guides
                   </div>
                   <div className="space-y-2">
                     {cluster.articles.slice(0, 3).map((a) => (
@@ -114,24 +120,24 @@ export default function WissenPillarPage({ cluster }: { cluster: PillarCluster }
                 Alle Guides im Themenbereich
               </h2>
               <p className="text-muted text-sm">
-                Klicken Sie auf einen Artikel — er erscheint demnächst als vollständiger Guide.
+                Veröffentlichte Guides sind direkt verlinkt. Geplante Themen bleiben transparent als Vorschau sichtbar.
               </p>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2">
-              {cluster.articles.map((article, index) => (
-                <article
-                  key={article.slug}
-                  className="group relative flex flex-col rounded-2xl border border-border bg-white hover-lift hover:border-primary/30 transition-colors overflow-hidden"
-                >
+              {cluster.articles.map((article, index) => {
+                const liveArticle = liveBySlug.get(article.slug);
+                const href = liveArticle ? `/wissen/${liveArticle.type}/${liveArticle.slug}` : null;
+                const card = (
+                <article className={`group relative flex h-full flex-col rounded-2xl border border-border bg-white transition-colors overflow-hidden ${href ? "hover-lift hover:border-primary/30" : "opacity-75"}`}>
                   <div className="flex-1 p-8">
                     {/* Number + badge row */}
                     <div className="mb-5 flex items-center justify-between">
                       <span className="text-4xl font-bold font-[family-name:var(--font-heading)] text-border select-none">
                         {String(index + 1).padStart(2, "0")}
                       </span>
-                      <span className="text-xs font-medium text-muted bg-border/60 px-2.5 py-1 rounded-full">
-                        Bald verfügbar
+                      <span className={`text-xs font-medium px-2.5 py-1 rounded-full ${href ? "bg-emerald-50 text-emerald-700" : "bg-border/60 text-muted"}`}>
+                        {href ? "Veröffentlicht" : "In Planung"}
                       </span>
                     </div>
                     {/* Category badge */}
@@ -156,15 +162,24 @@ export default function WissenPillarPage({ cluster }: { cluster: PillarCluster }
                       </svg>
                       {article.readTime} Lesezeit
                     </div>
-                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-primary">
-                      Demnächst
+                    <span className={`inline-flex items-center gap-1 text-xs font-semibold ${href ? "text-primary" : "text-muted"}`}>
+                      {href ? "Guide lesen" : "Vorschau"}
                       <svg className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
                         <path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" />
                       </svg>
                     </span>
                   </div>
                 </article>
-              ))}
+                );
+
+                return href ? (
+                  <Link key={article.slug} href={href} className="block h-full" aria-label={`${article.title} lesen`}>
+                    {card}
+                  </Link>
+                ) : (
+                  <div key={article.slug}>{card}</div>
+                );
+              })}
             </div>
           </div>
         </section>

@@ -22,7 +22,6 @@ SeoForge bietet drei Leistungsbereiche:
 - [SEO Agentur](https://seoforge.de/seo-agentur): Leistungsübersicht und Positionierung der SEO-Agentur
 - [GEO Agentur](https://seoforge.de/geo-agentur): Generative Engine Optimization — Sichtbarkeit in KI-Suchantworten
 - [Leistungen](https://seoforge.de/leistungen): Alle angebotenen Dienstleistungen im Überblick
-- [Referenzen](https://seoforge.de/referenzen): Kundenprojekte und messbare Ergebnisse
 - [Kontakt](https://seoforge.de/kontakt): Kontaktformular und Ansprechpartner
 
 ## SEO-Leistungen
@@ -31,11 +30,9 @@ SeoForge bietet drei Leistungsbereiche:
 - [SEO Beratung](https://seoforge.de/seo/beratung): Strategische SEO-Beratung, Keyword-Strategie und Roadmap
 - [SEO Audit](https://seoforge.de/seo/audit): Technische und inhaltliche Website-Analyse mit Aktionsplan
 - [SEO Optimierung](https://seoforge.de/seo/optimierung): Ganzheitliche Suchmaschinenoptimierung
-- [On-Page SEO](https://seoforge.de/seo/on-page): On-Page-Grundlagen und Strukturoptimierung
-- [On-Page Optimierung](https://seoforge.de/seo/on-page-optimierung): Technische und inhaltliche On-Page-Maßnahmen
 - [Content-Strategie](https://seoforge.de/seo/content-strategie): Keyword-Recherche, Themenplanung und Content-Architektur
 - [SEO Texte](https://seoforge.de/seo/texte): SEO-optimierte Textproduktion und Redaktion
-- [SEO für Shops](https://seoforge.de/seo/shop): E-Commerce SEO, Produktseiten und Kategorieoptimierung
+- [Linkbuilding Agentur](https://seoforge.de/linkbuilding-agentur): Redaktioneller Linkaufbau, Link-Gap-Analyse und Digital PR
 - [SEO Betreuung](https://seoforge.de/seo/betreuung): Laufende SEO-Betreuung und kontinuierliche Optimierung
 - [SEO Betreuung ohne Vertrag](https://seoforge.de/seo/betreuung/ohne-vertrag): Flexible Betreuung ohne Mindestlaufzeit
 - [SEO Betreuung ROI](https://seoforge.de/seo/betreuung/roi): ROI-Berechnung und Wirtschaftlichkeit von SEO
@@ -81,8 +78,6 @@ SeoForge bietet drei Leistungsbereiche:
 - [Wissen](https://seoforge.de/wissen): SEO-Ratgeber, Anleitungen und Hintergrundartikel
 - [Ratgeber](https://seoforge.de/wissen/ratgeber): Ausführliche SEO- und Webdesign-Ratgeber mit Schritt-für-Schritt-Anleitungen
 - [Glossar](https://seoforge.de/wissen/glossar): Begriffe aus SEO, GEO und Webdesign verständlich erklärt
-- [News](https://seoforge.de/wissen/news): Aktuelles zu Google-Updates, KI-Suche und Online-Marketing
-- [Case Studies](https://seoforge.de/wissen/case-study): Dokumentierte Kundenprojekte mit Vorgehen und Ergebnissen
 - [SEO Wissen](https://seoforge.de/wissen/seo): Grundlagen und Best Practices der Suchmaschinenoptimierung
 - [GEO Wissen](https://seoforge.de/wissen/geo): Artikel und Guides zur Generative Engine Optimization
 - [On-Page SEO Wissen](https://seoforge.de/wissen/on-page): Technische und inhaltliche On-Page-Faktoren erklärt

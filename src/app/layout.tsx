@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Sans, Playfair_Display } from "next/font/google";
+import ScrollRevealManager from "./components/ScrollRevealManager";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -47,7 +48,7 @@ const jsonLd = {
   "@type": "ProfessionalService",
   name: "SeoForge",
   url: "https://seoforge.de",
-  logo: "https://seoforge.de/logo.png",
+  logo: "https://seoforge.de/logo.svg",
   description:
     "SeoForge ist eine SEO-Agentur für nachhaltige Rankings, Webdesign und Generative Engine Optimization (GEO).",
   address: {
@@ -101,7 +102,10 @@ export default function RootLayout({
           <style>{`.scroll-hidden,.animate-fade-up,.animate-fade-in,.animate-scale-in,.animate-slide-up,.animate-slide-left,.animate-slide-right,.hero-title,.hero-description,.hero-cta,.hero-dashboard{opacity:1!important;transform:none!important;animation:none!important}`}</style>
         </noscript>
       </head>
-      <body className={`${dmSans.variable} ${playfair.variable} antialiased overflow-x-hidden`}>{children}</body>
+      <body className={`${dmSans.variable} ${playfair.variable} antialiased overflow-x-hidden`}>
+        <ScrollRevealManager />
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./components/Navbar";
@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import HeroWithImage from "./components/HeroWithImage";
 import TrustSection from "./components/TrustSection";
 import ProcessSection from "./components/ProcessSection";
+import HomeDecisionLab from "./components/HomeDecisionLab";
 /* ------------------------------------------------------------------ */
 /*  ANIMATED COUNTER HOOK                                             */
 /* ------------------------------------------------------------------ */
@@ -689,6 +690,34 @@ const FAQ_SCHEMA = {
 };
 
 export default function HomeClient() {
+  const [homeFormStatus, setHomeFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+
+  async function handleHomeSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setHomeFormStatus("sending");
+    const form = new FormData(event.currentTarget);
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.get("name"),
+          firmenname: form.get("firmenname"),
+          email: form.get("email"),
+          website: form.get("website"),
+          message: form.get("message"),
+          selectedServices: ["Kostenlose Erstanalyse"],
+        }),
+      });
+      if (!response.ok) throw new Error("request failed");
+      setHomeFormStatus("success");
+      event.currentTarget.reset();
+    } catch {
+      setHomeFormStatus("error");
+    }
+  }
+
   return (
     <>
       <script
@@ -919,6 +948,10 @@ export default function HomeClient() {
         {/*  PROCESS SECTION — 4-step Audit → Strategie → Umsetzung      */}
         {/* ============================================================ */}
         <ProcessSection />
+        <HomeDecisionLab />
+
+        {false && (
+        <>
 
         {/* ============================================================ */}
         {/*  WHAT MAKES US DIFFERENT - Bento Grid Typography               */}
@@ -1248,6 +1281,8 @@ export default function HomeClient() {
             </div>
           </div>
         </Section>
+        </>
+        )}
 
         {/* ============================================================ */}
         {/*  CTA SECTION                                                  */}
@@ -1306,7 +1341,7 @@ export default function HomeClient() {
                     Wir melden uns innerhalb von 24 Stunden bei Ihnen.
                   </p>
 
-                  <form className="mt-6 space-y-4" onSubmit={(e) => e.preventDefault()}>
+                  <form className="mt-6 space-y-4" onSubmit={handleHomeSubmit}>
                     <div className="grid gap-4 sm:grid-cols-2">
                       <div>
                         <label htmlFor="name" className="sr-only">
@@ -1316,18 +1351,19 @@ export default function HomeClient() {
                           type="text"
                           id="name"
                           name="name"
+                          required
                           placeholder="Ihr Name"
                           className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
                         />
                       </div>
                       <div>
-                        <label htmlFor="company" className="sr-only">
+                        <label htmlFor="firmenname" className="sr-only">
                           Unternehmen
                         </label>
                         <input
                           type="text"
-                          id="company"
-                          name="company"
+                          id="firmenname"
+                          name="firmenname"
                           placeholder="Unternehmen"
                           className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
                         />
@@ -1342,6 +1378,7 @@ export default function HomeClient() {
                         type="email"
                         id="email"
                         name="email"
+                        required
                         placeholder="Ihre E-Mail-Adresse"
                         className="w-full rounded-lg border border-white/10 bg-white/[0.06] px-4 py-3 text-sm text-white placeholder:text-white/30 outline-none transition-colors focus:border-primary/50 focus:bg-white/[0.08]"
                       />
@@ -1375,10 +1412,25 @@ export default function HomeClient() {
 
                     <button
                       type="submit"
-                      className="w-full rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-light hover:shadow-lg hover:shadow-primary/20"
+                      disabled={homeFormStatus === "sending" || homeFormStatus === "success"}
+                      className="w-full rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-white transition-all hover:bg-primary-light hover:shadow-lg hover:shadow-primary/20 disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      Kostenlose Beratung anfordern
+                      {homeFormStatus === "sending"
+                        ? "Anfrage wird gesendet …"
+                        : homeFormStatus === "success"
+                          ? "Anfrage ist angekommen"
+                          : "Kostenlose Beratung anfordern"}
                     </button>
+                    {homeFormStatus === "success" && (
+                      <p className="text-center text-sm font-semibold text-emerald-300" role="status">
+                        Danke – wir melden uns innerhalb von 24 Stunden.
+                      </p>
+                    )}
+                    {homeFormStatus === "error" && (
+                      <p className="text-center text-sm text-red-300" role="alert">
+                        Das Senden hat nicht funktioniert. Bitte nutzen Sie die Kontaktseite oder rufen Sie uns an.
+                      </p>
+                    )}
                     <p className="text-center text-xs text-white/30">
                       Ihre Daten werden vertraulich behandelt.
                     </p>

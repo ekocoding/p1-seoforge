@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://seoforge.de/wissen/news" },
   title: 'SEO News & Updates',
   description: 'Aktuelle SEO-News, Google-Updates und Branchenmeldungen von SeoForge — was jetzt wirklich wichtig ist.',
+  robots: { index: false, follow: true },
 }
 
 export default function NewsListPage() {

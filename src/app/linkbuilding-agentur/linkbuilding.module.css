@@ -1,0 +1,173 @@
+.evidenceGrid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.paper {
+  box-shadow:
+    0 28px 70px -30px rgba(0, 0, 0, 0.72),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  transform: rotate(1.2deg);
+  animation: paperIn 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.paper::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.45;
+  background-image: radial-gradient(rgba(26, 26, 26, 0.18) 0.55px, transparent 0.55px);
+  background-size: 5px 5px;
+  mix-blend-mode: multiply;
+}
+
+.stamp {
+  transform: rotate(-7deg);
+  animation: stampIn 650ms cubic-bezier(0.16, 1, 0.3, 1) 600ms both;
+}
+
+.drawLine {
+  stroke-dasharray: 9 8;
+  animation: dash 12s linear infinite;
+}
+
+.signalPulse {
+  animation: signalPulse 2.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.verdictEnter {
+  animation: verdictIn 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.scanLine {
+  background: linear-gradient(90deg, transparent, rgba(212, 168, 83, 0.85), transparent);
+  animation: scan 4.8s ease-in-out infinite;
+}
+
+.ticker {
+  animation: ticker 24s linear infinite;
+}
+
+.ticker:hover {
+  animation-play-state: paused;
+}
+
+.folderTab {
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 0 100%);
+}
+
+.redaction {
+  position: relative;
+  overflow: hidden;
+}
+
+.redaction::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  transform: translateX(-110%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25), transparent);
+  animation: sheen 5s ease-in-out infinite;
+}
+
+@keyframes paperIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px) rotate(4deg) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(1.2deg) scale(1);
+  }
+}
+
+@keyframes stampIn {
+  from {
+    opacity: 0;
+    transform: rotate(-18deg) scale(1.45);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(-7deg) scale(1);
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -136;
+  }
+}
+
+@keyframes signalPulse {
+  0%,
+  100% {
+    opacity: 0.62;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes verdictIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scan {
+  0%,
+  15% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  30%,
+  72% {
+    opacity: 0.7;
+  }
+  85%,
+  100% {
+    transform: translateY(390px);
+    opacity: 0;
+  }
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes sheen {
+  0%,
+  68% {
+    transform: translateX(-110%);
+  }
+  86%,
+  100% {
+    transform: translateX(110%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper,
+  .stamp,
+  .drawLine,
+  .signalPulse,
+  .verdictEnter,
+  .scanLine,
+  .ticker,
+  .redaction::after {
+    animation: none !important;
+  }
+}

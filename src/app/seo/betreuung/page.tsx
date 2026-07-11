@@ -4,10 +4,9 @@ import SeoBetreuungClient from "./SeoBetreuungClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "Laufende SEO Betreuung ohne Vertrag",
+  title: "SEO Betreuung: laufend & transparent",
   description:
-    
-    "SeoForge betreut Ihre SEO monatlich: Optimierung, Monitoring und Reporting — ohne Mindestlaufzeit. Sie kündigen, wann Sie möchten. Transparenz inklusive.",
+    "Monatliche SEO Betreuung mit klarer Priorität: Analyse, Umsetzung, Monitoring und verständliches Reporting. Feste Ansprechperson, transparente Arbeit.",
   alternates: { canonical: "https://seoforge.de/seo/betreuung" },
 };
 

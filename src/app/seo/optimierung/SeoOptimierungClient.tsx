@@ -1,657 +1,281 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
-import FaqAccordion from "@/app/components/FaqAccordion";
 import SubpageLayout from "@/app/components/SubpageLayout";
-import DashboardMockup from "./DashboardMockup";
+import FaqAccordion from "@/app/components/FaqAccordion";
 
-/* ------------------------------------------------------------------ */
-/*  INTERSECTION OBSERVER                                              */
-/* ------------------------------------------------------------------ */
-
-/* ------------------------------------------------------------------ */
-/* ------------------------------------------------------------------ */
-/*  ROADMAP CARD — reveals on scroll                                   */
-/* ------------------------------------------------------------------ */
-function RoadmapCard({ num, title, text, items, color }: { num: string; title: string; text: string; items: string[]; color: string }) {
-  return (
-    <div className="relative flex gap-6 lg:gap-10 reveal">
-      {/* Node */}
-      <div className="relative z-10 shrink-0">
-        <div className={`flex h-16 w-16 lg:h-20 lg:w-20 items-center justify-center rounded-2xl ${color} text-white text-xl lg:text-2xl font-bold font-[family-name:var(--font-heading)] shadow-lg ring-4 ring-white`}>
-          {num}
-        </div>
-      </div>
-      {/* Card */}
-      <div className="flex-1 rounded-2xl border p-6 lg:p-8 bg-white shadow-lg border-primary/20">
-        <h3 className="font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark mb-3">{title}</h3>
-        <p className="text-muted text-base leading-relaxed mb-5">{text}</p>
-        <div className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
-          {items.map((item, idx) => (
-            <div key={idx} className="flex items-center gap-2 text-sm text-dark/80">
-              <svg className="w-4 h-4 text-primary shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" /></svg>
-              {item}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  ROADMAP FINISH — reveals on scroll                                 */
-/* ------------------------------------------------------------------ */
-function RoadmapFinish() {
-  return (
-    <div className="relative flex gap-6 lg:gap-10 reveal">
-      <div className="relative z-10 shrink-0">
-        <div className="flex h-16 w-16 lg:h-20 lg:w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-white shadow-lg ring-4 ring-white">
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-        </div>
-      </div>
-      <div className="flex-1 flex items-center">
-        <div className="rounded-2xl bg-gradient-to-r from-primary/[0.06] to-secondary/[0.03] border border-primary/10 p-6 lg:p-8 w-full">
-          <p className="font-[family-name:var(--font-heading)] text-lg lg:text-xl font-bold text-dark">
-            Ziel erreicht: Eine Website, die <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">technisch, inhaltlich und strukturell</span> auf Top-Rankings optimiert ist.
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ------------------------------------------------------------------ */
-/*  FAQ                                                                */
-/* ------------------------------------------------------------------ */
-const faqs = [
-  { q: "Was kostet SEO Optimierung bei SeoForge?", a: "Einmalige Optimierungsprojekte starten ab 3.000 Euro. Laufende Optimierung ab 1.500 Euro monatlich. Im kostenlosen Erstgespräch erstellen wir ein individuelles Angebot basierend auf Ihrem Projektumfang." },
-  { q: "Wie lange dauert es, bis SEO Optimierung wirkt?", a: "Technische Fixes wirken oft innerhalb von Wochen. Nachhaltige Ranking-Verbesserungen zeigen sich nach 3–6 Monaten. SEO ist ein Marathon — aber die Ergebnisse sind langfristig und wachsen mit der Zeit." },
-  { q: "Was ist der Unterschied zwischen On-Page und Off-Page?", a: "On-Page betrifft alles auf Ihrer Website: Technik, Content, Struktur. Off-Page umfasst externe Faktoren wie Backlinks. Wir optimieren beides — mit Schwerpunkt auf On-Page, weil Sie dort die volle Kontrolle haben." },
-  { q: "Brauche ich SEO wenn meine Website schon gut ranked?", a: "Ja. Google ändert seinen Algorithmus über 500 Mal pro Jahr. Ohne laufende Optimierung verlieren Sie Positionen an Wettbewerber, die aktiv arbeiten." },
-  { q: "Welche Tools setzt SeoForge ein?", a: "Ahrefs, Sistrix, Screaming Frog, Google Search Console, Analytics, PageSpeed Insights und weitere spezialisierte Tools — ein Tool-Stack im Wert von mehreren tausend Euro monatlich." },
-  { q: "Kann ich SEO Optimierung selbst machen?", a: "Grundlegende Maßnahmen ja. Aber professionelle SEO erfordert tiefes Fachwissen, teure Tools und viel Zeit. Die meisten Unternehmen unterschätzen den Aufwand und machen kostspielige Fehler." },
+const WORKBENCH = [
+  {
+    key: "index",
+    label: "Indexierung",
+    before: "Mehrere URLs konkurrieren um dieselbe Suchintention. Canonicals und interne Links senden unterschiedliche Signale.",
+    action: "URL-Zuordnung bereinigen, Canonicals korrigieren, interne Signale auf eine Zielseite bündeln.",
+    verify: "Crawl, gerenderter Canonical, Sitemap und Search-Console-Status werden nach dem Release erneut geprüft.",
+    artifact: "URL-Mapping + technisches Release-Protokoll",
+  },
+  {
+    key: "speed",
+    label: "Performance",
+    before: "Ein großes Bild, blockierendes JavaScript oder unnötige Drittanbieter bremsen die zentrale Zielseite.",
+    action: "Ursache isolieren, Asset- und Ladepfad optimieren und nur die Änderung deployen, die den Engpass wirklich adressiert.",
+    verify: "Labordaten, reale Nutzerdaten und visuelle Regression werden getrennt kontrolliert – nicht zu einem Score vermischt.",
+    artifact: "Vorher-/Nachher-Messung mit Ursache",
+  },
+  {
+    key: "content",
+    label: "Content",
+    before: "Die Seite ist lang, beantwortet aber die entscheidende Kauf- oder Informationsfrage nicht eindeutig.",
+    action: "Suchintention schärfen, Struktur verdichten, fehlende Belege ergänzen und redundante Abschnitte entfernen.",
+    verify: "Snippet, interne Links, Indexierung und Reaktion der relevanten Suchanfragen werden beobachtet.",
+    artifact: "Redaktioneller Diff + Keyword-zu-Abschnitt-Mapping",
+  },
+  {
+    key: "structure",
+    label: "Architektur",
+    before: "Wichtige Geldseiten liegen tief, Hubs verlinken nicht auf Spokes oder ähnliche Seiten kannibalisieren sich.",
+    action: "Informationsarchitektur neu ordnen, Hub-Spoke-Wege schließen und Linktexte nach Aufgabe statt Keyword-Stuffing wählen.",
+    verify: "Klicktiefe, Inbounds, Orphan Pages und die eindeutige Ziel-URL je Cluster werden nachgeprüft.",
+    artifact: "Crawl-Map + umgesetzter Linking-Plan",
+  },
 ];
 
-/* ================================================================== */
-/*  PAGE                                                               */
-/* ================================================================== */
+const AREAS = [
+  ["01", "Technische SEO Optimierung", "Crawling, Rendering, Indexierung, Ladezeit, strukturierte Daten und Redirects werden dort korrigiert, wo sie Suchmaschinen oder Nutzer tatsächlich blockieren."],
+  ["02", "On-Page & Suchintention", "Titles, Seitenstruktur, interne Signale und Content werden auf eine eindeutige Aufgabe ausgerichtet. Eine URL soll nicht gleichzeitig fünf verschiedene Intentionen bedienen."],
+  ["03", "Content-Konsolidierung", "Bestehende Inhalte werden gestärkt, zusammengeführt oder bewusst entfernt. Neue Seiten entstehen erst, wenn eine eigene Suchintention und ein wirtschaftlicher Zweck belegt sind."],
+  ["04", "Interne Architektur", "Hubs, Leistungsseiten und Ratgeber verteilen Autorität entlang echter Nutzerwege. Wichtige Seiten dürfen nicht nur über Footer oder Sitemap erreichbar sein."],
+  ["05", "Autorität & externe Signale", "Backlinks, Erwähnungen und Entitätssignale werden mit dem Wettbewerbsabstand abgeglichen. Kein Linkpaket ersetzt eine schwache technische oder inhaltliche Grundlage."],
+  ["06", "Validierung & Monitoring", "Jede Änderung bekommt eine Prüfmethode. Wir dokumentieren, was live ging, welches Signal wir erwarten und wann neu entschieden wird."],
+];
+
+const FAQ = [
+  {
+    q: "Was ist SEO Optimierung?",
+    a: "SEO Optimierung ist die gezielte Verbesserung einer Website für Suchmaschinen und Nutzer. Dazu gehören technische Zugänglichkeit, eindeutige Suchintentionen, hilfreicher Content, interne Architektur, Autorität und die Messung nach dem Release. Bei SeoForge endet Optimierung nicht bei einer Empfehlung: Änderungen werden umgesetzt und anschließend validiert.",
+  },
+  {
+    q: "Was ist der Unterschied zwischen SEO Audit und SEO Optimierung?",
+    a: "Ein SEO Audit diagnostiziert Probleme und priorisiert Maßnahmen. SEO Optimierung setzt diese Maßnahmen tatsächlich um: im Code, in der Seitenstruktur, im Content und in der internen Verlinkung. Beides kann kombiniert werden, aber der Output ist unterschiedlich – Befund auf der einen, veränderte Website auf der anderen Seite.",
+  },
+  {
+    q: "Wie lange dauert SEO Optimierung?",
+    a: "Ein klar umrissenes technisches oder inhaltliches Paket kann innerhalb weniger Wochen umgesetzt werden. Wie schnell Suchmaschinen reagieren, hängt von Crawling, Ausgangslage und Wettbewerb ab. Größere Cluster und Autoritätsarbeit brauchen mehrere Monate. Wir trennen deshalb Umsetzungsdauer und Wirkungsdauer sauber.",
+  },
+  {
+    q: "Welche Bereiche werden optimiert?",
+    a: "Je nach Engpass arbeiten wir an Technik, Core Web Vitals, Indexierung, On-Page-Struktur, Content, interner Verlinkung, Informationsarchitektur, Backlinks und KI-Sichtbarkeit. Es wird nicht automatisch überall gearbeitet. Die Priorität folgt Daten, Risiko und geschäftlicher Wirkung.",
+  },
+  {
+    q: "Kann SEO Optimierung einmalig beauftragt werden?",
+    a: "Ja. Einmalige Optimierung eignet sich für klar definierte Probleme, Relaunch-Vorbereitung oder ein priorisiertes Maßnahmenpaket. Wenn regelmäßige Content-, Autoritäts- und Monitoringarbeit nötig ist, ist laufende SEO Betreuung das passendere Modell.",
+  },
+  {
+    q: "Gibt SeoForge Ranking-Garantien?",
+    a: "Nein. Keine Agentur kontrolliert Google oder Wettbewerber. Wir garantieren einen transparenten Arbeitsumfang, saubere Umsetzung, nachvollziehbare Validierung und eine ehrliche Einordnung der Daten – keine feste Position zu einem festen Datum.",
+  },
+];
+
+const grad = {
+  background: "linear-gradient(92deg, #C2722A, #D4A853)",
+  WebkitBackgroundClip: "text" as const,
+  WebkitTextFillColor: "transparent" as const,
+};
+
 export default function SeoOptimierungClient() {
+  const [active, setActive] = useState(0);
+  const item = WORKBENCH[active];
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+    mainEntity: FAQ.map((entry) => ({
+      "@type": "Question",
+      name: entry.q,
+      acceptedAnswer: { "@type": "Answer", text: entry.a },
+    })),
   };
 
   return (
     <SubpageLayout>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
-      {/* ============================================================ */}
-      {/*  HERO                                                         */}
-      {/* ============================================================ */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-white pt-20">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute -top-40 -right-40 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-primary/[0.06] via-secondary/[0.04] to-transparent blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 h-[400px] w-[400px] rounded-full bg-gradient-to-tr from-secondary/[0.05] to-transparent blur-3xl" />
-        </div>
-        <div className="relative mx-auto max-w-7xl px-6 pb-24 pt-8 lg:px-8 lg:pb-32 lg:pt-12">
-          <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
-            <div>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary hero-badge">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                Unsere Kernkompetenz
-              </div>
-              <h1 className="hero-title text-5xl lg:text-6xl leading-[1.12] text-dark font-[family-name:var(--font-heading)]">
-                <span className="block">SEO Optimierung</span>
-                <span className="text-primary">die man messen kann</span>
-              </h1>
-              <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted hero-description">
-                Technik, Content, Struktur — wir optimieren nicht einzelne Stellschrauben, sondern Ihre gesamte Website. Systematisch, datengetrieben und mit einem klaren Ziel: messbares Wachstum.
-              </p>
-              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 animate-fade-up" style={{ animationDelay: "0.4s" }}>
-                {["Technisch & inhaltlich", "92+ PageSpeed Score", "Monatliches Reporting"].map((p) => (
-                  <div key={p} className="flex items-center gap-2">
-                    <svg className="h-4 w-4 text-primary shrink-0" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" /></svg>
-                    <span className="text-sm text-muted">{p}</span>
-                  </div>
-                ))}
-              </div>
-              <div className="mt-10 flex flex-wrap gap-4 hero-cta">
-                <Link href="#jetzt-starten" className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark hover:shadow-xl hover:shadow-primary/30">
-                  Kostenlose SEO-Analyse
-                  <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z" clipRule="evenodd" /></svg>
-                </Link>
-                <Link href="#wie-wir-optimieren" className="inline-flex items-center gap-2 rounded-full border border-border px-7 py-3.5 text-sm font-semibold text-dark transition-all hover:border-primary/30 hover:bg-primary/[0.04] hover:text-primary">
-                  Was wir optimieren
-                </Link>
-              </div>
+      {/* HERO — Werkbank statt Dashboard-Fantasiezahlen */}
+      <section className="relative overflow-hidden bg-[#F5F0E9] py-14 lg:py-20">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-25"
+          style={{ backgroundImage: "linear-gradient(rgba(26,26,26,.09) 1px, transparent 1px),linear-gradient(90deg,rgba(26,26,26,.09) 1px,transparent 1px)", backgroundSize: "32px 32px" }}
+          aria-hidden="true"
+        />
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-[.88fr_1.12fr] lg:gap-16 lg:px-8">
+          <div>
+            <div className="flex items-center gap-3 border-b-2 border-dark pb-4">
+              <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-dark/55">SEO Optimierung · Umsetzung</span>
             </div>
-            <DashboardMockup />
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  MANIFESTO — Centered editorial + 3-column principles         */}
-      {/* ============================================================ */}
-      <section className="bg-white py-24 lg:py-32">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="transition-all duration-700 reveal">
-
-            {/* Centered intro */}
-            <div className="mx-auto max-w-3xl text-center mb-16">
-              <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Unser Verständnis</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-8 leading-tight">
-                SEO Optimierung ist kein Projekt.<br />
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Es ist ein System.</span>
-              </h2>
-              <p className="text-lg lg:text-xl text-muted leading-relaxed">
-                Google ändert seinen Algorithmus über 500 Mal im Jahr. Ihre Wettbewerber optimieren taeglich. Nutzerverhalten verschiebt sich ständig. Wer SEO als einmalige Maßnahme behandelt, wird abgehängt. Wer es als kontinuierliches System begreift, baut einen nachhaltigen Wettbewerbsvorteil auf.
-              </p>
-            </div>
-
-            {/* 3-column principles — visually distinct from any other page */}
-            <div className="grid md:grid-cols-3 gap-6 mb-20">
-              {[
-                {
-                  num: "I",
-                  title: "Analyse vor Aktion",
-                  text: "Wir optimieren nie blind. Jede Maßnahme basiert auf Daten: Crawl-Analysen, Keyword-Recherche, Wettbewerbsvergleich. Erst verstehen, dann handeln.",
-                  accent: "border-t-primary",
-                  bg: "from-primary/[0.03]",
-                },
-                {
-                  num: "II",
-                  title: "Impact vor Vollständigkeit",
-                  text: "Nicht alles gleichzeitig. Wir priorisieren nach ROI: Quick Wins zuerst, dann die großen Hebel. So sehen Sie schnell Ergebnisse, während wir langfristig bauen.",
-                  accent: "border-t-secondary",
-                  bg: "from-secondary/[0.03]",
-                },
-                {
-                  num: "III",
-                  title: "Iteration vor Perfektion",
-                  text: "SEO ist ein Zyklus: optimieren, messen, lernen, verbessern. Jede Runde macht Ihre Website stärker. Wer auf Perfektion wartet, fängt nie an.",
-                  accent: "border-t-primary",
-                  bg: "from-primary/[0.03]",
-                },
-              ].map((p) => (
-                <div key={p.num} className={`rounded-2xl border border-border ${p.accent} border-t-[3px] bg-gradient-to-b ${p.bg} to-white p-8 lg:p-10`}>
-                  <span className="inline-block font-[family-name:var(--font-heading)] text-4xl font-bold text-primary/15 mb-4">{p.num}</span>
-                  <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark mb-3">{p.title}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{p.text}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* ---- EYECATCHER: Light Optimization Dashboard ---- */}
-            <div className="rounded-3xl border border-border bg-offwhite overflow-hidden shadow-xl shadow-dark/[0.04]">
-              {/* Browser chrome */}
-              <div className="flex items-center gap-2 bg-white px-5 py-3.5 border-b border-border">
-                <div className="flex gap-1.5"><div className="h-3 w-3 rounded-full bg-red-400" /><div className="h-3 w-3 rounded-full bg-yellow-400" /><div className="h-3 w-3 rounded-full bg-green-400" /></div>
-                <div className="ml-3 flex-1 rounded-md bg-offwhite px-3 py-1.5 text-xs text-muted border border-border flex items-center gap-2">
-                  <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-                  optimize.seoforge.de/ihr-projekt
-                </div>
-                <div className="hidden sm:flex items-center gap-1.5 ml-2"><div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" /><span className="text-[10px] text-muted font-medium">Live</span></div>
-              </div>
-
-              <div className="p-6 lg:p-10">
-                {/* Metric cards row */}
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-                  {[
-                    { label: "PageSpeed", before: "34", after: "96", status: "Optimiert", statusColor: "text-green-600 bg-green-50" },
-                    { label: "Crawl Errors", before: "47", after: "0", status: "Behoben", statusColor: "text-green-600 bg-green-50" },
-                    { label: "Missing Metas", before: "89", after: "3", status: "In Arbeit", statusColor: "text-amber-600 bg-amber-50" },
-                    { label: "Broken Links", before: "23", after: "0", status: "Behoben", statusColor: "text-green-600 bg-green-50" },
-                  ].map((m) => (
-                    <div key={m.label} className="rounded-xl bg-white border border-border p-5">
-                      <p className="text-[10px] text-muted uppercase tracking-wide mb-2">{m.label}</p>
-                      <div className="flex items-baseline gap-2 mb-2">
-                        <span className="text-dark/30 line-through text-lg">{m.before}</span>
-                        <svg className="w-3 h-3 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                        <span className="text-2xl font-bold text-dark">{m.after}</span>
-                      </div>
-                      <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${m.statusColor}`}>{m.status}</span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Pipeline */}
-                <div className="rounded-xl bg-white border border-border p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="text-sm font-semibold text-dark">Optimization Pipeline</h4>
-                    <span className="text-xs text-primary font-medium">3 von 5 abgeschlossen</span>
-                  </div>
-                  <div className="space-y-3">
-                    {[
-                      { task: "Core Web Vitals: LCP 4.2s → 1.1s", progress: 100 },
-                      { task: "Structured Data: 0 → 34 Schema-Markups", progress: 100 },
-                      { task: "Internal Links: 12 orphaned pages reconnected", progress: 100 },
-                      { task: "Meta Optimization: 89 pages remaining", progress: 72 },
-                      { task: "Image Compression: Converting to WebP", progress: 45 },
-                    ].map((t, i) => (
-                      <div key={i} className="flex items-center gap-4">
-                        <div className="w-5 h-5 flex items-center justify-center shrink-0">
-                          {t.progress === 100 ? (
-                            <svg className="w-5 h-5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-                          ) : (
-                            <svg className="w-4 h-4 text-amber-500 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" /></svg>
-                          )}
-                        </div>
-                        <span className="flex-1 text-xs text-dark/70 truncate">{t.task}</span>
-                        <div className="w-28 h-2 bg-border rounded-full overflow-hidden shrink-0">
-                          <div className={`h-full rounded-full ${t.progress === 100 ? "bg-green-500" : "bg-amber-400"}`} style={{ width: `${t.progress}%` }} />
-                        </div>
-                        <span className={`text-[11px] font-semibold w-10 text-right ${t.progress === 100 ? "text-green-600" : "text-amber-500"}`}>{t.progress}%</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Bottom bar */}
-                <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 rounded-xl bg-gradient-to-r from-primary/[0.05] to-secondary/[0.03] border border-primary/10 p-5">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" /></svg>
-                    </div>
-                    <div>
-                      <p className="text-sm font-semibold text-dark">Traffic-Prognose</p>
-                      <p className="text-xs text-muted">Basierend auf aktuellen Optimierungen</p>
-                    </div>
-                  </div>
-                  <p className="text-3xl font-bold text-primary font-[family-name:var(--font-heading)]">+187%</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  TWO PILLARS — Interactive flip cards                         */}
-      {/* ============================================================ */}
-      <section className="bg-offwhite py-24 lg:py-32 border-y border-border">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <div className="text-center mb-16 transition-all duration-700 reveal">
-            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Zwei Säulen</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">Technik trifft Content</h2>
-            <p className="text-lg text-muted max-w-2xl mx-auto">Beide Seiten müssen stimmen. Wir optimieren parallel — für maximale Wirkung.</p>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8 transition-all duration-700 delay-200 reveal">
-            {/* Technik */}
-            <div className="pillar-card rounded-3xl bg-white border border-border p-8 lg:p-10 cursor-default relative overflow-hidden">
-              {/* Hover glow */}
-              <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-primary/0 transition-all duration-500 group-hover:bg-primary/5 pointer-events-none" />
-
-              {/* Animated top bar */}
-              <div className="h-1 bg-border rounded-full mb-8 overflow-hidden">
-                <div className="pillar-bar h-full bg-gradient-to-r from-primary to-primary-light rounded-full" style={{ width: "0%" }} />
-              </div>
-
-              <div className="flex items-center gap-4 mb-6">
-                <div className="pillar-icon flex h-16 w-16 items-center justify-center rounded-2xl bg-primary text-white" style={{ perspective: "600px" }}>
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" /></svg>
-                </div>
-                <div>
-                  <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-dark">Technisches SEO</h3>
-                  <p className="text-xs text-primary font-medium">Die unsichtbare Basis</p>
-                </div>
-              </div>
-
-              <p className="text-muted mb-8 leading-relaxed">
-                Ohne solide Technik verpuffen selbst die besten Inhalte. Wir sorgen dafür, dass Google Ihre Website versteht, schnell crawlt und korrekt indexiert.
-              </p>
-
-              <div className="grid grid-cols-2 gap-2.5">
-                {["Core Web Vitals", "Crawl-Optimierung", "Mobile-First", "Schema Markup", "Page Speed 90+", "Redirect-Cleanup"].map((item) => (
-                  <div key={item} className="pillar-tag flex items-center gap-2 rounded-lg border border-border bg-offwhite/50 px-3 py-2 text-xs font-medium text-dark/70">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Content */}
-            <div className="pillar-card pillar-card-secondary rounded-3xl bg-white border border-border p-8 lg:p-10 cursor-default relative overflow-hidden">
-              {/* Animated top bar */}
-              <div className="h-1 bg-border rounded-full mb-8 overflow-hidden">
-                <div className="pillar-bar h-full bg-gradient-to-r from-secondary to-primary rounded-full" style={{ width: "0%" }} />
-              </div>
-
-              <div className="flex items-center gap-4 mb-6">
-                <div className="pillar-icon flex h-16 w-16 items-center justify-center rounded-2xl bg-secondary text-white" style={{ perspective: "600px" }}>
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /></svg>
-                </div>
-                <div>
-                  <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-dark">Content-Optimierung</h3>
-                  <p className="text-xs text-secondary font-medium">Der sichtbare Hebel</p>
-                </div>
-              </div>
-
-              <p className="text-muted mb-8 leading-relaxed">
-                Content ist nur dann King, wenn er strategisch auf Suchintention ausgerichtet ist. Wir optimieren bestehende Inhalte und schaffen neue, die ranken und konvertieren.
-              </p>
-
-              <div className="grid grid-cols-2 gap-2.5">
-                {["Meta-Optimierung", "Heading-Struktur", "Content Gaps", "E-E-A-T Signale", "Interne Links", "Featured Snippets"].map((item) => (
-                  <div key={item} className="pillar-tag flex items-center gap-2 rounded-lg border border-border bg-offwhite/50 px-3 py-2 text-xs font-medium text-dark/70">
-                    <div className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0" />
-                    {item}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  DEEP DIVE — Roadmap with dashed path                         */}
-      {/* ============================================================ */}
-      <section id="wie-wir-optimieren" className="bg-white py-24 lg:py-32">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
-          <div className="mb-14 transition-all duration-700 reveal">
-            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Die Roadmap</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-4">Was wir konkret optimieren</h2>
-            <p className="text-lg text-muted max-w-3xl">Jede Website hat andere Schwachstellen. Hier ist der Weg zu einer vollständig optimierten Website.</p>
-          </div>
-
-          <div className="relative">
-            {/* Dashed path line */}
-            <div className="absolute left-8 lg:left-10 top-0 bottom-0 w-px border-l-[2px] border-dashed border-primary/20 pointer-events-none" />
-
-            <div className="space-y-12">
-              <RoadmapCard num="01" title="Ladezeiten & Performance" color="bg-primary"
-                text="Google misst, wie schnell Ihre Seite lädt — und bestraft langsame Websites mit schlechteren Rankings. Wir optimieren Server-Response, Bildgrößen, JavaScript-Bundles und CSS-Delivery, bis Ihre Core Web Vitals im grünen Bereich sind."
-                items={["LCP unter 2.5 Sekunden", "CLS unter 0.1", "TTFB optimieren", "Lazy Loading & Code Splitting"]}
-              />
-              <RoadmapCard num="02" title="Crawlability & Indexierung" color="bg-secondary"
-                text="Seiten, die Google nicht crawlen kann, existieren nicht. Wir bereinigen Crawl-Fehler, optimieren Robots.txt und Sitemaps, loesen Redirect-Chains auf und stellen sicher, dass jede wichtige Seite indexiert wird — und keine unwichtige."
-                items={["Crawl-Budget-Management", "Index-Bloat vermeiden", "Canonical-Tags prüfen", "Log-File-Analyse"]}
-              />
-              <RoadmapCard num="03" title="On-Page & Content-Signale" color="bg-primary"
-                text="Title-Tags, Meta-Descriptions, Heading-Hierarchie, Keyword-Platzierung — die Grundlagen klingen einfach, werden aber bei den meisten Websites stiefmütterlich behandelt. Wir optimieren jede Seite so, dass Google die Relevanz sofort erkennt."
-                items={["Keyword-Mapping pro Seite", "Meta-Daten optimieren", "Interne Verlinkung aufbauen", "Duplicate Content loesen"]}
-              />
-              <RoadmapCard num="04" title="Struktur & Architektur" color="bg-secondary"
-                text="Die Art, wie Ihre Website aufgebaut ist, bestimmt, wie effizient Google sie versteht und wie einfach Nutzer finden, was sie suchen. Wir bauen klare Silo-Strukturen, optimieren URL-Hierarchien und schaffen Topic-Cluster, die thematische Autorität aufbauen."
-                items={["URL-Taxonomie optimieren", "Topic-Cluster aufbauen", "Verwaiste Seiten verlinken", "Breadcrumb-Navigation"]}
-              />
-              <RoadmapFinish />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  PROCESS — Flywheel with center + orbiting cards              */}
-      {/* ============================================================ */}
-      <section className="bg-offwhite py-24 lg:py-32 border-y border-border overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center mb-16 transition-all duration-700 reveal">
-            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Unser Vorgehen</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-6">
-              Der Optimierungszyklus
-            </h2>
-            <p className="text-muted text-lg max-w-2xl mx-auto">
-              Kein Anfang, kein Ende — ein Kreislauf, der Ihre Website mit jeder Runde stärker macht.
+            <h1 className="mt-10 font-[family-name:var(--font-heading)] text-[42px] font-bold leading-[1.02] tracking-tight text-dark sm:text-5xl lg:text-[62px]">
+              Aus dem Befund
+              <span className="block" style={grad}>wird ein Release.</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              SEO Optimierung heißt bei uns: Ursache isolieren, Änderung umsetzen und danach prüfen, ob Technik, Suchintention und Nutzerweg wirklich besser geworden sind.
             </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href="/kontakt" className="rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-primary-dark">Optimierung besprechen</Link>
+              <a href="#werkbank" className="rounded-full border-2 border-dark px-7 py-3 text-sm font-bold text-dark transition-colors hover:bg-dark hover:text-white">Werkbank testen</a>
+            </div>
+            <div className="mt-9 flex flex-wrap gap-x-7 gap-y-3 border-t border-dark/15 pt-5">
+              {["Ursache vor Maßnahme", "Umsetzung im Projekt", "Validierung nach Release"].map((point) => (
+                <span key={point} className="flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.15em] text-dark/50"><span className="h-[2px] w-4 bg-primary" />{point}</span>
+              ))}
+            </div>
           </div>
 
-          <div className="transition-all duration-700 delay-200 reveal">
-            {/* Desktop: 2x2 grid with center flywheel icon */}
-            <div className="relative">
-              {/* Center flywheel element — desktop only */}
-              <div className="hidden lg:flex absolute inset-0 items-center justify-center z-10 pointer-events-none">
-                <div className="w-28 h-28 rounded-full bg-white border-2 border-primary/20 shadow-xl flex items-center justify-center">
-                  <svg className="w-10 h-10 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-                  </svg>
-                </div>
-              </div>
-
-              {/* Connecting lines — desktop only */}
-              <div className="hidden lg:block absolute top-1/2 left-[25%] right-[25%] h-[2px] bg-border -translate-y-1/2" />
-              <div className="hidden lg:block absolute left-1/2 top-[20%] bottom-[20%] w-[2px] bg-border -translate-x-1/2" />
-
-              <div className="grid md:grid-cols-2 gap-6 lg:gap-10">
-                {[
-                  {
-                    step: "01", title: "Analysieren", subtitle: "Daten sammeln & verstehen",
-                    desc: "200+ Ranking-Faktoren durchleuchten. Technische Schwächen, Content-Lücken und Wettbewerber-Vorteile aufdecken. Die Datenbasis für alles, was folgt.",
-                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" /></svg>,
-                    accent: "border-t-primary bg-gradient-to-b from-primary/[0.02] to-transparent",
-                    arrow: "→",
-                  },
-                  {
-                    step: "02", title: "Priorisieren", subtitle: "Impact-Matrix aufstellen",
-                    desc: "Nicht alles gleichzeitig. Quick Wins identifizieren, die innerhalb von Wochen wirken. Große Hebel planen, die langfristiges Wachstum treiben. Jede Maßnahme nach ROI sortiert.",
-                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" /></svg>,
-                    accent: "border-t-secondary bg-gradient-to-b from-secondary/[0.02] to-transparent",
-                    arrow: "↓",
-                  },
-                  {
-                    step: "04", title: "Messen & Lernen", subtitle: "Ergebnisse auswerten",
-                    desc: "Rankings, Traffic, Conversions tracken. Was funktioniert hat, skalieren. Was nicht funktioniert hat, analysieren und anpassen. Dann: zurück zu Schritt 1.",
-                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>,
-                    accent: "border-t-primary bg-gradient-to-b from-primary/[0.02] to-transparent",
-                    arrow: "←",
-                  },
-                  {
-                    step: "03", title: "Umsetzen", subtitle: "Hands-on implementieren",
-                    desc: "Technische Fixes deployen, Content optimieren, Struktur verbessern, Meta-Daten anpassen. Wir reden nicht nur — wir machen. Bei Bedarf direkt mit Ihrem Dev-Team.",
-                    icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17l-5.76-3.35a.9.9 0 010-1.56l5.76-3.35a.9.9 0 01.9 0l5.76 3.35a.9.9 0 010 1.56l-5.76 3.35a.9.9 0 01-.9 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M5.66 11.82v4.68a.9.9 0 00.45.78l5.76 3.35a.9.9 0 00.9 0l5.76-3.35a.9.9 0 00.45-.78v-4.68" /></svg>,
-                    accent: "border-t-secondary bg-gradient-to-b from-secondary/[0.02] to-transparent",
-                    arrow: "↑",
-                  },
-                ].map((phase) => (
-                  <div key={phase.step} className={`rounded-2xl border border-border ${phase.accent} border-t-[3px] bg-white p-8 lg:p-10 transition-all duration-300 hover:shadow-lg hover:shadow-primary/[0.03] hover:-translate-y-1`}>
-                    <div className="flex items-start justify-between mb-5">
-                      <div className="flex items-center gap-4">
-                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/[0.08] text-primary">
-                          {phase.icon}
-                        </div>
-                        <div>
-                          <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark">{phase.title}</h3>
-                          <p className="text-xs text-primary font-medium">{phase.subtitle}</p>
-                        </div>
-                      </div>
-                      <span className="text-3xl font-bold text-primary/10 font-[family-name:var(--font-heading)]">{phase.step}</span>
-                    </div>
-                    <p className="text-sm text-muted leading-relaxed">{phase.desc}</p>
-                  </div>
-                ))}
-              </div>
+          <div className="border-2 border-dark bg-dark text-white shadow-[16px_16px_0_rgba(194,114,42,.42)]">
+            <div className="flex items-center justify-between border-b border-white/20 px-5 py-3">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">Release-Protokoll</span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-secondary">Beispielstruktur</span>
             </div>
-
-            {/* Bottom note */}
-            <div className="mt-10 text-center">
-              <p className="inline-flex items-center gap-2 text-sm text-muted bg-white border border-border rounded-full px-5 py-2.5 shadow-sm">
-                <svg className="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
-                Jeder Zyklus baut auf dem vorherigen auf — so entsteht exponentielles Wachstum
-              </p>
+            <div className="p-6 sm:p-8">
+              {["Befund eindeutig formuliert", "Änderung isoliert umgesetzt", "Risiko und Rollback geprüft", "Messpunkt nach Release gesetzt"].map((line, index) => (
+                <div key={line} className="grid grid-cols-[42px_1fr_auto] items-center border-b border-white/12 py-4 last:border-b-0">
+                  <span className="font-mono text-[10px] text-secondary">0{index + 1}</span>
+                  <span className="text-sm font-semibold text-white/75">{line}</span>
+                  <span className="h-2 w-2 rounded-full bg-emerald-400" aria-label="erforderlich" />
+                </div>
+              ))}
+              <div className="mt-7 bg-white p-5 text-dark">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-[0.17em] text-primary">Definition of done</span>
+                <p className="mt-2 font-[family-name:var(--font-heading)] text-xl font-bold">Nicht „Ticket geschlossen“, sondern Änderung nachvollziehbar geprüft.</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ============================================================ */}
-      {/*  WAS SIE ERWARTEN KÖNNEN                                      */}
-      {/* ============================================================ */}
-      <section className="bg-white py-24 lg:py-32">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <div className="transition-all duration-700 reveal">
-
-            <div className="mx-auto max-w-3xl text-center mb-16">
-              <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Unser Versprechen</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark leading-tight mb-6">
-                Ehrlichkeit statt<br />
-                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Marketing-Versprechen</span>
-              </h2>
-              <p className="text-lg text-muted leading-relaxed">
-                SEO braucht Zeit. Wer Ihnen Top-Rankings in 30 Tagen verspricht, lügt. Was wir versprechen: systematische Arbeit, klare Kommunikation und nachvollziehbare Fortschritte.
-              </p>
+      {/* INTERAKTIVE WERKBANK */}
+      <section id="werkbank" className="scroll-mt-24 bg-white py-20 lg:py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="grid gap-8 border-b-2 border-dark pb-9 lg:grid-cols-[1fr_420px] lg:items-end">
+            <div>
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-primary">Interaktive Optimierungs-Werkbank</span>
+              <h2 className="mt-4 max-w-3xl font-[family-name:var(--font-heading)] text-4xl font-bold leading-[1.05] text-dark sm:text-5xl">Vom Problem zur überprüften Änderung.</h2>
             </div>
+            <p className="text-[15px] leading-relaxed text-muted">Wählen Sie einen Engpass. Die Werkbank zeigt den Unterschied zwischen einer allgemeinen Empfehlung und einem umsetzbaren SEO-Arbeitspaket.</p>
+          </div>
 
-            {/* 3 honest commitments */}
-            <div className="grid md:grid-cols-3 gap-5 mb-12">
-              {[
-                {
-                  icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>,
-                  title: "Realistische Erwartungen",
-                  desc: "Wir sagen Ihnen, was in Ihrer Branche und mit Ihrem Budget realistisch erreichbar ist — nicht was Sie hören wollen.",
-                  accent: "border-t-primary",
-                },
-                {
-                  icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" /></svg>,
-                  title: "Messbare Fortschritte",
-                  desc: "Jeden Monat sehen Sie genau, was wir gemacht haben und was es bewirkt hat. Rankings, Traffic, technische Verbesserungen — alles dokumentiert.",
-                  accent: "border-t-secondary",
-                },
-                {
-                  icon: <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" /></svg>,
-                  title: "Direkte Kommunikation",
-                  desc: "Kein Account-Manager-Ping-Pong. Sie sprechen direkt mit dem Experten, der Ihre Website optimiert. Immer.",
-                  accent: "border-t-primary",
-                },
-              ].map((c, i) => (
-                <div key={i} className={`rounded-2xl border border-border ${c.accent} border-t-[3px] bg-offwhite/40 p-8 transition-all duration-300 hover:bg-white hover:shadow-lg hover:border-border`}>
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/[0.08] text-primary">
-                    {c.icon}
-                  </div>
-                  <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark mb-3">{c.title}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{c.desc}</p>
-                </div>
+          <div className="mt-8 grid gap-8 lg:grid-cols-[320px_1fr]">
+            <div className="flex flex-col gap-2" role="tablist" aria-label="SEO-Engpass auswählen">
+              {WORKBENCH.map((entry, index) => (
+                <button
+                  key={entry.key}
+                  type="button"
+                  role="tab"
+                  aria-selected={active === index}
+                  onClick={() => setActive(index)}
+                  className={`flex cursor-pointer items-center justify-between border-2 px-5 py-4 text-left text-sm font-bold transition-all ${active === index ? "border-dark bg-dark text-white shadow-[7px_7px_0_#C2722A]" : "border-dark/15 bg-[#F8F5F1] text-dark hover:border-dark/45"}`}
+                >
+                  {entry.label}<span aria-hidden="true">→</span>
+                </button>
               ))}
             </div>
 
-            {/* Quote */}
-            <div className="rounded-3xl border border-primary/10 bg-gradient-to-br from-primary/[0.04] to-secondary/[0.02] p-10 lg:p-14">
-              <svg className="mb-6 h-8 w-8 text-primary/30" viewBox="0 0 24 24" fill="currentColor"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" /></svg>
-              <p className="font-[family-name:var(--font-heading)] text-xl lg:text-2xl text-dark leading-relaxed mb-8 max-w-3xl">
-                SEO Optimierung ist kein Geheimnis. Es ist harte, systematische Arbeit — und genau die machen wir richtig. Ohne Tricks, ohne Versprechen, die wir nicht halten können.
-              </p>
-              <div className="flex items-center gap-4 pt-6 border-t border-primary/10">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-white font-bold">JH</div>
-                <div>
-                  <p className="font-semibold text-dark">Joel Heuchert</p>
-                  <p className="text-sm text-muted">Gründer & SEO Stratege</p>
-                </div>
+            <div key={item.key} className="border-2 border-dark bg-[#F8F5F1] shadow-[14px_14px_0_rgba(212,168,83,.55)]">
+              <div className="flex items-center justify-between border-b-2 border-dark bg-dark px-5 py-3 text-white">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">Arbeitspaket · {item.label}</span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-secondary">illustratives Beispiel</span>
               </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  RELATED SERVICES                                             */}
-      {/* ============================================================ */}
-      <section className="py-12 bg-white border-y border-border">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <p className="text-xs font-bold tracking-[0.2em] uppercase text-muted mb-5">Passend dazu</p>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Link href="/seo/betreuung" className="group flex items-start gap-4 rounded-2xl border border-border bg-offwhite p-5 transition-all hover:border-primary/30 hover:shadow-md hover:-translate-y-0.5">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/[0.08] text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" /></svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-dark text-sm mb-1">Laufende SEO Betreuung</h3>
-                <p className="text-xs text-muted leading-relaxed">Optimierung ist kein Einmalprojekt. Monatliche SEO Betreuung baut Rankings nachhaltig aus.</p>
-              </div>
-              <svg className="w-4 h-4 text-muted shrink-0 mt-0.5 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-            </Link>
-            <Link href="/seo/betreuung/roi" className="group flex items-start gap-4 rounded-2xl border border-border bg-offwhite p-5 transition-all hover:border-primary/30 hover:shadow-md hover:-translate-y-0.5">
-              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-secondary/[0.1] text-secondary group-hover:bg-secondary group-hover:text-white transition-colors">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" /></svg>
-              </div>
-              <div className="flex-1">
-                <h3 className="font-semibold text-dark text-sm mb-1">SEO ROI berechnen</h3>
-                <p className="text-xs text-muted leading-relaxed">Was bringt SEO Betreuung wirklich? Interaktiver Rechner mit Branchendaten und Kostenvergleich.</p>
-              </div>
-              <svg className="w-4 h-4 text-muted shrink-0 mt-0.5 group-hover:text-primary transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  FAQ                                                          */}
-      {/* ============================================================ */}
-      <section className="bg-offwhite py-24 lg:py-32 border-t border-border">
-        <div className="mx-auto max-w-3xl px-6 lg:px-8">
-          <div className="text-center mb-14 transition-all duration-700 reveal">
-            <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">FAQ</span>
-            <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark">Häufig gestellte Fragen</h2>
-          </div>
-          <div className="transition-all duration-700 delay-100 reveal">
-            <FaqAccordion items={faqs} />
-          </div>
-        </div>
-      </section>
-
-      {/* ============================================================ */}
-      {/*  JETZT STARTEN — CTA                                          */}
-      {/* ============================================================ */}
-      <section id="jetzt-starten" className="bg-offwhite py-20 lg:py-28 border-y border-border">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div>
-              <span className="inline-block text-xs font-bold tracking-[0.2em] uppercase text-primary mb-4">Jetzt starten</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-5xl font-bold text-dark mb-6 leading-tight">
-                Mehr Rankings.<br />Mehr Umsatz.
-              </h2>
-              <p className="text-lg text-muted leading-relaxed mb-8">Lassen Sie uns analysieren, wo Ihr größtes Optimierungspotenzial liegt — datenbasiert, konkret und ohne leere Versprechen.</p>
-              <div className="space-y-4">
+              <div className="grid gap-px bg-dark lg:grid-cols-3">
                 {[
-                  { title: "Kostenlose Erstanalyse", desc: "Wir prüfen Ihre aktuelle SEO-Situation und zeigen erste Potenziale auf." },
-                  { title: "Individueller Maßnahmenplan", desc: "Priorisierte Empfehlungen, die zu Ihrem Unternehmen und Ihren Ressourcen passen." },
-                  { title: "Transparente Preise", desc: "Sie wissen vorher, was es kostet. Keine Überraschungen, keine versteckten Kosten." },
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary text-white">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-dark mb-1">{item.title}</h3>
-                      <p className="text-sm text-muted leading-relaxed">{item.desc}</p>
-                    </div>
+                  ["01 · Befund", item.before],
+                  ["02 · Änderung", item.action],
+                  ["03 · Validierung", item.verify],
+                ].map(([title, copy], index) => (
+                  <div key={title} className={`p-6 sm:p-8 ${index === 1 ? "bg-[#fbf4ea]" : "bg-white"}`}>
+                    <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-primary">{title}</span>
+                    <p className="mt-4 text-[14px] leading-relaxed text-dark/68">{copy}</p>
                   </div>
                 ))}
               </div>
-            </div>
-            <div className="rounded-3xl bg-white border border-border p-8 lg:p-10 shadow-xl shadow-dark/[0.03]">
-              <div className="text-center mb-8">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-secondary text-white">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 01-.825-.242m9.345-8.334a2.126 2.126 0 00-.476-.095 48.64 48.64 0 00-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0011.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>
-                </div>
-                <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-dark mb-2">Gespräch vereinbaren</h3>
-                <p className="text-sm text-muted">Kostenlos und unverbindlich</p>
-              </div>
-              <div className="space-y-4 mb-8">
-                <Link href="/kontakt" className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-base font-semibold text-white shadow-lg shadow-primary/20 hover:bg-primary-dark hover:shadow-xl transition-all">
-                  Erstgespräch anfragen
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
-                </Link>
-                <a href="tel:015129547343" className="w-full inline-flex items-center justify-center gap-2 rounded-full border border-border px-8 py-4 text-base font-semibold text-dark hover:border-primary/30 hover:text-primary transition-all">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                  0151 29547343
-                </a>
-              </div>
-              <div className="flex items-center justify-center gap-6 pt-6 border-t border-border">
-                <div className="flex items-center gap-1.5 text-xs text-muted">
-                  <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-                  Antwort in 24h
-                </div>
-                <div className="flex items-center gap-1.5 text-xs text-muted">
-                  <svg className="w-3.5 h-3.5 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-                  Keine Bindung
-                </div>
+              <div className="flex flex-col justify-between gap-4 border-t-2 border-dark bg-white px-6 py-5 sm:flex-row sm:items-center">
+                <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-dark/40">Sichtbarer Output</span>
+                <strong className="font-[family-name:var(--font-heading)] text-lg text-dark">{item.artifact}</strong>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* LEISTUNGS-DOSSIER */}
+      <section className="bg-[#F5F0E9] py-20 lg:py-28">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="mb-12 grid gap-6 lg:grid-cols-[1fr_420px] lg:items-end">
+            <div>
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-primary">Was wir optimieren</span>
+              <h2 className="mt-4 font-[family-name:var(--font-heading)] text-4xl font-bold leading-[1.05] text-dark">Sechs Ebenen. Eine priorisierte Reihenfolge.</h2>
+            </div>
+            <p className="text-[15px] leading-relaxed text-muted">Ganzheitlich bedeutet nicht gleichzeitig. Je nach Engpass kann eine kleine technische Korrektur wertvoller sein als eine neue Content-Serie – oder genau umgekehrt.</p>
+          </div>
+
+          <div className="border-2 border-dark bg-white">
+            <div className="flex items-center justify-between border-b-2 border-dark bg-dark px-6 py-4 text-white">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">Optimierungs-Dossier</span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-secondary">6 Prüfebenen</span>
+            </div>
+            {AREAS.map(([number, title, copy]) => (
+              <div key={number} className="grid gap-3 border-b border-dark/15 px-6 py-6 last:border-b-0 lg:grid-cols-[70px_260px_1fr] lg:items-baseline lg:px-8">
+                <span className="font-mono text-[10px] font-bold text-primary">POS {number}</span>
+                <h3 className="font-[family-name:var(--font-heading)] text-xl font-bold text-dark">{title}</h3>
+                <p className="text-[14px] leading-relaxed text-muted">{copy}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ARBEITSMODUS */}
+      <section className="bg-dark py-20 text-white lg:py-28">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-secondary">Optimierung ist Veränderungsarbeit</span>
+          <blockquote className="mt-7 max-w-5xl font-[family-name:var(--font-heading)] text-4xl font-bold leading-[1.05] sm:text-5xl lg:text-[58px]">
+            Ein Audit sagt, was falsch ist.
+            <span className="block text-secondary">Optimierung verändert, was Nutzer und Suchmaschinen erleben.</span>
+          </blockquote>
+          <div className="mt-12 grid gap-px bg-white/20 md:grid-cols-3">
+            {[
+              ["Einmaliges Paket", "Für einen klar umrissenen Engpass, Relaunch oder priorisierten Maßnahmenblock.", "/seo/audit", "Audit als Ausgangspunkt"],
+              ["Laufende Optimierung", "Für Websites, bei denen Content, Technik und Wettbewerb kontinuierlich weiterlaufen.", "/seo/betreuung", "Zur SEO Betreuung"],
+              ["Beratung + internes Team", "Für Unternehmen, die selbst umsetzen und eine klare Priorisierung sowie Review brauchen.", "/seo/beratung", "Zur SEO Beratung"],
+            ].map(([title, copy, href, label]) => (
+              <div key={title} className="flex flex-col bg-[#22201f] p-7 sm:p-9">
+                <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold">{title}</h3>
+                <p className="mt-4 flex-1 text-[14px] leading-relaxed text-white/55">{copy}</p>
+                <Link href={href} className="mt-7 text-sm font-bold text-secondary hover:text-white">{label} →</Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section id="jetzt-starten" className="bg-primary py-16 text-white lg:py-20">
+        <div className="mx-auto flex max-w-7xl flex-col justify-between gap-7 px-6 sm:flex-row sm:items-center lg:px-8">
+          <div>
+            <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-white/60">Kostenlose Ersteinschätzung</span>
+            <h2 className="mt-3 font-[family-name:var(--font-heading)] text-3xl font-bold sm:text-4xl">Welcher Engpass gehört zuerst auf die Werkbank?</h2>
+            <p className="mt-2 text-sm text-white/75">Wir prüfen die Ausgangslage und nennen eine begründete erste Maßnahme.</p>
+          </div>
+          <Link href="/kontakt" className="inline-flex shrink-0 items-center justify-center rounded-full bg-white px-7 py-3.5 text-sm font-bold text-dark transition-colors hover:bg-dark hover:text-white">Optimierung besprechen</Link>
+        </div>
+      </section>
+
+      <section className="bg-[#F5F0E9] py-20 lg:py-28">
+        <div className="mx-auto max-w-3xl px-6">
+          <div className="mb-12 text-center">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-primary">FAQ</span>
+            <h2 className="mt-4 font-[family-name:var(--font-heading)] text-4xl font-bold text-dark">Fragen zur SEO Optimierung</h2>
+          </div>
+          <FaqAccordion items={FAQ} />
         </div>
       </section>
     </SubpageLayout>

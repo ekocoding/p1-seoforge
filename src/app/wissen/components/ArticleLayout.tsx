@@ -93,6 +93,10 @@ export default function ArticleLayout({ article, children }: ArticleLayoutProps)
     headline: article.title,
     datePublished: article.publishDate,
     dateModified: article.lastUpdated,
+    author: {
+      '@type': 'Person',
+      name: 'Joel Heuchert',
+    },
     publisher: {
       '@type': 'Organization',
       name: 'SeoForge',

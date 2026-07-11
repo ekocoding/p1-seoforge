@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://seoforge.de/wissen/case-study" },
   title: 'SEO Case Studies',
   description: 'Echte Projektergebnisse und SEO-Erfolgsgeschichten von SeoForge — messbare Rankings, mehr Traffic und nachhaltiges Wachstum.',
+  robots: { index: false, follow: true },
 }
 
 export default function CaseStudyListPage() {

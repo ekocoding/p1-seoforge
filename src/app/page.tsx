@@ -4,9 +4,9 @@ import HomeClient from "./HomeClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO Agentur für nachhaltige Sichtbarkeit | SeoForge",
+  title: "SeoForge — SEO, GEO & Webdesign",
   description:
-    "SeoForge — SEO Agentur für nachhaltige Rankings, mehr organischen Traffic und messbare Ergebnisse. SEO, GEO & Webdesign aus einer Hand.",
+    "SeoForge verbindet SEO, GEO und Webdesign: klare Strategien, direkte Umsetzung und nachvollziehbare Arbeit für organische Sichtbarkeit.",
   alternates: { canonical: "https://seoforge.de" },
 };
 

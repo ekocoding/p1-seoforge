@@ -475,14 +475,19 @@ html {
   opacity: 0;
 }
 
-/* Scroll triggered visibility */
+/* Scroll triggered visibility — fail-open: ohne erfolgreichen Controller sichtbar */
 .scroll-hidden {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-ready .scroll-hidden:not(.scroll-visible) {
   opacity: 0;
   transform: translateY(40px);
   transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.scroll-visible {
+.reveal-ready .scroll-hidden.scroll-visible {
   opacity: 1;
   transform: translateY(0);
 }

@@ -1,182 +1,117 @@
 import type { Metadata } from "next";
-import SubpageLayout from "../components/SubpageLayout";
 import Link from "next/link";
+import SubpageLayout from "../components/SubpageLayout";
 
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "Referenzen — Erfolgreiche SEO-Projekte",
-  description:
-    "Entdecken Sie unsere erfolgreichen SEO-Projekte und Kundenerfolge. Realistische Fallstudien mit messbaren Ergebnissen.",
+  title: "Arbeitsproben & Referenzen",
+  description: "Öffentlich prüfbare Arbeitsproben von SeoForge: Kontext, Aufgabe und umgesetzte Systeme – ohne anonyme Erfolgszahlen oder erfundene Cases.",
   alternates: { canonical: "https://seoforge.de/referenzen" },
 };
 
-const caseStudies = [
+const WORK = [
   {
-    company: "TechVision GmbH",
-    industry: "Software & IT",
-    metric: "+340%",
-    metricLabel: "Organischer Traffic",
-    description:
-      "Durch gezielte technische Optimierung und eine umfassende Content-Strategie konnten wir den organischen Traffic innerhalb von 10 Monaten verdreifachen.",
-    duration: "10 Monate",
+    number: "01",
+    name: "Beamten-Beratung24",
+    url: "https://beamten-beratung24.de",
+    type: "Kundenprojekt · Versicherungen",
+    brief: "Informationsarchitektur und organischer Ausbau für ein erklärungsbedürftiges YMYL-Angebot.",
+    work: ["Next.js-Umsetzung", "Leistungs- und Themencluster", "interne Silo-Verlinkung", "technische SEO-Basis"],
+    note: "Öffentlich prüfbar: Seitenstruktur, Inhalte und technische Auslieferung. Ranking- oder Umsatzzahlen veröffentlichen wir ohne freigegebene Daten nicht.",
   },
   {
-    company: "Möbelhaus Schneider",
-    industry: "E-Commerce",
-    metric: "+215%",
-    metricLabel: "Online-Umsatz",
-    description:
-      "Mit Shop-SEO-Optimierung, Produktseiten-Enhancement und strategischem Linkbuilding steigerten wir den Online-Umsatz deutlich.",
-    duration: "12 Monate",
+    number: "02",
+    name: "SEO Mannheim",
+    url: "https://seomannheim.com",
+    type: "Agenturprojekt · Local SEO",
+    brief: "Lokale Leistungsarchitektur, Wissensbereich und schnelle technische Plattform für eine regionale SEO-Präsenz.",
+    work: ["Next.js & Tailwind", "lokale Themenarchitektur", "Wissens- und Guide-Struktur", "Deployment & Betrieb"],
+    note: "Öffentlich prüfbar: Informationsarchitektur, Seitentemplates, Inhalte und lokale Ausrichtung.",
   },
   {
-    company: "Kanzlei Weber & Partner",
-    industry: "Rechtsberatung",
-    metric: "Top 3",
-    metricLabel: "Rankings",
-    description:
-      "Lokale SEO-Strategie brachte die Kanzlei für 47 relevante Keywords in die Top 3 der lokalen Suchergebnisse.",
-    duration: "6 Monate",
-  },
-  {
-    company: "FitnessPro Studios",
-    industry: "Fitness & Gesundheit",
-    metric: "+180%",
-    metricLabel: "Qualifizierte Leads",
-    description:
-      "Durch zielgerichtete Content-Optimierung und lokale Suchmaschinenoptimierung konnten wir die Lead-Generierung nahezu verdoppeln.",
-    duration: "8 Monate",
-  },
-  {
-    company: "Handwerk Meister GmbH",
-    industry: "Handwerk & Dienstleistung",
-    metric: "+425%",
-    metricLabel: "Anfragen",
-    description:
-      "Lokale SEO-Kampagne mit Google Business Optimierung und gezieltem Content führte zu massiver Steigerung der Kundenanfragen.",
-    duration: "9 Monate",
-  },
-  {
-    company: "BioMarkt Grün",
-    industry: "Einzelhandel & E-Commerce",
-    metric: "+290%",
-    metricLabel: "Organische Conversions",
-    description:
-      "Kombination aus technischem SEO, UX-Verbesserungen und strategischem Content-Marketing trieb die Conversions in die Höhe.",
-    duration: "11 Monate",
+    number: "03",
+    name: "SeoForge",
+    url: "https://seoforge.de",
+    type: "Eigenes System · SEO, GEO & Webdesign",
+    brief: "Das eigene Projekt dient als offenes Arbeitslabor für technische SEO, Content-Cluster, KI-Sichtbarkeit und Conversion-orientiertes Webdesign.",
+    work: ["SEO-/GEO-Silos", "interaktive Money-Pages", "Content-System", "CI/CD auf eigenem VPS"],
+    note: "Kein Kunden-Case. Gerade deshalb können Architektur, Experimente und Arbeitsweise vollständig gezeigt werden.",
   },
 ];
 
 export default function ReferenzenPage() {
   return (
     <SubpageLayout>
-      <main className="bg-white">
-        {/* Hero Section */}
-        <section className="border-b border-border bg-gradient-to-b from-offwhite to-white py-24 lg:py-32">
+      <main className="bg-[#F5F0E9]">
+        <section className="border-b-2 border-dark py-16 lg:py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl text-center">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/[0.06] px-4 py-1.5 text-sm font-medium text-primary">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                Unsere Erfolgsgeschichten
-              </div>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl text-dark font-[family-name:var(--font-heading)]">
-                Unsere <span className="text-primary">Referenzen</span>
+            <div className="flex items-center justify-between border-b-2 border-dark pb-4">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-primary">Arbeitsproben · offen einsehbar</span>
+              <span className="hidden font-mono text-[9px] uppercase tracking-[0.16em] text-dark/35 sm:block">Kontext statt Fantasie-KPI</span>
+            </div>
+            <div className="mt-12 grid gap-10 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
+              <h1 className="font-[family-name:var(--font-heading)] text-5xl font-bold leading-[1.02] text-dark sm:text-6xl lg:text-[74px]">
+                Arbeit, die Sie
+                <span className="block text-primary">selbst prüfen können.</span>
               </h1>
-              <p className="mt-6 text-lg leading-relaxed text-muted">
-                Entdecken Sie, wie wir Unternehmen aus verschiedenen Branchen zu
-                mehr Sichtbarkeit, Traffic und Umsatz verholfen haben. Echte
-                Projekte, messbare Ergebnisse.
-              </p>
+              <div>
+                <p className="text-lg leading-relaxed text-muted">
+                  Keine anonymen TechVision-GmbHs. Keine Prozentzahl ohne Datenquelle. Hier stehen nur Projekte, die öffentlich erreichbar sind – mit der Aufgabe, die wir tatsächlich zeigen dürfen.
+                </p>
+                <p className="mt-4 font-mono text-[9px] uppercase tracking-[0.15em] leading-relaxed text-dark/40">
+                  Vertrauliche Kunden- und Umsatzdaten bleiben vertraulich. Eine gute Referenz muss nicht mehr behaupten, als sie belegen kann.
+                </p>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Case Studies Grid */}
-        <section className="py-24 lg:py-32">
+        <section className="py-16 lg:py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-              {caseStudies.map((study, index) => (
-                <article
-                  key={study.company}
-                  className="group relative rounded-2xl border border-border bg-white p-8 transition-all duration-300 hover:border-primary/20 hover:shadow-xl hover:shadow-primary/[0.04] hover:-translate-y-1"
-                >
-                  {/* Metric Badge */}
-                  <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/[0.08] px-4 py-2">
-                    <span className="text-2xl font-bold text-primary">
-                      {study.metric}
-                    </span>
-                    <span className="text-xs font-medium text-primary">
-                      {study.metricLabel}
-                    </span>
+            <div className="border-2 border-dark bg-white">
+              <div className="flex items-center justify-between border-b-2 border-dark bg-dark px-6 py-4 text-white lg:px-8">
+                <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">Öffentliches Projektregister</span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-secondary">3 Einträge</span>
+              </div>
+
+              {WORK.map((item) => (
+                <article key={item.name} className="grid gap-7 border-b-2 border-dark p-6 last:border-b-0 lg:grid-cols-[90px_1fr_1.1fr] lg:p-8">
+                  <span className="font-[family-name:var(--font-heading)] text-5xl font-black leading-none text-primary/20">{item.number}</span>
+                  <div>
+                    <span className="font-mono text-[9px] font-bold uppercase tracking-[0.17em] text-primary">{item.type}</span>
+                    <h2 className="mt-3 font-[family-name:var(--font-heading)] text-3xl font-bold text-dark">{item.name}</h2>
+                    <p className="mt-4 text-[15px] leading-relaxed text-muted">{item.brief}</p>
+                    <a href={item.url} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-primary-dark">
+                      Live-Projekt öffnen <span aria-hidden="true">↗</span>
+                    </a>
                   </div>
-
-                  {/* Company Info */}
-                  <h2 className="text-xl font-bold text-dark mb-2">
-                    {study.company}
-                  </h2>
-                  <p className="text-sm font-medium text-muted mb-4">
-                    {study.industry}
-                  </p>
-
-                  {/* Description */}
-                  <p className="text-sm leading-relaxed text-muted mb-6">
-                    {study.description}
-                  </p>
-
-                  {/* Duration */}
-                  <div className="flex items-center gap-2 text-xs text-muted">
-                    <svg className="h-4 w-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Projektdauer: {study.duration}</span>
+                  <div className="bg-[#F8F5F1] p-5 ring-1 ring-border lg:p-6">
+                    <span className="font-mono text-[9px] font-bold uppercase tracking-[0.17em] text-dark/40">Sichtbarer Arbeitsumfang</span>
+                    <div className="mt-4 divide-y divide-border border-y border-border">
+                      {item.work.map((entry, index) => (
+                        <div key={entry} className="flex items-center gap-4 py-3">
+                          <span className="font-mono text-[9px] font-bold text-primary">0{index + 1}</span>
+                          <span className="text-sm font-semibold text-dark/75">{entry}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <p className="mt-5 text-[12px] leading-relaxed text-muted">{item.note}</p>
                   </div>
-
-                  {/* Decorative accent */}
-                  <div className="absolute top-0 right-0 h-32 w-32 rounded-bl-[100px] bg-gradient-to-br from-primary/[0.03] to-transparent" />
                 </article>
               ))}
             </div>
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="border-t border-border bg-dark py-24 lg:py-32">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mx-auto max-w-2xl text-center">
-              <h2 className="text-4xl lg:text-5xl text-white font-[family-name:var(--font-heading)]">
-                Bereit für Ihre <span className="text-primary">Erfolgsgeschichte</span>?
-              </h2>
-              <p className="mt-4 text-base leading-relaxed text-white/60">
-                Lassen Sie uns gemeinsam Ihr nächstes SEO-Projekt zum Erfolg führen.
-                Vereinbaren Sie jetzt ein kostenloses Erstgespräch.
-              </p>
-              <div className="mt-10 flex flex-wrap justify-center gap-4">
-                <Link
-                  href="/kontakt"
-                  className="group inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark hover:shadow-xl hover:shadow-primary/30"
-                >
-                  Kostenloses Erstgespräch
-                  <svg
-                    className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M3 10a.75.75 0 01.75-.75h10.638L11.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 11-1.04-1.08l3.158-2.96H3.75A.75.75 0 013 10z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </Link>
-                <Link
-                  href="/"
-                  className="inline-flex items-center gap-2 rounded-full border border-white/10 px-7 py-3.5 text-sm font-semibold text-white transition-all hover:border-primary/30 hover:bg-white/[0.04]"
-                >
-                  Zurück zur Startseite
-                </Link>
-              </div>
+        <section className="bg-dark py-16 text-white lg:py-20">
+          <div className="mx-auto flex max-w-7xl flex-col justify-between gap-7 px-6 sm:flex-row sm:items-center lg:px-8">
+            <div>
+              <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-secondary">Ihr Projekt muss kein Versprechen bleiben</span>
+              <h2 className="mt-3 font-[family-name:var(--font-heading)] text-3xl font-bold sm:text-4xl">Zeigen Sie uns die echte Ausgangslage.</h2>
+              <p className="mt-2 text-sm text-white/60">Wir nennen eine begründete erste Priorität – ohne Ergebniszahlen zu erfinden.</p>
             </div>
+            <Link href="/kontakt" className="inline-flex shrink-0 items-center justify-center rounded-full bg-primary px-7 py-3.5 text-sm font-bold text-white transition-colors hover:bg-white hover:text-dark">Kostenlose Erstanalyse</Link>
           </div>
         </section>
       </main>

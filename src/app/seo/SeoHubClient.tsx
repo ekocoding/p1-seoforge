@@ -21,8 +21,8 @@ const subpages = [
   {
     num: "03", title: "SEO Betreuung", href: "/seo/betreuung", tag: "Laufend",
     brief: "Kontinuierlich stärker werden",
-    desc: "SEO ist kein Projekt — es ist ein System. Monatliche Betreuung die sich an Daten orientiert, nicht an einem fixen Kalender. Adaptiv, transparent, ohne Vertragsbindung.",
-    bullets: ["Monatliches Monitoring & Reporting", "Technisches SEO, Content & Links", "Kein Fahrplan — ein Kompass", "Flexibel kündbar"],
+    desc: "SEO ist kein Projekt — es ist ein System. Monatliche Betreuung, die sich an Daten orientiert statt an einem fixen Maßnahmenkalender. Transparent priorisiert und nach der Aufbauphase monatlich kündbar.",
+    bullets: ["Monatliches Monitoring & Reporting", "Technisches SEO, Content & Links", "Kein Fahrplan — ein Kompass", "3 Monate Aufbau, danach monatlich kündbar"],
   },
   {
     num: "04", title: "Content Strategie", href: "/seo/content-strategie", tag: "Content",
@@ -47,6 +47,12 @@ const subpages = [
     brief: "Content der rankt und konvertiert",
     desc: "Keyword-optimierte Inhalte für Websites, Blogs und Produktseiten — geschrieben für Suchmaschinen und Menschen. Mit Rankingwirkung und ohne generisches Filler-Content.",
     bullets: ["Keyword-Integration", "Suchintention treffen", "E-E-A-T in Texten", "CTA & Conversion-Fokus"],
+  },
+  {
+    num: "08", title: "Linkbuilding Agentur", href: "/linkbuilding-agentur", tag: "Autorität",
+    brief: "Redaktionelle Signale verdienen",
+    desc: "Manuell geprüfte Quellen, Digital-PR-Anlässe und Link-Gap-Analysen statt austauschbarer Linkpakete. Jeder Verweis braucht einen nachvollziehbaren redaktionellen Grund.",
+    bullets: ["Link-Gap-Analyse", "Manuelle Quellenprüfung", "Digital PR & Linkable Assets", "Interne Autoritätsverteilung"],
   },
 ];
 

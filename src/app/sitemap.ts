@@ -6,7 +6,7 @@ import { articles } from "./wissen/data/articles";
 const BASE = "https://seoforge.de";
 
 // Routes excluded from the sitemap (noindex pages)
-const EXCLUDE = ["/impressum", "/datenschutz"];
+const EXCLUDE = ["/impressum", "/datenschutz", "/wissen/news", "/wissen/case-study"];
 
 function walk(appDir: string, rel = ""): string[] {
   const absDir = rel ? path.join(appDir, rel) : appDir;
