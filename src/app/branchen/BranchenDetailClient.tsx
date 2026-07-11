@@ -6,7 +6,15 @@ import Link from "next/link";
 import Image from "next/image";
 import SubpageLayout from "@/app/components/SubpageLayout";
 import { FOTO_BAND, KEYWORDS, branchen } from "./branchenData";
-import type { Branche, FotoBand, KeywordPotenzial, KeywordRow, Signature } from "./branchenData";
+import type { FotoBand, KeywordPotenzial, KeywordRow, Signature } from "./branchenData";
+import {
+  BranchenHebel,
+  BranchenHero,
+  BranchenSectionRail,
+  BranchenSiloNavigator,
+  PraxisNavigator,
+  getBranchThemeStyle,
+} from "./BranchenExperience";
 
 /* ─── Scroll-Reveal (IntersectionObserver → .scroll-visible) ──────────────── */
 function useScrollReveal() {
@@ -643,14 +651,16 @@ function VorgehenPlayer({ schritte }: { schritte: { titel: string; text: string 
   const [gehovert, setGehovert] = useState(false);
   const [reduzierteBewegung, setReduzierteBewegung] = useState(false);
   const fortschrittRef = useRef(0);
-  const pauseBisRef = useRef(0);
+  const pauseTicksRef = useRef(0);
   const panelRef = useRef<HTMLDivElement | null>(null);
 
   /* prefers-reduced-motion beobachten */
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setReduzierteBewegung(mq.matches);
-    if (mq.matches) setBereitsSichtbar(true);
+    queueMicrotask(() => {
+      setReduzierteBewegung(mq.matches);
+      if (mq.matches) setBereitsSichtbar(true);
+    });
     const onChange = (e: MediaQueryListEvent) => setReduzierteBewegung(e.matches);
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
@@ -673,7 +683,11 @@ function VorgehenPlayer({ schritte }: { schritte: { titel: string; text: string 
   useEffect(() => {
     if (reduzierteBewegung || !imViewport || gehovert) return;
     const tick = () => {
-      if (document.hidden || Date.now() < pauseBisRef.current) return;
+      if (document.hidden) return;
+      if (pauseTicksRef.current > 0) {
+        pauseTicksRef.current -= 1;
+        return;
+      }
       const naechster = fortschrittRef.current + TICK_MS / SCHRITT_DAUER_MS;
       if (naechster >= 1) {
         fortschrittRef.current = 0;
@@ -691,7 +705,7 @@ function VorgehenPlayer({ schritte }: { schritte: { titel: string; text: string 
 
   /* Manuelle Wahl: Schritt setzen + Auto-Advance für 12 s pausieren */
   const waehleSchritt = (i: number) => {
-    pauseBisRef.current = Date.now() + KLICK_PAUSE_MS;
+    pauseTicksRef.current = Math.ceil(KLICK_PAUSE_MS / TICK_MS);
     fortschrittRef.current = 0;
     setFortschritt(0);
     setAktiv(i);
@@ -941,7 +955,6 @@ function DeployTerminal({ beispiel }: { beispiel: string }) {
     spanRefs.current.forEach((s) => {
       if (s) s.textContent = "";
     });
-    setAktiv(-2);
     const io = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
@@ -961,7 +974,7 @@ function DeployTerminal({ beispiel }: { beispiel: string }) {
     const span = spanRefs.current[aktiv];
     const text = zeilen[aktiv].text;
     if (!span) {
-      setAktiv((a) => a + 1);
+      queueMicrotask(() => setAktiv((a) => a + 1));
       return;
     }
     const start = performance.now();
@@ -1118,75 +1131,28 @@ function ArbeitsweiseSaeulen({ saeulen }: { saeulen: { titel: string; text: stri
   );
 }
 
-/* ═══════════════════════════════════════════════════════════════════════════
-   Icon-Chips für die „stack“-Hebel-Variante (Stroke-SVGs inline)
-═══════════════════════════════════════════════════════════════════════════ */
-const stackIconSvg = (paths: ReactNode) => (
-  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    {paths}
-  </svg>
-);
-
-const STACK_ICONS: Record<string, ReactNode[]> = {
-  /* Kategorien · Duplicate Content · Produktdaten · Positionierung */
-  "seo-fuer-online-shops": [
-    stackIconSvg(
-      <path d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
-    ),
-    stackIconSvg(
-      <path d="M16.5 8.25V6a2.25 2.25 0 0 0-2.25-2.25H6A2.25 2.25 0 0 0 3.75 6v8.25A2.25 2.25 0 0 0 6 16.5h2.25m8.25-8.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-7.5A2.25 2.25 0 0 1 8.25 18v-1.5m8.25-8.25h-6a2.25 2.25 0 0 0-2.25 2.25v6" />
-    ),
-    stackIconSvg(
-      <>
-        <path d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
-        <path d="M6 6h.008v.008H6V6Z" />
-      </>
-    ),
-    stackIconSvg(
-      <>
-        <circle cx="12" cy="12" r="7.25" />
-        <circle cx="12" cy="12" r="3" />
-        <path d="M12 2.5v2.25M12 19.25v2.25M2.5 12h2.25M19.25 12h2.25" />
-      </>
-    ),
-  ],
-  /* Eigentümer-Content · lokale Autorität · Objektseiten-Pflege · Profil/Bewertungen */
-  "seo-fuer-immobilienmakler": [
-    stackIconSvg(
-      <path d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
-    ),
-    stackIconSvg(
-      <>
-        <path d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-        <path d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-      </>
-    ),
-    stackIconSvg(
-      <path d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-    ),
-    stackIconSvg(
-      <path d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.563.563 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-    ),
-  ],
-};
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   EIN Design-System je Branche: Magazine-Cover-Hero (Foto full-bleed, weißer
-   Fade links) → 01 WARUM → 02 SIGNATURE-App → 03 SPLIT (Bild) → 04 TIEFE
+   EIN Design-System je Branche: interaktiver Suchpfad-Hero mit eigener
+   Branchenwelt → 01 WARUM → 02 SIGNATURE-App → 03 SPLIT (Bild) → 04 TIEFE
    (Magazin-Dossier mit Pull-Quote) → 05 VORGEHEN → 06 KEYWORD-POTENZIAL →
-   07 HEBEL → 08 FEHLER → 09 ARBEITSWEISE (Säulen-Expander + Deploy-Terminal) →
+   07 HEBEL-Arbeitskarte → 08 FEHLER → SILO-NAVIGATION → 09 ARBEITSWEISE →
    FOTO-BAND → 10 FAQ → CTA.
    Hintergrund-Rhythmus weiß/beige sauber alternierend, dunkel nur das CTA-Band
    (das Deploy-Terminal ist ein dunkles Panel im weißen Kontext, kein Section-BG).
 ═══════════════════════════════════════════════════════════════════════════ */
-export default function BranchenDetailClient({ branche }: { branche: Branche }) {
+export default function BranchenDetailClient({ slug }: { slug: string }) {
+  const branche = branchen.find((entry) => entry.slug === slug) ?? branchen[0];
   /* SaaS-Kosten-Skizze: IO-Gate, damit die Kurven erst zeichnen wenn die Section erreicht wird (nicht schon beim Laden der Seite) */
   const skizzeRef = useRef<HTMLDivElement | null>(null);
   const [skizzeSichtbar, setSkizzeSichtbar] = useState(false);
   useEffect(() => {
     const el = skizzeRef.current;
     if (!el) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setSkizzeSichtbar(true); return; }
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      queueMicrotask(() => setSkizzeSichtbar(true));
+      return;
+    }
     const io = new IntersectionObserver(
       (entries) => { if (entries.some((e) => e.isIntersecting)) { io.disconnect(); setSkizzeSichtbar(true); } },
       { threshold: 0.4 }
@@ -1208,7 +1174,6 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
     branche.slug === "seo-fuer-immobilienmakler" ||
     branche.slug === "seo-fuer-anwaelte" ||
     branche.slug === "saas-seo";
-  const stackIcons = STACK_ICONS[branche.slug] ?? STACK_ICONS["seo-fuer-online-shops"];
   /* KEYWORD-POTENZIAL + FOTO-BAND: Daten je Branche (Semrush bzw. Statement) */
   const kwSet: KeywordPotenzial | undefined = KEYWORDS[branche.slug];
   const kwSumme = kwSet ? kwSet.rows.reduce((s, r) => s + r.vol, 0) : 0;
@@ -1234,48 +1199,6 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       { "@type": "ListItem", position: 3, name: branche.name, item: `https://seoforge.de/branchen/${branche.slug}` },
     ],
   };
-
-  const ctaButtons = (
-    <div className="hero-cta mt-8 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
-      <a
-        href="#kontakt"
-        className="group inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-[15px] font-semibold text-white shadow-[0_12px_28px_-10px_rgba(26,26,26,0.45)] transition-all hover:bg-primary-dark hover:shadow-[0_16px_34px_-10px_rgba(26,26,26,0.5)]"
-      >
-        {branche.ctaLabel}
-        <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-        </svg>
-      </a>
-      <Link
-        href="/branchen"
-        className={`group inline-flex items-center gap-2 text-sm font-semibold border-b pb-0.5 transition-colors ${istTech ? "text-white/80 border-white/30 hover:border-secondary hover:text-white" : "text-dark border-dark/20 hover:border-primary hover:text-primary"}`}
-      >
-        <svg className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
-        </svg>
-        Alle Branchen
-      </Link>
-    </div>
-  );
-
-  /* Sichtbarer Breadcrumb im Eyebrow-Bereich: Branchen → Branche */
-  const heroBadge = (
-    <nav aria-label="Breadcrumb" className="hero-badge mb-5 inline-flex items-center gap-2.5">
-      <span className={`h-px w-8 ${istTech ? "bg-secondary" : "bg-primary"}`} aria-hidden="true" />
-      <Link
-        href="/branchen"
-        className={`text-xs font-semibold uppercase tracking-[0.24em] transition-colors ${istTech ? "text-white/60 hover:text-secondary" : "text-dark/45 hover:text-primary"}`}
-      >
-        Branchen
-      </Link>
-      <svg className={`h-3 w-3 shrink-0 ${istTech ? "text-white/30" : "text-dark/30"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="m9 18 6-6-6-6" />
-      </svg>
-      <span className={`text-xs font-semibold uppercase tracking-[0.24em] ${istTech ? "text-secondary" : "text-primary"}`} aria-current="page">
-        {branche.kurzName}
-      </span>
-    </nav>
-  );
 
   return (
     <SubpageLayout>
@@ -1306,6 +1229,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         @keyframes termCaret { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
         .term-caret { animation: termCaret 0.9s step-end infinite; }
         @media (prefers-reduced-motion: reduce), (scripting: none) {
+          [data-branch-ui] *, [data-branch-ui] *::before, [data-branch-ui] *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
           .scroll-hidden.rv-left, .scroll-hidden.rv-right, .scroll-hidden.rv-scale, .scroll-hidden.rv-blur { transform: none; filter: none; transition: none; }
           .ae-in { animation: none; opacity: 1; }
           .chip-dot { animation: none; }
@@ -1317,153 +1241,10 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         }
       `}</style>
 
-      {/* ══ HERO — Magazine-Cover (Foto) bzw. Tech-Circuit für SaaS ══ */}
-      <section
-        className="relative flex min-h-[560px] overflow-hidden lg:min-h-[640px]"
-        style={{ background: istTech ? "#161311" : "#FDFCFA" }}
-      >
-        <Image
-          src={istTech ? "/images/hero-bg-circuit.jpg" : `/images/branchen-hero/${bildKey}.jpg`}
-          alt={istTech ? "" : branche.heroBildAlt}
-          fill
-          priority
-          sizes="100vw"
-          className={istTech ? "object-cover" : "object-cover object-right"}
-        />
-
-        {istTech ? (
-          <div
-            className="pointer-events-none absolute inset-0"
-            aria-hidden="true"
-            style={{ background: "radial-gradient(ellipse 75% 85% at 42% 45%, rgba(15,12,9,0.6), rgba(15,12,9,0.18) 75%)" }}
-          />
-        ) : (
-          <>
-            {/* Overlay 1 — weiß-dominanter Lesbarkeits-Fade von links */}
-            <div
-              className="pointer-events-none absolute inset-0"
-              aria-hidden="true"
-              style={{
-                background:
-                  "linear-gradient(95deg, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.94) 34%, rgba(255,255,255,0.55) 55%, rgba(255,255,255,0.08) 78%, rgba(255,255,255,0) 100%)",
-              }}
-            />
-            <div className="pointer-events-none absolute inset-0 bg-white/85 sm:hidden" aria-hidden="true" />
-            <div
-              className="pointer-events-none absolute inset-0"
-              aria-hidden="true"
-              style={{ background: "linear-gradient(to bottom, rgba(255,255,255,0) 70%, #ffffff 100%)" }}
-            />
-          </>
-        )}
-
-        {/* Content */}
-        <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center px-6 lg:px-8">
-          <div className={istTech ? "grid w-full items-center gap-12 py-16 lg:grid-cols-[1fr_minmax(0,420px)] lg:gap-16 lg:py-20" : ""}>
-            <div className={istTech ? "max-w-[620px]" : "max-w-[620px] py-16 lg:py-20"}>
-              {heroBadge}
-              <h1 className={`hero-title font-[family-name:var(--font-heading)] text-[2.3rem] sm:text-[2.8rem] lg:text-[3.1rem] font-medium leading-[1.05] tracking-tight ${istTech ? "text-white" : "text-dark"}`}>
-                {branche.h1.pre}
-                <span style={istTech ? { background: "linear-gradient(92deg, #D98A3F, #D4A853)", WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent" } : grad}>
-                  {branche.h1.grad}
-                </span>
-                {branche.h1.post}
-              </h1>
-              <p className={`hero-description mt-5 text-lg leading-relaxed ${istTech ? "text-white/75" : "text-muted"}`}>{branche.subline}</p>
-              {branche.heroQuery && (
-                <div className="hero-cta mt-6 flex w-full max-w-md items-center gap-3 rounded-full border border-border bg-white/90 px-4 py-2.5 shadow-sm backdrop-blur">
-                  <Lupe className="h-4 w-4 shrink-0 text-dark/40" />
-                  <span className="truncate text-sm text-dark">{branche.heroQuery}</span>
-                  <span className="ml-auto hidden shrink-0 font-mono text-[10px] uppercase tracking-[0.14em] text-dark/40 sm:block">
-                    So sucht Ihr Kunde
-                  </span>
-                </div>
-              )}
-              {ctaButtons}
-            </div>
-
-            {istTech && (
-              <div className="hero-description hidden lg:block">
-                <div className="rounded-3xl border border-white/[0.12] bg-white/[0.06] p-6 backdrop-blur-sm shadow-[0_30px_70px_-30px_rgba(0,0,0,0.6)]">
-                  <div className="mb-5 flex items-center justify-between">
-                    <span className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-white/60">
-                      <span className="chip-dot inline-block h-1.5 w-1.5 rounded-full bg-secondary" />
-                      Organic Growth
-                    </span>
-                    <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/35">Illustrativ</span>
-                  </div>
-
-                  <svg viewBox="0 0 360 120" className="w-full" aria-hidden="true">
-                    <defs>
-                      <linearGradient id="sparkStroke" x1="0" y1="0" x2="1" y2="0">
-                        <stop offset="0%" stopColor="#C2722A" />
-                        <stop offset="100%" stopColor="#D4A853" />
-                      </linearGradient>
-                      <linearGradient id="sparkFill" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="0%" stopColor="rgba(212,168,83,0.22)" />
-                        <stop offset="100%" stopColor="rgba(212,168,83,0)" />
-                      </linearGradient>
-                    </defs>
-                    <path
-                      d="M0,102 C40,96 58,99 88,82 S148,74 178,56 S256,44 298,26 S340,16 360,12 L360,120 L0,120 Z"
-                      fill="url(#sparkFill)"
-                      className="spark-fill"
-                    />
-                    <path
-                      d="M0,102 C40,96 58,99 88,82 S148,74 178,56 S256,44 298,26 S340,16 360,12"
-                      fill="none"
-                      stroke="url(#sparkStroke)"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      pathLength={1}
-                      className="spark-draw spark-play"
-                    />
-                    <circle cx="360" cy="12" r="4" fill="#D4A853" className="chip-dot" />
-                  </svg>
-
-                  <div className="mt-5 space-y-2.5 border-t border-white/[0.1] pt-5">
-                    <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-white/75">
-                      <svg className="h-3.5 w-3.5 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H9M17 7v8" /></svg>
-                      Organische Signups
-                    </div>
-                    <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-white/75">
-                      <svg className="h-3.5 w-3.5 text-white/50" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M17 7L7 17M7 17h8M7 17V9" /></svg>
-                      Anteil Paid-Budget
-                    </div>
-                    <div className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.14em] text-white/75">
-                      <svg className="h-3.5 w-3.5 text-secondary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
-                      Von KI-Assistenten empfohlen
-                    </div>
-                  </div>
-                </div>
-                <p className="mt-3 text-center text-xs italic text-white/40">Illustrative Darstellung — keine Kundendaten.</p>
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Scroll-Cue — unten mittig, nur Desktop */}
-        <div
-          className="pointer-events-none absolute bottom-7 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 lg:flex"
-          aria-hidden="true"
-        >
-          <span className={`font-mono text-[9px] uppercase tracking-[0.24em] ${istTech ? "text-white/35" : "text-dark/35"}`}>Mehr erfahren</span>
-          <svg
-            className={`cue-bob h-4 w-4 ${istTech ? "text-secondary/70" : "text-primary/70"}`}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </div>
-      </section>
-
+      <BranchenHero branche={branche} bildKey={bildKey} />
+      <BranchenSectionRail branche={branche} />
       {/* ══ 01 WARUM — weiß, editorial ══ */}
-      <section className="border-t border-border bg-white py-20 lg:py-28 overflow-x-clip">
+      <section id="ausgangslage" className="scroll-mt-32 border-t border-border bg-white py-20 lg:py-28 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           {/* Golden-Ratio-Split: Titel+Portrait-Spalte zu Textspalte ≈ 38:62 */}
           <div className="grid lg:grid-cols-[minmax(0,380px)_1fr] gap-10 lg:gap-16 items-start">
@@ -1512,46 +1293,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </div>
       </section>
 
-      {/* ══ PRAXIS-TYPEN-STRIP — offener Medaillon-Stil wie der /branchen-Hub, nur bei Branchen mit Spokes ══ */}
-      {branche.praxisTypen && branche.praxisTypen.length > 0 && (
-        <section className="border-t border-border bg-white py-16 lg:py-20 overflow-x-clip">
-          <div className="mx-auto max-w-6xl px-6 lg:px-8">
-            <div className="scroll-hidden mb-10 text-center lg:mb-12">
-              <span className="mb-3 inline-flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
-                <span className="h-[2px] w-8 bg-primary/40" aria-hidden="true" />
-                Spezialisiert nach Praxis-Typ
-                <span className="h-[2px] w-8 bg-primary/40" aria-hidden="true" />
-              </span>
-              <h2 className="font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold text-dark leading-tight">
-                Jede Praxis sucht anders — <span style={grad}>wir auch.</span>
-              </h2>
-            </div>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-10 lg:grid-cols-4">
-              {branche.praxisTypen.map((pt, i) => {
-                const ziel = branchen.find((b) => b.slug === pt.slug);
-                if (!ziel) return null;
-                return (
-                  <Link
-                    key={pt.slug}
-                    href={`/branchen/${ziel.slug}`}
-                    className="scroll-hidden rv-blur group flex flex-col items-center text-center"
-                    style={{ transitionDelay: `${i * 90}ms` }}
-                  >
-                    <span className="flex h-20 w-20 items-center justify-center rounded-full bg-white text-primary shadow-[0_16px_34px_-20px_rgba(26,26,26,0.35)] ring-2 ring-[#ecd3ba] transition-all duration-300 group-hover:-translate-y-1 group-hover:ring-primary/60 group-hover:shadow-[0_20px_40px_-16px_rgba(194,114,42,0.45)] lg:h-24 lg:w-24 [&_svg]:h-7 [&_svg]:w-7 lg:[&_svg]:h-8 lg:[&_svg]:w-8">
-                      {ziel.icon}
-                    </span>
-                    <span className="mt-4 font-[family-name:var(--font-heading)] text-base font-bold text-dark transition-colors group-hover:text-primary lg:text-lg">
-                      {ziel.kurzName}
-                    </span>
-                    <span className="mt-1 text-xs text-muted leading-relaxed lg:text-[13px]">{pt.teaser}</span>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
-
+      <PraxisNavigator branche={branche} />
       {/* ══ 02 SIGNATURE-APP — beige, eigene Section direkt nach WARUM ══ */}
       <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
@@ -1840,7 +1582,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       </section>
 
       {/* ══ 05 VORGEHEN — interaktiver Vorgehen-Player (Story-Progress) ══ */}
-      <section className="bg-white py-20 lg:py-28 overflow-x-clip">
+      <section id="vorgehen" className="scroll-mt-32 bg-white py-20 lg:py-28 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="scroll-hidden mb-10 max-w-3xl lg:mb-14">
             <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
@@ -1960,107 +1702,28 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
         </section>
       )}
 
-      {/* ══ 07 HEBEL — Fact-Sheet-Tafel / Editorial / Stack ══ */}
-      <section className="bg-white py-20 lg:py-28">
+      {/* ══ 07 HEBEL — interaktive branchenspezifische Arbeitskarte ══ */}
+      <section id="hebel" className="scroll-mt-32 bg-white py-20 lg:py-28" style={getBranchThemeStyle(branche.slug)}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
-          <div className="scroll-hidden grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-16 items-end mb-12 lg:mb-16">
+          <div className="scroll-hidden mb-12 grid items-end gap-6 lg:mb-16 lg:grid-cols-[1fr_380px] lg:gap-16">
             <div>
-              <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-primary">
-                <span className="h-[2px] w-7 bg-dark" aria-hidden="true" />
+              <span className="mb-4 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--branch-accent)]">
+                <span className="h-[2px] w-7 bg-[var(--branch-ink)]" aria-hidden="true" />
                 07 — Konkrete Hebel
               </span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12]">
-                Die vier Hebel <span style={grad}>für Ihre Sichtbarkeit.</span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold leading-[1.12] text-dark lg:text-[42px]">
+                Die vier Hebel <span className="text-[var(--branch-accent)]">für Ihre Sichtbarkeit.</span>
               </h2>
             </div>
-            <p className="text-muted leading-relaxed lg:pb-1.5 lg:text-right">
-              Kein Standardpaket: An diesen vier Punkten setzen wir an, weil sie in Ihrer Branche über
-              organische Sichtbarkeit entscheiden.
+            <p className="leading-relaxed text-muted lg:pb-1.5 lg:text-right">
+              Kein Standardpaket: Öffnen Sie die Arbeitskarte und sehen Sie, welche vier branchenspezifischen Stellschrauben zusammenspielen.
             </p>
           </div>
-
-          {/* Variante A: tafel — Fact-Sheet-Panel mit divide-y-Zeilen */}
-          {branche.hebelVariant === "tafel" && (
-            <div className="scroll-hidden rv-scale overflow-hidden rounded-3xl border border-border bg-white shadow-[0_24px_60px_-30px_rgba(26,26,26,0.18)]">
-              <div className="flex items-center justify-between gap-3 border-b border-border px-5 py-3.5 lg:px-6">
-                <span className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.18em] text-dark/55">
-                  <span className="chip-dot inline-block h-1.5 w-1.5 rounded-full bg-primary" />
-                  Fact-Sheet — Vier Hebel
-                </span>
-                <span className="shrink-0 font-mono text-[10px] uppercase tracking-[0.16em] text-dark/35">{branche.kurzName}</span>
-              </div>
-              <div className="divide-y divide-border">
-                {branche.hebel.map((h, i) => (
-                  <div
-                    key={h.titel}
-                    className="grid gap-2 px-5 py-5 transition-colors duration-300 hover:bg-[#FBF8F4] sm:grid-cols-[250px_1fr] sm:gap-8 lg:px-6 lg:py-6"
-                  >
-                    <div className="flex items-start gap-3">
-                      <span className="pt-0.5 font-mono text-[11px] font-semibold text-primary/60" aria-hidden="true">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <h3 className="font-[family-name:var(--font-heading)] text-base lg:text-lg font-bold text-dark leading-snug">
-                        {h.titel}
-                      </h3>
-                    </div>
-                    <p className="text-sm text-muted leading-relaxed">{h.text}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Variante B: editorial — untereinander, große Ghost-Serif-Ziffern links */}
-          {branche.hebelVariant === "editorial" && (
-            <div className="divide-y divide-border border-y border-border">
-              {branche.hebel.map((h, i) => (
-                <div
-                  key={h.titel}
-                  className="scroll-hidden rv-blur grid items-start gap-3 py-8 sm:grid-cols-[110px_1fr] sm:gap-6 lg:grid-cols-[150px_1fr] lg:gap-10 lg:py-10"
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                >
-                  <span
-                    className="select-none font-[family-name:var(--font-heading)] text-6xl font-black leading-[0.85] text-primary/[0.16] lg:text-[96px]"
-                    aria-hidden="true"
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div>
-                    <h3 className="font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark mb-2.5">{h.titel}</h3>
-                    <p className="max-w-3xl text-sm lg:text-[15px] text-muted leading-relaxed">{h.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Variante C: stack — vertikale Karten mit Icon-Chips links */}
-          {branche.hebelVariant === "stack" && (
-            <div className="space-y-4 lg:space-y-5">
-              {branche.hebel.map((h, i) => (
-                <div
-                  key={h.titel}
-                  className="scroll-hidden rv-scale flex flex-col gap-4 rounded-2xl border border-border bg-white p-6 shadow-[0_18px_44px_-32px_rgba(26,26,26,0.25)] sm:flex-row sm:gap-6 lg:p-7"
-                  style={{ transitionDelay: `${i * 70}ms` }}
-                >
-                  <span
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border text-primary"
-                    style={{ background: TINT, borderColor: TINT_BORDER }}
-                    aria-hidden="true"
-                  >
-                    {stackIcons[i]}
-                  </span>
-                  <div>
-                    <h3 className="font-[family-name:var(--font-heading)] text-lg lg:text-xl font-bold text-dark mb-2">{h.titel}</h3>
-                    <p className="text-sm text-muted leading-relaxed">{h.text}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+          <div className="scroll-hidden rv-scale">
+            <BranchenHebel branche={branche} />
+          </div>
         </div>
       </section>
-
       {/* ══ 08 FEHLER — Ink-Block: voll-bleed dunkel, „Typische Fehler“-Tafel als Papier-Karte bzw. Editorial-Liste in Weiß/Gold ══ */}
       <section className="bg-dark py-20 lg:py-28 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
@@ -2119,6 +1782,8 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
           )}
         </div>
       </section>
+
+      <BranchenSiloNavigator branche={branche} />
 
       {/* ══ 09 ARBEITSWEISE — Säulen-Expander links, Deploy-Terminal rechts ══ */}
       <section className="bg-white py-20 lg:py-28 overflow-x-clip">
@@ -2191,7 +1856,7 @@ export default function BranchenDetailClient({ branche }: { branche: Branche }) 
       )}
 
       {/* ══ 10 FAQ — 8 Accordions, beige vor dem dunklen CTA-Band ══ */}
-      <section className="py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
+      <section id="fragen" className="scroll-mt-32 py-20 lg:py-28 overflow-x-clip" style={{ background: BEIGE }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-[minmax(0,340px)_1fr] gap-10 lg:gap-16 items-start">
             <div className="scroll-hidden rv-left lg:sticky lg:top-28">

@@ -15,5 +15,5 @@ export const metadata: Metadata = {
 };
 
 export default function SeoFuerHeilpraktikerPage() {
-  return <BranchenDetailClient branche={branche} />;
+  return <BranchenDetailClient slug={branche.slug} />;
 }

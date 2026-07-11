@@ -10,8 +10,10 @@ const DIAGNOSES = [
     label: "Seiten fehlen im Index",
     signal: "Neue oder wichtige URLs erscheinen nicht zuverlässig in der Suche.",
     firstCheck: "Crawlpfad, gerenderter Canonical, Sitemap und Indexierungsstatus gegeneinander lesen.",
+    falseMove: "Mehr URLs in die Sitemap legen oder pauschal Indexierung beantragen, bevor Canonical, Rendering und interne Wege geklärt sind.",
     firstMove: "Den technischen Konflikt isolieren und als kleinen, prüfbaren Release beheben.",
     proof: "URL-Set mit Befund, Änderung und erneut geprüftem Status",
+    related: { href: "/seo/audit", label: "Technische Ursachen im SEO Audit einordnen" },
     glyph: "M4 6h16M4 12h10M4 18h7M17 14l3 3-3 3",
   },
   {
@@ -19,8 +21,10 @@ const DIAGNOSES = [
     label: "Impressionen, kaum Klicks",
     signal: "Google zeigt die Seite – Suchende wählen aber andere Ergebnisse.",
     firstCheck: "Query-Mix, Position, SERP-Typ, Title und Nutzenversprechen getrennt bewerten.",
+    falseMove: "Nur den Title emotionaler formulieren, obwohl Position, Query-Intent oder ein SERP-Feature die Klickrate erklären.",
     firstMove: "Suchintention und Snippet schärfen, ohne aus jeder Keyword-Variante eine neue URL zu machen.",
     proof: "Query-zu-Seite-Auswertung plus dokumentierter Snippet-Diff",
+    related: { href: "/seo/optimierung", label: "Zielseiten und Snippets systematisch optimieren" },
     glyph: "M3 12h4l3-6 4 12 3-6h4",
   },
   {
@@ -28,8 +32,10 @@ const DIAGNOSES = [
     label: "Rankings stagnieren",
     signal: "Content ist vorhanden, der Abstand zum Wettbewerb schließt sich trotzdem nicht.",
     firstCheck: "Abdeckung, interne Autorität, externe Belege und technische Qualität derselben Zielseite vergleichen.",
+    falseMove: "Noch einen ähnlichen Text veröffentlichen und damit Kannibalisierung oder eine bereits diffuse Seitenarchitektur verstärken.",
     firstMove: "Nur den nachgewiesenen Engpass stärken – nicht reflexartig mehr Text veröffentlichen.",
     proof: "Gap-Dossier mit einer priorisierten Verstärkung",
+    related: { href: "/seo/content-strategie", label: "Keyword-Cluster und Seitenrollen sauber planen" },
     glyph: "M4 18V9m5 9V5m5 13v-7m5 7V3M3 18h18",
   },
   {
@@ -37,9 +43,81 @@ const DIAGNOSES = [
     label: "Traffic, kaum Anfragen",
     signal: "Besuche wachsen, aber der geschäftliche Effekt bleibt unklar oder aus.",
     firstCheck: "Landingpage, Suchintention, Conversion-Pfad und Messübergabe an Analytics beziehungsweise CRM prüfen.",
+    falseMove: "Einfach mehr Traffic einkaufen oder erzeugen, obwohl Query, Angebot und nächster Schritt nicht zusammenpassen.",
     firstMove: "Den Bruch zwischen Query, Angebot und nächstem Schritt beheben – nicht bloß Traffic erhöhen.",
     proof: "Messkette mit sichtbarer Grenze zwischen SEO-Signal und Vertriebsergebnis",
+    related: { href: "/webdesign/landingpage-erstellen-lassen", label: "Den Conversion-Pfad der Landingpage schärfen" },
     glyph: "M4 5h16v10H9l-5 4V5Zm4 4h8m-8 3h5",
+  },
+] as const;
+
+const FORGE_STAGES = [
+  {
+    label: "Befund",
+    title: "Rohmaterial lesen",
+    image: "/images/wachstum/stufe1-forge-v2.webp",
+    alt: "Kupferfarbener Rohstein als Symbol für die ungeordnete SEO-Ausgangslage",
+    copy: "Crawl, Search Console, Rankings, Releases und Geschäftsziele werden zu einer belastbaren Ausgangslage verbunden. Noch wird nichts versprochen oder priorisiert.",
+    artifact: "Befundakte mit Datenquelle und offener Frage",
+  },
+  {
+    label: "Priorität",
+    title: "Den Engpass auf den Amboss legen",
+    image: "/images/wachstum/stufe2-forge-v2.webp",
+    alt: "Dunkler Amboss mit Kupferauflage als Symbol für die SEO-Priorisierung",
+    copy: "Nicht die längste Aufgabenliste gewinnt, sondern die Veränderung, bei der Relevanz, erwartbarer Hebel, Sicherheit und Aufwand zusammenpassen.",
+    artifact: "Eine begründete Monatsentscheidung",
+  },
+  {
+    label: "Release",
+    title: "Die Veränderung ausliefern",
+    image: "/images/wachstum/stufe3-forge-v2.webp",
+    alt: "Hammer und Schwert auf einem Amboss als Symbol für die operative SEO-Umsetzung",
+    copy: "Technik, Zielseite, Content oder interne Verlinkung werden tatsächlich verändert, geprüft und dokumentiert – nicht nur als Empfehlung weitergereicht.",
+    artifact: "Release-Notiz mit QA und erwartetem Signal",
+  },
+  {
+    label: "Prüfung",
+    title: "Die Klinge prüfen, nicht feiern",
+    image: "/images/wachstum/stufe4-forge-v2.webp",
+    alt: "Fertiges kupferfarbenes Schwert als Symbol für die Prüfung eines SEO-Releases",
+    copy: "Indexierung, Darstellung, Suchsignale und Nebenwirkungen werden eingeordnet. Erst daraus entsteht die nächste Priorität – ohne aus früher Bewegung schon einen Erfolg zu erfinden.",
+    artifact: "Wirkungsnotiz und nächste Entscheidung",
+  },
+] as const;
+
+const WORK_MODES = [
+  {
+    key: "audit",
+    label: "SEO Audit",
+    question: "Wo liegen die belegbaren Probleme?",
+    boundary: "Ein Audit schafft Befund und Reihenfolge. Er ersetzt keine laufende Umsetzung.",
+    output: "Priorisierter Prüfbericht",
+    href: "/seo/audit",
+  },
+  {
+    key: "beratung",
+    label: "SEO Beratung",
+    question: "Welche Entscheidung sollte Ihr Team treffen?",
+    boundary: "Beratung stärkt interne Verantwortliche. Umsetzung kann bewusst im Unternehmen bleiben.",
+    output: "Entscheidungs- und Sparringsgrundlage",
+    href: "/seo/beratung",
+  },
+  {
+    key: "optimierung",
+    label: "SEO Optimierung",
+    question: "Welche bekannte Schwachstelle soll behoben werden?",
+    boundary: "Optimierung kann ein klar abgegrenztes Vorhaben sein – etwa Technik, Zielseite oder Architektur.",
+    output: "Definierter Vorher-/Nachher-Release",
+    href: "/seo/optimierung",
+  },
+  {
+    key: "betreuung",
+    label: "SEO Betreuung",
+    question: "Wie wird aus wechselnden Signalen ein verlässlicher Betrieb?",
+    boundary: "Betreuung verbindet Diagnose, Entscheidung, Umsetzung und Prüfung wiederholt – der Schwerpunkt darf sich ändern.",
+    output: "Fortlaufende Arbeits- und Lernschleife",
+    href: "/seo/betreuung",
   },
 ] as const;
 
@@ -133,104 +211,95 @@ function ArrowMark() {
 }
 
 export function BetreuungHero() {
+  const [active, setActive] = useState(1);
+  const stage = FORGE_STAGES[active];
+
   return (
-    <section data-hero className="relative overflow-hidden border-b-2 border-dark bg-[#F5F0E9]">
+    <section data-hero className="relative overflow-hidden border-b-2 border-dark bg-[#12110F] text-white">
       <style>{`
-        @keyframes betreuungSignalDraw { from { stroke-dashoffset: 420; } to { stroke-dashoffset: 0; } }
-        @keyframes betreuungSignalPulse { 0%,100% { transform: scale(.82); opacity: .55; } 50% { transform: scale(1.12); opacity: 1; } }
-        .betreuung-signal-path { stroke-dasharray: 420; animation: betreuungSignalDraw 1.8s cubic-bezier(.16,1,.3,1) .35s both; }
-        .betreuung-signal-dot { transform-box: fill-box; transform-origin: center; animation: betreuungSignalPulse 2.8s ease-in-out infinite; }
-        @media (prefers-reduced-motion: reduce) { .betreuung-signal-path, .betreuung-signal-dot { animation: none !important; } }
+        @keyframes forgeStageIn { from { opacity: 0; transform: translateY(18px) scale(.96) rotate(-1deg); } to { opacity: 1; transform: translateY(0) scale(1) rotate(0); } }
+        @keyframes forgeEmber { 0%,100% { opacity: .35; transform: translateY(0); } 50% { opacity: .8; transform: translateY(-8px); } }
+        .forge-stage-image { animation: forgeStageIn .62s cubic-bezier(.16,1,.3,1) both; }
+        .forge-ember { animation: forgeEmber 3.4s ease-in-out infinite; }
+        @media (prefers-reduced-motion: reduce) { .forge-stage-image, .forge-ember { animation: none !important; } }
       `}</style>
-      <div className="pointer-events-none absolute inset-0 opacity-45" aria-hidden="true" style={{ backgroundImage: "radial-gradient(rgba(26,26,26,.12) .8px, transparent .8px)", backgroundSize: "24px 24px" }} />
-      <div className="pointer-events-none absolute -left-16 bottom-[-42px] font-[family-name:var(--font-heading)] text-[220px] font-bold leading-none text-dark/[.035] sm:text-[320px] lg:text-[430px]" aria-hidden="true">01</div>
+      <div className="pointer-events-none absolute inset-0 opacity-25" aria-hidden="true" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.09) 1px,transparent 1px)", backgroundSize: "54px 54px" }} />
+      <div className="pointer-events-none absolute -right-[18%] top-[-35%] h-[760px] w-[760px] rounded-full border border-primary/25" aria-hidden="true" />
+      <div className="pointer-events-none absolute -right-[8%] top-[-22%] h-[560px] w-[560px] rounded-full border border-secondary/15" aria-hidden="true" />
+      <div className="pointer-events-none absolute bottom-[-260px] left-[24%] h-[520px] w-[520px] rounded-full bg-primary/15 blur-[110px]" aria-hidden="true" />
 
       <div className="relative mx-auto max-w-7xl px-6 pb-14 pt-8 lg:px-8 lg:pb-20 lg:pt-10">
-        <div className="flex items-center gap-4 border-y-2 border-dark py-3 font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-dark/45 sm:text-[10px]">
-          <span className="text-primary-dark">SeoForge / Laufender Betrieb</span>
-          <span className="h-px flex-1 bg-dark/25" />
-          <span className="hidden sm:inline">Monatsakte 01</span>
-          <span className="h-2 w-2 rounded-full bg-secondary" aria-hidden="true" />
+        <div className="flex items-center gap-4 border-y border-white/25 py-3 font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-white/55 sm:text-[10px]">
+          <span className="text-secondary">SeoForge / Betreuungsschmiede</span>
+          <span className="h-px flex-1 bg-white/15" />
+          <span className="hidden sm:inline">Vier Zustände · ein Betrieb</span>
+          <span className="forge-ember h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
         </div>
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.618fr)_minmax(360px,1fr)] lg:items-center lg:gap-12">
-          <div className="relative z-10 pb-2 lg:pb-8">
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-primary-dark">Monatliche SEO Betreuung</span>
-            <h1 className="mt-5 max-w-5xl font-[family-name:var(--font-heading)] text-[clamp(3rem,5.6vw,5.5rem)] font-bold leading-[.92] tracking-[-0.055em] text-dark">
+        <div className="mt-10 grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(430px,.92fr)] lg:items-center lg:gap-16">
+          <div className="relative z-10">
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-secondary">Monatliche SEO Betreuung</span>
+            <h1 className="mt-5 max-w-4xl font-[family-name:var(--font-heading)] text-[clamp(3rem,5.8vw,5.8rem)] font-bold leading-[.91] tracking-[-0.055em]">
               SEO Betreuung.
-              <span className="mt-1 block italic text-primary">Monat für Monat klarer entscheiden.</span>
+              <span className="mt-1 block italic text-primary">Aus Signalen wird Substanz.</span>
             </h1>
-            <p className="mt-7 max-w-2xl text-[17px] leading-relaxed text-muted sm:text-lg">
-              Laufende SEO Betreuung heißt bei uns: Signale lesen, einen Engpass priorisieren, die Veränderung ausliefern und ihre Wirkung ehrlich einordnen. Kein Maßnahmenpaket auf Autopilot.
+            <p className="mt-7 max-w-2xl text-[17px] leading-relaxed text-white/65 sm:text-lg">
+              Laufende SEO Betreuung ist kein wiederholter Audit und kein Maßnahmenpaket auf Autopilot. Wir lesen die aktuelle Datenlage, legen genau einen Engpass auf den Amboss, liefern die Veränderung aus und prüfen, was sie tatsächlich bewirkt.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href="#diagnose" className="group inline-flex items-center justify-center gap-3 bg-primary-dark px-7 py-4 text-sm font-bold text-white transition-colors hover:bg-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-dark">
-                Priorisierung ausprobieren <ArrowMark />
-              </a>
-              <Link href="/kontakt" className="group inline-flex items-center justify-center gap-3 border-2 border-dark bg-transparent px-7 py-[14px] text-sm font-bold text-dark transition-colors hover:bg-dark hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark">
-                Projekt einordnen <ArrowMark />
+              <Link href="/kontakt" className="group inline-flex items-center justify-center gap-3 bg-secondary px-7 py-4 text-sm font-bold text-dark transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary">
+                Betreuung besprechen <ArrowMark />
               </Link>
+              <a href="#diagnose" className="group inline-flex items-center justify-center gap-3 border border-white/45 px-7 py-[15px] text-sm font-bold text-white transition-colors hover:border-white hover:bg-white hover:text-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white">
+                Engpass einordnen <ArrowMark />
+              </a>
             </div>
 
-            <div className="mt-9 max-w-3xl border-y border-dark/20 py-5">
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-3 sm:flex-nowrap">
-                {["Ist-Zustand", "Priorität", "Release", "Prüfung"].map((label, index) => (
-                  <div key={label} className="flex items-center gap-3">
-                    <span className="flex h-7 w-7 items-center justify-center rounded-full border border-dark/25 bg-white/60 font-mono text-[9px] font-bold text-primary-dark">0{index + 1}</span>
-                    <span className="font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-dark/50">{label}</span>
-                    {index < 3 && <span className="hidden h-px w-5 bg-dark/20 sm:block" aria-hidden="true" />}
-                  </div>
-                ))}
-              </div>
-              <p className="mt-4 font-mono text-[9px] uppercase tracking-[0.15em] text-dark/35">Arbeitsprinzip · kein vorgetäuschter Performance-Graph</p>
+            <div className="mt-9 grid max-w-2xl gap-px border border-white/20 bg-white/20 sm:grid-cols-3">
+              {["Feste Ansprechperson", "Umsetzung im Projekt", "Arbeitsakte je Fokus"].map((item, index) => (
+                <div key={item} className="bg-[#191714] px-4 py-4">
+                  <span className="font-mono text-[8px] uppercase tracking-[0.16em] text-secondary">0{index + 1}</span>
+                  <span className="mt-1 block text-xs font-semibold text-white/70">{item}</span>
+                </div>
+              ))}
             </div>
           </div>
 
-          <figure className="relative mx-auto w-full max-w-[560px] lg:mx-0 lg:max-w-none">
-            <div className="relative aspect-[4/5] overflow-hidden border-2 border-dark bg-dark shadow-[16px_16px_0_rgba(212,168,83,.7)]">
-              <Image
-                src="/images/seo-betreuung-work-session-v2.webp"
-                alt="Zwei Spezialisten prüfen Suchdaten und den Maßnahmenplan einer laufenden SEO Betreuung"
-                fill
-                priority
-                sizes="(min-width:1024px) 38vw,100vw"
-                className="object-cover object-[58%_center]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/5 to-black/15" />
-              <div className="absolute inset-x-0 top-0 flex items-center justify-between border-b border-white/30 bg-black/20 px-5 py-3 text-white backdrop-blur-sm">
-                <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em]">Working Session</span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-secondary">Mensch + System</span>
+          <div className="relative mx-auto w-full max-w-[620px] lg:mx-0">
+            <div className="overflow-hidden border border-white/30 bg-[#0B0A09] shadow-[16px_16px_0_rgba(194,114,42,.35)]">
+              <div className="flex items-center justify-between border-b border-white/20 px-5 py-3">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-secondary">Interaktiver Schmiedezyklus</span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-white/35">Arbeitsmodell · keine Erfolgskurve</span>
               </div>
-
-              <svg className="absolute inset-x-[8%] bottom-[19%] h-[34%] w-[84%]" viewBox="0 0 420 150" fill="none" aria-hidden="true">
-                <path className="betreuung-signal-path" d="M12 126C72 118 88 92 142 99s82 27 127-17 75-60 139-70" stroke="#D4A853" strokeWidth="2" />
-                {[12, 142, 269, 408].map((x, index) => {
-                  const y = [126, 99, 82, 12][index];
-                  return <circle key={x} className="betreuung-signal-dot" cx={x} cy={y} r="6" fill={index === 3 ? "#D4A853" : "#C2722A"} style={{ animationDelay: `${index * .3}s` }} />;
-                })}
-              </svg>
-
-              <figcaption className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 border-t border-white/20 bg-black/40 p-5 text-white backdrop-blur-sm">
-                <div>
-                  <span className="font-mono text-[8px] uppercase tracking-[0.17em] text-white/45">Sichtbarer Output</span>
-                  <p className="mt-1 font-[family-name:var(--font-heading)] text-xl font-bold">Befund · Änderung · Lernschritt</p>
+              <div className="relative grid min-h-[520px] grid-rows-[1fr_auto]">
+                <div className="relative flex min-h-[330px] items-center justify-center overflow-hidden">
+                  <span className="pointer-events-none absolute left-5 top-3 font-[family-name:var(--font-heading)] text-[110px] font-bold leading-none text-white/[.035]" aria-hidden="true">0{active + 1}</span>
+                  <div className="pointer-events-none absolute h-[280px] w-[280px] rounded-full bg-primary/20 blur-[68px]" aria-hidden="true" />
+                  <div className="pointer-events-none absolute h-[330px] w-[330px] rounded-full border border-secondary/20" aria-hidden="true" />
+                  <Image key={stage.image} src={stage.image} alt={stage.alt} width={1024} height={1024} priority className="forge-stage-image relative h-[300px] w-[300px] object-contain sm:h-[360px] sm:w-[360px]" sizes="(min-width:1024px) 360px,300px" />
+                  <span className="absolute right-5 top-5 border border-primary/70 px-3 py-2 font-mono text-[9px] uppercase tracking-[0.16em] text-primary">{stage.label}</span>
                 </div>
-                <span className="border border-secondary px-2.5 py-2 font-mono text-[8px] uppercase tracking-[0.14em] text-secondary">laufend</span>
-              </figcaption>
+                <div key={stage.title} className="border-t border-white/20 bg-[#171512] p-5 sm:p-6" role="tabpanel" aria-live="polite">
+                  <h2 className="font-[family-name:var(--font-heading)] text-2xl font-bold text-white">{stage.title}</h2>
+                  <p className="mt-2 text-[13px] leading-relaxed text-white/58">{stage.copy}</p>
+                  <div className="mt-4 flex items-start gap-3 border-t border-white/15 pt-4">
+                    <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-secondary" aria-hidden="true" />
+                    <p className="text-xs font-semibold text-white/78"><span className="font-mono text-[8px] uppercase tracking-[0.15em] text-secondary">Sichtbarer Output</span><br />{stage.artifact}</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="absolute -bottom-7 -left-3 w-[74%] border-2 border-dark bg-white p-4 shadow-[8px_8px_0_rgba(194,114,42,.35)] sm:-left-7 sm:w-[68%]">
-              <div className="flex items-center justify-between border-b border-dark/20 pb-2">
-                <span className="font-mono text-[8px] font-bold uppercase tracking-[0.17em] text-primary-dark">Muster-Arbeitsakte</span>
-                <span className="h-1.5 w-1.5 rounded-full bg-secondary" aria-hidden="true" />
-              </div>
-              <div className="mt-3 flex items-center gap-3">
-                <span className="font-[family-name:var(--font-heading)] text-3xl font-bold text-dark">01</span>
-                <p className="text-xs font-semibold leading-relaxed text-dark/65">Eine Priorität.<br />Ein prüfbarer Output.</p>
-              </div>
+            <div className="mt-4 grid grid-cols-4 gap-px bg-white/20" role="tablist" aria-label="Stufe des Schmiedezyklus auswählen">
+              {FORGE_STAGES.map((entry, index) => (
+                <button key={entry.label} type="button" role="tab" aria-selected={active === index} onClick={() => setActive(index)} className={`min-w-0 px-2 py-3 text-left transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary sm:px-3 ${active === index ? "bg-secondary text-dark" : "bg-[#191714] text-white hover:bg-[#26221d]"}`}>
+                  <span className={`block font-mono text-[8px] uppercase tracking-[0.12em] ${active === index ? "text-dark/65" : "text-white/35"}`}>0{index + 1}</span>
+                  <span className="mt-1 block truncate text-[10px] font-bold sm:text-xs">{entry.label}</span>
+                </button>
+              ))}
             </div>
-          </figure>
+          </div>
         </div>
       </div>
     </section>
@@ -244,79 +313,145 @@ export function BetreuungDiagnosis() {
   return (
     <section id="diagnose" className="scroll-mt-24 overflow-hidden border-y-2 border-dark bg-[#EEE8DF] py-20 lg:py-28">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-8 border-b-2 border-dark pb-9 lg:grid-cols-[minmax(0,.618fr)_minmax(0,1fr)] lg:items-end">
+        <div className="grid gap-8 border-b-2 border-dark pb-9 lg:grid-cols-[minmax(0,.72fr)_minmax(0,1fr)] lg:items-end">
           <div>
-            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-primary-dark">Priorisierung statt Paket</span>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-primary-dark">Die Entscheidungsschmiede</span>
             <h2 className="mt-4 font-[family-name:var(--font-heading)] text-4xl font-bold leading-[1.02] text-dark sm:text-5xl">
-              Welcher Engpass kostet gerade Sichtbarkeit?
+              Nicht jede Auffälligkeit verdient den Hammer.
             </h2>
           </div>
           <p className="max-w-2xl text-[16px] leading-relaxed text-muted lg:justify-self-end">
-            Gute SEO Betreuung beginnt nicht mit einer Standardliste. Wählen Sie die Ausgangslage, die Ihrer Website am nächsten kommt. Das Modell zeigt, welche Frage zuerst beantwortet werden muss – nicht automatisch die endgültige Ursache.
+            Gute SEO Betreuung trennt Signal, Ursache und nächsten Eingriff. Wählen Sie eine Ausgangslage: Die Akte zeigt nicht nur, was wir prüfen, sondern auch, welchen reflexartigen Schritt wir bewusst vermeiden.
           </p>
         </div>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,.618fr)_minmax(0,1fr)] lg:gap-12">
-          <div className="relative min-h-[520px] overflow-hidden border-2 border-dark bg-dark p-5 text-white sm:p-8">
-            <div className="absolute inset-0 opacity-20" aria-hidden="true" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.1) 1px,transparent 1px)", backgroundSize: "32px 32px" }} />
-            <svg className="pointer-events-none absolute inset-6 h-[calc(100%-3rem)] w-[calc(100%-3rem)]" viewBox="0 0 420 460" fill="none" aria-hidden="true">
-              <path d="M210 46C315 46 382 128 382 230S315 414 210 414 38 332 38 230 105 46 210 46Z" stroke="rgba(255,255,255,.18)" />
-              <path d="M210 86C286 86 338 147 338 230s-52 144-128 144S82 313 82 230 134 86 210 86Z" stroke="#D4A853" strokeOpacity=".52" strokeDasharray="3 8" />
-              <path d="M210 46v368M38 230h344" stroke="rgba(255,255,255,.1)" />
-              <circle cx="210" cy="230" r="49" fill="#F5F0E9" />
-              <circle cx="210" cy="230" r="61" stroke="#C2722A" strokeOpacity=".7" />
-            </svg>
-            <div className="absolute left-1/2 top-1/2 flex h-24 w-24 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center text-center text-dark">
-              <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-primary-dark">Fokus</span>
-              <strong className="mt-1 font-[family-name:var(--font-heading)] text-3xl">0{active + 1}</strong>
+        <div className="mt-10 overflow-hidden border-2 border-dark bg-white shadow-[16px_16px_0_rgba(194,114,42,.18)] lg:grid lg:grid-cols-[340px_1fr]">
+          <div className="border-b-2 border-dark bg-[#171512] text-white lg:border-b-0 lg:border-r-2">
+            <div className="flex items-center justify-between border-b border-white/20 px-5 py-4">
+              <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-secondary">Signaleingang</span>
+              <span className="font-mono text-[8px] uppercase tracking-[0.14em] text-white/35">Auswahl 0{active + 1}/04</span>
             </div>
-
-            <div className="relative grid min-h-[450px] grid-cols-2 content-between gap-4" role="tablist" aria-label="SEO-Ausgangslage auswählen">
+            <div role="tablist" aria-label="SEO-Ausgangslage auswählen">
               {DIAGNOSES.map((entry, index) => (
                 <button
                   key={entry.key}
                   type="button"
                   role="tab"
+                  id={`diagnose-tab-${entry.key}`}
                   aria-selected={active === index}
+                  aria-controls="diagnose-panel"
                   onClick={() => setActive(index)}
-                  className={`group flex min-h-28 flex-col justify-between border p-4 text-left transition-all focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary ${active === index ? "border-secondary bg-secondary text-dark" : "border-white/20 bg-dark/80 text-white hover:border-white/50"}`}
+                  className={`group flex w-full items-center gap-4 border-b border-white/15 px-5 py-5 text-left transition-colors last:border-b-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-secondary ${active === index ? "bg-secondary text-dark" : "text-white hover:bg-white/10"}`}
                 >
-                  <span className="flex items-center justify-between">
+                  <span className={`flex h-10 w-10 shrink-0 items-center justify-center border ${active === index ? "border-dark/30" : "border-white/25"}`}>
                     <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true"><path d={entry.glyph} /></svg>
-                    <span className="font-mono text-[9px]">0{index + 1}</span>
                   </span>
-                  <span className="mt-5 text-sm font-bold leading-tight">{entry.label}</span>
+                  <span className="min-w-0 flex-1">
+                    <span className={`block font-mono text-[8px] uppercase tracking-[0.15em] ${active === index ? "text-dark/60" : "text-white/35"}`}>Signal 0{index + 1}</span>
+                    <span className="mt-1 block text-sm font-bold leading-tight">{entry.label}</span>
+                  </span>
+                  <span className="font-mono text-sm" aria-hidden="true">→</span>
                 </button>
               ))}
             </div>
-            <p className="relative mt-5 font-mono text-[9px] uppercase tracking-[0.15em] text-white/35">Interaktives Diagnosemodell · keine automatische Analyse</p>
           </div>
 
-          <div key={item.key} className="self-start border-2 border-dark bg-white shadow-[14px_14px_0_rgba(194,114,42,.25)]" role="tabpanel" aria-live="polite">
+          <div id="diagnose-panel" key={item.key} role="tabpanel" aria-labelledby={`diagnose-tab-${item.key}`} aria-live="polite">
             <div className="flex items-center justify-between border-b-2 border-dark bg-[#F5F0E9] px-5 py-4 sm:px-7">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-dark/55">Prioritätenakte / 0{active + 1}</span>
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-dark/55">Entscheidungsakte / 0{active + 1}</span>
               <span className="h-2 w-2 rounded-full bg-primary" aria-hidden="true" />
             </div>
-            <div className="p-6 sm:p-8 lg:p-10">
-              <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-primary-dark">Beobachtetes Signal</span>
-              <h3 className="mt-3 font-[family-name:var(--font-heading)] text-3xl font-bold leading-tight text-dark sm:text-4xl">{item.signal}</h3>
-              <div className="mt-8 divide-y divide-dark/15 border-y-2 border-dark">
-                {[
-                  ["Erste Prüfung", item.firstCheck],
-                  ["Erster Zug", item.firstMove],
-                  ["Sichtbarer Beleg", item.proof],
-                ].map(([label, copy], index) => (
-                  <div key={label} className="grid gap-2 py-5 sm:grid-cols-[112px_1fr]">
-                    <span className="font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-primary-dark">0{index + 1} · {label}</span>
-                    <p className="text-sm leading-relaxed text-dark/65">{copy}</p>
-                  </div>
-                ))}
+            <div className="grid lg:grid-cols-[minmax(220px,.62fr)_minmax(0,1.38fr)]">
+              <div className="relative flex min-h-[300px] flex-col justify-between overflow-hidden border-b-2 border-dark bg-[#F8F1E8] p-6 lg:min-h-full lg:border-b-0 lg:border-r-2 lg:p-8">
+                <span className="pointer-events-none absolute -bottom-8 -right-3 font-[family-name:var(--font-heading)] text-[180px] font-bold leading-none text-dark/[.045]" aria-hidden="true">0{active + 1}</span>
+                <svg viewBox="0 0 24 24" className="relative h-20 w-20 text-primary-dark" fill="none" stroke="currentColor" strokeWidth=".8" aria-hidden="true"><path d={item.glyph} /></svg>
+                <div className="relative mt-14 border-t-2 border-dark pt-5">
+                  <span className="font-mono text-[8px] font-bold uppercase tracking-[0.16em] text-primary-dark">Signal ist noch keine Ursache</span>
+                  <p className="mt-2 text-sm leading-relaxed text-dark/65">Die Diagnose beginnt mit einer Gegenprobe. Erst wenn das Signal reproduzierbar und geschäftlich relevant ist, wird daraus eine Priorität.</p>
+                </div>
               </div>
-              <p className="mt-6 text-[13px] leading-relaxed text-muted">
-                Der genaue Fokus entsteht aus Ihren Daten. Genau darin unterscheidet sich laufende SEO Betreuung von einem vorab gefüllten Maßnahmenpaket.
-              </p>
+
+              <div className="p-6 sm:p-8 lg:p-10">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-primary-dark">Beobachtetes Signal</span>
+                <h3 className="mt-3 max-w-3xl font-[family-name:var(--font-heading)] text-3xl font-bold leading-tight text-dark sm:text-4xl">{item.signal}</h3>
+                <div className="relative mt-8 border-l-2 border-dark pl-6 sm:pl-8">
+                  {[
+                    ["Prüfen", item.firstCheck],
+                    ["Nicht reflexartig", item.falseMove],
+                    ["Erster Eingriff", item.firstMove],
+                    ["Abnahme", item.proof],
+                  ].map(([label, copy], index) => (
+                    <div key={label} className="relative border-b border-dark/15 py-4 first:pt-0 last:border-b-0 last:pb-0">
+                      <span className={`absolute -left-[31px] top-[22px] h-3 w-3 rounded-full border-2 border-white sm:-left-[39px] ${index === 1 ? "bg-dark" : "bg-primary"}`} aria-hidden="true" />
+                      <span className="font-mono text-[8px] font-bold uppercase tracking-[0.16em] text-primary-dark">0{index + 1} · {label}</span>
+                      <p className="mt-1.5 text-sm leading-relaxed text-dark/67">{copy}</p>
+                    </div>
+                  ))}
+                </div>
+                <Link href={item.related.href} className="group mt-8 inline-flex items-center gap-3 border-b-2 border-primary pb-1 text-sm font-bold text-dark hover:text-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark">
+                  {item.related.label} <ArrowMark />
+                </Link>
+              </div>
             </div>
           </div>
+        </div>
+
+        <div className="mt-12 grid gap-5 border-t-2 border-dark pt-6 sm:grid-cols-[auto_1fr] sm:items-start">
+          <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-primary-dark">Wie priorisiert wird</span>
+          <p className="max-w-4xl text-sm leading-relaxed text-muted">Wir wägen erwartbaren geschäftlichen Hebel, betroffene Seiten beziehungsweise Suchanfragen, Sicherheit des Befunds und Umsetzungsaufwand gemeinsam ab. Daraus entsteht keine dekorative Punktzahl, sondern eine begründete Entscheidung, die im nächsten Report wieder überprüft werden kann.</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+export function BetreuungOwnershipDepth() {
+  const [active, setActive] = useState(3);
+  const mode = WORK_MODES[active];
+
+  return (
+    <section className="overflow-hidden border-y-2 border-dark bg-white py-20 lg:py-28">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,.72fr)_minmax(420px,1fr)] lg:gap-16">
+          <div>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-primary-dark">Seitenrolle im SEO-Silo</span>
+            <h2 className="mt-4 font-[family-name:var(--font-heading)] text-4xl font-bold leading-[1.04] text-dark sm:text-5xl">Betreuung ist Betrieb – nicht einfach ein Audit jeden Monat.</h2>
+            <div className="mt-7 max-w-2xl text-[15px] leading-relaxed text-muted">
+              <p>Ein <Link href="/seo/audit" className="font-semibold text-primary-dark underline decoration-primary/30 underline-offset-4">SEO Audit</Link> beantwortet vor allem, wo technische, strukturelle oder inhaltliche Probleme liegen. <Link href="/seo/beratung" className="font-semibold text-primary-dark underline decoration-primary/30 underline-offset-4">SEO Beratung</Link> hilft einem internen Team, Entscheidungen zu treffen. Eine klar abgegrenzte <Link href="/seo/optimierung" className="font-semibold text-primary-dark underline decoration-primary/30 underline-offset-4">SEO Optimierung</Link> behebt einen bekannten Zustand.</p>
+              <p className="mt-4">Laufende SEO Betreuung wird dann sinnvoll, wenn sich der Engpass mit der Website verändert: Nach einem technischen Release kann die nächste Priorität eine Zielseite, interne Autorität, ein Content-Cluster oder die Messung qualifizierter Anfragen sein. Der Wert liegt nicht darin, jeden Monat dieselbe Checkliste abzuarbeiten, sondern fachlich sauber zwischen diesen Ebenen zu wechseln.</p>
+            </div>
+          </div>
+
+          <div className="self-start border-2 border-dark bg-[#F5F0E9] shadow-[14px_14px_0_rgba(212,168,83,.55)]">
+            <div className="flex items-center justify-between border-b-2 border-dark bg-dark px-5 py-4 text-white">
+              <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-secondary">Welches Arbeitsformat löst welche Frage?</span>
+              <span className="font-mono text-[8px] uppercase tracking-[0.14em] text-white/35">Silo-Navigator</span>
+            </div>
+            <div className="grid grid-cols-2 border-b-2 border-dark sm:grid-cols-4" role="tablist" aria-label="SEO-Arbeitsformat auswählen">
+              {WORK_MODES.map((entry, index) => (
+                <button key={entry.key} type="button" role="tab" aria-selected={active === index} onClick={() => setActive(index)} className={`min-w-0 border-r border-dark/20 px-3 py-3 text-left transition-colors last:border-r-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-primary-dark ${active === index ? "bg-primary-dark text-white" : "bg-white text-dark hover:bg-[#FBF4EA]"}`}>
+                  <span className={`block font-mono text-[8px] uppercase tracking-[0.13em] ${active === index ? "text-white/65" : "text-dark/45"}`}>0{index + 1}</span>
+                  <span className="mt-1 block text-[11px] font-bold leading-tight">{entry.label}</span>
+                </button>
+              ))}
+            </div>
+            <div key={mode.key} className="p-6 sm:p-8" role="tabpanel" aria-live="polite">
+              <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-primary-dark">Leitfrage</span>
+              <h3 className="mt-2 font-[family-name:var(--font-heading)] text-3xl font-bold leading-tight text-dark">{mode.question}</h3>
+              <p className="mt-5 text-sm leading-relaxed text-muted">{mode.boundary}</p>
+              <div className="mt-7 border-y-2 border-dark py-4">
+                <span className="font-mono text-[8px] uppercase tracking-[0.15em] text-dark/45">Typischer Output</span>
+                <p className="mt-1 font-semibold text-dark">{mode.output}</p>
+              </div>
+              {mode.key !== "betreuung" && <Link href={mode.href} className="group mt-6 inline-flex items-center gap-3 text-sm font-bold text-primary-dark hover:text-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark">Vertiefung öffnen <ArrowMark /></Link>}
+              {mode.key === "betreuung" && <p className="mt-6 font-mono text-[9px] uppercase tracking-[0.15em] text-dark/45">Sie befinden sich auf der Parent-Seite dieses Arbeitsformats.</p>}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-14 grid gap-6 border-t-2 border-dark pt-7 lg:grid-cols-[170px_1fr]">
+          <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-primary-dark">Verbundene Disziplinen</span>
+          <p className="max-w-4xl text-sm leading-relaxed text-muted">Je nach Befund greifen außerdem <Link href="/seo/content-strategie" className="font-semibold text-dark underline decoration-primary/40 underline-offset-4">Content-Strategie</Link>, <Link href="/linkbuilding-agentur" className="font-semibold text-dark underline decoration-primary/40 underline-offset-4">redaktioneller Linkaufbau</Link> oder <Link href="/geo/monitoring" className="font-semibold text-dark underline decoration-primary/40 underline-offset-4">Monitoring für KI-Sichtbarkeit</Link>. Diese Seiten vertiefen einzelne Disziplinen; die Betreuung hält Priorität, Verantwortlichkeit und Lernschleife zusammen.</p>
         </div>
       </div>
     </section>

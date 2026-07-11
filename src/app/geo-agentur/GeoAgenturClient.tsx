@@ -165,15 +165,15 @@ export default function GeoAgenturClient() {
       {/* ============================================================ */}
       {(() => {
         const tools = [
-          { name: "ChatGPT",    logo: "/logos/openai.png",    category: "KI-Modell" },
-          { name: "Claude",     logo: "/logos/claude.png",    category: "KI-Modell" },
-          { name: "Gemini",     logo: "/logos/gemini.png",    category: "KI-Modell" },
+          { name: "ChatGPT",    logo: "/logos/openai.svg",    category: "KI-Modell" },
+          { name: "Claude",     logo: "/logos/claude.svg",    category: "KI-Modell" },
+          { name: "Gemini",     logo: "/logos/gemini.svg",    category: "KI-Modell" },
           { name: "Deepseek",   logo: "/logos/deepseek.svg",  category: "KI-Modell" },
-          { name: "Grok",       logo: "/logos/grok.png",      category: "KI-Modell" },
-          { name: "Perplexity", logo: "/logos/perplexity.png",category: "KI-Suche" },
-          { name: "Mistral",    logo: "/logos/mistral_logo.png", category: "KI-Modell" },
-          { name: "Cursor",     logo: "/logos/cursor_icon.png",        category: "Entwicklung" },
-          { name: "Windsurf",   logo: "/logos/windsurf.png",          category: "Entwicklung" },
+          { name: "Grok",       logo: "/logos/grok.svg",      category: "KI-Modell" },
+          { name: "Perplexity", logo: "/logos/perplexity.svg",category: "KI-Suche" },
+          { name: "Mistral",    logo: "/logos/mistral.svg", category: "KI-Modell" },
+          { name: "Cursor",     logo: "/logos/cursor_logo_clean.svg", category: "Entwicklung" },
+          { name: "Windsurf",   logo: "/logos/windsurf-compact.webp", category: "Entwicklung" },
           { name: "Supabase",   logo: "/logos/supabase_logo_light.svg", category: "Infrastruktur" },
           { name: "Netlify",    logo: "/logos/netlify_logo.svg",       category: "Infrastruktur" },
           { name: "GitHub",     logo: "/logos/github_logo.svg",        category: "Infrastruktur" },
@@ -213,11 +213,13 @@ export default function GeoAgenturClient() {
                   <div key={copy} className="flex items-center gap-16 px-8">
                     {tools.map((tool, i) => (
                       <div key={i} className="flex-shrink-0 opacity-60 hover:opacity-100 transition-opacity duration-300">
-                        <img
+                        <Image
                           src={tool.logo}
                           alt={tool.name}
                           width={100}
                           height={36}
+                          loading="lazy"
+                          decoding="async"
                           className="object-contain"
                           style={{ maxHeight: '32px', maxWidth: '110px', width: 'auto', height: 'auto' }}
                         />
@@ -272,9 +274,12 @@ export default function GeoAgenturClient() {
 
             {/* Right - GEO Diagram */}
             <div className="reveal lg:pt-28 xl:pt-32" style={{ transitionDelay: '150ms' }}>
-              <img
-                src="/images/geo-diagram.png"
+              <Image
+                src="/images/geo-diagram-v2.webp"
                 alt="GEO – Generative Engine Optimization Übersicht"
+                width={1408}
+                height={768}
+                sizes="(max-width: 1024px) 100vw, 600px"
                 className="w-full"
               />
             </div>

@@ -77,14 +77,14 @@ export default function LeistungenHero() {
         <h1
           className="hero-title font-[family-name:var(--font-heading)] text-white leading-[1.05] mb-7"
         >
-          Vier Bereiche.<br />
-          <span style={gradHero}>Eine Agentur.</span>
+          SEO, GEO, Webdesign.<br />
+          <span style={gradHero}>Ein klares Leistungssystem.</span>
         </h1>
 
         {/* Sub-copy */}
         <p className="hero-description text-lg text-white/75 max-w-lg mx-auto mb-14 leading-relaxed">
-          SEO, GEO, Webdesign und KI-SEO — strategisch verzahnt, messbar wirksam,
-          vollständig aus einer Hand.
+          Vier Disziplinen mit unterschiedlichen Aufgaben — gemeinsam planbar,
+          sauber voneinander abgegrenzt und passend zur Ausgangslage kombinierbar.
         </p>
 
         {/* Anchor pills — dunkle Glas-Pills */}
@@ -98,7 +98,7 @@ export default function LeistungenHero() {
             <a
               key={href}
               href={href}
-              className="group inline-flex items-center gap-2.5 border border-white/15 text-white/85 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full text-sm font-medium hover:border-secondary hover:text-white hover:bg-white/[0.14] transition-all duration-200"
+              className="group inline-flex items-center gap-2.5 border border-white/15 text-white/85 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full text-sm font-medium hover:border-secondary hover:text-white hover:bg-white/[0.14] transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary"
             >
               {label}
               <span className="text-secondary text-xs float-chevron">↓</span>

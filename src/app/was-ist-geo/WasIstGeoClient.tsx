@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import SubpageLayout from "../components/SubpageLayout";
 
 /* ------------------------------------------------------------------ */
@@ -219,9 +220,12 @@ export default function WasIstGeoClient() {
               {/* Right: image — 4 cols */}
               <div className="lg:col-span-4">
                 <figure>
-                  <img
-                    src="/images/geo-ai-citation.png"
+                  <Image
+                    src="/images/geo-ai-citation-v2.webp"
                     alt="KI-Chat-Interface das eine Marke in seiner Antwort direkt zitiert"
+                    width={1200}
+                    height={675}
+                    sizes="(max-width: 1024px) 100vw, 33vw"
                     className="rounded-xl border border-border shadow-md w-full"
                   />
                   <figcaption className="mt-3 text-xs text-muted leading-snug italic">
@@ -284,9 +288,12 @@ export default function WasIstGeoClient() {
 
             {/* Layers diagram — full width below cards */}
             <figure className="mt-10">
-              <img
-                src="/images/geo-layers-diagram.png"
+              <Image
+                src="/images/geo-layers-diagram-v2.webp"
                 alt="Diagramm der drei Optimierungsebenen: SEO Algorithm Layer, LLMO Model Layer, GEO Output Layer"
+                width={1200}
+                height={675}
+                sizes="(max-width: 1024px) 100vw, 1200px"
                 className="rounded-2xl border border-border shadow-lg w-full"
               />
               <figcaption className="mt-4 text-xs text-muted text-center leading-snug italic">
@@ -446,9 +453,12 @@ export default function WasIstGeoClient() {
               {/* Right: ecosystem image + stats grid */}
               <div className="lg:col-span-6">
                 <figure className="mb-6">
-                  <img
-                    src="/images/geo-platforms-ecosystem.png"
+                  <Image
+                    src="/images/geo-platforms-ecosystem-v2.webp"
                     alt="Ihre Marke im Zentrum des KI-Plattform-Ökosystems: ChatGPT, Perplexity, Gemini, Copilot, AI Overviews, Claude"
+                    width={1200}
+                    height={675}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="rounded-xl border border-border shadow-md w-full"
                   />
                   <figcaption className="mt-3 text-xs text-muted leading-snug italic">

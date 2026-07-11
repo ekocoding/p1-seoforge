@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import SubpageLayout from "@/app/components/SubpageLayout"
 
 function useInView<T extends HTMLElement = HTMLElement>(opts = {}) {
@@ -377,11 +378,14 @@ export default function ContentStrategiePageClient() {
       {/* ============================================================ */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         {/* Full-bleed background image */}
-        <img
-          src="/images/geo-content-visual.jpg"
+        <Image
+          src="/images/geo-content-visual-v2.webp"
           alt=""
+          fill
+          priority
+          fetchPriority="high"
+          sizes="100vw"
           className="absolute inset-0 w-full h-full object-cover object-center animate-[kenBurns_4s_ease-out_forwards]"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
         />
 
         {/* Dark overlay */}
@@ -815,11 +819,12 @@ export default function ContentStrategiePageClient() {
           {/* Feature header: image + section intro side by side */}
           <div className="grid lg:grid-cols-5 gap-0 rounded-2xl overflow-hidden border border-[#E5E3DF] mb-14">
             <div className="lg:col-span-3 relative min-h-[240px] lg:min-h-[320px]">
-              <img
-                src="/images/geo-content-editorial.jpg"
+              <Image
+                src="/images/geo-content-editorial-v2.webp"
                 alt="Content wird von KI zitiert — Vorher Nachher Vergleich"
+                fill
+                sizes="(max-width: 1024px) 100vw, 60vw"
                 className="absolute inset-0 w-full h-full object-cover object-center"
-                onError={(e) => { e.currentTarget.style.display = "none" }}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/20" />
             </div>

@@ -8,140 +8,8 @@ import Image from "next/image";
 import WebsiteCostCalculator from "./WebsiteCostCalculator";
 import { Tilt } from "./ScreenMockups";
 import ToolLogo from "@/app/components/ToolLogos";
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   HERO MESH — interaktives Feder-Netz: das Raster wölbt sich vom Cursor weg
-   und leuchtet auf, federt elastisch zurück. Canvas 2D (kein WebGL),
-   weiß-dominant, performant, pausiert offscreen, respektiert reduced-motion.
-═══════════════════════════════════════════════════════════════════════════ */
-function HeroMesh() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const GAP = 46;
-    let w = 0, h = 0, cols = 0, rows = 0;
-    type N = { hx: number; hy: number; x: number; y: number; vx: number; vy: number };
-    let nodes: N[] = [];
-    const mouse = { x: -9999, y: -9999, has: false };
-    const at = (c: number, r: number) => nodes[r * cols + c];
-
-    const build = () => {
-      const rect = canvas.getBoundingClientRect();
-      w = rect.width; h = rect.height;
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      cols = Math.ceil(w / GAP) + 1;
-      rows = Math.ceil(h / GAP) + 1;
-      nodes = [];
-      for (let r = 0; r < rows; r++)
-        for (let c = 0; c < cols; c++)
-          nodes.push({ hx: c * GAP, hy: r * GAP, x: c * GAP, y: r * GAP, vx: 0, vy: 0 });
-    };
-    build();
-    const ro = new ResizeObserver(build);
-    ro.observe(canvas);
-
-    const onMove = (e: MouseEvent) => {
-      const r = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; mouse.has = true;
-    };
-    const onLeave = () => { mouse.has = false; mouse.x = -9999; mouse.y = -9999; };
-    window.addEventListener("mousemove", onMove, { passive: true });
-    window.addEventListener("mouseout", onLeave);
-
-    const K = 0.05, DAMP = 0.82, R = 185, FORCE = 2.7;
-    let raf = 0, t = 0, vis = true;
-
-    const step = () => {
-      t += reduce ? 0 : 0.018;
-      ctx.clearRect(0, 0, w, h);
-
-      for (const n of nodes) {
-        const wx = reduce ? 0 : Math.sin(t + n.hy * 0.012) * 2.2;
-        const wy = reduce ? 0 : Math.cos(t * 0.9 + n.hx * 0.013) * 2.2;
-        let ax = (n.hx + wx - n.x) * K;
-        let ay = (n.hy + wy - n.y) * K;
-        if (mouse.has && !reduce) {
-          const dx = n.x - mouse.x, dy = n.y - mouse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-          if (dist < R) {
-            const push = (1 - dist / R) ** 2 * FORCE;
-            ax += (dx / dist) * push;
-            ay += (dy / dist) * push;
-          }
-        }
-        n.vx = (n.vx + ax) * DAMP;
-        n.vy = (n.vy + ay) * DAMP;
-        n.x += n.vx; n.y += n.vy;
-      }
-
-      // Grund-Netz (gebündelt)
-      ctx.beginPath();
-      ctx.strokeStyle = "rgba(194,114,42,0.10)";
-      ctx.lineWidth = 1;
-      for (let r = 0; r < rows; r++)
-        for (let c = 0; c < cols; c++) {
-          const n = at(c, r);
-          if (c < cols - 1) { const m = at(c + 1, r); ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y); }
-          if (r < rows - 1) { const m = at(c, r + 1); ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y); }
-        }
-      ctx.stroke();
-
-      // Hervorhebung rund um den Cursor
-      if (mouse.has && !reduce) {
-        const near = (a: N) => { const dx = a.x - mouse.x, dy = a.y - mouse.y; return dx * dx + dy * dy < R * R; };
-        ctx.beginPath();
-        ctx.strokeStyle = "rgba(194,114,42,0.42)";
-        ctx.lineWidth = 1.3;
-        for (let r = 0; r < rows; r++)
-          for (let c = 0; c < cols; c++) {
-            const n = at(c, r);
-            if (c < cols - 1) { const m = at(c + 1, r); if (near(n) || near(m)) { ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y); } }
-            if (r < rows - 1) { const m = at(c, r + 1); if (near(n) || near(m)) { ctx.moveTo(n.x, n.y); ctx.lineTo(m.x, m.y); } }
-          }
-        ctx.stroke();
-      }
-
-      // Knoten
-      for (const n of nodes) {
-        let rr = 1.1, a = 0.14;
-        if (mouse.has && !reduce) {
-          const dx = n.x - mouse.x, dy = n.y - mouse.y;
-          const d2 = dx * dx + dy * dy;
-          if (d2 < R * R) { const f = 1 - Math.sqrt(d2) / R; rr = 1.1 + f * 2.6; a = 0.2 + f * 0.6; }
-        }
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(194,114,42,${a})`;
-        ctx.arc(n.x, n.y, rr, 0, 6.2832);
-        ctx.fill();
-      }
-
-      raf = vis && !reduce ? requestAnimationFrame(step) : 0;
-    };
-
-    const io = new IntersectionObserver(([en]) => {
-      vis = en.isIntersecting;
-      if (vis && !raf && !reduce) raf = requestAnimationFrame(step);
-      else if (!vis && raf) { cancelAnimationFrame(raf); raf = 0; }
-    }, { threshold: 0 });
-    io.observe(canvas);
-    raf = requestAnimationFrame(step);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      ro.disconnect(); io.disconnect();
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseout", onLeave);
-    };
-  }, []);
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" aria-hidden="true" />;
-}
+import WebsiteHeroWorkbench from "./WebsiteHeroWorkbench";
+import WebsiteDeliverableAtlas from "./WebsiteDeliverableAtlas";
 
 /* ─── Scroll reveal (IntersectionObserver → .scroll-visible) ──────────────── */
 function useScrollReveal() {
@@ -156,40 +24,6 @@ function useScrollReveal() {
     document.querySelectorAll(".scroll-hidden").forEach((el) => io.observe(el));
     return () => io.disconnect();
   }, []);
-}
-
-/* ─── Ghost-Wasserzeichen mit isolierter Parallax ─────────────────────────────
-   Eigene Komponente: mutiert nur das eigene transform per Ref (kein Re-Render
-   der gesamten Seite beim Scrollen → kein FPS-Einbruch).                       */
-function HeroWatermark() {
-  const ref = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    let raf = 0;
-    const onScroll = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => { el.style.transform = `translateY(${window.scrollY * 0.16}px)`; });
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => { window.removeEventListener("scroll", onScroll); cancelAnimationFrame(raf); };
-  }, []);
-  return (
-    <div
-      ref={ref}
-      aria-hidden="true"
-      className="pointer-events-none select-none absolute inset-0 flex items-center justify-center"
-      style={{ opacity: 0.05, willChange: "transform" }}
-    >
-      <span
-        className="font-[family-name:var(--font-heading)] font-black text-dark leading-none tracking-tight"
-        style={{ fontSize: "clamp(110px, 19vw, 300px)" }}
-      >
-        WEBSITE
-      </span>
-    </div>
-  );
 }
 
 /* ─── Globaler Scroll-Fortschritt — dünne Gradient-Linie ganz oben ────────── */
@@ -244,9 +78,9 @@ const CC_ROWS: CCRow[] = [
   { kind: "diff", text: 'description: "Schreinerei mit eigener Werkstatt…"', d: 4950 },
   { kind: "diff", text: '"@type": "LocalBusiness", "name": "Müller GmbH"', d: 5200 },
   { kind: "tool", name: "Bash",   arg: "npm run build && deploy --prod", d: 6200 },
-  { kind: "res",  text: "Build erfolgreich — 4.2s", ok: true, d: 7400 },
-  { kind: "res",  text: "Live auf Produktion — 38s", ok: true, d: 8100 },
-  { kind: "msg",  text: "Fertig — Meta-Tags, Schema.org & Sitemap optimiert. Die Seite ist live.", d: 9100 },
+  { kind: "res",  text: "Build und automatisierte Prüfungen bestanden", ok: true, d: 7400 },
+  { kind: "res",  text: "Staging-Version aktualisiert", ok: true, d: 8100 },
+  { kind: "msg",  text: "Fertig zur fachlichen Abnahme — Änderungen sind dokumentiert.", d: 9100 },
 ];
 
 function ClaudeCodeTerminal() {
@@ -507,148 +341,9 @@ export default function WebsiteErstellenLassenClient() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
 
-      {/* ══════════════════════════════════════════════════════════════════
-          HERO — Shader als Hintergrund der GESAMTEN Sektion, zentriert
-      ══════════════════════════════════════════════════════════════════ */}
-      <section className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-white">
+      <WebsiteHeroWorkbench />
 
-        {/* Full-bleed interaktives Feder-Netz */}
-        <HeroMesh />
-
-        {/* Fade in nächste Sektion */}
-        <div
-          aria-hidden="true"
-          className="absolute bottom-0 left-0 right-0 h-44 pointer-events-none"
-          style={{ background: "linear-gradient(to bottom, transparent, #ffffff)" }}
-        />
-
-        {/* Ghost-Wasserzeichen mit isolierter Parallax */}
-        <HeroWatermark />
-
-        {/* Content — zentriert */}
-        <div className="relative z-10 mx-auto w-full max-w-5xl px-6 lg:px-8 pt-32 pb-28 text-center">
-
-          {/* Badge */}
-          <div className="hero-badge mb-8 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-white/55 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-primary">
-            <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Website erstellen lassen · SeoForge
-          </div>
-
-          {/* H1 — exakt zwei Zeilen */}
-          <h1
-            className="hero-title font-[family-name:var(--font-heading)] font-bold text-dark leading-[1.08] mb-7"
-            style={{ fontSize: "clamp(38px, 5.2vw, 72px)", letterSpacing: "-0.025em" }}
-          >
-            Website erstellen lassen —
-            <br />
-            <span
-              style={{
-                background: "linear-gradient(95deg, #C2722A 12%, #D4A853 88%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
-            >
-              individuell, custom coded, SEO-first.
-            </span>
-          </h1>
-
-          {/* Divider-Tags */}
-          <div className="hero-description mb-8 flex items-center justify-center gap-4">
-            <div className="h-px w-10 bg-primary/40" />
-            <span className="text-[10px] font-bold tracking-[0.26em] uppercase text-dark/30">
-              Next.js · WordPress · DevOps · Semrush · Ahrefs
-            </span>
-            <div className="h-px w-10 bg-primary/40" />
-          </div>
-
-          {/* Beschreibung — substanziell, ohne erfundene Kennzahlen */}
-          <p className="hero-description text-muted leading-[1.85] mb-11 max-w-3xl mx-auto" style={{ fontSize: "clamp(15px, 1.1vw, 17px)" }}>
-            Du willst deine Website erstellen lassen — ohne Template, ohne Baukasten?
-            Wir entwickeln sie von Grund auf: individuelles Design, sauberer Code,
-            SEO als Fundament. Jede Unterseite planen wir auf Basis echter Suchdaten
-            aus Semrush und Ahrefs. DevOps-Workflows und KI machen uns schneller als
-            klassische Agenturen. Diesen Vorteil geben wir als fairen Festpreis an
-            dich weiter. Das Ergebnis: eine Website, die gefunden wird, überzeugt
-            und verkauft.
-          </p>
-
-          {/* CTAs */}
-          <div className="hero-cta flex flex-wrap justify-center gap-4">
-            <Link
-              href="/kontakt"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark hover:shadow-xl hover:-translate-y-0.5"
-            >
-              Kostenloses Erstgespräch
-              <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </Link>
-            <a
-              href="#leistungen"
-              className="inline-flex items-center gap-2 rounded-full border border-dark/15 bg-white/55 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-dark/65 transition-all hover:border-dark/30 hover:bg-white/80 hover:text-dark"
-            >
-              Was wir liefern
-              <span className="text-primary text-xs float-chevron">↓</span>
-            </a>
-          </div>
-        </div>
-
-        {/* Scroll cue */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
-          <span className="text-[10px] text-dark/50 font-mono tracking-[0.28em] uppercase">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-dark/30 to-transparent" />
-        </div>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          LEISTUNGEN — 3D-Tilt-Cards
-      ══════════════════════════════════════════════════════════════════ */}
-      <section id="leistungen" className="bg-white py-24 lg:py-32">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-
-          {/* Editorial-Header: links Headline, rechts Copy */}
-          <div className="scroll-hidden grid lg:grid-cols-[1fr_380px] gap-6 lg:gap-16 items-end mb-12 lg:mb-16">
-            <div>
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Was wir liefern</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12]">
-                Alles, was eine starke<br />Website braucht.
-              </h2>
-            </div>
-            <p className="text-muted leading-relaxed lg:pb-1.5 lg:text-right">
-              Von der ersten Idee bis zum Launch — und darüber hinaus.
-              Ein Team, ein Festpreis, ein Ansprechpartner.
-            </p>
-          </div>
-
-          {/* Hairline-Grid: 6 Zellen, 1px-Fugen, Hover-Akzent */}
-          <div className="scroll-hidden grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border rounded-2xl overflow-hidden">
-            {leistungen.map((l, i) => (
-              <div
-                key={l.title}
-                className="group relative bg-white p-8 lg:p-9 pb-14 transition-colors duration-300 hover:bg-[#FBF8F4]"
-              >
-                {/* Hover: Gradient-Akzentlinie oben */}
-                <div
-                  className="absolute top-0 left-0 right-0 h-[2.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
-                  aria-hidden="true"
-                />
-                <div className="flex items-start justify-between mb-9">
-                  <div className="text-dark/70 group-hover:text-primary transition-colors duration-300">{l.icon}</div>
-                  <span className="font-mono text-[11px] font-bold text-dark/20 group-hover:text-primary transition-colors duration-300">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                </div>
-                <h3 className="font-bold text-dark text-lg mb-2">{l.title}</h3>
-                <p className="text-muted text-sm leading-relaxed mb-6">{l.desc}</p>
-                <div className="absolute bottom-7 left-8 lg:left-9 right-8 text-[10px] font-mono tracking-wide text-dark/30 group-hover:text-primary/70 transition-colors duration-300">
-                  {l.meta}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <WebsiteDeliverableAtlas items={leistungen} />
 
       {/* ══════════════════════════════════════════════════════════════════
           KOSTEN — Marktkontext + interaktiver Rechner
@@ -752,16 +447,19 @@ export default function WebsiteErstellenLassenClient() {
             </div>
 
             {/* Custom Graphic — SEO + Design fließen in eine Website */}
-            <div className="scroll-hidden hidden lg:block" style={{ transitionDelay: "120ms" }}>
+            <figure className="scroll-hidden hidden lg:block" style={{ transitionDelay: "120ms" }}>
               <Image
                 src="/images/warum-seoforge-team.png"
-                alt="SEO und Webdesign fließen bei SeoForge in eine Website zusammen — Platz 1 bei Google, PageSpeed 96+"
+                alt="Konzeptgrafik: SEO-Struktur und Designsystem fließen in eine gemeinsame Website"
                 width={1120}
                 height={980}
                 className="w-full h-auto select-none pointer-events-none"
                 sizes="(max-width: 1024px) 0px, 560px"
               />
-            </div>
+              <figcaption className="mt-3 text-center font-mono text-[9px] uppercase tracking-[0.14em] text-dark/35">
+                Prinzipdarstellung · gezeigte Rankings und Performance-Werte sind keine Projektnachweise
+              </figcaption>
+            </figure>
 
           </div>
         </div>
@@ -778,7 +476,7 @@ export default function WebsiteErstellenLassenClient() {
             <div className="scroll-hidden order-last lg:order-first" style={{ transitionDelay: "120ms" }}>
               <ClaudeCodeTerminal />
               <p className="mt-4 text-center text-xs text-dark/35">
-                So arbeiten wir wirklich — KI-gestützte Entwicklung, live deployt in Minuten.
+                Beispiel eines kontrollierten Arbeitslaufs — von der Änderung bis zur prüfbaren Staging-Version.
               </p>
             </div>
 
@@ -796,9 +494,9 @@ export default function WebsiteErstellenLassenClient() {
                 ohne Abstriche beim Handwerk.
               </p>
               <p className="text-muted leading-relaxed mb-8">
-                Was bei klassischen Agenturen Tage dauert, dauert bei uns Stunden. Diesen
-                Effizienzgewinn rechnen wir nicht in Stunden ab — sondern geben ihn als
-                fair kalkulierten Festpreis an dich weiter.
+                Wiederholbare Arbeitsschritte laufen automatisiert; Konzeption,
+                Markenentscheidungen und Freigabe bleiben menschliche Aufgaben. So fließt
+                mehr Projektzeit in die Stellen, an denen deine Website unterscheidbar wird.
               </p>
               {/* Rahmendaten-Tafel — echte Projekt-Fakten, Ink-Kopfzeile */}
               <div className="scroll-hidden rv-scale overflow-hidden rounded-2xl border-2 border-dark bg-white">
@@ -843,6 +541,56 @@ export default function WebsiteErstellenLassenClient() {
                   </span>
                 </div>
               ))}
+            </div>
+          </div>
+
+          <div className="scroll-hidden mt-16 overflow-hidden border-y-2 border-dark">
+            <div className="grid lg:grid-cols-[.78fr_1.22fr]">
+              <div className="border-b border-dark/20 bg-[#F4EFE8] p-7 sm:p-9 lg:border-b-0 lg:border-r lg:p-10">
+                <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.22em] text-primary-dark">Mensch im System</span>
+                <h3 className="mt-4 font-[family-name:var(--font-heading)] text-3xl font-bold leading-[1.08] text-dark lg:text-4xl">
+                  Automatisieren darf die Produktion. Entscheiden muss ein Mensch.
+                </h3>
+                <p className="mt-5 text-sm leading-relaxed text-muted">
+                  KI ist bei uns kein Ersatz für Recherche, Art Direction oder Verantwortung.
+                  Sie verkürzt reproduzierbare Arbeit. Dadurch bleibt mehr Raum für die Frage,
+                  welche Seite dein Angebot wirklich braucht — und welche bewusst nicht.
+                </p>
+              </div>
+
+              <div className="bg-white">
+                {[
+                  {
+                    label: "Vor dem Code",
+                    title: "Geschäftsmodell und Suchbedarf werden in Seiten übersetzt.",
+                    text: "Wir trennen Leistungen, Zielgruppen und Informationsbedürfnisse so, dass jede URL einen klaren Job bekommt. Das schützt vor dünnen Sammelseiten und späterer Keyword-Kannibalisierung.",
+                  },
+                  {
+                    label: "Im Build",
+                    title: "Systeme beschleunigen Varianten — das Team kuratiert.",
+                    text: "Komponenten, Tests und technische Routinen lassen sich automatisieren. Leseführung, Bildwahl, Tonalität und die Priorität jeder Botschaft werden dagegen bewusst geprüft.",
+                  },
+                  {
+                    label: "Vor dem Release",
+                    title: "Freigabe folgt einem nachvollziehbaren Qualitätsweg.",
+                    text: "Staging, semantische Struktur, Formulare, interne Links und mobile Darstellung werden vor dem Launch kontrolliert. Änderungen bleiben versioniert und damit nachvollziehbar.",
+                  },
+                ].map((row) => (
+                  <div key={row.label} className="grid gap-3 border-b border-dark/15 p-7 last:border-b-0 sm:grid-cols-[140px_1fr] sm:p-9">
+                    <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.18em] text-primary-dark">{row.label}</span>
+                    <div>
+                      <p className="font-[family-name:var(--font-heading)] text-xl font-bold leading-snug text-dark">{row.title}</p>
+                      <p className="mt-2 text-sm leading-relaxed text-muted">{row.text}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col gap-4 border-t border-dark/20 bg-dark px-7 py-5 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
+              <span>Braucht dein Produkt mehr als eine Website-Oberfläche?</span>
+              <Link href="/webdesign/app-design" className="font-semibold text-secondary underline decoration-secondary/40 underline-offset-4 transition-colors hover:text-secondary-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-secondary">
+                App-Design und Produktlogik ansehen →
+              </Link>
             </div>
           </div>
         </div>
@@ -917,6 +665,10 @@ export default function WebsiteErstellenLassenClient() {
                 </span>
                 <span className="ml-auto text-[10px] font-mono text-dark/30">{tools[tool].usage}</span>
               </div>
+
+              <p className="border-b border-border bg-white px-6 py-2 font-mono text-[9px] uppercase tracking-[0.12em] text-dark/35">
+                Schematische Arbeitsansicht · keine Live-Kunden- oder Erfolgsdaten
+              </p>
 
               <div key={tool} className="flex-1 p-6 lg:p-8">
                 {tool === 0 && (

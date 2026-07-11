@@ -5,19 +5,20 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import LeistungenHero from "./LeistungenHero";
+import { LeistungsNavigator, ScopeBoundaryLedger } from "./LeistungsDecisionLab";
 
 /* ─── Data ─────────────────────────────────────────────────────────────────── */
 
 const SEO_SERVICES = [
-  { n: "01", title: "SEO Audit",           href: "/seo/audit",                  desc: "Vollständige Analyse Ihrer aktuellen SEO-Situation" },
-  { n: "02", title: "SEO Beratung",        href: "/seo/beratung",               desc: "Strategische Beratung für nachhaltiges Wachstum" },
-  { n: "03", title: "SEO Betreuung",       href: "/seo/betreuung",              desc: "Laufende Optimierung & kontinuierliches Monitoring" },
-  { n: "04", title: "Ohne Vertrag",        href: "/seo/betreuung/ohne-vertrag", desc: "Flexible SEO-Betreuung ohne Mindestlaufzeit" },
-  { n: "05", title: "ROI-Analyse",         href: "/seo/betreuung/roi",          desc: "Was SEO-Investment wirklich einbringt" },
-  { n: "06", title: "Content-Strategie",   href: "/seo/content-strategie",      desc: "Inhalte, die ranken und konvertieren" },
-  { n: "07", title: "SEO Optimierung",     href: "/seo/optimierung",            desc: "Ganzheitliche Maßnahmen für mehr Sichtbarkeit" },
-  { n: "10", title: "SEO selbst machen",   href: "/seo/selbst-machen",          desc: "Schritt-für-Schritt-Anleitung für Einsteiger" },
-  { n: "11", title: "SEO Texte",           href: "/seo/texte",                  desc: "Professionelle Texte für Top-Rankings" },
+  { n: "01", title: "SEO Audit",           href: "/seo/audit",                  desc: "Technik, Inhalte und Messung untersuchen; Ursachen und Prioritäten dokumentieren" },
+  { n: "02", title: "SEO Beratung",        href: "/seo/beratung",               desc: "Entscheidungen, Rollen und eine realistische Umsetzungsreihenfolge klären" },
+  { n: "03", title: "SEO selbst machen",   href: "/seo/selbst-machen",          desc: "Geeignete Aufgaben intern übernehmen und Grenzen früh erkennen" },
+  { n: "04", title: "SEO Optimierung",     href: "/seo/optimierung",            desc: "Definierte technische und inhaltliche Baustellen strukturiert umsetzen" },
+  { n: "05", title: "Content-Strategie",   href: "/seo/content-strategie",      desc: "Suchintentionen, Seitenrollen und interne Verbindungen als Themenmodell planen" },
+  { n: "06", title: "SEO Texte",           href: "/seo/texte",                  desc: "Recherche und Content-Briefs in hilfreiche, belegbare Seiten übersetzen" },
+  { n: "07", title: "SEO Betreuung",       href: "/seo/betreuung",              desc: "Mehrere Abhängigkeiten in einem laufenden Priorisierungs- und Lernzyklus steuern" },
+  { n: "08", title: "Ohne Vertrag",        href: "/seo/betreuung/ohne-vertrag", desc: "Monatlich neu entscheiden und Übergabe sowie Restarbeiten sauber regeln" },
+  { n: "09", title: "SEO-ROI",             href: "/seo/betreuung/roi",          desc: "Investition, Deckungsbeitrag und Attribution mit eigenen Annahmen modellieren" },
 ];
 
 const GEO_SERVICES = [
@@ -33,6 +34,24 @@ const WD_SERVICES = [
   { n: "02", title: "Landing Pages",     href: "/webdesign/landingpage-erstellen-lassen",            desc: "Conversion-optimierte Zielseiten, die verkaufen" },
   { n: "03", title: "Website erstellen", href: "/webdesign/website-erstellen-lassen", desc: "Professioneller Webauftritt von Grund auf neu" },
   { n: "04", title: "Website Relaunch",  href: "/webdesign/website-relaunch-agentur",         desc: "Ihre bestehende Site — neu gedacht & umgesetzt" },
+];
+
+const SEO_GROUPS = [
+  {
+    label: "Diagnose & Richtung",
+    description: "Wenn Ursache, Reihenfolge oder interne Zuständigkeit noch unklar sind.",
+    services: SEO_SERVICES.slice(0, 3),
+  },
+  {
+    label: "Gezielte Umsetzung",
+    description: "Wenn die Baustelle definiert ist und Technik oder Content bearbeitet werden sollen.",
+    services: SEO_SERVICES.slice(3, 6),
+  },
+  {
+    label: "Laufender Modus",
+    description: "Wenn Priorisierung, Lernen und Wirtschaftlichkeit über mehrere Releases gesteuert werden.",
+    services: SEO_SERVICES.slice(6),
+  },
 ];
 
 /* ─── Scroll reveal ─────────────────────────────────────────────────────────── */
@@ -137,6 +156,7 @@ export default function LeistungenClient() {
     <>
       <Navbar />
       <LeistungenHero />
+      <LeistungsNavigator />
 
       {/* ══════════════════════════════════════════════════════════════════════
           01 · SEO  —  dark, 12 services, full grid
@@ -165,20 +185,32 @@ export default function LeistungenClient() {
               Sichtbarkeit,<br />die bleibt.
             </h2>
             <p className="text-white/45 text-lg leading-relaxed">
-              Von technischer Grundlage bis zur Content-Strategie — wir bringen
-              Ihre Website nachhaltig nach oben und halten sie dort.
+              Von technischer Diagnose bis zur laufenden Betreuung: Jede Vertiefung
+              hat einen eigenen Job. Der passende Modus hängt davon ab, ob erst eine
+              Ursache geklärt, eine definierte Baustelle umgesetzt oder ein gesamtes
+              SEO-System gesteuert werden soll.
             </p>
           </div>
 
-          {/* 3-column service grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {SEO_SERVICES.map((s, i) => (
-              <div
-                key={s.href}
-                className="scroll-hidden"
-                style={{ transitionDelay: `${0.04 * i}s` }}
-              >
-                <ServiceCard {...s} dark />
+          {/* Drei Arbeitsmodi statt einer generischen Kartenwand */}
+          <div className="grid overflow-hidden rounded-[2rem] border border-white/15 lg:grid-cols-3">
+            {SEO_GROUPS.map((group, groupIndex) => (
+              <div key={group.label} className="border-b border-white/15 p-6 last:border-b-0 lg:border-b-0 lg:border-r lg:last:border-r-0 lg:p-7">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-secondary">Modus {String(groupIndex + 1).padStart(2, "0")}</span>
+                <h3 className="mt-3 font-[family-name:var(--font-heading)] text-xl font-bold text-white">{group.label}</h3>
+                <p className="mt-2 min-h-[68px] text-sm leading-relaxed text-white/45">{group.description}</p>
+                <div className="mt-6 border-y border-white/10">
+                  {group.services.map((service) => (
+                    <Link key={service.href} href={service.href} className="group block border-b border-white/10 py-4 last:border-b-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-inset focus-visible:outline-secondary">
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono text-[9px] font-bold text-primary-light">{service.n}</span>
+                        <span className="font-[family-name:var(--font-heading)] text-base font-bold text-white group-hover:text-secondary">{service.title}</span>
+                        <span className="ml-auto text-primary-light transition-transform group-hover:translate-x-1 motion-reduce:transform-none" aria-hidden="true">→</span>
+                      </div>
+                      <p className="mt-2 text-[13px] leading-relaxed text-white/40">{service.desc}</p>
+                    </Link>
+                  ))}
+                </div>
               </div>
             ))}
           </div>
@@ -186,7 +218,7 @@ export default function LeistungenClient() {
           {/* Bottom strip */}
           <div className="scroll-hidden mt-10 pt-8 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-5">
             <p className="text-white/25 text-xs font-mono tracking-wider">
-              12 Leistungen · Audit → Texte → Shop → Betreuung
+              9 Vertiefungen · Diagnose → Umsetzung → laufender Modus
             </p>
             <Link
               href="/seo"
@@ -233,16 +265,17 @@ export default function LeistungenClient() {
               </h2>
               <p className="text-muted text-lg leading-relaxed mb-10">
                 ChatGPT, Perplexity und Google AI Overviews verändern, wie Menschen
-                Antworten finden. Wir sorgen dafür, dass Ihre Marke in diesen
-                Antworten erscheint.
+                Antworten finden. GEO verbessert die Voraussetzungen dafür, dass
+                belastbare Marken- und Fachinformationen korrekt verstanden, gefunden
+                und zitiert werden können — ohne Nennungsgarantie.
               </p>
 
               <div className="flex flex-wrap gap-2.5">
                 {[
-                  "KI-Suchen +40 % p.a.",
+                  "Nennung und Zitation trennen",
                   "ChatGPT · Perplexity",
                   "Gemini · AI Overviews",
-                  "Messbare AI-Sichtbarkeit",
+                  "Prompt-Sets wiederholbar prüfen",
                 ].map((t) => (
                   <span
                     key={t}
@@ -327,8 +360,9 @@ export default function LeistungenClient() {
               Design,<br />das überzeugt.
             </h2>
             <p className="text-white/45 text-lg leading-relaxed">
-              Websites und Apps, die nicht nur gut aussehen — sondern Vertrauen
-              aufbauen, Besucher halten und Leads generieren.
+              Websites und Apps mit klarer Informationsarchitektur, eigenständiger
+              Gestaltung und einem technischen Betrieb, der spätere Änderungen nicht
+              zum Risiko macht.
             </p>
           </div>
 
@@ -431,8 +465,9 @@ export default function LeistungenClient() {
               </h2>
               <p className="text-muted text-lg leading-relaxed mb-10">
                 Immer mehr Kaufentscheidungen beginnen mit einer Frage an ChatGPT,
-                Perplexity oder Google AI Overviews. KI-SEO macht Ihre Marke zu der
-                Empfehlung, die diese Systeme aussprechen — messbar über alle Plattformen.
+                Perplexity oder Google AI Overviews. KI-SEO verbindet klassisches SEO,
+                GEO, Entitätsarbeit und externe Markensignale, wenn diese Disziplinen
+                nicht sinnvoll getrennt gesteuert werden können.
               </p>
 
               <div className="flex flex-col gap-2.5">
@@ -471,6 +506,8 @@ export default function LeistungenClient() {
           </div>
         </div>
       </section>
+
+      <ScopeBoundaryLedger />
 
       {/* ══════════════════════════════════════════════════════════════════════
           BOTTOM CTA  —  10% accent: the one orange section on the whole page

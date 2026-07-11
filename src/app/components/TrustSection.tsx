@@ -125,6 +125,8 @@ function MozLogo() {
       <img
         src="/images/moz-logo.svg"
         alt="Moz"
+        loading="lazy"
+        decoding="async"
         className="h-6 w-auto"
       />
     </div>
@@ -170,6 +172,8 @@ function ScreamingFrogLogo() {
       <img
         src="/images/logos/screamingfrog.png"
         alt="Screaming Frog"
+        loading="lazy"
+        decoding="async"
         className="h-7 w-auto"
       />
     </div>

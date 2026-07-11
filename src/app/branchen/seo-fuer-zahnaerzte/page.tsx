@@ -15,5 +15,5 @@ export const metadata: Metadata = {
 };
 
 export default function SeoFuerZahnaerztePage() {
-  return <BranchenDetailClient branche={branche} />;
+  return <BranchenDetailClient slug={branche.slug} />;
 }

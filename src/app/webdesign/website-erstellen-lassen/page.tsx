@@ -4,9 +4,9 @@ import WebsiteErstellenLassenClient from "./WebsiteErstellenLassenClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "Website erstellen lassen — SEO-ready & modern",
+  title: "Website erstellen lassen | Individuell & SEO-first",
   description:
-    "Professionelle Website-Erstellung von SeoForge: individuelle Gestaltung, technisch sauber, SEO-ready und schnell. Ihr kompletter Webauftritt aus einer Hand.",
+    "Website erstellen lassen: individuelle Seitenarchitektur, eigenständiges Design, sauberer Code und SEO von Anfang an. Planung und Entwicklung mit SeoForge.",
   alternates: {
     canonical: "https://seoforge.de/webdesign/website-erstellen-lassen",
   },

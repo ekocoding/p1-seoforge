@@ -4,10 +4,9 @@ import OhneVertragClient from "./OhneVertragClient";
 export const dynamic = 'force-static';
 
 export const metadata: Metadata = {
-  title: "SEO ohne Vertrag — Monatlich kündbar",
+  title: "SEO-Betreuung ohne Vertrag | Monatlich kündbar",
   description:
-    
-    "Keine Mindestlaufzeit, kein Kleingedrucktes: SeoForge bietet SEO-Betreuung die monatlich kündbar ist. Weil gute Arbeit keine Vertragsfesseln braucht.",
+    "SEO-Betreuung ohne Vertrag: Was monatlich kündbar konkret bedeutet, welche Übergaberegeln wichtig sind und wann Audit oder Projekt besser passen.",
   alternates: { canonical: "https://seoforge.de/seo/betreuung/ohne-vertrag" },
 };
 

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, type FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SubpageLayout from "@/app/components/SubpageLayout";
+import Seo2026Landscape from "./Seo2026Landscape";
 
 /* ─── Scroll-Reveal (IntersectionObserver → .scroll-visible) ──────────────── */
 function useScrollReveal() {
@@ -107,183 +108,6 @@ function CountUp({ to, dauer = 1400 }: { to: number; dauer?: number }) {
     };
   }, [to, dauer]);
   return <span ref={ref}>{to.toLocaleString("de-DE")}</span>;
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   SERP-LIVE-DEMO — Interaktions-Höhepunkt 1/2 (Hero)
-   Story-Animation beim Viewport-Eintritt (IO threshold 0.4, einmalig):
-   (a) Suchfeld tippt „seo agentur" Zeichen für Zeichen (rAF, ~80ms/Zeichen,
-       blinkender Cursor), (b) Ergebnis-Zeilen staggern ein — seoforge.de
-   startet auf Position 4, (c) klettert FLIP-artig Position für Position
-   nach oben (translateY-Tausch mit den Skeleton-Zeilen, ~450ms Move +
-   ~500ms Pause), (d) oben: „PLATZ 1"-Stempel + Tint #fbf4ea + Topline.
-   Keine erfundenen Zahlen — nur Positionsbewegung. SSR/No-JS/Reduced-Motion
-   zeigen statisch den Endzustand; alle echten Texte bleiben im DOM.
-═══════════════════════════════════════════════════════════════════════════ */
-const SERP_OFFSETS = [0, 74, 148, 222, 296]; // 5 Slots à 64px + 10px Abstand
-const SERP_QUERY = "seo agentur";
-
-/* -1 = statischer Endzustand · -2 = armiert (leer) · 0 = tippen ·
-   1 = Zeilen staggern ein · 2–4 = Kletter-Schritte (Pos 4→3→2→1) · 5 = Stempel */
-type SerpAnim = -2 | -1 | 0 | 1 | 2 | 3 | 4 | 5;
-
-function SerpLiveDemo() {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const queryRef = useRef<HTMLSpanElement>(null);
-  const [anim, setAnim] = useState<SerpAnim>(-1);
-
-  /* Armieren + IO-Start (einmalig; bei Reduced-Motion bleibt der Endzustand) */
-  useEffect(() => {
-    const el = wrapRef.current;
-    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (queryRef.current) queryRef.current.textContent = "";
-    setAnim(-2);
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          io.disconnect();
-          setAnim(0);
-        }
-      },
-      { threshold: 0.4 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  /* (a) Tippen — rAF, auf Zeichen quantisiert (~80ms/Zeichen), kein Interval */
-  useEffect(() => {
-    if (anim !== 0) return;
-    const span = queryRef.current;
-    if (!span) {
-      setAnim(1);
-      return;
-    }
-    const start = performance.now();
-    let raf = 0;
-    let last = -1;
-    const tick = (now: number) => {
-      const n = Math.min(SERP_QUERY.length, Math.floor((now - start) / 80));
-      if (n !== last) {
-        last = n;
-        span.textContent = SERP_QUERY.slice(0, n);
-      }
-      if (n < SERP_QUERY.length) raf = requestAnimationFrame(tick);
-      else setAnim(1);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [anim]);
-
-  /* (b)–(d) Stagger → drei Kletter-Schritte (~450ms Move + ~500ms Pause) → Stempel */
-  useEffect(() => {
-    if (anim < 1 || anim >= 5) return;
-    const delay = anim === 1 ? 1400 : anim === 4 ? 650 : 950;
-    const t = setTimeout(() => setAnim((a) => (a >= 1 && a < 5 ? ((a + 1) as SerpAnim) : a)), delay);
-    return () => clearTimeout(t);
-  }, [anim]);
-
-  const slot = anim === -1 || anim >= 4 ? 0 : anim === 2 ? 2 : anim === 3 ? 1 : 3;
-  const rowsIn = anim === -1 || anim >= 1;
-  const entering = anim === 1;
-  const done = anim === -1 || anim === 5;
-  const skelSlot = (i: number) => (i < slot ? i : i + 1);
-  const rowTransition =
-    "transform 0.45s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease, background-color 0.4s ease, border-color 0.4s ease";
-
-  return (
-    <div ref={wrapRef} className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_28px_70px_-26px_rgba(26,26,26,0.28)]">
-      {/* Fake-App-Header */}
-      <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
-        <span className="chip-dot w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
-        <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45">Google-Suche · Live-Demo</span>
-        <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.14em] text-dark/35">Beispiel</span>
-      </div>
-
-      <div className="p-5 lg:p-6 bg-offwhite/40">
-        {/* Mono-Status: begleitet die Story-Animation */}
-        <div className="mb-3 flex h-4 items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-primary" aria-hidden="true">
-          <span className={`h-1.5 w-1.5 rounded-full bg-primary ${done ? "" : "animate-pulse"}`} />
-          {done ? "Platz 1 erreicht" : "Ranking wird aufgebaut …"}
-        </div>
-
-        {/* Suchleiste — tippt sich beim Viewport-Eintritt */}
-        <div className="flex items-center gap-2.5 rounded-full border border-border bg-white px-4 py-2.5 mb-5">
-          <svg className="w-4 h-4 text-muted shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-          </svg>
-          <span className="flex items-center font-mono text-sm text-dark">
-            <span ref={queryRef}>seo agentur</span>
-            <span
-              className={`ml-0.5 inline-block h-[14px] w-[7px] rounded-[1px] bg-dark/60 ${done ? "opacity-0" : "serp-caret"}`}
-              aria-hidden="true"
-            />
-          </span>
-        </div>
-
-        {/* 5 Ergebnis-Zeilen — Reorder ausschließlich über translateY (FLIP-artig) */}
-        <div className="relative h-[360px]">
-          {[0, 1, 2, 3].map((i) => (
-            <div
-              key={`skel-${i}`}
-              className="absolute left-0 right-0 top-0 flex h-16 items-center gap-3 rounded-xl border border-border bg-white px-4"
-              style={{
-                transform: `translateY(${SERP_OFFSETS[skelSlot(i)] + (rowsIn ? 0 : 14)}px)`,
-                opacity: rowsIn ? 1 : 0,
-                transition: rowTransition,
-                transitionDelay: entering ? `${i * 90}ms` : "0ms",
-              }}
-              aria-hidden="true"
-            >
-              <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-dark/10" />
-              <span className="flex-1">
-                <span className="block h-2.5 rounded" style={{ background: "#dcd7d0", width: `${[76, 62, 70, 55][i]}%` }} />
-                <span className="mt-2 block h-2 rounded bg-offwhite" style={{ width: `${[44, 52, 38, 47][i]}%` }} />
-              </span>
-            </div>
-          ))}
-
-          {/* seoforge.de — klettert von Position 4 auf Position 1 */}
-          <div
-            className="absolute left-0 right-0 top-0 flex h-16 items-center gap-3 rounded-xl px-4"
-            style={{
-              background: done ? "#fbf4ea" : "#ffffff",
-              border: done ? "1px solid #ecd3ba" : "1px solid var(--color-border)",
-              transform: `translateY(${SERP_OFFSETS[slot] + (rowsIn ? 0 : 14)}px)`,
-              opacity: rowsIn ? 1 : 0,
-              transition: rowTransition,
-              transitionDelay: entering ? "360ms" : "0ms",
-              zIndex: 5,
-            }}
-          >
-            <span
-              className="pointer-events-none absolute top-0 left-4 right-4 h-[2.5px] rounded-b transition-opacity duration-500"
-              style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)", opacity: done ? 1 : 0 }}
-              aria-hidden="true"
-            />
-            <span
-              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg font-mono text-sm font-bold text-white"
-              style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)" }}
-            >
-              {slot + 1}
-            </span>
-            <span className="min-w-0">
-              <span className="block truncate text-[13px] font-semibold text-dark">SEO Agentur für Google &amp; KI-Suche</span>
-              <span className="block font-mono text-[11px] text-primary">seoforge.de</span>
-            </span>
-            {done && (
-              <span
-                className="serp-stamp pointer-events-none absolute -right-3 -top-4 z-10 rounded-full px-3.5 py-1.5 font-mono text-[11px] font-black uppercase tracking-[0.18em] text-white"
-                style={{ background: "linear-gradient(135deg, #C2722A, #D4A853)", boxShadow: "0 10px 24px -8px rgba(194,114,42,0.6)" }}
-              >
-                Platz 1
-              </span>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -602,127 +426,6 @@ function KatalogRegister() {
         Jede Teilleistung hat eine eigene Detailseite mit Ablauf, Umfang und Preislogik — direkt aus dem
         Katalog verlinkt.
       </p>
-    </div>
-  );
-}
-
-/* ─── KI-Antwort-Mockup — Typewriter + Quellen-Chip-Pop (IO, einmalig) ──────
-   Die sichtbare Antwort-Zeile tippt sich beim Viewport-Eintritt (rAF,
-   quantisiert auf Zeichen), danach poppt der seoforge.de-Chip mit
-   Scale-Bounce; Skeleton-Zeilen tragen einen dezenten CSS-Shimmer.
-   SSR/No-JS/Reduced-Motion zeigen den vollständigen statischen Zustand.     */
-const KI_ANTWORT =
-  "Achten Sie auf Agenturen, die klassisches SEO und Generative Engine Optimization kombinieren und beide Kanäle messbar machen.";
-
-function KiAnswerMockup() {
-  const wrapRef = useRef<HTMLDivElement>(null);
-  const textRef = useRef<HTMLSpanElement>(null);
-  const [phase, setPhase] = useState<"static" | "armed" | "typing" | "done">("static");
-
-  useEffect(() => {
-    const el = wrapRef.current;
-    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    if (textRef.current) textRef.current.textContent = "";
-    setPhase("armed");
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          io.disconnect();
-          setPhase("typing");
-        }
-      },
-      { threshold: 0.4 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (phase !== "typing") return;
-    const span = textRef.current;
-    if (!span) {
-      setPhase("done");
-      return;
-    }
-    const start = performance.now();
-    let raf = 0;
-    let last = -1;
-    let doneT: ReturnType<typeof setTimeout> | undefined;
-    const tick = (now: number) => {
-      const n = Math.min(KI_ANTWORT.length, Math.floor((now - start) / 16));
-      if (n !== last) {
-        last = n;
-        span.textContent = KI_ANTWORT.slice(0, n);
-      }
-      if (n < KI_ANTWORT.length) raf = requestAnimationFrame(tick);
-      else doneT = setTimeout(() => setPhase("done"), 200);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => {
-      cancelAnimationFrame(raf);
-      if (doneT) clearTimeout(doneT);
-    };
-  }, [phase]);
-
-  const fertig = phase === "static" || phase === "done";
-  const restStyle: React.CSSProperties = {
-    opacity: fertig ? 1 : 0,
-    transform: fertig ? "none" : "translateY(6px)",
-    transition: "opacity 0.5s ease, transform 0.5s ease",
-  };
-
-  return (
-    <div ref={wrapRef} className="rounded-3xl border border-border bg-white overflow-hidden shadow-[0_24px_60px_-28px_rgba(26,26,26,0.15)]">
-      <div className="flex items-center gap-2.5 px-6 py-4 border-b border-border bg-offwhite/60">
-        <span className="w-2 h-2 rounded-full" style={{ background: "#C2722A" }} />
-        <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45">KI-Assistent · Beispielansicht</span>
-      </div>
-      <div className="p-6">
-        <p className="font-medium text-dark mb-4">„Wie finde ich eine SEO Agentur, die auch KI-Suche abdeckt?“</p>
-        <div className="space-y-3">
-          <p className="text-sm text-muted leading-relaxed">
-            <span ref={textRef}>{KI_ANTWORT}</span>
-            <span
-              className={`ml-0.5 inline-block h-[12px] w-[6px] rounded-[1px] bg-primary/60 align-middle ${phase === "typing" ? "serp-caret" : "hidden"}`}
-              aria-hidden="true"
-            />
-          </p>
-          <div style={restStyle}>
-            <div className="space-y-2" aria-hidden="true">
-              <div className="ki-shimmer h-2 rounded" style={{ width: "92%" }} />
-              <div className="ki-shimmer h-2 rounded" style={{ width: "78%" }} />
-            </div>
-            <p className="mt-3 text-sm text-muted leading-relaxed">
-              Als Quelle zitiert wird bevorzugt, wer klar strukturierte, eindeutig beantwortete Inhalte über
-              konsistente Signale hinweg bereitstellt.
-            </p>
-            <div className="mt-3 space-y-2" aria-hidden="true">
-              <div className="ki-shimmer h-2 rounded" style={{ width: "84%" }} />
-              <div className="ki-shimmer h-2 rounded" style={{ width: "56%" }} />
-            </div>
-          </div>
-        </div>
-        <div className="mt-6 border-t border-border pt-4">
-          <span className="block font-mono text-[10px] uppercase tracking-[0.16em] text-dark/40 mb-2.5">Quellen</span>
-          <div className="flex flex-wrap items-center gap-2">
-            <span
-              className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[11px] text-dark ${
-                phase === "done" ? "ki-chip-pop" : fertig ? "" : "opacity-0"
-              }`}
-              style={{ background: "#fbf4ea", border: "1px solid #ecd3ba" }}
-            >
-              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              seoforge.de
-            </span>
-            <span className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1.5" style={restStyle} aria-hidden="true">
-              <span className="h-1.5 w-14 rounded" style={{ background: "#ece8e2" }} />
-            </span>
-            <span className="inline-flex items-center rounded-full border border-border bg-white px-3 py-1.5" style={restStyle} aria-hidden="true">
-              <span className="h-1.5 w-10 rounded" style={{ background: "#ece8e2" }} />
-            </span>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
@@ -1333,8 +1036,6 @@ export default function SeoAgenturClient() {
         .scroll-hidden.rv-scale { transform: translateY(28px) scale(0.93); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
         .scroll-hidden.rv-blur { filter: blur(12px); transform: translateY(26px); transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1), transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.8s cubic-bezier(0.16,1,0.3,1); }
         .scroll-hidden.rv-left.scroll-visible, .scroll-hidden.rv-right.scroll-visible, .scroll-hidden.rv-scale.scroll-visible, .scroll-hidden.rv-blur.scroll-visible { transform: none; filter: none; }
-        @keyframes stampIn { 0% { opacity: 0; transform: rotate(-10deg) scale(2); } 65% { opacity: 1; transform: rotate(-10deg) scale(0.92); } 100% { opacity: 1; transform: rotate(-10deg) scale(1); } }
-        .serp-stamp { opacity: 0; animation: stampIn 0.55s cubic-bezier(0.2, 1.4, 0.4, 1) 0.15s both; }
         @keyframes aeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
         .ae-in { animation: aeIn 0.4s ease both; }
         @keyframes marquee-rtl { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
@@ -1343,12 +1044,6 @@ export default function SeoAgenturClient() {
         @keyframes wbDot { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
         .wb-dot { animation: wbDot 2.2s ease-in-out infinite; }
         .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
-        @keyframes serpCaret { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
-        .serp-caret { animation: serpCaret 0.9s step-end infinite; }
-        @keyframes chipPop { 0% { opacity: 0; transform: scale(0.4); } 65% { opacity: 1; transform: scale(1.12); } 100% { opacity: 1; transform: scale(1); } }
-        .ki-chip-pop { animation: chipPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
-        @keyframes kiShimmer { 0% { background-position: 180% 0; } 100% { background-position: -80% 0; } }
-        .ki-shimmer { background-image: linear-gradient(100deg, #F1EDE7 38%, #FAF7F2 50%, #F1EDE7 62%); background-size: 200% 100%; animation: kiShimmer 2.6s linear infinite; }
         .kz-ghost { transition: color 0.5s ease; }
         .kz-on .kz-ghost { color: rgba(194,114,42,0.26); }
         @keyframes kzFlash { 0% { color: rgba(194,114,42,0.10); } 40% { color: rgba(194,114,42,0.8); } 100% { color: rgba(194,114,42,0.26); } }
@@ -1357,13 +1052,9 @@ export default function SeoAgenturClient() {
           .m3d { opacity: 1; transform: none; transition: none; }
           .chip-dot { animation: none; }
           .scroll-hidden.rv-left, .scroll-hidden.rv-right, .scroll-hidden.rv-scale, .scroll-hidden.rv-blur { transform: none; filter: none; transition: none; }
-          .serp-stamp { opacity: 1; animation: none; transform: rotate(-10deg); }
           .ae-in { animation: none; opacity: 1; transform: none; }
           .marquee-track { animation: none !important; }
           .wb-eq, .wb-dot { animation: none !important; }
-          .serp-caret { animation: none; opacity: 0; }
-          .ki-chip-pop { animation: none; opacity: 1; transform: none; }
-          .ki-shimmer { animation: none; }
           .kz-ghost { transition: none; }
           .kz-flash .kz-ghost { animation: none; }
         }
@@ -1587,122 +1278,8 @@ export default function SeoAgenturClient() {
         </div>
       </section>
 
-      {/* ══ 04 WARUM 2026 — Ghost-Jahreszahl + KI-Mockup ══ */}
-      <section className="relative bg-white py-24 lg:py-32 scroll-mt-20 overflow-hidden">
-        <span
-          className="pointer-events-none select-none absolute -top-6 right-0 font-[family-name:var(--font-heading)] font-black leading-none text-dark opacity-[0.04]"
-          style={{ fontSize: "clamp(140px, 20vw, 320px)" }}
-          aria-hidden="true"
-        >
-          2026
-        </span>
-
-        <div className="relative mx-auto max-w-6xl px-6 lg:px-8">
-          <SectionHead
-            eyebrow="SEO im Jahr 2026"
-            title={
-              <>
-                Sichtbar in Google —<br />
-                und <span style={grad}>in der KI-Antwort.</span>
-              </>
-            }
-            copy="Sichtbarkeit wird heute an zwei Stellen entschieden: in den klassischen Suchergebnissen und in den Quellen, aus denen KI-Systeme ihre Antworten zusammensetzen."
-          />
-
-          <div className="grid lg:grid-cols-[1fr_1.05fr] gap-12 lg:gap-16 items-center">
-            <div className="scroll-hidden rv-left">
-              <div className="space-y-4 text-muted leading-relaxed">
-                <p>
-                  Google AI Overviews sind in Deutschland breit ausgerollt, ChatGPT und Perplexity werden zur
-                  Recherche genutzt. Das verändert, wie Nutzer überhaupt auf eine Website gelangen. Ein Teil der
-                  Anfragen — vor allem informationelle Fragen — wird direkt in der KI-Antwort beantwortet. Ohne
-                  Klick auf ein Suchergebnis. Klassisches SEO verliert dadurch nicht an Bedeutung. Sichtbarkeit
-                  wird heute nur an zwei Stellen entschieden: in den Suchergebnissen und in den Quellen der
-                  KI-Systeme.
-                </p>
-                <p>
-                  Trotzdem bleibt Google der Kanal mit dem größten Suchvolumen und der unmittelbarsten Kaufabsicht —
-                  gerade im B2B-Bereich und im lokalen Geschäft. Wer nur auf GEO setzt, verliert den Kanal, über den
-                  die meisten Anfragen mit Kaufabsicht laufen. Wer umgekehrt nur klassisches SEO betreibt, kommt in
-                  KI-Antworten schlicht nicht vor. Er wird unsichtbar für eine Zielgruppe, die zunehmend über
-                  Chat-Interfaces recherchiert. Wie Marken dort sichtbar werden, zeigt unser Ratgeber zur{" "}
-                  <Link href="/wissen/ratgeber/marken-sichtbarkeit-in-ki" className="text-primary font-semibold hover:underline">
-                    Marken-Sichtbarkeit in KI-Antworten
-                  </Link>
-                  {" "}— und wer diesen Kanal gezielt ausbauen will, findet bei uns die passende Leistung als{" "}
-                  <Link href="/geo-agentur" className="text-primary font-semibold hover:underline">
-                    GEO Agentur
-                  </Link>. Auf dieser Seite bleibt der Fokus auf klassischem SEO.
-                </p>
-              </div>
-
-              <div className="mt-6 space-y-3">
-                {[
-                  "Google AI Overviews reduzieren Klicks bei informationellen Suchanfragen, verändern aber nicht das Suchvolumen bei transaktionalen Anfragen.",
-                  "Klar strukturierte, eindeutig beantwortete Inhalte werden sowohl von klassischen Rankingfaktoren als auch von KI-Systemen als Quelle bevorzugt.",
-                  "Wer nur für Google optimiert, ignoriert einen wachsenden Anteil der Recherche, die heute über ChatGPT und Perplexity läuft.",
-                ].map((k) => (
-                  <div key={k} className="flex items-start gap-3">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                      <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                      </svg>
-                    </span>
-                    <span className="text-sm text-dark leading-relaxed">{k}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Plattform-Logos — grayscale, Farbe auf Hover (P12) */}
-              <div className="mt-8 border-t-2 border-dark pt-6">
-                <span className="mb-4 block font-mono text-[10.5px] uppercase tracking-[0.2em] text-dark/40">
-                  Sichtbar, wo gesucht wird
-                </span>
-                <div className="flex flex-wrap gap-3">
-                  {[
-                    { src: "/logos/google.svg", name: "Google", alt: "Google Logo" },
-                    { src: "/logos/openai.svg", name: "ChatGPT", alt: "ChatGPT (OpenAI) Logo" },
-                    { src: "/logos/perplexity.svg", name: "Perplexity", alt: "Perplexity Logo" },
-                    { src: "/logos/gemini.svg", name: "Gemini", alt: "Google Gemini Logo" },
-                  ].map((t, i) => (
-                    <div
-                      key={t.name}
-                      className="scroll-hidden group flex items-center gap-2.5 rounded-full border border-border bg-white px-4 py-2 transition-all hover:border-[#ecd3ba] hover:bg-[#fbf4ea]"
-                      style={{ transitionDelay: `${i * 70}ms` }}
-                    >
-                      <Image
-                        src={t.src}
-                        alt={t.alt}
-                        width={18}
-                        height={18}
-                        className="h-[18px] w-auto grayscale opacity-60 transition-all duration-200 group-hover:grayscale-0 group-hover:opacity-100"
-                      />
-                      <span className="text-[13px] font-semibold text-dark">{t.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* CTA-Stufe 2: kontextuelle Vertiefung als Anker in den Katalog */}
-              <a
-                href="#katalog-09"
-                className="group mt-7 inline-flex items-center gap-2 text-sm font-semibold text-dark border-b border-dark/20 pb-0.5 hover:border-primary hover:text-primary transition-colors w-fit"
-              >
-                Zur Teilleistung KI-SEO &amp; GEO im Leistungskatalog
-                <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </a>
-            </div>
-
-            {/* KI-Antwort-Mockup — tippt sich beim Viewport-Eintritt */}
-            <div className="m3d">
-              <KiAnswerMockup />
-              <p className="mt-3 text-xs italic text-muted">Illustrative Darstellung — keine echte KI-Ausgabe.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ══ 04 SUCHLANDSCHAFT 2026 — interaktiver Dual-Channel-Atlas ══ */}
+      <Seo2026Landscape />
 
       {/* ══ 05 LEISTUNGEN — Katalog in drei Kapiteln, voll indexierbar ══ */}
       <section id="leistungen" className="scroll-mt-20 border-t-2 border-dark py-24 lg:py-32" style={{ background: "#F8F5F1" }}>
@@ -1920,7 +1497,7 @@ export default function SeoAgenturClient() {
       </section>
 
       {/* ══ 07 INHOUSE — Die ehrliche Rechnung ══ */}
-      <section className="border-t-2 border-dark py-24 lg:py-32 overflow-x-clip" style={{ background: "#F8F5F1" }}>
+      <section id="inhouse-oder-agentur" className="scroll-mt-24 border-t-2 border-dark py-24 lg:py-32 overflow-x-clip" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <SectionHead
             eyebrow="Inhouse oder Agentur?"

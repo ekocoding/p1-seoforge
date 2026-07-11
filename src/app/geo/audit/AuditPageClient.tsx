@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import SubpageLayout from "@/app/components/SubpageLayout"
 
 function useInView<T extends HTMLElement = HTMLElement>(opts = {}) {
@@ -348,11 +349,14 @@ export default function AuditPageClient() {
       {/* ============================================================ */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         {/* Full-bleed background image */}
-        <img
-          src="/images/geo-audit-visual.jpg"
+        <Image
+          src="/images/geo-audit-visual-v2.webp"
           alt=""
+          fill
+          priority
+          fetchPriority="high"
+          sizes="100vw"
           className="absolute inset-0 w-full h-full object-cover object-center animate-[kenBurns_4s_ease-out_forwards]"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
         />
 
         {/* Dark overlay */}
@@ -560,11 +564,12 @@ export default function AuditPageClient() {
           {/* Feature split: platforms visual + context callout */}
           <div className="mt-14 rounded-2xl overflow-hidden bg-[#1A1A1A] grid lg:grid-cols-2 min-h-[320px]">
             <div className="relative min-h-[260px] lg:min-h-auto">
-              <img
-                src="/images/geo-audit-platforms.jpg"
+              <Image
+                src="/images/geo-audit-platforms-v2.webp"
                 alt="KI-Plattform Sichtbarkeitsvergleich — ohne vs. mit GEO"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="absolute inset-0 w-full h-full object-cover object-center"
-                onError={(e) => { e.currentTarget.style.display = 'none' }}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#1A1A1A]/60" />
             </div>

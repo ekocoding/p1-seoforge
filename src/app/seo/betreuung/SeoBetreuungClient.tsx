@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import SubpageLayout from "@/app/components/SubpageLayout";
 import FaqAccordion from "@/app/components/FaqAccordion";
-import { BetreuungDiagnosis, BetreuungFirst90, BetreuungHero, BetreuungMeasurement } from "./BetreuungDeepDive";
+import { BetreuungDiagnosis, BetreuungFirst90, BetreuungHero, BetreuungMeasurement, BetreuungOwnershipDepth } from "./BetreuungDeepDive";
 
 const MONTH = [
   {
@@ -181,6 +181,8 @@ export default function SeoBetreuungClient() {
           </div>
         </div>
       </section>
+
+      <BetreuungOwnershipDepth />
 
       {/* LEISTUNGSREGISTER — ein wechselndes Dossier statt 6er-Grid */}
       <section id="leistungen" className="bg-[#F5F0E9] py-20 lg:py-28">

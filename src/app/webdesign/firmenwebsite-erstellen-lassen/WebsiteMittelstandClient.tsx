@@ -6,6 +6,9 @@ import Image from "next/image";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import ToolLogo from "@/app/components/ToolLogos";
+import MittelstandHero from "./MittelstandHero";
+import CompanyPromiseSection from "./CompanyPromiseSection";
+import MittelstandArchitecture from "./MittelstandArchitecture";
 
 /* ─── Scroll reveal ───────────────────────────────────────────────────────── */
 function useScrollReveal() {
@@ -171,184 +174,6 @@ function MiniTerminal() {
       </div>
     </div>
   );
-}
-
-/* ─── Kosten-Vergleichsbalken (animiert beim Einscrollen) ─────────────────── */
-function CostBars() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [on, setOn] = useState(false);
-  useEffect(() => {
-    const io = new IntersectionObserver(([e]) => { if (e.isIntersecting) setOn(true); }, { threshold: 0.3, rootMargin: "0px 0px -15% 0px" });
-    if (ref.current) io.observe(ref.current);
-    return () => io.disconnect();
-  }, []);
-  return (
-    <div ref={ref} className="space-y-3" aria-hidden="true">
-      <div>
-        <div className="flex justify-between text-[11px] font-medium text-dark/50 mb-1">
-          <span>Klassische Agentur</span>
-        </div>
-        <div className="h-3 rounded-full bg-dark/[0.06] overflow-hidden">
-          <div
-            className="h-full rounded-full bg-dark/30"
-            style={{ width: on ? "100%" : "0%", transition: "width 1.1s cubic-bezier(0.16,1,0.3,1) 0.1s" }}
-          />
-        </div>
-      </div>
-      <div>
-        <div className="flex justify-between text-[11px] font-semibold text-primary mb-1">
-          <span>SeoForge mit KI-Workflows</span>
-        </div>
-        <div className="h-3 rounded-full bg-dark/[0.06] overflow-hidden">
-          <div
-            className="h-full rounded-full"
-            style={{
-              width: on ? "42%" : "0%",
-              background: "linear-gradient(90deg, #C2722A, #D4A853)",
-              transition: "width 1.1s cubic-bezier(0.16,1,0.3,1) 0.35s",
-            }}
-          />
-        </div>
-      </div>
-      <p className="text-[10px] text-dark/35 pt-1">
-        Gleiche Qualität, weniger abgerechnete Stunden — KI übernimmt die Routine.
-      </p>
-    </div>
-  );
-}
-
-/* ─── Hero: interaktives Strömungsfeld (Flow Field) ───────────────────────────
-   Tausende Partikel strömen entlang eines Noise-Vektorfeldes; der Cursor
-   verwirbelt die Strömung (Swirl + Push). Canvas 2D, weiß-dominant, performant,
-   pausiert außerhalb des Viewports, respektiert prefers-reduced-motion.        */
-function HeroFlow() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const COLORS = ["rgba(194,114,42,0.42)", "rgba(210,138,68,0.34)", "rgba(212,168,83,0.40)"];
-    type P = { x: number; y: number; px: number; py: number; life: number; max: number; c: number };
-    let w = 0, h = 0;
-    let ps: P[] = [];
-    const mouse = { x: -9999, y: -9999, has: false };
-
-    const hash = (x: number, y: number) => {
-      const n = Math.sin(x * 127.1 + y * 311.7) * 43758.5453;
-      return n - Math.floor(n);
-    };
-    const noise = (x: number, y: number) => {
-      const xi = Math.floor(x), yi = Math.floor(y);
-      const xf = x - xi, yf = y - yi;
-      const u = xf * xf * (3 - 2 * xf), v = yf * yf * (3 - 2 * yf);
-      const a = hash(xi, yi), b = hash(xi + 1, yi), c = hash(xi, yi + 1), d = hash(xi + 1, yi + 1);
-      return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
-    };
-
-    const spawn = (p: P, seed = false) => {
-      p.x = Math.random() * w; p.y = Math.random() * h;
-      p.px = p.x; p.py = p.y;
-      p.max = 90 + Math.random() * 170;
-      p.life = seed ? Math.random() * p.max : 0;
-      p.c = (Math.random() * 3) | 0;
-    };
-    const build = () => {
-      const r = canvas.getBoundingClientRect();
-      w = r.width; h = r.height;
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.min(2000, Math.max(700, Math.round((w * h) / 820)));
-      ps = [];
-      for (let i = 0; i < count; i++) {
-        const p: P = { x: 0, y: 0, px: 0, py: 0, life: 0, max: 0, c: 0 };
-        spawn(p, true);
-        ps.push(p);
-      }
-    };
-    build();
-    const ro = new ResizeObserver(build);
-    ro.observe(canvas);
-
-    const onMove = (e: MouseEvent) => {
-      const r = canvas.getBoundingClientRect();
-      mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; mouse.has = true;
-    };
-    const onLeave = () => { mouse.has = false; mouse.x = -9999; mouse.y = -9999; };
-    window.addEventListener("mousemove", onMove, { passive: true });
-    window.addEventListener("mouseout", onLeave);
-
-    const SCALE = 0.0016, SPEED = reduce ? 0 : 1.4, CR = 185, SWIRL = 3.4, PUSH = 0.85;
-    let raf = 0, t = 0, vis = true;
-
-    const step = () => {
-      t += reduce ? 0 : 0.0016;
-      // Fade statt Clear → fließende Spuren (Tinten-Look), warm-weißer Grund
-      ctx.fillStyle = reduce ? "#FAF6F1" : "rgba(250,246,241,0.075)";
-      ctx.fillRect(0, 0, w, h);
-
-      for (const p of ps) {
-        p.px = p.x; p.py = p.y;
-        const ang = noise(p.x * SCALE + t, p.y * SCALE - t) * Math.PI * 4;
-        let vx = Math.cos(ang) * SPEED;
-        let vy = Math.sin(ang) * SPEED;
-        if (mouse.has && !reduce) {
-          const dx = p.x - mouse.x, dy = p.y - mouse.y;
-          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-          if (dist < CR) {
-            const f = 1 - dist / CR;
-            vx += (-dy / dist) * f * SWIRL + (dx / dist) * f * PUSH;
-            vy += (dx / dist) * f * SWIRL + (dy / dist) * f * PUSH;
-          }
-        }
-        p.x += vx; p.y += vy; p.life += reduce ? 0 : 1;
-        if (p.life > p.max || p.x < -20 || p.x > w + 20 || p.y < -20 || p.y > h + 20) spawn(p);
-      }
-
-      for (let c = 0; c < 3; c++) {
-        ctx.beginPath();
-        ctx.strokeStyle = COLORS[c];
-        ctx.lineWidth = 1.25;
-        ctx.lineCap = "round";
-        for (const p of ps) {
-          if (p.c !== c) continue;
-          ctx.moveTo(p.px, p.py);
-          ctx.lineTo(p.x, p.y);
-        }
-        ctx.stroke();
-      }
-
-      if (mouse.has && !reduce) {
-        const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, CR);
-        g.addColorStop(0, "rgba(212,168,83,0.10)");
-        g.addColorStop(1, "rgba(212,168,83,0)");
-        ctx.fillStyle = g;
-        ctx.beginPath(); ctx.arc(mouse.x, mouse.y, CR, 0, 6.2832); ctx.fill();
-      }
-
-      raf = vis && !reduce ? requestAnimationFrame(step) : 0;
-    };
-
-    const io = new IntersectionObserver(([en]) => {
-      vis = en.isIntersecting;
-      if (vis && !raf && !reduce) raf = requestAnimationFrame(step);
-      else if (!vis && raf) { cancelAnimationFrame(raf); raf = 0; }
-    }, { threshold: 0 });
-    io.observe(canvas);
-    raf = requestAnimationFrame(step);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      ro.disconnect(); io.disconnect();
-      window.removeEventListener("mousemove", onMove);
-      window.removeEventListener("mouseout", onLeave);
-    };
-  }, []);
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" aria-hidden="true" />;
 }
 
 /* ─── KI-Impact-Chart: Kosten ↓ und Ergebnis ↑ über den KI-Einsatz ──────────── */
@@ -851,28 +676,6 @@ function MittelstandContactForm() {
   );
 }
 
-/* ─── Daten ───────────────────────────────────────────────────────────────── */
-const VERSPRECHEN = [
-  {
-    key: "seogeo",
-    label: "Sichtbarkeit",
-    title: "SEO- & GEO-optimiert ab Werk",
-    desc: "Ihre Firmenwebsite wird für Google gebaut — und für die KI-Suche gleich mit. Saubere Struktur, Schema-Markup und Inhalte, die auch ChatGPT, Perplexity und Google AI Overviews als Quelle zitieren. Zwei Sichtbarkeits-Kanäle, ein Projekt.",
-  },
-  {
-    key: "deploy",
-    label: "Geschwindigkeit",
-    title: "Time-to-Deploy: verschwindend gering",
-    desc: "Wir arbeiten wie ein Produktteam: CI/CD-Pipeline, automatisierte Tests, kontrollierte Releases. Ihre Website geht in Rekordzeit live — und jede Änderung danach in Minuten statt Wochen.",
-  },
-  {
-    key: "ki",
-    label: "Kosten",
-    title: "KI-Workflows senken die Kosten massiv",
-    desc: "KI übernimmt bei uns die Routine: Boilerplate-Code, Tests, Dokumentation, Copy-Varianten. Das heißt weniger abgerechnete Stunden bei gleicher handwerklicher Qualität. Deshalb ist eine professionelle Firmenwebsite jetzt auch für kleine Unternehmen wirtschaftlich.",
-  },
-];
-
 const PROGRAMME: { name: string; group: string; role: string; desc: string; logo: React.ReactNode }[] = [
   {
     name: "Semrush",
@@ -995,190 +798,9 @@ export default function WebsiteMittelstandClient() {
         }
       `}</style>
 
-      {/* ══════════════════════════════════════════════════════════════════
-          HERO — interaktives Strömungsfeld (Canvas Flow Field)
-      ══════════════════════════════════════════════════════════════════ */}
-      <section
-        className="relative min-h-screen flex flex-col justify-center overflow-hidden"
-        style={{ background: "linear-gradient(180deg, #FDFBF8 0%, #F6F1EA 100%)" }}
-      >
-        {/* Interaktives Strömungsfeld */}
-        <HeroFlow />
+      <MittelstandHero />
 
-        {/* Atmosphäre: warme Glows + Vignette für Lesbarkeit */}
-        <div aria-hidden="true" className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-48 right-[-10%] w-[640px] h-[640px] rounded-full blur-[150px]" style={{ background: "rgba(212,168,83,0.16)" }} />
-          <div className="absolute bottom-[-10%] -left-40 w-[520px] h-[520px] rounded-full blur-[140px]" style={{ background: "rgba(194,114,42,0.10)" }} />
-          {/* sanfte Vignette, damit der Text trägt */}
-          <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 54% 48% at 50% 44%, rgba(253,251,248,0.72), rgba(253,251,248,0) 64%)" }} />
-        </div>
-
-        {/* Farbverlauf ins Weiß der nächsten Sektion */}
-        <div aria-hidden="true" className="absolute bottom-0 left-0 right-0 h-40 pointer-events-none" style={{ background: "linear-gradient(to bottom, transparent, #ffffff)" }} />
-
-        {/* Copy — zentriert über dem Feld, klar unter der Navbar */}
-        <div className="relative z-10 mx-auto w-full max-w-4xl px-6 lg:px-8 pt-36 lg:pt-40 pb-24 text-center">
-          <h1
-            className="font-[family-name:var(--font-heading)] font-bold text-dark leading-[1.08] mb-6"
-            style={{ fontSize: "clamp(29px, 4.1vw, 52px)", letterSpacing: "-0.025em" }}
-          >
-            <span className="block overflow-hidden pb-1">
-              <span className="msReveal block sm:whitespace-nowrap">Firmenwebsite erstellen lassen —</span>
-            </span>
-            <span className="block overflow-hidden pb-2">
-              <span className="msReveal block sm:whitespace-nowrap" style={{ animationDelay: "0.28s" }}>
-                <span
-                  style={{
-                    background: "linear-gradient(95deg, #C2722A 12%, #D4A853 88%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                >
-                  für KMU & Mittelstand.
-                </span>
-              </span>
-            </span>
-          </h1>
-
-          <p className="hero-description text-muted leading-[1.8] mb-9 max-w-2xl mx-auto" style={{ fontSize: "clamp(15px, 1.05vw, 17px)" }}>
-            Firmenwebsite erstellen lassen ohne 15.000-€-Agenturprojekt: custom
-            coded, SEO- und GEO-optimiert ab der ersten Zeile, deployt über
-            CI/CD-Pipelines. Dank KI-Workflows rechnet sich das auch für kleine
-            Unternehmen. Festpreis, persönlicher Ansprechpartner, Antwort in unter 24 h.
-          </p>
-
-          <div className="hero-cta flex flex-wrap justify-center gap-4">
-            <a
-              href="#kontakt"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark hover:shadow-xl hover:-translate-y-0.5"
-            >
-              Projekt unverbindlich anfragen
-              <svg className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </a>
-            <a
-              href="#ki"
-              className="inline-flex items-center gap-2 rounded-full border border-dark/15 bg-white/70 backdrop-blur-sm px-8 py-4 text-sm font-semibold text-dark/65 transition-all hover:border-dark/30 hover:bg-white/90 hover:text-dark"
-            >
-              So arbeiten wir
-              <span className="text-primary text-xs float-chevron">↓</span>
-            </a>
-          </div>
-
-          {/* Trust-Row */}
-          <div className="hero-cta mt-9 flex flex-wrap justify-center items-center gap-x-6 gap-y-2.5">
-            {["Festpreis garantiert", "Antwort < 24 h", "SEO + GEO inklusive"].map((t) => (
-              <span key={t} className="inline-flex items-center gap-2 text-[12px] font-semibold text-dark/45">
-                <svg className="w-3.5 h-3.5 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                </svg>
-                {t}
-              </span>
-            ))}
-          </div>
-
-          {/* Interaktions-Hinweis */}
-          <div className="hero-cta mt-8 flex justify-center">
-            <span className="inline-flex items-center gap-2 text-[11px] font-medium text-dark/35">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full rounded-full bg-primary/40 animate-ping" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
-              </span>
-              Cursor bewegen — verwirbeln Sie die Strömung
-            </span>
-          </div>
-        </div>
-
-        {/* Scroll-Cue */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
-          <span className="text-[10px] text-dark/50 font-mono tracking-[0.28em] uppercase">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-dark/30 to-transparent" />
-        </div>
-
-        <style>{`
-          @keyframes msReveal { from { transform: translateY(108%); } to { transform: translateY(0); } }
-          .msReveal { animation: msReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.12s both; }
-          @media (prefers-reduced-motion: reduce) { .msReveal { animation: none; } }
-        `}</style>
-      </section>
-
-      {/* ══════════════════════════════════════════════════════════════════
-          VERSPRECHEN — editoriale Großzeilen mit Gradient-Ziffern
-      ══════════════════════════════════════════════════════════════════ */}
-      <section className="bg-white py-24 lg:py-32 overflow-hidden">
-        <div className="mx-auto max-w-6xl px-6 lg:px-8">
-
-          <div className="scroll-hidden grid lg:grid-cols-[1fr_360px] gap-6 lg:gap-16 items-end mb-8 lg:mb-12">
-            <div>
-              <span className="font-mono text-[11px] font-semibold tracking-[0.22em] uppercase text-primary block mb-4">Das Versprechen</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12]">
-                Firmenwebsite erstellen lassen —<br />drei Gründe, warum sich das jetzt rechnet.
-              </h2>
-            </div>
-            <p className="text-muted leading-relaxed lg:pb-1.5 lg:text-right">
-              Sichtbarkeit, Geschwindigkeit, Kosten — jedes Versprechen hat
-              einen technischen Unterbau. Kein Agentur-Sprech.
-            </p>
-          </div>
-
-          <div className="divide-y divide-border border-y-2 border-dark">
-            {VERSPRECHEN.map((v, i) => (
-              <div
-                key={v.key}
-                className="m3d grid lg:grid-cols-[110px_1fr_minmax(0,380px)] gap-6 lg:gap-10 items-center py-10 lg:py-12"
-                style={{ transitionDelay: `${i * 90}ms` }}
-              >
-                <div
-                  className="font-[family-name:var(--font-heading)] font-black leading-none select-none"
-                  style={{
-                    fontSize: "clamp(56px, 6vw, 84px)",
-                    background: "linear-gradient(135deg, #C2722A, #D4A853)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                  }}
-                  aria-hidden="true"
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </div>
-                <div>
-                  <span className="text-[10px] font-mono font-bold tracking-[0.22em] uppercase text-dark/35 block mb-2">{v.label}</span>
-                  <h3 className="font-[family-name:var(--font-heading)] text-xl lg:text-2xl font-bold text-dark mb-3">{v.title}</h3>
-                  <p className="text-muted text-sm lg:text-[15px] leading-relaxed max-w-xl">{v.desc}</p>
-                </div>
-                <div className="hidden lg:block">
-                  {v.key === "seogeo" && (
-                    <div className="flex flex-wrap gap-2" aria-hidden="true">
-                      {[
-                        { c: "Google Suche", src: "/logos/google.svg" },
-                        { c: "AI Overviews", src: null },
-                        { c: "ChatGPT", src: "/logos/openai.svg" },
-                        { c: "Perplexity", src: "/logos/perplexity.svg" },
-                        { c: "Schema.org", src: null },
-                      ].map(({ c, src }) => (
-                        <span key={c} className="group inline-flex items-center gap-1.5 text-[11px] font-semibold text-dark/60 border border-dark/10 bg-white rounded-full px-3 py-1.5">
-                          {src && (
-                            <Image
-                              src={src}
-                              alt={`${c} Logo`}
-                              width={13}
-                              height={13}
-                              className="h-[13px] w-[13px] grayscale opacity-70 transition-all duration-200 group-hover:grayscale-0 group-hover:opacity-100"
-                            />
-                          )}
-                          {c}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  {v.key === "deploy" && <MiniTerminal />}
-                  {v.key === "ki" && <CostBars />}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <CompanyPromiseSection />
 
       {/* ══════════════════════════════════════════════════════════════════
           PROGRAMME — Hairline-Grid: Daten-Tools + Umsetzungs-Stack
@@ -1221,6 +843,8 @@ export default function WebsiteMittelstandClient() {
           </div>
         </div>
       </section>
+
+      <MittelstandArchitecture />
 
       {/* ══════════════════════════════════════════════════════════════════
           METHODE 01 — KI-gestützte Entwicklung (Chart: Kosten ↓ / Ergebnis ↑)

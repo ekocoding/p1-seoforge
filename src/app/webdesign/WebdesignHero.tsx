@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 
@@ -114,18 +114,6 @@ function HeroRipple() {
 //  HERO
 // ─────────────────────────────────────────────────────────────────────────────
 export default function WebdesignHero() {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 80);
-    return () => clearTimeout(t);
-  }, []);
-
-  const show = (delay: string) => ({
-    opacity: visible ? 1 : 0,
-    transform: visible ? "none" : "translateY(14px)",
-    transition: `opacity 0.7s ${delay}, transform 0.7s ${delay}`,
-  });
-
   return (
     <>
       <Navbar />
@@ -171,7 +159,6 @@ export default function WebdesignHero() {
           {/* Badge */}
           <div
             className="mb-8 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-white/70 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-primary"
-            style={show("0.1s")}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
             Webdesign &amp; Entwicklung · SeoForge
@@ -180,7 +167,7 @@ export default function WebdesignHero() {
           {/* Headline */}
           <h1
             className="font-[family-name:var(--font-heading)] font-bold text-dark leading-[1.07] mb-7"
-            style={{ ...show("0.2s"), fontSize: "clamp(36px, 5vw, 68px)", letterSpacing: "-0.025em" }}
+            style={{ fontSize: "clamp(36px, 5vw, 68px)", letterSpacing: "-0.025em" }}
           >
             Websites, die ranken.<br />
             <span
@@ -195,7 +182,7 @@ export default function WebdesignHero() {
           </h1>
 
           {/* Divider */}
-          <div className="mb-8 flex items-center justify-center gap-4" style={show("0.28s")}>
+          <div className="mb-8 flex items-center justify-center gap-4">
             <div className="h-px w-10 bg-primary/40" />
             <span className="text-[10px] font-bold tracking-[0.26em] uppercase text-dark/30">
               Next.js · TypeScript · Core Web Vitals · SEO
@@ -206,7 +193,7 @@ export default function WebdesignHero() {
           {/* Description */}
           <p
             className="text-muted leading-[1.85] mb-10 max-w-2xl mx-auto"
-            style={{ ...show("0.35s"), fontSize: "clamp(15px, 1.1vw, 17px)" }}
+            style={{ fontSize: "clamp(15px, 1.1vw, 17px)" }}
           >
             Kein Template, kein Baukasten: Wir entwickeln deine Website von Grund auf —
             individuelles, modernes Webdesign, sauberer Code und SEO als Fundament
@@ -216,7 +203,7 @@ export default function WebdesignHero() {
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-wrap justify-center gap-4 mb-14" style={show("0.45s")}>
+          <div className="flex flex-wrap justify-center gap-4 mb-14">
             <Link
               href="/kontakt"
               className="group inline-flex items-center gap-2 rounded-full bg-primary px-8 py-4 text-sm font-semibold text-white shadow-lg shadow-primary/25 transition-all hover:bg-primary-dark hover:shadow-xl hover:-translate-y-0.5"
@@ -236,7 +223,7 @@ export default function WebdesignHero() {
           </div>
 
           {/* Ehrliche USP-Reihe (keine erfundenen Zahlen) */}
-          <div className="flex flex-wrap justify-center items-center gap-x-7 gap-y-2.5" style={show("0.58s")}>
+          <div className="flex flex-wrap justify-center items-center gap-x-7 gap-y-2.5">
             {[
               "Custom Code — kein Baukasten",
               "SEO + GEO ab der ersten Zeile",

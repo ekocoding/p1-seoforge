@@ -9,10 +9,11 @@ export default function HeroWithImage() {
 
       {/* Full-bleed photo */}
       <Image
-        src="/images/homepage-hero-v1@2x.jpg"
+        src="/images/homepage-hero-v2.webp"
         alt="SeoForge — modernes Agentur-Team bei der Arbeit"
         fill
         priority
+        fetchPriority="high"
         sizes="100vw"
         className="object-cover"
         style={{ objectPosition: "52% 50%" }}

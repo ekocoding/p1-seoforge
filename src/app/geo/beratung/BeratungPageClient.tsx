@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import SubpageLayout from "@/app/components/SubpageLayout"
 
 function useInView<T extends HTMLElement = HTMLElement>(opts = {}) {
@@ -324,11 +325,14 @@ export default function BeratungPageClient() {
       {/* ============================================================ */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
         {/* Full-bleed background image */}
-        <img
-          src="/images/geo-beratung-visual.jpg"
+        <Image
+          src="/images/geo-beratung-visual-v2.webp"
           alt=""
+          fill
+          priority
+          fetchPriority="high"
+          sizes="100vw"
           className="absolute inset-0 w-full h-full object-cover object-center animate-[kenBurns_4s_ease-out_forwards]"
-          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
         />
 
         {/* Dark overlay */}
@@ -550,11 +554,12 @@ export default function BeratungPageClient() {
               </Link>
             </div>
             <div className="lg:col-span-2 relative min-h-[240px] lg:min-h-auto">
-              <img
-                src="/images/geo-beratung-workshop.jpg"
+              <Image
+                src="/images/geo-beratung-workshop-v2.webp"
                 alt="GEO Strategie Workshop — Beratung und Roadmap"
+                fill
+                sizes="(max-width: 1024px) 100vw, 40vw"
                 className="absolute inset-0 w-full h-full object-cover object-center"
-                onError={(e) => { e.currentTarget.style.display = 'none' }}
               />
               <div className="absolute inset-0 bg-gradient-to-l from-transparent to-white/10" />
             </div>

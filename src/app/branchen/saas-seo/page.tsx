@@ -15,5 +15,5 @@ export const metadata: Metadata = {
 };
 
 export default function SaasSeoPage() {
-  return <BranchenDetailClient branche={branche} />;
+  return <BranchenDetailClient slug={branche.slug} />;
 }
