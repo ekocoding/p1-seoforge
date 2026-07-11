@@ -1029,33 +1029,84 @@ const PHASEN = [
   },
 ];
 
-/* Inhouse vs. Agentur — Vergleichs-Tafel (nur qualitative Aussagen) */
-const TAFEL = [
+type TeamModell = "inhouse" | "hybrid" | "agentur";
+
+const TEAM_MODELLE: { id: TeamModell; label: string; kurz: string }[] = [
+  { id: "inhouse", label: "Inhouse besser", kurz: "Eigene Tiefe" },
+  { id: "hybrid", label: "Hybrid", kurz: "Geteilte Stärke" },
+  { id: "agentur", label: "Agentur besser", kurz: "Externe Breite" },
+];
+
+/* Inhouse vs. Agentur — qualitative Entscheidungsachsen, bewusst ohne Score */
+const TAFEL: {
+  dim: string;
+  code: string;
+  inhouse: string;
+  seoforge: string;
+  modelle: Record<TeamModell, string>;
+}[] = [
   {
     dim: "Jahreskosten & Fixkostenrisiko",
+    code: "KAPAZITÄT",
     inhouse: "Zwei bis drei spezialisierte Vollzeitstellen müssen dauerhaft finanziert werden — unabhängig von Auslastung und Projektphase.",
     seoforge: "Ein Team über alle Disziplinen, gebucht in dem Umfang, den die Aufgabe tatsächlich erfordert — monatlich kündbar.",
+    modelle: {
+      inhouse: "Im Vorteil, wenn mehrere SEO-Rollen bereits dauerhaft ausgelastet sind und die Stellen unabhängig von einzelnen Projekten Bestand haben sollen.",
+      hybrid: "Sinnvoll, wenn Strategie und Priorisierung intern bleiben, Spezialdisziplinen oder Arbeitsspitzen aber flexibel ergänzt werden sollen.",
+      agentur: "Im Vorteil, wenn noch kein spezialisiertes Team aufgebaut ist und der Bedarf zwischen Audit, Technik, Redaktion und Autoritätsaufbau schwankt.",
+    },
   },
   {
     dim: "Know-how-Breite: Technik, Content, Links, GEO",
+    code: "ROLLEN",
     inhouse: "Vier Fachbereiche sind selten in einer Person vereint — in mindestens einem Bereich entstehen Abstriche.",
     seoforge: "Spezialisierte Rollen für jede Disziplin, die im Zusammenspiel geplant arbeiten statt isoliert nebeneinander.",
+    modelle: {
+      inhouse: "Im Vorteil, wenn Technik, Redaktion, Digital PR und Analyse bereits mit klaren Zuständigkeiten im Unternehmen besetzt sind.",
+      hybrid: "Sinnvoll, wenn eine interne SEO-Leitung Produkt- und Branchenwissen hält und externe Spezialisten fehlende Disziplinen abdecken.",
+      agentur: "Im Vorteil, wenn mehrere Disziplinen gleichzeitig gebraucht werden, intern aber weder Rollenbreite noch fachliche Vertretung vorhanden sind.",
+    },
   },
   {
     dim: "Tool-Stack & Lizenzen",
+    code: "SYSTEME",
     inhouse: "Semrush, Ahrefs, Screaming Frog und Monitoring-Setups müssen einzeln lizenziert, eingerichtet und gepflegt werden.",
     seoforge: "Der komplette Daten-Stack ist Teil des Mandats — inklusive eigener Prompt-Monitoring-Setups für die KI-Suche.",
+    modelle: {
+      inhouse: "Im Vorteil, wenn der Stack bereits etabliert ist und das Team regelmäßig genug damit arbeitet, um Daten und Setups selbst zu pflegen.",
+      hybrid: "Sinnvoll, wenn Search Console und Business-Daten intern die Wahrheit liefern, Spezialanalysen und Monitoring aber extern betrieben werden.",
+      agentur: "Im Vorteil, wenn Lizenzen, Crawls und Monitoring nicht als eigene Infrastruktur aufgebaut und dauerhaft administriert werden sollen.",
+    },
   },
   {
     dim: "Anlaufzeit bis Wirkung",
+    code: "ANLAUF",
     inhouse: "Recruiting, Einarbeitung und Prozessaufbau kosten Monate, bevor die erste Maßnahme überhaupt live geht.",
     seoforge: "Kickoff, Audit und erste Umsetzungen starten in den ersten Wochen — Änderungen gehen über CI/CD in Minuten live.",
+    modelle: {
+      inhouse: "Im Vorteil, wenn Team, Prozesse und technische Zugänge schon stehen und SEO bewusst als langfristige Produktkompetenz aufgebaut wird.",
+      hybrid: "Sinnvoll, wenn ein internes Team Freigaben und Implementierung beschleunigt, während die Agentur Analyse und Priorisierung sofort übernimmt.",
+      agentur: "Im Vorteil, wenn Audit und operative Arbeit beginnen sollen, ohne zunächst Recruiting, Tooling und fachliche Abläufe aufzubauen.",
+    },
   },
   {
     dim: "Vertretung & Kontinuität",
+    code: "RESILIENZ",
     inhouse: "Kündigung oder Ausfall einer einzelnen Schlüsselperson stoppt das komplette Thema.",
     seoforge: "Ein festes Team mit dokumentierten Prozessen — Wissen hängt nicht an einer einzelnen Person.",
+    modelle: {
+      inhouse: "Im Vorteil, wenn Wissen dokumentiert ist, mehrere Personen vertreten können und SEO nicht an einer einzelnen Schlüsselrolle hängt.",
+      hybrid: "Sinnvoll, wenn internes Produktwissen erhalten bleiben soll und ein externes Team zugleich operative Vertretung und Prozesskontinuität sichert.",
+      agentur: "Im Vorteil, wenn intern keine belastbare Vertretung existiert und die Ausführung deshalb über mehrere dokumentiert arbeitende Rollen verteilt werden muss.",
+    },
   },
+];
+
+const PROFILE_ICONS = [
+  "M4 19.5v-11L12 4l8 4.5v11M8 19.5v-5h8v5M8 10h.01M12 10h.01M16 10h.01",
+  "M4 18V8l8-4 8 4v10M8 18v-4h8v4M7 9.5h10M12 4v5.5",
+  "M3 6h2l1.8 8.2a2 2 0 0 0 2 1.6h7.9a2 2 0 0 0 1.9-1.4L21 8H6M10 20h.01M18 20h.01",
+  "M12 21s7-4.4 7-11a7 7 0 1 0-14 0c0 6.6 7 11 7 11ZM12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z",
 ];
 
 /* Erwartungs-Korridor — 3 Zellen */
@@ -1228,6 +1279,9 @@ export default function SeoAgenturClient() {
   useScrollReveal();
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [activePhase, setActivePhase] = useState(0);
+  const [activeDecisionDimension, setActiveDecisionDimension] = useState(0);
+  const [teamModell, setTeamModell] = useState<TeamModell>("hybrid");
+  const [activeProfile, setActiveProfile] = useState(0);
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
   async function handleContactSubmit(event: FormEvent<HTMLFormElement>) {
@@ -1866,7 +1920,7 @@ export default function SeoAgenturClient() {
       </section>
 
       {/* ══ 07 INHOUSE — Die ehrliche Rechnung ══ */}
-      <section className="border-t-2 border-dark py-24 lg:py-32 overflow-hidden" style={{ background: "#F8F5F1" }}>
+      <section className="border-t-2 border-dark py-24 lg:py-32 overflow-x-clip" style={{ background: "#F8F5F1" }}>
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
           <SectionHead
             eyebrow="Inhouse oder Agentur?"
@@ -1879,10 +1933,10 @@ export default function SeoAgenturClient() {
             copy="Beide Modelle haben berechtigte Einsatzgebiete. Hier ist die nüchterne Gegenüberstellung — inklusive der Fälle, in denen Sie uns nicht brauchen."
           />
 
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.618fr)_minmax(0,1fr)] lg:gap-16">
             <div className="scroll-hidden rv-left">
-              <div className="space-y-4 text-muted leading-relaxed max-w-lg">
-                <p>
+              <div className="max-w-lg text-muted leading-relaxed">
+                <p className="mb-4">
                   Die Entscheidung zwischen eigenem SEO-Team und externer SEO Agentur hängt weniger von der
                   Unternehmensgröße ab. Entscheidend ist, wie viel Kapazität und Fachwissen dauerhaft vorgehalten
                   werden kann und soll. SEO deckt heute mindestens vier Fachbereiche ab: Technik, Content,
@@ -1895,7 +1949,7 @@ export default function SeoAgenturClient() {
                   Eine Agentur ist zusätzlich wertvoll, wenn eine externe, unvoreingenommene Bewertung gewünscht ist.
                   Oder wenn Erfahrung aus mehreren Branchen und ein eingespielter Tool-Stack einen Vorteil bringen.
                   Wer zunächst selbst starten will, findet in unserem Leitfaden{" "}
-                  <Link href="/seo/selbst-machen" className="text-primary font-semibold hover:underline">
+                  <Link href="/seo/selbst-machen" className="font-semibold text-primary-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark">
                     SEO selbst machen
                   </Link>{" "}
                   eine ehrliche Einordnung.
@@ -1904,7 +1958,7 @@ export default function SeoAgenturClient() {
             </div>
 
             <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
-              <div className="group relative rounded-2xl overflow-hidden border border-border shadow-[0_18px_44px_-22px_rgba(26,26,26,0.20)] aspect-[16/10] w-full max-w-[600px] transform-gpu [backface-visibility:hidden]">
+              <div className="group relative aspect-[1.618/1] w-full overflow-hidden border-2 border-dark shadow-[12px_12px_0_#D4A853] transform-gpu [backface-visibility:hidden]">
                 <Image
                   src="/images/seo-inhouse-gespraech-v2.jpg"
                   alt="Marketing-Verantwortliche und externe Beraterin arbeiten gemeinsam am Laptop"
@@ -1920,69 +1974,138 @@ export default function SeoAgenturClient() {
             </div>
           </div>
 
-          {/* Vergleichs-Tafel */}
-          <div className="m3d mt-12 lg:mt-16 rounded-3xl border border-border bg-white overflow-hidden shadow-[0_40px_90px_-30px_rgba(26,26,26,0.35)]">
-            <div className="hidden md:grid md:grid-cols-2 border-b border-border">
-              <div className="flex items-center gap-2.5 px-6 py-4">
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-dark/[0.06]">
-                  <svg className="h-3 w-3 text-dark/40" viewBox="0 0 20 20" fill="currentColor">
-                    <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                  </svg>
-                </span>
-                <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-dark/45">Inhouse-Aufbau</span>
-              </div>
-              <div className="flex items-center gap-2.5 px-6 py-4 md:border-l md:border-border" style={{ background: "#fbf4ea" }}>
-                <span className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/15">
-                  <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                  </svg>
-                </span>
-                <span className="font-mono text-[11px] tracking-[0.18em] uppercase text-primary">Mit SeoForge</span>
-              </div>
+          {/* Qualitatives Team-Modell statt Preisvergleichstabelle */}
+          <div className="m3d mt-14 overflow-hidden border-2 border-dark bg-white shadow-[14px_14px_0_rgba(194,114,42,0.16)] lg:mt-20">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-dark bg-dark px-5 py-4 text-white sm:px-7">
+              <span className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-secondary">
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                  <circle cx="5" cy="12" r="2.5" /><circle cx="19" cy="6" r="2.5" /><circle cx="19" cy="18" r="2.5" />
+                  <path d="m7.5 11 9-4M7.5 13l9 4" />
+                </svg>
+                Illustratives Entscheidungsmodell
+              </span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/40">Qualitativ · ohne Punktescore</span>
             </div>
-            <div className="divide-y divide-border">
-              {TAFEL.map((r) => (
-                <div key={r.dim} className="group grid md:grid-cols-2">
-                  <div className="px-6 py-5 transition-colors duration-300 group-hover:bg-[#FBF8F4]">
-                    <span className="block font-mono text-[10px] uppercase tracking-[0.14em] text-dark/35 mb-1.5 transition-colors duration-300 group-hover:text-primary">{r.dim}</span>
-                    <div className="flex items-start gap-3">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-dark/[0.06] md:hidden">
-                        <svg className="h-3 w-3 text-dark/40" viewBox="0 0 20 20" fill="currentColor">
-                          <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+
+            <div className="grid lg:grid-cols-[minmax(0,0.618fr)_minmax(0,1fr)]">
+              <div className="border-b-2 border-dark bg-[#F8F5F1] lg:border-b-0 lg:border-r-2">
+                <div className="border-b border-dark/20 px-5 py-4 sm:px-7">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-dark/45">01 — Achse wählen</span>
+                </div>
+                <div role="tablist" aria-label="Entscheidungsdimension auswählen">
+                  {TAFEL.map((punkt, index) => {
+                    const selected = activeDecisionDimension === index;
+                    return (
+                      <button
+                        key={punkt.dim}
+                        type="button"
+                        role="tab"
+                        id={`team-dimension-${index}`}
+                        aria-selected={selected}
+                        aria-controls="team-decision-panel"
+                        onClick={() => setActiveDecisionDimension(index)}
+                        className={`group flex w-full items-center gap-4 border-b border-dark/15 px-5 py-4 text-left transition-colors last:border-b-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-primary-dark sm:px-7 ${selected ? "bg-white" : "hover:bg-white/65"}`}
+                      >
+                        <span className={`font-mono text-[10px] ${selected ? "text-primary-dark" : "text-dark/45"}`}>{String(index + 1).padStart(2, "0")}</span>
+                        <span className="min-w-0 flex-1">
+                          <span className={`block font-mono text-[9px] uppercase tracking-[0.16em] ${selected ? "text-primary-dark" : "text-dark/50"}`}>{punkt.code}</span>
+                          <span className={`mt-0.5 block text-sm font-bold leading-snug ${selected ? "text-dark" : "text-dark/60"}`}>{punkt.dim}</span>
+                        </span>
+                        <svg className={`h-5 w-5 shrink-0 transition-transform ${selected ? "translate-x-0 text-primary-dark" : "-translate-x-1 text-dark/20 group-hover:translate-x-0"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                          <path d="M5 12h13m-5-5 5 5-5 5" />
                         </svg>
-                      </span>
-                      <p className="text-sm text-dark/55 leading-relaxed transition-colors duration-300 group-hover:text-dark/75">{r.inhouse}</p>
-                    </div>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div id="team-decision-panel" role="tabpanel" aria-labelledby={`team-dimension-${activeDecisionDimension}`} className="min-w-0">
+                <div className="border-b border-dark/20 px-5 py-4 sm:px-7">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-dark/45">02 — Betriebsmodell prüfen</span>
+                </div>
+                <div className="grid grid-cols-3 border-b border-dark/20" role="tablist" aria-label="Betriebsmodell auswählen">
+                  {TEAM_MODELLE.map((modell) => {
+                    const selected = teamModell === modell.id;
+                    return (
+                      <button
+                        key={modell.id}
+                        type="button"
+                        role="tab"
+                        id={`team-model-${modell.id}`}
+                        aria-selected={selected}
+                        aria-controls="team-model-copy"
+                        onClick={() => setTeamModell(modell.id)}
+                        className={`min-w-0 border-r border-dark/15 px-2.5 py-3 text-left transition-colors last:border-r-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-primary-dark sm:px-4 ${selected ? "bg-dark text-white" : "bg-white text-dark/65 hover:bg-[#FBF4EA]"}`}
+                      >
+                        <span className={`block font-mono text-[9px] uppercase tracking-[0.14em] ${selected ? "text-secondary" : "text-dark/35"}`}>{modell.kurz}</span>
+                        <span className="mt-0.5 block text-xs font-bold sm:text-sm">{modell.label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div id="team-model-copy" role="tabpanel" aria-labelledby={`team-model-${teamModell}`} className="px-5 py-6 sm:px-7 sm:py-8">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2 border-b border-dark/20 pb-4">
+                    <h3 className="font-[family-name:var(--font-heading)] text-2xl font-bold leading-tight text-dark sm:text-3xl">
+                      {TAFEL[activeDecisionDimension].dim}
+                    </h3>
+                    <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-primary-dark">{TEAM_MODELLE.find((m) => m.id === teamModell)?.label}</span>
                   </div>
-                  <div className="px-6 py-5 md:border-l md:border-border" style={{ background: "#fbf4ea" }}>
-                    <div className="flex items-start gap-3 md:mt-[26px]">
-                      <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 md:hidden">
-                        <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                        </svg>
-                      </span>
-                      <p className="text-sm text-dark font-medium leading-relaxed">{r.seoforge}</p>
+
+                  <div className="my-5 overflow-hidden border border-dark/20 bg-[#FBF8F4]">
+                    <svg viewBox="0 0 620 250" className="block h-auto w-full" aria-hidden="true">
+                      <rect width="620" height="250" fill="#FBF8F4" />
+                      {[75, 175].map((y) => [255, 365].map((x) => (
+                        <g key={`${x}-${y}`}>
+                          <line x1="108" y1="125" x2={x} y2={y} stroke="#C2722A" strokeWidth={teamModell === "inhouse" ? 2.4 : teamModell === "hybrid" ? 1.7 : 0.8} opacity={teamModell === "agentur" ? 0.18 : 0.8} />
+                          <line x1="512" y1="125" x2={x} y2={y} stroke="#D4A853" strokeWidth={teamModell === "agentur" ? 2.4 : teamModell === "hybrid" ? 1.7 : 0.8} opacity={teamModell === "inhouse" ? 0.18 : 0.85} />
+                        </g>
+                      )))}
+                      <circle cx="108" cy="125" r="42" fill={teamModell === "inhouse" || teamModell === "hybrid" ? "#C2722A" : "#F8F5F1"} stroke="#C2722A" strokeWidth="2" />
+                      <circle cx="512" cy="125" r="42" fill={teamModell === "agentur" || teamModell === "hybrid" ? "#1A1A1A" : "#F8F5F1"} stroke="#1A1A1A" strokeWidth="2" />
+                      <text x="108" y="121" textAnchor="middle" fontSize="11" fontFamily="monospace" fill={teamModell === "inhouse" || teamModell === "hybrid" ? "white" : "#C2722A"}>INHOUSE</text>
+                      <text x="108" y="137" textAnchor="middle" fontSize="9" fontFamily="monospace" fill={teamModell === "inhouse" || teamModell === "hybrid" ? "rgba(255,255,255,.7)" : "#8A8178"}>KONTEXT</text>
+                      <text x="512" y="121" textAnchor="middle" fontSize="11" fontFamily="monospace" fill={teamModell === "agentur" || teamModell === "hybrid" ? "white" : "#1A1A1A"}>SEOFORGE</text>
+                      <text x="512" y="137" textAnchor="middle" fontSize="9" fontFamily="monospace" fill={teamModell === "agentur" || teamModell === "hybrid" ? "rgba(255,255,255,.62)" : "#8A8178"}>SPEZIALISTEN</text>
+                      {[
+                        { x: 255, y: 75, label: "TECHNIK" }, { x: 365, y: 75, label: "CONTENT" },
+                        { x: 255, y: 175, label: "LINKS" }, { x: 365, y: 175, label: "GEO" },
+                      ].map((node) => (
+                        <g key={node.label}>
+                          <rect x={node.x - 43} y={node.y - 18} width="86" height="36" fill="white" stroke="#1A1A1A" strokeWidth="1.4" />
+                          <text x={node.x} y={node.y + 4} textAnchor="middle" fontSize="10" fontFamily="monospace" fill="#1A1A1A">{node.label}</text>
+                        </g>
+                      ))}
+                    </svg>
+                  </div>
+
+                  <p className="min-h-[5.5rem] text-[15px] font-medium leading-relaxed text-dark">
+                    {TAFEL[activeDecisionDimension].modelle[teamModell]}
+                  </p>
+
+                  <div className="mt-5 border-t-2 border-dark">
+                    <div className="grid gap-2 border-b border-dark/15 py-4 sm:grid-cols-[120px_1fr]">
+                      <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-dark/40">Inhouse-Aufbau</span>
+                      <p className="text-xs leading-relaxed text-dark/60">{TAFEL[activeDecisionDimension].inhouse}</p>
+                    </div>
+                    <div className="grid gap-2 py-4 sm:grid-cols-[120px_1fr]">
+                      <span className="font-mono text-[9px] uppercase tracking-[0.15em] text-primary-dark">Mit SeoForge</span>
+                      <p className="text-xs font-medium leading-relaxed text-dark">{TAFEL[activeDecisionDimension].seoforge}</p>
                     </div>
                   </div>
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
 
-          {/* Fairness-Fußnote (Graft) */}
-          <div className="scroll-hidden rv-blur flex items-start gap-3 mt-5 text-sm text-muted">
-            <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
-              <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-              </svg>
-            </span>
-            <p className="leading-relaxed">
-              <span className="font-semibold text-dark">Wann Inhouse die bessere Wahl ist:</span> wenn dauerhaft Budget
-              für zwei bis drei spezialisierte Vollzeitstellen vorhanden ist. Wenn SEO eng mit Produktentwicklung oder
-              Redaktion verzahnt werden muss. Und wenn bereits eigene Entwicklerkapazität existiert. Und dazwischen?
-              Wir arbeiten auch als verlängerte Werkbank interner Teams — ein interner Ansprechpartner für die
-              Strategie, wir für die Umsetzung.
-            </p>
+            <div className="border-t-2 border-dark bg-[#FBF4EA] px-5 py-5 sm:px-7">
+              <p className="text-sm leading-relaxed text-dark/70">
+                <span className="font-semibold text-dark">Wann Inhouse die bessere Wahl ist:</span> wenn dauerhaft Budget
+                für zwei bis drei spezialisierte Vollzeitstellen vorhanden ist, SEO eng mit Produktentwicklung oder
+                Redaktion verzahnt werden muss und bereits eigene Entwicklerkapazität existiert. Dazwischen arbeiten
+                wir als verlängerte Werkbank interner Teams — ein interner Ansprechpartner für die Strategie, wir für die Umsetzung.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -2170,88 +2293,135 @@ export default function SeoAgenturClient() {
       </section>
 
       {/* ══ 10 FÜR WEN — Vier Profile mit typischem Hebel ══ */}
-      <section className="bg-white py-24 lg:py-32 overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[minmax(0,420px)_1fr] gap-10 lg:gap-16 items-center">
-            <div className="scroll-hidden rv-left order-last lg:order-first">
-              {/* Ink-Profil-Tafel: vier Profile als Icon-Zeilen statt 3D-Illustration */}
-              <div className="flex aspect-[4/5] flex-col overflow-hidden rounded-2xl bg-dark shadow-[0_40px_90px_-30px_rgba(0,0,0,0.55)]" style={{ boxShadow: "0 40px 90px -30px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,168,83,0.25)" }}>
-                <div className="flex items-center justify-between px-7 pt-7">
-                  <span className="flex items-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.2em] text-secondary">
-                    <span className="h-[2px] w-6 bg-secondary" aria-hidden="true" />
-                    Für wen
-                  </span>
-                  <span className="font-mono text-[10px] tracking-[0.16em] text-white/30">4 Profile</span>
-                </div>
-                <div className="flex flex-1 flex-col justify-center divide-y divide-white/[0.08] px-7">
-                  {[
-                    { t: "B2B & Dienstleister", d: "M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0" },
-                    { t: "Online-Shops", d: "M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" },
-                    { t: "Lokale Betriebe", d: "M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" },
-                    { t: "Start-ups & SaaS", d: "M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" },
-                  ].map((p, i) => (
-                    <div key={p.t} className="group flex items-center gap-4 py-5">
-                      <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-secondary ring-1 ring-white/15 transition-all duration-300 group-hover:text-primary group-hover:ring-primary/50" style={{ background: "rgba(255,255,255,0.04)" }}>
-                        <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
-                          <path d={p.d} />
-                        </svg>
-                      </span>
-                      <span className="flex-1 font-[family-name:var(--font-heading)] text-xl font-bold text-white transition-colors duration-300 group-hover:text-secondary">{p.t}</span>
-                      <span className="font-mono text-[11px] tracking-[0.16em] text-white/25">0{i + 1}</span>
-                    </div>
-                  ))}
-                </div>
-                <div className="border-t border-white/[0.08] px-7 py-5">
-                  <p className="font-mono text-[10px] uppercase tracking-[0.16em] leading-relaxed text-white/45">
-                    Vier Profile, vier Hebel — <span className="text-secondary">ein System.</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="scroll-hidden rv-right" style={{ transitionDelay: "120ms" }}>
-              <span className="text-xs font-bold tracking-[0.22em] uppercase text-primary block mb-4">Für wen wir arbeiten</span>
-              <h2 className="font-[family-name:var(--font-heading)] text-3xl lg:text-[42px] font-bold text-dark leading-[1.12] mb-8">
+      <section className="overflow-x-clip border-y-2 border-dark bg-white py-24 lg:py-32">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="scroll-hidden grid items-end gap-6 lg:grid-cols-[minmax(0,0.618fr)_minmax(0,1fr)] lg:gap-16">
+            <div>
+              <span className="mb-4 block text-xs font-bold uppercase tracking-[0.22em] text-primary-dark">Für wen wir arbeiten</span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold leading-[1.12] text-dark lg:text-[42px]">
                 Wo SEO den<br />
                 <span style={grad}>größten Hebel hat.</span>
               </h2>
+            </div>
+            <p className="max-w-2xl leading-relaxed text-muted lg:pb-1">
+              Nicht jedes Geschäftsmodell braucht dieselbe SEO-Mechanik. Der Profil-Atlas zeigt, welche Ausgangslage
+              wir typischerweise vorfinden — und an welcher Stelle die Arbeit zuerst ansetzt.
+            </p>
+          </div>
 
-              <div className="grid gap-px bg-border border border-border rounded-2xl overflow-hidden sm:grid-cols-2">
-                {PROFILE.map((p, i) => (
-                  <div key={p.t} className="scroll-hidden rv-scale bg-white" style={{ transitionDelay: `${i * 70}ms` }}>
-                    <div className="group relative h-full p-6 lg:p-7 transition-colors duration-300 hover:bg-[#FBF8F4]">
-                      <span
-                        className="absolute top-0 left-0 right-0 h-[2.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                        style={{ background: "linear-gradient(90deg, #C2722A, #D4A853)" }}
-                        aria-hidden="true"
-                      />
-                      <div className="font-mono text-[11px] tracking-[0.18em] text-dark/45 mb-3">PROFIL 0{i + 1}</div>
-                      <div className="font-bold text-dark text-lg mb-2">{p.t}</div>
-                      <p className="text-sm text-muted leading-relaxed">{p.d}</p>
-                      <div className="mt-4 pt-3 border-t border-border">
-                        <span className="block text-[11px] uppercase tracking-[0.14em] text-muted mb-1">Typischer Hebel</span>
-                        <span className="font-mono text-xs text-dark">{p.hebel}</span>
+          <div className="m3d mt-12 overflow-hidden border-2 border-dark bg-[#F8F5F1] shadow-[14px_14px_0_#D4A853] lg:mt-16">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-dark bg-dark px-5 py-4 sm:px-7">
+              <span className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-secondary">
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                  <path d="M4 4h16v16H4zM4 9h16M9 4v16" />
+                  <circle cx="14.5" cy="14.5" r="2.5" />
+                </svg>
+                Profil-Atlas · Dossier 04
+              </span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/40">Profil wählen · Hebel lesen</span>
+            </div>
+
+            <div className="grid lg:grid-cols-[minmax(0,0.618fr)_minmax(0,1fr)]">
+              <div className="border-b-2 border-dark bg-[#FBF4EA] lg:border-b-0 lg:border-r-2">
+                <div className="border-b border-dark/20 px-5 py-4 sm:px-7">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-dark/45">Index · vier Ausgangslagen</span>
+                </div>
+                <div role="tablist" aria-label="Unternehmensprofil auswählen" aria-orientation="vertical">
+                  {PROFILE.map((profil, index) => {
+                    const selected = activeProfile === index;
+                    return (
+                      <button
+                        key={profil.t}
+                        type="button"
+                        role="tab"
+                        id={`profile-tab-${index}`}
+                        aria-selected={selected}
+                        aria-controls="profile-atlas-panel"
+                        onClick={() => setActiveProfile(index)}
+                        className={`group flex w-full items-center gap-4 border-b border-dark/15 px-5 py-5 text-left transition-colors last:border-b-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-4px] focus-visible:outline-primary-dark sm:px-7 ${selected ? "bg-dark text-white" : "text-dark hover:bg-white"}`}
+                      >
+                        <span className={`flex h-11 w-11 shrink-0 items-center justify-center border ${selected ? "border-secondary text-secondary" : "border-dark/25 text-primary-dark"}`}>
+                          <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                            <path d={PROFILE_ICONS[index]} />
+                          </svg>
+                        </span>
+                        <span className="min-w-0 flex-1">
+                          <span className={`block font-mono text-[9px] uppercase tracking-[0.16em] ${selected ? "text-secondary" : "text-dark/35"}`}>Profil {String(index + 1).padStart(2, "0")}</span>
+                          <span className="mt-0.5 block font-[family-name:var(--font-heading)] text-lg font-bold leading-tight">{profil.t}</span>
+                        </span>
+                        <svg className={`h-5 w-5 shrink-0 transition-transform ${selected ? "translate-x-0 text-secondary" : "-translate-x-1 text-dark/20 group-hover:translate-x-0"}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
+                          <path d="M5 12h13m-5-5 5 5-5 5" />
+                        </svg>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              <div id="profile-atlas-panel" role="tabpanel" aria-labelledby={`profile-tab-${activeProfile}`} className="min-w-0 bg-white">
+                <div className="grid min-h-full sm:grid-cols-[minmax(0,0.618fr)_minmax(0,1fr)]">
+                  <div className="relative flex min-h-[280px] items-center justify-center overflow-hidden border-b-2 border-dark bg-[#F8F5F1] sm:min-h-[520px] sm:border-b-0 sm:border-r-2">
+                    <svg className="absolute inset-0 h-full w-full text-dark/[0.12]" viewBox="0 0 380 540" fill="none" aria-hidden="true">
+                      <path d="M24 48h332v444H24z" stroke="currentColor" />
+                      <path d="M24 222h332M152 48v444" stroke="currentColor" />
+                      <path d="M152 222c0-96 76-174 170-174M152 222c94 0 170 78 170 174M152 222c0 72-57 130-128 130" stroke="#C2722A" strokeWidth="1.5" />
+                      <circle cx="152" cy="222" r="5" fill="#D4A853" stroke="none" />
+                    </svg>
+                    <span className="absolute left-4 top-4 font-mono text-[9px] uppercase tracking-[0.17em] text-dark/35">Hebel-Karte / {String(activeProfile + 1).padStart(2, "0")}</span>
+                    <span className="absolute bottom-4 right-4 font-mono text-[9px] uppercase tracking-[0.17em] text-dark/35">1 : 1.618</span>
+                    <div className="relative flex h-32 w-32 items-center justify-center border-2 border-dark bg-white text-primary shadow-[8px_8px_0_#D4A853] sm:h-40 sm:w-40">
+                      <svg className="h-16 w-16 sm:h-20 sm:w-20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.9" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <path d={PROFILE_ICONS[activeProfile]} />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div className="flex min-w-0 flex-col">
+                    <div className="border-b border-dark/20 px-5 py-4 sm:px-7">
+                      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-primary-dark">Aktives Dossier · {String(activeProfile + 1).padStart(2, "0")}</span>
+                    </div>
+                    <div className="flex flex-1 flex-col px-5 py-7 sm:px-7 sm:py-9">
+                      <h3 className="font-[family-name:var(--font-heading)] text-3xl font-bold leading-tight text-dark lg:text-[38px]">
+                        {PROFILE[activeProfile].t}
+                      </h3>
+                      <div className="mt-5 border-t-2 border-dark pt-5 text-[15px] leading-relaxed text-muted">
+                        {PROFILE[activeProfile].d}
+                      </div>
+                      <div className="mt-auto pt-8">
+                        <div className="border-y border-dark py-4">
+                          <span className="mb-1.5 block font-mono text-[9px] uppercase tracking-[0.16em] text-dark/40">Typischer Hebel</span>
+                          <span className="font-[family-name:var(--font-heading)] text-xl font-bold leading-tight text-dark">{PROFILE[activeProfile].hebel}</span>
+                        </div>
+                        <a href="#kontakt" className="group mt-6 inline-flex items-center gap-3 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-primary-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark">
+                          Passung ehrlich prüfen
+                          <span className="flex h-8 w-8 items-center justify-center border border-primary-dark transition-colors group-hover:bg-primary-dark group-hover:text-white" aria-hidden="true">→</span>
+                        </a>
                       </div>
                     </div>
                   </div>
-                ))}
-              </div>
-
-              <div className="scroll-hidden rv-blur flex items-start gap-3 mt-6 text-sm text-muted">
-                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                  <svg className="h-3 w-3 text-primary" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clipRule="evenodd" />
-                  </svg>
-                </span>
-                <p className="leading-relaxed">
-                  Nicht dabei? Im Erstgespräch sagen wir Ihnen auch, wenn SEO für Ihr Modell nicht der richtige Kanal
-                  ist.{" "}
-                  <a href="#kontakt" className="text-primary font-semibold hover:underline">
-                    Kurz anfragen
-                  </a>
-                </p>
+                </div>
               </div>
             </div>
+          </div>
+
+          <div className="scroll-hidden rv-blur mt-6 grid items-start gap-4 border-l-2 border-primary pl-5 text-sm text-muted sm:grid-cols-[auto_1fr]">
+            <span className="font-mono text-[9px] uppercase tracking-[0.17em] text-primary-dark">Kanal-Fit</span>
+            <p className="leading-relaxed">
+              Nicht dabei? Im Erstgespräch sagen wir Ihnen auch, wenn SEO für Ihr Modell nicht der richtige Kanal ist.{" "}
+              <a href="#kontakt" className="font-semibold text-primary-dark hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-dark">Kurz anfragen</a>
+            </p>
+          </div>
+
+          {/* Alle Inhalte und kontextuellen Links bleiben unabhängig vom aktiven Tab zugänglich. */}
+          <div className="sr-only">
+            <h3>Alle Unternehmensprofile im Überblick</h3>
+            {PROFILE.map((profil) => (
+              <section key={profil.t}>
+                <h4>{profil.t}</h4>
+                <div>{profil.d}</div>
+                <p>Typischer Hebel: {profil.hebel}</p>
+              </section>
+            ))}
           </div>
         </div>
       </section>
