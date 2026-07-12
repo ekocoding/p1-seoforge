@@ -1,99 +1,4 @@
-"use client";
-
-/**
- * Trust section — three-part dark bar:
- * Part A: Service icon bar
- * Part B: Trust badges row
- * Part C: Tool carousel (dark)
- */
-
-// ── Part A: Service icon bar SVGs ──────────────────────────────────────────
-
-function IconSEO() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Magnifying glass */}
-      <circle cx="9" cy="9" r="5.5" />
-      <line x1="13.5" y1="13.5" x2="19" y2="19" />
-      {/* Upward trend line inside glass */}
-      <polyline points="6,11 8,8.5 10,9.5 12,7" strokeWidth="1.2" />
-    </svg>
-  );
-}
-
-function IconGEO() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Sparkle/AI star */}
-      <path d="M11 2 L12.2 8.8 L19 11 L12.2 13.2 L11 20 L9.8 13.2 L3 11 L9.8 8.8 Z" />
-      <circle cx="18" cy="4" r="1.2" />
-      <circle cx="4" cy="18" r="1" />
-    </svg>
-  );
-}
-
-function IconWebdesign() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Monitor */}
-      <rect x="2" y="3.5" width="18" height="12" rx="1.5" />
-      <line x1="7" y1="19" x2="15" y2="19" />
-      <line x1="11" y1="15.5" x2="11" y2="19" />
-      {/* Cursor */}
-      <path d="M13 10 L16 13 L14.5 13 L15.5 16 L14 16.5 L13 13.5 L11.5 15 Z" strokeWidth="1.2" />
-    </svg>
-  );
-}
-
-function IconContent() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Document */}
-      <path d="M6 2 L14 2 L18 6 L18 20 L4 20 L4 2 Z" />
-      <path d="M14 2 L14 6 L18 6" />
-      {/* Lines */}
-      <line x1="7" y1="10" x2="15" y2="10" />
-      <line x1="7" y1="13" x2="15" y2="13" />
-      <line x1="7" y1="16" x2="12" y2="16" />
-    </svg>
-  );
-}
-
-function IconTechnik() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Settings sliders */}
-      <line x1="3" y1="6" x2="19" y2="6" />
-      <circle cx="8" cy="6" r="2" fill="none" />
-      <line x1="3" y1="12" x2="19" y2="12" />
-      <circle cx="14" cy="12" r="2" fill="none" />
-      <line x1="3" y1="18" x2="19" y2="18" />
-      <circle cx="9" cy="18" r="2" fill="none" />
-    </svg>
-  );
-}
-
-function IconLocalSEO() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      {/* Map pin */}
-      <path d="M11 2 C7.5 2 4.5 5 4.5 8.5 C4.5 13 11 20 11 20 C11 20 17.5 13 17.5 8.5 C17.5 5 14.5 2 11 2 Z" />
-      <circle cx="11" cy="8.5" r="2.5" />
-      {/* Pulse circle */}
-      <circle cx="11" cy="8.5" r="5.5" strokeDasharray="2 2" opacity="0.5" />
-    </svg>
-  );
-}
-
-const SERVICE_ITEMS = [
-  { label: "SEO", Icon: IconSEO },
-  { label: "GEO / KI-Sichtbarkeit", Icon: IconGEO },
-  { label: "Webdesign", Icon: IconWebdesign },
-  { label: "Content", Icon: IconContent },
-  { label: "Technik", Icon: IconTechnik },
-  { label: "Local SEO", Icon: IconLocalSEO },
-];
-
+/** Server-rendered tool trust carousel. */
 // ── Part C: Tool logos ─────────────────────────────────────────────────────
 
 function AhrefsLogo() {
@@ -190,13 +95,6 @@ export const TOOL_LOGOS = [
   ScreamingFrogLogo,
 ];
 
-const TRUST_CHIPS = [
-  "B2B & B2C",
-  "Kein Mindestvertrag",
-  "Lokale Betriebe",
-  "Online Shops",
-  "100% Transparent",
-];
 
 export default function TrustSection() {
   // Triple the logos so the track is always wider than the viewport

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { services, serviceCategories } from "../data/services";
+import { serviceCategories } from "../data/services";
 
 const wissenFormate = [
   {
@@ -151,7 +151,14 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    let lastScrolled = false;
+
+    const onScroll = () => {
+      const nextScrolled = window.scrollY > 20;
+      if (nextScrolled === lastScrolled) return;
+      lastScrolled = nextScrolled;
+      setScrolled(nextScrolled);
+    };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -171,7 +178,7 @@ export default function Navbar() {
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
+        <Link prefetch={false} href="/" className="flex items-center gap-2 shrink-0">
           <Image
             src="/logo.svg"
             alt="SeoForge Logo"
@@ -186,7 +193,7 @@ export default function Navbar() {
         <div className="hidden lg:flex lg:items-center lg:gap-1">
 
           {/* Home */}
-          <Link href="/" onClick={handleNavClick} className="rounded-lg px-4 py-2 text-sm font-medium text-dark transition-colors hover:bg-offwhite hover:text-primary">
+          <Link prefetch={false} href="/" onClick={handleNavClick} className="rounded-lg px-4 py-2 text-sm font-medium text-dark transition-colors hover:bg-offwhite hover:text-primary">
             Home
           </Link>
 
@@ -246,7 +253,7 @@ export default function Navbar() {
                         <div key={category.id}>
                           <div className="grid grid-cols-2 gap-px bg-white p-6">
                             {category.services.map((service) => (
-                              <Link
+                              <Link prefetch={false}
                                 key={service.title}
                                 href={service.href || "/#leistungen"}
                                 onClick={handleNavClick}
@@ -267,7 +274,7 @@ export default function Navbar() {
                             ))}
                           </div>
                           <div className="border-t border-border bg-white px-6 py-4">
-                            <Link
+                            <Link prefetch={false}
                               href="/leistungen"
                               onClick={handleNavClick}
                               className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary-dark"
@@ -314,7 +321,7 @@ export default function Navbar() {
                   </p>
                   <div className="grid grid-cols-2 gap-x-2 gap-y-0.5">
                     {branchen.map((item) => (
-                      <Link
+                      <Link prefetch={false}
                         key={item.href}
                         href={item.href}
                         onClick={handleNavClick}
@@ -335,7 +342,7 @@ export default function Navbar() {
                 </div>
 
                 <div className="border-t border-border bg-offwhite/60 px-6 py-3">
-                  <Link
+                  <Link prefetch={false}
                     href="/branchen"
                     onClick={handleNavClick}
                     className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary-dark"
@@ -351,12 +358,12 @@ export default function Navbar() {
           </div>
 
           {/* Standorte */}
-          <Link href="/standorte" onClick={handleNavClick} className="rounded-lg px-4 py-2 text-sm font-medium text-dark transition-colors hover:bg-offwhite hover:text-primary">
+          <Link prefetch={false} href="/standorte" onClick={handleNavClick} className="rounded-lg px-4 py-2 text-sm font-medium text-dark transition-colors hover:bg-offwhite hover:text-primary">
             Standorte
           </Link>
 
           {/* Referenzen */}
-          <Link href="/referenzen" onClick={handleNavClick} className="rounded-lg px-4 py-2 text-sm font-medium text-dark transition-colors hover:bg-offwhite hover:text-primary">
+          <Link prefetch={false} href="/referenzen" onClick={handleNavClick} className="rounded-lg px-4 py-2 text-sm font-medium text-dark transition-colors hover:bg-offwhite hover:text-primary">
             Referenzen
           </Link>
 
@@ -393,7 +400,7 @@ export default function Navbar() {
                     </p>
                     <div className="space-y-0.5">
                       {wissenFormate.map((item) => (
-                        <Link
+                        <Link prefetch={false}
                           key={item.href}
                           href={item.href}
                           onClick={handleNavClick}
@@ -420,7 +427,7 @@ export default function Navbar() {
                     </p>
                     <div className="space-y-0.5">
                       {wissenThemen.map((item) => (
-                        <Link
+                        <Link prefetch={false}
                           key={item.href}
                           href={item.href}
                           onClick={handleNavClick}
@@ -438,7 +445,7 @@ export default function Navbar() {
 
                 {/* Footer */}
                 <div className="border-t border-border bg-offwhite/60 px-6 py-3">
-                  <Link
+                  <Link prefetch={false}
                     href="/wissen"
                     onClick={handleNavClick}
                     className="inline-flex items-center gap-2 text-sm font-medium text-primary transition-colors hover:text-primary-dark"
@@ -455,14 +462,14 @@ export default function Navbar() {
           </div>
 
           {/* Kontakt */}
-          <Link href="/kontakt" onClick={handleNavClick} className="rounded-lg px-4 py-2 text-sm font-medium text-dark transition-colors hover:bg-offwhite hover:text-primary">
+          <Link prefetch={false} href="/kontakt" onClick={handleNavClick} className="rounded-lg px-4 py-2 text-sm font-medium text-dark transition-colors hover:bg-offwhite hover:text-primary">
             Kontakt
           </Link>
 
         </div>
 
         {/* Desktop CTA */}
-        <Link
+        <Link prefetch={false}
           href="/kontakt"
           className="hidden lg:inline-flex items-center rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-white transition-all hover:bg-primary-dark hover:shadow-lg hover:shadow-primary/20"
         >
@@ -495,7 +502,7 @@ export default function Navbar() {
             { label: "Wissen", href: "/wissen" },
             { label: "Kontakt", href: "/kontakt" },
           ].map((link) => (
-            <Link
+            <Link prefetch={false}
               key={link.label}
               href={link.href}
               onClick={handleNavClick}
@@ -510,7 +517,7 @@ export default function Navbar() {
             <p className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-2">SEO nach Branche</p>
             <div className="grid grid-cols-2 gap-2">
               {branchen.map((item) => (
-                <Link
+                <Link prefetch={false}
                   key={item.href}
                   href={item.href}
                   onClick={handleNavClick}
@@ -527,7 +534,7 @@ export default function Navbar() {
             <p className="text-[11px] font-semibold uppercase tracking-wider text-muted mb-2">Wissen nach Format</p>
             <div className="grid grid-cols-2 gap-2">
               {wissenFormate.map((item) => (
-                <Link
+                <Link prefetch={false}
                   key={item.href}
                   href={item.href}
                   onClick={handleNavClick}
@@ -539,7 +546,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          <Link
+          <Link prefetch={false}
             href="/kontakt"
             onClick={handleNavClick}
             className="mt-4 block rounded-full bg-primary px-6 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-primary-dark"

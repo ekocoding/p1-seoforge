@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 
@@ -107,15 +105,14 @@ export default function HeroWithImage() {
 
         {/* CTAs */}
         <div style={{ display: "flex", gap: "20px", alignItems: "center", flexWrap: "wrap" }}>
-          <Link
+          <Link prefetch={false}
             href="/kontakt"
+            className="transition-opacity hover:opacity-[.82]"
             style={{ fontSize: "11.5px", fontWeight: 700, letterSpacing: ".12em", textTransform: "uppercase", textDecoration: "none", color: "#FAFAF8", background: "#C2722A", padding: "14px 40px", display: "inline-block", transition: "opacity .2s" }}
-            onMouseOver={(e) => (e.currentTarget.style.opacity = ".82")}
-            onMouseOut={(e) => (e.currentTarget.style.opacity = "1")}
           >
             Kostenlose SEO-Analyse
           </Link>
-          <Link
+          <Link prefetch={false}
             href="/referenzen"
             style={{ fontSize: "12px", fontWeight: 400, color: "rgba(15,15,15,0.40)", textDecoration: "none", letterSpacing: ".06em", borderBottom: "1px solid rgba(15,15,15,0.18)", paddingBottom: "2px" }}
           >

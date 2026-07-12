@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import HomeClient from "./HomeClient";
+import HomeServer from "./HomeServer";
 
 export const dynamic = 'force-static';
 
@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <HomeClient />;
+  return <HomeServer />;
 }
