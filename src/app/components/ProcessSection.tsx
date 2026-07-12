@@ -359,9 +359,11 @@ export default function ProcessSection() {
           </div>
           <dl>
             {START_REQUIREMENTS.map(([term, description], index) => (
-              <div key={term} className="grid gap-2 border-b border-white/14 py-5 sm:grid-cols-[56px_180px_1fr] sm:items-baseline sm:gap-5">
-                <span className="font-mono text-[9px] font-bold tracking-[0.16em] text-secondary">0{index + 1}</span>
-                <dt className="font-[family-name:var(--font-heading)] text-lg font-bold">{term}</dt>
+              <div key={term} className="grid gap-2 border-b border-white/14 py-5 sm:grid-cols-[256px_1fr] sm:items-baseline sm:gap-5">
+                <dt className="grid grid-cols-[40px_1fr] items-baseline gap-4 sm:grid-cols-[56px_180px] sm:gap-5">
+                  <span aria-hidden="true" className="font-mono text-[9px] font-bold tracking-[0.16em] text-secondary">0{index + 1}</span>
+                  <span className="font-[family-name:var(--font-heading)] text-lg font-bold">{term}</span>
+                </dt>
                 <dd className="max-w-2xl text-[13px] leading-relaxed text-white/48">{description}</dd>
               </div>
             ))}
