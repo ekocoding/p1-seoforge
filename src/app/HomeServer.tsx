@@ -59,42 +59,60 @@ function LeistungenInteractive() {
   ];
 
   return (
-    <div className="flex flex-col gap-16 lg:gap-24">
-      {PILLARS.map((p, i) => (
-        <div key={p.href} className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-          {/* Bild */}
-          <div className={`relative ${i % 2 === 1 ? "lg:order-2" : ""}`}>
-            <div className="overflow-hidden rounded-3xl border border-border/70 bg-offwhite/40">
+    <div className="border-y-2 border-dark bg-white">
+      {PILLARS.map((p, i) => {
+        const imageFirst = i % 2 === 1;
+
+        return (
+          <article key={p.href} className="group grid border-b-2 border-dark last:border-b-0 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+            <div className={`relative aspect-[4/3] overflow-hidden bg-dark ${imageFirst ? "lg:order-2 lg:border-b-0 lg:border-l-2" : "lg:border-b-0 lg:border-r-2"}`}>
               <Image
                 src={p.img}
                 alt={p.title}
                 width={1200}
                 height={900}
                 sizes="(min-width: 1024px) 50vw, 100vw"
-                className="h-auto w-full"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
               />
+              <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between gap-3 border-b-2 border-dark bg-white px-4 py-3 font-mono text-[9px] font-bold uppercase tracking-[0.15em] text-dark sm:px-5">
+                <span>0{i + 1} / 04</span>
+                <span className="text-primary-dark">Leistungsakte</span>
+              </div>
             </div>
-          </div>
-          {/* Text */}
-          <div className={i % 2 === 1 ? "lg:order-1" : ""}>
-            <p className="mb-3 text-xs font-bold uppercase tracking-[.14em] text-primary">{p.eyebrow}</p>
-            <h3 className="mb-4 font-[family-name:var(--font-heading)] text-2xl lg:text-3xl font-bold leading-tight text-dark">{p.title}</h3>
-            <p className="mb-5 text-base leading-relaxed text-muted">{p.text}</p>
-            <ul className="mb-7 flex flex-col gap-2.5">
-              {p.highlights.map((h) => (
-                <li key={h} className="flex items-center gap-2.5 text-sm text-dark/70">
-                  <svg className="h-4 w-4 shrink-0 text-primary" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M16.7 5.3a1 1 0 010 1.4l-7.5 7.5a1 1 0 01-1.4 0L3.3 9.7a1 1 0 011.4-1.4l3.1 3.1 6.8-6.8a1 1 0 011.4 0z" clipRule="evenodd" /></svg>
-                  {h}
-                </li>
-              ))}
-            </ul>
-            <Link href={p.href} className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-primary/20 transition-all hover:bg-primary-dark hover:-translate-y-0.5 hover:shadow-xl">
-              {p.cta}
-              <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.6L11.2 6.3a.75.75 0 111-1.1l4.5 4.25a.75.75 0 010 1.1l-4.5 4.25a.75.75 0 11-1-1.1l3.15-2.95H3.75A.75.75 0 013 10z" clipRule="evenodd" /></svg>
-            </Link>
-          </div>
-        </div>
-      ))}
+
+            <div className={`flex flex-col justify-between p-6 sm:p-8 lg:p-10 ${imageFirst ? "lg:order-1" : ""}`}>
+              <div>
+                <div className="flex items-start justify-between gap-5 border-b-2 border-dark pb-4">
+                  <p className="font-mono text-[9px] font-bold uppercase tracking-[0.16em] text-primary-dark">{p.eyebrow}</p>
+                  <span className="shrink-0 font-mono text-[9px] font-bold text-dark/55">0{i + 1}</span>
+                </div>
+                <h3 className="mt-7 max-w-[19ch] font-[family-name:var(--font-heading)] text-[29px] font-bold leading-[1.06] tracking-[-0.02em] text-dark sm:text-[34px] lg:text-[39px]">
+                  {p.title}
+                </h3>
+                <p className="mt-5 max-w-xl text-[15px] leading-[1.75] text-dark/70">{p.text}</p>
+              </div>
+
+              <div className="mt-9">
+                <ul className="grid gap-px border-2 border-dark bg-dark sm:grid-cols-3">
+                  {p.highlights.map((h, highlightIndex) => (
+                    <li key={h} className="min-h-16 bg-[#F8F7F5] px-3 py-3.5">
+                      <span className="block font-mono text-[8px] font-bold tracking-[0.14em] text-primary-dark">0{highlightIndex + 1}</span>
+                      <span className="mt-1.5 block text-[12px] font-semibold leading-snug text-dark/75">{h}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={p.href}
+                  className="mt-6 inline-flex min-h-12 items-center gap-3 border-2 border-dark bg-primary px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark"
+                >
+                  {p.cta}
+                  <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fillRule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.6L11.2 6.3a.75.75 0 111-1.1l4.5 4.25a.75.75 0 010 1.1l-4.5 4.25a.75.75 0 11-1-1.1l3.15-2.95H3.75A.75.75 0 013 10z" clipRule="evenodd" /></svg>
+                </Link>
+              </div>
+            </div>
+          </article>
+        );
+      })}
     </div>
   );
 }
@@ -359,20 +377,22 @@ export default function HomeServer() {
         {/* ============================================================ */}
         {/*  SERVICES TEASER → /leistungen                               */}
         {/* ============================================================ */}
-        <section className="py-24 lg:py-32 bg-white overflow-hidden">
+        <section aria-labelledby="home-services-title" className="overflow-hidden border-y-2 border-dark bg-[#FBF4EA] py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+            <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_330px] lg:items-end lg:gap-16">
               <div>
-                <p className="text-xs font-bold uppercase tracking-[.12em] text-primary mb-3">Leistungen</p>
-                <h2 className="text-4xl lg:text-5xl font-[family-name:var(--font-heading)] text-dark leading-tight">
+                <p className="flex items-center gap-3 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-primary-dark"><span className="h-px w-8 bg-dark" aria-hidden="true" />Leistungen · 04 Bereiche</p>
+                <h2 id="home-services-title" className="mt-5 font-[family-name:var(--font-heading)] text-[36px] font-bold leading-[1.04] tracking-[-0.025em] text-dark sm:text-[43px] lg:text-[54px]">
                   SEO &amp; Webdesign<br />aus einer Hand
                 </h2>
               </div>
-              <p className="text-base text-dark/45 max-w-xs lg:text-right leading-relaxed">
+              <p className="border-l-2 border-dark pl-5 text-[15px] leading-[1.75] text-dark/70">
                 Individuell kombiniert — für Ihre Ziele, Ihre Branche, Ihr Budget.
               </p>
             </div>
-            <LeistungenInteractive />
+            <div className="mt-12 lg:mt-16">
+              <LeistungenInteractive />
+            </div>
           </div>
         </section>
 

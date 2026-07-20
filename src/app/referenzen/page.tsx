@@ -10,8 +10,37 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://seoforge.de/referenzen" },
 };
 
-const WORK = [
+type WorkItem = {
+  id: string;
+  number: string;
+  name: string;
+  url: string;
+  type: string;
+  brief: string;
+  work: string[];
+  note: string;
+  service?: {
+    href: string;
+    label: string;
+  };
+  proof?: {
+    title: string;
+    source: string;
+    values: Array<{
+      value: string;
+      label: string;
+    }>;
+    note: string;
+  };
+  semrush?: {
+    traffic: string;
+    keywords: string;
+  };
+};
+
+const WORK: WorkItem[] = [
   {
+    id: "beamtenberatung24",
     number: "01",
     name: "Beamten-Beratung24",
     url: "https://beamten-beratung24.de",
@@ -19,8 +48,10 @@ const WORK = [
     brief: "Informationsarchitektur und organischer Ausbau für ein erklärungsbedürftiges YMYL-Angebot.",
     work: ["Next.js-Umsetzung", "Leistungs- und Themencluster", "interne Silo-Verlinkung", "technische SEO-Basis"],
     note: "Öffentlich prüfbar: Seitenstruktur, Inhalte und technische Auslieferung. Ranking- oder Umsatzzahlen veröffentlichen wir ohne freigegebene Daten nicht.",
+    service: { href: "/seo/betreuung", label: "Laufende SEO Betreuung verstehen" },
   },
   {
+    id: "seo-mannheim",
     number: "02",
     name: "SEO Mannheim",
     url: "https://seomannheim.com",
@@ -28,8 +59,10 @@ const WORK = [
     brief: "Lokale Leistungsarchitektur, Wissensbereich und schnelle technische Plattform für eine regionale SEO-Präsenz.",
     work: ["Next.js & Tailwind", "lokale Themenarchitektur", "Wissens- und Guide-Struktur", "Deployment & Betrieb"],
     note: "Öffentlich prüfbar: Informationsarchitektur, Seitentemplates, Inhalte und lokale Ausrichtung.",
+    service: { href: "/seo-agentur", label: "SEO-Agentur-Leistung ansehen" },
   },
   {
+    id: "seoforge",
     number: "03",
     name: "SeoForge",
     url: "https://seoforge.de",
@@ -37,6 +70,58 @@ const WORK = [
     brief: "Das eigene Projekt dient als offenes Arbeitslabor für technische SEO, Content-Cluster, KI-Sichtbarkeit und Conversion-orientiertes Webdesign.",
     work: ["SEO-/GEO-Silos", "interaktive Money-Pages", "Content-System", "CI/CD auf eigenem VPS"],
     note: "Kein Kunden-Case. Gerade deshalb können Architektur, Experimente und Arbeitsweise vollständig gezeigt werden.",
+  },
+  {
+    id: "187vapes",
+    number: "04",
+    name: "187Vapes",
+    url: "https://187vapes.com",
+    type: "Kundenprojekt · E-Commerce SEO",
+    brief: "Organischer Ausbau eines Vape-Shops entlang von Marken, Produktsystemen und transaktionalen Kategorieintents.",
+    work: ["Shop- und Kategoriearchitektur", "Marken- und Produktcluster", "redaktionelle Kategorieinhalte", "technische On-Page-Basis"],
+    note: "Wir betreuen 187Vapes seit Projektbeginn. Die Position beschreibt einen aktuellen deutschsprachigen SERP-Snapshot und keine Rankinggarantie.",
+    proof: {
+      title: "Sichtbarer E-Commerce-Case",
+      source: "Google DE · Snapshot 20.07.2026",
+      values: [
+        { value: "#1", label: "für „187 vape“" },
+        { value: "seit Start", label: "durch SeoForge betreut" },
+      ],
+      note: "Leistungsumfang: Shop- und Kategoriearchitektur, Marken- und Produktcluster sowie technische und redaktionelle On-Page-Arbeit.",
+    },
+    service: { href: "/seo-agentur#praxisbeleg-187vapes", label: "E-Commerce SEO mit SeoForge" },
+  },
+  {
+    id: "elfbarde",
+    number: "05",
+    name: "Elfbarde",
+    url: "https://elfbarde.com",
+    type: "Kundenprojekt · E-Commerce SEO",
+    brief: "Shop- und Content-Struktur für ein fokussiertes E-Commerce-Angebot rund um Elfbar-Systeme, Pods und Liquids.",
+    work: ["transaktionale Seitenarchitektur", "Produkt- und Systemcluster", "SEO-Kategorietexte", "interne Suchpfade"],
+    note: "Die Entwicklung ist als Semrush-Schätzung für Deutschland ausgewiesen – keine Analytics-, Umsatz- oder isolierte Kausalitätsaussage.",
+    proof: {
+      title: "Entwicklung in der laufenden Betreuung",
+      source: "Semrush DE · 15.03.2025 → 20.07.2026",
+      values: [
+        { value: "≈ 2.016 → ≈ 7.300", label: "geschätzter organischer Traffic / Monat" },
+        { value: "+262 %", label: "Veränderung der Traffic-Schätzung" },
+      ],
+      note: "Die Vergleichswerte zeigen die modellierte organische Sichtbarkeit der Domain. Sie ersetzen keine First-Party-Analytics und werden deshalb bewusst als Schätzung eingeordnet.",
+    },
+    service: { href: "/seo/betreuung#praxisbeleg-elfbarde", label: "Laufende SEO Betreuung im Detail" },
+  },
+  {
+    id: "vapeoase",
+    number: "06",
+    name: "VapeOase",
+    url: "https://vapeoase.de",
+    type: "Kundenprojekt · E-Commerce SEO",
+    brief: "Breite Shop-Architektur für E-Zigaretten, Liquids und Tabakwaren mit SEO-fähigen Kategorie- und Produktpfaden.",
+    work: ["Sortimentsarchitektur", "Kategorie- und Produktpfade", "On-Page-Optimierung", "technische SEO-Grundlage"],
+    note: "Semrush-Schätzung für Deutschland vom 13.07.2026. Keine Analytics-Daten und keine isolierte Kausalitätsaussage.",
+    semrush: { traffic: "≈ 179", keywords: "923" },
+    service: { href: "/seo-agentur", label: "SEO-Agentur-Leistung ansehen" },
   },
 ];
 
@@ -72,21 +157,56 @@ export default function ReferenzenPage() {
             <div className="border-2 border-dark bg-white">
               <div className="flex items-center justify-between border-b-2 border-dark bg-dark px-6 py-4 text-white lg:px-8">
                 <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">Öffentliches Projektregister</span>
-                <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-secondary">3 Einträge</span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-secondary">{WORK.length} Einträge</span>
               </div>
 
               {WORK.map((item) => (
-                <article key={item.name} className="grid gap-7 border-b-2 border-dark p-6 last:border-b-0 lg:grid-cols-[90px_1fr_1.1fr] lg:p-8">
+                <article id={item.id} key={item.name} className="scroll-mt-32 grid gap-7 border-b-2 border-dark p-6 last:border-b-0 lg:grid-cols-[90px_1fr_1.1fr] lg:p-8">
                   <span className="font-[family-name:var(--font-heading)] text-5xl font-black leading-none text-primary/20">{item.number}</span>
                   <div>
                     <span className="font-mono text-[9px] font-bold uppercase tracking-[0.17em] text-primary">{item.type}</span>
                     <h2 className="mt-3 font-[family-name:var(--font-heading)] text-3xl font-bold text-dark">{item.name}</h2>
                     <p className="mt-4 text-[15px] leading-relaxed text-muted">{item.brief}</p>
                     <a href={item.url} target="_blank" rel="noreferrer" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-primary hover:text-primary-dark">
-                      Live-Projekt öffnen <span aria-hidden="true">↗</span>
+                      Live-Projekt öffnen
                     </a>
                   </div>
                   <div className="bg-[#F8F5F1] p-5 ring-1 ring-border lg:p-6">
+                    {item.proof && (
+                      <div className="mb-5 border-b border-border pb-5">
+                        <div className="flex items-start justify-between gap-4">
+                          <span className="font-mono text-[9px] font-bold uppercase tracking-[0.17em] text-primary">{item.proof.title}</span>
+                          <span className="max-w-36 text-right font-mono text-[8px] uppercase tracking-[0.13em] text-dark/35">{item.proof.source}</span>
+                        </div>
+                        <div className="mt-4 grid gap-px bg-border sm:grid-cols-2">
+                          {item.proof.values.map((proof) => (
+                            <div key={proof.label} className="bg-white p-4">
+                              <strong className="block font-[family-name:var(--font-heading)] text-2xl leading-tight text-dark">{proof.value}</strong>
+                              <span className="mt-1 block text-[11px] leading-snug text-muted">{proof.label}</span>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="mt-4 text-[12px] leading-relaxed text-muted">{item.proof.note}</p>
+                      </div>
+                    )}
+                    {item.semrush && (
+                      <div className="mb-5 border-b border-border pb-5">
+                        <div className="flex items-center justify-between gap-4">
+                          <span className="font-mono text-[9px] font-bold uppercase tracking-[0.17em] text-primary">Semrush · DE</span>
+                          <span className="font-mono text-[8px] uppercase tracking-[0.13em] text-dark/35">Stand 13.07.2026</span>
+                        </div>
+                        <div className="mt-4 grid grid-cols-2 gap-px bg-border">
+                          <div className="bg-white p-4">
+                            <strong className="block font-[family-name:var(--font-heading)] text-2xl text-dark">{item.semrush.traffic}</strong>
+                            <span className="mt-1 block text-[11px] leading-snug text-muted">geschätzter organischer Traffic / Monat</span>
+                          </div>
+                          <div className="bg-white p-4">
+                            <strong className="block font-[family-name:var(--font-heading)] text-2xl text-dark">{item.semrush.keywords}</strong>
+                            <span className="mt-1 block text-[11px] leading-snug text-muted">organische Keywords</span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
                     <span className="font-mono text-[9px] font-bold uppercase tracking-[0.17em] text-dark/40">Sichtbarer Arbeitsumfang</span>
                     <div className="mt-4 divide-y divide-border border-y border-border">
                       {item.work.map((entry, index) => (
@@ -97,6 +217,11 @@ export default function ReferenzenPage() {
                       ))}
                     </div>
                     <p className="mt-5 text-[12px] leading-relaxed text-muted">{item.note}</p>
+                    {item.service && (
+                      <Link href={item.service.href} className="mt-5 inline-flex border-b border-primary/40 pb-1 text-sm font-bold text-primary transition-colors hover:border-primary hover:text-primary-dark">
+                        {item.service.label} →
+                      </Link>
+                    )}
                   </div>
                 </article>
               ))}

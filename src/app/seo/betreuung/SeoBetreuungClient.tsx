@@ -278,6 +278,42 @@ export default function SeoBetreuungClient() {
         </div>
       </section>
 
+      {/* PRAXISBELEG — nachvollziehbare Entwicklung statt Versprechen */}
+      <section id="praxisbeleg-elfbarde" className="scroll-mt-24 border-y-2 border-dark bg-[#FBF4EA] py-20 lg:py-28">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-[.88fr_1.12fr] lg:items-center lg:gap-16 lg:px-8">
+          <div>
+            <span className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-primary-dark">Praxisbeleg · E-Commerce SEO</span>
+            <h2 className="mt-4 max-w-xl font-[family-name:var(--font-heading)] text-4xl font-bold leading-[1.06] text-dark">Elfbarde: Entwicklung, die wir offen einordnen.</h2>
+            <p className="mt-5 max-w-xl text-[15px] leading-relaxed text-muted">
+              In der laufenden Betreuung verbinden wir Shop- und Kategoriearbeit, technische Prioritäten und redaktionelle Optimierungen. Entscheidend ist nicht eine einzelne schöne Kurve, sondern die Arbeit, die dahinter nachvollziehbar bleibt.
+            </p>
+            <Link href="/referenzen#elfbarde" className="mt-7 inline-flex items-center gap-2 border-b-2 border-primary pb-1 text-sm font-bold text-primary-dark transition-colors hover:border-dark hover:text-dark focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark">
+              Zum vollständigen Referenzeintrag <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+
+          <div className="overflow-hidden border-2 border-dark bg-white shadow-[14px_14px_0_rgba(212,168,83,.6)]">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-dark bg-dark px-5 py-4 text-white sm:px-6">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]">Semrush DE · Zeitvergleich</span>
+              <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-secondary">15.03.2025 → 20.07.2026</span>
+            </div>
+            <div className="grid divide-y divide-dark/15 sm:grid-cols-2 sm:divide-x sm:divide-y-0">
+              <div className="p-6 sm:p-7">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-primary-dark">Traffic-Schätzung / Monat</span>
+                <p className="mt-3 font-[family-name:var(--font-heading)] text-3xl font-bold leading-none text-dark sm:text-4xl">≈ 2.016 → ≈ 7.300</p>
+              </div>
+              <div className="p-6 sm:p-7">
+                <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-primary-dark">Veränderung der Schätzung</span>
+                <p className="mt-3 font-[family-name:var(--font-heading)] text-3xl font-bold leading-none text-dark sm:text-4xl">+262 %</p>
+              </div>
+            </div>
+            <p className="border-t border-dark/15 px-6 py-5 text-[12px] leading-relaxed text-muted sm:px-7">
+              Semrush modelliert organischen Traffic für Deutschland. Die Werte sind deshalb als Sichtbarkeits-Schätzung ausgewiesen – nicht als Analytics-, Umsatz- oder Rankinggarantie.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* FIT & VERTIEFUNG — Angebotsdetails bleiben auf den Subpages */}
       <section className="bg-dark py-20 text-white lg:py-28">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">

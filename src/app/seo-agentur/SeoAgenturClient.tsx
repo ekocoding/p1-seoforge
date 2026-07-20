@@ -1715,6 +1715,67 @@ export default function SeoAgenturClient() {
         </div>
       </section>
 
+      {/* ══ 08a PRAXISBELEG — 187Vapes ══ */}
+      <section id="praxisbeleg-187vapes" className="scroll-mt-24 border-y-2 border-dark bg-[#FBF4EA] py-20 lg:py-28">
+        <div className="mx-auto max-w-6xl px-6 lg:px-8">
+          <div className="grid items-start gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16">
+            <div className="scroll-hidden rv-left">
+              <span className="mb-4 block text-xs font-bold uppercase tracking-[0.22em] text-primary-dark">Praxisbeleg · E-Commerce SEO</span>
+              <h2 className="font-[family-name:var(--font-heading)] text-3xl font-bold leading-[1.12] tracking-tight text-dark lg:text-[42px]">
+                187Vapes: Betreuung<br />
+                <span style={grad}>vom Projektstart an.</span>
+              </h2>
+              <p className="mt-6 max-w-xl leading-relaxed text-muted">
+                Bei 187Vapes arbeiten wir seit Projektbeginn an einer Shop-Struktur, die Suchintention und Sortiment
+                zusammenführt: von Kategorien über Marken- und Produktcluster bis zu technischen und redaktionellen
+                On-Page-Details.
+              </p>
+              <Link
+                href="/referenzen#187vapes"
+                className="mt-8 inline-flex items-center gap-3 border-2 border-dark bg-white px-5 py-3.5 font-semibold text-dark shadow-[6px_6px_0_#D4A853] transition-transform hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary-dark"
+              >
+                Vollständigen Referenzeintrag ansehen <span aria-hidden="true">→</span>
+              </Link>
+            </div>
+
+            <div className="scroll-hidden rv-right overflow-hidden border-2 border-dark bg-white shadow-[12px_12px_0_rgba(194,114,42,0.22)]" style={{ transitionDelay: "110ms" }}>
+              <div className="flex flex-wrap items-center justify-between gap-3 border-b-2 border-dark bg-dark px-5 py-4 text-white sm:px-7">
+                <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-secondary">Sichtbarer E-Commerce-Case</span>
+                <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/50">Google DE · 20.07.2026</span>
+              </div>
+
+              <div className="grid sm:grid-cols-2">
+                <div className="border-b-2 border-dark px-5 py-6 sm:border-b-0 sm:border-r-2 sm:px-7 sm:py-7">
+                  <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-dark/45">Aktueller Snapshot</span>
+                  <strong className="mt-3 block font-[family-name:var(--font-heading)] text-5xl font-bold leading-none text-primary-dark">#1</strong>
+                  <span className="mt-2 block text-sm font-medium text-dark">für „187 vape“</span>
+                </div>
+                <div className="bg-[#F8F5F1] px-5 py-6 sm:px-7 sm:py-7">
+                  <span className="block font-mono text-[10px] uppercase tracking-[0.18em] text-dark/45">Zusammenarbeit</span>
+                  <strong className="mt-3 block font-[family-name:var(--font-heading)] text-2xl font-bold leading-tight text-dark">Seit Projektbeginn</strong>
+                  <span className="mt-2 block text-sm leading-relaxed text-muted">durch SeoForge betreut</span>
+                </div>
+              </div>
+
+              <div className="border-t-2 border-dark px-5 py-6 sm:px-7">
+                <h3 className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-primary-dark">Leistungsumfang im Shop</h3>
+                <ul className="mt-4 grid gap-x-6 gap-y-3 text-sm leading-relaxed text-dark/75 sm:grid-cols-2">
+                  <li className="flex gap-2"><span className="text-primary-dark" aria-hidden="true">01</span><span>Shop- und Kategoriearchitektur</span></li>
+                  <li className="flex gap-2"><span className="text-primary-dark" aria-hidden="true">02</span><span>Marken- und Produktcluster</span></li>
+                  <li className="flex gap-2"><span className="text-primary-dark" aria-hidden="true">03</span><span>Technische On-Page-Arbeit</span></li>
+                  <li className="flex gap-2"><span className="text-primary-dark" aria-hidden="true">04</span><span>Redaktionelle On-Page-Arbeit</span></li>
+                </ul>
+              </div>
+
+              <p className="border-t border-white/15 bg-dark px-5 py-4 text-xs leading-relaxed text-white/65 sm:px-7">
+                Die Position ist eine Momentaufnahme der Google-Suche in Deutschland, keine Rankinggarantie. Den
+                Umfang der Zusammenarbeit ordnen wir im Referenzeintrag transparent ein.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ══ 08b KLARTEXT — Ink-Statement, voll-bleed (Kontrast-Anker 1) ══ */}
       <section className="bg-dark py-24 lg:py-32 overflow-x-clip">
         <div className="mx-auto max-w-6xl px-6 lg:px-8">
